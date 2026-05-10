@@ -36,3 +36,8 @@
 ## Spend log (last 7 days)
 
 Empty — orchestrator USAGE.jsonl not yet writing.
+
+## Auto-stop note (2026-05-10 01:42 UTC)
+
+- Branch: main
+- Tip: b7fcd06

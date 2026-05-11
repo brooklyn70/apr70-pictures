@@ -246,7 +246,6 @@ Ran task `[p1] [nas-headless] Orchestrator Notifications — integrate Telegram 
 - Branch: main
 - Tip: eb99c81
 
-## Auto-stop note (2026-05-11 18:13 UTC)
 
 - Branch: main
 - Tip: 490e2b8
@@ -269,3 +268,10 @@ Ran task `[p1] [nas-headless] Orchestrator Notifications — integrate Telegram 
 
 - Branch: main
 - Tip: 7c9c671
+
+## Session note (2026-05-11) — Payload + compose
+
+- `cms/`: Payload **3.84.1** blank app via `npx create-payload-app@latest` (non-interactive: `-t blank --db postgres --db-connection-string ... --use-pnpm --no-agent --no-git`). `@payloadcms/db-postgres`, Lexical editor, generated `payload-types.ts`. Template `docker-compose.yml` (Mongo) removed; use **repo root** stack.
+- `next.config.ts`: `output: 'standalone'` for CMS Dockerfile.
+- Root **`docker-compose.yml`**: `postgres`, `cms` (build `./cms`), `web` (Astro static via `web/Dockerfile`), `nginx` (`nginx/default.conf` routes `/admin`, `/api`, `/_next` to cms, `/` to web). Port **8080:80**.
+- `TASKS.md`: Phase 2 lines for Payload scaffold and compose marked done. DSM reverse-proxy + Basic Auth line still open.

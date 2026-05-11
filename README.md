@@ -22,6 +22,17 @@ Read `BRIEF.md` first. It is always current. Then `TASKS.md` for the backlog.
 
 Hooks installed in Claude Code + Cursor auto-commit and auto-push on session end. Do not manually push at the end of a session — the hook handles it. Update `BRIEF.md` before stopping; that's the entire handoff.
 
+## Docker (local / NAS)
+
+From the repo root, with Docker:
+
+```bash
+export PAYLOAD_SECRET="$(openssl rand -hex 32)"
+docker compose up --build
+```
+
+Edge nginx listens on **8080** by default (`http://localhost:8080`). Public site is proxied from the `web` service; `/admin`, `/api`, and `/_next` go to Payload (Next.js).
+
 ## Status
 
-Pre-phase-1. Skeleton scaffolded; architecture decisions pending in the next focused session.
+Phase 2 scaffold in progress: Astro (`web/`) and Payload 3 + Next (`cms/`) are present; stack compose at repo root.

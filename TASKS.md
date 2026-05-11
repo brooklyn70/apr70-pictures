@@ -22,8 +22,8 @@ Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainst
 ## Phase 2 — Scaffold
 
 - [x] [p2] [cursor+claude] `pnpm create astro@latest` in `web/` with TypeScript + integrations (react, tailwind, sitemap).
-- [ ] [p2] [cursor+claude] `pnpm create payload-app` in `cms/` configured for standalone Node service + Postgres.
-- [ ] [p2] [nas-headless] `docker-compose.yml` with postgres + cms + web + nginx services. Adapt v2's `docker-compose.nas.yml`.
+- [x] [p2] [cursor+claude] `create-payload-app` in `cms/` (Postgres + Next standalone); use `npx` for non-interactive flags — see `docs/handoff/composer-next-2026-05-11-phase2-continued.md`.
+- [x] [p2] [nas-headless] `docker-compose.yml` with postgres + cms + web + nginx services. Adapt v2's `docker-compose.nas.yml`.
 - [ ] [p2] [nas-headless] DSM reverse-proxy slot for `staging-v3.apr70.com`. Basic Auth on `/admin`.
 - [ ] [p2] [cursor+claude] HeroBlock end-to-end: Payload schema → admin UI → Astro renderer → visible on test page.
 - [ ] [p2] [cursor+claude] Port D-7 Lexical inline blocks (`structureDivider`, `button`, `accentText`) from v2's `RichText.tsx` to Astro.

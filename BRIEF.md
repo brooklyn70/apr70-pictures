@@ -41,3 +41,8 @@ Empty — orchestrator USAGE.jsonl not yet writing.
 
 - Branch: main
 - Tip: b7fcd06
+
+## Auto-stop note (2026-05-11 13:01 UTC)
+
+- Branch: main
+- Tip: c64f3fa

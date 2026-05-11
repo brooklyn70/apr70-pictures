@@ -1,5 +1,4 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -7,6 +6,7 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { aprLexicalEditor } from './editor/aprLexicalEditor'
 import { Home } from './globals/Home'
 
 const filename = fileURLToPath(import.meta.url)
@@ -21,7 +21,7 @@ export default buildConfig({
   },
   collections: [Users, Media],
   globals: [Home],
-  editor: lexicalEditor(),
+  editor: aprLexicalEditor,
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

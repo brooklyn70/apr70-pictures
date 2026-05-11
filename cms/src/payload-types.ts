@@ -326,16 +326,38 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface Home {
   id: number;
   layout?:
-    | {
-        heading: string;
-        subtext?: string | null;
-        media?: (number | null) | Media;
-        variant: 'default' | 'split' | 'fullscreen';
-        division: 'pictures-212' | 'pictures-310' | 'corporate';
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'hero';
-      }[]
+    | (
+        | {
+            heading: string;
+            subtext?: string | null;
+            media?: (number | null) | Media;
+            variant: 'default' | 'split' | 'fullscreen';
+            division: 'pictures-212' | 'pictures-310' | 'corporate';
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hero';
+          }
+        | {
+            content: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'richText';
+          }
+      )[]
     | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -356,6 +378,13 @@ export interface HomeSelect<T extends boolean = true> {
               media?: T;
               variant?: T;
               division?: T;
+              id?: T;
+              blockName?: T;
+            };
+        richText?:
+          | T
+          | {
+              content?: T;
               id?: T;
               blockName?: T;
             };

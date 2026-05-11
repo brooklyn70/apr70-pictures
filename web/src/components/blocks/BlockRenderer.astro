@@ -2,6 +2,7 @@
 import type { Home } from 'payload-types'
 
 import HeroBlock from './HeroBlock.astro'
+import RichTextBlock from './RichTextBlock.astro'
 
 type LayoutBlock = NonNullable<Home['layout']>[number]
 
@@ -17,6 +18,8 @@ const { blocks } = Astro.props
     switch (block.blockType) {
       case 'hero':
         return <HeroBlock block={block} />
+      case 'richText':
+        return <RichTextBlock block={block} />
       default:
         return null
     }

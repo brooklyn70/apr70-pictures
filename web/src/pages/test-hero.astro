@@ -9,7 +9,7 @@ const { home, error } = await fetchHomeGlobal()
 <Layout>
   <main class="test-page">
     <header class="test-page__banner">
-      <p class="test-page__label">Phase 2 — HeroBlock test page</p>
+      <p class="test-page__label">Phase 2 — Home layout blocks (Hero, Rich text + D-7)</p>
       {error ? <p class="test-page__error" role="status">{error}</p> : null}
     </header>
     {home?.layout?.length ? <BlockRenderer blocks={home.layout} /> : null}

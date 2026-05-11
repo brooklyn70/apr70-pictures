@@ -2,7 +2,7 @@
 
 **Date:** 2026-05-11  
 **Repo:** `brooklyn70/apr70-pictures`  
-**Repo tip after this work:** `ab8fec9` (main).
+**Latest handoff-related commits on `main`:** `ab8fec9` (Payload + compose), `3a83c16` (this doc).
 
 ## Done this session
 

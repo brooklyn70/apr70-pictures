@@ -51,3 +51,8 @@ Empty — orchestrator USAGE.jsonl not yet writing.
 
 - Branch: main
 - Tip: 35f3f27
+
+
+## Orchestrator note (2026-05-11 13:16 UTC)
+
+Ran task `[p1] [claude] Page schema — `layout: Block[]` on each Global. Output `docs/architecture/schema.md`.` via claude_code subprocess. Returncode=0; ~24+1 tokens (est $0.0001). USAGE.jsonl appended.

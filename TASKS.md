@@ -13,7 +13,7 @@ Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainst
 ## Phase 1 — Architecture
 
 - [x] [p1] [claude] Block library spec — 6 starter blocks (Hero, TwoCol, Grid, CTA, Quotes, RichText). Each: schema, allowed variants (token-locked), renderer signature. Output `docs/architecture/blocks.md`.
-- [ ] [p1] [claude] Page schema — `layout: Block[]` on each Global. Output `docs/architecture/schema.md`.
+- [x] [p1] [claude] Page schema — `layout: Block[]` on each Global. Output `docs/architecture/schema.md`.
 - [ ] [p1] [claude] Astro + Payload integration spec — auth, type sharing, image pipeline, cache strategy. Output `docs/architecture/integration.md`.
 - [ ] [p1] [cursor+claude] Token contract — port `APR 70 Pictures Design System/colors_and_type.css` from v2; confirm or revise color/type/spacing tokens.
 - [ ] [p1] [nas-headless] Orchestrator Notifications — integrate Telegram API or SMTP so the orchestrator pushes an alert to Marco whenever `BRIEF.md` is updated or a task finishes.

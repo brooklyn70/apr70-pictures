@@ -2,7 +2,7 @@
 
 **Date:** 2026-05-11  
 **Repo:** `brooklyn70/apr70-pictures`  
-**Latest handoff-related commits on `main`:** `ab8fec9` (Payload + compose), `3a83c16` (this doc).
+**Pull `main`.** Main payload/compose work is in commit `ab8fec9`.
 
 ## Done this session
 

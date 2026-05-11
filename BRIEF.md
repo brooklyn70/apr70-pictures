@@ -101,3 +101,7 @@ Ran task `[p1] [cursor+claude] Token contract — port `APR 70 Pictures Design S
 
 - Branch: main
 - Tip: 379eed5
+
+## Orchestrator note (2026-05-11 15:05 UTC)
+
+Ran task `[p1] [nas-headless] Orchestrator Notifications — integrate Telegram API or SMTP so the orchestrator pushes an alert to Marco whenever `BRIEF.md` is updated or a task finishes.` via claude_code subprocess. Returncode=0; ~43+459 tokens (est $0.007). USAGE.jsonl appended.

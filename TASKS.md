@@ -16,7 +16,7 @@ Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainst
 - [x] [p1] [claude] Page schema — `layout: Block[]` on each Global. Output `docs/architecture/schema.md`.
 - [x] [p1] [claude] Astro + Payload integration spec — auth, type sharing, image pipeline, cache strategy. Output `docs/architecture/integration.md`.
 - [x] [p1] [cursor+claude] Token contract — port `APR 70 Pictures Design System/colors_and_type.css` from v2; confirm or revise color/type/spacing tokens.
-- [ ] [p1] [nas-headless] Orchestrator Notifications — integrate Telegram API or SMTP so the orchestrator pushes an alert to Marco whenever `BRIEF.md` is updated or a task finishes.
+- [x] [p1] [nas-headless] Orchestrator Notifications — integrate Telegram API or SMTP so the orchestrator pushes an alert to Marco whenever `BRIEF.md` is updated or a task finishes.
 - [ ] [p1] [nas-headless] 1Password CLI Integration — install `op` CLI on the NAS, authenticate it, and refactor the Orchestrator to fetch API keys dynamically via `op://` instead of `.env` files.
 
 ## Phase 2 — Scaffold

@@ -61,3 +61,8 @@ Ran task `[p1] [claude] Page schema — `layout: Block[]` on each Global. Output
 
 - Branch: main
 - Tip: 8d4e3da
+
+## Auto-stop note (2026-05-11 14:15 UTC)
+
+- Branch: main
+- Tip: b3bacff

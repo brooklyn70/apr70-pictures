@@ -71,3 +71,8 @@ Ran task `[p1] [claude] Page schema — `layout: Block[]` on each Global. Output
 ## Orchestrator note (2026-05-11 14:17 UTC)
 
 Ran task `[p1] [cursor+claude] Token contract — port `APR 70 Pictures Design System/colors_and_type.css` from v2; confirm or revise color/type/spacing tokens.` via claude_code subprocess. Returncode=0; ~37+191 tokens (est $0.003). USAGE.jsonl appended.
+
+## Auto-stop note (2026-05-11 14:17 UTC)
+
+- Branch: main
+- Tip: d12edbd

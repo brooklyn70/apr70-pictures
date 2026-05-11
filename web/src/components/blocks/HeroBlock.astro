@@ -1,0 +1,147 @@
+---
+import type { Home } from 'payload-types'
+
+import { resolveMediaUrl } from '../../lib/payload'
+
+type HeroBlockData = Extract<
+  NonNullable<NonNullable<Home['layout']>[number]>,
+  { blockType: 'hero' }
+>
+
+interface Props {
+  block: HeroBlockData
+}
+
+const { block } = Astro.props
+
+const media = typeof block.media === 'object' && block.media ? block.media : null
+const mediaSrc = resolveMediaUrl(media ?? undefined)
+const isVideo = Boolean(media?.mimeType?.startsWith('video/'))
+
+const divisionClass =
+  block.division === 'pictures-212'
+    ? 'hero--212'
+    : block.division === 'pictures-310'
+      ? 'hero--310'
+      : 'hero--corporate'
+
+const variantClass =
+  block.variant === 'split'
+    ? 'hero--split'
+    : block.variant === 'fullscreen'
+      ? 'hero--fullscreen'
+      : 'hero--default'
+---
+
+<section
+  class:list={['hero', divisionClass, variantClass]}
+  aria-labelledby={`hero-heading-${block.id ?? 'x'}`}
+>
+  <div class="hero__inner">
+    <div class="hero__copy">
+      <h1 id={`hero-heading-${block.id ?? 'x'}`} class="hero__heading">
+        {block.heading}
+      </h1>
+      {block.subtext ? <p class="hero__subtext">{block.subtext}</p> : null}
+    </div>
+    {
+      mediaSrc ? (
+        <div class="hero__media">
+          {isVideo ? (
+            <video class="hero__video" controls preload="metadata" src={mediaSrc} />
+          ) : (
+            <img
+              class="hero__img"
+              src={mediaSrc}
+              alt={media?.alt ?? ''}
+              width={media?.width ?? undefined}
+              height={media?.height ?? undefined}
+            />
+          )}
+        </div>
+      ) : null
+    }
+  </div>
+</section>
+
+<style>
+  .hero {
+    font-family: var(--font-body);
+    padding: var(--space-6) var(--space-3);
+    box-sizing: border-box;
+  }
+
+  .hero__inner {
+    max-width: 72rem;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .hero--split .hero__inner {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .hero--split .hero__inner {
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+    }
+  }
+
+  .hero--fullscreen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero--fullscreen .hero__inner {
+    width: 100%;
+  }
+
+  .hero__heading {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    line-height: 1.1;
+    margin: 0;
+    color: var(--hero-heading, var(--apr-near-black));
+  }
+
+  .hero__subtext {
+    margin: var(--space-2) 0 0;
+    font-size: 1.125rem;
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--hero-sub, var(--apr-mid-dark));
+    max-width: 36rem;
+  }
+
+  .hero__media {
+    width: 100%;
+  }
+
+  .hero__img,
+  .hero__video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 2px;
+  }
+
+  .hero--212 {
+    --hero-heading: var(--amber);
+    --hero-sub: var(--apr-mid-dark);
+  }
+
+  .hero--310 {
+    --hero-heading: var(--teal);
+    --hero-sub: var(--apr-mid-dark);
+  }
+
+  .hero--corporate {
+    --hero-heading: var(--apr-near-black);
+    --hero-sub: var(--apr-mid-dark);
+  }
+</style>

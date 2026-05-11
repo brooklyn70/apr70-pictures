@@ -1,0 +1,24 @@
+---
+import type { Home } from 'payload-types'
+
+import HeroBlock from './HeroBlock.astro'
+
+type LayoutBlock = NonNullable<Home['layout']>[number]
+
+interface Props {
+  blocks: Home['layout']
+}
+
+const { blocks } = Astro.props
+---
+
+{
+  blocks?.map((block: LayoutBlock) => {
+    switch (block.blockType) {
+      case 'hero':
+        return <HeroBlock block={block} />
+      default:
+        return null
+    }
+  })
+}

@@ -8,6 +8,10 @@
     "dist"
   ],
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "payload-types": ["../cms/src/payload-types.ts"]
+    },
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   }

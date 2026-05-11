@@ -7,6 +7,8 @@ COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
 COPY . .
+ARG PUBLIC_PAYLOAD_URL=""
+ENV PUBLIC_PAYLOAD_URL=${PUBLIC_PAYLOAD_URL}
 RUN pnpm run build
 
 FROM nginx:1.27-alpine AS runner

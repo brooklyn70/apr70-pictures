@@ -1,0 +1,34 @@
+/**
+ * APR 70 Pictures v3 — design tokens (locked set)
+ *
+ * Ported from v2 contract (see CLAUDE.md). Spacing follows an 8px grid.
+ * Do not add ad-hoc colors here; new tokens need a deliberate design decision.
+ */
+
+:root {
+  /* Division + UI colors */
+  --amber: #824b07;
+  --teal: #077082;
+  --orange: #e85d04;
+  --offwhite: #c8c8c8;
+  --apr-near-black: #1e1e1e;
+  --apr-mid-dark: #3a3a3a;
+
+  /* Spacing scale (8px base) */
+  --space-0: 0;
+  --space-1: 0.5rem; /* 8px */
+  --space-2: 1rem; /* 16px */
+  --space-3: 1.5rem; /* 24px */
+  --space-4: 2rem; /* 32px */
+  --space-5: 2.5rem; /* 40px */
+  --space-6: 3rem; /* 48px */
+  --space-8: 4rem; /* 64px */
+  --space-10: 5rem; /* 80px */
+  --space-12: 6rem; /* 96px */
+
+  /* Typography families (load webfonts in layout when scaffolding) */
+  --font-display: "Futura", "Trebuchet MS", sans-serif;
+  --font-body: "Barlow", system-ui, sans-serif;
+  --font-mono: "Courier New", Courier, monospace;
+  --font-filmstrip: "Share Tech Mono", "Courier New", monospace;
+}

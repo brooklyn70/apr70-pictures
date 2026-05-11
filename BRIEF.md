@@ -275,3 +275,8 @@ Ran task `[p1] [nas-headless] Orchestrator Notifications — integrate Telegram 
 - `next.config.ts`: `output: 'standalone'` for CMS Dockerfile.
 - Root **`docker-compose.yml`**: `postgres`, `cms` (build `./cms`), `web` (Astro static via `web/Dockerfile`), `nginx` (`nginx/default.conf` routes `/admin`, `/api`, `/_next` to cms, `/` to web). Port **8080:80**.
 - `TASKS.md`: Phase 2 lines for Payload scaffold and compose marked done. DSM reverse-proxy + Basic Auth line still open.
+
+## Auto-stop note (2026-05-11 18:56 UTC)
+
+- Branch: main
+- Tip: 4873e08

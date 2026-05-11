@@ -120,3 +120,8 @@ Ran task `[p1] [nas-headless] Orchestrator Notifications — integrate Telegram 
 
 - Branch: main
 - Tip: ff5584c
+
+## Auto-stop note (2026-05-11 16:00 UTC)
+
+- Branch: main
+- Tip: 60df310

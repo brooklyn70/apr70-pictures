@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeShellExecution": [
+      {
+        "command": ".cursor/hooks/git-no-token-in-remote.sh",
+        "matcher": "git remote set-url.*x-access-token|git remote.*github_pat_|git remote.*ghp_|x-access-token:.*git|git remote .*https://.*@|git config .*remote\\.origin\\.url.*(x-access-token|github_pat_|ghp_)"
+      }
+    ],
+    "beforeSubmitPrompt": [
+      {
+        "type": "prompt",
+        "prompt": "Keep replies concise unless the user asked for exhaustive detail. Do not paste huge files or long logs by default—summarize and cite slices. Secrets: never put GitHub PATs into git remote; use SSH deploy keys for host clones and op://GITHUB_TOKEN only for Docker/orchestrator.",
+        "timeout": 8
+      }
+    ]
+  }
+}

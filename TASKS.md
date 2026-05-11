@@ -21,7 +21,7 @@ Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainst
 
 ## Phase 2 — Scaffold
 
-- [ ] [p2] [cursor+claude] `pnpm create astro@latest` in `web/` with TypeScript + integrations (react, tailwind, sitemap).
+- [x] [p2] [cursor+claude] `pnpm create astro@latest` in `web/` with TypeScript + integrations (react, tailwind, sitemap).
 - [ ] [p2] [cursor+claude] `pnpm create payload-app` in `cms/` configured for standalone Node service + Postgres.
 - [ ] [p2] [nas-headless] `docker-compose.yml` with postgres + cms + web + nginx services. Adapt v2's `docker-compose.nas.yml`.
 - [ ] [p2] [nas-headless] DSM reverse-proxy slot for `staging-v3.apr70.com`. Basic Auth on `/admin`.

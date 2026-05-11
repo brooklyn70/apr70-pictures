@@ -250,3 +250,7 @@ Ran task `[p1] [nas-headless] Orchestrator Notifications — integrate Telegram 
 
 - Branch: main
 - Tip: 490e2b8
+
+## Session note (2026-05-11) — Astro scaffold
+
+- `web/`: `pnpm create astro@latest` (basics template), TypeScript strict (`astro/tsconfigs/strict`), `@astrojs/react`, Tailwind CSS v4 via `@tailwindcss/vite`, `@astrojs/sitemap`. `site` set to `https://apr70.com` for sitemap URLs. `TASKS.md` Phase 2 Astro line marked done.

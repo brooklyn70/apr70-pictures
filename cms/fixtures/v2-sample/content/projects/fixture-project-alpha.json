@@ -1,0 +1,10 @@
+{
+  "slug": "fixture-project-alpha",
+  "title": "Project Alpha",
+  "layout": [
+    {
+      "blockType": "divider",
+      "label": "Slate"
+    }
+  ]
+}

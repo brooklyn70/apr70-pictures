@@ -89,9 +89,13 @@ export interface Config {
   fallbackLocale: null;
   globals: {
     home: Home;
+    'site-settings': SiteSetting;
+    'footer-links': FooterLink;
   };
   globalsSelect: {
     home: HomeSelect<false> | HomeSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    'footer-links': FooterLinksSelect<false> | FooterLinksSelect<true>;
   };
   locale: null;
   widgets: {
@@ -575,6 +579,88 @@ export interface Home {
   createdAt?: string | null;
 }
 /**
+ * Global identity, feature flags, and build metadata for APR 70 Pictures.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: number;
+  /**
+   * Short display name shown in the navigation and footer logotype.
+   */
+  brandLabel: string;
+  /**
+   * Full legal name used in the copyright notice.
+   */
+  legalEntity: string;
+  /**
+   * Short sub-headline used in meta descriptions and the footer.
+   */
+  tagline?: string | null;
+  /**
+   * Toggle the top and bottom sprocket-perforation rail chrome on every page.
+   */
+  showFilmstripRails?: boolean | null;
+  /**
+   * Timestamp of the last CI deploy.
+   */
+  lastDeployed?: string | null;
+  /**
+   * Semver of the last seed script run (e.g. "1.0.0").
+   */
+  seededVersion?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Navigation links displayed in the 4-column site footer grid.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer-links".
+ */
+export interface FooterLink {
+  id: number;
+  /**
+   * Column 1 — main site pages (Work, About, Investors, Contact, …).
+   */
+  primaryNav?:
+    | {
+        label: string;
+        /**
+         * e.g. /work or https://…
+         */
+        href: string;
+        openInNewTab?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Column 2 — links to division pages ((212), (310), NRC).
+   */
+  divisionNav?:
+    | {
+        label: string;
+        href: string;
+        openInNewTab?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Column 3 — secondary links (Press, Careers, Pitch, News, …).
+   */
+  moreNav?:
+    | {
+        label: string;
+        href: string;
+        openInNewTab?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home_select".
  */
@@ -720,6 +806,54 @@ export interface HomeSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  brandLabel?: T;
+  legalEntity?: T;
+  tagline?: T;
+  showFilmstripRails?: T;
+  lastDeployed?: T;
+  seededVersion?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer-links_select".
+ */
+export interface FooterLinksSelect<T extends boolean = true> {
+  primaryNav?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        openInNewTab?: T;
+        id?: T;
+      };
+  divisionNav?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        openInNewTab?: T;
+        id?: T;
+      };
+  moreNav?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        openInNewTab?: T;
+        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;

@@ -1,0 +1,51 @@
+{
+  "title": "Home (fixture)",
+  "slug": "home",
+  "layout": [
+    {
+      "blockType": "hero",
+      "heading": "APR 70 Pictures",
+      "subtext": "Fixture dry-run sample",
+      "variant": "default",
+      "division": "corporate"
+    },
+    {
+      "blockType": "richText",
+      "megaScale": false,
+      "content": {
+        "root": {
+          "type": "root",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "type": "paragraph",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [
+                {
+                  "type": "text",
+                  "text": "Color Injector sample",
+                  "format": 0,
+                  "detail": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "version": 1,
+                  "color": "310-imax"
+                }
+              ],
+              "direction": "ltr"
+            }
+          ],
+          "direction": "ltr"
+        }
+      }
+    },
+    {
+      "blockType": "legacyUnknownBlock",
+      "foo": 1
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-11 (master plan locked)
+**Updated:** 2026-05-12 (Phase 4 handoff to orchestrator)
 **Repo tip:** to be set on next push
-**Phase:** Phase 1 — Tokens & Typography
+**Phase:** Phase 4 — Seed Script & Content Migration (orchestrator-ready)
 
 ---
 
@@ -20,15 +20,13 @@
 - **tokens.css** updated with locked 6-color palette (212 Amber, 212 Sicilian Orange, 310 IMAX, NRC Grey, 310 Sicilian Blue, NRC Navy), light mode ramp (`[data-theme="light"]`), `[data-display="mega"]` mega-scale typography, `[data-color]` Lexical Color Injector selectors.
 - All documentation updated: CLAUDE.md, TASKS.md, docs/architecture/v3-master-plan.md.
 - Database schema pushed. TypeScript compiles clean (zero errors).
+- **Phases 1–3 LOCKED:** Lexical Color Injector + mega scale, `SiteSettings` / `FooterLinks` globals, `Footer.astro` + `Layout.astro`, live preview config. System ready for v2-to-v3 content ingestion.
 
 ## What's next
 
-**Phase 1 remaining (tokens QA):**
-1. Visual QA of light mode across all blocks (requires-gui).
+**Phase 4 (orchestrator / `nas-headless`):** Idempotent seed from v2 (Keystatic/JSON/Markdown) into Payload Postgres with versioning; map v2 Project/Page to v3 `layout: Block[]`; preserve Lexical and Color Injector tokens. Media: rsync v2 NAS assets to v3, create Media collection rows, link into blocks. Full dispatch spec: `docs/handoff/phase-4-orchestrator-handoff-2026-05-12.md`.
 
-**Phase 2 (Lexical Color Injector):**
-1. Custom Lexical plugin — toolbar dropdown, token storage, admin preview, validation.
-2. Mega Scale toggle — custom Lexical node for `data-display="mega"`.
+**Still open elsewhere:** Magnetic Navigation island (Phase 3). Hero/Filmstrip islands (Phase 5+). DSM staging slot (Phase 7).
 
 ## Blocked / waiting
 

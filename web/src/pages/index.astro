@@ -1,28 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import BlockRenderer from '../components/blocks/BlockRenderer.astro';
+import { fetchHomeGlobal } from '../lib/payload';
 
-// Fetch the Home global from Payload
-let homeGlobal = null;
-try {
-  // Use localhost for local dev
-  const payloadUrl = import.meta.env.PUBLIC_PAYLOAD_URL || 'http://127.0.0.1:8080';
-  const res = await fetch(`${payloadUrl}/api/globals/home`);
-  if (res.ok) {
-    homeGlobal = await res.json();
-  }
-} catch (e) {
-  console.error("Error fetching home global:", e);
-}
-
-// BUST CACHE
-
-const blocks = homeGlobal?.layout || [];
+const { home, error } = await fetchHomeGlobal();
+const blocks = home?.layout || [];
 ---
 
 <Layout>
   <main>
-    {!blocks.length ? (
+    {error && (
+      <div style="padding: 1rem; margin: 2rem auto; max-width: 600px; background: rgba(255,0,0,0.1); border: 1px solid red; border-radius: 4px; font-family: var(--font-body); color: #cc0000;">
+        <strong>Fetch Error:</strong> {error}
+      </div>
+    )}
+    {!blocks.length && !error ? (
       <div style="padding: 4rem; text-align: center; font-family: var(--font-body); color: var(--apr-mid-dark);">
         No blocks found. Add some blocks to the Home global in Payload!
       </div>

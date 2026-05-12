@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
+
 /* ============================================================
    APR 70 PICTURES — COLORS & TYPE
    Bold. Mature. In your face.
@@ -61,9 +63,6 @@
   font-style: normal;
   font-display: swap;
 }
-
-/* Barlow via Google Fonts (body) — production site uses this */
-@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
 
 /* ---------- ROOT TOKENS ---------- */
 :root {

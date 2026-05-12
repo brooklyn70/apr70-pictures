@@ -22,7 +22,7 @@ Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainst
 - [x] [p1] [gemini] Expanded block library — 11 blocks (Hero, RichText, TwoCol, Grid, CTA, Quotes, Filmstrip, Division, Stats, Divider). Schemas + Astro renderers created.
 - [x] [p1] [gemini] `tokens.css` — update color names to final palette (212 Amber, 212 Sicilian Orange, 310 IMAX, NRC Grey, 310 Sicilian Blue, NRC Navy). Remove Steenbeck Warm. Add light mode ramp (`[data-theme="light"]`).
 - [x] [p1] [gemini] Update ALL block schemas — color select fields must use final token names.
-- [ ] [p1] [requires-gui] Light mode visual QA — verify all blocks render correctly in both modes.
+- [x] [p1] [requires-gui] Light mode visual QA — verify all blocks render correctly in both modes.
 
 ## Phase 2 — Lexical Color Injector
 

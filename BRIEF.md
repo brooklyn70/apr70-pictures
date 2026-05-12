@@ -350,3 +350,8 @@ Ran task `[p1] [nas-headless] Orchestrator Notifications — integrate Telegram 
 ## Orchestrator note (2026-05-12 10:00 UTC)
 
 Ran task `[p3] [gemini] Magnetic Navigation island — React + GSAP. `transform`+`opacity` only. `prefers-reduced-motion` + `pointer: coarse` disabled.` via claude_code subprocess. Returncode=0; ~34+37 tokens (est $0.0007). USAGE.jsonl appended.
+
+## Auto-stop note (2026-05-12 10:11 UTC)
+
+- Branch: main
+- Tip: 0764e61

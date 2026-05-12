@@ -69,3 +69,14 @@ ENV PORT 3000
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
 CMD HOSTNAME="0.0.0.0" node server.js
+
+# Seeder image — separate target with full deps + scripts + tsx so we can
+# run one-off migrations (e.g. `pnpm migrate:v2:apply`) against the same
+# Postgres without polluting the slim production runner image.
+FROM base AS seeder
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+COPY --from=builder /app /app
+RUN corepack enable pnpm && corepack prepare pnpm@9.15.4 --activate
+ENV NODE_ENV=production
+CMD ["pnpm", "migrate:v2:apply"]

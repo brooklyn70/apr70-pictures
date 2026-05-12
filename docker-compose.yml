@@ -31,6 +31,23 @@ services:
     volumes:
       - cms_media:/app/media
 
+  cms-seeder:
+    profiles: [seed]
+    build:
+      context: ./cms
+      dockerfile: Dockerfile
+      target: seeder
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/apr70_cms
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET:-dev-change-me}
+      NODE_ENV: production
+    volumes:
+      - cms_media:/app/media
+      - ./v2-export:/v2-export:ro
+
   web:
     build:
       context: ./web

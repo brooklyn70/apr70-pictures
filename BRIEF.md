@@ -417,3 +417,8 @@ Ran task `[p3] [gemini] Magnetic Navigation island — React + GSAP. `transform`
 ## Orchestrator note (2026-05-12 17:06 UTC)
 
 Ran task `[p4] [nas-headless] NAS Hop 1 — `docker compose up --build` in `/volume1/apps/apr70-pictures/` to bring v3 stack up with fresh Postgres. Verify CMS health at port 3000 before Hop 2.` via claude_code subprocess. Returncode=0; ~45+207 tokens (est $0.0032). USAGE.jsonl appended.
+
+
+## Orchestrator note (2026-05-12 18:11 UTC)
+
+Ran task `[p4] [nas-shell] NAS Hop 1 — Build and start v3 stack. SHELL: cd /volume1/apps/a` via shell runner. Returncode=1; USAGE.jsonl appended.

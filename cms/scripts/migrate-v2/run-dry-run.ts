@@ -1,4 +1,5 @@
 import { readFile, writeFile } from 'node:fs/promises'
+import { existsSync } from 'node:fs'
 import path from 'node:path'
 
 import { discoverJsonDocuments } from './discover.js'
@@ -17,6 +18,11 @@ export async function runDryRun(opts: DryRunOptions): Promise<MigrationReport> {
   const files = await discoverJsonDocuments(v2Root)
 
   const warnings: string[] = []
+  if (!existsSync(path.join(v2Root, 'content'))) {
+    warnings.push(
+      `v2-root has no "content/" directory (${v2Root}). Nothing was scanned. Many v2 checkouts keep editorial content in Payload/Keystatic cloud, not flat JSON under git — add an export that mirrors Keystatic paths (content/pages, content/projects) or extend the migrator to read v2 Postgres/API.`,
+    )
+  }
   const pageIds: string[] = []
   const projectIds: string[] = []
   let parseFailures = 0

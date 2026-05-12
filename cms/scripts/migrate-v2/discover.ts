@@ -1,7 +1,22 @@
+import { existsSync } from 'node:fs'
 import { readdir } from 'node:fs/promises'
 import path from 'node:path'
 
 import type { V2DiscoveredFile, V2DocumentKind } from './types.js'
+
+/** Skip when walking a full repo checkout by mistake (not a v2 content export tree). */
+const SKIP_DIRECTORY_NAMES = new Set([
+  'node_modules',
+  '.git',
+  '.next',
+  'dist',
+  'coverage',
+  '.turbo',
+  '.vercel',
+  '_archived',
+  '.pnpm-store',
+  'email-server',
+])
 
 function classifyRelative(rel: string): V2DocumentKind {
   const n = rel.replaceAll('\\', '/').toLowerCase()
@@ -28,6 +43,7 @@ async function walkDir(
     const abs = path.join(dir, ent.name)
     const rel = path.relative(root, abs)
     if (ent.isDirectory()) {
+      if (SKIP_DIRECTORY_NAMES.has(ent.name)) continue
       await walkDir(abs, root, out)
     } else if (ent.isFile() && ent.name.toLowerCase().endsWith('.json')) {
       out.push({
@@ -45,7 +61,11 @@ async function walkDir(
  */
 export async function discoverJsonDocuments(v2Root: string): Promise<V2DiscoveredFile[]> {
   const resolved = path.resolve(v2Root)
+  const contentDir = path.join(resolved, 'content')
+  if (!existsSync(contentDir)) {
+    return []
+  }
   const out: V2DiscoveredFile[] = []
-  await walkDir(resolved, resolved, out)
+  await walkDir(contentDir, resolved, out)
   return out
 }

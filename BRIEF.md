@@ -1,8 +1,8 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-12 (Phase 4 handoff to orchestrator)
-**Repo tip:** to be set on next push
-**Phase:** Phase 4 — Seed Script & Content Migration (orchestrator-ready)
+**Updated:** 2026-05-12 (Phase 4 seed CLI complete — ready for NAS deploy)
+**Repo tip:** 8f3b498
+**Phase:** Phase 4 — NAS deploy + live seed
 
 ---
 
@@ -17,28 +17,43 @@
 - **Master Architecture Plan** approved after 4 drafts reviewed by Perplexity + Grok + Marco.
 - **11 Payload block schemas** created (Hero, RichText, TwoCol, Grid, CTA, Quotes, Filmstrip, Division, Stats, Divider + D7 Lexical inline blocks).
 - **11 Astro renderers** created with matching BlockRenderer switch.
-- **tokens.css** updated with locked 6-color palette (212 Amber, 212 Sicilian Orange, 310 IMAX, NRC Grey, 310 Sicilian Blue, NRC Navy), light mode ramp (`[data-theme="light"]`), `[data-display="mega"]` mega-scale typography, `[data-color]` Lexical Color Injector selectors.
-- All documentation updated: CLAUDE.md, TASKS.md, docs/architecture/v3-master-plan.md.
-- Database schema pushed. TypeScript compiles clean (zero errors).
-- **Phases 1–3 LOCKED:** Lexical Color Injector + mega scale, `SiteSettings` / `FooterLinks` globals, `Footer.astro` + `Layout.astro`, live preview config, **MagneticNavIsland** (GSAP pill on fine pointer; static nav on coarse pointer / reduced motion). System ready for v2-to-v3 content ingestion.
-- **Phase 4 (partial):** v2 → v3 seed CLI in `cms/` — `pnpm migrate:v2:dry -- --v2-root <path>`. **Update 2026-05-12:** NAS roadblocks resolved (git permissions fixed, synced to `ec7b5d2`). Added `APR_70/scripts/export-to-v3-json.ts` to dump v2 Payload data. Improved `map-layout.ts` to synthesize v3 blocks from v2 flat schemas (Homepage, Projects). Dry-run verified on Mac with 100% block mapping for Homepage. Data piped to NAS at `/volume1/apps/apr70-pictures/v2-export`.
-
+- **tokens.css** updated with locked 6-color palette, light mode ramp, mega-scale typography, Lexical Color Injector selectors.
+- **Phases 1–3 LOCKED:** Lexical Color Injector + mega scale, `SiteSettings` / `FooterLinks` globals, `Footer.astro` + `Layout.astro`, live preview config, MagneticNavIsland.
+- **Phase 4 seed CLI COMPLETE (`cms/scripts/migrate-v2-to-v3.ts`):**
+  - `--dry-run` verified on Mac: 23 files, 14 pages, 9 projects, **83/83 blocks mapped, 0 warnings**.
+  - Synthesizers for all schemas: homepage, about, contact, jobs, pitch, quotes, slate, partners, footer-more, news (5 articles), 9 projects.
+  - `--apply` implemented: Payload Local API upserts `home` global layout + `SiteSettings.seededVersion`. Idempotent.
+  - v2 content export on NAS: `/volume1/apps/apr70-pictures/v2-export/content/`.
+  - v2 media on NAS: `/volume1/apps/apr70/public/` (537 MB).
+  - v3 media volume: Docker `apr70_apr70_media` → `/app/public/media` inside CMS container.
+  - NAS DATABASE_URI: `postgresql://apr70:***@postgres:5432/apr70_payload`.
+  - **NAS situation:** current `apr70-app-1` container is v2 schema. v3 stack (`apr70-pictures/docker-compose.yml`) must be built fresh before seed runs.
+  - Full NAS deploy + seed dispatch: `docs/handoff/nas-deploy-2026-05-12.md`.
 
 ## What's next
 
-**Phase 4 (orchestrator / `nas-headless`):** Idempotent seed from v2 (Keystatic/JSON/Markdown) into Payload Postgres with versioning; map v2 Project/Page to v3 `layout: Block[]`; preserve Lexical and Color Injector tokens. Media: rsync v2 NAS assets to v3, create Media collection rows, link into blocks. Full dispatch spec: `docs/handoff/phase-4-orchestrator-handoff-2026-05-12.md`.
+**Immediate (orchestrator, two `--once` hops — see `docs/handoff/nas-deploy-2026-05-12.md`):**
+1. Hop 1 `[nas-headless]`: `docker compose up --build` in `/volume1/apps/apr70-pictures/` — brings v3 stack up with fresh Postgres.
+2. Hop 2 `[nas-headless]`: `pg_dump` backup, then `pnpm migrate:v2:apply` — live seed into v3 Postgres.
 
-**Still open elsewhere:** Hero/Filmstrip islands (Phase 5+). DSM staging slot (Phase 7).
+**After seed verified:** Media migration — rsync `/volume1/apps/apr70/public/` → v3 media volume, create Media collection rows, link into blocks.
+
+**Parallel (cursor+claude):** `web/src/lib/payload.ts` typed client — error handling, caching, stale-while-revalidate.
+
+**Still open:** Hero/Filmstrip islands (Phase 5+). DSM staging slot (Phase 7).
 
 ## Blocked / waiting
 
+- v3 Docker stack not yet running on NAS (needs Hop 1).
 - DSM reverse-proxy slot for staging-v3 (Phase 7).
 
 ## Open questions for Marco
 
+- Confirm NAS SSH alias: docs use `apr70-nas` — verify this matches your `~/.ssh/config`.
+
 ## Spend log (last 7 days)
 
-Empty — orchestrator USAGE.jsonl not yet writing.
+Empty — orchestrator USAGE.jsonl not yet writing to this repo.
 
 ## Auto-stop note (2026-05-10 01:42 UTC)
 

@@ -39,8 +39,10 @@ Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainst
 
 ## Phase 4 — Seed Script & Content
 
-- [x] [p4] [nas-headless] Seed script — Spec + **human-gated runbook** (dry-run, `pg_dump` rollback, no `--loop`): `docs/handoff/phase-4-orchestrator-handoff-2026-05-12.md`. Port v2 (Keystatic/JSON/Markdown) into Payload Postgres; idempotent; version refs; map v2 Project/Page to v3 blocks in `cms/src/blocks/`; preserve Lexical and Color Injector token attribution. CLI must support `--dry-run` before any live write.
-- [ ] [p4] [nas-headless] Media migration — Same handoff doc. rsync v2 NAS volume assets to v3; create Media rows per `cms/src/collections/Media.ts` and wire relationships into seeded blocks.
+- [x] [p4] [nas-headless] Seed script — CLI complete. `--dry-run` accepted (23 files, 14 pages, 9 projects, 83/83 blocks, 0 warnings). `--apply` implemented via Payload Local API. Dispatch doc: `docs/handoff/nas-deploy-2026-05-12.md`.
+- [ ] [p4] [nas-headless] NAS Hop 1 — `docker compose up --build` in `/volume1/apps/apr70-pictures/` to bring v3 stack up with fresh Postgres. Verify CMS health at port 3000 before Hop 2.
+- [ ] [p4] [nas-headless] NAS Hop 2 — `pg_dump` backup, then `pnpm migrate:v2:apply -- --v2-root /volume1/apps/apr70-pictures/v2-export/content` inside CMS container. Verify row counts + admin smoke check.
+- [ ] [p4] [nas-headless] Media migration — rsync `/volume1/apps/apr70/public/` → v3 media volume (no `--delete`); create Media rows per `cms/src/collections/Media.ts`; wire relationships into seeded blocks.
 - [ ] [p4] [cursor+claude] `web/src/lib/payload.ts` typed client — error handling, caching, stale-while-revalidate.
 
 ## Phase 5 — Hero Engine & Filmstrip

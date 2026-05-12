@@ -28,11 +28,19 @@ Execute the data migration from the legacy v2 system to the new Payload CMS inst
 | **Linking** | Create Media collection entries in Payload for each file and link them to the correct blocks in seeded content |
 | **Reference** | `cms/src/collections/Media.ts` |
 
-## Technical state
+## Confirmed pre-flight values (NAS, verified 2026-05-12)
 
-- **Database:** PostgreSQL (`postgresAdapter`)
-- **CMS URL:** Defaults to `http://localhost:3000` (check env for NAS-specific port mapping)
-- **Blocks:** All 11 v3 blocks are defined and exported under `cms/src/blocks/`
+| Item | Value |
+|------|-------|
+| v2 content root (NAS) | `/volume1/apps/apr70-pictures/v2-export/content` |
+| v2 media root (NAS) | `/volume1/apps/apr70/public/` (537 MB, read-only) |
+| v3 media volume (Docker) | `apr70_apr70_media` → `/app/public/media` inside CMS container |
+| v3 DATABASE_URI | `postgresql://apr70:***@postgres:5432/apr70_payload` (in CMS container env) |
+| v3 CMS port | `3000` (container `apr70-app-1`) |
+| NAS SSH alias | `apr70-nas` |
+| NAS repo path | `/volume1/apps/apr70-pictures/` |
+
+**Note:** Current `apr70-app-1` container is v2 schema. v3 stack must be built fresh (Hop 1) before seed runs (Hop 2).
 
 ## Runbook — dry runs, rollback, no loops
 
@@ -100,19 +108,21 @@ Rollback for media = **delete the v3 copy tree** (or restore from a tarball if y
 
 Same pattern as seed: a mode that **prints** the Payload `create` / `update` payloads (or counts only) without committing, then a live mode after review.
 
-### Suggested step order (present results after each)
+### Confirmed step status (2026-05-12)
 
-| Step | Action | Review artifact |
-|-----|--------|-----------------|
-| 0 | Record pre-flight paths + staging `DATABASE_URL` in a doc/ticket | Marco confirms |
-| 1 | `pg_dump` staging v3 DB | Dump file path + size |
-| 2 | Seed `--dry-run` | Log / report file |
-| 3 | Seed live **staging** | Row counts + smoke URLs in admin |
-| 4 | `rsync --dry-run` media | Itemize summary |
-| 5 | `rsync -a` copy (no `--delete`) | `du` / spot-check files on v3 |
-| 6 | Media linking dry-run | Planned creates/updates table |
-| 7 | Media linking live **staging** | Random sample of pages in admin + front |
-| 8 | Marco sign-off | Only then clone the same playbook for prod (new dumps, new dry runs) |
+| Step | Action | Status |
+|-----|--------|--------|
+| 0 | Pre-flight paths confirmed | DONE |
+| 1 | `pg_dump` v3 DB before first write | PENDING (Hop 2 pre-req) |
+| 2 | Seed `--dry-run` | DONE — 83/83 blocks, 0 warnings, Marco accepted |
+| 3 | Seed live (`--apply`) | PENDING (Hop 2) |
+| 4 | `rsync --dry-run` media | PENDING |
+| 5 | `rsync -a` copy (no `--delete`) | PENDING |
+| 6 | Media linking dry-run | PENDING |
+| 7 | Media linking live | PENDING |
+| 8 | Marco sign-off | PENDING |
+
+Full NAS dispatch instructions: `docs/handoff/nas-deploy-2026-05-12.md`.
 
 ### What is not required to “get rolling”
 
@@ -125,4 +135,4 @@ Implement in `cms/` (or a `scripts/` package) a **single documented CLI** (e.g. 
 
 ## Next instruction (dispatch prompt)
 
-Initialize the Phase 4 seed script. Map the v2 Project and Page schemas to the v3 Payload block architecture, ensuring Lexical content is preserved and correctly attributed to the new Color Injector tokens. **Add `--dry-run` and follow the Runbook above; no `--loop`.**
+See `docs/handoff/nas-deploy-2026-05-12.md` for the exact orchestrator dispatch commands for Hop 1 and Hop 2.

@@ -1,3 +1,4 @@
+import { formatApplyReportConsole, runApply } from './apply.js'
 import { formatReportConsole, runDryRun } from './run-dry-run.js'
 
 const HELP = `migrate-v2-to-v3 — Phase 4 seed CLI (apr70-pictures)
@@ -14,7 +15,7 @@ Options:
   --dry-run           No database writes (default for safety if neither flag set).
   --v2-root <path>    Root directory to scan (or env V2_CONTENT_ROOT).
   --report <file>     Write full JSON report to this path.
-  --apply             Live seed to Payload (not implemented yet).
+  --apply             Live seed to Payload via Local API. Requires DATABASE_URL + PAYLOAD_SECRET env vars and a running v3 Postgres instance. Take a pg_dump backup first.
   -h, --help          Show this message.
 
 Path classification: JSON files under .../pages/, .../projects/, or
@@ -64,11 +65,18 @@ export async function runCli(argv: string[]): Promise<void> {
   }
 
   if (args.apply) {
-    console.error(
-      'Error: --apply (live Payload seed) is not implemented in this version.\n' +
-        'Take a pg_dump backup, then use a future release after Marco reviews dry-run output.\n',
-    )
-    process.exitCode = 1
+    if (!args.v2Root?.trim()) {
+      console.error('Error: set --v2-root <path> or V2_CONTENT_ROOT to the v2 content directory.\n')
+      process.exitCode = 1
+      return
+    }
+    console.log('Running live seed (--apply). Ensure pg_dump backup exists before proceeding.')
+    const report = await runApply({
+      v2Root: args.v2Root.trim(),
+      reportPath: args.report?.trim() || undefined,
+    })
+    console.log(formatApplyReportConsole(report))
+    if (report.errors.length > 0) process.exitCode = 1
     return
   }
 

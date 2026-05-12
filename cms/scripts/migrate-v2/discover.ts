@@ -22,8 +22,10 @@ function classifyRelative(rel: string): V2DocumentKind {
   const n = rel.replaceAll('\\', '/').toLowerCase()
   if (n.includes('/pages/') || n.startsWith('pages/')) return 'page'
   if (n.includes('/projects/') || n.startsWith('projects/')) return 'project'
+  if (n.includes('/news/') || n.startsWith('news/')) return 'page'
   if (n.includes('/content/pages/')) return 'page'
   if (n.includes('/content/projects/')) return 'project'
+  if (n.includes('/content/news/')) return 'page'
   return 'unknown'
 }
 

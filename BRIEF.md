@@ -412,3 +412,8 @@ Ran task `[p3] [gemini] Magnetic Navigation island — React + GSAP. `transform`
 
 - Branch: main
 - Tip: ba53a31
+
+
+## Orchestrator note (2026-05-12 17:06 UTC)
+
+Ran task `[p4] [nas-headless] NAS Hop 1 — `docker compose up --build` in `/volume1/apps/apr70-pictures/` to bring v3 stack up with fresh Postgres. Verify CMS health at port 3000 before Hop 2.` via claude_code subprocess. Returncode=0; ~45+207 tokens (est $0.0032). USAGE.jsonl appended.

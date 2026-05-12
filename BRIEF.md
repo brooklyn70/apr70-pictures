@@ -432,3 +432,8 @@ Ran task `[p4] [nas-shell] NAS Hop 1 — Build and start v3 stack. SHELL: cd /wo
 ## Orchestrator note (2026-05-12 19:03 UTC)
 
 Ran task `[p4] [nas-shell] NAS Hop 1 — Build and start v3 stack. SHELL: cd /work && /usr/l` via shell runner. Returncode=127; USAGE.jsonl appended.
+
+
+## Orchestrator note (2026-05-12 19:26 UTC)
+
+Ran task `[p4] [nas-shell] NAS Hop 2 — pg_dump backup then live seed. SHELL: /usr/local/bi` via shell runner. Returncode=127; USAGE.jsonl appended.

@@ -33,7 +33,7 @@ Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainst
 
 - [x] [p3] [cursor+claude] `SiteSettings` Payload global — brandLabel, legalEntity, tagline, showFilmstripRails, lastDeployed (read-only), seededVersion (read-only). Registered in payload.config.ts.
 - [x] [p3] [cursor+claude] `FooterLinks` Payload global — primaryNav, divisionNav, moreNav arrays. Registered in payload.config.ts.
-- [ ] [p3] [gemini] Magnetic Navigation island — React + GSAP. `transform`+`opacity` only. `prefers-reduced-motion` + `pointer: coarse` disabled.
+- [x] [p3] [gemini] Magnetic Navigation island — React + GSAP. `transform`+`opacity` only. `prefers-reduced-motion` + `pointer: coarse` disabled.
 - [x] [p3] [cursor+claude] Footer component — `Footer.astro` 4-col grid wired into `Layout.astro`. Pulls from FooterLinks + SiteSettings globals. Sprocket rails, brand col, 3 nav cols, legal row. Falls back to hardcoded links when Payload unreachable.
 - [x] [p3] [cursor+claude] Payload preview URLs — `livePreview` config in payload.config.ts. 3 breakpoints (desktop/tablet/mobile). URL resolver for Home global → Astro dev server. `PAYLOAD_PUBLIC_SERVER_URL` env var for production.
 

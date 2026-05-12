@@ -1,0 +1,23 @@
+{
+  "id": 1,
+  "links": [
+    {
+      "id": "69fea32c668925d999139478",
+      "label": "NEWS",
+      "route": "/news"
+    },
+    {
+      "id": "69fea32c668925d999139479",
+      "label": "SUBMIT A PITCH",
+      "route": "/pitch"
+    },
+    {
+      "id": "69fea32c668925d99913947a",
+      "label": "JOBS",
+      "route": "/jobs"
+    }
+  ],
+  "updatedAt": "2026-05-09T02:57:10.775Z",
+  "createdAt": "2026-05-09T02:57:10.775Z",
+  "globalType": "footer-more"
+}

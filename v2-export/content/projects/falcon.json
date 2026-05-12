@@ -1,0 +1,214 @@
+{
+  "id": 4,
+  "title": "The Maltese Falcon (Working Title)",
+  "slug": "falcon",
+  "division": "212",
+  "divisionIds": [],
+  "subtitle": "Stage Play / Limited Series Concept",
+  "projectFormat": "Stage Play / Limited Series Concept",
+  "status": "development",
+  "year": "2026",
+  "heroImage": "/slate/falcon/hero/hero_the_falcon_project_page.jpg",
+  "heroImageMedia": 41,
+  "heroQuality": "high",
+  "videoSrc": "/slate/falcon/video/falcon.mp4",
+  "category": "stage",
+  "categoryList": [],
+  "logline": "In a broke, half-burned Brooklyn at the end of the 1970s, a hard-used private eye is pulled into a case over a legendary \"bird\" that everyone swears will change their life -- a hunt that drags him through parish halls, union bars, mob basements, and City Hall back rooms.",
+  "detail": "A Brooklyn-born riff on Hammett's classic: San Francisco noir transplanted to Carroll Gardens and Bensonhurst. The \"bird\" becomes local leverage in a quiet war between old-world gangsters, real-estate sharks, and a political machine trying to cash out. Conceived as a limited-series roadmap built from the same spine. The Falcon flies again, but the rules of the streets have changed entirely.",
+  "meta": [
+    {
+      "id": "69fea1c41bb910d5d8a36a7e",
+      "label": "Genre",
+      "value": "Noir Detective / Crime Drama"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a7f",
+      "label": "Setting",
+      "value": "Brooklyn, late 1970s--early 1980s"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a80",
+      "label": "Source",
+      "value": "Dashiell Hammett — public domain 2026"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a81",
+      "label": "Format",
+      "value": "Stage Play / Limited Series"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a82",
+      "label": "Writer",
+      "value": "TBD"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a83",
+      "label": "Director",
+      "value": "TBD"
+    }
+  ],
+  "images": [
+    {
+      "id": "69fea21789ea7ad676e7e2c5",
+      "path": "/slate/falcon/hero/hero_the_falcon_70.png",
+      "imageMedia": 42,
+      "character": "",
+      "bio": "",
+      "type": "video",
+      "videoSrc": "/slate/falcon/video/falcon.mp4"
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2c6",
+      "path": "/slate/falcon/gallery/the_falcon_book_cover_01.jpg",
+      "imageMedia": 32,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2c7",
+      "path": "/slate/falcon/gallery/the_falcon_division_street.jpg",
+      "imageMedia": 33,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2c8",
+      "path": "/slate/falcon/gallery/the_falcon_dumbo.jpg",
+      "imageMedia": 34,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2c9",
+      "path": "/slate/falcon/gallery/the_falcon_john_houston.jpg",
+      "imageMedia": 35,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2ca",
+      "path": "/slate/falcon/gallery/the_falcon_street-from-the-el.jpg",
+      "imageMedia": 37,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2cb",
+      "path": "/slate/falcon/gallery/the_falcon_street-the-el.jpg",
+      "imageMedia": 38,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2cc",
+      "path": "/slate/falcon/gallery/the_falcon_street_brother.jpg",
+      "imageMedia": 36,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2cd",
+      "path": "/slate/falcon/gallery/the_falcon_twin_towers.jpg",
+      "imageMedia": 39,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2ce",
+      "path": "/slate/falcon/gallery/the_falcon_under_the_el.jpg",
+      "imageMedia": 40,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    }
+  ],
+  "attachments": [],
+  "projectQuotes": [
+    {
+      "id": "69fea1c41bb910d5d8a36a8e",
+      "quote": "The stuff that dreams are made of.",
+      "author": "The Maltese Falcon (1941)"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a8f",
+      "quote": "The cheaper the crook, the gaudier the patter.",
+      "author": "Dashiell Hammett, The Maltese Falcon"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a90",
+      "quote": "When a man's partner is killed, he's supposed to do something about it.",
+      "author": "Sam Spade, The Maltese Falcon"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a91",
+      "quote": "I don't mind a reasonable amount of trouble.",
+      "author": "Sam Spade, The Maltese Falcon"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a92",
+      "quote": "[TBD — Raymond Chandler on the mean streets]",
+      "author": "— Placeholder"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a93",
+      "quote": "[TBD — 1970s Brooklyn street survival]",
+      "author": "— Placeholder"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a94",
+      "quote": "[TBD — Jimmy Breslin on Carroll Gardens]",
+      "author": "— Placeholder"
+    }
+  ],
+  "content": {
+    "root": {
+      "type": "root",
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "children": [
+        {
+          "type": "paragraph",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "mode": "normal",
+              "text": "",
+              "type": "text",
+              "style": "",
+              "detail": 0,
+              "format": 0,
+              "version": 1
+            }
+          ],
+          "direction": null,
+          "textStyle": "",
+          "textFormat": 0
+        }
+      ],
+      "direction": null
+    }
+  },
+  "updatedAt": "2026-05-09T02:55:19.093Z",
+  "createdAt": "2026-05-07T21:07:35.312Z"
+}

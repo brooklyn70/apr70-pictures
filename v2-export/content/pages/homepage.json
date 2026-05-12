@@ -1,0 +1,231 @@
+{
+  "id": 1,
+  "heroSlideshowNotes": "",
+  "craftHeadline": "STORIES\nACROSS \nGENERATIONS.",
+  "aboutHeadline": "THE CLASSICS\n// NEVER //\nGO OUT OF STYLE.",
+  "aboutBody": "APR 70 Pictures is a an ideal. It's a multi-division production company. It's an independent media house. It's a small, stubborn film and television studio. It's based in Long Island City. We were born out of a simple frustration: there's more content than ever, and less of it worth your time.\n\nWe operate on a simple conviction: the greatest art is born inside clear boundaries. Old Hollywood had rules about what could be shown (a result of boundaries set by the Hays Code), so they leaned on subtext, atmosphere, and ingenious writing. Filmmakers mastered the art of visual storytelling and narrative economy. We drag that discipline back to street level. Film. Television. Stage. Radio. No compromise.\n\nWe keep one line from Mamet taped to the wall: \"The audience will not tune in to watch information. They tune in to watch drama.\" So we strip away the easy shocks—gratuitous violence, cheap profanity, empty provocation — and force the story to do the heavy lifting.\n\nWe look to the humanity of Frank Capra, the visual rigor of Ingmar Bergman, and the restless intelligence of Orson Welles and the Mercury Theatre. Then we run that spirit through Brooklyn and Los Angeles: real neighborhoods, real faces, real stakes.\n\nOur mission is to bring high‑craft storytelling to narratives that celebrate heroism, moral complexity, and the resilience of the human spirit. We're building a home for stories that can be shared across generations. The classics never go out of style. They just need filmmakers brave enough to tell them.",
+  "principlesHeadline": "PRINCIPLES // OF THE // CRAFT",
+  "principlesBody": "At APR 70 Pictures, we draw enduring wisdom from the directors who defined cinema through discipline, vision, and creative restraint. Their insights affirm that powerful storytelling arises not from unbounded freedom, but from deliberate choices within clear boundaries. These principles guide every project we develop—from limited series to feature films and beyond—as we build a studio dedicated to narratives of moral complexity, human resilience, and lasting impact.\n\nWe believe the greatest art is born inside clear boundaries. By honoring the craft of constraint, we seek to create work that resonates across generations, celebrating heroism, moral ambiguity, and the resilience of the human spirit in the real neighborhoods of Brooklyn, Los Angeles, and beyond.",
+  "divisionsHeading": "THREE DIVISIONS.\nONE VISION.",
+  "divisionsSubtext": "Each division addresses a distinct segment of the market with dedicated focus, branded identity, and a curated slate.",
+  "slideshowImages": [
+    {
+      "id": "69fea32c668925d9991393c9",
+      "src": "/classic-cinema/Apocolypse%20Now.webp",
+      "division": "none",
+      "label": "Apocalypse Now"
+    },
+    {
+      "id": "69fea32c668925d9991393ca",
+      "src": "/classic-cinema/Bergman.webp",
+      "division": "none",
+      "label": "Bergman"
+    },
+    {
+      "id": "69fea32c668925d9991393cb",
+      "src": "/classic-cinema/Bogart%20%26%20Bacall.jpg",
+      "division": "nrc",
+      "label": "Bogart & Bacall"
+    },
+    {
+      "id": "69fea32c668925d9991393cc",
+      "src": "/classic-cinema/Brando%20%26%20Cat.jpg",
+      "division": "310",
+      "label": "Brando & Cat"
+    },
+    {
+      "id": "69fea32c668925d9991393cd",
+      "src": "/classic-cinema/Cassablanca.avif",
+      "division": "212",
+      "label": "Casablanca"
+    },
+    {
+      "id": "69fea32c668925d9991393ce",
+      "src": "/classic-cinema/Superman%20%7C%20Fly%20with%20me.jpg",
+      "division": "nrc",
+      "label": "Superman Fly with me"
+    },
+    {
+      "id": "69fea32c668925d9991393cf",
+      "src": "/classic-cinema/Caine-Mutiny-Rehersal-Humphrey-Bogart-Van-Johnson.jpg",
+      "division": "nrc",
+      "label": "Caine Mutiny"
+    },
+    {
+      "id": "69fea32c668925d9991393d0",
+      "src": "/classic-cinema/Bonnie-Clyde-Rehersal-Fay-Dunaway-Warren-Beatty.jpg",
+      "division": "none",
+      "label": "Bonnie & Clyde"
+    },
+    {
+      "id": "69fea32c668925d9991393d1",
+      "src": "/classic-cinema/Cassavetes%20Dance.jpg",
+      "division": "nrc",
+      "label": "Cassavetes Dance"
+    },
+    {
+      "id": "69fea32c668925d9991393d2",
+      "src": "/classic-cinema/Cassavetes%20%7C%20Dolly.png",
+      "division": "212",
+      "label": "Cassavetes Dolly"
+    },
+    {
+      "id": "69fea32c668925d9991393d3",
+      "src": "/classic-cinema/Gable%20%26%20Leigh.jpg",
+      "division": "nrc",
+      "label": "Gable & Leigh"
+    },
+    {
+      "id": "69fea32c668925d9991393d4",
+      "src": "/classic-cinema/Golden-Age-Studios.jpg",
+      "division": "nrc",
+      "label": "Golden Age Studios"
+    },
+    {
+      "id": "69fea32c668925d9991393d5",
+      "src": "/classic-cinema/Hoffman.webp",
+      "division": "310",
+      "label": "Hoffman"
+    },
+    {
+      "id": "69fea32c668925d9991393d6",
+      "src": "/classic-cinema/Paramount-Pictures.jpg",
+      "division": "nrc",
+      "label": "Paramount Pictures"
+    },
+    {
+      "id": "69fea32c668925d9991393d7",
+      "src": "/classic-cinema/The%20Outsiders.jpg",
+      "division": "nrc",
+      "label": "The Outsiders"
+    },
+    {
+      "id": "69fea32c668925d9991393d8",
+      "src": "/classic-cinema/Cassavetes%20Cinema.jpg",
+      "division": "310",
+      "label": "Cassavetes Cinema"
+    },
+    {
+      "id": "69fea32c668925d9991393d9",
+      "src": "/classic-cinema/Gina.jpeg",
+      "division": "310",
+      "label": "Gina"
+    },
+    {
+      "id": "69fea32c668925d9991393da",
+      "src": "/classic-cinema/Superman.webp",
+      "division": "310",
+      "label": "Superman"
+    },
+    {
+      "id": "69fea32c668925d9991393db",
+      "src": "/classic-cinema/Kubrick.webp",
+      "division": "212",
+      "label": "Kubrick"
+    },
+    {
+      "id": "69fea32c668925d9991393dc",
+      "src": "/classic-cinema/United%20Artists.webp",
+      "division": "212",
+      "label": "United Artists"
+    },
+    {
+      "id": "69fea32c668925d9991393dd",
+      "src": "/classic-cinema/John-Cassavetes.webp",
+      "division": "nrc",
+      "label": "John Cassavetes"
+    },
+    {
+      "id": "69fea32c668925d9991393de",
+      "src": "/classic-cinema/Orson%20Welles.webp",
+      "division": "212",
+      "label": "Orson Welles"
+    },
+    {
+      "id": "69fea32c668925d9991393df",
+      "src": "/classic-cinema/Hitchcock%20%26%20Grant%20%7C%20ToCatch%20a%20Thief.jpg",
+      "division": "212",
+      "label": "Hitchcock & Grant"
+    },
+    {
+      "id": "69fea32c668925d9991393e0",
+      "src": "/classic-cinema/MGM-Studios.jpg",
+      "division": "310",
+      "label": "MGM Studios"
+    },
+    {
+      "id": "69fea32c668925d9991393e1",
+      "src": "/classic-cinema/Notorious1946.jpg",
+      "division": "none",
+      "label": "Notorious"
+    },
+    {
+      "id": "69fea32c668925d9991393e2",
+      "src": "/classic-cinema/Garbo.jpg",
+      "division": "212",
+      "label": "Garbo"
+    },
+    {
+      "id": "69fea32c668925d9991393e3",
+      "src": "/classic-cinema/Pacino.webp",
+      "division": "310",
+      "label": "Pacino"
+    },
+    {
+      "id": "69fea32c668925d9991393e4",
+      "src": "/classic-cinema/Cassavetes.jpg",
+      "division": "310",
+      "label": "Cassavetes"
+    },
+    {
+      "id": "69fea32c668925d9991393e5",
+      "src": "/classic-cinema/Superman%20%7C%20Reeves%20%26%20Kitter.jpg",
+      "division": "212",
+      "label": "Superman Reeves & Kitter"
+    },
+    {
+      "id": "69fea32c668925d9991393e6",
+      "src": "/classic-cinema/Raging%20Bull.webp",
+      "division": "none",
+      "label": "Raging Bull"
+    },
+    {
+      "id": "69fea32c668925d9991393e7",
+      "src": "/classic-cinema/Superman%20Behind%20the%20Scenes.jpg",
+      "division": "310",
+      "label": "Superman Behind the Scenes"
+    }
+  ],
+  "divisions": [
+    {
+      "id": "69fea32c668925d9991393e8",
+      "name": "(212) Pictures",
+      "colorToken": "--amber",
+      "description": "East Coast. Crime, drama, documentary. Television series and documentaries drawn from the pulse of New York City — its politics, its parishes, its precinct back rooms to the halls of D.C. and Beentown. Stories rooted in the five boroughs and the people who make them work."
+    },
+    {
+      "id": "69fea32c668925d9991393e9",
+      "name": "(310) Pictures",
+      "colorToken": "--teal",
+      "description": "Los Angeles. Long-form sagas and global stories. Limited series and features that follow the narrative wherever it leads — L.A., Rome, Brooklyn, beyond. Formats that cross borders, languages, and genres without losing their footing."
+    },
+    {
+      "id": "69fea32c668925d9991393ea",
+      "name": "New Renaissance Cinema",
+      "colorToken": "--offwhite",
+      "description": "Feature films. Highly curated, small-batch productions made with the ambition and rigor of a new cinematic renaissance. Timeless themes, moral clarity, production excellence. No focus groups. No compromise."
+    }
+  ],
+  "quotesLabel": "Principles of the Craft.",
+  "homepageBands": [
+    {
+      "id": "69fea32c668925d9991393eb",
+      "bandKind": "structure_divider",
+      "dividerLabel": "Estabilshed 2026",
+      "centeredText": "New York City"
+    }
+  ],
+  "updatedAt": "2026-05-09T02:59:56.049Z",
+  "createdAt": "2026-05-09T02:57:10.671Z",
+  "globalType": "homepage"
+}

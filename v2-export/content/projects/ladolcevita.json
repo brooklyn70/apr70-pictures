@@ -1,0 +1,221 @@
+{
+  "id": 5,
+  "title": "L.A. Dolce Vita",
+  "slug": "ladolcevita",
+  "division": "310",
+  "divisionIds": [],
+  "subtitle": "Limited Series",
+  "projectFormat": "Limited Series / 10 Episodes",
+  "status": "bible",
+  "year": "2026",
+  "heroImage": "/slate/ladolcevita/hero/hero_l.a._dolce_vita_001.png",
+  "heroImageMedia": 53,
+  "heroQuality": "medium",
+  "videoSrc": "",
+  "category": "television",
+  "categoryList": [],
+  "logline": "A journalist arrives in Los Angeles at the worst possible time -- uncovering corruption and celebrity excess, only to find his long-lost love at the center of his investigation, their secret daughter caught between him and his corrupt father's empire.",
+  "detail": "When a presidential candidate is caught via live stream with a mysterious woman, the ensuing scandal unravels fifteen years of secrets. A journalist's vanished fiancee, his hidden daughter, and a crime family's plan to claim her as heir converge in a web of power, legacy, and redemption.",
+  "meta": [
+    {
+      "id": "69fea1c41bb910d5d8a36a95",
+      "label": "Genre",
+      "value": "Political Thriller / Neo-Noir"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a96",
+      "label": "Budget",
+      "value": "$30M -- $50M"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a97",
+      "label": "Episodes",
+      "value": "10"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a98",
+      "label": "Format",
+      "value": "35mm film, no CGI, live orchestra (Nino Rota style)"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a99",
+      "label": "Writer",
+      "value": "TBD"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a9a",
+      "label": "Director",
+      "value": "TBD"
+    }
+  ],
+  "images": [
+    {
+      "id": "69fea21789ea7ad676e7e2cf",
+      "path": "/slate/ladolcevita/gallery/l.a._dolce_vita_marcello.png",
+      "imageMedia": 49,
+      "character": "Marcello",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2d0",
+      "path": "/slate/ladolcevita/gallery/l.a._dolce_vita_mario.png",
+      "imageMedia": 50,
+      "character": "Mario",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2d1",
+      "path": "/slate/ladolcevita/gallery/l.a._dolce_vita_Jojo.png",
+      "imageMedia": 47,
+      "character": "Jojo",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2d2",
+      "path": "/slate/ladolcevita/gallery/l.a._dolce_vita_Mr._X.png",
+      "imageMedia": 51,
+      "character": "Mr. X",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2d3",
+      "path": "/slate/ladolcevita/gallery/l.a._dolce_vita_aimee.png",
+      "imageMedia": 43,
+      "character": "Aimee",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2d4",
+      "path": "/slate/ladolcevita/gallery/l.a._dolce_vita_enrico.png",
+      "imageMedia": 46,
+      "character": "Enrico",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2d5",
+      "path": "/slate/ladolcevita/gallery/l.a._dolce_vita_elizabeth.png",
+      "imageMedia": 45,
+      "character": "Elizabeth",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2d6",
+      "path": "/slate/ladolcevita/gallery/l.a._dolce_vita_Koko.png",
+      "imageMedia": 48,
+      "character": "Koko",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2d7",
+      "path": "/slate/ladolcevita/gallery/l.a._dolce_vita_BigJim.jpg",
+      "imageMedia": 44,
+      "character": "Big Jim",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2d8",
+      "path": "/slate/ladolcevita/gallery/l.a._dolce_vita_weinstein.jpg",
+      "imageMedia": 52,
+      "character": "Weinstein",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    }
+  ],
+  "attachments": [
+    {
+      "id": "69fea21789ea7ad676e7e2d9",
+      "title": "L.A. Dolce Vita — Slide Deck",
+      "url": "/artifacts/projects/ladolcevita/slide-deck.html",
+      "attachmentMedia": 5
+    }
+  ],
+  "projectQuotes": [
+    {
+      "id": "69fea1c41bb910d5d8a36aa6",
+      "quote": "You fight for the truth in a newspaper. I fight for it in the history books. Guess which one lasts longer.",
+      "author": "Mario Chigi"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36aa7",
+      "quote": "The difference between an heir and a victim is knowing which curse to break.",
+      "author": "Aimee Pearl Chigi"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36aa8",
+      "quote": "In the age of live streams, a lie is just a moment. But a typewriter leaves a receipt.",
+      "author": "Marcello di Bari"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36aa9",
+      "quote": "A mother's guilt isn't an emotion. It's a habit. And I'm trying to break it.",
+      "author": "Elizabeth Hartly"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36aaa",
+      "quote": "You see a fire-ravaged city. I see a network that needs rebooting. Either way, something gets cleared out.",
+      "author": "Koko Yi-Kim"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36aab",
+      "quote": "There is no ruin. There is only a pivot. And my next act will be flawless.",
+      "author": "Senator Jamie Thomson"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36aac",
+      "quote": "Silence says more than words in this town. You just have to know which silence to listen to.",
+      "author": "General Noir"
+    }
+  ],
+  "content": {
+    "root": {
+      "type": "root",
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "children": [
+        {
+          "type": "paragraph",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "mode": "normal",
+              "text": "",
+              "type": "text",
+              "style": "",
+              "detail": 0,
+              "format": 0,
+              "version": 1
+            }
+          ],
+          "direction": null,
+          "textStyle": "",
+          "textFormat": 0
+        }
+      ],
+      "direction": null
+    }
+  },
+  "updatedAt": "2026-05-09T02:55:19.114Z",
+  "createdAt": "2026-05-07T21:07:35.326Z"
+}

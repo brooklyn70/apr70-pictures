@@ -1,0 +1,236 @@
+{
+  "id": 6,
+  "title": "The Mayors",
+  "slug": "mayors",
+  "division": "212",
+  "divisionIds": [],
+  "subtitle": "Documentary",
+  "projectFormat": "Documentary / 11 Episodes",
+  "status": "pitch",
+  "year": "2026",
+  "heroImage": "/slate/mayors/hero/hero_the_mayors_v001.png",
+  "heroImageMedia": 62,
+  "heroQuality": "high",
+  "videoSrc": "/slate/mayors/video/mayor.mp4",
+  "category": "documentary",
+  "categoryList": [],
+  "logline": "Over the last 75 years, eleven mayors governed New York City. Each inherited a crisis -- or created one. This sprawling investigation traces the policy decisions, power grabs, incompetence, and ideology that transformed America's greatest city from the safe, prosperous 1950s into a modern cautionary tale.",
+  "detail": "A street-level history of power in New York. Archival footage, on-the-ground reporting, and candid voices from the neighborhoods that lived through each administration.",
+  "meta": [
+    {
+      "id": "69fea1c41bb910d5d8a36aad",
+      "label": "Genre",
+      "value": "Political Documentary"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36aae",
+      "label": "Budget",
+      "value": "~$896K Total"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36aaf",
+      "label": "Episodes",
+      "value": "11"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ab0",
+      "label": "Target Network",
+      "value": "Newsmax TV"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ab1",
+      "label": "Writer",
+      "value": "TBD"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ab2",
+      "label": "Director",
+      "value": "TBD"
+    }
+  ],
+  "images": [
+    {
+      "id": "69fea21789ea7ad676e7e2da",
+      "path": "/slate/mayors/hero/hero_the_mayors_v001.png",
+      "imageMedia": 64,
+      "character": "",
+      "bio": "",
+      "type": "video",
+      "videoSrc": "/slate/mayors/video/mayor.mp4"
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2db",
+      "path": "/slate/mayors/hero/hero_the_mayors_v001.png",
+      "imageMedia": 62,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2dc",
+      "path": "/slate/mayors/hero/mayors_hero_v2.jpeg",
+      "imageMedia": 63,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2dd",
+      "path": "/slate/mayors/gallery/the_mayors_cityhallsideviewsunset.png",
+      "imageMedia": 56,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2de",
+      "path": "/slate/mayors/gallery/the_mayors_archivalfilmhands.png",
+      "imageMedia": 54,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2df",
+      "path": "/slate/mayors/gallery/the_mayors_boatdeckimmigrantdowntown.png",
+      "imageMedia": 55,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2e0",
+      "path": "/slate/mayors/gallery/the_mayors_couplewatchingtv.png",
+      "imageMedia": 57,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2e1",
+      "path": "/slate/mayors/gallery/the_mayors_rooftopintervista.png",
+      "imageMedia": 58,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2e2",
+      "path": "/slate/mayors/gallery/the_mayors_split_5th_ave.png",
+      "imageMedia": 59,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2e3",
+      "path": "/slate/mayors/gallery/the_mayors_splitscreentsquare.png",
+      "imageMedia": 60,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2e4",
+      "path": "/slate/mayors/gallery/the_mayors_trashunderpass.png",
+      "imageMedia": 61,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    }
+  ],
+  "attachments": [
+    {
+      "id": "69fea21789ea7ad676e7e2e5",
+      "title": "The Mayors — Documentary Treatment",
+      "url": "/artifacts/projects/mayors/the-mayors.html",
+      "attachmentMedia": 7
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2e6",
+      "title": "The Mayors — Slide Deck",
+      "url": "/artifacts/projects/mayors/slide-deck.html",
+      "attachmentMedia": 6
+    }
+  ],
+  "projectQuotes": [
+    {
+      "id": "69fea1c41bb910d5d8a36ac0",
+      "quote": "There is no Democratic or Republican way of cleaning the streets.",
+      "author": "Mayor Fiorello LaGuardia"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ac1",
+      "quote": "How'm I doin'?",
+      "author": "Mayor Ed Koch"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ac2",
+      "quote": "The city is not a concrete jungle. It is a human zoo.",
+      "author": "Desmond Morris"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ac3",
+      "quote": "[TBD — Jimmy Breslin column on City Hall]",
+      "author": "— Placeholder"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ac4",
+      "quote": "[TBD — LaGuardia WNYC radio address, 1940s]",
+      "author": "— Placeholder"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ac5",
+      "quote": "[TBD — Giuliani-era quote on crime and order]",
+      "author": "— Placeholder"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ac6",
+      "quote": "[TBD — Bloomberg on governance by data]",
+      "author": "— Placeholder"
+    }
+  ],
+  "content": {
+    "root": {
+      "type": "root",
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "children": [
+        {
+          "type": "paragraph",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "mode": "normal",
+              "text": "",
+              "type": "text",
+              "style": "",
+              "detail": 0,
+              "format": 0,
+              "version": 1
+            }
+          ],
+          "direction": null,
+          "textStyle": "",
+          "textFormat": 0
+        }
+      ],
+      "direction": null
+    }
+  },
+  "updatedAt": "2026-05-09T02:55:19.136Z",
+  "createdAt": "2026-05-07T21:07:35.339Z"
+}

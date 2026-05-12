@@ -1,0 +1,77 @@
+{
+  "id": 1,
+  "entryType": "article",
+  "indexSubtext": "",
+  "title": "Three Projects Enter Active Development",
+  "slug": "development-update",
+  "date": "2026-04-22T00:00:00.000Z",
+  "deck": "The studio is moving three titles from the slate into full development — spanning documentary, drama series, and limited series formats.",
+  "images": [],
+  "link": {
+    "label": "",
+    "href": ""
+  },
+  "downloads": [],
+  "video": {
+    "src": "",
+    "poster": "",
+    "posterMedia": null,
+    "caption": ""
+  },
+  "audio": [],
+  "featured": false,
+  "category": "",
+  "content": {
+    "root": {
+      "type": "root",
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "children": [
+        {
+          "type": "paragraph",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "mode": "normal",
+              "text": "Development is underway on three projects from the APR 70 slate. Each is at a different stage — treatment complete, bible in progress, or pitch materials being assembled.",
+              "type": "text",
+              "style": "",
+              "detail": 0,
+              "format": 0,
+              "version": 1
+            }
+          ],
+          "direction": null,
+          "textStyle": "",
+          "textFormat": 0
+        },
+        {
+          "type": "paragraph",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "mode": "normal",
+              "text": "The slate page reflects current status on each title. Entries will be updated as milestones are reached.",
+              "type": "text",
+              "style": "",
+              "detail": 0,
+              "format": 0,
+              "version": 1
+            }
+          ],
+          "direction": null,
+          "textStyle": "",
+          "textFormat": 0
+        }
+      ],
+      "direction": null
+    }
+  },
+  "updatedAt": "2026-05-09T02:55:19.215Z",
+  "createdAt": "2026-05-07T21:21:06.102Z"
+}

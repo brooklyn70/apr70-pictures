@@ -1,0 +1,164 @@
+{
+  "id": 7,
+  "title": "The Movement",
+  "slug": "movement",
+  "division": "212",
+  "divisionIds": [],
+  "subtitle": "Television Series",
+  "projectFormat": "Television Series",
+  "status": "development",
+  "year": "2026",
+  "heroImage": "/slate/movement/hero/movement_hero_1.jpeg",
+  "heroImageMedia": 66,
+  "heroQuality": "high",
+  "videoSrc": "",
+  "category": "television",
+  "categoryList": [],
+  "logline": "Seven gifted international students recruited for covert missions by the world's most powerful secret society -- set against a New York City mayoral election, September 2012.",
+  "detail": "A political thriller with spy-drama elements and Young Adult sensibility. The intersection of idealism, manipulation, and power in America's capital of ambition. A city on the edge of change, and a group of young operatives who don't yet know the cost of being useful.",
+  "meta": [
+    {
+      "id": "69fea1c41bb910d5d8a36ac7",
+      "label": "Genre",
+      "value": "Political Thriller / Spy Drama"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ac8",
+      "label": "Setting",
+      "value": "NYC, September 2012"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ac9",
+      "label": "Format",
+      "value": "Streaming Series"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36aca",
+      "label": "Episodes",
+      "value": "TBD"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36acb",
+      "label": "Writer",
+      "value": "TBD"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36acc",
+      "label": "Director",
+      "value": "TBD"
+    }
+  ],
+  "images": [
+    {
+      "id": "69fea21789ea7ad676e7e2e7",
+      "path": "/slate/movement/hero/movement_hero_1.jpeg",
+      "imageMedia": 66,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2e8",
+      "path": "/slate/movement/hero/movement_hero_2.jpeg",
+      "imageMedia": 67,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2e9",
+      "path": "/slate/movement/gallery/Demonstration.jpeg",
+      "imageMedia": 65,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    }
+  ],
+  "attachments": [
+    {
+      "id": "69fea21789ea7ad676e7e2ea",
+      "title": "The Movement — Treatment",
+      "url": "/artifacts/projects/movement/treatment.html",
+      "attachmentMedia": 9
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2eb",
+      "title": "The Movement — Slide Deck",
+      "url": "/artifacts/projects/movement/slide-deck.html",
+      "attachmentMedia": 8
+    }
+  ],
+  "projectQuotes": [
+    {
+      "id": "69fea1c41bb910d5d8a36ad2",
+      "quote": "The price of apathy towards public affairs is to be ruled by evil men.",
+      "author": "Plato"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ad3",
+      "quote": "Every great dream begins with a dreamer.",
+      "author": "Harriet Tubman"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ad4",
+      "quote": "[TBD — Jane Jacobs on NYC neighborhoods]",
+      "author": "— Placeholder"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ad5",
+      "quote": "[TBD — intelligence community operational creed]",
+      "author": "— Placeholder"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ad6",
+      "quote": "[TBD — 2012 Occupy-era manifesto fragment]",
+      "author": "— Placeholder"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ad7",
+      "quote": "[TBD — Gloria Steinem on youth and power]",
+      "author": "— Placeholder"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ad8",
+      "quote": "[TBD — Henry Kissinger on covert strategy]",
+      "author": "— Placeholder"
+    }
+  ],
+  "content": {
+    "root": {
+      "type": "root",
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "children": [
+        {
+          "type": "paragraph",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "mode": "normal",
+              "text": "",
+              "type": "text",
+              "style": "",
+              "detail": 0,
+              "format": 0,
+              "version": 1
+            }
+          ],
+          "direction": null,
+          "textStyle": "",
+          "textFormat": 0
+        }
+      ],
+      "direction": null
+    }
+  },
+  "updatedAt": "2026-05-09T02:55:19.159Z",
+  "createdAt": "2026-05-07T21:07:35.353Z"
+}

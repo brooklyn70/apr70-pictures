@@ -1,0 +1,49 @@
+{
+  "id": 1,
+  "sectionLabel": "Submit a Pitch",
+  "heading": "SUBMIT A PITCH",
+  "subtext": "APR 70 Pictures reads every submission. Here is what to send and how to send it.",
+  "whatWeMakeHeading": "We make films people want to see.",
+  "whatWeMakeBody": "APR 70 is not in the business of content. We are in the business of stories — stories built to last, built to be seen more than once, built to mean something to the person watching alone and to the room watching together. Commercial and artistically serious are not opposites. The work that endures is almost always both. That is the standard we hold our own projects to, and it is the standard we apply when reading yours.",
+  "whatWeAreLookingForHeading": "What we develop.",
+  "whatWeAreLookingForBody": "Feature films, limited television series, documentaries, and audio drama. We develop projects across all three divisions — (212) Pictures (East Coast crime, drama, documentary), (310) Pictures (long-form saga, global storytelling), and New Renaissance Cinema (curated feature films). The project does not need to fit a single division to be worth submitting — tell us the story and we will figure out where it belongs.",
+  "requirementsHeading": "What to include.",
+  "requirements": [
+    {
+      "id": "69fea32c668925d9991393ff",
+      "label": "Synopsis",
+      "text": "A one-page synopsis. What happens, who it happens to, and why it matters. No teasing the ending — write it as if you are pitching the project to a development executive who has thirty seconds."
+    },
+    {
+      "id": "69fea32c668925d999139400",
+      "label": "Plot and Arc",
+      "text": "The full narrative arc. Beginning, middle, end. For series, include episode or season breakdown. For features, include act structure. We read for structure first."
+    },
+    {
+      "id": "69fea32c668925d999139401",
+      "label": "Characters",
+      "text": "Principal characters with brief descriptions. Who they are, what they want, what stands in their way. Not backstory — drive."
+    },
+    {
+      "id": "69fea32c668925d999139402",
+      "label": "Creative Team",
+      "text": "Writer, director, producer, or any combination currently attached. If the project is a solo writer submission, say so. We are interested in the material regardless of team size at this stage."
+    },
+    {
+      "id": "69fea32c668925d999139403",
+      "label": "Contact Information",
+      "text": "Name, email address, and the best way to follow up. If you are represented, include your representative's contact information as well."
+    },
+    {
+      "id": "69fea32c668925d999139404",
+      "label": "Attachment",
+      "text": "A single PDF, maximum 25 MB. Everything above in one document. No links to Google Drive, Dropbox, or third-party platforms."
+    }
+  ],
+  "howToSubmitHeading": "Send it here.",
+  "howToSubmitBody": "Email your submission to submissions@aprpictures.com with \"PITCH — [Project Title]\" in the subject line. We acknowledge every submission and respond on our timeline, which may be several weeks. We do not provide development notes on unsolicited material. If we are interested, we will reach out directly.",
+  "cta": "submissions@aprpictures.com",
+  "updatedAt": "2026-05-09T02:59:56.135Z",
+  "createdAt": "2026-05-09T02:57:10.737Z",
+  "globalType": "pitch"
+}

@@ -1,0 +1,93 @@
+{
+  "id": 3,
+  "entryType": "site_intro",
+  "indexSubtext": "Updates from APR 70 Pictures — projects, announcements, and developments from the studio.",
+  "title": "News site settings",
+  "slug": "news-site-settings",
+  "date": null,
+  "deck": "",
+  "images": [],
+  "link": {
+    "label": "",
+    "href": ""
+  },
+  "downloads": [],
+  "video": {
+    "src": "",
+    "poster": "",
+    "posterMedia": null,
+    "caption": ""
+  },
+  "audio": [],
+  "featured": false,
+  "category": "",
+  "content": {
+    "root": {
+      "type": "root",
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "children": [
+        {
+          "type": "paragraph",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "mode": "normal",
+              "text": "This file is ",
+              "type": "text",
+              "style": "",
+              "detail": 0,
+              "format": 0,
+              "version": 1
+            },
+            {
+              "mode": "normal",
+              "text": "not a news story",
+              "type": "text",
+              "style": "",
+              "detail": 0,
+              "format": 1,
+              "version": 1
+            },
+            {
+              "mode": "normal",
+              "text": ". It only supplies the subtext under the News heading on ",
+              "type": "text",
+              "style": "",
+              "detail": 0,
+              "format": 0,
+              "version": 1
+            },
+            {
+              "mode": "normal",
+              "text": "/news",
+              "type": "text",
+              "style": "",
+              "detail": 0,
+              "format": 16,
+              "version": 1
+            },
+            {
+              "mode": "normal",
+              "text": ". Stories are separate entries in this same collection.",
+              "type": "text",
+              "style": "",
+              "detail": 0,
+              "format": 0,
+              "version": 1
+            }
+          ],
+          "direction": null,
+          "textStyle": "",
+          "textFormat": 0
+        }
+      ],
+      "direction": null
+    }
+  },
+  "updatedAt": "2026-05-09T02:55:19.234Z",
+  "createdAt": "2026-05-07T21:21:06.124Z"
+}

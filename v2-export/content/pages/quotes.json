@@ -1,0 +1,582 @@
+{
+  "id": 1,
+  "pages": [
+    {
+      "id": "69fea32c668925d99913940f",
+      "route": "/",
+      "quotes": [
+        {
+          "id": "69fea32c668925d999139408",
+          "quote": "The cinema is not a slice of life, but a piece of cake.",
+          "attribution": "Alfred Hitchcock"
+        },
+        {
+          "id": "69fea32c668925d999139409",
+          "quote": "Cinema is a matter of what's in the frame and what's out.",
+          "attribution": "Martin Scorsese"
+        },
+        {
+          "id": "69fea32c668925d99913940a",
+          "quote": "I steal from every single movie ever made.",
+          "attribution": "Quentin Tarantino"
+        },
+        {
+          "id": "69fea32c668925d99913940b",
+          "quote": "Every great film should seem new every time you see it.",
+          "attribution": "Roger Ebert"
+        },
+        {
+          "id": "69fea32c668925d99913940c",
+          "quote": "Film is a disease.",
+          "attribution": "Frank Capra"
+        },
+        {
+          "id": "69fea32c668925d99913940d",
+          "quote": "A story should have a beginning, a middle, and an end, but not necessarily in that order.",
+          "attribution": "Jean-Luc Godard"
+        },
+        {
+          "id": "69fea32c668925d99913940e",
+          "quote": "The most honest form of filmmaking is to make a film for yourself.",
+          "attribution": "Peter Jackson"
+        }
+      ]
+    },
+    {
+      "id": "69fea32c668925d999139417",
+      "route": "/divisions",
+      "quotes": [
+        {
+          "id": "69fea32c668925d999139410",
+          "quote": "Cinema is the most beautiful fraud in the world.",
+          "attribution": "Jean-Luc Godard"
+        },
+        {
+          "id": "69fea32c668925d999139411",
+          "quote": "A different language is a different vision of life.",
+          "attribution": "Federico Fellini"
+        },
+        {
+          "id": "69fea32c668925d999139412",
+          "quote": "The beautiful is always strange.",
+          "attribution": "Charles Baudelaire"
+        },
+        {
+          "id": "69fea32c668925d999139413",
+          "quote": "Art is not what you see, but what you make others see.",
+          "attribution": "Edgar Degas"
+        },
+        {
+          "id": "69fea32c668925d999139414",
+          "quote": "To make a great film you need three things: the script, the script, and the script.",
+          "attribution": "Alfred Hitchcock"
+        },
+        {
+          "id": "69fea32c668925d999139415",
+          "quote": "I don't dream at night, I dream all day; I dream for a living.",
+          "attribution": "Steven Spielberg"
+        },
+        {
+          "id": "69fea32c668925d999139416",
+          "quote": "Films are about discovery.",
+          "attribution": "Sydney Pollack"
+        }
+      ]
+    },
+    {
+      "id": "69fea32c668925d99913941f",
+      "route": "/work",
+      "quotes": [
+        {
+          "id": "69fea32c668925d999139418",
+          "quote": "The whole point of making a film is to have your version of a story told.",
+          "attribution": "Ridley Scott"
+        },
+        {
+          "id": "69fea32c668925d999139419",
+          "quote": "You've got to find the story you want to tell.",
+          "attribution": "Anthony Minghella"
+        },
+        {
+          "id": "69fea32c668925d99913941a",
+          "quote": "Filmmaking is a chance to live many lifetimes.",
+          "attribution": "Robert Altman"
+        },
+        {
+          "id": "69fea32c668925d99913941b",
+          "quote": "Movies are a complicated collision of literature, theatre, music, and all the visual arts.",
+          "attribution": "Stanley Kubrick"
+        },
+        {
+          "id": "69fea32c668925d99913941c",
+          "quote": "The enemy of art is the absence of limitations.",
+          "attribution": "Orson Welles"
+        },
+        {
+          "id": "69fea32c668925d99913941d",
+          "quote": "Every scene should be able to function as its own short film.",
+          "attribution": "Paul Thomas Anderson"
+        },
+        {
+          "id": "69fea32c668925d99913941e",
+          "quote": "No art passes our conscience in the way film does, and goes directly to our feelings.",
+          "attribution": "Ingmar Bergman"
+        }
+      ]
+    },
+    {
+      "id": "69fea32c668925d999139427",
+      "route": "/investors",
+      "quotes": [
+        {
+          "id": "69fea32c668925d999139420",
+          "quote": "[DUMMY QUOTE — replace me]",
+          "attribution": "TBD"
+        },
+        {
+          "id": "69fea32c668925d999139421",
+          "quote": "[DUMMY QUOTE — replace me]",
+          "attribution": "TBD"
+        },
+        {
+          "id": "69fea32c668925d999139422",
+          "quote": "[DUMMY QUOTE — replace me]",
+          "attribution": "TBD"
+        },
+        {
+          "id": "69fea32c668925d999139423",
+          "quote": "[DUMMY QUOTE — replace me]",
+          "attribution": "TBD"
+        },
+        {
+          "id": "69fea32c668925d999139424",
+          "quote": "[DUMMY QUOTE — replace me]",
+          "attribution": "TBD"
+        },
+        {
+          "id": "69fea32c668925d999139425",
+          "quote": "[DUMMY QUOTE — replace me]",
+          "attribution": "TBD"
+        },
+        {
+          "id": "69fea32c668925d999139426",
+          "quote": "[DUMMY QUOTE — replace me]",
+          "attribution": "TBD"
+        }
+      ]
+    },
+    {
+      "id": "69fea32c668925d99913942f",
+      "route": "/contact",
+      "quotes": [
+        {
+          "id": "69fea32c668925d999139428",
+          "quote": "[DUMMY QUOTE — replace me]",
+          "attribution": "TBD"
+        },
+        {
+          "id": "69fea32c668925d999139429",
+          "quote": "[DUMMY QUOTE — replace me]",
+          "attribution": "TBD"
+        },
+        {
+          "id": "69fea32c668925d99913942a",
+          "quote": "[DUMMY QUOTE — replace me]",
+          "attribution": "TBD"
+        },
+        {
+          "id": "69fea32c668925d99913942b",
+          "quote": "[DUMMY QUOTE — replace me]",
+          "attribution": "TBD"
+        },
+        {
+          "id": "69fea32c668925d99913942c",
+          "quote": "[DUMMY QUOTE — replace me]",
+          "attribution": "TBD"
+        },
+        {
+          "id": "69fea32c668925d99913942d",
+          "quote": "[DUMMY QUOTE — replace me]",
+          "attribution": "TBD"
+        },
+        {
+          "id": "69fea32c668925d99913942e",
+          "quote": "[DUMMY QUOTE — replace me]",
+          "attribution": "TBD"
+        }
+      ]
+    },
+    {
+      "id": "69fea32c668925d999139437",
+      "route": "/projects/mayors",
+      "quotes": [
+        {
+          "id": "69fea32c668925d999139430",
+          "quote": "There is no Democratic or Republican way of cleaning the streets.",
+          "attribution": "Mayor Fiorello LaGuardia"
+        },
+        {
+          "id": "69fea32c668925d999139431",
+          "quote": "How'm I doin'?",
+          "attribution": "Mayor Ed Koch"
+        },
+        {
+          "id": "69fea32c668925d999139432",
+          "quote": "The city is not a concrete jungle. It is a human zoo.",
+          "attribution": "Desmond Morris"
+        },
+        {
+          "id": "69fea32c668925d999139433",
+          "quote": "[TBD — Jimmy Breslin column on City Hall]",
+          "attribution": "Placeholder"
+        },
+        {
+          "id": "69fea32c668925d999139434",
+          "quote": "[TBD — LaGuardia WNYC radio address, 1940s]",
+          "attribution": "Placeholder"
+        },
+        {
+          "id": "69fea32c668925d999139435",
+          "quote": "[TBD — Giuliani-era quote on crime and order]",
+          "attribution": "Placeholder"
+        },
+        {
+          "id": "69fea32c668925d999139436",
+          "quote": "[TBD — Bloomberg on governance by data]",
+          "attribution": "Placeholder"
+        }
+      ]
+    },
+    {
+      "id": "69fea32c668925d99913943f",
+      "route": "/projects/brooklyn",
+      "quotes": [
+        {
+          "id": "69fea32c668925d999139438",
+          "quote": "I am large, I contain multitudes.",
+          "attribution": "Walt Whitman, Leaves of Grass"
+        },
+        {
+          "id": "69fea32c668925d999139439",
+          "quote": "Stay far from timid. Only make moves when your heart's in it.",
+          "attribution": "The Notorious B.I.G."
+        },
+        {
+          "id": "69fea32c668925d99913943a",
+          "quote": "Money, power, and respect. The key to life.",
+          "attribution": "The Lox"
+        },
+        {
+          "id": "69fea32c668925d99913943b",
+          "quote": "Either you slang crack rock, or you got a wicked jump shot.",
+          "attribution": "The Notorious B.I.G., Things Done Changed"
+        },
+        {
+          "id": "69fea32c668925d99913943c",
+          "quote": "[TBD — 1990s Brooklyn street wisdom]",
+          "attribution": "Placeholder"
+        },
+        {
+          "id": "69fea32c668925d99913943d",
+          "quote": "[TBD — Spike Lee dialogue, Do the Right Thing era]",
+          "attribution": "Placeholder"
+        },
+        {
+          "id": "69fea32c668925d99913943e",
+          "quote": "[TBD — David Simon on the street as classroom]",
+          "attribution": "Placeholder"
+        }
+      ]
+    },
+    {
+      "id": "69fea32c668925d999139447",
+      "route": "/projects/ladolcevita",
+      "quotes": [
+        {
+          "id": "69fea32c668925d999139440",
+          "quote": "You fight for the truth in a newspaper. I fight for it in the history books. Guess which one lasts longer.",
+          "attribution": "Mario Chigi"
+        },
+        {
+          "id": "69fea32c668925d999139441",
+          "quote": "The difference between an heir and a victim is knowing which curse to break.",
+          "attribution": "Aimee Pearl Chigi"
+        },
+        {
+          "id": "69fea32c668925d999139442",
+          "quote": "In the age of live streams, a lie is just a moment. But a typewriter leaves a receipt.",
+          "attribution": "Marcello di Bari"
+        },
+        {
+          "id": "69fea32c668925d999139443",
+          "quote": "A mother's guilt isn't an emotion. It's a habit. And I'm trying to break it.",
+          "attribution": "Elizabeth Hartly"
+        },
+        {
+          "id": "69fea32c668925d999139444",
+          "quote": "You see a fire-ravaged city. I see a network that needs rebooting. Either way, something gets cleared out.",
+          "attribution": "Koko Yi-Kim"
+        },
+        {
+          "id": "69fea32c668925d999139445",
+          "quote": "There is no ruin. There is only a pivot. And my next act will be flawless.",
+          "attribution": "Senator Jamie Thomson"
+        },
+        {
+          "id": "69fea32c668925d999139446",
+          "quote": "Silence says more than words in this town. You just have to know which silence to listen to.",
+          "attribution": "General Noir"
+        }
+      ]
+    },
+    {
+      "id": "69fea32c668925d99913944f",
+      "route": "/projects/falcon",
+      "quotes": [
+        {
+          "id": "69fea32c668925d999139448",
+          "quote": "The stuff that dreams are made of.",
+          "attribution": "The Maltese Falcon (1941)"
+        },
+        {
+          "id": "69fea32c668925d999139449",
+          "quote": "The cheaper the crook, the gaudier the patter.",
+          "attribution": "Dashiell Hammett, The Maltese Falcon"
+        },
+        {
+          "id": "69fea32c668925d99913944a",
+          "quote": "When a man's partner is killed, he's supposed to do something about it.",
+          "attribution": "Sam Spade, The Maltese Falcon"
+        },
+        {
+          "id": "69fea32c668925d99913944b",
+          "quote": "I don't mind a reasonable amount of trouble.",
+          "attribution": "Sam Spade, The Maltese Falcon"
+        },
+        {
+          "id": "69fea32c668925d99913944c",
+          "quote": "[TBD — Raymond Chandler on the mean streets]",
+          "attribution": "Placeholder"
+        },
+        {
+          "id": "69fea32c668925d99913944d",
+          "quote": "[TBD — 1970s Brooklyn street survival]",
+          "attribution": "Placeholder"
+        },
+        {
+          "id": "69fea32c668925d99913944e",
+          "quote": "[TBD — Jimmy Breslin on Carroll Gardens]",
+          "attribution": "Placeholder"
+        }
+      ]
+    },
+    {
+      "id": "69fea32c668925d999139457",
+      "route": "/projects/alphayy",
+      "quotes": [
+        {
+          "id": "69fea32c668925d999139450",
+          "quote": "As far back as I can remember, I always wanted to be a gangster.",
+          "attribution": "Nicholas Pileggi, Wiseguy"
+        },
+        {
+          "id": "69fea32c668925d999139451",
+          "quote": "A man who doesn't spend time with his family can never be a real man.",
+          "attribution": "Mario Puzo, The Godfather"
+        },
+        {
+          "id": "69fea32c668925d999139452",
+          "quote": "Keep your friends close, but your enemies closer.",
+          "attribution": "Michael Corleone, The Godfather Part II"
+        },
+        {
+          "id": "69fea32c668925d999139453",
+          "quote": "I'm gonna make him an offer he can't refuse.",
+          "attribution": "Don Corleone, The Godfather"
+        },
+        {
+          "id": "69fea32c668925d999139454",
+          "quote": "[TBD — Staten Island enforcement oral history]",
+          "attribution": "Placeholder"
+        },
+        {
+          "id": "69fea32c668925d999139455",
+          "quote": "[TBD — Donnie Brasco-era undercover observation]",
+          "attribution": "Placeholder"
+        },
+        {
+          "id": "69fea32c668925d999139456",
+          "quote": "[TBD — Italian-American urban literature]",
+          "attribution": "Placeholder"
+        }
+      ]
+    },
+    {
+      "id": "69fea32c668925d99913945f",
+      "route": "/projects/movement",
+      "quotes": [
+        {
+          "id": "69fea32c668925d999139458",
+          "quote": "The price of apathy towards public affairs is to be ruled by evil men.",
+          "attribution": "Plato"
+        },
+        {
+          "id": "69fea32c668925d999139459",
+          "quote": "Every great dream begins with a dreamer.",
+          "attribution": "Harriet Tubman"
+        },
+        {
+          "id": "69fea32c668925d99913945a",
+          "quote": "[TBD — Jane Jacobs on NYC neighborhoods]",
+          "attribution": "Placeholder"
+        },
+        {
+          "id": "69fea32c668925d99913945b",
+          "quote": "[TBD — intelligence community operational creed]",
+          "attribution": "Placeholder"
+        },
+        {
+          "id": "69fea32c668925d99913945c",
+          "quote": "[TBD — 2012 Occupy-era manifesto fragment]",
+          "attribution": "Placeholder"
+        },
+        {
+          "id": "69fea32c668925d99913945d",
+          "quote": "[TBD — Gloria Steinem on youth and power]",
+          "attribution": "Placeholder"
+        },
+        {
+          "id": "69fea32c668925d99913945e",
+          "quote": "[TBD — Henry Kissinger on covert strategy]",
+          "attribution": "Placeholder"
+        }
+      ]
+    },
+    {
+      "id": "69fea32c668925d999139467",
+      "route": "/projects/shadowmaster",
+      "quotes": [
+        {
+          "id": "69fea32c668925d999139460",
+          "quote": "In war, the way is to avoid what is strong and strike at what is weak.",
+          "attribution": "Sun Tzu, The Art of War"
+        },
+        {
+          "id": "69fea32c668925d999139461",
+          "quote": "The supreme art of war is to subdue the enemy without fighting.",
+          "attribution": "Sun Tzu, The Art of War"
+        },
+        {
+          "id": "69fea32c668925d999139462",
+          "quote": "All warfare is based on deception.",
+          "attribution": "Sun Tzu, The Art of War"
+        },
+        {
+          "id": "69fea32c668925d999139463",
+          "quote": "[TBD — John von Neumann on game theory]",
+          "attribution": "Placeholder"
+        },
+        {
+          "id": "69fea32c668925d999139464",
+          "quote": "[TBD — esports finals commentary on control]",
+          "attribution": "Placeholder"
+        },
+        {
+          "id": "69fea32c668925d999139465",
+          "quote": "[TBD — B.F. Skinner on operant conditioning]",
+          "attribution": "Placeholder"
+        },
+        {
+          "id": "69fea32c668925d999139466",
+          "quote": "[TBD — Westworld-style voice on free will]",
+          "attribution": "Placeholder"
+        }
+      ]
+    },
+    {
+      "id": "69fea32c668925d99913946f",
+      "route": "/projects/ubrucculinu",
+      "quotes": [
+        {
+          "id": "69fea32c668925d999139468",
+          "quote": "If we want things to stay as they are, things will have to change.",
+          "attribution": "Giuseppe Tomasi di Lampedusa, The Leopard"
+        },
+        {
+          "id": "69fea32c668925d999139469",
+          "quote": "Cu nesci, arrinesci — he who leaves, succeeds.",
+          "attribution": "Sicilian proverb"
+        },
+        {
+          "id": "69fea32c668925d99913946a",
+          "quote": "Meglio un giorno da leone che cento da pecora.",
+          "attribution": "Italian proverb"
+        },
+        {
+          "id": "69fea32c668925d99913946b",
+          "quote": "Chi semina vento raccoglie tempesta — he who sows the wind reaps the storm.",
+          "attribution": "Italian proverb"
+        },
+        {
+          "id": "69fea32c668925d99913946c",
+          "quote": "The family is the cell of society.",
+          "attribution": "Italian proverb"
+        },
+        {
+          "id": "69fea32c668925d99913946d",
+          "quote": "[TBD — Leonardo Sciascia on Sicilian silence]",
+          "attribution": "Placeholder"
+        },
+        {
+          "id": "69fea32c668925d99913946e",
+          "quote": "[TBD — Elio Vittorini on return to Sicily]",
+          "attribution": "Placeholder"
+        }
+      ]
+    },
+    {
+      "id": "69fea32c668925d999139477",
+      "route": "/projects/cleo",
+      "quotes": [
+        {
+          "id": "69fea32c668925d999139470",
+          "quote": "The cosmos is within us. We are made of star-stuff. We are a way for the universe to know itself.",
+          "attribution": "Carl Sagan"
+        },
+        {
+          "id": "69fea32c668925d999139471",
+          "quote": "We are not human beings having a spiritual experience. We are spiritual beings having a human experience.",
+          "attribution": "Pierre Teilhard de Chardin"
+        },
+        {
+          "id": "69fea32c668925d999139472",
+          "quote": "The present is theirs; the future, for which I really worked, is mine.",
+          "attribution": "Nikola Tesla"
+        },
+        {
+          "id": "69fea32c668925d999139473",
+          "quote": "The universe is not only queerer than we suppose, but queerer than we can suppose.",
+          "attribution": "J.B.S. Haldane"
+        },
+        {
+          "id": "69fea32c668925d999139474",
+          "quote": "Time is the moving image of eternity.",
+          "attribution": "Plato, Timaeus"
+        },
+        {
+          "id": "69fea32c668925d999139475",
+          "quote": "[TBD — many-worlds interpretation quote, Hugh Everett or David Deutsch]",
+          "attribution": "Placeholder"
+        },
+        {
+          "id": "69fea32c668925d999139476",
+          "quote": "[TBD — Simone Weil on attention and grace]",
+          "attribution": "Placeholder"
+        }
+      ]
+    }
+  ],
+  "updatedAt": "2026-05-09T02:57:10.759Z",
+  "createdAt": "2026-05-09T02:57:10.759Z",
+  "globalType": "quotes"
+}

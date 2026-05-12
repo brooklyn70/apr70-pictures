@@ -1,0 +1,77 @@
+{
+  "id": 2,
+  "entryType": "article",
+  "indexSubtext": "",
+  "title": "Investor Materials Now Available",
+  "slug": "investor-materials",
+  "date": "2026-04-29T00:00:00.000Z",
+  "deck": "Qualified investors can now request the current slate package and financial documentation through the Investors page.",
+  "images": [],
+  "link": {
+    "label": "",
+    "href": ""
+  },
+  "downloads": [],
+  "video": {
+    "src": "",
+    "poster": "",
+    "posterMedia": null,
+    "caption": ""
+  },
+  "audio": [],
+  "featured": false,
+  "category": "",
+  "content": {
+    "root": {
+      "type": "root",
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "children": [
+        {
+          "type": "paragraph",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "mode": "normal",
+              "text": "The investor section of the site is live. Interested parties can review the public overview and request the full materials package — including the slate deck and production financials — through the contact form on the Investors page.",
+              "type": "text",
+              "style": "",
+              "detail": 0,
+              "format": 0,
+              "version": 1
+            }
+          ],
+          "direction": null,
+          "textStyle": "",
+          "textFormat": 0
+        },
+        {
+          "type": "paragraph",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "mode": "normal",
+              "text": "APR 70 Pictures is a private company. All investment discussions are subject to NDA and conducted directly.",
+              "type": "text",
+              "style": "",
+              "detail": 0,
+              "format": 0,
+              "version": 1
+            }
+          ],
+          "direction": null,
+          "textStyle": "",
+          "textFormat": 0
+        }
+      ],
+      "direction": null
+    }
+  },
+  "updatedAt": "2026-05-09T02:55:19.225Z",
+  "createdAt": "2026-05-07T21:21:06.116Z"
+}

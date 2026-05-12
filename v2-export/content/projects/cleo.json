@@ -1,0 +1,193 @@
+{
+  "id": 3,
+  "title": "L'Odissea di Cleopatra",
+  "slug": "cleo",
+  "division": "310",
+  "divisionIds": [],
+  "subtitle": "Limited Series",
+  "projectFormat": "Limited Series / 10 Episodes",
+  "status": "development",
+  "year": "2026",
+  "heroImage": "/slate/cleo/hero/hero_l'odissea_di_cleopatra.png",
+  "heroImageMedia": 30,
+  "heroQuality": "high",
+  "videoSrc": "/slate/cleo/video/cleopatra.mp4",
+  "category": "television",
+  "categoryList": [
+    "television"
+  ],
+  "logline": "A Los Angeles social worker wakes in a different version of her life every time she sleeps. As she gains control over the jumps, she discovers an unseen war across dimensions -- and that she may be the key to salvation or destruction.",
+  "detail": "Each night brings a new world, a new life, new consequences. She begins to see patterns -- threads connecting versions of herself across infinite possibilities. Someone or something is orchestrating these jumps. And she is not the only consciousness aware of the war being waged across dimensions.",
+  "meta": [
+    {
+      "id": "69fea1c41bb910d5d8a36a69",
+      "label": "Genre",
+      "value": "Sci-Fi / Psychological Thriller"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a6a",
+      "label": "Budget",
+      "value": "$40M -- $80M"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a6b",
+      "label": "Episodes",
+      "value": "10"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a6c",
+      "label": "Format",
+      "value": "Streaming Series"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a6d",
+      "label": "Writer",
+      "value": "Marc Caruso"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a6e",
+      "label": "Director",
+      "value": "TBD"
+    }
+  ],
+  "images": [
+    {
+      "id": "69fea21789ea7ad676e7e2bd",
+      "path": "/slate/cleo/gallery/Cleopatra_Cleo_glitch.png",
+      "imageMedia": 31,
+      "character": "",
+      "bio": "",
+      "type": "video",
+      "videoSrc": "/slate/cleo/video/cleopatra.mp4"
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2be",
+      "path": "/slate/cleo/gallery/Cleopatra_Cleo.png",
+      "imageMedia": 25,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2bf",
+      "path": "/slate/cleo/gallery/Cleopatra_Dr_Andersen.png",
+      "imageMedia": 26,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2c0",
+      "path": "/slate/cleo/gallery/Cleopatra_Gittes.png",
+      "imageMedia": 28,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2c1",
+      "path": "/slate/cleo/gallery/Cleopatra_Gittes_2.png",
+      "imageMedia": 27,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2c2",
+      "path": "/slate/cleo/gallery/cleopatra_modern.png",
+      "imageMedia": 29,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    }
+  ],
+  "attachments": [
+    {
+      "id": "69fea21789ea7ad676e7e2c3",
+      "title": "L'Odissea di Cleopatra — Treatment",
+      "url": "/artifacts/projects/cleo/treatment.html",
+      "attachmentMedia": 4
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2c4",
+      "title": "L'Odissea di Cleopatra — Slide Deck",
+      "url": "/artifacts/projects/cleo/slide-deck.html",
+      "attachmentMedia": 3
+    }
+  ],
+  "projectQuotes": [
+    {
+      "id": "69fea1c41bb910d5d8a36a77",
+      "quote": "The cosmos is within us. We are made of star-stuff. We are a way for the universe to know itself.",
+      "author": "Carl Sagan"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a78",
+      "quote": "We are not human beings having a spiritual experience. We are spiritual beings having a human experience.",
+      "author": "Pierre Teilhard de Chardin"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a79",
+      "quote": "The present is theirs; the future, for which I really worked, is mine.",
+      "author": "Nikola Tesla"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a7a",
+      "quote": "The universe is not only queerer than we suppose, but queerer than we can suppose.",
+      "author": "J.B.S. Haldane"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a7b",
+      "quote": "Time is the moving image of eternity.",
+      "author": "Plato, Timaeus"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a7c",
+      "quote": "[TBD — many-worlds interpretation quote, Hugh Everett or David Deutsch]",
+      "author": "— Placeholder"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a7d",
+      "quote": "[TBD — Simone Weil on attention and grace]",
+      "author": "— Placeholder"
+    }
+  ],
+  "content": {
+    "root": {
+      "type": "root",
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "children": [
+        {
+          "type": "paragraph",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "mode": "normal",
+              "text": "",
+              "type": "text",
+              "style": "",
+              "detail": 0,
+              "format": 0,
+              "version": 1
+            }
+          ],
+          "direction": null,
+          "textStyle": "",
+          "textFormat": 0
+        }
+      ],
+      "direction": null
+    }
+  },
+  "updatedAt": "2026-05-09T02:55:19.070Z",
+  "createdAt": "2026-05-07T21:07:35.298Z"
+}

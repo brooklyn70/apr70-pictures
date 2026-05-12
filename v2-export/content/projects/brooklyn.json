@@ -1,0 +1,152 @@
+{
+  "id": 2,
+  "title": "A Need Grows in Brooklyn",
+  "slug": "brooklyn",
+  "division": "212",
+  "divisionIds": [
+    "212",
+    "nrc"
+  ],
+  "subtitle": "Television Series / Feature Film",
+  "projectFormat": "TV Series / Feature Film",
+  "status": "development",
+  "year": "2026",
+  "heroImage": "/slate/brooklyn/hero/hero_a_need_grows_in_brooklyn_01.png",
+  "heroImageMedia": 23,
+  "heroQuality": "high",
+  "videoSrc": "/slate/brooklyn/video/Aneedgrows.mp4",
+  "category": "television",
+  "categoryList": [
+    "television",
+    "film"
+  ],
+  "logline": "In Brooklyn's tough streets of the 1990s, a group of teenage friends hustle for money, girls, and respect -- until reckless choices force them to confront the cost of their lifestyle.",
+  "detail": "A neo-realist crime drama shot handheld. Mean Streets meets Kids. Period-accurate Brooklyn and Manhattan locations, authentic dialect, naturalistic performances. The weight of consequence in a world that moves too fast and asks too little.\n\nThe project exists as both a (212) Pictures television series (10 episodes) and a New Renaissance Cinema standalone feature film.",
+  "meta": [
+    {
+      "id": "69fea1c41bb910d5d8a36a59",
+      "label": "Genre",
+      "value": "Coming-of-Age Crime Drama"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a5a",
+      "label": "Budget",
+      "value": "$15M -- $30M"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a5b",
+      "label": "Episodes",
+      "value": "10 (TV) / Feature Film"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a5c",
+      "label": "Format",
+      "value": "Streaming Series / Feature Film"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a5d",
+      "label": "Writer",
+      "value": "TBD"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a5e",
+      "label": "Director",
+      "value": "TBD"
+    }
+  ],
+  "images": [
+    {
+      "id": "69fea21789ea7ad676e7e2ba",
+      "path": "/slate/brooklyn/hero/hero_a_need_grows_in_brooklyn_01.png",
+      "imageMedia": 24,
+      "character": "",
+      "bio": "",
+      "type": "video",
+      "videoSrc": "/slate/brooklyn/video/Aneedgrows.mp4"
+    }
+  ],
+  "attachments": [
+    {
+      "id": "69fea21789ea7ad676e7e2bb",
+      "title": "A Need Grows in Brooklyn — Slide Deck Vol. 1",
+      "url": "/artifacts/projects/brooklyn/slide-deck-v001.html",
+      "attachmentMedia": 1
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2bc",
+      "title": "A Need Grows in Brooklyn — Slide Deck Vol. 2",
+      "url": "/artifacts/projects/brooklyn/slide-deck-v002.html",
+      "attachmentMedia": 2
+    }
+  ],
+  "projectQuotes": [
+    {
+      "id": "69fea1c41bb910d5d8a36a62",
+      "quote": "I am large, I contain multitudes.",
+      "author": "Walt Whitman, Leaves of Grass"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a63",
+      "quote": "Stay far from timid. Only make moves when your heart's in it.",
+      "author": "The Notorious B.I.G."
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a64",
+      "quote": "Money, power, and respect. The key to life.",
+      "author": "The Lox"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a65",
+      "quote": "Either you slang crack rock, or you got a wicked jump shot.",
+      "author": "The Notorious B.I.G., Things Done Changed"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a66",
+      "quote": "[TBD — 1990s Brooklyn street wisdom]",
+      "author": "— Placeholder"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a67",
+      "quote": "[TBD — Spike Lee dialogue, Do the Right Thing era]",
+      "author": "— Placeholder"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a68",
+      "quote": "[TBD — David Simon on the street as classroom]",
+      "author": "— Placeholder"
+    }
+  ],
+  "content": {
+    "root": {
+      "type": "root",
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "children": [
+        {
+          "type": "paragraph",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "mode": "normal",
+              "text": "",
+              "type": "text",
+              "style": "",
+              "detail": 0,
+              "format": 0,
+              "version": 1
+            }
+          ],
+          "direction": null,
+          "textStyle": "",
+          "textFormat": 0
+        }
+      ],
+      "direction": null
+    }
+  },
+  "updatedAt": "2026-05-09T02:55:19.042Z",
+  "createdAt": "2026-05-07T21:07:35.284Z"
+}

@@ -1,0 +1,161 @@
+{
+  "id": 8,
+  "title": "Shadowmaster",
+  "slug": "shadowmaster",
+  "division": "310",
+  "divisionIds": [
+    "310",
+    "nrc"
+  ],
+  "subtitle": "TV Series / Feature Film",
+  "projectFormat": "TV Series / Feature Film",
+  "status": "development",
+  "year": "2026",
+  "heroImage": "/slate/shadowmaster/hero/shadowmaster_hero_v1.png",
+  "heroImageMedia": 69,
+  "heroQuality": "high",
+  "videoSrc": "",
+  "category": "television",
+  "categoryList": [
+    "television",
+    "film"
+  ],
+  "logline": "Elite online gamers command real human avatars in high-stakes scenarios through concealed earpieces. The tension: real-life players can disobey their controllers and follow gut instinct.",
+  "detail": "A hybrid of competitive gaming, documentary, and scripted drama. The format interrogates control, obedience, and the gap between screen-based strategy and human unpredictability. Who is really in charge when the avatar starts thinking for themselves? Expanding across television and an NRC feature film.",
+  "meta": [
+    {
+      "id": "69fea1c41bb910d5d8a36ad9",
+      "label": "Genre",
+      "value": "E-Sports / Live Action"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ada",
+      "label": "Format",
+      "value": "Streaming Series / Reality Hybrid / Feature Film"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36adb",
+      "label": "Episodes",
+      "value": "TBD"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36adc",
+      "label": "Budget",
+      "value": "TBD"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36add",
+      "label": "Writer",
+      "value": "TBD"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ade",
+      "label": "Director",
+      "value": "TBD"
+    }
+  ],
+  "images": [
+    {
+      "id": "69fea21789ea7ad676e7e2ec",
+      "path": "/slate/shadowmaster/hero/shadowmaster_hero_v1.png",
+      "imageMedia": 69,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2ed",
+      "path": "/slate/shadowmaster/gallery/shadowmaster_westworld_1776131741924.png",
+      "imageMedia": 68,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    }
+  ],
+  "attachments": [
+    {
+      "id": "69fea21789ea7ad676e7e2ee",
+      "title": "Shadowmaster — Treatment",
+      "url": "/artifacts/projects/shadowmaster/treatment.html",
+      "attachmentMedia": 11
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2ef",
+      "title": "Shadowmaster — Slide Deck",
+      "url": "/artifacts/projects/shadowmaster/slide-deck.html",
+      "attachmentMedia": 10
+    }
+  ],
+  "projectQuotes": [
+    {
+      "id": "69fea1c41bb910d5d8a36ae3",
+      "quote": "In war, the way is to avoid what is strong and strike at what is weak.",
+      "author": "Sun Tzu, The Art of War"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ae4",
+      "quote": "The supreme art of war is to subdue the enemy without fighting.",
+      "author": "Sun Tzu, The Art of War"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ae5",
+      "quote": "All warfare is based on deception.",
+      "author": "Sun Tzu, The Art of War"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ae6",
+      "quote": "[TBD — John von Neumann on game theory]",
+      "author": "— Placeholder"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ae7",
+      "quote": "[TBD — esports finals commentary on control]",
+      "author": "— Placeholder"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ae8",
+      "quote": "[TBD — B.F. Skinner on operant conditioning]",
+      "author": "— Placeholder"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36ae9",
+      "quote": "[TBD — Westworld-style voice on free will]",
+      "author": "— Placeholder"
+    }
+  ],
+  "content": {
+    "root": {
+      "type": "root",
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "children": [
+        {
+          "type": "paragraph",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "mode": "normal",
+              "text": "",
+              "type": "text",
+              "style": "",
+              "detail": 0,
+              "format": 0,
+              "version": 1
+            }
+          ],
+          "direction": null,
+          "textStyle": "",
+          "textFormat": 0
+        }
+      ],
+      "direction": null
+    }
+  },
+  "updatedAt": "2026-05-09T02:55:19.178Z",
+  "createdAt": "2026-05-07T21:07:35.365Z"
+}

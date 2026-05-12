@@ -1,0 +1,101 @@
+{
+  "id": 1,
+  "heroLabel": "03 / INVESTORS",
+  "heroHeading": "Stories \nAcross \nGenerations.",
+  "heroTagline": "Investor + Partner Overview · 2026",
+  "heroBody": "Economically sensible. Creatively ambitious.",
+  "subtext": "APR 70 Pictures is actively seeking strategic partners and investors who share our conviction that great storytelling is a defensible, investable asset class.",
+  "inquiryHeading": "Ready to talk?",
+  "inquiryBody": "For investment inquiries, partnership discussions, or to schedule a call, reach out directly.",
+  "slateHeading": "Three divisions. Distinct markets.",
+  "slateSubtext": "Each division is a separate production identity. Investments are structured per-project or per-division — not pooled.",
+  "stats": [
+    {
+      "id": "69fea32c668925d9991393ef",
+      "value": "9",
+      "label": "Projects in Development"
+    },
+    {
+      "id": "69fea32c668925d9991393f0",
+      "value": "3",
+      "label": "Specialized Divisions"
+    },
+    {
+      "id": "69fea32c668925d9991393f1",
+      "value": "$130M",
+      "label": "Combined Slate Budget Range"
+    }
+  ],
+  "divisions": [
+    {
+      "id": "69fea32c668925d9991393f7",
+      "num": "01",
+      "name": "(212) PICTURES",
+      "colorToken": "--amber",
+      "desc": "New York television. Character-driven drama, crime, documentary. Five projects targeting broadcast, cable, and streaming platforms with prestige Northeast American stories.",
+      "projects": [
+        {
+          "id": "69fea32c668925d9991393f2",
+          "line": "A Need Grows in Brooklyn — 10 EPS"
+        },
+        {
+          "id": "69fea32c668925d9991393f3",
+          "line": "The Mayors — DOC 11 EPS"
+        },
+        {
+          "id": "69fea32c668925d9991393f4",
+          "line": "The Maltese Falcon — STAGE"
+        },
+        {
+          "id": "69fea32c668925d9991393f5",
+          "line": "Alpha YY — TV"
+        },
+        {
+          "id": "69fea32c668925d9991393f6",
+          "line": "The Movement — TV"
+        }
+      ]
+    },
+    {
+      "id": "69fea32c668925d9991393fb",
+      "num": "02",
+      "name": "(310) PICTURES",
+      "colorToken": "--teal",
+      "desc": "Los Angeles / global television. Elevated genre work — political thrillers, science fiction, and reality hybrids sized for international distribution. Combined budget range $70M–$130M.",
+      "projects": [
+        {
+          "id": "69fea32c668925d9991393f8",
+          "line": "L.A. DOLCE VITA — $30M–$50M"
+        },
+        {
+          "id": "69fea32c668925d9991393f9",
+          "line": "L’ODISSEA DI CLEOPATRA — $40M–$80M"
+        },
+        {
+          "id": "69fea32c668925d9991393fa",
+          "line": "SHADOWMASTER — HYBRID"
+        }
+      ]
+    },
+    {
+      "id": "69fea32c668925d9991393fe",
+      "num": "03",
+      "name": "NEW RENAISSANCE CINEMA",
+      "colorToken": "--offwhite",
+      "desc": "Auteur-driven feature films. Sized conservatively. Long-window theatrical and festival release strategy. Caruso sensibility — moral clarity, classic form, contemporary execution.",
+      "projects": [
+        {
+          "id": "69fea32c668925d9991393fc",
+          "line": "U BRUCCULINU — FEATURE"
+        },
+        {
+          "id": "69fea32c668925d9991393fd",
+          "line": "ALPHA YY — FEATURE"
+        }
+      ]
+    }
+  ],
+  "updatedAt": "2026-05-09T02:59:56.111Z",
+  "createdAt": "2026-05-09T02:57:10.717Z",
+  "globalType": "partners"
+}

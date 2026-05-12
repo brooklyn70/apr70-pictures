@@ -1,0 +1,77 @@
+{
+  "id": 4,
+  "entryType": "article",
+  "indexSubtext": "",
+  "title": "APR 70 Pictures Launches Alpha Site",
+  "slug": "studio-launch",
+  "date": "2026-04-15T00:00:00.000Z",
+  "deck": "The studio's first public web presence is now live — a living document that will grow alongside the projects in development.",
+  "images": [],
+  "link": {
+    "label": "",
+    "href": ""
+  },
+  "downloads": [],
+  "video": {
+    "src": "",
+    "poster": "",
+    "posterMedia": null,
+    "caption": ""
+  },
+  "audio": [],
+  "featured": false,
+  "category": "",
+  "content": {
+    "root": {
+      "type": "root",
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "children": [
+        {
+          "type": "paragraph",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "mode": "normal",
+              "text": "APR 70 Pictures is a Brooklyn-based independent studio in active development across television, documentary, film, stage, and book. This site is the beginning of a public record.",
+              "type": "text",
+              "style": "",
+              "detail": 0,
+              "format": 0,
+              "version": 1
+            }
+          ],
+          "direction": null,
+          "textStyle": "",
+          "textFormat": 0
+        },
+        {
+          "type": "paragraph",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "mode": "normal",
+              "text": "The slate is in motion. More to come.",
+              "type": "text",
+              "style": "",
+              "detail": 0,
+              "format": 0,
+              "version": 1
+            }
+          ],
+          "direction": null,
+          "textStyle": "",
+          "textFormat": 0
+        }
+      ],
+      "direction": null
+    }
+  },
+  "updatedAt": "2026-05-09T02:55:19.244Z",
+  "createdAt": "2026-05-07T21:21:06.131Z"
+}

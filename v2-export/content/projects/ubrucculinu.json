@@ -1,0 +1,163 @@
+{
+  "id": 9,
+  "title": "U Brucculinu",
+  "slug": "ubrucculinu",
+  "division": "nrc",
+  "divisionIds": [],
+  "subtitle": "Feature Film / Italian / Subtitled",
+  "projectFormat": "Feature Film / Italian / Subtitled",
+  "status": "development",
+  "year": "2026",
+  "heroImage": "/slate/ubrucculinu/hero/ubrucculinu_hero_v1.png",
+  "heroImageMedia": 72,
+  "heroQuality": "high",
+  "videoSrc": "",
+  "category": "film",
+  "categoryList": [],
+  "logline": "Modica, Sicily. 1972. A Brooklyn-born Vietnam veteran defends his family's honor against a ruthless local padrone -- not through violence, but by publicly destroying the currency of corruption itself.",
+  "detail": "Based on the narrative structure of The Quiet Man (1952), transplanted to Baroque Sicily. Shot on location in Modica. Italian language with English subtitles. Key characters: Santo Calvino, Lucia, Angela, Don Lino Gradi. A story about shame, honor, and what it means to come home.",
+  "meta": [
+    {
+      "id": "69fea1c41bb910d5d8a36aea",
+      "label": "Genre",
+      "value": "Period Drama"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36aeb",
+      "label": "Setting",
+      "value": "Modica, Sicily, 1972"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36aec",
+      "label": "Language",
+      "value": "Italian / English subtitles"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36aed",
+      "label": "Structure",
+      "value": "After The Quiet Man (1952)"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36aee",
+      "label": "Format",
+      "value": "Feature Film / Global Streaming"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36aef",
+      "label": "Writer",
+      "value": "TBD"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36af0",
+      "label": "Director",
+      "value": "TBD"
+    }
+  ],
+  "images": [
+    {
+      "id": "69fea21789ea7ad676e7e2f0",
+      "path": "/slate/ubrucculinu/hero/ubrucculinu_hero_v1.png",
+      "imageMedia": 72,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2f1",
+      "path": "/slate/ubrucculinu/gallery/ubrucculinu_sister_v1.png",
+      "imageMedia": 70,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2f2",
+      "path": "/slate/ubrucculinu/gallery/ubrucculinu_square_v1.png",
+      "imageMedia": 71,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    }
+  ],
+  "attachments": [
+    {
+      "id": "69fea21789ea7ad676e7e2f3",
+      "title": "U Brucculinu — Slide Deck",
+      "url": "/artifacts/projects/ubrucculinu/slide-deck.html",
+      "attachmentMedia": 12
+    }
+  ],
+  "projectQuotes": [
+    {
+      "id": "69fea1c41bb910d5d8a36af5",
+      "quote": "If we want things to stay as they are, things will have to change.",
+      "author": "Giuseppe Tomasi di Lampedusa, The Leopard"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36af6",
+      "quote": "Cu nesci, arrinesci — he who leaves, succeeds.",
+      "author": "Sicilian proverb"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36af7",
+      "quote": "Meglio un giorno da leone che cento da pecora.",
+      "author": "Italian proverb"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36af8",
+      "quote": "Chi semina vento raccoglie tempesta — he who sows the wind reaps the storm.",
+      "author": "Italian proverb"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36af9",
+      "quote": "The family is the cell of society.",
+      "author": "Italian proverb"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36afa",
+      "quote": "[TBD — Leonardo Sciascia on Sicilian silence]",
+      "author": "— Placeholder"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36afb",
+      "quote": "[TBD — Elio Vittorini on return to Sicily]",
+      "author": "— Placeholder"
+    }
+  ],
+  "content": {
+    "root": {
+      "type": "root",
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "children": [
+        {
+          "type": "paragraph",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "mode": "normal",
+              "text": "",
+              "type": "text",
+              "style": "",
+              "detail": 0,
+              "format": 0,
+              "version": 1
+            }
+          ],
+          "direction": null,
+          "textStyle": "",
+          "textFormat": 0
+        }
+      ],
+      "direction": null
+    }
+  },
+  "updatedAt": "2026-05-09T02:55:19.198Z",
+  "createdAt": "2026-05-07T21:07:35.378Z"
+}

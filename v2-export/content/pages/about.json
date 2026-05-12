@@ -1,0 +1,34 @@
+{
+  "id": 1,
+  "heroHeadline": "THE ART\nOF\nCONSTRAINT.",
+  "companyHeading": "THE COMPANY",
+  "companyLede": "We lean on subtext.",
+  "companyBody": "APR 70 LLC is a New York film and television production company founded in 2026 by M.A. Caruso. Marc had enough of waiting around for film and TV that rival the classics.\n\nWe create media inside clear boundaries. We lean on subtext, atmosphere, and ingenious writing. The art of visual storytelling and narrative economy are our tools.\n\nFilm. Television. Stage. Radio. No compromise.",
+  "principlesHeading": "WORKING PRINCIPLES",
+  "principlesLede": "Honesty. Integrity. Fun.",
+  "principlesBody": "We value honesty and integrity in everything we commit to. We also insist on having fun and keeping the tone pleasant.\n\nWe treat our investors with respect for their ambitions and limitations, and we treat our crews with respect for their craft and contributions. And then we can all go home happy.\n\nWe make films people want to see, want to share, want to emulate. APR 70 draws from an international talent pool, creating unique content which is economically sensible, creatively ambitious, and boldly executed.",
+  "divisionsHeading": "THREE DIVISIONS",
+  "divisions": [
+    {
+      "id": "69fea32c668925d9991393ec",
+      "name": "(212) Pictures",
+      "colorToken": "--amber",
+      "description": "East Coast. Crime, drama, documentary. Television series and documentaries drawn from the pulse of New York City — its politics, its parishes, its precinct back rooms. Stories rooted in the five boroughs and the people who make them work."
+    },
+    {
+      "id": "69fea32c668925d9991393ed",
+      "name": "(310) Pictures",
+      "colorToken": "--teal",
+      "description": "Los Angeles. Long-form sagas and global stories. Limited series and features that follow the narrative wherever it leads — L.A., Rome, Brooklyn, beyond. Formats that cross borders, languages, and genres without losing their footing."
+    },
+    {
+      "id": "69fea32c668925d9991393ee",
+      "name": "New Renaissance Cinema",
+      "colorToken": "--offwhite",
+      "description": "Feature films. Highly curated, small-batch productions made with the ambition and rigor of a new cinematic renaissance. Timeless themes, moral clarity, production excellence. No focus groups. No compromise."
+    }
+  ],
+  "updatedAt": "2026-05-09T02:59:56.073Z",
+  "createdAt": "2026-05-09T02:57:10.692Z",
+  "globalType": "about"
+}

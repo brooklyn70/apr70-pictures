@@ -1,0 +1,213 @@
+{
+  "id": 1,
+  "title": "Alpha YY",
+  "slug": "alphayy",
+  "division": "212",
+  "divisionIds": [
+    "212",
+    "nrc"
+  ],
+  "subtitle": "Television Series / Feature Film",
+  "projectFormat": "Television Series / Feature Film",
+  "status": "development",
+  "year": "2026",
+  "heroImage": "/slate/alphayy/hero/alpha_yy_hero_1.png",
+  "heroImageMedia": 21,
+  "heroQuality": "high",
+  "videoSrc": "/slate/alphayy/video/AlphaYY.mp4",
+  "category": "television",
+  "categoryList": [
+    "television",
+    "film",
+    "radio"
+  ],
+  "logline": "Street-level mob enforcement. Staten Island to Little Italy -- violence punctuated by the ordinary.",
+  "detail": "The mundane texture of enforcement work. Close observation of loyalty, fear, and routine. What it costs to be the person who shows up when someone else gives the order.\n\nThe project exists as both a (212) Pictures television series and a New Renaissance Cinema standalone feature film.",
+  "meta": [
+    {
+      "id": "69fea1c41bb910d5d8a36a42",
+      "label": "Genre",
+      "value": "Crime Drama / Mob Drama"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a43",
+      "label": "Writers",
+      "value": "Mike Diaz, Marc Caruso"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a44",
+      "label": "Format",
+      "value": "Streaming Series / Feature Film"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a45",
+      "label": "Episodes",
+      "value": "8-10"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a46",
+      "label": "Budget",
+      "value": "TBD"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a47",
+      "label": "Director",
+      "value": "Marc Caruso"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a48",
+      "label": "TimeLine",
+      "value": "Summer '27"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a49",
+      "label": "Funding",
+      "value": "Angel Investor"
+    }
+  ],
+  "images": [
+    {
+      "id": "69fea21789ea7ad676e7e2b2",
+      "path": "/slate/alphayy/hero/alpha_yy_hero_1.png",
+      "imageMedia": 22,
+      "character": "",
+      "bio": "",
+      "type": "video",
+      "videoSrc": "/slate/alphayy/video/AlphaYY.mp4"
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2b3",
+      "path": "/slate/alphayy/gallery/alpha_yy_big_trouble_1.png",
+      "imageMedia": 15,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2b4",
+      "path": "/slate/alphayy/gallery/alpha_yy_big_trouble_2.png",
+      "imageMedia": 16,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2b5",
+      "path": "/slate/alphayy/gallery/alpha_yy_marco.png",
+      "imageMedia": 17,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2b6",
+      "path": "/slate/alphayy/gallery/alpha_yy_mulberry.png",
+      "imageMedia": 18,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2b7",
+      "path": "/slate/alphayy/gallery/alpha_yy_si_workshop.png",
+      "imageMedia": 19,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2b8",
+      "path": "/slate/alphayy/gallery/alpha_yy_basement.png",
+      "imageMedia": 14,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    },
+    {
+      "id": "69fea21789ea7ad676e7e2b9",
+      "path": "/slate/alphayy/gallery/alpha_yy_v2_1776131716525.png",
+      "imageMedia": 20,
+      "character": "",
+      "bio": "",
+      "type": "image",
+      "videoSrc": ""
+    }
+  ],
+  "attachments": [],
+  "projectQuotes": [
+    {
+      "id": "69fea1c41bb910d5d8a36a52",
+      "quote": "As far back as I can remember, I always wanted to be a gangster.",
+      "author": "Nicholas Pileggi, Wiseguy"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a53",
+      "quote": "A man who doesn't spend time with his family can never be a real man.",
+      "author": "Mario Puzo, The Godfather"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a54",
+      "quote": "Keep your friends close, but your enemies closer.",
+      "author": "Michael Corleone, The Godfather Part II"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a55",
+      "quote": "I'm gonna make him an offer he can't refuse.",
+      "author": "Don Corleone, The Godfather"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a56",
+      "quote": "[TBD — Staten Island enforcement oral history]",
+      "author": "— Placeholder"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a57",
+      "quote": "[TBD — Donnie Brasco-era undercover observation]",
+      "author": "— Placeholder"
+    },
+    {
+      "id": "69fea1c41bb910d5d8a36a58",
+      "quote": "[TBD — Italian-American urban literature]",
+      "author": "— Placeholder"
+    }
+  ],
+  "content": {
+    "root": {
+      "type": "root",
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "children": [
+        {
+          "type": "paragraph",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "mode": "normal",
+              "text": "",
+              "type": "text",
+              "style": "",
+              "detail": 0,
+              "format": 0,
+              "version": 1
+            }
+          ],
+          "direction": null,
+          "textStyle": "",
+          "textFormat": 0
+        }
+      ],
+      "direction": null
+    }
+  },
+  "updatedAt": "2026-05-09T02:55:19.013Z",
+  "createdAt": "2026-05-07T21:07:35.261Z"
+}

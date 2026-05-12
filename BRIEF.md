@@ -335,3 +335,8 @@ Ran task `[p1] [nas-headless] Orchestrator Notifications — integrate Telegram 
 - Created Astro renderer in `web/src/components/blocks/TwoColBlock.astro` utilizing the 8px grid spacing and standard v3 design tokens.
 - Registered the block in `<BlockRenderer>`.
 - `TASKS.md` Phase 3 `TwoColBlock` task marked done. Visual QA deferred to Marco.
+
+## Auto-stop note (2026-05-12 09:52 UTC)
+
+- Branch: main
+- Tip: 6df7022

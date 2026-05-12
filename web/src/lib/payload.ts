@@ -2,6 +2,32 @@ import type { Home, Media } from 'payload-types'
 
 const trimSlash = (s: string) => s.replace(/\/$/, '')
 
+// ── Type helpers (until `payload generate:types` runs for the new globals) ──
+
+export type FooterLink = {
+  label: string
+  href: string
+  openInNewTab?: boolean | null
+  id?: string | null
+}
+
+export type SiteSettingsData = {
+  brandLabel?: string | null
+  legalEntity?: string | null
+  tagline?: string | null
+  showFilmstripRails?: boolean | null
+  lastDeployed?: string | null
+  seededVersion?: string | null
+}
+
+export type FooterLinksData = {
+  primaryNav?: FooterLink[] | null
+  divisionNav?: FooterLink[] | null
+  moreNav?: FooterLink[] | null
+}
+
+// ── Generic parse helpers ─────────────────────────────────────────────────────
+
 function parseHomeResponse(raw: unknown): Home | null {
   if (!raw || typeof raw !== 'object') return null
   const obj = raw as Record<string, unknown>
@@ -14,6 +40,15 @@ function parseHomeResponse(raw: unknown): Home | null {
   return null
 }
 
+function parseGlobalResponse<T>(raw: unknown): T | null {
+  if (!raw || typeof raw !== 'object') return null
+  const obj = raw as Record<string, unknown>
+  if (obj.doc && typeof obj.doc === 'object') return obj.doc as T
+  return raw as T
+}
+
+// ── Media URL resolver ────────────────────────────────────────────────────────
+
 export function resolveMediaUrl(media: Media | null | undefined): string | undefined {
   if (!media?.url) return undefined
   const u = media.url
@@ -24,6 +59,32 @@ export function resolveMediaUrl(media: Media | null | undefined): string | undef
   if (!base) return u
   return `${base}${u.startsWith('/') ? '' : '/'}${u}`
 }
+
+// ── Generic fetcher ───────────────────────────────────────────────────────────
+
+async function fetchGlobal<T>(
+  slug: string,
+  depth = 1,
+): Promise<{ data: T | null; error: string | null }> {
+  const apiBase = import.meta.env.PUBLIC_PAYLOAD_URL
+  if (!apiBase) {
+    return { data: null, error: 'Set PUBLIC_PAYLOAD_URL for build/runtime (see web/.env.example).' }
+  }
+  const url = `${trimSlash(apiBase)}/api/globals/${slug}?depth=${depth}`
+  try {
+    const res = await fetch(url)
+    if (!res.ok) return { data: null, error: `Payload returned ${res.status} for ${url}` }
+    const raw = await res.json()
+    const data = parseGlobalResponse<T>(raw)
+    if (!data) return { data: null, error: `Unexpected Payload response for /api/globals/${slug}` }
+    return { data, error: null }
+  } catch (e) {
+    const message = e instanceof Error ? e.message : 'Unknown fetch error'
+    return { data: null, error: message }
+  }
+}
+
+// ── Public fetchers ───────────────────────────────────────────────────────────
 
 export async function fetchHomeGlobal(): Promise<{ home: Home | null; error: string | null }> {
   const apiBase = import.meta.env.PUBLIC_PAYLOAD_URL
@@ -51,4 +112,20 @@ export async function fetchHomeGlobal(): Promise<{ home: Home | null; error: str
     const message = e instanceof Error ? e.message : 'Unknown fetch error'
     return { home: null, error: message }
   }
+}
+
+export async function fetchSiteSettings(): Promise<{
+  settings: SiteSettingsData | null
+  error: string | null
+}> {
+  const { data, error } = await fetchGlobal<SiteSettingsData>('site-settings')
+  return { settings: data, error }
+}
+
+export async function fetchFooterLinks(): Promise<{
+  footerLinks: FooterLinksData | null
+  error: string | null
+}> {
+  const { data, error } = await fetchGlobal<FooterLinksData>('footer-links')
+  return { footerLinks: data, error }
 }

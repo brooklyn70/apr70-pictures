@@ -1,26 +1,68 @@
 ---
-import '../styles/global.css';
+import '../styles/global.css'
+import Footer from '../components/Footer.astro'
+import { fetchSiteSettings, fetchFooterLinks } from '../lib/payload'
+
+interface Props {
+  title?: string
+  description?: string
+}
+
+// Fetch global chrome data once per page render.
+// These calls are parallelised; any failure degrades gracefully.
+const [{ settings }, { footerLinks }] = await Promise.all([
+  fetchSiteSettings(),
+  fetchFooterLinks(),
+])
+
+const siteName    = settings?.brandLabel ?? 'APR 70 Pictures'
+const { title = siteName, description = settings?.tagline ?? '' } = Astro.props
+const pageTitle   = title === siteName ? siteName : `${title} — ${siteName}`
+const showRails   = settings?.showFilmstripRails !== false
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<title>APR 70 Pictures</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>{pageTitle}</title>
+    {description && <meta name="description" content={description} />}
+    <meta property="og:title" content={pageTitle} />
+    {description && <meta property="og:description" content={description} />}
+    <meta name="theme-color" content="#000000" />
+  </head>
+  <body>
+    <!-- Top filmstrip rail (feature-flagged) -->
+    {showRails && (
+      <div class="strip-rail strip-rail--top" aria-hidden="true">
+        {Array.from({ length: 32 }).map(() => (
+          <span class="sprocket" />
+        ))}
+      </div>
+    )}
+
+    <slot />
+
+    <Footer settings={settings} footerLinks={footerLinks} />
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+  }
+
+  .strip-rail--top {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--bg-3);
+    border-top: none;
+  }
 </style>

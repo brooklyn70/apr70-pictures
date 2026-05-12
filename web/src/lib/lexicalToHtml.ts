@@ -3,6 +3,17 @@ import { sanitizeUrl } from '@payloadcms/richtext-lexical'
 import { convertLexicalToHTML } from '@payloadcms/richtext-lexical/html'
 import escapeHTML from 'escape-html'
 
+/** Canonical brand token slugs — must match TextStateFeature state keys in aprLexicalEditor.ts
+ *  and [data-color="..."] selectors in tokens.css. */
+const VALID_COLOR_TOKENS = new Set([
+  '212-amber',
+  '212-sicilian-orange',
+  '310-imax',
+  'nrc-grey',
+  '310-sicilian-blue',
+  'nrc-navy',
+])
+
 /** Matches v2 `RichText.tsx` / `d7-blocks.mjs` field shapes (`apr70-clone`). */
 type StructureDividerFields = {
   label?: string | null
@@ -14,7 +25,13 @@ type ButtonFields = {
   variant?: 'primary' | 'secondary' | null
 }
 
-type AccentColor = '--orange' | '--amber' | '--teal' | '--offwhite'
+type AccentColor =
+  | '212-amber'
+  | '212-sicilian-orange'
+  | '310-imax'
+  | 'nrc-grey'
+  | '310-sicilian-blue'
+  | 'nrc-navy'
 
 type AccentTextFields = {
   text?: string | null
@@ -34,6 +51,42 @@ export function richTextLexicalToHtml(data: SerializedEditorState | null | undef
     data,
     converters: ({ defaultConverters }) => ({
       ...defaultConverters,
+
+      /**
+       * Color Injector — replaces the default inline-style text converter.
+       *
+       * TextStateFeature serializes color selections as a top-level `color` key
+       * on the text node JSON (via Lexical's `__state.toJSON()` spread).
+       * We detect that key and wrap the formatted text in a
+       * `<span data-color="...">` so that tokens.css selectors handle all styling.
+       *
+       * Only canonical token slugs are accepted; unknown values fall through
+       * to the default text converter with no color attribute.
+       */
+      text: ({ node }) => {
+        // Call the default text converter to handle bold/italic/underline etc.
+        const defaultTextConverter = defaultConverters.text as (args: { node: typeof node }) => string
+        let html = defaultTextConverter({ node })
+
+        const nodeData = node as unknown as Record<string, unknown>
+
+        // Color Injector — emit data-color="<slug>" for tokens.css selectors.
+        // Only canonical token slugs are accepted; unknown values are ignored.
+        const colorSlug = nodeData.color
+        if (typeof colorSlug === 'string' && VALID_COLOR_TOKENS.has(colorSlug)) {
+          html = `<span data-color="${colorSlug}">${html}</span>`
+        }
+
+        // Mega Scale toggle — emit data-display="mega" for the tokens.css
+        // [data-display="mega"] selector (clamp(3.5rem, 15vw, 18rem) Futura Bold).
+        // Wraps outermost so the display-scale box is the layout root.
+        if (nodeData.display === 'mega') {
+          html = `<span data-display="mega">${html}</span>`
+        }
+
+        return html
+      },
+
       blocks: {
         structureDivider: ({ node }) => {
           const fields = (node as { fields: StructureDividerFields & { blockType: string } }).fields
@@ -60,8 +113,9 @@ export function richTextLexicalToHtml(data: SerializedEditorState | null | undef
         accentText: ({ node }) => {
           const fields = (node as { fields: AccentTextFields & { blockType: string } }).fields
           const text = fields.text ?? ''
-          const token = fields.color ?? '--orange'
-          return `<aside class="d7-accent-text" style="border-left-color: var(${escapeHTML(token)});">${escapeHTML(text)}</aside>`
+          // v3 canonical slug → CSS custom property in tokens.css
+          const colorSlug = fields.color ?? '212-sicilian-orange'
+          return `<aside class="d7-accent-text" data-color="${escapeHTML(colorSlug)}" style="border-left-color: var(--color-${escapeHTML(colorSlug)});"><p>${escapeHTML(text)}</p></aside>`
         },
       },
     }),

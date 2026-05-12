@@ -1,0 +1,269 @@
+---
+/**
+ * Footer.astro — 4-column site footer.
+ *
+ * Col 1: Brand logotype + tagline + copyright
+ * Col 2: Primary nav  (from FooterLinks.primaryNav)
+ * Col 3: Divisions    (from FooterLinks.divisionNav)
+ * Col 4: More links   (from FooterLinks.moreNav)
+ *
+ * Data is fetched at build/request time from the Payload globals.
+ * Falls back gracefully if Payload is unreachable.
+ */
+import type { SiteSettingsData, FooterLinksData, FooterLink } from '../lib/payload'
+
+interface Props {
+  settings?: SiteSettingsData | null
+  footerLinks?: FooterLinksData | null
+}
+
+const { settings, footerLinks } = Astro.props
+
+const brand      = settings?.brandLabel  ?? 'APR 70 Pictures'
+const legal      = settings?.legalEntity ?? 'APR 70 Pictures LLC'
+const tagline    = settings?.tagline     ?? 'Cinema. Story. Scale.'
+const year       = new Date().getFullYear()
+
+const primaryNav  = footerLinks?.primaryNav  ?? []
+const divisionNav = footerLinks?.divisionNav ?? []
+const moreNav     = footerLinks?.moreNav     ?? []
+
+function linkAttrs(link: FooterLink) {
+  return link.openInNewTab
+    ? 'target="_blank" rel="noopener noreferrer"'
+    : ''
+}
+---
+
+<footer class="site-footer" role="contentinfo" aria-label="Site footer">
+  <!-- Filmstrip top rail -->
+  <div class="footer__rail" aria-hidden="true">
+    {Array.from({ length: 24 }).map(() => (
+      <span class="sprocket" />
+    ))}
+  </div>
+
+  <div class="footer__inner container">
+    <!-- Col 1: Brand -->
+    <div class="footer__col footer__col--brand">
+      <p class="footer__logotype">{brand}</p>
+      <p class="footer__tagline">{tagline}</p>
+      <p class="footer__copy">
+        &copy; {year} {legal}<br />All rights reserved.
+      </p>
+    </div>
+
+    <!-- Col 2: Primary nav -->
+    <nav class="footer__col footer__col--nav" aria-label="Footer primary navigation">
+      <p class="footer__col-heading">Navigate</p>
+      {primaryNav.length > 0 ? (
+        <ul class="footer__links" role="list">
+          {primaryNav.map((link) => (
+            <li>
+              <a class="footer__link" href={link.href} set:html={`<span>${link.label}</span>`}
+                target={link.openInNewTab ? '_blank' : undefined}
+                rel={link.openInNewTab ? 'noopener noreferrer' : undefined}
+              />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <ul class="footer__links" role="list">
+          <li><a class="footer__link" href="/work">Work</a></li>
+          <li><a class="footer__link" href="/about">About</a></li>
+          <li><a class="footer__link" href="/investors">Investors</a></li>
+          <li><a class="footer__link" href="/contact">Contact</a></li>
+        </ul>
+      )}
+    </nav>
+
+    <!-- Col 3: Divisions -->
+    <nav class="footer__col footer__col--divisions" aria-label="Footer divisions navigation">
+      <p class="footer__col-heading">Divisions</p>
+      {divisionNav.length > 0 ? (
+        <ul class="footer__links" role="list">
+          {divisionNav.map((link) => (
+            <li>
+              <a class="footer__link" href={link.href}
+                target={link.openInNewTab ? '_blank' : undefined}
+                rel={link.openInNewTab ? 'noopener noreferrer' : undefined}
+              >{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <ul class="footer__links" role="list">
+          <li><a class="footer__link" href="/212">(212) Pictures</a></li>
+          <li><a class="footer__link" href="/310">(310) Pictures</a></li>
+          <li><a class="footer__link" href="/nrc">New Renaissance Cinema</a></li>
+        </ul>
+      )}
+    </nav>
+
+    <!-- Col 4: More + legal -->
+    <div class="footer__col footer__col--more">
+      <nav aria-label="Footer more links">
+        <p class="footer__col-heading">More</p>
+        {moreNav.length > 0 ? (
+          <ul class="footer__links" role="list">
+            {moreNav.map((link) => (
+              <li>
+                <a class="footer__link" href={link.href}
+                  target={link.openInNewTab ? '_blank' : undefined}
+                  rel={link.openInNewTab ? 'noopener noreferrer' : undefined}
+                >{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <ul class="footer__links" role="list">
+            <li><a class="footer__link" href="/news">News</a></li>
+            <li><a class="footer__link" href="/pitch">Pitch</a></li>
+            <li><a class="footer__link" href="/jobs">Careers</a></li>
+          </ul>
+        )}
+      </nav>
+
+      <!-- Static legal row -->
+      <div class="footer__legal">
+        <a class="footer__link footer__link--legal" href="/privacy">Privacy</a>
+        <span class="footer__legal-sep" aria-hidden="true">/</span>
+        <a class="footer__link footer__link--legal" href="/terms">Terms</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filmstrip bottom rail -->
+  <div class="footer__rail footer__rail--bottom" aria-hidden="true">
+    {Array.from({ length: 24 }).map(() => (
+      <span class="sprocket" />
+    ))}
+  </div>
+</footer>
+
+<style>
+  /* ── Shell ──────────────────────────────────────────────────────────────── */
+  .site-footer {
+    margin-top: var(--s-11);
+    border-top: 1px solid var(--rule);
+  }
+
+  .footer__rail {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 14px;
+    height: var(--filmstrip-h);
+    background: #050505;
+    overflow: hidden;
+  }
+
+  .footer__rail--bottom {
+    border-top: 1px solid var(--bg-3);
+    margin-top: var(--s-9);
+  }
+
+  /* ── Grid ───────────────────────────────────────────────────────────────── */
+  .footer__inner {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: var(--s-8) var(--s-7);
+    padding-block: var(--s-9);
+  }
+
+  @media (max-width: 900px) {
+    .footer__inner {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .footer__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ── Brand column ───────────────────────────────────────────────────────── */
+  .footer__logotype {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--type-h4);
+    letter-spacing: var(--track-tight);
+    text-transform: uppercase;
+    color: var(--fg-1);
+    margin: 0 0 var(--s-3);
+  }
+
+  .footer__tagline {
+    font-family: var(--font-body);
+    font-size: var(--type-small);
+    letter-spacing: var(--track-wide);
+    text-transform: uppercase;
+    color: var(--fg-4);
+    margin: 0 0 var(--s-7);
+  }
+
+  .footer__copy {
+    font-family: var(--font-body);
+    font-size: var(--type-caption);
+    color: var(--fg-5);
+    line-height: var(--leading-body);
+    margin: 0;
+  }
+
+  /* ── Nav columns ────────────────────────────────────────────────────────── */
+  .footer__col-heading {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: var(--type-micro);
+    letter-spacing: var(--track-eyebrow);
+    text-transform: uppercase;
+    color: var(--fg-4);
+    margin: 0 0 var(--s-5);
+  }
+
+  .footer__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+  }
+
+  .footer__link {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: var(--type-small);
+    color: var(--fg-3);
+    text-decoration: none;
+    letter-spacing: var(--track-wide);
+    transition: color var(--dur-base) var(--ease-in);
+  }
+
+  .footer__link:hover {
+    color: var(--fg-1);
+  }
+
+  /* ── Legal row ──────────────────────────────────────────────────────────── */
+  .footer__legal {
+    margin-top: var(--s-7);
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+  }
+
+  .footer__link--legal {
+    font-size: var(--type-caption);
+    color: var(--fg-5);
+  }
+
+  .footer__link--legal:hover {
+    color: var(--fg-3);
+  }
+
+  .footer__legal-sep {
+    color: var(--fg-6);
+    font-size: var(--type-caption);
+  }
+</style>

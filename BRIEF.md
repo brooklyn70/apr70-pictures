@@ -461,3 +461,8 @@ Ran task `[p4] [nas-shell] NAS Hop 1 — Build and start v3 stack. SHELL: /usr/b
 ## Orchestrator note (2026-05-12 20:14 UTC)
 
 Ran task `[p4] [nas-shell] NAS Hop 1 — Build and start v3 stack. SHELL: /usr/bin/docker co` via shell runner. Returncode=0; USAGE.jsonl appended.
+
+
+## Orchestrator note (2026-05-12 20:14 UTC)
+
+Ran task `[p4] [nas-shell] NAS Hop 2 — pg_dump backup then live seed. SHELL: /usr/bin/dock` via shell runner. Returncode=2; USAGE.jsonl appended. TASK LEFT OPEN (non-zero exit — fix and re-run).

@@ -471,3 +471,8 @@ Ran task `[p4] [nas-shell] NAS Hop 2 — pg_dump backup then live seed. SHELL: /
 ## Orchestrator note (2026-05-12 20:15 UTC)
 
 Ran task `[p4] [nas-shell] NAS Hop 2 — pg_dump backup then live seed. SHELL: /usr/bin/dock` via shell runner. Returncode=127; USAGE.jsonl appended. TASK LEFT OPEN (non-zero exit — fix and re-run).
+
+
+## Orchestrator note (2026-05-12 20:23 UTC)
+
+Ran task `[p4] [nas-shell] NAS Hop 2 — pg_dump backup then live seed. SHELL: /usr/bin/dock` via shell runner. Returncode=1; USAGE.jsonl appended. TASK LEFT OPEN (non-zero exit — fix and re-run).

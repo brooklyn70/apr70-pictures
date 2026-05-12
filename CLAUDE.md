@@ -1,7 +1,7 @@
 # CLAUDE.md — apr70-pictures (v3)
 
 **Authoritative working document for all agents working in this repo.**
-**Last updated:** 2026-05-11 (Draft 4 master plan locked)
+**Last updated:** 2026-05-12 (preflight gate added; RowLabel component built)
 **Repo:** `brooklyn70/apr70-pictures`
 **Live (when shipped):** https://apr70.com
 **Staging:** https://staging-v3.apr70.com (pending DSM slot)
@@ -43,6 +43,7 @@ Layout is editor-authored via block stacking. Each page Global has a `layout: Bl
 10. **Media relationships.** Blocks use Payload Media relationships, never loose path strings.
 11. **Stop hooks handle commits.** Update BRIEF.md before stopping.
 12. **GUI tasks need Marco.** Tasks tagged `requires-gui` need visual review.
+13. **Preflight before NAS deploy.** Run `pnpm preflight` from `cms/` and confirm it exits 0 before any `docker compose up --build` on the NAS. This catches missing components, TypeScript errors, and broken imports that the dry-run cannot see.
 
 ---
 

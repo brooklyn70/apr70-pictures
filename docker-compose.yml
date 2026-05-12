@@ -6,8 +6,10 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: apr70_cms
-    ports:
-      - "5432:5432"
+    # No host port binding — DSM already listens on 127.0.0.1:5432 and the
+    # conflict prevents postgres from re-attaching to apr70v3_default on
+    # restart. v3 services reach it over the compose network via service
+    # name. For ad-hoc psql from the host use `docker exec apr70v3-postgres-1 psql ...`.
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:

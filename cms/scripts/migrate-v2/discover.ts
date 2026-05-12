@@ -27,6 +27,28 @@ function classifyRelative(rel: string): V2DocumentKind {
   return 'unknown'
 }
 
+/**
+ * Recursively find `.json`, `.md`, or `.yaml` files under v2 content root.
+ * Classification uses path segments (`pages`, `projects`, `content/pages`, …).
+ */
+export async function discoverJsonDocuments(v2Root: string): Promise<V2DiscoveredFile[]> {
+  const resolved = path.resolve(v2Root)
+  
+  // Check if there is a 'content' subfolder (common in Keystatic/Payload exports)
+  const contentDir = path.join(resolved, 'content')
+  const searchDir = existsSync(contentDir) ? contentDir : resolved
+
+  const out: V2DiscoveredFile[] = []
+  await walkDir(searchDir, resolved, out)
+  
+  // If we found nothing and we were searching the subfolder, try the root too
+  if (out.length === 0 && searchDir !== resolved) {
+    await walkDir(resolved, resolved, out)
+  }
+
+  return out
+}
+
 async function walkDir(
   dir: string,
   root: string,
@@ -39,33 +61,24 @@ async function walkDir(
     return
   }
 
+  const supportedExtensions = new Set(['.json', '.md', '.mdx', '.yaml', '.yml'])
+
   for (const ent of entries) {
     const abs = path.join(dir, ent.name)
     const rel = path.relative(root, abs)
     if (ent.isDirectory()) {
       if (SKIP_DIRECTORY_NAMES.has(ent.name)) continue
       await walkDir(abs, root, out)
-    } else if (ent.isFile() && ent.name.toLowerCase().endsWith('.json')) {
-      out.push({
-        absolutePath: abs,
-        relativePath: rel,
-        kind: classifyRelative(rel),
-      })
+    } else if (ent.isFile()) {
+      const ext = path.extname(ent.name).toLowerCase()
+      if (supportedExtensions.has(ext)) {
+        out.push({
+          absolutePath: abs,
+          relativePath: rel,
+          kind: classifyRelative(rel),
+        })
+      }
     }
   }
 }
 
-/**
- * Recursively find `.json` files under v2 content root.
- * Classification uses path segments (`pages`, `projects`, `content/pages`, …).
- */
-export async function discoverJsonDocuments(v2Root: string): Promise<V2DiscoveredFile[]> {
-  const resolved = path.resolve(v2Root)
-  const contentDir = path.join(resolved, 'content')
-  if (!existsSync(contentDir)) {
-    return []
-  }
-  const out: V2DiscoveredFile[] = []
-  await walkDir(contentDir, resolved, out)
-  return out
-}

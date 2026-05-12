@@ -21,7 +21,8 @@
 - All documentation updated: CLAUDE.md, TASKS.md, docs/architecture/v3-master-plan.md.
 - Database schema pushed. TypeScript compiles clean (zero errors).
 - **Phases 1–3 LOCKED:** Lexical Color Injector + mega scale, `SiteSettings` / `FooterLinks` globals, `Footer.astro` + `Layout.astro`, live preview config, **MagneticNavIsland** (GSAP pill on fine pointer; static nav on coarse pointer / reduced motion). System ready for v2-to-v3 content ingestion.
-- **Phase 4 (partial):** v2 → v3 seed CLI in `cms/` — `pnpm migrate:v2:dry -- --v2-root <path>` (or `pnpm exec tsx scripts/migrate-v2-to-v3.ts --dry-run --v2-root …`). Reads JSON only; no Postgres writes; `--report <file>` for full JSON artifact. Sample tree: `cms/fixtures/v2-sample/`. `--apply` reserved (not implemented).
+- **Phase 4 (partial):** v2 → v3 seed CLI in `cms/` — `pnpm migrate:v2:dry -- --v2-root <path>`. **Update 2026-05-12:** NAS roadblocks resolved (git permissions fixed, synced to `ec7b5d2`). Added `APR_70/scripts/export-to-v3-json.ts` to dump v2 Payload data. Improved `map-layout.ts` to synthesize v3 blocks from v2 flat schemas (Homepage, Projects). Dry-run verified on Mac with 100% block mapping for Homepage. Data piped to NAS at `/volume1/apps/apr70-pictures/v2-export`.
+
 
 ## What's next
 

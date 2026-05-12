@@ -1,59 +1,68 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-12 (Phase 4 seed CLI complete — ready for NAS deploy)
-**Repo tip:** 8f3b498
-**Phase:** Phase 4 — NAS deploy + live seed
+**Updated:** 2026-05-12 (NAS deploy in progress — handoff to Claude Code)
+**Repo tip:** fc0bfe2
+**Phase:** Phase 4 — NAS Hop 1 partially complete, two bugs blocking Hop 2
 
 ---
 
 ## What's done
 
-- v2 (`brooklyn70/apr70-clone`) feature-frozen; `V2_FROZEN.md` committed.
-- Two repos created: `apr70-pictures` (this), `apr70-orchestrator`.
-- v3 monorepo skeleton: `web/`, `cms/`, `docker-compose.yml`, README, BRIEF, TASKS, CLAUDE.
-- Astro scaffold with React integration + TypeScript.
-- Payload 3.84.1 scaffold with Postgres, Lexical editor, D-7 inline blocks.
-- Docker compose stack (postgres + cms + web + nginx).
-- **Master Architecture Plan** approved after 4 drafts reviewed by Perplexity + Grok + Marco.
-- **11 Payload block schemas** created (Hero, RichText, TwoCol, Grid, CTA, Quotes, Filmstrip, Division, Stats, Divider + D7 Lexical inline blocks).
-- **11 Astro renderers** created with matching BlockRenderer switch.
-- **tokens.css** updated with locked 6-color palette, light mode ramp, mega-scale typography, Lexical Color Injector selectors.
-- **Phases 1–3 LOCKED:** Lexical Color Injector + mega scale, `SiteSettings` / `FooterLinks` globals, `Footer.astro` + `Layout.astro`, live preview config, MagneticNavIsland.
-- **Phase 4 seed CLI COMPLETE (`cms/scripts/migrate-v2-to-v3.ts`):**
-  - `--dry-run` verified on Mac: 23 files, 14 pages, 9 projects, **83/83 blocks mapped, 0 warnings**.
-  - Synthesizers for all schemas: homepage, about, contact, jobs, pitch, quotes, slate, partners, footer-more, news (5 articles), 9 projects.
-  - `--apply` implemented: Payload Local API upserts `home` global layout + `SiteSettings.seededVersion`. Idempotent.
-  - v2 content export on NAS: `/volume1/apps/apr70-pictures/v2-export/content/`.
-  - v2 media on NAS: `/volume1/apps/apr70/public/` (537 MB).
-  - v3 media volume: Docker `apr70_apr70_media` → `/app/public/media` inside CMS container.
-  - NAS DATABASE_URI: `postgresql://apr70:***@postgres:5432/apr70_payload`.
-  - **NAS situation:** current `apr70-app-1` container is v2 schema. v3 stack (`apr70-pictures/docker-compose.yml`) must be built fresh before seed runs.
-  - Full NAS deploy + seed dispatch: `docs/handoff/nas-deploy-2026-05-12.md`.
+- Phases 1–3 LOCKED: 11 blocks, Lexical Color Injector, MagneticNavIsland, SiteSettings, FooterLinks, Footer.astro.
+- Phase 4 seed CLI complete: `--dry-run` accepted (83/83 blocks, 0 warnings). `--apply` implemented via Payload Local API.
+- `cms/src/components/RowLabel.tsx` built (was referenced but missing — caused first NAS build failure).
+- `pnpm preflight` gate added to `cms/package.json` and CLAUDE.md rule 13.
+- Orchestrator upgraded: shell runner (`orchestrator/runners/shell.py`) added. `[nas-shell]` tag routes tasks to `bash -c` instead of Claude Code. Docker CLI + Compose v2.27.0 installed in orchestrator container. Docker socket mounted at `/var/run/docker.sock`.
+- **Hop 1 partial:** `docker compose -p apr70v3 up -d --build` ran. postgres, cms, web containers started. nginx FAILED — volume path resolution bug (see below).
 
-## What's next
+## Current NAS container state
 
-**Immediate (orchestrator, two `--once` hops — see `docs/handoff/nas-deploy-2026-05-12.md`):**
-1. Hop 1 `[nas-headless]`: `docker compose up --build` in `/volume1/apps/apr70-pictures/` — brings v3 stack up with fresh Postgres.
-2. Hop 2 `[nas-headless]`: `pg_dump` backup, then `pnpm migrate:v2:apply` — live seed into v3 Postgres.
+| Container | Status |
+|-----------|--------|
+| `apr70v3-postgres-1` | Running |
+| `apr70v3-cms-1` | Running |
+| `apr70v3-web-1` | Running |
+| `apr70v3-nginx-1` | FAILED — not started |
+| `apr70-orchestrator` | Running (sleep infinity) |
 
-**After seed verified:** Media migration — rsync `/volume1/apps/apr70/public/` → v3 media volume, create Media collection rows, link into blocks.
+## Two bugs blocking progress
 
-**Parallel (cursor+claude):** `web/src/lib/payload.ts` typed client — error handling, caching, stale-while-revalidate.
+**Bug 1 — Orchestrator marks tasks `[x]` even on exit code 1.**
+In `orchestrator/main.py`, `mark_task_done()` is called unconditionally before checking `result.returncode`. Shell tasks that fail get marked done and pushed to GitHub. Fix: only call `mark_task_done` if `result.returncode == 0`.
 
-**Still open:** Hero/Filmstrip islands (Phase 5+). DSM staging slot (Phase 7).
+**Bug 2 — nginx volume path resolution (Docker-in-Docker via socket).**
+The SHELL command runs inside the orchestrator container. When it calls `docker compose`, Docker resolves relative volume paths (`./nginx/default.conf`) relative to the **host** filesystem, not the container's `/work` mount. So `./nginx/default.conf` becomes `/work/nginx/default.conf` on the host, which doesn't exist — the real path is `/volume1/apps/apr70-pictures/nginx/default.conf`.
+Fix: use `--project-directory /volume1/apps/apr70-pictures` in the compose command in TASKS.md Hop 1.
+
+## What's next (for Claude Code)
+
+See `docs/handoff/claudecode-2026-05-12.md` for the full handoff.
+
+Short version:
+1. Fix Bug 1 in `orchestrator/main.py` — gate `mark_task_done` on `returncode == 0`.
+2. Fix Bug 2 in TASKS.md Hop 1 — add `--project-directory /volume1/apps/apr70-pictures`.
+3. Reset Hop 1 to `[ ]` in TASKS.md.
+4. Commit + push both repos.
+5. On NAS: pull orchestrator, rebuild container, pull apr70-pictures, fire `--once`.
+6. Verify all 4 containers up, then fire Hop 2.
+
+## Confirmed NAS paths
+
+| Item | Value |
+|------|-------|
+| v3 repo on NAS | `/volume1/apps/apr70-pictures` (mounted as `/work` in orchestrator) |
+| v2 content export | `/volume1/apps/apr70-pictures/v2-export/content` |
+| v2 media source | `/volume1/apps/apr70/public/` (537 MB) |
+| v3 media volume | Docker `apr70v3_cms_media` → `/app/media` in cms container |
+| Docker binary in orchestrator | `/usr/bin/docker` |
+| Compose version in orchestrator | v2.27.0 |
+| Docker socket | `/var/run/docker.sock` (mounted) |
 
 ## Blocked / waiting
 
-- v3 Docker stack not yet running on NAS (needs Hop 1).
+- nginx not running (Bug 2 fix needed before re-running Hop 1).
+- Hop 2 (pg_dump + seed) blocked until Hop 1 fully succeeds.
 - DSM reverse-proxy slot for staging-v3 (Phase 7).
-
-## Open questions for Marco
-
-- Confirm NAS SSH alias: docs use `apr70-nas` — verify this matches your `~/.ssh/config`.
-
-## Spend log (last 7 days)
-
-Empty — orchestrator USAGE.jsonl not yet writing to this repo.
 
 ## Auto-stop note (2026-05-10 01:42 UTC)
 

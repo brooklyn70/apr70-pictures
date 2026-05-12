@@ -15,39 +15,45 @@ interface Props {
 const { block } = Astro.props
 
 const html = richTextLexicalToHtml(block.content ?? undefined)
+const isMega = (block as any).megaScale === true
 ---
 
 <section class="rich-text-block" aria-label="Rich text">
   {!html ? <p class="rich-text-block__empty">No content.</p> : null}
-  {html ? <div class="rich-text-block__body payload-richtext" set:html={html} /> : null}
+  {html ? <div class:list={["rich-text-block__body", "payload-richtext"]} data-display={isMega ? "mega" : undefined} set:html={html} /> : null}
 </section>
 
 <style is:global>
-  /* Mirrors v2 Payload RichText.tsx D-7 blocks; typography uses v3 tokens (no transition: all). */
+  /* Mirrors v2 Payload RichText.tsx D-7 blocks */
   .rich-text-block__body.payload-richtext {
     font-family: var(--font-body);
     font-weight: 300;
-    font-size: 1.0625rem;
-    line-height: 1.65;
-    color: var(--apr-mid-dark);
+    font-size: var(--type-body);
+    line-height: var(--leading-body);
+    color: var(--fg-2);
     max-width: 42rem;
   }
 
   .rich-text-block__body.payload-richtext :where(p) {
-    margin: 0 0 var(--space-3);
+    margin: 0 0 var(--s-5);
   }
 
   .rich-text-block__body.payload-richtext :where(a) {
-    color: var(--apr-near-black);
+    color: var(--fg-1);
     text-decoration-thickness: 1px;
-    text-underline-offset: 0.12em;
+    text-underline-offset: 0.2em;
+    transition: opacity var(--dur-base) var(--ease-in);
+  }
+
+  .rich-text-block__body.payload-richtext :where(a:hover) {
+    opacity: 0.7;
   }
 
   .d7-structure-divider {
     display: flex;
     align-items: center;
-    gap: var(--space-4);
-    margin-block: var(--space-12);
+    gap: var(--s-4);
+    margin-block: var(--s-9);
     width: 100%;
     box-sizing: border-box;
   }
@@ -55,93 +61,98 @@ const html = richTextLexicalToHtml(block.content ?? undefined)
   .d7-structure-divider--plain .d7-structure-divider__rule {
     flex: 1;
     height: 1px;
-    background: color-mix(in srgb, var(--apr-near-black) 12%, transparent);
+    background: var(--rule);
   }
 
   .d7-structure-divider--labeled .d7-structure-divider__rule {
     flex: 1;
     height: 1px;
-    background: color-mix(in srgb, var(--apr-near-black) 12%, transparent);
+    background: var(--rule);
   }
 
   .d7-structure-divider__label {
     flex-shrink: 0;
     text-transform: uppercase;
-    letter-spacing: 0.4em;
+    letter-spacing: var(--track-eyebrow);
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 0.6875rem;
-    color: var(--apr-mid-dark);
+    font-size: var(--type-micro);
+    color: var(--fg-4);
   }
 
   .d7-button-wrap {
-    margin-block: var(--space-4);
+    margin-block: var(--s-5);
   }
 
   .d7-button {
     display: inline-flex;
     align-items: center;
     box-sizing: border-box;
-    padding: 0.625rem var(--space-6);
+    padding: 0.625rem var(--s-6);
     text-transform: uppercase;
-    letter-spacing: 0.3em;
+    letter-spacing: var(--track-wider);
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: var(--type-caption);
     text-decoration: none;
     cursor: crosshair;
     transition:
-      color 0.28s ease,
-      border-color 0.28s ease,
-      background-color 0.28s ease;
+      color var(--dur-base) var(--ease-in),
+      border-color var(--dur-base) var(--ease-in),
+      background-color var(--dur-base) var(--ease-in);
   }
 
   .d7-button--primary {
-    color: var(--apr-near-black);
-    border: 1px solid color-mix(in srgb, var(--apr-near-black) 40%, transparent);
+    color: var(--fg-1);
+    border: 1px solid var(--rule-strong);
     background-color: transparent;
   }
 
   .d7-button--primary:hover {
-    color: white;
-    background-color: var(--apr-near-black);
-    border-color: var(--apr-near-black);
+    color: var(--apr-black);
+    background-color: var(--apr-white);
+    border-color: var(--apr-white);
   }
 
   .d7-button--secondary {
-    color: color-mix(in srgb, var(--apr-mid-dark) 70%, transparent);
-    border: 1px solid color-mix(in srgb, var(--apr-mid-dark) 35%, transparent);
+    color: var(--fg-3);
+    border: 1px solid var(--rule);
     background-color: transparent;
   }
 
   .d7-button--secondary:hover {
-    color: var(--apr-near-black);
-    border-color: color-mix(in srgb, var(--apr-near-black) 40%, transparent);
+    color: var(--fg-1);
+    border-color: var(--rule-strong);
   }
 
   .d7-accent-text {
-    margin-block: var(--space-8);
-    padding-block: var(--space-2);
-    padding-inline-start: var(--space-6);
+    margin-block: var(--s-8);
+    padding-block: var(--s-2);
+    padding-inline-start: var(--s-6);
     border-left-style: solid;
     border-left-width: 2px;
+    border-color: var(--apr-amber);
     white-space: pre-line;
+    font-family: var(--font-body);
     font-weight: 300;
-    font-size: clamp(1.125rem, 1.5vw, 1.25rem);
-    line-height: 1.85;
-    color: var(--apr-near-black);
+    font-size: var(--type-body-lg);
+    line-height: var(--leading-loose);
+    color: var(--fg-1);
   }
 </style>
 
 <style>
   .rich-text-block {
-    padding: 0 var(--space-3) var(--space-8);
+    padding: 0 var(--s-3) var(--s-8);
     box-sizing: border-box;
+    width: 100%;
+    max-width: var(--max-content);
+    margin: 0 auto;
   }
 
   .rich-text-block__empty {
     margin: 0;
     font-family: var(--font-body);
-    color: var(--apr-mid-dark);
+    color: var(--fg-4);
     font-style: italic;
   }
 </style>

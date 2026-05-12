@@ -1,0 +1,29 @@
+<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <defs></defs>
+  <rect width="256" height="256" fill="#824B07"></rect>
+  <rect x="6" y="18" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="240" y="18" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="6" y="36" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="240" y="36" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="6" y="54" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="240" y="54" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="6" y="72" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="240" y="72" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="6" y="90" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="240" y="90" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="6" y="108" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="240" y="108" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="6" y="126" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="240" y="126" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="6" y="144" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="240" y="144" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="6" y="162" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="240" y="162" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="6" y="180" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="240" y="180" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="6" y="198" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="240" y="198" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="6" y="216" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <rect x="240" y="216" width="10" height="7.07" rx="1.5" fill="#FFFFFF"></rect>
+  <text x="128" y="148" font-family="Futura, &#39;Century Gothic&#39;, &#39;Trebuchet MS&#39;, Arial, sans-serif" font-size="96" font-weight="400" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.06em">70</text>
+</svg>

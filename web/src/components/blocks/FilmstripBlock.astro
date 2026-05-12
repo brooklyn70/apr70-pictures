@@ -1,0 +1,130 @@
+---
+/**
+ * FilmstripBlock.astro — Cinematic horizontal image track with perforation bands.
+ * Uses native CSS scroll-snap for zero-jank mobile performance.
+ */
+interface Props {
+  block: {
+    source: 'custom-media' | 'from-projects'
+    projectFilter?: 'all' | '212' | '310' | 'nrc'
+    tiles?: Array<{
+      media: any
+      caption?: string
+      division?: string
+    }>
+    showPerforations?: boolean
+  }
+}
+
+const { block } = Astro.props
+const showPerfs = block.showPerforations !== false
+const tiles = block.tiles ?? []
+---
+
+<section class="filmstrip-block" aria-label="Filmstrip gallery" role="region" aria-roledescription="carousel">
+  {showPerfs && (
+    <div class="perf-band">
+      {Array.from({ length: 28 }).map(() => <div class="perf-hole" />)}
+    </div>
+  )}
+
+  <div class="filmstrip-track" tabindex="0">
+    {tiles.map((tile) => (
+      <div class="filmstrip-tile">
+        <div class="tile-frame">
+          {tile.media?.url && (
+            <img
+              src={tile.media.url}
+              alt={tile.caption || tile.media.alt || ''}
+              loading="lazy"
+            />
+          )}
+        </div>
+        {tile.caption && <span class="tile-caption keycode">{tile.caption}</span>}
+      </div>
+    ))}
+  </div>
+
+  {showPerfs && (
+    <div class="perf-band">
+      {Array.from({ length: 28 }).map(() => <div class="perf-hole" />)}
+    </div>
+  )}
+</section>
+
+<style>
+  .filmstrip-block {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .perf-band {
+    display: flex;
+    align-items: center;
+    background: #000;
+    height: 18px;
+    overflow: hidden;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .perf-hole {
+    width: 8px;
+    height: 13px;
+    background: #000;
+    border-radius: var(--r-hole, 2px);
+    flex-shrink: 0;
+    margin: 0 5px;
+    box-shadow:
+      inset 0 1px 0 0 var(--apr-imax),
+      inset 1px 0 0 0 rgba(255,255,255,0.18),
+      inset -1px 0 0 0 rgba(255,255,255,0.18),
+      inset 0 -1px 0 0 rgba(255,255,255,0.1);
+  }
+
+  .filmstrip-track {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 0;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 3.5%, black 96.5%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 3.5%, black 96.5%, transparent 100%);
+  }
+
+  .filmstrip-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filmstrip-tile {
+    flex-shrink: 0;
+    width: clamp(180px, 22vw, 280px);
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tile-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .tile-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.6) contrast(1.06);
+  }
+
+  .tile-caption {
+    margin-top: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: clamp(180px, 22vw, 280px);
+  }
+</style>

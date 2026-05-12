@@ -3,6 +3,14 @@ import type { Home } from 'payload-types'
 
 import HeroBlock from './HeroBlock.astro'
 import RichTextBlock from './RichTextBlock.astro'
+import TwoColBlock from './TwoColBlock.astro'
+import GridBlock from './GridBlock.astro'
+import CTABlock from './CTABlock.astro'
+import QuotesBlock from './QuotesBlock.astro'
+import FilmstripBlock from './FilmstripBlock.astro'
+import DivisionBlock from './DivisionBlock.astro'
+import StatsBlock from './StatsBlock.astro'
+import DividerBlock from './DividerBlock.astro'
 
 type LayoutBlock = NonNullable<Home['layout']>[number]
 
@@ -20,6 +28,22 @@ const { blocks } = Astro.props
         return <HeroBlock block={block} />
       case 'richText':
         return <RichTextBlock block={block} />
+      case 'twoCol':
+        return <TwoColBlock block={block} />
+      case 'grid':
+        return <GridBlock block={block} />
+      case 'cta':
+        return <CTABlock block={block} />
+      case 'quotes':
+        return <QuotesBlock block={block} />
+      case 'filmstrip':
+        return <FilmstripBlock block={block} />
+      case 'divisionShowcase':
+        return <DivisionBlock block={block} />
+      case 'stats':
+        return <StatsBlock block={block} />
+      case 'divider':
+        return <DividerBlock block={block} />
       default:
         return null
     }

@@ -1,37 +1,40 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-09 (initial bootstrap)
-**Repo tip:** to be set on first push
-**Phase:** Pre-phase-1 (skeleton)
+**Updated:** 2026-05-11 (master plan locked)
+**Repo tip:** to be set on next push
+**Phase:** Phase 1 — Tokens & Typography
 
 ---
 
 ## What's done
 
 - v2 (`brooklyn70/apr70-clone`) feature-frozen; `V2_FROZEN.md` committed.
-- Two new repos created: `apr70-pictures` (this), `apr70-orchestrator`.
+- Two repos created: `apr70-pictures` (this), `apr70-orchestrator`.
 - v3 monorepo skeleton: `web/`, `cms/`, `docker-compose.yml`, README, BRIEF, TASKS, CLAUDE.
+- Astro scaffold with React integration + TypeScript.
+- Payload 3.84.1 scaffold with Postgres, Lexical editor, D-7 inline blocks.
+- Docker compose stack (postgres + cms + web + nginx).
+- **Master Architecture Plan** approved after 4 drafts reviewed by Perplexity + Grok + Marco.
+- **11 Payload block schemas** created (Hero, RichText, TwoCol, Grid, CTA, Quotes, Filmstrip, Division, Stats, Divider + D7 Lexical inline blocks).
+- **11 Astro renderers** created with matching BlockRenderer switch.
+- **tokens.css** updated with locked 6-color palette (212 Amber, 212 Sicilian Orange, 310 IMAX, NRC Grey, 310 Sicilian Blue, NRC Navy), light mode ramp (`[data-theme="light"]`), `[data-display="mega"]` mega-scale typography, `[data-color]` Lexical Color Injector selectors.
+- All documentation updated: CLAUDE.md, TASKS.md, docs/architecture/v3-master-plan.md.
+- Database schema pushed. TypeScript compiles clean (zero errors).
 
 ## What's next
 
-**Phase 1 — Architecture (Claude Pro, focused session):**
-1. Block library spec — 6 starter blocks (Hero, TwoCol, Grid, CTA, Quotes, RichText) with token-locked variants.
-2. Page schema — each Global has `layout: Block[]`. Frontend has one `<BlockRenderer>` switch.
-3. Astro + Payload integration plan — auth boundary, type sharing, admin-to-frontend publish flow, image pipeline.
-4. Document outputs in `docs/architecture/blocks.md` and `docs/architecture/schema.md`.
+**Phase 1 remaining (tokens QA):**
+1. Visual QA of light mode across all blocks (requires-gui).
 
-**Phase 1 — Orchestrator (parallel track on NAS):**
-1. Python skeleton on NAS at `/volume1/apps/apr70-orchestrator/`.
-2. v1 = brutally small: pick task from `TASKS.md`, run Claude Code subprocess, append USAGE.jsonl entry, update this BRIEF, stop.
-3. One provider adapter (Anthropic), one runner (Claude Code), one log entry. Prove the loop.
+**Phase 2 (Lexical Color Injector):**
+1. Custom Lexical plugin — toolbar dropdown, token storage, admin preview, validation.
+2. Mega Scale toggle — custom Lexical node for `data-display="mega"`.
 
 ## Blocked / waiting
 
-- Nothing.
+- DSM reverse-proxy slot for staging-v3 (Phase 7).
 
 ## Open questions for Marco
-
-- None right now. Architecture session next.
 
 ## Spend log (last 7 days)
 
@@ -325,3 +328,12 @@ Ran task `[p1] [nas-headless] Orchestrator Notifications — integrate Telegram 
 
 - Branch: main
 - Tip: fb1d234
+
+## Session note (2026-05-11) — TwoColBlock Implementation
+
+- Created `TwoColBlock` Payload schema in `cms/src/blocks/TwoColBlock.ts`.
+- Registered `TwoColBlock` in `cms/src/globals/Home.ts`.
+- Regenerated payload types via `pnpm run generate:types`.
+- Created Astro renderer in `web/src/components/blocks/TwoColBlock.astro` utilizing the 8px grid spacing and standard v3 design tokens.
+- Registered the block in `<BlockRenderer>`.
+- `TASKS.md` Phase 3 `TwoColBlock` task marked done. Visual QA deferred to Marco.

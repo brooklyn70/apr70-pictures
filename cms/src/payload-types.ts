@@ -328,11 +328,32 @@ export interface Home {
   layout?:
     | (
         | {
+            /**
+             * Hero headline text. Line breaks are intentional.
+             */
             heading: string;
+            /**
+             * Smaller subtext below the heading.
+             */
             subtext?: string | null;
+            /**
+             * Static hero image (used for "default" and "split" variants).
+             */
             media?: (number | null) | Media;
-            variant: 'default' | 'split' | 'fullscreen';
-            division: 'pictures-212' | 'pictures-310' | 'corporate';
+            variant: 'default' | 'split' | 'fullscreen' | 'slider-auto' | 'slider-curated';
+            division: 'pictures-212' | 'pictures-310' | 'nrc' | 'corporate';
+            /**
+             * Crossfade duration in milliseconds (slider variants only).
+             */
+            fadeDuration?: number | null;
+            /**
+             * Time between slides in milliseconds (slider variants only).
+             */
+            autoplayDelay?: number | null;
+            /**
+             * Show the "01 / 04" slide indicator (slider variants only).
+             */
+            showIndicator?: boolean | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'hero';
@@ -353,9 +374,200 @@ export interface Home {
               };
               [k: string]: unknown;
             };
+            /**
+             * When enabled, all headings in this block use the massive display scale (e.g. "STORIES ACROSS GENERATIONS"). This separates visual size from semantic heading level.
+             */
+            megaScale?: boolean | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'richText';
+          }
+        | {
+            leftHeading: string;
+            rightBody: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            ratio?: ('1-3' | '1-1' | '1-2') | null;
+            alignment?: ('top' | 'center') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'twoCol';
+          }
+        | {
+            heading?: string | null;
+            items: {
+              media?: (number | null) | Media;
+              title?: string | null;
+              description?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: any;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'grid';
+          }
+        | {
+            heading: string;
+            subtext?: string | null;
+            buttons: {
+              label: string;
+              url: string;
+              variant: 'solid' | 'ghost' | 'link';
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cta';
+          }
+        | {
+            heading?: string | null;
+            layout: 'stacked' | 'carousel';
+            quotes: {
+              quote: string;
+              attribution?: string | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'quotes';
+          }
+        | {
+            /**
+             * Choose whether to manually curate tiles or pull from the Projects collection.
+             */
+            source: 'custom-media' | 'from-projects';
+            /**
+             * Filter projects by division (only when source = "from Projects").
+             */
+            projectFilter?: ('all' | '212' | '310' | 'nrc') | null;
+            tiles?:
+              | {
+                  media: number | Media;
+                  /**
+                   * Short label shown below the tile.
+                   */
+                  caption?: string | null;
+                  division?: ('none' | '212' | '310' | 'nrc') | null;
+                  id?: string | null;
+                }[]
+              | null;
+            showPerforations?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'filmstrip';
+          }
+        | {
+            /**
+             * Select the visual layout variant. Preview all at /dev/division-variants.
+             */
+            variant: 'v0-baseline' | 'v1-accordion' | 'v2-cards' | 'v3-split' | 'v4-timeline';
+            /**
+             * Optional section heading above the division rows. Line breaks are intentional.
+             */
+            heading?: string | null;
+            /**
+             * Optional subtext below the heading.
+             */
+            subtext?: string | null;
+            divisions: {
+              /**
+               * Division name (e.g. "(212) Pictures").
+               */
+              name: string;
+              colorToken:
+                | '212-amber'
+                | '212-sicilian-orange'
+                | '310-imax'
+                | 'nrc-grey'
+                | '310-sicilian-blue'
+                | 'nrc-navy';
+              /**
+               * Optional subtitle (e.g. "Brooklyn, New York").
+               */
+              subtitle?: string | null;
+              /**
+               * Division description body. Line breaks are intentional.
+               */
+              description?: string | null;
+              /**
+               * Optional image for variants that use media (v2-cards, v3-split).
+               */
+              media?: (number | null) | Media;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'divisionShowcase';
+          }
+        | {
+            /**
+             * Optional section heading. Line breaks are intentional.
+             */
+            heading?: string | null;
+            columns: '2' | '3' | '4';
+            stats: {
+              /**
+               * The large number or short text (e.g. "24", "$2.5M", "3x").
+               */
+              value: string;
+              /**
+               * Descriptive label below the value (e.g. "Projects in Development").
+               */
+              label: string;
+              colorToken?:
+                | (
+                    | 'none'
+                    | '212-amber'
+                    | '212-sicilian-orange'
+                    | '310-imax'
+                    | 'nrc-grey'
+                    | '310-sicilian-blue'
+                    | 'nrc-navy'
+                  )
+                | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'stats';
+          }
+        | {
+            /**
+             * Text shown between the two rules (e.g. "Structure", "// DIVISIONS"). Leave blank for a plain rule.
+             */
+            label?: string | null;
+            /**
+             * Vertical padding around the divider.
+             */
+            spacing?: ('compact' | 'normal' | 'wide') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'divider';
           }
       )[]
     | null;
@@ -378,6 +590,9 @@ export interface HomeSelect<T extends boolean = true> {
               media?: T;
               variant?: T;
               division?: T;
+              fadeDuration?: T;
+              autoplayDelay?: T;
+              showIndicator?: T;
               id?: T;
               blockName?: T;
             };
@@ -385,6 +600,123 @@ export interface HomeSelect<T extends boolean = true> {
           | T
           | {
               content?: T;
+              megaScale?: T;
+              id?: T;
+              blockName?: T;
+            };
+        twoCol?:
+          | T
+          | {
+              leftHeading?: T;
+              rightBody?: T;
+              ratio?: T;
+              alignment?: T;
+              id?: T;
+              blockName?: T;
+            };
+        grid?:
+          | T
+          | {
+              heading?: T;
+              items?:
+                | T
+                | {
+                    media?: T;
+                    title?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        cta?:
+          | T
+          | {
+              heading?: T;
+              subtext?: T;
+              buttons?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                    variant?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        quotes?:
+          | T
+          | {
+              heading?: T;
+              layout?: T;
+              quotes?:
+                | T
+                | {
+                    quote?: T;
+                    attribution?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        filmstrip?:
+          | T
+          | {
+              source?: T;
+              projectFilter?: T;
+              tiles?:
+                | T
+                | {
+                    media?: T;
+                    caption?: T;
+                    division?: T;
+                    id?: T;
+                  };
+              showPerforations?: T;
+              id?: T;
+              blockName?: T;
+            };
+        divisionShowcase?:
+          | T
+          | {
+              variant?: T;
+              heading?: T;
+              subtext?: T;
+              divisions?:
+                | T
+                | {
+                    name?: T;
+                    colorToken?: T;
+                    subtitle?: T;
+                    description?: T;
+                    media?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        stats?:
+          | T
+          | {
+              heading?: T;
+              columns?: T;
+              stats?:
+                | T
+                | {
+                    value?: T;
+                    label?: T;
+                    colorToken?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        divider?:
+          | T
+          | {
+              label?: T;
+              spacing?: T;
               id?: T;
               blockName?: T;
             };

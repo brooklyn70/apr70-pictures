@@ -1,182 +1,74 @@
 # Block Library Specification (v3)
 
-This document defines the schema, allowed variants, and renderer signatures for the initial 6 starter blocks in the APR 70 Pictures v3 architecture.
+**Last updated:** 2026-05-11 (master plan locked)
 
-These blocks enforce design discipline at the schema level. Editors construct layouts by composing these blocks rather than relying on hardcoded page templates.
+This document defines the 11-block library for the APR 70 Pictures v3 architecture. All blocks enforce design discipline at the schema level. Editors construct layouts by composing these blocks.
 
-## 1. HeroBlock
+**Rules (from CLAUDE.md):**
+- All blocks use Media relationships, not path strings.
+- All blocks render correctly in BOTH dark and light mode.
+- All blocks are mobile-first responsive (375px–1440px).
+- Non-interactive blocks = Astro components (zero JS). Interactive = React islands.
+- Colors locked to the 6-token palette: 212 Amber, 212 Sicilian Orange, 310 IMAX, NRC Grey, 310 Sicilian Blue, NRC Navy.
 
-**Description:**
-The primary opening block for a page. Contains a heading, subtext, and optional media.
-
-**Schema (Payload):**
-- `heading` (Text, required)
-- `subtext` (Text, optional)
-- `media` (Upload: Image or Video, optional)
-- `variant` (Select: `default` | `split` | `fullscreen`)
-- `division` (Select: `pictures-212` | `pictures-310` | `corporate`, default: `corporate`)
-
-**Allowed Variants (Token-locked):**
-- `default`: Standard width/padding.
-- `split`: 50/50 visual split using the 8px grid system.
-- `fullscreen`: 100vh hero block, typically used with immersive media.
-Colors and typography are derived from the `division` token (e.g., `--amber` for 212, `--teal` for 310).
-
-**Renderer Signature:**
-```astro
 ---
-import type { HeroBlock as HeroBlockType } from 'payload-types';
 
-interface Props {
-  block: HeroBlockType;
-}
+## 1. HeroBlock (`hero`)
 
-const { block } = Astro.props;
----
-```
-*(Interactive elements within the Hero will be mounted as a `HeroIsland` React component via `client:idle`)*
+Primary opening block. Classic Cinema crossfades. No morphing, no WebGL.
 
-## 2. TwoColBlock
+**Schema:** heading (textarea), subtext (text), media (upload), variant (default/split/fullscreen/slider-auto/slider-curated), division (pictures-212/pictures-310/nrc/corporate), fadeDuration (number), autoplayDelay (number), showIndicator (checkbox).
 
-**Description:**
-A standard layout block featuring a left label/heading and right body content. Used for company info, principles, and jobs sections.
+**Island:** `HeroSliderIsland` (React + GSAP) for slider variants.
 
-**Schema (Payload):**
-- `leftHeading` (Text, required)
-- `rightBody` (RichText, required)
-- `ratio` (Select: `1-3` | `1-1` | `1-2`, default: `1-3`)
-- `alignment` (Select: `top` | `center`, default: `top`)
+## 2. RichTextBlock (`richText`)
 
-**Allowed Variants (Token-locked):**
-- The `ratio` mapping ensures strict adherence to the grid (e.g. 1-3 means 1 column left, 3 columns right out of a 4-column subgrid).
-- Margin and padding strictly use the 8px grid tokens.
+Lexical body with D-7 inline blocks + mega-scale toggle.
 
-**Renderer Signature:**
-```astro
----
-import type { TwoColBlock as TwoColBlockType } from 'payload-types';
+**Schema:** content (richText), megaScale (checkbox → outputs `data-display="mega"`).
 
-interface Props {
-  block: TwoColBlockType;
-}
+## 3. TwoColBlock (`twoCol`)
 
-const { block } = Astro.props;
----
-```
+Left heading, right body. Ratios: 1-3, 1-1, 1-2. Alignment: top, center.
 
-## 3. GridBlock
+## 4. GridBlock (`grid`)
 
-**Description:**
-An array of typed items rendered as a CSS grid using an auto-fill minmax pattern.
+Array of cards with media + title + description. CSS auto-fill minmax grid.
 
-**Schema (Payload):**
-- `items` (Array)
-  - `title` (Text, required)
-  - `subtitle` (Text, optional)
-  - `media` (Upload, optional)
-  - `link` (Relationship/URL, optional)
-- `columns` (Select: `2` | `3` | `4`, default: `3`)
+## 5. CTABlock (`cta`)
 
-**Allowed Variants (Token-locked):**
-- Grid gap locked to `--spacing-grid-gap`.
-- Automatically collapses to 1 column on mobile breakpoints.
+Heading + buttons (solid/ghost/link variants). Max 3 buttons.
 
-**Renderer Signature:**
-```astro
----
-import type { GridBlock as GridBlockType } from 'payload-types';
+## 6. QuotesBlock (`quotes`)
 
-interface Props {
-  block: GridBlockType;
-}
+Quote + attribution array. Stacked or carousel (CSS scroll-snap).
 
-const { block } = Astro.props;
----
-```
+## 7. FilmstripBlock (`filmstrip`)
 
-## 4. CTABlock
+Horizontal image track with perforation bands. Source: custom media OR auto from Projects. CSS scroll-snap. Keyboard arrow nav. ARIA carousel. Pause on hover.
 
-**Description:**
-A Call to Action block with a heading and buttons.
+## 8. DivisionBlock (`divisionShowcase`)
 
-**Schema (Payload):**
-- `heading` (Text, required)
-- `body` (Text, optional)
-- `buttons` (Array, max 2)
-  - `label` (Text, required)
-  - `url` (Text, required)
-  - `variant` (Select: `primary` | `secondary` | `ghost`)
+5 visual variants with color-token-locked division rows.
+- v0: v2-faithful baseline (stacked rows, ghost numerals)
+- v1: Interactive Accordion
+- v2: Horizontal Card Stack
+- v3: Split-Screen Reveal
+- v4: Timeline Spine
 
-**Allowed Variants (Token-locked):**
-- `primary`: Uses UI border token (`--apr-near-black`) or inverted depending on theme.
-- `secondary`: Uses `--apr-mid-dark` meta text coloring.
-- `ghost`: Transparent background, hover state using system opacity changes.
+Preview at `/dev/division-variants` (dev-only). Director picks one → unused code removed.
 
-**Renderer Signature:**
-```astro
----
-import type { CTABlock as CTABlockType } from 'payload-types';
+## 9. StatsBlock (`stats`)
 
-interface Props {
-  block: CTABlockType;
-}
+Large numeric data points in 2-4 column grid. Optional per-stat brand color.
 
-const { block } = Astro.props;
----
-```
+## 10. DividerBlock (`divider`)
 
-## 5. QuotesBlock
+Structure divider with optional mono-spaced centered label. Spacing: compact/normal/wide.
 
-**Description:**
-Displays quotes and attributions, either as a single stacked item or a carousel.
+## 11. D-7 Lexical Inline Blocks
 
-**Schema (Payload):**
-- `quotes` (Array)
-  - `quote` (Text, required)
-  - `author` (Text, required)
-  - `role` (Text, optional)
-- `displayMode` (Select: `stacked` | `carousel`, default: `stacked`)
-
-**Allowed Variants (Token-locked):**
-- `stacked`: Outputs quotes vertically with 8px grid spacing.
-- `carousel`: Outputs an interactive slider.
-- Typography strictly inherits from `Futura Bold` or `Barlow` based on the quote's importance.
-
-**Renderer Signature:**
-```astro
----
-import type { QuotesBlock as QuotesBlockType } from 'payload-types';
-
-interface Props {
-  block: QuotesBlockType;
-}
-
-const { block } = Astro.props;
----
-```
-
-## 6. RichTextBlock
-
-**Description:**
-A standard block for body copy, wrapping Lexical editor content.
-
-**Schema (Payload):**
-- `content` (RichText, required)
-
-**Allowed Variants (Token-locked):**
-- Allows D-7 inline blocks ported from v2 (`structureDivider`, `button`, `accentText`).
-- Typography locked to `Barlow` (body) and `Courier New` (mono/meta).
-- `structureDivider` locked to standard UI border colors (`--apr-near-black` or `--offwhite`).
-
-**Renderer Signature:**
-```astro
----
-import type { RichTextBlock as RichTextBlockType } from 'payload-types';
-
-interface Props {
-  block: RichTextBlockType;
-}
-
-const { block } = Astro.props;
----
-```
+Embedded within RichTextBlock content:
+- `structureDivider`: horizontal rule with optional label
+- `button`: primary/secondary CTA
+- `accentText`: left-border accent block with brand color select

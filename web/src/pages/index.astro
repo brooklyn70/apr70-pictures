@@ -1,11 +1,33 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import BlockRenderer from '../components/blocks/BlockRenderer.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Fetch the Home global from Payload
+let homeGlobal = null;
+try {
+  // Use localhost for local dev
+  const payloadUrl = import.meta.env.PUBLIC_PAYLOAD_URL || 'http://127.0.0.1:8080';
+  const res = await fetch(`${payloadUrl}/api/globals/home`);
+  if (res.ok) {
+    homeGlobal = await res.json();
+  }
+} catch (e) {
+  console.error("Error fetching home global:", e);
+}
+
+// BUST CACHE
+
+const blocks = homeGlobal?.layout || [];
 ---
 
 <Layout>
-	<Welcome />
+  <main>
+    {!blocks.length ? (
+      <div style="padding: 4rem; text-align: center; font-family: var(--font-body); color: var(--apr-mid-dark);">
+        No blocks found. Add some blocks to the Home global in Payload!
+      </div>
+    ) : (
+      <BlockRenderer blocks={blocks} />
+    )}
+  </main>
 </Layout>

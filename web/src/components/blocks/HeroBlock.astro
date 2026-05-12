@@ -39,9 +39,7 @@ const variantClass =
 >
   <div class="hero__inner">
     <div class="hero__copy">
-      <h1 id={`hero-heading-${block.id ?? 'x'}`} class="hero__heading">
-        {block.heading}
-      </h1>
+      <h1 id={`hero-heading-${block.id ?? 'x'}`} class="hero__heading">{block.heading}</h1>
       {block.subtext ? <p class="hero__subtext">{block.subtext}</p> : null}
     </div>
     {
@@ -67,27 +65,29 @@ const variantClass =
 <style>
   .hero {
     font-family: var(--font-body);
-    padding: var(--space-6) var(--space-3);
+    padding: var(--s-8) var(--s-3);
     box-sizing: border-box;
+    width: 100%;
   }
 
   .hero__inner {
-    max-width: 72rem;
+    max-width: var(--max-content);
     margin-inline: auto;
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
+    gap: var(--s-5);
   }
 
   .hero--split .hero__inner {
     display: grid;
-    gap: var(--space-4);
+    gap: var(--s-6);
   }
 
   @media (min-width: 768px) {
     .hero--split .hero__inner {
       grid-template-columns: 1fr 1fr;
       align-items: center;
+      gap: var(--s-8);
     }
   }
 
@@ -103,18 +103,20 @@ const variantClass =
 
   .hero__heading {
     font-family: var(--font-display);
-    font-size: clamp(1.75rem, 4vw, 2.75rem);
-    line-height: 1.1;
+    font-size: var(--type-h1);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--track-tight);
     margin: 0;
-    color: var(--hero-heading, var(--apr-near-black));
+    text-transform: uppercase;
+    color: var(--hero-heading, var(--fg-1));
   }
 
   .hero__subtext {
-    margin: var(--space-2) 0 0;
-    font-size: 1.125rem;
+    margin: var(--s-3) 0 0;
+    font-size: var(--type-body-lg);
     font-weight: 300;
-    line-height: 1.5;
-    color: var(--hero-sub, var(--apr-mid-dark));
+    line-height: var(--leading-loose);
+    color: var(--hero-sub, var(--fg-3));
     max-width: 36rem;
   }
 
@@ -127,21 +129,21 @@ const variantClass =
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 2px;
+    border-radius: var(--r-none);
   }
 
   .hero--212 {
-    --hero-heading: var(--amber);
-    --hero-sub: var(--apr-mid-dark);
+    --hero-heading: var(--apr-amber);
+    --hero-sub: var(--fg-3);
   }
 
   .hero--310 {
-    --hero-heading: var(--teal);
-    --hero-sub: var(--apr-mid-dark);
+    --hero-heading: var(--apr-imax);
+    --hero-sub: var(--fg-3);
   }
 
   .hero--corporate {
-    --hero-heading: var(--apr-near-black);
-    --hero-sub: var(--apr-mid-dark);
+    --hero-heading: var(--fg-1);
+    --hero-sub: var(--fg-3);
   }
 </style>

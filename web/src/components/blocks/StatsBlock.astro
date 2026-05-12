@@ -1,0 +1,99 @@
+---
+/**
+ * StatsBlock.astro — Large numeric data points with labels.
+ * Supports 2-4 column layouts with optional per-stat brand colors.
+ */
+interface Stat {
+  value: string
+  label: string
+  colorToken?: string
+}
+
+interface Props {
+  block: {
+    heading?: string
+    columns: '2' | '3' | '4'
+    stats: Stat[]
+  }
+}
+
+const { block } = Astro.props
+const cols = block.columns || '4'
+
+function tokenToVar(token: string): string {
+  if (!token || token === 'none') return 'var(--fg-1)'
+  return `var(--color-${token})`
+}
+---
+
+<section class="stats-block">
+  {block.heading && (
+    <div class="container">
+      <h2 class="h3" set:html={block.heading.replace(/\n/g, '<br />')} />
+    </div>
+  )}
+
+  <div
+    class="stats-grid container"
+    style={`--stat-cols: ${cols}`}
+  >
+    {block.stats.map((stat) => (
+      <div class="stat-cell">
+        <span
+          class="stat-value"
+          style={`color: ${tokenToVar(stat.colorToken ?? 'none')}`}
+        >
+          {stat.value}
+        </span>
+        <span class="stat-label">{stat.label}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .stats-block {
+    padding: var(--s-9) 0;
+  }
+
+  .stats-block .h3 {
+    margin-bottom: var(--s-8);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--stat-cols), 1fr);
+    gap: var(--s-6);
+    border-top: 1px solid var(--rule);
+    padding-top: var(--s-7);
+  }
+
+  @media (max-width: 768px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .stat-cell {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+
+  .stat-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: var(--track-tight);
+  }
+
+  .stat-label {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: var(--type-small);
+    letter-spacing: var(--track-wide);
+    text-transform: uppercase;
+    color: var(--fg-4);
+  }
+</style>

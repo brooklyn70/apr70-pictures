@@ -4,61 +4,72 @@ Priority-ordered backlog. Marco edits this in the morning; agents work it during
 
 ## Format
 
-Each line is: checkbox, phase tag (`[p1]` … `[p5]`), tool hint in backticks, then the task text. Example rows appear under each phase heading below.
+Each line is: checkbox, phase tag (`[p1]` … `[p7]`), tool hint in backticks, then the task text.
 
 Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainstream IDE work. `gemini` = visual / creative. `cline` = mechanical. `requires-gui` = needs Marco's eyes (visual QA). `nas-headless` = orchestrator can run autonomously.
 
 ---
 
-## Phase 1 — Architecture
+## Phase 1 — Tokens & Typography (Foundation)
 
-- [x] [p1] [claude] Block library spec — 6 starter blocks (Hero, TwoCol, Grid, CTA, Quotes, RichText). Each: schema, allowed variants (token-locked), renderer signature. Output `docs/architecture/blocks.md`.
-- [x] [p1] [claude] Page schema — `layout: Block[]` on each Global. Output `docs/architecture/schema.md`.
-- [x] [p1] [claude] Astro + Payload integration spec — auth, type sharing, image pipeline, cache strategy. Output `docs/architecture/integration.md`.
-- [x] [p1] [cursor+claude] Token contract — port `APR 70 Pictures Design System/colors_and_type.css` from v2; confirm or revise color/type/spacing tokens.
-- [x] [p1] [nas-headless] Orchestrator Notifications — integrate Telegram API or SMTP so the orchestrator pushes an alert to Marco whenever `BRIEF.md` is updated or a task finishes.
-- [x] [p1] [nas-headless] 1Password CLI Integration — install `op` CLI on the NAS, authenticate it, and refactor the Orchestrator to fetch API keys dynamically via `op://` instead of `.env` files.
+- [x] [p1] [claude] Block library spec — initial 6 blocks.
+- [x] [p1] [claude] Page schema — `layout: Block[]` on each Global.
+- [x] [p1] [claude] Astro + Payload integration spec.
+- [x] [p1] [cursor+claude] Token contract — port v2 colors/type/spacing.
+- [x] [p1] [nas-headless] Orchestrator Notifications — Telegram alerts.
+- [x] [p1] [nas-headless] 1Password CLI Integration.
+- [x] [p1] [gemini] Master architecture plan — 4 drafts reviewed by Perplexity + Grok + Marco. LOCKED.
+- [x] [p1] [gemini] Expanded block library — 11 blocks (Hero, RichText, TwoCol, Grid, CTA, Quotes, Filmstrip, Division, Stats, Divider). Schemas + Astro renderers created.
+- [ ] [p1] [gemini] `tokens.css` — update color names to final palette (212 Amber, 212 Sicilian Orange, 310 IMAX, NRC Grey, 310 Sicilian Blue, NRC Navy). Remove Steenbeck Warm. Add light mode ramp (`[data-theme="light"]`).
+- [ ] [p1] [gemini] Update ALL block schemas — color select fields must use final token names.
+- [ ] [p1] [requires-gui] Light mode visual QA — verify all blocks render correctly in both modes.
 
-## Phase 2 — Scaffold
+## Phase 2 — Lexical Color Injector
 
-- [x] [p2] [cursor+claude] `pnpm create astro@latest` in `web/` with TypeScript + integrations (react, tailwind, sitemap).
-- [x] [p2] [cursor+claude] `create-payload-app` in `cms/` (Postgres + Next standalone); use `npx` for non-interactive flags — see `docs/handoff/composer-next-2026-05-11-phase2-continued.md`.
-- [x] [p2] [nas-headless] `docker-compose.yml` with postgres + cms + web + nginx services. Adapt v2's `docker-compose.nas.yml`.
-- [ ] [p2] [nas-headless] DSM reverse-proxy slot for `staging-v3.apr70.com`. Basic Auth on `/admin`. (Runbook: `docs/deployment/staging-v3-dsm-proxy.md`.)
-- [x] [p2] [cursor+claude] HeroBlock end-to-end: Payload schema → admin UI → Astro renderer → visible on test page.
-- [x] [p2] [cursor+claude] Port D-7 Lexical inline blocks (`structureDivider`, `button`, `accentText`) from v2's `RichText.tsx` to Astro.
+- [ ] [p2] [cursor+claude] Lexical Color Injector plugin — custom inline toolbar dropdown, token storage, admin preview, save validation, Brand Palette Reference sidebar panel.
+- [ ] [p2] [cursor+claude] Mega Scale toggle — custom Lexical node/format for `data-display="mega"`.
 
-## Phase 3 — Block library
+## Phase 3 — SiteSettings & Global Chrome
 
-- [ ] [p3] [gemini] TwoColBlock — schema + renderer + visual QA against v2 reference.
-- [ ] [p3] [gemini] GridBlock — schema + renderer + visual QA.
-- [ ] [p3] [gemini] CTABlock — schema + renderer + visual QA.
-- [ ] [p3] [gemini] QuotesBlock — schema + renderer + visual QA.
-- [ ] [p3] [gemini] RichTextBlock — wraps Lexical with D-7 inline blocks.
-- [ ] [p3] [cursor+claude] HeroIsland — React + GSAP, mounted via `client:idle`. Port v2 hero behavior.
-- [ ] [p3] [cursor+claude] FilmstripIsland — React, port v2 StageFilmstrip behavior.
-- [ ] [p3] [cursor+claude] LightboxIsland — port v2 Lightbox.
-- [ ] [p3] [cursor+claude] FixedUiIsland — port v2 FixedUI (light-mode toggle, cursor, reel counter).
+- [ ] [p3] [cursor+claude] `SiteSettings` Payload global — brandLabel, legalEntity, footerLinks, showFilmstripRails, lastDeployed (read-only), seededVersion (read-only).
+- [ ] [p3] [cursor+claude] `FooterLinks` Payload global — nav items + more links.
+- [ ] [p3] [gemini] Magnetic Navigation island — React + GSAP. `transform`+`opacity` only. `prefers-reduced-motion` + `pointer: coarse` disabled.
+- [ ] [p3] [gemini] Footer component — static Astro, 4-col grid, pulls from FooterLinks global.
+- [ ] [p3] [cursor+claude] Payload preview URLs — live Astro previews from admin panel.
 
-## Phase 4 — Page composition + content migration
+## Phase 4 — Seed Script & Content
 
-- [ ] [p4] [requires-gui] Compose home page from blocks.
-- [ ] [p4] [requires-gui] Compose work / projects pages.
-- [ ] [p4] [requires-gui] Compose news pages.
-- [ ] [p4] [requires-gui] Compose about, contact, jobs, pitch, investors.
-- [ ] [p4] [nas-headless] One-shot importer: v2 Payload Postgres → v3 schema. Throwaway script.
-- [ ] [p4] [nas-headless] Migrate Media: rsync v2 NAS volume → v3 NAS volume; re-link in v3 DB.
+- [ ] [p4] [nas-headless] Seed script — port v2 content into Payload DB. Idempotent. Versioned.
+- [ ] [p4] [nas-headless] Media migration — rsync v2 NAS volume → v3 NAS volume. Re-link in DB.
+- [ ] [p4] [cursor+claude] `web/src/lib/payload.ts` typed client — error handling, caching, stale-while-revalidate.
 
-## Phase 5 — Polish + cutover
+## Phase 5 — Hero Engine & Filmstrip
 
-- [ ] [p5] [requires-gui] Lighthouse parity audit.
-- [ ] [p5] [requires-gui] Accessibility audit (WCAG AA).
-- [ ] [p5] [nas-headless] AVIF + blur placeholder verification.
-- [ ] [p5] [claude] DNS plan: `apr70.com` → v3.
-- [ ] [p5] [nas-headless] v2 retired: archive repo, spin down v2 NAS containers, archive data dump to C2.
+- [ ] [p5] [gemini] HeroBlock slider island — React + GSAP crossfade. Auto-featured + curated modes.
+- [ ] [p5] [gemini] FilmstripBlock renderer — CSS scroll-snap, perforation bands, keyboard nav, ARIA.
+- [ ] [p5] [requires-gui] Hero + Filmstrip visual QA.
+
+## Phase 6 — Division Showcase
+
+- [ ] [p6] [gemini] Division Showcase v0 — v2-faithful baseline (stacked rows, ghost numerals).
+- [ ] [p6] [gemini] Division Showcase v1 — Interactive Accordion variant.
+- [ ] [p6] [gemini] Division Showcase v2 — Horizontal Card Stack variant.
+- [ ] [p6] [gemini] Division Showcase v3 — Split-Screen Reveal variant.
+- [ ] [p6] [gemini] Division Showcase v4 — Timeline Spine variant.
+- [ ] [p6] [gemini] `/dev/division-variants` preview route (dev-only, env-gated).
+- [ ] [p6] [requires-gui] Director review → lock canonical variant, delete unused code.
+
+## Phase 7 — Continuous Slate & Polish
+
+- [ ] [p7] [gemini] MasonryBlock island — React, IntersectionObserver, cursor pagination, skeleton loaders, "Load More" fallback.
+- [ ] [p7] [requires-gui] Compose all pages from blocks (home, about, work, investors, contact, jobs, pitch, news).
+- [ ] [p7] [requires-gui] Lighthouse audit — LCP < 2.5s, CLS < 0.1.
+- [ ] [p7] [requires-gui] WCAG AA audit — 4.5:1 contrast, keyboard nav, reduced motion.
+- [ ] [p7] [nas-headless] DSM reverse-proxy slot for staging-v3.apr70.com.
+- [ ] [p7] [nas-headless] DNS plan: apr70.com → v3.
 
 ---
 
 ## Done
 
-(Empty — first task starts in Phase 1.)
+(Completed tasks moved here with date.)

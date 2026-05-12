@@ -6,6 +6,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: apr70_cms
+    ports:
+      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -25,7 +27,7 @@ services:
     environment:
       DATABASE_URL: postgres://postgres:postgres@postgres:5432/apr70_cms
       PAYLOAD_SECRET: ${PAYLOAD_SECRET:-dev-change-me}
-      NODE_ENV: production
+      NODE_ENV: development
     volumes:
       - cms_media:/app/media
 

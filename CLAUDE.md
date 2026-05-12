@@ -1,7 +1,7 @@
 # CLAUDE.md — apr70-pictures (v3)
 
 **Authoritative working document for all agents working in this repo.**
-**Last updated:** 2026-05-09 (initial)
+**Last updated:** 2026-05-11 (Draft 4 master plan locked)
 **Repo:** `brooklyn70/apr70-pictures`
 **Live (when shipped):** https://apr70.com
 **Staging:** https://staging-v3.apr70.com (pending DSM slot)
@@ -14,78 +14,96 @@
 1. `BRIEF.md` — current state, last updated by previous agent's stop hook.
 2. `TASKS.md` — priority backlog. Pick the top task tagged for your tool.
 3. This file — project conventions.
-4. `docs/architecture/` — schema + block library + integration specs (once Phase 1 ships).
+4. `docs/architecture/` — schema + block library + integration specs.
+5. `docs/architecture/v3-master-plan.md` — the director-approved architecture plan.
 
 ---
 
-## How v3 differs from v2
+## How v3 works
 
-v2 (`brooklyn70/apr70-clone`) was a Next.js + Payload site where layout was hardcoded in React templates and Payload supplied named fields. Editors could only reorder content within Lexical body fields. The design discipline lived in code (rules 11–12 of v2's CLAUDE.md, `apr70-design-audit` skill).
+**Payload is the single source of truth for ALL content.** There is no Keystatic, no content/ directory, no file-based fallbacks. Content enters the system via:
+1. An idempotent seed script (`seed.ts`) that runs on first boot via Payload's `onInit`.
+2. The Payload Admin UI (`/admin`) for all subsequent edits.
 
-v3 inverts that: **layout is editor-authored, design discipline lives in the schema.** Each page Global has a `layout: Block[]` field. Editors drag blocks from a fixed library; block schemas constrain colors to locked tokens, spacing to the 8px grid, typography to the named families. Editors can produce any valid composition; they cannot produce invalid output.
-
-This means **agents do not write per-page React components**. They write **block components** and **island components**. Page rendering is one `<BlockRenderer>` switch.
+Layout is editor-authored via block stacking. Each page Global has a `layout: Block[]` field. The frontend is one `<BlockRenderer>` switch. Agents write **block components** and **island components**, never per-page React templates.
 
 ---
 
 ## Hard rules
 
-1. **No hardcoded page layouts.** Every page uses `<BlockRenderer blocks={page.layout} />`. If you find yourself reaching for "I'll just write this section directly in the page.astro," stop — it should be a block.
-2. **No new design tokens outside the locked set.** All colors come from `web/src/styles/tokens.css`. All spacing uses the 8px grid. All typography uses the named families. New tokens are a deliberate change, with a commit and a note in BRIEF.md, not an ad-hoc addition.
-3. **No `transition: all`.** Animate only `opacity`, `transform`, and explicitly-named CSS properties. Carry-over from v2; still correct.
-4. **No emoji** anywhere on the rendered site or in commits. Internal docs (BRIEF.md, this file) are fine.
-5. **Pure layout/typography blocks render as Astro components.** They ship zero JS. Interactive blocks (Hero animations, Filmstrip, Lightbox, FixedUI) are React **islands** mounted via `client:idle` or `client:visible`. Don't make a non-interactive block a React island.
-6. **Type-share via `payload-types.ts`.** Every block's render component imports its props type from the generated Payload types. No hand-rolled duplicate types.
-7. **Stop hooks handle commits and pushes.** Do not manually `git push` at the end of a session — the hook does it. Do update BRIEF.md before stopping.
-8. **GUI tasks need Marco.** Tasks tagged `requires-gui` in TASKS.md need visual review. Don't merge them autonomously; queue them for Marco's morning review.
+1. **No hardcoded page layouts.** Every page uses `<BlockRenderer blocks={page.layout} />`.
+2. **No new colors outside the locked palette.** See Token Contract below.
+3. **No `transition: all`.** Animate only `opacity`, `transform`, and explicitly-named properties.
+4. **No emoji** on the rendered site or in commits. Internal docs are fine.
+5. **Non-interactive blocks = Astro components (zero JS).** Interactive blocks = React islands via `client:idle` or `client:visible`.
+6. **Type-share via `payload-types.ts`.** Every block imports types from generated Payload types.
+7. **GSAP only.** No Framer Motion. No other animation libraries.
+8. **Both modes.** Every block MUST render correctly in dark mode AND light mode from day one.
+9. **Mobile-first.** All CSS designed for 375px–1440px with `clamp()`. No desktop-first code.
+10. **Media relationships.** Blocks use Payload Media relationships, never loose path strings.
+11. **Stop hooks handle commits.** Update BRIEF.md before stopping.
+12. **GUI tasks need Marco.** Tasks tagged `requires-gui` need visual review.
 
 ---
 
-## Token contract (initial — refine in Phase 1)
+## Token contract (LOCKED)
 
-Inherits from v2's locked tokens. To be ported into `web/src/styles/tokens.css` in Phase 2.
+### Brand Colors
 
-| Token | Hex | Use |
-|---|---|---|
-| `--amber` | `#824B07` | (212) Pictures division |
-| `--teal` | `#077082` | (310) Pictures division |
-| `--orange` | `#E85D04` | Investor / accent |
-| `--offwhite` | `#c8c8c8` | NRC / secondary text |
-| `--apr-near-black` | `#1e1e1e` | UI button borders |
-| `--apr-mid-dark` | `#3a3a3a` | UI meta text |
+| Token Key | Name | Hex |
+|-----------|------|-----|
+| `212-amber` | 212 Amber | `#824B07` |
+| `212-sicilian-orange` | 212 Sicilian Orange | `#E85D04` |
+| `310-imax` | 310 IMAX | `#077082` |
+| `nrc-grey` | NRC Grey | `#c8c8c8` |
+| `310-sicilian-blue` | 310 Sicilian Blue | `#0077B6` |
+| `nrc-navy` | NRC Navy | `#001F3F` |
 
-Typography: Futura Bold (display), Barlow 300/400/500/700 (body), Courier New (mono / meta). Share Tech Mono reserved for filmstrip-style fragments only.
+### Light Mode
+- Background: `#FAFAF8`
+- Text: `#1A1A1A`
+
+### CSS Variables
+All brand colors stored as `--color-{token-key}` in `web/src/styles/tokens.css`.
+Lexical Color Injector stores `data-color="{token-key}"` in markup.
+`[data-theme="light"]` selector block flips `--fg-*` and `--bg-*` ramps.
+
+Typography: Futura Std (display), Barlow (body), Share Tech Mono (filmstrip/meta).
 
 ---
 
 ## Stack
 
-- **Frontend:** Astro (HTML-first; React islands for interactive blocks). TypeScript. Tailwind CSS v4 (or vanilla CSS modules — decide in Phase 1).
-- **Backend:** Payload v3 (Postgres). Standalone Node service. Lexical editor with D-7 inline blocks ported from v2.
+- **Frontend:** Astro (HTML-first; React islands for interactive blocks). TypeScript. Vanilla CSS via tokens.css.
+- **Backend:** Payload v3 (Postgres). Standalone Node service. Lexical editor with D-7 inline blocks + Color Injector plugin.
+- **Animation:** GSAP + ScrollTrigger. No other motion libraries.
 - **Hosting:** Docker on Synology NAS. nginx reverse proxy. Postgres in container. Media on NAS volume.
-- **Deploy:** push → NAS git fetch + reset → docker compose build + up. Same Rule 9c flow as v2.
+- **Deploy:** push → NAS git fetch + reset → docker compose build + up.
 
 ---
 
-## Block library (initial 6, finalized in Phase 1)
+## Block library (11 blocks)
 
-1. **HeroBlock** — heading, subtext, optional media (image or video). Variants per division.
-2. **TwoColBlock** — left label/heading, right body. Used for company/principles/jobs sections.
-3. **GridBlock** — array of typed items rendered as CSS grid. Auto-fill minmax pattern.
-4. **CTABlock** — heading + buttons. Buttons are token-locked variants (primary, secondary, ghost).
-5. **QuotesBlock** — quote + attribution. Carousel or stacked.
-6. **RichTextBlock** — Lexical body with D-7 inline blocks (`structureDivider`, `button`, `accentText`).
-
-Plus interactive **island wrappers**: HeroIsland, FilmstripIsland, LightboxIsland, FixedUiIsland.
+1. **HeroBlock** — heading, subtext, media. Variants: default, split, fullscreen, slider-auto, slider-curated.
+2. **RichTextBlock** — Lexical body with D-7 inline blocks + mega-scale toggle.
+3. **TwoColBlock** — left heading, right body. Ratios: 1-3, 1-1, 1-2.
+4. **GridBlock** — array of cards with media + title + description.
+5. **CTABlock** — heading + buttons (solid, ghost, link variants).
+6. **QuotesBlock** — quote + attribution. Stacked or carousel.
+7. **FilmstripBlock** — horizontal image track with perforation bands. CSS scroll-snap.
+8. **DivisionBlock** — division showcase with 5 visual variants. Color-token-locked.
+9. **StatsBlock** — large numeric data points in 2-4 column grid.
+10. **DividerBlock** — structure divider with optional mono-spaced label.
+11. Plus interactive **islands**: HeroSliderIsland, MasonryIsland, MagneticNavIsland.
 
 ---
 
 ## Orchestrator integration
 
-This repo is one of two consumed by the orchestrator at https://github.com/brooklyn70/apr70-orchestrator. The orchestrator picks tasks from `TASKS.md`, dispatches them to the right tool/provider, captures USAGE, and updates `BRIEF.md`. Don't manually update `BRIEF.md` outside of stop hooks; the orchestrator owns it during automated runs.
+This repo is consumed by the orchestrator at `brooklyn70/apr70-orchestrator`. The orchestrator picks tasks from `TASKS.md`, dispatches them, captures USAGE, and updates `BRIEF.md`.
 
 ---
 
 ## File line cap
 
-This file should stay under 200 lines. Older context lives in `docs/architecture/` and `docs/decisions/`.
+This file should stay under 200 lines. Older context lives in `docs/architecture/`.

@@ -40,8 +40,8 @@ Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainst
 ## Phase 4 — Seed Script & Content
 
 - [x] [p4] [nas-headless] Seed script — CLI complete. `--dry-run` accepted (23 files, 14 pages, 9 projects, 83/83 blocks, 0 warnings). `--apply` implemented via Payload Local API. Dispatch doc: `docs/handoff/nas-deploy-2026-05-12.md`.
-- [x] [p4] [nas-shell] NAS Hop 1 — Build and start v3 stack. SHELL: cd /work && sudo /usr/local/bin/docker compose -p apr70v3 up -d --build 2>&1 && sleep 30 && sudo /usr/local/bin/docker compose -p apr70v3 ps && sudo /usr/local/bin/docker compose -p apr70v3 logs cms --tail 30
-- [ ] [p4] [nas-shell] NAS Hop 2 — pg_dump backup then live seed. SHELL: sudo /usr/local/bin/docker exec apr70v3-postgres-1 pg_dump --format=custom --file=/tmp/apr70-v3-pre-seed-$(date -u +%Y%m%dT%H%M%SZ).dump postgresql://postgres:postgres@localhost:5432/apr70_cms 2>&1 && ls -lh /tmp/apr70-v3-pre-seed-*.dump && sudo /usr/local/bin/docker exec apr70v3-cms-1 sh -c "cd /app && pnpm migrate:v2:apply -- --v2-root /volume1/apps/apr70-pictures/v2-export/content" 2>&1
+- [ ] [p4] [nas-shell] NAS Hop 1 — Build and start v3 stack. SHELL: cd /work && /usr/local/bin/docker compose -p apr70v3 up -d --build 2>&1 && sleep 30 && /usr/local/bin/docker compose -p apr70v3 ps && /usr/local/bin/docker compose -p apr70v3 logs cms --tail 30
+- [ ] [p4] [nas-shell] NAS Hop 2 — pg_dump backup then live seed. SHELL: /usr/local/bin/docker exec apr70v3-postgres-1 pg_dump --format=custom --file=/tmp/apr70-v3-pre-seed-$(date -u +%Y%m%dT%H%M%SZ).dump postgresql://postgres:postgres@localhost:5432/apr70_cms 2>&1 && ls -lh /tmp/apr70-v3-pre-seed-*.dump && /usr/local/bin/docker exec apr70v3-cms-1 sh -c "cd /app && pnpm migrate:v2:apply -- --v2-root /volume1/apps/apr70-pictures/v2-export/content" 2>&1
 - [ ] [p4] [nas-headless] Media migration — rsync `/volume1/apps/apr70/public/` → v3 media volume (no `--delete`); create Media rows per `cms/src/collections/Media.ts`; wire relationships into seeded blocks.
 - [ ] [p4] [cursor+claude] `web/src/lib/payload.ts` typed client — error handling, caching, stale-while-revalidate.
 

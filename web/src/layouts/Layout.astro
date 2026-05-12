@@ -1,7 +1,9 @@
 ---
 import '../styles/global.css'
 import Footer from '../components/Footer.astro'
+import MagneticNavIsland from '../components/islands/MagneticNavIsland'
 import { fetchSiteSettings, fetchFooterLinks } from '../lib/payload'
+import type { FooterLink } from '../lib/payload'
 
 interface Props {
   title?: string
@@ -19,6 +21,19 @@ const siteName    = settings?.brandLabel ?? 'APR 70 Pictures'
 const { title = siteName, description = settings?.tagline ?? '' } = Astro.props
 const pageTitle   = title === siteName ? siteName : `${title} — ${siteName}`
 const showRails   = settings?.showFilmstripRails !== false
+
+const primaryFromPayload = (footerLinks?.primaryNav ?? []).filter(
+  (l): l is FooterLink => Boolean(l?.href && l?.label),
+)
+const primaryNav: FooterLink[] =
+  primaryFromPayload.length > 0
+    ? primaryFromPayload
+    : [
+        { label: 'Work', href: '/work' },
+        { label: 'About', href: '/about' },
+        { label: 'Investors', href: '/investors' },
+        { label: 'Contact', href: '/contact' },
+      ]
 ---
 
 <!doctype html>
@@ -35,14 +50,22 @@ const showRails   = settings?.showFilmstripRails !== false
     <meta name="theme-color" content="#000000" />
   </head>
   <body>
-    <!-- Top filmstrip rail (feature-flagged) -->
-    {showRails && (
-      <div class="strip-rail strip-rail--top" aria-hidden="true">
-        {Array.from({ length: 32 }).map(() => (
-          <span class="sprocket" />
-        ))}
-      </div>
-    )}
+    <div class="site-chrome-top">
+      <!-- Top filmstrip rail (feature-flagged) -->
+      {showRails && (
+        <div class="strip-rail strip-rail--top" aria-hidden="true">
+          {Array.from({ length: 32 }).map(() => (
+            <span class="sprocket" />
+          ))}
+        </div>
+      )}
+
+      <header class="site-header">
+        <div class="container site-header__inner">
+          <MagneticNavIsland client:idle items={primaryNav} />
+        </div>
+      </header>
+    </div>
 
     <slot />
 
@@ -58,11 +81,27 @@ const showRails   = settings?.showFilmstripRails !== false
     min-height: 100%;
   }
 
-  .strip-rail--top {
+  .site-chrome-top {
     position: sticky;
     top: 0;
     z-index: 100;
+  }
+
+  .strip-rail--top {
     border-bottom: 1px solid var(--bg-3);
     border-top: none;
+  }
+
+  .site-header {
+    background: color-mix(in srgb, var(--bg-1) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--bg-3);
+  }
+
+  .site-header__inner {
+    display: flex;
+    justify-content: center;
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
   }
 </style>

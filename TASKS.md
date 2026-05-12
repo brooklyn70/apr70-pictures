@@ -39,7 +39,7 @@ Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainst
 
 ## Phase 4 — Seed Script & Content
 
-- [ ] [p4] [nas-headless] Seed script — Orchestrator spec: `docs/handoff/phase-4-orchestrator-handoff-2026-05-12.md`. Port v2 (Keystatic/JSON/Markdown) into Payload Postgres; idempotent; version refs; map v2 Project/Page to v3 blocks in `cms/src/blocks/`; preserve Lexical and Color Injector token attribution.
+- [ ] [p4] [nas-headless] Seed script — Spec + **human-gated runbook** (dry-run, `pg_dump` rollback, no `--loop`): `docs/handoff/phase-4-orchestrator-handoff-2026-05-12.md`. Port v2 (Keystatic/JSON/Markdown) into Payload Postgres; idempotent; version refs; map v2 Project/Page to v3 blocks in `cms/src/blocks/`; preserve Lexical and Color Injector token attribution. CLI must support `--dry-run` before any live write.
 - [ ] [p4] [nas-headless] Media migration — Same handoff doc. rsync v2 NAS volume assets to v3; create Media rows per `cms/src/collections/Media.ts` and wire relationships into seeded blocks.
 - [ ] [p4] [cursor+claude] `web/src/lib/payload.ts` typed client — error handling, caching, stale-while-revalidate.
 

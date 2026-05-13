@@ -1,10 +1,29 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-12 (NAS deploy in progress — handoff to Claude Code)
-**Repo tip:** fc0bfe2
-**Phase:** Phase 4 — NAS Hop 1 partially complete, two bugs blocking Hop 2
+**Updated:** 2026-05-13 (SSR migration + CMS debug page + CTA mapper fix)
+**Repo tip:** (uncommitted — commit after review)
+**Phase:** Phase 4 — runtime bugs fixed, NAS redeploy required
 
 ---
+
+## 2026-05-13 fixes (this session)
+
+- **Astro → SSR**: Added `@astrojs/node` adapter. `web/astro.config.mjs` now has `output: 'server'`. `web/Dockerfile` now runs `node ./dist/server/entry.mjs` instead of nginx. Content fetches from Payload at request time, not at build time.
+- **docker-compose**: `web` service gets `PUBLIC_PAYLOAD_URL=http://cms:3000` (runtime env), `depends_on: cms (service_healthy)`. `nginx` now waits for `cms: service_healthy` before starting.
+- **nginx**: `web_static` upstream updated to `web:4321`. Admin proxy gets 60s timeouts.
+- **CMS healthcheck**: `wget` probe on `/api/globals/site-settings` with 12 retries, 30s start_period.
+- **cms page.tsx**: Replaced stock Payload starter with `force-dynamic` debug page (shows `findGlobal('home')` JSON dump + link to `/admin`).
+- **CTA mapper fix**: All 5 `href` → `url` in `cms/scripts/migrate-v2/map-layout.ts`. CTA blocks will now persist on next seed run.
+
+## NAS redeploy steps
+
+```sh
+# On the NAS, in /volume1/apps/apr70-pictures:
+git pull
+docker compose -f docker-compose.yml -p apr70v3 up -d --build
+```
+
+nginx will NOT start until cms passes its healthcheck (~30–90s). That is intentional — it eliminates the 502 race condition.
 
 ## What's done
 

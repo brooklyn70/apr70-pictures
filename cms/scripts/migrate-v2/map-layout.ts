@@ -229,7 +229,7 @@ function synthesizeContactBlocks(doc: Record<string, unknown>): unknown[] {
   layout.push({
     blockType: 'cta',
     heading: 'Send an Inquiry',
-    buttons: [{ label: 'submissions@aprpictures.com', href: 'mailto:submissions@aprpictures.com', variant: 'solid' }],
+    buttons: [{ label: 'submissions@aprpictures.com', url: 'mailto:submissions@aprpictures.com', variant: 'solid' }],
   })
 
   return layout
@@ -262,7 +262,7 @@ function synthesizeJobsBlocks(doc: Record<string, unknown>): unknown[] {
   layout.push({
     blockType: 'cta',
     heading: 'Get in touch.',
-    buttons: [{ label: 'submissions@aprpictures.com', href: 'mailto:submissions@aprpictures.com', variant: 'ghost' }],
+    buttons: [{ label: 'submissions@aprpictures.com', url: 'mailto:submissions@aprpictures.com', variant: 'ghost' }],
   })
 
   return layout
@@ -325,7 +325,7 @@ function synthesizePitchBlocks(doc: Record<string, unknown>): unknown[] {
   layout.push({
     blockType: 'cta',
     heading: 'Ready to submit?',
-    buttons: [{ label: 'submissions@aprpictures.com', href: 'mailto:submissions@aprpictures.com', variant: 'solid' }],
+    buttons: [{ label: 'submissions@aprpictures.com', url: 'mailto:submissions@aprpictures.com', variant: 'solid' }],
   })
 
   return layout
@@ -368,7 +368,7 @@ function synthesizeSlateBlocks(doc: Record<string, unknown>): unknown[] {
     layout.push({
       blockType: 'cta',
       heading: '',
-      buttons: [{ label: doc.ctaLabel, href: doc.ctaHref, variant: 'ghost' }],
+      buttons: [{ label: doc.ctaLabel, url: doc.ctaHref, variant: 'ghost' }],
     })
   }
 
@@ -413,7 +413,7 @@ function synthesizePartnersBlocks(doc: Record<string, unknown>): unknown[] {
     layout.push({
       blockType: 'cta',
       heading: doc.inquiryHeading ?? 'Ready to talk?',
-      buttons: [{ label: 'Get in touch', href: '/contact', variant: 'solid' }],
+      buttons: [{ label: 'Get in touch', url: '/contact', variant: 'solid' }],
     })
   }
 

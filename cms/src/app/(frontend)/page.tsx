@@ -1,59 +1,42 @@
-import { headers as getHeaders } from 'next/headers.js'
-import Image from 'next/image'
-import { getPayload } from 'payload'
-import React from 'react'
-import { fileURLToPath } from 'url'
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
+import { getPayload } from 'payload'
 import config from '@/payload.config'
-import './styles.css'
 
 export default async function HomePage() {
-  const headers = await getHeaders()
-  const payloadConfig = await config
-  const payload = await getPayload({ config: payloadConfig })
-  const { user } = await payload.auth({ headers })
+  const payload = await getPayload({ config: await config })
 
-  const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`
+  let home: unknown = null
+  let homeError: string | null = null
+  try {
+    home = await payload.findGlobal({ slug: 'home', depth: 2 })
+  } catch (e) {
+    homeError = e instanceof Error ? e.message : String(e)
+  }
+
+  const layout = (home as { layout?: unknown[] } | null)?.layout ?? []
 
   return (
-    <div className="home">
-      <div className="content">
-        <picture>
-          <source srcSet="https://raw.githubusercontent.com/payloadcms/payload/3.x/packages/ui/src/assets/payload-favicon.svg" />
-          <Image
-            alt="Payload Logo"
-            height={65}
-            src="https://raw.githubusercontent.com/payloadcms/payload/3.x/packages/ui/src/assets/payload-favicon.svg"
-            width={65}
-          />
-        </picture>
-        {!user && <h1>Welcome to your new project.</h1>}
-        {user && <h1>Welcome back, {user.email}</h1>}
-        <div className="links">
-          <a
-            className="admin"
-            href={payloadConfig.routes.admin}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Go to admin panel
-          </a>
-          <a
-            className="docs"
-            href="https://payloadcms.com/docs"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Documentation
-          </a>
-        </div>
-      </div>
-      <div className="footer">
-        <p>Update this page by editing</p>
-        <a className="codeLink" href={fileURL}>
-          <code>app/(frontend)/page.tsx</code>
-        </a>
-      </div>
-    </div>
+    <html lang="en">
+      <body style={{ fontFamily: 'monospace', padding: '2rem', background: '#111', color: '#eee' }}>
+        <h1 style={{ color: '#f90' }}>APR 70 CMS — Home Global Debug</h1>
+
+        {homeError && (
+          <pre style={{ background: '#300', padding: '1rem', color: '#f88' }}>
+            ERROR: {homeError}
+          </pre>
+        )}
+
+        <h2>layout blocks ({layout.length})</h2>
+        <pre style={{ background: '#1a1a1a', padding: '1rem', overflow: 'auto' }}>
+          {JSON.stringify(home, null, 2)}
+        </pre>
+
+        <p style={{ marginTop: '2rem' }}>
+          <a href="/admin" style={{ color: '#6af' }}>→ Go to Admin</a>
+        </p>
+      </body>
+    </html>
   )
 }

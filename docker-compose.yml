@@ -32,6 +32,12 @@ services:
       NODE_ENV: development
     volumes:
       - cms_media:/app/media
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -qO- http://localhost:3000/api/globals/site-settings || exit 1']
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
 
   migrate:
     profiles: [seed]
@@ -71,13 +77,20 @@ services:
       context: ./web
       dockerfile: Dockerfile
     restart: unless-stopped
+    depends_on:
+      cms:
+        condition: service_healthy
+    environment:
+      PUBLIC_PAYLOAD_URL: http://cms:3000
 
   nginx:
     image: nginx:1.27-alpine
     restart: unless-stopped
     depends_on:
-      - cms
-      - web
+      cms:
+        condition: service_healthy
+      web:
+        condition: service_started
     ports:
       - '8080:80'
     volumes:

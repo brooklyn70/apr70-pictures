@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" aria-label="(212) Pictures — Variant 1: Pure wordmark, 1950 Madison Avenue typography">
+  <!-- Transparent. The mark IS the type. -->
+
+  <!-- (212) — hero numeral lockup. Futura Heavy, tight optical kerning.
+       The parentheses are slightly oversized to feel architectural / mid-century editorial. -->
+  <g font-family="Futura Std, Futura, Arial Black, sans-serif" fill="#824B07" stroke="none">
+
+    <!-- Left paren — oversized weight, sits slightly lower than numerals -->
+    <text x="125" y="290" font-weight="900" font-size="200" letter-spacing="0">(</text>
+
+    <!-- 2 — sits tight to the paren -->
+    <text x="175" y="290" font-weight="900" font-size="170" letter-spacing="-8">2</text>
+
+    <!-- 1 — Sicilian orange, slightly compressed to read as the "center" beat -->
+    <text x="255" y="290" font-weight="900" font-size="170" letter-spacing="-8" fill="#E85D04">1</text>
+
+    <!-- 2 — back to amber, mirrors the first -->
+    <text x="310" y="290" font-weight="900" font-size="170" letter-spacing="-8">2</text>
+
+    <!-- Right paren -->
+    <text x="370" y="290" font-weight="900" font-size="200" letter-spacing="0">)</text>
+  </g>
+
+  <!-- Single hairline rule, very 1950s editorial — separates numeral from wordmark -->
+  <line x1="125" y1="335" x2="420" y2="335" stroke="#824B07" stroke-width="1.5"/>
+
+  <!-- PICTURES — set wide, Futura Bold, all caps. Sits as the supporting line. -->
+  <text x="272.5" y="385" font-family="Futura Std, Futura, Arial, sans-serif" font-weight="700" font-size="38" letter-spacing="18" text-anchor="middle" fill="#824B07">PICTURES</text>
+</svg>

@@ -1,28 +1,27 @@
 /**
  * Phase 4 — live seed (--apply).
  *
- * Uses Payload Local API (no HTTP, direct DB access) to upsert:
+ * Uses the Payload REST API to upsert:
  *   - `home` global layout blocks from mapped v2 content
  *   - `about`, `contact`, `jobs`, `pitch`, `investors` global layout blocks
  *   - `site-settings` seededVersion + lastDeployed
  *
- * Idempotent: updateGlobal replaces the layout array on every run.
+ * Idempotent: POST to a global replaces the layout array on every run.
  * Safe to re-run; does not duplicate rows.
  *
  * Prerequisites:
- *   - DATABASE_URL env var pointing at the v3 Postgres instance
- *   - PAYLOAD_SECRET env var
- *   - v3 stack running (postgres container healthy)
+ *   - CMS_URL env var (default: http://cms:3000)
+ *   - PAYLOAD_SEED_EMAIL and PAYLOAD_SEED_PASSWORD env vars
+ *   - v3 CMS container running and healthy
  */
 
-import { getPayload } from 'payload'
-import config from '../../src/payload.config.js'
 import { discoverJsonDocuments } from './discover.js'
 import { inferDocumentId, mapV2DocumentToLayout } from './map-layout.js'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 
 const SEED_VERSION = '0.2.0'
+const CMS_URL = process.env.CMS_URL ?? 'http://cms:3000'
 
 export type ApplyOptions = {
   v2Root: string
@@ -42,6 +41,43 @@ export type ApplyReport = {
   investorsLayoutBlocksWritten: number
   warnings: string[]
   errors: string[]
+}
+
+/** Authenticate with Payload REST API and return a JWT token. */
+async function login(): Promise<string> {
+  const email = process.env.PAYLOAD_SEED_EMAIL
+  const password = process.env.PAYLOAD_SEED_PASSWORD
+  if (!email || !password) {
+    throw new Error('PAYLOAD_SEED_EMAIL and PAYLOAD_SEED_PASSWORD env vars are required')
+  }
+  const res = await fetch(`${CMS_URL}/api/users/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password }),
+  })
+  if (!res.ok) {
+    const body = await res.text()
+    throw new Error(`Login failed: ${res.status} ${body}`)
+  }
+  const data = (await res.json()) as { token?: string }
+  if (!data.token) throw new Error('Login response missing token')
+  return data.token
+}
+
+/** POST to a Payload global slug to update its data. */
+async function updateGlobal(slug: string, data: Record<string, unknown>, token: string): Promise<void> {
+  const res = await fetch(`${CMS_URL}/api/globals/${slug}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `JWT ${token}`,
+    },
+    body: JSON.stringify(data),
+  })
+  if (!res.ok) {
+    const body = await res.text()
+    throw new Error(`updateGlobal(${slug}) failed: ${res.status} ${body}`)
+  }
 }
 
 /** Load, parse, and infer id for a single JSON file. Returns null on failure with warning pushed. */
@@ -153,78 +189,53 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
     }
   }
 
-  // ── 2. Initialise Payload Local API ─────────────────────────────────────────
-  const payload = await getPayload({ config })
+  // ── 2. Authenticate with Payload REST API ────────────────────────────────────
+  const token = await login()
 
-  try {
-    // ── 3. Upsert Home global layout ──────────────────────────────────────────
-    await payload.updateGlobal({
-      slug: 'home',
-      data: { layout: homeLayout as any },
-    })
+  // ── 3. Upsert Home global layout ──────────────────────────────────────────
+  await updateGlobal('home', { layout: homeLayout }, token)
 
-    // ── 4. Upsert About global layout ─────────────────────────────────────────
-    if ((aboutLayout as unknown[]).length > 0) {
-      await payload.updateGlobal({
-        slug: 'about',
-        data: { layout: aboutLayout as any },
-      })
-    } else {
-      warnings.push('about: 0 blocks mapped; skipping updateGlobal for about.')
-    }
-
-    // ── 5. Upsert Contact global layout ───────────────────────────────────────
-    if ((contactLayout as unknown[]).length > 0) {
-      await payload.updateGlobal({
-        slug: 'contact',
-        data: { layout: contactLayout as any },
-      })
-    } else {
-      warnings.push('contact: 0 blocks mapped; skipping updateGlobal for contact.')
-    }
-
-    // ── 6. Upsert Jobs global layout ──────────────────────────────────────────
-    if ((jobsLayout as unknown[]).length > 0) {
-      await payload.updateGlobal({
-        slug: 'jobs',
-        data: { layout: jobsLayout as any },
-      })
-    } else {
-      warnings.push('jobs: 0 blocks mapped; skipping updateGlobal for jobs.')
-    }
-
-    // ── 7. Upsert Pitch global layout ─────────────────────────────────────────
-    if ((pitchLayout as unknown[]).length > 0) {
-      await payload.updateGlobal({
-        slug: 'pitch',
-        data: { layout: pitchLayout as any },
-      })
-    } else {
-      warnings.push('pitch: 0 blocks mapped; skipping updateGlobal for pitch.')
-    }
-
-    // ── 8. Upsert Investors global layout ─────────────────────────────────────
-    if ((investorsLayout as unknown[]).length > 0) {
-      await payload.updateGlobal({
-        slug: 'investors',
-        data: { layout: investorsLayout as any },
-      })
-    } else {
-      warnings.push('investors: 0 blocks mapped; skipping updateGlobal for investors.')
-    }
-
-    // ── 9. Stamp SiteSettings with seed metadata ───────────────────────────────
-    await payload.updateGlobal({
-      slug: 'site-settings',
-      data: {
-        seededVersion: SEED_VERSION,
-        lastDeployed: new Date().toISOString(),
-      } as any,
-    })
-  } finally {
-    // Close the DB pool so the process can exit cleanly
-    await (payload.db as any).pool?.end?.()
+  // ── 4. Upsert About global layout ─────────────────────────────────────────
+  if ((aboutLayout as unknown[]).length > 0) {
+    await updateGlobal('about', { layout: aboutLayout }, token)
+  } else {
+    warnings.push('about: 0 blocks mapped; skipping updateGlobal for about.')
   }
+
+  // ── 5. Upsert Contact global layout ───────────────────────────────────────
+  if ((contactLayout as unknown[]).length > 0) {
+    await updateGlobal('contact', { layout: contactLayout }, token)
+  } else {
+    warnings.push('contact: 0 blocks mapped; skipping updateGlobal for contact.')
+  }
+
+  // ── 6. Upsert Jobs global layout ──────────────────────────────────────────
+  if ((jobsLayout as unknown[]).length > 0) {
+    await updateGlobal('jobs', { layout: jobsLayout }, token)
+  } else {
+    warnings.push('jobs: 0 blocks mapped; skipping updateGlobal for jobs.')
+  }
+
+  // ── 7. Upsert Pitch global layout ─────────────────────────────────────────
+  if ((pitchLayout as unknown[]).length > 0) {
+    await updateGlobal('pitch', { layout: pitchLayout }, token)
+  } else {
+    warnings.push('pitch: 0 blocks mapped; skipping updateGlobal for pitch.')
+  }
+
+  // ── 8. Upsert Investors global layout ─────────────────────────────────────
+  if ((investorsLayout as unknown[]).length > 0) {
+    await updateGlobal('investors', { layout: investorsLayout }, token)
+  } else {
+    warnings.push('investors: 0 blocks mapped; skipping updateGlobal for investors.')
+  }
+
+  // ── 9. Stamp SiteSettings with seed metadata ───────────────────────────────
+  await updateGlobal(
+    'site-settings',
+    { seededVersion: SEED_VERSION, lastDeployed: new Date().toISOString() },
+    token,
+  )
 
   return {
     generatedAt: new Date().toISOString(),

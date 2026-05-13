@@ -15,7 +15,7 @@ Options:
   --dry-run           No database writes (default for safety if neither flag set).
   --v2-root <path>    Root directory to scan (or env V2_CONTENT_ROOT).
   --report <file>     Write full JSON report to this path.
-  --apply             Live seed to Payload via Local API. Requires DATABASE_URL + PAYLOAD_SECRET env vars and a running v3 Postgres instance. Take a pg_dump backup first.
+  --apply             Live seed to Payload via REST API. Requires CMS_URL, PAYLOAD_SEED_EMAIL, PAYLOAD_SEED_PASSWORD env vars and a running v3 CMS container. Take a pg_dump backup first.
   -h, --help          Show this message.
 
 Path classification: JSON files under .../pages/, .../projects/, or

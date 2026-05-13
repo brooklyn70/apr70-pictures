@@ -65,10 +65,15 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      cms:
+        condition: service_healthy
     environment:
       DATABASE_URL: postgres://postgres:postgres@postgres:5432/apr70_cms
       PAYLOAD_SECRET: ${PAYLOAD_SECRET:-dev-change-me}
       NODE_ENV: development
+      CMS_URL: http://cms:3000
+      PAYLOAD_SEED_EMAIL: ${PAYLOAD_SEED_EMAIL}
+      PAYLOAD_SEED_PASSWORD: ${PAYLOAD_SEED_PASSWORD}
     volumes:
       - cms_media:/app/media
       - ./v2-export:/v2-export:ro

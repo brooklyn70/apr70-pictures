@@ -389,7 +389,7 @@ function synthesizePartnersBlocks(doc: Record<string, unknown>): unknown[] {
   if (Array.isArray(doc.stats) && doc.stats.length > 0) {
     layout.push({
       blockType: 'stats',
-      items: (doc.stats as any[]).map((s) => ({ value: s.value, label: s.label })),
+      stats: (doc.stats as any[]).map((s) => ({ value: s.value, label: s.label })),
     })
   }
 

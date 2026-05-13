@@ -33,7 +33,7 @@ Seeder: v0.3.0. SiteSettings.seededVersion = 0.3.0.
 | `/news` | LIVE — 4 articles |
 | `/news/[slug]` | LIVE — 4 articles with BlockRenderer |
 | `/test-hero` | Dev artifact — delete before launch |
-| `/212`, `/310`, `/nrc` | MISSING — Phase 5+ (division globals) |
+| `/212`, `/310`, `/nrc` | LIVE — empty (no layout blocks yet — add via Payload admin) |
 | `/privacy`, `/terms` | MISSING |
 
 ---
@@ -50,6 +50,9 @@ Seeder: v0.3.0. SiteSettings.seededVersion = 0.3.0.
 | Jobs | `jobs` | EXISTS — seeded (5 blocks) |
 | Pitch | `pitch` | EXISTS — seeded (6 blocks) |
 | Investors | `investors` | EXISTS — seeded (4 blocks) |
+| Division 212 | `212` | EXISTS — empty, add blocks via Payload admin |
+| Division 310 | `310` | EXISTS — empty, add blocks via Payload admin |
+| Division NRC | `nrc` | EXISTS — empty, add blocks via Payload admin |
 | Users | (collection) | EXISTS — 1 admin user |
 | Media | (collection) | EXISTS — empty (no media migration yet) |
 | Projects | (collection `projects`) | EXISTS — 9 documents seeded |
@@ -110,7 +113,7 @@ git pull origin main
 ## What's next (Phase 5+)
 
 1. **Media migration** — rsync v2 media to v3 volume, create Media rows, re-run seeder with real relationships
-2. **Division pages** — `/212`, `/310`, `/nrc` Astro pages + Payload globals
+2. **Division pages content** — add blocks to 212/310/nrc globals via Payload admin at `/admin`
 3. **Footer links seeding** — from `footer-more.json`
 4. **Visual QA** — all pages need style/layout review (requires-gui)
 5. **HeroSliderIsland** — GSAP crossfade (Phase 5 TASKS.md — gemini task)
@@ -128,6 +131,7 @@ See `TASKS.md` for full backlog.
 - Phase 4: all 4 containers live, home seeded, admin up, 5 page globals seeded
 - Phase 4b: REST API seeder, 5 Astro pages (about/contact/jobs/pitch/investors)
 - Phase 5a: Projects + News collections, 9 projects + 4 news articles seeded, /work + /news routes live
+- Phase 5b: Division globals (212, 310, nrc) — DB tables, Payload globals, Astro pages, all live
 
 ## Auto-stop note (2026-05-13 19:15 UTC)
 

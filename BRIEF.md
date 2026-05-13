@@ -1,509 +1,102 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-13 (stack fully live on NAS — all runtime bugs resolved)
-**Repo tip:** 907e198
-**Phase:** Phase 4 — stack live, admin accessible, public site rendering Payload content
+**Updated:** 2026-05-13 evening (globals + seeder + pages plan)
+**Phase:** Phase 4 — content globals, extended seeder, Astro page build
 
 ---
 
-## 2026-05-13 fixes (this session)
+## Current live state (verified 2026-05-13)
 
-- **Astro → SSR**: Added `@astrojs/node` adapter. `web/astro.config.mjs` now has `output: 'server'`. `web/Dockerfile` now runs `node ./dist/server/entry.mjs` instead of nginx. Content fetches from Payload at request time, not at build time.
-- **docker-compose**: `web` service gets `PUBLIC_PAYLOAD_URL=http://cms:3000` (runtime env), `depends_on: cms (service_healthy)`. `nginx` now waits for `cms: service_healthy` before starting.
-- **nginx**: `web_static` upstream updated to `web:4321`. Admin proxy gets 60s timeouts.
-- **CMS healthcheck**: `wget` probe on `/api/globals/site-settings` with 12 retries, 30s start_period.
-- **cms page.tsx**: Replaced stock Payload starter with `force-dynamic` debug page (shows `findGlobal('home')` JSON dump + link to `/admin`).
-- **CTA mapper fix**: All 5 `href` → `url` in `cms/scripts/migrate-v2/map-layout.ts`. CTA blocks will now persist on next seed run.
-
-## NAS live state (verified 2026-05-13)
-
-All four containers healthy:
+Stack fully deployed on NAS. All four containers healthy:
 - `apr70v3-postgres-1` healthy
 - `apr70v3-cms-1` healthy (Next.js + Payload on port 3000)
 - `apr70v3-web-1` running (Astro SSR on port 4321)
 - `apr70v3-nginx-1` running (port 8080)
 
-Verified:
-- `GET /` → 200, renders live Payload home blocks (hero, twoCol x2, divisionShowcase)
-- `GET /admin/create-first-user` → 200 (no 502)
-- users table still empty — first user needs to be created in browser
+First admin user created. Payload admin accessible at `/admin`.
 
-## Future redeploy pattern
+---
+
+## Route status
+
+- `/` — LIVE, renders 4 blocks (hero, twoCol x2, divisionShowcase) from `home` global
+- `/test-hero` — dev artifact, delete before launch
+- All other routes — MISSING (about, work, contact, jobs, pitch, investors, 212, 310, nrc, news/*, privacy, terms)
+
+---
+
+## CMS global/collection inventory
+
+| Name | Slug | Status |
+|------|------|--------|
+| Home | `home` | EXISTS — seeded (4 blocks) |
+| SiteSettings | `site-settings` | EXISTS — seeded (seededVersion=0.1.0) |
+| FooterLinks | `footer-links` | EXISTS in schema — NOT seeded (empty) |
+| About | `about` | MISSING — to be created |
+| Contact | `contact` | MISSING — to be created |
+| Jobs | `jobs` | MISSING — to be created |
+| Pitch | `pitch` | MISSING — to be created |
+| Investors | `investors` | MISSING — to be created |
+| Users | (collection) | EXISTS — first user created |
+| Media | (collection) | EXISTS — empty (no media migration yet) |
+| Projects | (collection) | DOES NOT EXIST |
+| NewsArticle | (collection) | DOES NOT EXIST |
+
+---
+
+## Current plan (in progress this session)
+
+1. Add 5 Payload globals: About, Contact, Jobs, Pitch, Investors — full 11-block layout field each
+2. Register all 5 in `cms/src/payload.config.ts`
+3. Extend `cms/scripts/migrate-v2/apply.ts` seeder to v0.2.0:
+   - Seed all 5 new globals from existing v2 JSON synthesizers
+   - Seed `footer-links` if data supports it
+4. Build 5 Astro SSR pages: about, contact, jobs, pitch, investors
+5. Add 5 fetch functions to `web/src/lib/payload.ts`
+6. Commit + push; NAS needs `git pull + docker compose up -d --build`
+
+---
+
+## V2 content available for seeding
+
+- `v2-export/content/pages/`: about.json, contact.json, jobs.json, pitch.json, partners.json (= investors), footer-more.json, quotes.json, slate.json
+- `v2-export/content/projects/`: 9 project JSONs
+- `v2-export/content/news/`: 5 news JSONs
+
+All synthesizers for about/contact/jobs/pitch/partners already exist in `map-layout.ts`.
+
+---
+
+## NAS redeploy pattern
+
+After this commit is pushed, on the NAS run:
 
 ```sh
 cd /volume1/apps/apr70-pictures
 git pull origin main
 /usr/local/bin/docker compose -f docker-compose.yml -p apr70v3 up -d --build
-# nginx waits for cms healthcheck (~30–90s) — this is intentional
+# nginx waits for cms healthcheck (~30-90s) -- this is intentional
+# After containers are up, run the seeder:
+/usr/bin/docker compose -f /volume1/apps/apr70-pictures/docker-compose.yml -p apr70v3 --profile seed run --rm --no-deps cms-seeder pnpm exec tsx scripts/migrate-v2-to-v3.ts --apply --v2-root /v2-export/content
 ```
 
-## What's done
-
-- Phases 1–3 LOCKED: 11 blocks, Lexical Color Injector, MagneticNavIsland, SiteSettings, FooterLinks, Footer.astro.
-- Phase 4 seed CLI complete: `--dry-run` accepted (83/83 blocks, 0 warnings). `--apply` implemented via Payload Local API.
-- `cms/src/components/RowLabel.tsx` built (was referenced but missing — caused first NAS build failure).
-- `pnpm preflight` gate added to `cms/package.json` and CLAUDE.md rule 13.
-- Orchestrator upgraded: shell runner (`orchestrator/runners/shell.py`) added. `[nas-shell]` tag routes tasks to `bash -c` instead of Claude Code. Docker CLI + Compose v2.27.0 installed in orchestrator container. Docker socket mounted at `/var/run/docker.sock`.
-- **Hop 1 partial:** `docker compose -p apr70v3 up -d --build` ran. postgres, cms, web containers started. nginx FAILED — volume path resolution bug (see below).
-
-## Current NAS container state
-
-| Container | Status |
-|-----------|--------|
-| `apr70v3-postgres-1` | Running |
-| `apr70v3-cms-1` | Running |
-| `apr70v3-web-1` | Running |
-| `apr70v3-nginx-1` | FAILED — not started |
-| `apr70-orchestrator` | Running (sleep infinity) |
-
-## Two bugs blocking progress
-
-**Bug 1 — Orchestrator marks tasks `[x]` even on exit code 1.**
-In `orchestrator/main.py`, `mark_task_done()` is called unconditionally before checking `result.returncode`. Shell tasks that fail get marked done and pushed to GitHub. Fix: only call `mark_task_done` if `result.returncode == 0`.
-
-**Bug 2 — nginx volume path resolution (Docker-in-Docker via socket).**
-The SHELL command runs inside the orchestrator container. When it calls `docker compose`, Docker resolves relative volume paths (`./nginx/default.conf`) relative to the **host** filesystem, not the container's `/work` mount. So `./nginx/default.conf` becomes `/work/nginx/default.conf` on the host, which doesn't exist — the real path is `/volume1/apps/apr70-pictures/nginx/default.conf`.
-Fix: use `--project-directory /volume1/apps/apr70-pictures` in the compose command in TASKS.md Hop 1.
-
-## What's next (for Claude Code)
-
-See `docs/handoff/claudecode-2026-05-12.md` for the full handoff.
-
-Short version:
-1. Fix Bug 1 in `orchestrator/main.py` — gate `mark_task_done` on `returncode == 0`.
-2. Fix Bug 2 in TASKS.md Hop 1 — add `--project-directory /volume1/apps/apr70-pictures`.
-3. Reset Hop 1 to `[ ]` in TASKS.md.
-4. Commit + push both repos.
-5. On NAS: pull orchestrator, rebuild container, pull apr70-pictures, fire `--once`.
-6. Verify all 4 containers up, then fire Hop 2.
+---
 
 ## Confirmed NAS paths
 
 | Item | Value |
 |------|-------|
-| v3 repo on NAS | `/volume1/apps/apr70-pictures` (mounted as `/work` in orchestrator) |
+| v3 repo on NAS | `/volume1/apps/apr70-pictures` |
 | v2 content export | `/volume1/apps/apr70-pictures/v2-export/content` |
 | v2 media source | `/volume1/apps/apr70/public/` (537 MB) |
-| v3 media volume | Docker `apr70v3_cms_media` → `/app/media` in cms container |
-| Docker binary in orchestrator | `/usr/bin/docker` |
-| Compose version in orchestrator | v2.27.0 |
-| Docker socket | `/var/run/docker.sock` (mounted) |
+| v3 media volume | Docker `apr70v3_cms_media` -> `/app/media` in cms container |
 
-## Blocked / waiting
+---
 
-- nginx not running (Bug 2 fix needed before re-running Hop 1).
-- Hop 2 (pg_dump + seed) blocked until Hop 1 fully succeeds.
-- DSM reverse-proxy slot for staging-v3 (Phase 7).
+## What's done
 
-## Auto-stop note (2026-05-10 01:42 UTC)
-
-- Branch: main
-- Tip: b7fcd06
-
-## Auto-stop note (2026-05-11 13:01 UTC)
-
-- Branch: main
-- Tip: c64f3fa
-
-## Auto-stop note (2026-05-11 13:05 UTC)
-
-- Branch: main
-- Tip: 35f3f27
-
-
-## Orchestrator note (2026-05-11 13:16 UTC)
-
-Ran task `[p1] [claude] Page schema — `layout: Block[]` on each Global. Output `docs/architecture/schema.md`.` via claude_code subprocess. Returncode=0; ~24+1 tokens (est $0.0001). USAGE.jsonl appended.
-
-## Auto-stop note (2026-05-11 13:17 UTC)
-
-- Branch: main
-- Tip: 8d4e3da
-
-## Auto-stop note (2026-05-11 14:15 UTC)
-
-- Branch: main
-- Tip: b3bacff
-
-
-## Orchestrator note (2026-05-11 14:17 UTC)
-
-Ran task `[p1] [cursor+claude] Token contract — port `APR 70 Pictures Design System/colors_and_type.css` from v2; confirm or revise color/type/spacing tokens.` via claude_code subprocess. Returncode=0; ~37+191 tokens (est $0.003). USAGE.jsonl appended.
-
-## Auto-stop note (2026-05-11 14:17 UTC)
-
-- Branch: main
-- Tip: d12edbd
-
-
-## Orchestrator note (2026-05-11 14:17 UTC)
-
-Ran task `[p1] [cursor+claude] Token contract — port `APR 70 Pictures Design System/colors_and_type.css` from v2; confirm or revise color/type/spacing tokens.` via claude_code subprocess. Returncode=0; ~37+224 tokens (est $0.0035). USAGE.jsonl appended.
-
-## Auto-stop note (2026-05-11 14:18 UTC)
-
-- Branch: main
-- Tip: 16f8964
-
-## Auto-stop note (2026-05-11 14:40 UTC)
-
-- Branch: main
-- Tip: 8da255a
-
-## Auto-stop note (2026-05-11 14:49 UTC)
-
-- Branch: main
-- Tip: 62ddaa6
-
-## Auto-stop note (2026-05-11 15:05 UTC)
-
-- Branch: main
-- Tip: 379eed5
-
-## Orchestrator note (2026-05-11 15:05 UTC)
-
-Ran task `[p1] [nas-headless] Orchestrator Notifications — integrate Telegram API or SMTP so the orchestrator pushes an alert to Marco whenever `BRIEF.md` is updated or a task finishes.` via claude_code subprocess. Returncode=0; ~43+459 tokens (est $0.007). USAGE.jsonl appended.
-
-## Auto-stop note (2026-05-11 15:42 UTC)
-
-- Branch: main
-- Tip: 13411fb
-
-## Auto-stop note (2026-05-11 15:55 UTC)
-
-- Branch: main
-- Tip: 5699eaa
-
-## Auto-stop note (2026-05-11 15:58 UTC)
-
-- Branch: main
-- Tip: ff5584c
-
-## Auto-stop note (2026-05-11 16:00 UTC)
-
-- Branch: main
-- Tip: 60df310
-
-## Auto-stop note (2026-05-11 16:01 UTC)
-
-- Branch: main
-- Tip: eb849a9
-
-## Auto-stop note (2026-05-11 16:07 UTC)
-
-- Branch: main
-- Tip: bd4f23d
-
-## Auto-stop note (2026-05-11 16:28 UTC)
-
-- Branch: main
-- Tip: f5909cc
-
-## Auto-stop note (2026-05-11 17:13 UTC)
-
-- Branch: main
-- Tip: e5a1c68
-
-## Auto-stop note (2026-05-11 17:19 UTC)
-
-- Branch: main
-- Tip: 9b887bc
-
-## Auto-stop note (2026-05-11 17:22 UTC)
-
-- Branch: main
-- Tip: 35fecb6
-
-## Auto-stop note (2026-05-11 17:29 UTC)
-
-- Branch: main
-- Tip: f6e8fe8
-
-## Auto-stop note (2026-05-11 17:30 UTC)
-
-- Branch: main
-- Tip: 64ffad8
-
-## Auto-stop note (2026-05-11 17:32 UTC)
-
-- Branch: main
-- Tip: 9da728c
-
-## Auto-stop note (2026-05-11 17:34 UTC)
-
-- Branch: main
-- Tip: 5e7b6ce
-
-## Auto-stop note (2026-05-11 17:34 UTC)
-
-- Branch: main
-- Tip: 0af3922
-
-## Auto-stop note (2026-05-11 17:34 UTC)
-
-- Branch: main
-- Tip: 401b8e9
-
-## Auto-stop note (2026-05-11 17:35 UTC)
-
-- Branch: main
-- Tip: 3278242
-
-## Auto-stop note (2026-05-11 17:36 UTC)
-
-- Branch: main
-- Tip: fc7b1e2
-
-## Auto-stop note (2026-05-11 17:36 UTC)
-
-- Branch: main
-- Tip: 3590458
-
-## Auto-stop note (2026-05-11 17:41 UTC)
-
-- Branch: main
-- Tip: 11678d6
-
-## Auto-stop note (2026-05-11 17:47 UTC)
-
-- Branch: main
-- Tip: 085c681
-
-## Auto-stop note (2026-05-11 17:48 UTC)
-
-- Branch: main
-- Tip: 5a3f8ef
-
-## Auto-stop note (2026-05-11 17:49 UTC)
-
-- Branch: main
-- Tip: 957a8db
-
-## Auto-stop note (2026-05-11 17:57 UTC)
-
-- Branch: main
-- Tip: 91b7d06
-
-## Auto-stop note (2026-05-11 17:59 UTC)
-
-- Branch: main
-- Tip: f93a30f
-
-## Auto-stop note (2026-05-11 18:01 UTC)
-
-- Branch: main
-- Tip: f563645
-
-## Auto-stop note (2026-05-11 18:06 UTC)
-
-- Branch: main
-- Tip: e5e9c8d
-
-## Auto-stop note (2026-05-11 18:12 UTC)
-
-- Branch: main
-- Tip: eb99c81
-
-
-- Branch: main
-- Tip: 490e2b8
-
-## Session note (2026-05-11) — Astro scaffold
-
-- `web/`: `pnpm create astro@latest` (basics template), TypeScript strict (`astro/tsconfigs/strict`), `@astrojs/react`, Tailwind CSS v4 via `@tailwindcss/vite`, `@astrojs/sitemap`. `site` set to `https://apr70.com` for sitemap URLs. `TASKS.md` Phase 2 Astro line marked done.
-
-## Auto-stop note (2026-05-11 18:16 UTC)
-
-- Branch: main
-- Tip: 8adfb20
-
-## Auto-stop note (2026-05-11 18:24 UTC)
-
-- Branch: main
-- Tip: b8de046
-
-## Auto-stop note (2026-05-11 18:24 UTC)
-
-- Branch: main
-- Tip: 7c9c671
-
-## Session note (2026-05-11) — Payload + compose
-
-- `cms/`: Payload **3.84.1** blank app via `npx create-payload-app@latest` (non-interactive: `-t blank --db postgres --db-connection-string ... --use-pnpm --no-agent --no-git`). `@payloadcms/db-postgres`, Lexical editor, generated `payload-types.ts`. Template `docker-compose.yml` (Mongo) removed; use **repo root** stack.
-- `next.config.ts`: `output: 'standalone'` for CMS Dockerfile.
-- Root **`docker-compose.yml`**: `postgres`, `cms` (build `./cms`), `web` (Astro static via `web/Dockerfile`), `nginx` (`nginx/default.conf` routes `/admin`, `/api`, `/_next` to cms, `/` to web). Port **8080:80**.
-- `TASKS.md`: Phase 2 lines for Payload scaffold and compose marked done. DSM reverse-proxy + Basic Auth line still open.
-
-## Auto-stop note (2026-05-11 18:56 UTC)
-
-- Branch: main
-- Tip: 4873e08
-
-## Auto-stop note (2026-05-11 19:01 UTC)
-
-- Branch: main
-- Tip: 74eab9e
-
-## Auto-stop note (2026-05-11 19:03 UTC)
-
-- Branch: main
-- Tip: f7a424c
-
-## Auto-stop note (2026-05-11 19:03 UTC)
-
-- Branch: main
-- Tip: f7a424c
-
-## Auto-stop note (2026-05-11 19:05 UTC)
-
-- Branch: main
-- Tip: 4028bc8
-
-## Auto-stop note (2026-05-11 19:08 UTC)
-
-- Branch: main
-- Tip: 8191c36
-
-## Auto-stop note (2026-05-11 19:18 UTC)
-
-- Branch: main
-- Tip: eb4c652
-
-## Auto-stop note (2026-05-11 19:23 UTC)
-
-- Branch: main
-- Tip: 534a620
-
-## Auto-stop note (2026-05-11 19:38 UTC)
-
-- Branch: main
-- Tip: 178cb46
-
-## Auto-stop note (2026-05-11 19:40 UTC)
-
-- Branch: main
-- Tip: fb1d234
-
-## Session note (2026-05-11) — TwoColBlock Implementation
-
-- Created `TwoColBlock` Payload schema in `cms/src/blocks/TwoColBlock.ts`.
-- Registered `TwoColBlock` in `cms/src/globals/Home.ts`.
-- Regenerated payload types via `pnpm run generate:types`.
-- Created Astro renderer in `web/src/components/blocks/TwoColBlock.astro` utilizing the 8px grid spacing and standard v3 design tokens.
-- Registered the block in `<BlockRenderer>`.
-- `TASKS.md` Phase 3 `TwoColBlock` task marked done. Visual QA deferred to Marco.
-
-## Auto-stop note (2026-05-12 09:52 UTC)
-
-- Branch: main
-- Tip: 6df7022
-
-## Auto-stop note (2026-05-12 09:55 UTC)
-
-- Branch: main
-- Tip: 4e1149e
-
-
-## Orchestrator note (2026-05-12 10:00 UTC)
-
-Ran task `[p3] [gemini] Magnetic Navigation island — React + GSAP. `transform`+`opacity` only. `prefers-reduced-motion` + `pointer: coarse` disabled.` via claude_code subprocess. Returncode=0; ~34+37 tokens (est $0.0007). USAGE.jsonl appended.
-
-## Auto-stop note (2026-05-12 10:11 UTC)
-
-- Branch: main
-- Tip: 0764e61
-
-## Auto-stop note (2026-05-12 10:12 UTC)
-
-- Branch: main
-- Tip: c52130c
-
-## Auto-stop note (2026-05-12 10:16 UTC)
-
-- Branch: main
-- Tip: 3ef32cd
-
-## Auto-stop note (2026-05-12 10:18 UTC)
-
-- Branch: main
-- Tip: df52d96
-
-## Auto-stop note (2026-05-12 10:22 UTC)
-
-- Branch: main
-- Tip: 1bbcda8
-
-## Auto-stop note (2026-05-12 12:50 UTC)
-
-- Branch: main
-- Tip: 3caac7e
-
-## Auto-stop note (2026-05-12 13:00 UTC)
-
-- Branch: main
-- Tip: 5f752c5
-
-## Auto-stop note (2026-05-12 13:09 UTC)
-
-- Branch: main
-- Tip: 03d7313
-
-## Auto-stop note (2026-05-12 17:06 UTC)
-
-- Branch: main
-- Tip: ba53a31
-
-
-## Orchestrator note (2026-05-12 17:06 UTC)
-
-Ran task `[p4] [nas-headless] NAS Hop 1 — `docker compose up --build` in `/volume1/apps/apr70-pictures/` to bring v3 stack up with fresh Postgres. Verify CMS health at port 3000 before Hop 2.` via claude_code subprocess. Returncode=0; ~45+207 tokens (est $0.0032). USAGE.jsonl appended.
-
-
-## Orchestrator note (2026-05-12 18:11 UTC)
-
-Ran task `[p4] [nas-shell] NAS Hop 1 — Build and start v3 stack. SHELL: cd /volume1/apps/a` via shell runner. Returncode=1; USAGE.jsonl appended.
-
-
-## Orchestrator note (2026-05-12 19:01 UTC)
-
-Ran task `[p4] [nas-shell] NAS Hop 1 — Build and start v3 stack. SHELL: cd /work && sudo /` via shell runner. Returncode=127; USAGE.jsonl appended.
-
-
-## Orchestrator note (2026-05-12 19:03 UTC)
-
-Ran task `[p4] [nas-shell] NAS Hop 1 — Build and start v3 stack. SHELL: cd /work && /usr/l` via shell runner. Returncode=127; USAGE.jsonl appended.
-
-
-## Orchestrator note (2026-05-12 19:26 UTC)
-
-Ran task `[p4] [nas-shell] NAS Hop 2 — pg_dump backup then live seed. SHELL: /usr/local/bi` via shell runner. Returncode=127; USAGE.jsonl appended.
-
-
-## Orchestrator note (2026-05-12 19:35 UTC)
-
-Ran task `[p4] [nas-shell] NAS Hop 1 — Build and start v3 stack. SHELL: cd /work && /usr/b` via shell runner. Returncode=1; USAGE.jsonl appended.
-
-
-## Orchestrator note (2026-05-12 20:11 UTC)
-
-Ran task `[p4] [nas-shell] NAS Hop 1 — Build and start v3 stack. SHELL: /usr/bin/docker co` via shell runner. Returncode=14; USAGE.jsonl appended. TASK LEFT OPEN (non-zero exit — fix and re-run).
-
-
-## Orchestrator note (2026-05-12 20:14 UTC)
-
-Ran task `[p4] [nas-shell] NAS Hop 1 — Build and start v3 stack. SHELL: /usr/bin/docker co` via shell runner. Returncode=0; USAGE.jsonl appended.
-
-
-## Orchestrator note (2026-05-12 20:14 UTC)
-
-Ran task `[p4] [nas-shell] NAS Hop 2 — pg_dump backup then live seed. SHELL: /usr/bin/dock` via shell runner. Returncode=2; USAGE.jsonl appended. TASK LEFT OPEN (non-zero exit — fix and re-run).
-
-
-## Orchestrator note (2026-05-12 20:15 UTC)
-
-Ran task `[p4] [nas-shell] NAS Hop 2 — pg_dump backup then live seed. SHELL: /usr/bin/dock` via shell runner. Returncode=127; USAGE.jsonl appended. TASK LEFT OPEN (non-zero exit — fix and re-run).
-
-
-## Orchestrator note (2026-05-12 20:23 UTC)
-
-Ran task `[p4] [nas-shell] NAS Hop 2 — pg_dump backup then live seed. SHELL: /usr/bin/dock` via shell runner. Returncode=1; USAGE.jsonl appended. TASK LEFT OPEN (non-zero exit — fix and re-run).
+- Phases 1-3 LOCKED: 11 blocks, Lexical Color Injector, MagneticNavIsland, SiteSettings, FooterLinks, Footer.astro.
+- Phase 4 seed CLI: `--dry-run` accepted (83/83 blocks, 0 warnings). `--apply` seeds home + stamps site-settings.
+- NAS Hop 1 complete: all 4 containers healthy, `/` live.
+- First admin user created via browser at `/admin/create-first-user`.
+- This session: 5 new globals, seeder v0.2.0, 5 Astro pages.

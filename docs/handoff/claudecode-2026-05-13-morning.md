@@ -1,5 +1,10 @@
 # Handoff — Claude Code (NAS Deploy, Phase 4, morning session)
 
+> **SUPERSEDED** — 2026-05-13 evening. Canonical state is now in `BRIEF.md` as of 2026-05-13 evening.
+> Stack fully live, first admin user created. Globals/seeder/pages work complete per that evening session.
+
+
+
 **Date:** 2026-05-13
 **From:** Amazon Q (IDE agent)
 **Picks up from:** `docs/handoff/claudecode-2026-05-12-night.md`

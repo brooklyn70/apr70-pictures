@@ -1,5 +1,14 @@
 import type { Home, Media } from 'payload-types'
 
+// Generic layout-bearing global (About, Contact, Jobs, Pitch, Investors share
+// the same shape as Home; types will be generated after next `payload generate:types`).
+export type PageGlobalData = {
+  id?: number
+  layout?: unknown[] | null
+  updatedAt?: string | null
+  createdAt?: string | null
+}
+
 const trimSlash = (s: string) => s.replace(/\/$/, '')
 
 // import.meta.env.PUBLIC_* is baked at build time in Astro; fall back to
@@ -136,4 +145,44 @@ export async function fetchFooterLinks(): Promise<{
 }> {
   const { data, error } = await fetchGlobal<FooterLinksData>('footer-links')
   return { footerLinks: data, error }
+}
+
+export async function fetchAboutGlobal(): Promise<{
+  about: PageGlobalData | null
+  error: string | null
+}> {
+  const { data, error } = await fetchGlobal<PageGlobalData>('about')
+  return { about: data, error }
+}
+
+export async function fetchContactGlobal(): Promise<{
+  contact: PageGlobalData | null
+  error: string | null
+}> {
+  const { data, error } = await fetchGlobal<PageGlobalData>('contact')
+  return { contact: data, error }
+}
+
+export async function fetchJobsGlobal(): Promise<{
+  jobs: PageGlobalData | null
+  error: string | null
+}> {
+  const { data, error } = await fetchGlobal<PageGlobalData>('jobs')
+  return { jobs: data, error }
+}
+
+export async function fetchPitchGlobal(): Promise<{
+  pitch: PageGlobalData | null
+  error: string | null
+}> {
+  const { data, error } = await fetchGlobal<PageGlobalData>('pitch')
+  return { pitch: data, error }
+}
+
+export async function fetchInvestorsGlobal(): Promise<{
+  investors: PageGlobalData | null
+  error: string | null
+}> {
+  const { data, error } = await fetchGlobal<PageGlobalData>('investors')
+  return { investors: data, error }
 }

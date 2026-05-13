@@ -10,6 +10,11 @@ import { aprLexicalEditor } from './editor/aprLexicalEditor'
 import { Home } from './globals/Home'
 import { SiteSettings } from './globals/SiteSettings'
 import { FooterLinks } from './globals/FooterLinks'
+import { About } from './globals/About'
+import { Contact } from './globals/Contact'
+import { Jobs } from './globals/Jobs'
+import { Pitch } from './globals/Pitch'
+import { Investors } from './globals/Investors'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -31,7 +36,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media],
-  globals: [Home, SiteSettings, FooterLinks],
+  globals: [Home, SiteSettings, FooterLinks, About, Contact, Jobs, Pitch, Investors],
   editor: aprLexicalEditor,
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

@@ -1,55 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" aria-label="(212) Pictures — Variant 3: three-arc dialing trace, Saul Bass discipline">
-  <!-- Transparent. The mark is three arcs tracing the actual physical motion of dialing 2-1-2.
-       Behind: ghost rotary, whispering. The finger-stop is at the right (clock-3:30, angle 90°).
-       Arc lengths reflect the real dial: "1" is closer to the stop, so its arc is half the length
-       of the "2" arcs. Three beats, three traces, one terminus. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" aria-label="(212) Pictures — Variant 3: three arches over wordmark, Saul Bass discipline, 1950 cream stock">
+  <!-- 1950s newsprint cream — the kind of card stock 'New Yorker' ads were printed on.
+       Background so the mark is visible against any preview environment. In production
+       the rect can be stripped and the mark sits on transparent. -->
+  <rect width="500" height="500" fill="#F0E5C8"/>
 
-  <!-- GHOST ROTARY — faint hole positions and outer ring, all 10 standard dial holes -->
-  <g stroke="#000000" stroke-opacity="0.10" fill="none">
-    <!-- Outer dial silhouette -->
-    <circle cx="250" cy="210" r="175" stroke-width="1"/>
-    <!-- Hub silhouette -->
-    <circle cx="250" cy="210" r="40" stroke-width="1"/>
-  </g>
-  <g fill="#000000" fill-opacity="0.10" stroke="none">
-    <!-- Ghost hole positions, all 10 -->
-    <circle cx="375.6" cy="137.5" r="4"/> <!-- 1 -->
-    <circle cx="322.5" cy="84.4"  r="4"/> <!-- 2 -->
-    <circle cx="250"   cy="65"    r="4"/> <!-- 3 -->
-    <circle cx="177.5" cy="84.4"  r="4"/> <!-- 4 -->
-    <circle cx="124.4" cy="137.5" r="4"/> <!-- 5 -->
-    <circle cx="105"   cy="210"   r="4"/> <!-- 6 -->
-    <circle cx="124.4" cy="282.5" r="4"/> <!-- 7 -->
-    <circle cx="177.5" cy="335.6" r="4"/> <!-- 8 -->
-    <circle cx="250"   cy="355"   r="4"/> <!-- 9 -->
-    <circle cx="322.5" cy="335.6" r="4"/> <!-- 0 -->
+  <!-- THREE ARCHES — concentric arcs forming the upper rim of an imaginary rotary tilted
+       toward the viewer. Center of the arcs is BELOW the canvas at y=400.
+       Arc widths echo the 2-1-2 dial pattern:
+         • Outer (top): wide arc — the first "2"
+         • Middle: narrow arc — the "1" (closer to finger-stop = shorter motion)
+         • Inner (lowest): wide arc — the second "2"
+       The "lowest" arc sits directly above the 212 wordmark, as you specified. -->
+  <g fill="none" stroke="#000000" stroke-width="9" stroke-linecap="round">
+    <path d="M 110.0 157.5 A 280 280 0 0 1 390.0 157.5"/>
+    <path d="M 187.9 168.2 A 240 240 0 0 1 312.1 168.2"/>
+    <path d="M 150.0 226.8 A 200 200 0 0 1 350.0 226.8"/>
   </g>
 
-  <!-- THE THREE DIALING ARCS — pure black, bold stroke. Each starts at a digit hole, ends at finger-stop.
-       Arc 1: first "2" — 60° sweep, outer radius
-       Arc 2: "1"       — 30° sweep, middle radius (shorter, because 1 is closer to stop)
-       Arc 3: second "2" — 60° sweep, inner radius -->
-  <g fill="none" stroke="#000000" stroke-width="8" stroke-linecap="round">
-    <path d="M 322.5 84.4 A 145 145 0 0 1 395.0 210.0"/>
-    <path d="M 353.9 150.0 A 120 120 0 0 1 370.0 210.0"/>
-    <path d="M 297.5 127.7 A 95 95 0 0 1 345.0 210.0"/>
+  <!-- 212 — Futura Heavy, no parens. Set the way it appears printed on the rotary's
+       center number card: confident, clean, all caps weight. The "1" carries the
+       single Sicilian orange beat — echoing the dial's pivot digit. -->
+  <g font-family="Futura Std, Futura, Arial Black, sans-serif" font-weight="900" font-size="118" letter-spacing="-4" text-anchor="middle">
+    <text x="195" y="345" fill="#000000">2</text>
+    <text x="250" y="345" fill="#E85D04">1</text>
+    <text x="305" y="345" fill="#000000">2</text>
   </g>
 
-  <!-- Single Sicilian orange dot at hole "2" — the entry point of the dialing action.
-       Bass's one accent. Sits ON the arc 1 starting point. -->
-  <circle cx="322.5" cy="84.4" r="14" fill="#E85D04" stroke="none"/>
-
-  <!-- WORDMARK below the dial mark — clean, black, no distraction from the icon above -->
-
-  <!-- (212) — Futura Heavy, oversized parens for editorial weight, "1" in Sicilian orange to echo the dot -->
-  <g font-family="Futura Std, Futura, Arial Black, sans-serif" fill="#000000" stroke="none">
-    <text x="135" y="448" font-weight="900" font-size="76" letter-spacing="0">(</text>
-    <text x="167" y="448" font-weight="900" font-size="64" letter-spacing="-4">2</text>
-    <text x="207" y="448" font-weight="900" font-size="64" letter-spacing="-4" fill="#E85D04">1</text>
-    <text x="234" y="448" font-weight="900" font-size="64" letter-spacing="-4">2</text>
-    <text x="270" y="448" font-weight="900" font-size="76" letter-spacing="0">)</text>
-  </g>
-
-  <!-- PICTURES — tight Futura Bold, set wide, anchored to the right of (212) -->
-  <text x="320" y="448" font-family="Futura Std, Futura, Arial, sans-serif" font-weight="700" font-size="32" letter-spacing="6" fill="#000000">PICTURES</text>
+  <!-- PICTURES — Futura Bold, tracked wide, anchored beneath. Black, no decoration. -->
+  <text x="250" y="410" font-family="Futura Std, Futura, Arial, sans-serif" font-weight="700" font-size="34" letter-spacing="16" text-anchor="middle" fill="#000000">PICTURES</text>
 </svg>

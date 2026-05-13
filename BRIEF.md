@@ -85,3 +85,8 @@ git pull origin main
 | v2 content | `/volume1/apps/apr70-pictures/v2-export/content` |
 | v2 media | `/volume1/apps/apr70/public/` (537 MB) |
 | v3 media volume | Docker `apr70v3_cms_media` → `/app/media` in cms |
+
+## Auto-stop note (2026-05-13 20:56 UTC)
+
+- Branch: main
+- Tip: 3877eca

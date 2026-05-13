@@ -84,3 +84,8 @@ cd /volume1/apps/apr70-pictures && git pull origin main
 Run: `sudo docker exec apr70-orchestrator op run -- python -m orchestrator.main --once`
 Dry-run: same but `--dry-run`
 Telegram only works when wrapped with `op run --`.
+
+## Auto-stop note (2026-05-13 21:37 UTC)
+
+- Branch: main
+- Tip: 22b5773

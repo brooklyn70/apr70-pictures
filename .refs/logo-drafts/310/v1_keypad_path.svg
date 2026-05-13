@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" aria-label="(310) Pictures v1 — touch-tone keypad with 3-1-0 path">
+  <title>(310) Pictures — v1 Keypad Path</title>
+  <desc>Parallel to 212's rotary trace: touch-tone keypad as the 1990 LA equivalent. The path 3→1→0 traces the act of dialing the area code.</desc>
+
+  <!-- KEYPAD GHOST — 12 dots in 3×4 grid -->
+  <g id="keypad-ghost" fill="#077082" fill-opacity="0.18">
+    <circle cx="210" cy="30"  r="5"/><circle cx="250" cy="30"  r="5"/><circle cx="290" cy="30"  r="5"/>
+    <circle cx="210" cy="70"  r="5"/><circle cx="250" cy="70"  r="5"/><circle cx="290" cy="70"  r="5"/>
+    <circle cx="210" cy="110" r="5"/><circle cx="250" cy="110" r="5"/><circle cx="290" cy="110" r="5"/>
+    <circle cx="210" cy="150" r="5"/><circle cx="250" cy="150" r="5"/><circle cx="290" cy="150" r="5"/>
+  </g>
+
+  <!-- 3-1-0 PATH — angular trace from button to button -->
+  <polyline id="dial-path" points="290,30 210,30 250,150"
+    fill="none" stroke="#077082" stroke-width="6"
+    stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- HIGHLIGHTED BUTTONS — 3, 1, 0 -->
+  <g id="dial-buttons" fill="#077082" stroke="none">
+    <circle id="btn-3" cx="290" cy="30"  r="11"/>
+    <circle id="btn-1" cx="210" cy="30"  r="11"/>
+    <circle id="btn-0" cx="250" cy="150" r="11"/>
+  </g>
+
+  <!-- Sicilian blue accent at the "3" entry point -->
+  <circle id="entry-dot" cx="290" cy="30" r="6" fill="#0077B6"/>
+
+  <!-- WORDMARK -->
+  <g id="wordmark" font-family="Futura Std, Futura, Arial Black, sans-serif" stroke="none">
+    <text id="paren-left"  x="125" y="290" font-weight="900" font-size="190" letter-spacing="0"  fill="#077082">(</text>
+    <g id="digits">
+      <text id="digit-3"  x="175" y="290" font-weight="900" font-size="170" letter-spacing="-8" fill="#077082">3</text>
+      <text id="digit-1"  x="255" y="290" font-weight="900" font-size="170" letter-spacing="-8" fill="#0077B6">1</text>
+      <text id="digit-0"  x="310" y="290" font-weight="900" font-size="170" letter-spacing="-8" fill="#077082">0</text>
+    </g>
+    <text id="paren-right" x="370" y="290" font-weight="900" font-size="190" letter-spacing="0"  fill="#077082">)</text>
+  </g>
+
+  <!-- PICTURES -->
+  <text id="pictures" x="175" y="330" font-family="Futura Std, Futura, Arial, sans-serif" font-weight="700" font-size="38" letter-spacing="7" fill="#000000" stroke="none">PICTURES</text>
+</svg>

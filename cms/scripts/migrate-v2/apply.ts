@@ -321,10 +321,10 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
       layout: mapped.layout,
     }
     try {
-      await upsertDoc('news-articles', articleData.slug as string, articleData, token)
+      await upsertDoc('news', articleData.slug as string, articleData, token)
       newsArticlesWritten += 1
     } catch (e) {
-      errors.push(`news-articles/${id}: ${String(e)}`)
+      errors.push(`news/${id}: ${String(e)}`)
     }
   }
 

@@ -272,7 +272,7 @@ export async function fetchNewsArticles(): Promise<{
   error: string | null
 }> {
   const { docs, error } = await fetchCollection<NewsArticleDoc>(
-    'news-articles',
+    'news',
     '&sort=-date',
   )
   return { articles: docs, error }
@@ -281,6 +281,6 @@ export async function fetchNewsArticles(): Promise<{
 export async function fetchNewsArticle(
   slug: string,
 ): Promise<{ article: NewsArticleDoc | null; error: string | null }> {
-  const { doc, error } = await fetchCollectionDoc<NewsArticleDoc>('news-articles', slug)
+  const { doc, error } = await fetchCollectionDoc<NewsArticleDoc>('news', slug)
   return { article: doc, error }
 }

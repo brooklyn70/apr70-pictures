@@ -12,7 +12,7 @@ import { StatsBlock } from '../blocks/StatsBlock'
 import { DividerBlock } from '../blocks/DividerBlock'
 
 export const NewsArticle: CollectionConfig = {
-  slug: 'news-articles',
+  slug: 'news',
   access: { read: () => true },
   admin: {
     useAsTitle: 'title',

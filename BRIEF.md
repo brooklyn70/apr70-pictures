@@ -153,3 +153,8 @@ After containers are up, run seeder (once REST approach is implemented):
 - 5 Astro SSR pages built (about, contact, jobs, pitch, investors)
 - `payload-types.ts` regenerated with all 8 globals
 - Seeder v0.2.0 written but blocked on `getPayload()` hang
+
+## Auto-stop note (2026-05-13 16:59 UTC)
+
+- Branch: main
+- Tip: 79d5962

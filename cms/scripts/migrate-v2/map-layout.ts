@@ -546,9 +546,9 @@ export function mapV2DocumentToLayout(
     layout = synthesizePartnersBlocks(rec)
   } else if (id === 'footer-more') {
     layout = synthesizeFooterMoreBlocks(rec)
-  } else if (path.includes('/news/')) {
+  } else if (path.includes('/news/') || path.startsWith('news/')) {
     layout = synthesizeNewsBlocks(rec)
-  } else if (path.includes('/projects/')) {
+  } else if (path.includes('/projects/') || path.startsWith('projects/')) {
     layout = synthesizeProjectBlocks(rec)
   } else {
     // Fallback: try layout/blocks array

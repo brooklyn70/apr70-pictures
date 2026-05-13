@@ -45,7 +45,7 @@ Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainst
 - [x] [p4] [claude] Extend apply.ts seeder to v0.2.0 — seeds all 5 new globals from v2 synthesizers. DONE 2026-05-13.
 - [x] [p4] [claude] Build 5 Astro SSR pages — about, contact, jobs, pitch, investors. Wired to BlockRenderer via fetchGlobal. DONE 2026-05-13.
 - [x] [p4] [nas-shell] NAS Hop 2 — git pull, rebuild, then run extended seeder (v0.2.0). DONE 2026-05-13.
-- [ ] [p4] [nas-headless] Media migration — rsync `/volume1/apps/apr70/public/` → v3 media volume (no `--delete`); create Media rows per `cms/src/collections/Media.ts`; wire relationships into seeded blocks.
+- [x] [p4] [nas-headless] Media migration — rsync `/volume1/apps/apr70/public/` → v3 media volume (no `--delete`); create Media rows per `cms/src/collections/Media.ts`; wire relationships into seeded blocks.
 - [ ] [p4] [cursor+claude] `web/src/lib/payload.ts` typed client — error handling, caching, stale-while-revalidate.
 - [x] [p4] [cursor+claude] Delete `/test-hero` dev artifact before launch. (Moved to Phase 5 line 59; deleted 2026-05-13)
 

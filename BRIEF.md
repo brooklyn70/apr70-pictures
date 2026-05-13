@@ -95,3 +95,8 @@ git pull origin main
 
 - Branch: main
 - Tip: 4520bc7
+
+
+## Orchestrator note (2026-05-13 21:30 UTC)
+
+Ran task `[p4] [nas-headless] Media migration — rsync `/volume1/apps/apr70/public/` → v3 m` via claude_code runner. Returncode=0; USAGE.jsonl appended.

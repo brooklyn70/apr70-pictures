@@ -128,3 +128,8 @@ See `TASKS.md` for full backlog.
 - Phase 4: all 4 containers live, home seeded, admin up, 5 page globals seeded
 - Phase 4b: REST API seeder, 5 Astro pages (about/contact/jobs/pitch/investors)
 - Phase 5a: Projects + News collections, 9 projects + 4 news articles seeded, /work + /news routes live
+
+## Auto-stop note (2026-05-13 19:15 UTC)
+
+- Branch: main
+- Tip: 44fe152

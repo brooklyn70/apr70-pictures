@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BlockRenderer from '../components/blocks/BlockRenderer.astro';
+import { fetchDivisionNRCGlobal } from '../lib/payload';
+
+const { divisionNRC, error } = await fetchDivisionNRCGlobal();
+const blocks = divisionNRC?.layout || [];
+---
+
+<Layout title="NRC Division">
+  <main>
+    {error && (
+      <div style="padding: 1rem; margin: 2rem auto; max-width: 600px; background: rgba(255,0,0,0.1); border: 1px solid red; border-radius: 4px; font-family: var(--font-body); color: #cc0000;">
+        <strong>Fetch Error:</strong> {error}
+      </div>
+    )}
+    {!blocks.length && !error ? (
+      <div style="padding: 4rem; text-align: center; font-family: var(--font-body); color: var(--apr-mid-dark);">
+        No blocks found. Add some blocks to the NRC Division global in Payload!
+      </div>
+    ) : (
+      <BlockRenderer blocks={blocks} />
+    )}
+  </main>
+</Layout>

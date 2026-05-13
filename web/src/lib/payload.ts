@@ -187,6 +187,30 @@ export async function fetchInvestorsGlobal(): Promise<{
   return { investors: data, error }
 }
 
+export async function fetchDivision212Global(): Promise<{
+  division212: PageGlobalData | null
+  error: string | null
+}> {
+  const { data, error } = await fetchGlobal<PageGlobalData>('212')
+  return { division212: data, error }
+}
+
+export async function fetchDivision310Global(): Promise<{
+  division310: PageGlobalData | null
+  error: string | null
+}> {
+  const { data, error } = await fetchGlobal<PageGlobalData>('310')
+  return { division310: data, error }
+}
+
+export async function fetchDivisionNRCGlobal(): Promise<{
+  divisionNRC: PageGlobalData | null
+  error: string | null
+}> {
+  const { data, error } = await fetchGlobal<PageGlobalData>('nrc')
+  return { divisionNRC: data, error }
+}
+
 // ── Collection types ──────────────────────────────────────────────────────────
 
 export type ProjectDoc = {

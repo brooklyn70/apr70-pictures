@@ -17,6 +17,9 @@ import { Contact } from './globals/Contact'
 import { Jobs } from './globals/Jobs'
 import { Pitch } from './globals/Pitch'
 import { Investors } from './globals/Investors'
+import { Division212 } from './globals/Division212'
+import { Division310 } from './globals/Division310'
+import { DivisionNRC } from './globals/DivisionNRC'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -38,7 +41,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Project, NewsArticle],
-  globals: [Home, SiteSettings, FooterLinks, About, Contact, Jobs, Pitch, Investors],
+  globals: [Home, SiteSettings, FooterLinks, About, Contact, Jobs, Pitch, Investors, Division212, Division310, DivisionNRC],
   editor: aprLexicalEditor,
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

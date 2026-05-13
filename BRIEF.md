@@ -167,3 +167,8 @@ See `TASKS.md` for full backlog.
 
 - Branch: main
 - Tip: 6a9993f
+
+## Auto-stop note (2026-05-13 20:50 UTC)
+
+- Branch: main
+- Tip: 858fe90

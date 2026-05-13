@@ -1,31 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" aria-label="(212) Pictures — Variant 3: three arches over wordmark, Saul Bass discipline, 1950 cream stock">
-  <!-- 1950s newsprint cream — the kind of card stock 'New Yorker' ads were printed on.
-       Background so the mark is visible against any preview environment. In production
-       the rect can be stripped and the mark sits on transparent. -->
-  <rect width="500" height="500" fill="#F0E5C8"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" aria-label="(212) Pictures — three-arc dial trace rotated 45°, off-center wordmark, transparency checkerboard">
+  <defs>
+    <!-- Photoshop-style transparency checkerboard. In production, strip this rect — the SVG is transparent. -->
+    <pattern id="transparency" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <rect width="20" height="20" fill="#ffffff"/>
+      <rect width="10" height="10" x="0" y="0" fill="#cccccc"/>
+      <rect width="10" height="10" x="10" y="10" fill="#cccccc"/>
+    </pattern>
+  </defs>
+  <rect width="500" height="500" fill="url(#transparency)"/>
 
-  <!-- THREE ARCHES — concentric arcs forming the upper rim of an imaginary rotary tilted
-       toward the viewer. Center of the arcs is BELOW the canvas at y=400.
-       Arc widths echo the 2-1-2 dial pattern:
-         • Outer (top): wide arc — the first "2"
-         • Middle: narrow arc — the "1" (closer to finger-stop = shorter motion)
-         • Inner (lowest): wide arc — the second "2"
-       The "lowest" arc sits directly above the 212 wordmark, as you specified. -->
-  <g fill="none" stroke="#000000" stroke-width="9" stroke-linecap="round">
-    <path d="M 110.0 157.5 A 280 280 0 0 1 390.0 157.5"/>
-    <path d="M 187.9 168.2 A 240 240 0 0 1 312.1 168.2"/>
-    <path d="M 150.0 226.8 A 200 200 0 0 1 350.0 226.8"/>
+  <!-- THE GOOD STUFF — the three arcs you liked, plus ghost rotary, plus the orange dot.
+       The entire dial composition is rotated 45° counterclockwise around its center (250, 210),
+       so the arcs that used to sit in the upper-right quadrant now sweep across the upper portion
+       of the canvas — above the wordmark. Nothing else changes. The geometry that worked stays. -->
+  <g transform="rotate(-45 250 210)">
+
+    <!-- Ghost rotary — faint dial silhouette + all 10 hole positions whispering behind -->
+    <g stroke="#000000" stroke-opacity="0.10" fill="none">
+      <circle cx="250" cy="210" r="175" stroke-width="1"/>
+      <circle cx="250" cy="210" r="40" stroke-width="1"/>
+    </g>
+    <g fill="#000000" fill-opacity="0.10" stroke="none">
+      <circle cx="375.6" cy="137.5" r="4"/> <!-- 1 -->
+      <circle cx="322.5" cy="84.4"  r="4"/> <!-- 2 -->
+      <circle cx="250"   cy="65"    r="4"/> <!-- 3 -->
+      <circle cx="177.5" cy="84.4"  r="4"/> <!-- 4 -->
+      <circle cx="124.4" cy="137.5" r="4"/> <!-- 5 -->
+      <circle cx="105"   cy="210"   r="4"/> <!-- 6 -->
+      <circle cx="124.4" cy="282.5" r="4"/> <!-- 7 -->
+      <circle cx="177.5" cy="335.6" r="4"/> <!-- 8 -->
+      <circle cx="250"   cy="355"   r="4"/> <!-- 9 -->
+      <circle cx="322.5" cy="335.6" r="4"/> <!-- 0 -->
+    </g>
+
+    <!-- THREE ARCS — exactly as before. First "2" outer, "1" middle (shorter), second "2" inner.
+         All converge at the finger-stop terminus. -->
+    <g fill="none" stroke="#000000" stroke-width="8" stroke-linecap="round">
+      <path d="M 322.5 84.4 A 145 145 0 0 1 395.0 210.0"/>
+      <path d="M 353.9 150.0 A 120 120 0 0 1 370.0 210.0"/>
+      <path d="M 297.5 127.7 A 95 95 0 0 1 345.0 210.0"/>
+    </g>
+
+    <!-- Single Sicilian orange dot at hole "2" — the entry point of the dialing action -->
+    <circle cx="322.5" cy="84.4" r="14" fill="#E85D04" stroke="none"/>
+
   </g>
 
-  <!-- 212 — Futura Heavy, no parens. Set the way it appears printed on the rotary's
-       center number card: confident, clean, all caps weight. The "1" carries the
-       single Sicilian orange beat — echoing the dial's pivot digit. -->
-  <g font-family="Futura Std, Futura, Arial Black, sans-serif" font-weight="900" font-size="118" letter-spacing="-4" text-anchor="middle">
-    <text x="195" y="345" fill="#000000">2</text>
-    <text x="250" y="345" fill="#E85D04">1</text>
-    <text x="305" y="345" fill="#000000">2</text>
+  <!-- WORDMARK — v1 lockup, off-centered and falling-forward. Scaled to fit below the rotated arcs.
+       Oversized parens, the "1" in Sicilian orange echoing the dot above. -->
+  <g font-family="Futura Std, Futura, Arial Black, sans-serif" fill="#000000" stroke="none">
+    <text x="100" y="370" font-weight="900" font-size="155" letter-spacing="0">(</text>
+    <text x="140" y="370" font-weight="900" font-size="132" letter-spacing="-6">2</text>
+    <text x="202" y="370" font-weight="900" font-size="132" letter-spacing="-6" fill="#E85D04">1</text>
+    <text x="246" y="370" font-weight="900" font-size="132" letter-spacing="-6">2</text>
+    <text x="294" y="370" font-weight="900" font-size="155" letter-spacing="0">)</text>
   </g>
 
-  <!-- PICTURES — Futura Bold, tracked wide, anchored beneath. Black, no decoration. -->
-  <text x="250" y="410" font-family="Futura Std, Futura, Arial, sans-serif" font-weight="700" font-size="34" letter-spacing="16" text-anchor="middle" fill="#000000">PICTURES</text>
+  <!-- Hairline rule — v1 editorial device, separates numeral lockup from supporting wordmark -->
+  <line x1="100" y1="400" x2="332" y2="400" stroke="#000000" stroke-width="1.5"/>
+
+  <!-- PICTURES — wide-tracked, off-center to the LEFT of the (212) midpoint (the v1 quirk you liked) -->
+  <text x="215" y="438" font-family="Futura Std, Futura, Arial, sans-serif" font-weight="700" font-size="30" letter-spacing="14" text-anchor="middle" fill="#000000">PICTURES</text>
 </svg>

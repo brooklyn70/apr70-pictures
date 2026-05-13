@@ -82,6 +82,22 @@ async function updateGlobal(slug: string, data: Record<string, unknown>, token: 
   }
 }
 
+const VALID_PROJECT_STATUSES = new Set(['development', 'production', 'released', 'optioned'])
+
+/** Recursively null out numeric media references (v2 IDs) so Payload doesn't reject them. */
+function stripV2MediaRefs(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(stripV2MediaRefs)
+  if (value && typeof value === 'object') {
+    const out: Record<string, unknown> = {}
+    for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
+      const isMediaKey = k === 'media' || k === 'heroImage' || k.toLowerCase().includes('media')
+      out[k] = isMediaKey && typeof v === 'number' ? null : stripV2MediaRefs(v)
+    }
+    return out
+  }
+  return value
+}
+
 /** Upsert a collection document by slug field. Creates if missing, patches if exists. */
 async function upsertDoc(
   collection: string,
@@ -290,9 +306,9 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
       slug: typeof doc.slug === 'string' ? doc.slug : id,
       division: doc.division ?? null,
       subtitle: doc.subtitle ?? doc.projectFormat ?? null,
-      status: doc.status ?? null,
+      status: typeof doc.status === 'string' && VALID_PROJECT_STATUSES.has(doc.status) ? doc.status : null,
       year: doc.year ?? null,
-      layout: mapped.layout,
+      layout: stripV2MediaRefs(mapped.layout) as unknown[],
     }
     try {
       await upsertDoc('projects', projectData.slug as string, projectData, token)
@@ -318,7 +334,7 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
       date: doc.date ?? null,
       deck: doc.deck ?? null,
       featured: doc.featured ?? false,
-      layout: mapped.layout,
+      layout: stripV2MediaRefs(mapped.layout) as unknown[],
     }
     try {
       await upsertDoc('news', articleData.slug as string, articleData, token)

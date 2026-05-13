@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" aria-label="(212) Pictures v4 — wordmark only">
+  <title>(212) Pictures — v4 Wordmark Layer</title>
+  <g id="wordmark" font-family="Futura Std, Futura, Arial Black, sans-serif" stroke="none">
+    <text id="paren-left"  x="125" y="290" font-weight="900" font-size="190" letter-spacing="0"  fill="#824B07">(</text>
+    <g id="digits">
+      <text id="digit-2a" x="175" y="290" font-weight="900" font-size="170" letter-spacing="-8" fill="#824B07">2</text>
+      <text id="digit-1"  x="255" y="290" font-weight="900" font-size="170" letter-spacing="-8" fill="#E85D04">1</text>
+      <text id="digit-2b" x="310" y="290" font-weight="900" font-size="170" letter-spacing="-8" fill="#824B07">2</text>
+    </g>
+    <text id="paren-right" x="370" y="290" font-weight="900" font-size="190" letter-spacing="0"  fill="#824B07">)</text>
+  </g>
+</svg>

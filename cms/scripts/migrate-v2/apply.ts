@@ -20,7 +20,7 @@ import { inferDocumentId, mapV2DocumentToLayout } from './map-layout.js'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 
-const SEED_VERSION = '0.2.0'
+const SEED_VERSION = '0.3.0'
 const CMS_URL = process.env.CMS_URL ?? 'http://cms:3000'
 
 export type ApplyOptions = {
@@ -39,6 +39,8 @@ export type ApplyReport = {
   jobsLayoutBlocksWritten: number
   pitchLayoutBlocksWritten: number
   investorsLayoutBlocksWritten: number
+  projectsWritten: number
+  newsArticlesWritten: number
   warnings: string[]
   errors: string[]
 }
@@ -77,6 +79,47 @@ async function updateGlobal(slug: string, data: Record<string, unknown>, token: 
   if (!res.ok) {
     const body = await res.text()
     throw new Error(`updateGlobal(${slug}) failed: ${res.status} ${body}`)
+  }
+}
+
+/** Upsert a collection document by slug field. Creates if missing, patches if exists. */
+async function upsertDoc(
+  collection: string,
+  slugValue: string,
+  data: Record<string, unknown>,
+  token: string,
+): Promise<void> {
+  const findRes = await fetch(
+    `${CMS_URL}/api/${collection}?where[slug][equals]=${encodeURIComponent(slugValue)}&depth=0&limit=1`,
+    { headers: { Authorization: `JWT ${token}` } },
+  )
+  if (!findRes.ok) {
+    const body = await findRes.text()
+    throw new Error(`upsertDoc(${collection}/${slugValue}) find failed: ${findRes.status} ${body}`)
+  }
+  const found = (await findRes.json()) as { docs?: Array<{ id: number }> }
+  const existing = found.docs?.[0]
+
+  if (existing) {
+    const patchRes = await fetch(`${CMS_URL}/api/${collection}/${existing.id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', Authorization: `JWT ${token}` },
+      body: JSON.stringify(data),
+    })
+    if (!patchRes.ok) {
+      const body = await patchRes.text()
+      throw new Error(`upsertDoc(${collection}/${slugValue}) patch failed: ${patchRes.status} ${body}`)
+    }
+  } else {
+    const postRes = await fetch(`${CMS_URL}/api/${collection}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `JWT ${token}` },
+      body: JSON.stringify(data),
+    })
+    if (!postRes.ok) {
+      const body = await postRes.text()
+      throw new Error(`upsertDoc(${collection}/${slugValue}) create failed: ${postRes.status} ${body}`)
+    }
   }
 }
 
@@ -129,6 +172,8 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
       jobsLayoutBlocksWritten: 0,
       pitchLayoutBlocksWritten: 0,
       investorsLayoutBlocksWritten: 0,
+      projectsWritten: 0,
+      newsArticlesWritten: 0,
       warnings,
       errors,
     }
@@ -184,6 +229,8 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
       jobsLayoutBlocksWritten: 0,
       pitchLayoutBlocksWritten: 0,
       investorsLayoutBlocksWritten: 0,
+      projectsWritten: 0,
+      newsArticlesWritten: 0,
       warnings,
       errors,
     }
@@ -230,7 +277,58 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
     warnings.push('investors: 0 blocks mapped; skipping updateGlobal for investors.')
   }
 
-  // ── 9. Stamp SiteSettings with seed metadata ───────────────────────────────
+  // ── 9. Seed Projects collection ────────────────────────────────────────────
+  let projectsWritten = 0
+  for (const f of files.filter((f) => f.relativePath.includes('/projects/'))) {
+    const result = await loadAndParse(f.absolutePath, f.relativePath, warnings)
+    if (!result) continue
+    const { doc, id } = result
+    const mapped = mapV2DocumentToLayout(doc, { sourcePath: f.relativePath, basenameId: id })
+    warnings.push(...mapped.warnings)
+    const projectData: Record<string, unknown> = {
+      title: doc.title ?? id,
+      slug: typeof doc.slug === 'string' ? doc.slug : id,
+      division: doc.division ?? null,
+      subtitle: doc.subtitle ?? doc.projectFormat ?? null,
+      status: doc.status ?? null,
+      year: doc.year ?? null,
+      layout: mapped.layout,
+    }
+    try {
+      await upsertDoc('projects', projectData.slug as string, projectData, token)
+      projectsWritten += 1
+    } catch (e) {
+      errors.push(`projects/${id}: ${String(e)}`)
+    }
+  }
+
+  // ── 10. Seed NewsArticles collection ──────────────────────────────────────
+  let newsArticlesWritten = 0
+  for (const f of files.filter((f) => f.relativePath.includes('/news/'))) {
+    const result = await loadAndParse(f.absolutePath, f.relativePath, warnings)
+    if (!result) continue
+    const { doc, id } = result
+    // Skip the site_intro meta entry — it is not a real article
+    if (doc.entryType === 'site_intro') continue
+    const mapped = mapV2DocumentToLayout(doc, { sourcePath: f.relativePath, basenameId: id })
+    warnings.push(...mapped.warnings)
+    const articleData: Record<string, unknown> = {
+      title: doc.title ?? id,
+      slug: typeof doc.slug === 'string' ? doc.slug : id,
+      date: doc.date ?? null,
+      deck: doc.deck ?? null,
+      featured: doc.featured ?? false,
+      layout: mapped.layout,
+    }
+    try {
+      await upsertDoc('news-articles', articleData.slug as string, articleData, token)
+      newsArticlesWritten += 1
+    } catch (e) {
+      errors.push(`news-articles/${id}: ${String(e)}`)
+    }
+  }
+
+  // ── 11. Stamp SiteSettings with seed metadata ──────────────────────────────
   await updateGlobal(
     'site-settings',
     { seededVersion: SEED_VERSION, lastDeployed: new Date().toISOString() },
@@ -248,6 +346,8 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
     jobsLayoutBlocksWritten: (jobsLayout as unknown[]).length,
     pitchLayoutBlocksWritten: (pitchLayout as unknown[]).length,
     investorsLayoutBlocksWritten: (investorsLayout as unknown[]).length,
+    projectsWritten,
+    newsArticlesWritten,
     warnings,
     errors,
   }
@@ -265,6 +365,8 @@ export function formatApplyReportConsole(report: ApplyReport): string {
     `Jobs layout blocks written:      ${report.jobsLayoutBlocksWritten}`,
     `Pitch layout blocks written:     ${report.pitchLayoutBlocksWritten}`,
     `Investors layout blocks written: ${report.investorsLayoutBlocksWritten}`,
+    `Projects written:                ${report.projectsWritten}`,
+    `News articles written:           ${report.newsArticlesWritten}`,
     `Warnings: ${report.warnings.length}`,
     `Errors: ${report.errors.length}`,
   ]

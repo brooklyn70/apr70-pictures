@@ -6,6 +6,8 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Project } from './collections/Project'
+import { NewsArticle } from './collections/NewsArticle'
 import { aprLexicalEditor } from './editor/aprLexicalEditor'
 import { Home } from './globals/Home'
 import { SiteSettings } from './globals/SiteSettings'
@@ -35,7 +37,7 @@ export default buildConfig({
       url: () => process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:4321',
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Project, NewsArticle],
   globals: [Home, SiteSettings, FooterLinks, About, Contact, Jobs, Pitch, Investors],
   editor: aprLexicalEditor,
   secret: process.env.PAYLOAD_SECRET || '',

@@ -1,0 +1,151 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { fetchProjects } from '../lib/payload';
+
+const { projects, error } = await fetchProjects();
+
+const divisionLabel: Record<string, string> = {
+  '212': '212 Pictures',
+  '310': '310 Pictures',
+  nrc: 'New Renaissance Cinema',
+  corporate: 'Corporate',
+};
+---
+
+<Layout title="Work">
+  <main class="work-index">
+    <header class="work-index__header">
+      <h1 class="work-index__title">Current Slate.</h1>
+    </header>
+
+    {error && (
+      <div class="fetch-error">
+        <strong>Fetch Error:</strong> {error}
+      </div>
+    )}
+
+    {!projects.length && !error ? (
+      <div class="work-index__empty">
+        No projects found. Add projects in Payload admin.
+      </div>
+    ) : (
+      <ul class="work-index__grid">
+        {projects.map((project) => (
+          <li class="work-card">
+            <a href={`/work/${project.slug}`} class="work-card__link">
+              <div class="work-card__body">
+                {project.division && (
+                  <span class="work-card__division">
+                    {divisionLabel[project.division] ?? project.division}
+                  </span>
+                )}
+                <h2 class="work-card__title">{project.title}</h2>
+                {project.subtitle && (
+                  <p class="work-card__subtitle">{project.subtitle}</p>
+                )}
+                {project.status && (
+                  <span class="work-card__status">{project.status}</span>
+                )}
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </main>
+</Layout>
+
+<style>
+  .work-index {
+    padding: clamp(2rem, 5vw, 6rem) clamp(1rem, 4vw, 4rem);
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  .work-index__header {
+    margin-bottom: clamp(2rem, 4vw, 4rem);
+  }
+
+  .work-index__title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 4rem);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-fg);
+  }
+
+  .work-index__grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    gap: 1px;
+  }
+
+  .work-card__link {
+    display: block;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    border: 1px solid var(--color-border, #c8c8c8);
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 0.2s;
+  }
+
+  .work-card__link:hover {
+    background-color: var(--color-surface-hover, rgba(0,0,0,0.04));
+  }
+
+  .work-card__division {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-mid, #888);
+    margin-bottom: 0.5rem;
+  }
+
+  .work-card__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 0.5rem;
+  }
+
+  .work-card__subtitle {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    color: var(--color-mid, #888);
+    margin: 0 0 0.75rem;
+  }
+
+  .work-card__status {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.2em 0.6em;
+    border: 1px solid currentColor;
+    color: var(--color-mid, #888);
+  }
+
+  .fetch-error {
+    padding: 1rem;
+    margin-bottom: 2rem;
+    background: rgba(255, 0, 0, 0.08);
+    border: 1px solid red;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    color: #cc0000;
+  }
+
+  .work-index__empty {
+    padding: 4rem;
+    text-align: center;
+    font-family: var(--font-body);
+    color: var(--color-mid, #888);
+  }
+</style>

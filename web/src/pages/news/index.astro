@@ -1,0 +1,146 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { fetchNewsArticles } from '../../lib/payload';
+
+const { articles, error } = await fetchNewsArticles();
+
+function formatDate(dateStr: string | null | undefined): string {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+
+<Layout title="News">
+  <main class="news-index">
+    <header class="news-index__header">
+      <h1 class="news-index__title">News.</h1>
+      <p class="news-index__subtext">
+        Updates from APR 70 Pictures — projects, announcements, and developments from the studio.
+      </p>
+    </header>
+
+    {error && (
+      <div class="fetch-error">
+        <strong>Fetch Error:</strong> {error}
+      </div>
+    )}
+
+    {!articles.length && !error ? (
+      <div class="news-index__empty">
+        No articles found. Add news articles in Payload admin.
+      </div>
+    ) : (
+      <ul class="news-index__list">
+        {articles.map((article) => (
+          <li class="news-item">
+            <a href={`/news/${article.slug}`} class="news-item__link">
+              {article.date && (
+                <time class="news-item__date" datetime={article.date}>
+                  {formatDate(article.date)}
+                </time>
+              )}
+              <h2 class="news-item__title">{article.title}</h2>
+              {article.deck && (
+                <p class="news-item__deck">{article.deck}</p>
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </main>
+</Layout>
+
+<style>
+  .news-index {
+    padding: clamp(2rem, 5vw, 6rem) clamp(1rem, 4vw, 4rem);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .news-index__header {
+    margin-bottom: clamp(2rem, 4vw, 4rem);
+  }
+
+  .news-index__title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 4rem);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-fg);
+    margin-bottom: 0.75rem;
+  }
+
+  .news-index__subtext {
+    font-family: var(--font-body);
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
+    color: var(--color-mid, #888);
+    max-width: 60ch;
+  }
+
+  .news-index__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--color-border, #c8c8c8);
+  }
+
+  .news-item {
+    border-bottom: 1px solid var(--color-border, #c8c8c8);
+  }
+
+  .news-item__link {
+    display: block;
+    padding: clamp(1.25rem, 2.5vw, 2rem) 0;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .news-item__link:hover .news-item__title {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  .news-item__date {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-mid, #888);
+    margin-bottom: 0.5rem;
+  }
+
+  .news-item__title {
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 2vw, 1.375rem);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 0.5rem;
+  }
+
+  .news-item__deck {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    color: var(--color-mid, #888);
+    margin: 0;
+    max-width: 70ch;
+  }
+
+  .fetch-error {
+    padding: 1rem;
+    margin-bottom: 2rem;
+    background: rgba(255, 0, 0, 0.08);
+    border: 1px solid red;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    color: #cc0000;
+  }
+
+  .news-index__empty {
+    padding: 4rem 0;
+    font-family: var(--font-body);
+    color: var(--color-mid, #888);
+  }
+</style>

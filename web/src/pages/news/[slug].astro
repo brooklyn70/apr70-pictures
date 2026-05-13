@@ -1,0 +1,30 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BlockRenderer from '../../components/blocks/BlockRenderer.astro';
+import { fetchNewsArticle } from '../../lib/payload';
+
+const { slug } = Astro.params;
+if (!slug) return Astro.redirect('/news');
+
+const { article, error } = await fetchNewsArticle(slug);
+if (!article && !error) return Astro.redirect('/news');
+
+const blocks = article?.layout ?? [];
+---
+
+<Layout title={article?.title ?? 'News'}>
+  <main>
+    {error && (
+      <div style="padding: 1rem; margin: 2rem auto; max-width: 600px; background: rgba(255,0,0,0.1); border: 1px solid red; border-radius: 4px; font-family: var(--font-body); color: #cc0000;">
+        <strong>Fetch Error:</strong> {error}
+      </div>
+    )}
+    {!blocks.length && !error ? (
+      <div style="padding: 4rem; text-align: center; font-family: var(--font-body); color: var(--color-mid, #888);">
+        No blocks found for this article.
+      </div>
+    ) : (
+      <BlockRenderer blocks={blocks} />
+    )}
+  </main>
+</Layout>

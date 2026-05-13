@@ -186,3 +186,101 @@ export async function fetchInvestorsGlobal(): Promise<{
   const { data, error } = await fetchGlobal<PageGlobalData>('investors')
   return { investors: data, error }
 }
+
+// ── Collection types ──────────────────────────────────────────────────────────
+
+export type ProjectDoc = {
+  id: number
+  title: string
+  slug: string
+  division?: string | null
+  subtitle?: string | null
+  status?: string | null
+  year?: string | null
+  heroImage?: unknown
+  layout?: unknown[] | null
+}
+
+export type NewsArticleDoc = {
+  id: number
+  title: string
+  slug: string
+  date?: string | null
+  deck?: string | null
+  featured?: boolean | null
+  layout?: unknown[] | null
+}
+
+type CollectionResponse<T> = {
+  docs: T[]
+  totalDocs: number
+  page: number
+  totalPages: number
+}
+
+// ── Collection fetchers ───────────────────────────────────────────────────────
+
+async function fetchCollection<T>(
+  collection: string,
+  params = '',
+): Promise<{ docs: T[]; error: string | null }> {
+  const apiBase = PAYLOAD_URL
+  if (!apiBase) return { docs: [], error: 'Set PUBLIC_PAYLOAD_URL' }
+  const url = `${trimSlash(apiBase)}/api/${collection}?depth=1&limit=100${params}`
+  try {
+    const res = await fetch(url)
+    if (!res.ok) return { docs: [], error: `Payload returned ${res.status} for ${url}` }
+    const raw = (await res.json()) as CollectionResponse<T>
+    return { docs: raw.docs ?? [], error: null }
+  } catch (e) {
+    return { docs: [], error: e instanceof Error ? e.message : 'Unknown fetch error' }
+  }
+}
+
+async function fetchCollectionDoc<T>(
+  collection: string,
+  slug: string,
+): Promise<{ doc: T | null; error: string | null }> {
+  const apiBase = PAYLOAD_URL
+  if (!apiBase) return { doc: null, error: 'Set PUBLIC_PAYLOAD_URL' }
+  const url = `${trimSlash(apiBase)}/api/${collection}?where[slug][equals]=${encodeURIComponent(slug)}&depth=1&limit=1`
+  try {
+    const res = await fetch(url)
+    if (!res.ok) return { doc: null, error: `Payload returned ${res.status} for ${url}` }
+    const raw = (await res.json()) as CollectionResponse<T>
+    const doc = raw.docs?.[0] ?? null
+    return { doc, error: doc ? null : `No ${collection} found with slug "${slug}"` }
+  } catch (e) {
+    return { doc: null, error: e instanceof Error ? e.message : 'Unknown fetch error' }
+  }
+}
+
+export async function fetchProjects(): Promise<{ projects: ProjectDoc[]; error: string | null }> {
+  const { docs, error } = await fetchCollection<ProjectDoc>('projects')
+  return { projects: docs, error }
+}
+
+export async function fetchProject(
+  slug: string,
+): Promise<{ project: ProjectDoc | null; error: string | null }> {
+  const { doc, error } = await fetchCollectionDoc<ProjectDoc>('projects', slug)
+  return { project: doc, error }
+}
+
+export async function fetchNewsArticles(): Promise<{
+  articles: NewsArticleDoc[]
+  error: string | null
+}> {
+  const { docs, error } = await fetchCollection<NewsArticleDoc>(
+    'news-articles',
+    '&sort=-date',
+  )
+  return { articles: docs, error }
+}
+
+export async function fetchNewsArticle(
+  slug: string,
+): Promise<{ article: NewsArticleDoc | null; error: string | null }> {
+  const { doc, error } = await fetchCollectionDoc<NewsArticleDoc>('news-articles', slug)
+  return { article: doc, error }
+}

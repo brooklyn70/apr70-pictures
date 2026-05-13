@@ -46,6 +46,7 @@ services:
       DATABASE_URL: postgres://postgres:postgres@postgres:5432/apr70_cms
       PAYLOAD_SECRET: ${PAYLOAD_SECRET:-dev-change-me}
       NODE_ENV: development
+      PAYLOAD_DB_PUSH: 'false'
     volumes:
       - cms_media:/app/media
       - ./v2-export:/v2-export:ro

@@ -1,11 +1,11 @@
-FROM node:22-alpine AS build
-
+FROM node:22-alpine AS deps
 WORKDIR /app
 RUN corepack enable pnpm && corepack prepare pnpm@9.15.4 --activate
-
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
+# Inherit from deps so pnpm is available without a network download.
+FROM deps AS build
 COPY . .
 RUN pnpm run build
 

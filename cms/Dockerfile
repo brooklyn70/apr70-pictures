@@ -19,10 +19,11 @@ RUN \
   fi
 
 
-# Rebuild the source code only when needed
-FROM base AS builder
+# Rebuild the source code only when needed.
+# Inherit from deps so pnpm is already available — avoids a corepack
+# network download on restricted networks (NAS / air-gapped CI).
+FROM deps AS builder
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Next.js collects completely anonymous telemetry data about general usage.
@@ -33,7 +34,7 @@ COPY . .
 RUN \
   if [ -f yarn.lock ]; then yarn run build; \
   elif [ -f package-lock.json ]; then npm run build; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && corepack prepare pnpm@9.15.4 --activate && pnpm run build; \
+  elif [ -f pnpm-lock.yaml ]; then pnpm run build; \
   else echo "Lockfile not found." && exit 1; \
   fi
 
@@ -73,9 +74,6 @@ CMD HOSTNAME="0.0.0.0" node server.js
 # Seeder image — separate target with full deps + scripts + tsx so we can
 # run one-off migrations (e.g. `pnpm migrate:v2:apply`) against the same
 # Postgres without polluting the slim production runner image.
-FROM base AS seeder
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-COPY --from=builder /app /app
-RUN corepack enable pnpm && corepack prepare pnpm@9.15.4 --activate
+# Seeder inherits from builder — pnpm is already present, no download needed.
+FROM builder AS seeder
 CMD ["pnpm", "migrate:v2:apply"]

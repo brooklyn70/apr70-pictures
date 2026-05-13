@@ -279,7 +279,7 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
 
   // ── 9. Seed Projects collection ────────────────────────────────────────────
   let projectsWritten = 0
-  for (const f of files.filter((f) => f.relativePath.includes('/projects/'))) {
+  for (const f of files.filter((f) => f.kind === 'project')) {
     const result = await loadAndParse(f.absolutePath, f.relativePath, warnings)
     if (!result) continue
     const { doc, id } = result
@@ -304,7 +304,7 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
 
   // ── 10. Seed NewsArticles collection ──────────────────────────────────────
   let newsArticlesWritten = 0
-  for (const f of files.filter((f) => f.relativePath.includes('/news/'))) {
+  for (const f of files.filter((f) => f.relativePath.replaceAll('\\', '/').includes('news/'))) {
     const result = await loadAndParse(f.absolutePath, f.relativePath, warnings)
     if (!result) continue
     const { doc, id } = result

@@ -78,5 +78,4 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY --from=builder /app /app
 RUN corepack enable pnpm && corepack prepare pnpm@9.15.4 --activate
-ENV NODE_ENV=production
 CMD ["pnpm", "migrate:v2:apply"]

@@ -41,7 +41,8 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },
-    push: process.env.PAYLOAD_DB_PUSH !== 'false',
+    push: false,
+    migrationDir: './src/migrations',
   }),
   sharp,
   plugins: [],

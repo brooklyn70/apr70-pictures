@@ -33,6 +33,22 @@ services:
     volumes:
       - cms_media:/app/media
 
+  migrate:
+    profiles: [seed]
+    build:
+      context: ./cms
+      dockerfile: Dockerfile
+      target: seeder
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/apr70_cms
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET:-dev-change-me}
+      NODE_ENV: development
+    command: ["node_modules/.bin/payload", "migrate"]
+    restart: "no"
+
   cms-seeder:
     profiles: [seed]
     build:
@@ -46,7 +62,6 @@ services:
       DATABASE_URL: postgres://postgres:postgres@postgres:5432/apr70_cms
       PAYLOAD_SECRET: ${PAYLOAD_SECRET:-dev-change-me}
       NODE_ENV: development
-      PAYLOAD_DB_PUSH: 'false'
     volumes:
       - cms_media:/app/media
       - ./v2-export:/v2-export:ro

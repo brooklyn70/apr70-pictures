@@ -28,8 +28,8 @@ Editor-authored pages are modeled as **Payload Globals** (one row per logical pa
 |-----------------|--------------------------|-------|
 | `users` | EXISTS — 1 user created | Admin user created 2026-05-13 |
 | `media` | EXISTS — empty | No media migration yet |
-| `projects` | DOES NOT EXIST | Phase 5+ — 9 v2 projects available in v2-export |
-| `news-articles` | DOES NOT EXIST | Phase 5+ — 5 v2 articles available in v2-export |
+| `projects` | EXISTS — 9 documents seeded | `cms/src/collections/Project.ts`. Fields: title, slug, division, subtitle, status, year, heroImage, layout |
+| `news` | EXISTS — 4 documents seeded | `cms/src/collections/NewsArticle.ts`. Slug is `news` not `news-articles` (postgres 63-char limit) |
 
 ## Astro route → Global slug mapping
 
@@ -41,9 +41,11 @@ Editor-authored pages are modeled as **Payload Globals** (one row per logical pa
 | `/jobs` | `jobs` | BUILT — needs NAS deploy |
 | `/pitch` | `pitch` | BUILT — needs NAS deploy |
 | `/investors` | `investors` | BUILT — needs NAS deploy |
-| `/work` | (projects collection) | MISSING — Phase 5+ |
-| `/212`, `/310`, `/nrc` | (division globals) | MISSING — Phase 5+ |
-| `/news/*` | (news-articles collection) | MISSING — Phase 5+ |
+| `/work` | (projects collection) | LIVE — 9 project cards |
+| `/work/[slug]` | (projects collection) | LIVE — 9 projects |
+| `/news` | (news collection) | LIVE — 4 articles |
+| `/news/[slug]` | (news collection) | LIVE — 4 articles |
+| `/212`, `/310`, `/nrc` | (division globals) | MISSING — Phase 5 next |
 | `/privacy`, `/terms` | (static or globals) | MISSING |
 
 ## Astro mapping pattern

@@ -47,16 +47,16 @@ Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainst
 - [x] [p4] [nas-shell] NAS Hop 2 — git pull, rebuild, then run extended seeder (v0.2.0). DONE 2026-05-13.
 - [ ] [p4] [nas-headless] Media migration — rsync `/volume1/apps/apr70/public/` → v3 media volume (no `--delete`); create Media rows per `cms/src/collections/Media.ts`; wire relationships into seeded blocks.
 - [ ] [p4] [cursor+claude] `web/src/lib/payload.ts` typed client — error handling, caching, stale-while-revalidate.
-- [ ] [p4] [cursor+claude] Delete `/test-hero` dev artifact before launch.
+- [x] [p4] [cursor+claude] Delete `/test-hero` dev artifact before launch. (Moved to Phase 5 line 59; deleted 2026-05-13)
 
 ## Phase 5 — Projects, News & Division Pages
 
 - [x] [p5] [claude] Project + NewsArticle collections — `cms/src/collections/Project.ts` (slug: projects), `NewsArticle.ts` (slug: news). Registered in payload.config.ts. Migration 20260513_185804 generated + applied. DONE 2026-05-13.
 - [x] [p5] [claude] Seeder v0.3.0 — extends apply.ts with upsertDoc() REST helper; seeds 9 projects + 4 news articles. Status normalization, v2 media stripping. DONE 2026-05-13.
 - [x] [p5] [claude] /work + /news Astro pages — work.astro, work/[slug].astro, news/index.astro, news/[slug].astro. fetchProjects/fetchNewsArticles added to payload.ts. DONE 2026-05-13.
-- [ ] [p5] [claude] Division pages — `/212`, `/310`, `/nrc` Payload globals + migration + Astro pages. Same pattern as About.ts. See handoff doc.
+- [x] [p5] [claude] Division pages — `/212`, `/310`, `/nrc` Payload globals + migration + Astro pages. Same pattern as About.ts. DONE 2026-05-13. NOTE: These are NET-NEW pages (no v2 source). Content must be authored in Payload admin or synthesized by agent. Logo work in progress separately.
 - [ ] [p5] [claude] Footer links seeding — read FooterLinks.ts schema, map from footer-more.json, call updateGlobal('footer-links', ..., token) in apply.ts.
-- [ ] [p5] [cursor+claude] Delete `/test-hero` dev artifact (`web/src/pages/test-hero.astro`).
+- [x] [p5] [cursor+claude] Delete `/test-hero` dev artifact (`web/src/pages/test-hero.astro`). DONE 2026-05-13.
 - [ ] [p5] [gemini] HeroBlock slider island — React + GSAP crossfade. Auto-featured + curated modes.
 - [ ] [p5] [gemini] FilmstripBlock renderer — CSS scroll-snap, perforation bands, keyboard nav, ARIA.
 - [ ] [p5] [requires-gui] Hero + Filmstrip visual QA.

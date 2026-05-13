@@ -21,6 +21,9 @@ Editor-authored pages are modeled as **Payload Globals** (one row per logical pa
 | `jobs` | Jobs / Careers | EXISTS — seeded via apply.ts v0.2.0 | from v2-export/content/pages/jobs.json |
 | `pitch` | Pitch | EXISTS — seeded via apply.ts v0.2.0 | from v2-export/content/pages/pitch.json |
 | `investors` | Investors | EXISTS — seeded via apply.ts v0.2.0 | from v2-export/content/pages/partners.json |
+| `212` | Division 212 | EXISTS — empty (no layout blocks) | Net-new page, no v2 source. Add blocks via Payload admin. |
+| `310` | Division 310 | EXISTS — empty (no layout blocks) | Net-new page, no v2 source. Add blocks via Payload admin. |
+| `nrc` | Division NRC | EXISTS — empty (no layout blocks) | Net-new page, no v2 source. Add blocks via Payload admin. |
 
 ## Collection inventory
 
@@ -45,7 +48,9 @@ Editor-authored pages are modeled as **Payload Globals** (one row per logical pa
 | `/work/[slug]` | (projects collection) | LIVE — 9 projects |
 | `/news` | (news collection) | LIVE — 4 articles |
 | `/news/[slug]` | (news collection) | LIVE — 4 articles |
-| `/212`, `/310`, `/nrc` | (division globals) | MISSING — Phase 5 next |
+| `/212` | `212` | LIVE — empty (add blocks via admin) |
+| `/310` | `310` | LIVE — empty (add blocks via admin) |
+| `/nrc` | `nrc` | LIVE — empty (add blocks via admin) |
 | `/privacy`, `/terms` | (static or globals) | MISSING |
 
 ## Astro mapping pattern

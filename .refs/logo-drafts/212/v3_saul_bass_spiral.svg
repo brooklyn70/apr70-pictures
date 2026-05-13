@@ -1,6 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" aria-label="(212) Pictures — three-arc dial trace with wordmark inset into the implied hub">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" aria-label="(212) Pictures — v1 wordmark crush restored, arcs nudged closer, PICTURES tightened">
   <defs>
-    <!-- Photoshop-style transparency checkerboard. Strip the rect in production. -->
     <pattern id="transparency" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
       <rect width="20" height="20" fill="#ffffff"/>
       <rect width="10" height="10" x="0" y="0" fill="#cccccc"/>
@@ -9,30 +8,32 @@
   </defs>
   <rect width="500" height="500" fill="url(#transparency)"/>
 
-  <!-- THREE ARCS — the dialing trace. Rotated 45° counterclockwise around the rotary's center (250, 210).
-       No ghost scaffolding anymore — the arcs now do the work alone, with the wordmark sitting where
-       the rotary's hub used to be. -->
+  <!-- Three arcs — unchanged geometry, same rotation. -->
   <g transform="rotate(-45 250 210)">
     <g fill="none" stroke="#000000" stroke-width="9" stroke-linecap="round">
       <path d="M 322.5 84.4 A 145 145 0 0 1 395.0 210.0"/>
       <path d="M 353.9 150.0 A 120 120 0 0 1 370.0 210.0"/>
       <path d="M 297.5 127.7 A 95 95 0 0 1 345.0 210.0"/>
     </g>
-    <!-- Sicilian orange dot at the dialing entry point (hole "2") -->
     <circle cx="322.5" cy="84.4" r="14" fill="#E85D04" stroke="none"/>
   </g>
 
-  <!-- (212) — sits IN the implied hub, centered at (250, 210).
-       Parens reduced and given breathing room from the digits.
-       The "1" carries the orange beat, echoing the dot above. -->
+  <!-- (212) — v1 layout, scaled 0.7. Parens dominant (140), digits crushed (120, letter-spacing -6).
+       The character deltas preserve v1's overlap geometry:
+         • "(" → "2": 35px (paren visually swallows digit's left edge — 28px overlap)
+         • "2" → "1": 56px (15px digit-on-digit overlap)
+         • "1" → "2": 38px (30px overlap — the asymmetric crush v1 had)
+         • "2" → ")": 42px (paren swallows the right edge)
+       Off-center right by ~16 to preserve the falling-forward quirk. -->
   <g font-family="Futura Std, Futura, Arial Black, sans-serif" fill="#000000" stroke="none">
-    <text x="118" y="240" font-weight="900" font-size="78" letter-spacing="0">(</text>
-    <text x="168" y="240" font-weight="900" font-size="92" letter-spacing="-3">2</text>
-    <text x="225" y="240" font-weight="900" font-size="92" letter-spacing="-3" fill="#E85D04">1</text>
-    <text x="266" y="240" font-weight="900" font-size="92" letter-spacing="-3">2</text>
-    <text x="320" y="240" font-weight="900" font-size="78" letter-spacing="0">)</text>
+    <text x="149" y="235" font-weight="900" font-size="140" letter-spacing="0">(</text>
+    <text x="184" y="235" font-weight="900" font-size="120" letter-spacing="-6">2</text>
+    <text x="240" y="235" font-weight="900" font-size="120" letter-spacing="-6" fill="#E85D04">1</text>
+    <text x="278" y="235" font-weight="900" font-size="120" letter-spacing="-6">2</text>
+    <text x="320" y="235" font-weight="900" font-size="140" letter-spacing="0">)</text>
   </g>
 
-  <!-- PICTURES — same place it always was, wide-tracked, no rule above it -->
-  <text x="237" y="312" font-family="Futura Std, Futura, Arial, sans-serif" font-weight="700" font-size="30" letter-spacing="14" text-anchor="middle" fill="#000000">PICTURES</text>
+  <!-- PICTURES — tracked tighter (8 instead of 14), font 30, brought up to y=275.
+       Width stays well inside the parens lockup (which spans 149→383 ≈ 234px wide). -->
+  <text x="248" y="275" font-family="Futura Std, Futura, Arial, sans-serif" font-weight="700" font-size="30" letter-spacing="8" text-anchor="middle" fill="#000000">PICTURES</text>
 </svg>

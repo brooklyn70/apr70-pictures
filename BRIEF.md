@@ -213,3 +213,8 @@ After containers are up, run seeder (once REST approach is implemented):
 
 - Branch: main
 - Tip: 9d71ca2
+
+## Auto-stop note (2026-05-13 18:19 UTC)
+
+- Branch: main
+- Tip: 26489ec

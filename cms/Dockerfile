@@ -71,9 +71,9 @@ ENV PORT 3000
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
 CMD HOSTNAME="0.0.0.0" node server.js
 
-# Seeder image — separate target with full deps + scripts + tsx so we can
-# run one-off migrations (e.g. `pnpm migrate:v2:apply`) against the same
-# Postgres without polluting the slim production runner image.
-# Seeder inherits from builder — pnpm is already present, no download needed.
-FROM builder AS seeder
+# Seeder image — source + deps only, NO next build artifacts. Running the
+# seeder inside the builder stage's .next context causes getPayload() to hang
+# because Next.js import maps conflict with the standalone script context.
+FROM deps AS seeder
+COPY . .
 CMD ["pnpm", "migrate:v2:apply"]

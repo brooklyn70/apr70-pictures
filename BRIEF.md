@@ -1,12 +1,12 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-13 evening (Phase 5 collections + seeder complete)
-**Repo tip:** abb2817 on main
-**Phase:** Phase 5 — Projects + News live; media migration + visual polish next
+**Updated:** 2026-05-13 afternoon (Phase 5b — division pages live)
+**Repo tip:** 3eca748 on main
+**Phase:** Phase 5b complete — /212, /310, /nrc live; content + media migration next
 
 ---
 
-## NAS live state (verified 2026-05-13 ~19:15)
+## NAS live state (verified 2026-05-13 ~20:05)
 
 All four containers healthy:
 - `apr70v3-postgres-1` healthy

@@ -1,7 +1,7 @@
 # CLAUDE.md — apr70-pictures (v3)
 
 **Authoritative working document for all agents working in this repo.**
-**Last updated:** 2026-05-12 (preflight gate added; RowLabel component built)
+**Last updated:** 2026-05-13 (context handoff rule added)
 **Repo:** `brooklyn70/apr70-pictures`
 **Live (when shipped):** https://apr70.com
 **Staging:** https://staging-v3.apr70.com (pending DSM slot)
@@ -44,6 +44,7 @@ Layout is editor-authored via block stacking. Each page Global has a `layout: Bl
 11. **Stop hooks handle commits.** Update BRIEF.md before stopping.
 12. **GUI tasks need Marco.** Tasks tagged `requires-gui` need visual review.
 13. **Preflight before NAS deploy.** Run `pnpm preflight` from `cms/` and confirm it exits 0 before any `docker compose up --build` on the NAS. This catches missing components, TypeScript errors, and broken imports that the dry-run cannot see.
+14. **Context handoff at 55%.** Every agent MUST monitor its own context load. At ~55% context used, stop new feature work, write a handoff doc to `docs/handoff/[model]-[date]-[time].md`, update `BRIEF.md`, commit, and tell the user to start a fresh agent. Never let context run past 70% — degraded output is worse than a clean handoff.
 
 ---
 

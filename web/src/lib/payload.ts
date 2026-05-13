@@ -2,6 +2,14 @@ import type { Home, Media } from 'payload-types'
 
 const trimSlash = (s: string) => s.replace(/\/$/, '')
 
+// import.meta.env.PUBLIC_* is baked at build time in Astro; fall back to
+// process.env so the Docker runtime env var is picked up when the build
+// ran without PUBLIC_PAYLOAD_URL set.
+const PAYLOAD_URL: string =
+  (import.meta.env.PUBLIC_PAYLOAD_URL as string | undefined) ||
+  (typeof process !== 'undefined' && process.env.PUBLIC_PAYLOAD_URL) ||
+  ''
+
 // ── Type helpers (until `payload generate:types` runs for the new globals) ──
 
 export type FooterLink = {
@@ -53,8 +61,8 @@ export function resolveMediaUrl(media: Media | null | undefined): string | undef
   if (!media?.url) return undefined
   const u = media.url
   if (u.startsWith('http://') || u.startsWith('https://')) return u
-  const base = import.meta.env.PUBLIC_PAYLOAD_URL
-    ? trimSlash(import.meta.env.PUBLIC_PAYLOAD_URL)
+  const base = PAYLOAD_URL
+    ? trimSlash(PAYLOAD_URL)
     : ''
   if (!base) return u
   return `${base}${u.startsWith('/') ? '' : '/'}${u}`
@@ -66,7 +74,7 @@ async function fetchGlobal<T>(
   slug: string,
   depth = 1,
 ): Promise<{ data: T | null; error: string | null }> {
-  const apiBase = import.meta.env.PUBLIC_PAYLOAD_URL
+  const apiBase = PAYLOAD_URL
   if (!apiBase) {
     return { data: null, error: 'Set PUBLIC_PAYLOAD_URL for build/runtime (see web/.env.example).' }
   }
@@ -87,7 +95,7 @@ async function fetchGlobal<T>(
 // ── Public fetchers ───────────────────────────────────────────────────────────
 
 export async function fetchHomeGlobal(): Promise<{ home: Home | null; error: string | null }> {
-  const apiBase = import.meta.env.PUBLIC_PAYLOAD_URL
+  const apiBase = PAYLOAD_URL
   if (!apiBase) {
     return {
       home: null,

@@ -1,8 +1,8 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-13 (SSR migration + CMS debug page + CTA mapper fix)
-**Repo tip:** (uncommitted — commit after review)
-**Phase:** Phase 4 — runtime bugs fixed, NAS redeploy required
+**Updated:** 2026-05-13 (stack fully live on NAS — all runtime bugs resolved)
+**Repo tip:** 907e198
+**Phase:** Phase 4 — stack live, admin accessible, public site rendering Payload content
 
 ---
 
@@ -15,15 +15,27 @@
 - **cms page.tsx**: Replaced stock Payload starter with `force-dynamic` debug page (shows `findGlobal('home')` JSON dump + link to `/admin`).
 - **CTA mapper fix**: All 5 `href` → `url` in `cms/scripts/migrate-v2/map-layout.ts`. CTA blocks will now persist on next seed run.
 
-## NAS redeploy steps
+## NAS live state (verified 2026-05-13)
+
+All four containers healthy:
+- `apr70v3-postgres-1` healthy
+- `apr70v3-cms-1` healthy (Next.js + Payload on port 3000)
+- `apr70v3-web-1` running (Astro SSR on port 4321)
+- `apr70v3-nginx-1` running (port 8080)
+
+Verified:
+- `GET /` → 200, renders live Payload home blocks (hero, twoCol x2, divisionShowcase)
+- `GET /admin/create-first-user` → 200 (no 502)
+- users table still empty — first user needs to be created in browser
+
+## Future redeploy pattern
 
 ```sh
-# On the NAS, in /volume1/apps/apr70-pictures:
-git pull
-docker compose -f docker-compose.yml -p apr70v3 up -d --build
+cd /volume1/apps/apr70-pictures
+git pull origin main
+/usr/local/bin/docker compose -f docker-compose.yml -p apr70v3 up -d --build
+# nginx waits for cms healthcheck (~30–90s) — this is intentional
 ```
-
-nginx will NOT start until cms passes its healthcheck (~30–90s). That is intentional — it eliminates the 502 race condition.
 
 ## What's done
 

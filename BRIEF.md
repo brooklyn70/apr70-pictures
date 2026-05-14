@@ -57,7 +57,7 @@ Orchestrator container up. Uses 1Password Service Account (cloud-based, works fr
 ## What's next
 
 1. **NAS:** After `git pull`, run `pnpm migrate:v2:apply-media` from `cms-seeder` (same env as apply; `MEDIA_ROOT=/app/media`; `--v2-root /v2-export/content`) to create Media docs and PATCH projects/news layouts. See handoff for the exact `docker compose` one-liner.
-2. **HeroSliderIsland / FilmstripBlock** — `[gemini]` lines in TASKS.md (not Cursor-only). Filmstrip visual research: `docs/reference/filmstrip-research/` (see README there).
+2. **HeroSliderIsland** — `[gemini]` line in TASKS.md. (FilmstripBlock renderer shipped 2026-05-14).
 3. **Visual QA** — `[requires-gui]` when Gemini/Cursor ship UI changes.
 
 ### Task tags (who owns what)

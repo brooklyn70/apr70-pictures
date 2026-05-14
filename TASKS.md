@@ -45,7 +45,8 @@ Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainst
 - [x] [p4] [claude] Extend apply.ts seeder to v0.2.0 — seeds all 5 new globals from v2 synthesizers. DONE 2026-05-13.
 - [x] [p4] [claude] Build 5 Astro SSR pages — about, contact, jobs, pitch, investors. Wired to BlockRenderer via fetchGlobal. DONE 2026-05-13.
 - [x] [p4] [nas-shell] NAS Hop 2 — git pull, rebuild, then run extended seeder (v0.2.0). DONE 2026-05-13.
-- [ ] [p4] [nas-headless] Media migration — rsync `/volume1/apps/apr70/public/` → v3 media volume (no `--delete`); create Media rows per `cms/src/collections/Media.ts`; wire relationships into seeded blocks.
+- [ ] [p4] [nas-shell] Media migration (files) — SHELL: set -euo pipefail; SRC="/volume1/apps/apr70/public/"; DEST="$(docker volume inspect apr70v3_cms_media -f '{{.Mountpoint}}')"; test -d "$SRC"; test -d "$DEST"; rsync -av --no-owner --no-group --omit-dir-times "$SRC" "$DEST/"
+- [ ] [p4] [cursor+claude] Media migration (Payload) — After the rsync task succeeds: ship a one-shot, idempotent script (or documented curl sequence) that creates Media collection rows per cms/src/collections/Media.ts for files on the cms media volume, then restores block→media relationships (re-run apply or targeted PATCH). Verify in /admin. Do not route file-copy work through orchestrator Claude; use the nas-shell line above for bytes on disk.
 - [ ] [p4] [cursor+claude] `web/src/lib/payload.ts` typed client — error handling, caching, stale-while-revalidate.
 - [x] [p4] [cursor+claude] Delete `/test-hero` dev artifact before launch. (Moved to Phase 5 line 59; deleted 2026-05-13)
 

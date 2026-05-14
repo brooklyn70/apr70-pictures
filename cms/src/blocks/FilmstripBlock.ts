@@ -25,6 +25,22 @@ export const FilmstripBlock: Block = {
       },
     },
     {
+      name: 'format',
+      type: 'select',
+      defaultValue: 'super35',
+      options: [
+        { label: 'Academy (1.37:1) - 310 Pictures', value: 'academy' },
+        { label: 'Super 35 (2.39:1) - 212 Pictures', value: 'super35' },
+        { label: '2:1 Widescreen (2.00:1) - NRC', value: 'widescreen200' },
+        { label: 'IMAX (1.43:1)', value: 'imax' },
+        { label: 'V2 Header Rails', value: 'v2-header' },
+        { label: 'V2 Footer Rails', value: 'v2-footer' },
+      ],
+      admin: {
+        description: 'Aspect ratio and perforation style.',
+      },
+    },
+    {
       name: 'projectFilter',
       type: 'select',
       defaultValue: 'all',

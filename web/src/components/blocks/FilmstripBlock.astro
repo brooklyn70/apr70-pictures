@@ -8,6 +8,7 @@ import { fetchProjects, resolveMediaUrl } from '../../lib/payload'
 interface Props {
   block: {
     source: 'custom-media' | 'from-projects'
+    format?: 'academy' | 'super35' | 'widescreen200' | 'imax' | 'v2-header' | 'v2-footer'
     projectFilter?: 'all' | '212' | '310' | 'nrc'
     tiles?: Array<{
       media: any
@@ -20,6 +21,7 @@ interface Props {
 
 const { block } = Astro.props
 const showPerfs = block.showPerforations !== false
+const format = block.format || 'super35'
 
 type ComputedTile = {
   url: string
@@ -83,9 +85,10 @@ function getDivisionClass(div: string) {
 
 <section 
   class="filmstrip-block" 
-  aria-label="Filmstrip gallery" 
-  role="region" 
-  aria-roledescription="carousel"
+  data-format={format}
+  aria-label={format.startsWith('v2-') ? "Filmstrip rail" : "Filmstrip gallery"}
+  role={format.startsWith('v2-') ? "presentation" : "region"}
+  aria-roledescription={format.startsWith('v2-') ? undefined : "carousel"}
 >
   {showPerfs && (
     <div class="perf-band" aria-hidden="true">
@@ -93,43 +96,45 @@ function getDivisionClass(div: string) {
     </div>
   )}
 
-  <div 
-    class="filmstrip-track" 
-    tabindex="0"
-    role="group"
-    aria-label="Slides"
-  >
-    {computedTiles.map((tile, i) => {
-      const Element = tile.href ? 'a' : 'div'
-      return (
-        <Element
-          class="filmstrip-tile"
-          href={tile.href}
-          role="group"
-          aria-roledescription="slide"
-          aria-label={`${i + 1} of ${computedTiles.length}`}
-        >
-          <div class="tile-frame">
-            <img
-              src={tile.url}
-              alt={tile.alt}
-              loading="lazy"
-            />
-          </div>
-          <div class="tile-meta">
-            {tile.caption && <span class="tile-caption">{tile.caption}</span>}
-            {tile.division !== 'none' && (
-              <span class={`tile-division ${getDivisionClass(tile.division)}`}>
-                {tile.division.toUpperCase()}
-              </span>
-            )}
-          </div>
-        </Element>
-      )
-    })}
-  </div>
+  {!format.startsWith('v2-') && (
+    <div 
+      class="filmstrip-track" 
+      tabindex="0"
+      role="group"
+      aria-label="Slides"
+    >
+      {computedTiles.map((tile, i) => {
+        const Element = tile.href ? 'a' : 'div'
+        return (
+          <Element
+            class="filmstrip-tile"
+            href={tile.href}
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`${i + 1} of ${computedTiles.length}`}
+          >
+            <div class="tile-frame">
+              <img
+                src={tile.url}
+                alt={tile.alt}
+                loading="lazy"
+              />
+            </div>
+            <div class="tile-meta">
+              {tile.caption && <span class="tile-caption">{tile.caption}</span>}
+              {tile.division !== 'none' && (
+                <span class={`tile-division ${getDivisionClass(tile.division)}`}>
+                  {tile.division.toUpperCase()}
+                </span>
+              )}
+            </div>
+          </Element>
+        )
+      })}
+    </div>
+  )}
 
-  {showPerfs && (
+  {showPerfs && format !== 'v2-header' && format !== 'v2-footer' && (
     <div class="perf-band" aria-hidden="true">
       {holes.map(() => <div class="perf-hole" />)}
     </div>
@@ -142,34 +147,88 @@ function getDivisionClass(div: string) {
     overflow: hidden;
     background: var(--bg-0); /* Use page background to keep it integrated */
     padding: var(--s-5) 0;
+    
+    /* Default variables (Super 35) */
+    --aspect: 2.39 / 1;
+    --hole-w: clamp(8px, 1.2vw, 14px);
+    --hole-h: clamp(16px, 2.5vw, 24px);
+    --hole-gap: clamp(16px, 2vw, 32px);
+    --band-h: 32px;
+    --hole-radius: var(--r-hole);
+    --border-color: var(--rule);
+  }
+
+  /* Format Overrides */
+  .filmstrip-block[data-format="academy"] {
+    --aspect: 1.37 / 1;
+  }
+
+  .filmstrip-block[data-format="widescreen200"] {
+    --aspect: 2.00 / 1;
+    --hole-h: clamp(14px, 2vw, 20px); /* Long-pitch style */
+  }
+
+  .filmstrip-block[data-format="imax"] {
+    --aspect: 1.43 / 1;
+    --hole-w: clamp(12px, 1.8vw, 18px); /* IMAX holes */
+    --hole-h: clamp(18px, 2.8vw, 28px);
+    --hole-gap: clamp(24px, 3vw, 40px);
+    --band-h: 40px;
+    --hole-radius: 4px;
+  }
+
+  .filmstrip-block[data-format="v2-header"],
+  .filmstrip-block[data-format="v2-footer"] {
+    --aspect: 3 / 1; /* Not used since track is hidden */
+    --hole-w: 13px;
+    --hole-h: 9px;
+    --hole-gap: 16px;
+    --band-h: 32px; /* var(--filmstrip-h) is usually 32px */
+    --hole-radius: var(--r-hole);
+    --border-color: #1e1e1e; /* V2 sprocket border */
+    padding: 0;
   }
 
   .perf-band {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 32px;
+    height: var(--band-h);
     width: 100vw;
     margin-left: 50%;
     transform: translateX(-50%);
     overflow: hidden;
     padding: 0 var(--pad-x);
-    gap: clamp(16px, 2vw, 32px);
+    gap: var(--hole-gap);
     /* Filmstrip backplate effect behind the holes */
     background: var(--bg-1);
     border-top: 1px solid var(--rule);
     border-bottom: 1px solid var(--rule);
   }
 
+  /* Specific V2 backplate colors */
+  .filmstrip-block[data-format="v2-header"] .perf-band,
+  .filmstrip-block[data-format="v2-footer"] .perf-band {
+    background: #050505;
+    border: none;
+    border-bottom: 1px solid var(--bg-3);
+  }
+
   .perf-hole {
-    width: clamp(8px, 1.2vw, 14px);
-    height: clamp(16px, 2.5vw, 24px);
+    width: var(--hole-w);
+    height: var(--hole-h);
     background: var(--bg-0); /* Shows page background through the film strip */
-    border-radius: var(--r-hole);
+    border-radius: var(--hole-radius);
     flex-shrink: 0;
     box-shadow: 
       inset 0 1px 2px rgba(0,0,0,0.5), 
       inset 0 -1px 0 rgba(255,255,255,0.05);
+  }
+
+  .filmstrip-block[data-format="v2-header"] .perf-hole,
+  .filmstrip-block[data-format="v2-footer"] .perf-hole {
+    box-shadow: none;
+    border: 1.5px solid var(--border-color);
   }
 
   .filmstrip-track {
@@ -183,6 +242,12 @@ function getDivisionClass(div: string) {
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
     mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
     scrollbar-width: none; /* Firefox */
+  }
+
+  /* No fading masks or huge padding on v2 styling if we're mimicking rails */
+  .filmstrip-block[data-format="v2-header"] .filmstrip-track,
+  .filmstrip-block[data-format="v2-footer"] .filmstrip-track {
+    padding: var(--s-3) var(--pad-x);
   }
 
   .filmstrip-track::-webkit-scrollbar {
@@ -208,8 +273,7 @@ function getDivisionClass(div: string) {
   .tile-frame {
     position: relative;
     width: 100%;
-    /* Super 35 / IMAX inspired aspect ratio */
-    aspect-ratio: 2.35 / 1; 
+    aspect-ratio: var(--aspect); 
     overflow: hidden;
     background: var(--bg-1);
     border: 1px solid var(--rule-strong);

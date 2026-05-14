@@ -45,8 +45,8 @@ Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainst
 - [x] [p4] [claude] Extend apply.ts seeder to v0.2.0 — seeds all 5 new globals from v2 synthesizers. DONE 2026-05-13.
 - [x] [p4] [claude] Build 5 Astro SSR pages — about, contact, jobs, pitch, investors. Wired to BlockRenderer via fetchGlobal. DONE 2026-05-13.
 - [x] [p4] [nas-shell] NAS Hop 2 — git pull, rebuild, then run extended seeder (v0.2.0). DONE 2026-05-13.
-- [ ] [p4] [nas-shell] Media migration (files) — SHELL: set -euo pipefail; LOG=/volume1/apps/apr70-pictures/.media-rsync.log; echo "=== $(date -Is) docker rsync start ===" >>"$LOG"; docker run --rm -v /volume1/apps/apr70/public:/src:ro -v apr70v3_cms_media:/dest alpine:3.20 sh -c "apk add --no-cache rsync && rsync -av --omit-dir-times /src/ /dest/" >>"$LOG" 2>&1; echo "=== $(date -Is) docker rsync end exit=$? ===" >>"$LOG"
-- [ ] [p4] [cursor+claude] Media migration (Payload) — After the rsync task succeeds: ship a one-shot, idempotent script (or documented curl sequence) that creates Media collection rows per cms/src/collections/Media.ts for files on the cms media volume, then restores block→media relationships (re-run apply or targeted PATCH). Verify in /admin. Do not route file-copy work through orchestrator Claude; use the nas-shell line above for bytes on disk.
+- [x] [p4] [nas-shell] Media migration (files) — DONE 2026-05-14: `.media-rsync.log` shows `sent 561,837,662 bytes`, no rsync errors; volume `apr70v3_cms_media` lists expected top-level dirs. On DSM SSH use `/usr/local/bin/docker` if `docker` is not in PATH.
+- [x] [p4] [cursor+claude] Media migration (Payload) — `pnpm migrate:v2:apply-media` (`scripts/migrate-v2-to-v3.ts --apply-media`): Media rows + PATCH `projects`/`news` layouts. Run in `cms-seeder` after `migrate:v2:apply`; `MEDIA_ROOT=/app/media`, `--v2-root /v2-export/content`. Source: `apply-media-restore.ts`.
 - [ ] [p4] [cursor+claude] `web/src/lib/payload.ts` typed client — error handling, caching, stale-while-revalidate.
 - [x] [p4] [cursor+claude] Delete `/test-hero` dev artifact before launch. (Moved to Phase 5 line 59; deleted 2026-05-13)
 

@@ -17,14 +17,15 @@
  *   - v3 CMS container running and healthy
  */
 
-import { buildDefaultDivisionLayout, type DivisionSlug } from './division-default-layouts.js'
-import { discoverJsonDocuments } from './discover.js'
-import { inferDocumentId, mapV2DocumentToLayout } from './map-layout.js'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 
+import { buildDefaultDivisionLayout, type DivisionSlug } from './division-default-layouts.js'
+import { discoverJsonDocuments } from './discover.js'
+import { inferDocumentId, mapV2DocumentToLayout } from './map-layout.js'
+import { CMS_URL, payloadJwtLogin } from './payload-rest.js'
+
 const SEED_VERSION = '0.3.2'
-const CMS_URL = process.env.CMS_URL ?? 'http://cms:3000'
 
 export type ApplyOptions = {
   v2Root: string
@@ -68,27 +69,6 @@ function buildFooterMoreNavFromV2(doc: Record<string, unknown>): Array<{
     out.push({ label, href: route, openInNewTab: false })
   }
   return out
-}
-
-/** Authenticate with Payload REST API and return a JWT token. */
-async function login(): Promise<string> {
-  const email = process.env.PAYLOAD_SEED_EMAIL
-  const password = process.env.PAYLOAD_SEED_PASSWORD
-  if (!email || !password) {
-    throw new Error('PAYLOAD_SEED_EMAIL and PAYLOAD_SEED_PASSWORD env vars are required')
-  }
-  const res = await fetch(`${CMS_URL}/api/users/login`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password }),
-  })
-  if (!res.ok) {
-    const body = await res.text()
-    throw new Error(`Login failed: ${res.status} ${body}`)
-  }
-  const data = (await res.json()) as { token?: string }
-  if (!data.token) throw new Error('Login response missing token')
-  return data.token
 }
 
 /** Count existing layout blocks on a global (depth=0) for idempotent division seed. */
@@ -303,7 +283,7 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
   }
 
   // ── 2. Authenticate with Payload REST API ────────────────────────────────────
-  const token = await login()
+  const token = await payloadJwtLogin()
 
   // ── 3. Upsert Home global layout ──────────────────────────────────────────
   await updateGlobal('home', { layout: homeLayout }, token)

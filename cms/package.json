@@ -18,6 +18,7 @@
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
     "migrate:v2:dry": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/migrate-v2-to-v3.ts --dry-run",
     "migrate:v2:apply": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/migrate-v2-to-v3.ts --apply",
+    "migrate:v2:apply-media": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/migrate-v2-to-v3.ts --apply-media",
     "migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate",
     "seed": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/migrate-v2-to-v3.ts --apply",
     "preflight": "pnpm run build && echo 'Preflight passed: CMS builds clean.'"

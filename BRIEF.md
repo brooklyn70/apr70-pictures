@@ -1,7 +1,7 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-14 (seeder v0.3.2: division starter layouts; v0.3.1 footer moreNav)
-**Phase:** 5 in progress — media migration, payload.ts client, Gemini blocks next
+**Updated:** 2026-05-14 (v2 media rsync verified on NAS; `migrate:v2:apply-media` CLI for Payload Media + project/news layouts)
+**Phase:** 5 in progress — run apply-media on NAS; payload.ts client; Gemini blocks next
 **Seeder:** v0.3.2
 
 ---
@@ -44,22 +44,21 @@ Orchestrator container up. Uses 1Password Service Account (cloud-based, works fr
 | Division 212 | `212` | Default 4 blocks if empty before apply |
 | Division 310 | `310` | Default 4 blocks if empty before apply |
 | Division NRC | `nrc` | Default 4 blocks if empty before apply |
-| Media | (collection) | Empty — no media migration yet |
+| Media | (collection) | Rsync of v2 public to `apr70v3_cms_media` done 2026-05-14; populate rows + relink with `pnpm migrate:v2:apply-media` on `cms-seeder` |
 | Projects | `projects` | 9 documents seeded |
 | News | `news` | 4 documents seeded |
 
 ## Known data issues
 
 - 2 projects have null status (v2 `bible`/`pitch` — set manually in admin)
-- All media refs stripped to null (until media migration)
+- Project/news hero and filmstrip `media` fields are null until `migrate:v2:apply-media` is run against Payload (after rsync).
 
 ## What's next
 
-1. **NAS:** `git pull` apr70-pictures + rebuild stack, then run `pnpm migrate:v2:apply` (or NAS equivalent) so v0.3.2 division + footer hits Payload.
-2. **Media migration** — rework as `[nas-shell]` or manual (see `docs/handoff/claudecode-2026-05-13-evening-audit.md`).
-3. **HeroSliderIsland / FilmstripBlock** — `[gemini]` lines in TASKS.md (not Cursor-only).
-4. **payload.ts** — `[cursor+claude]` caching and errors.
-5. **Visual QA** — `[requires-gui]` when Gemini/Cursor ship UI changes.
+1. **NAS:** After `git pull`, run `pnpm migrate:v2:apply-media -- --v2-root /v2-export/content` from `cms-seeder` (same env as apply; `MEDIA_ROOT=/app/media`) to create Media docs and PATCH projects/news layouts.
+2. **HeroSliderIsland / FilmstripBlock** — `[gemini]` lines in TASKS.md (not Cursor-only).
+3. **payload.ts** — `[cursor+claude]` caching and errors.
+4. **Visual QA** — `[requires-gui]` when Gemini/Cursor ship UI changes.
 
 ### Task tags (who owns what)
 

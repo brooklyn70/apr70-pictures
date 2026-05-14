@@ -4,6 +4,7 @@
  * Uses the Payload REST API to upsert:
  *   - `home` global layout blocks from mapped v2 content
  *   - `about`, `contact`, `jobs`, `pitch`, `investors` global layout blocks
+ *   - `footer-links` moreNav from v2 `footer-more.json` (NEWS / PITCH / JOBS)
  *   - `site-settings` seededVersion + lastDeployed
  *
  * Idempotent: POST to a global replaces the layout array on every run.
@@ -20,7 +21,7 @@ import { inferDocumentId, mapV2DocumentToLayout } from './map-layout.js'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 
-const SEED_VERSION = '0.3.0'
+const SEED_VERSION = '0.3.1'
 const CMS_URL = process.env.CMS_URL ?? 'http://cms:3000'
 
 export type ApplyOptions = {
@@ -41,8 +42,29 @@ export type ApplyReport = {
   investorsLayoutBlocksWritten: number
   projectsWritten: number
   newsArticlesWritten: number
+  footerMoreNavLinksWritten: number
   warnings: string[]
   errors: string[]
+}
+
+/** Map v2 footer-more global (`links[].label` + `route`) to FooterLinks.moreNav rows. */
+function buildFooterMoreNavFromV2(doc: Record<string, unknown>): Array<{
+  label: string
+  href: string
+  openInNewTab: boolean
+}> {
+  const links = doc.links
+  if (!Array.isArray(links)) return []
+  const out: Array<{ label: string; href: string; openInNewTab: boolean }> = []
+  for (const item of links) {
+    if (!item || typeof item !== 'object') continue
+    const rec = item as Record<string, unknown>
+    const label = typeof rec.label === 'string' ? rec.label.trim() : ''
+    const route = typeof rec.route === 'string' ? rec.route.trim() : ''
+    if (!label || !route) continue
+    out.push({ label, href: route, openInNewTab: false })
+  }
+  return out
 }
 
 /** Authenticate with Payload REST API and return a JWT token. */
@@ -190,6 +212,7 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
       investorsLayoutBlocksWritten: 0,
       projectsWritten: 0,
       newsArticlesWritten: 0,
+      footerMoreNavLinksWritten: 0,
       warnings,
       errors,
     }
@@ -247,9 +270,20 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
       investorsLayoutBlocksWritten: 0,
       projectsWritten: 0,
       newsArticlesWritten: 0,
+      footerMoreNavLinksWritten: 0,
       warnings,
       errors,
     }
+  }
+
+  const footerMoreEntry = docIndex.get('footer-more')
+  const footerMoreNav = footerMoreEntry
+    ? buildFooterMoreNavFromV2(footerMoreEntry.doc)
+    : []
+  if (!footerMoreEntry) {
+    warnings.push("No v2 document found with id 'footer-more'; skipping footer-links moreNav update.")
+  } else if (footerMoreNav.length === 0) {
+    warnings.push('footer-more: no valid links[] rows; skipping updateGlobal for footer-links.')
   }
 
   // ── 2. Authenticate with Payload REST API ────────────────────────────────────
@@ -344,7 +378,14 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
     }
   }
 
-  // ── 11. Stamp SiteSettings with seed metadata ──────────────────────────────
+  // ── 11. Upsert FooterLinks.moreNav (v2 footer-more.json) ───────────────────
+  let footerMoreNavLinksWritten = 0
+  if (footerMoreNav.length > 0) {
+    await updateGlobal('footer-links', { moreNav: footerMoreNav }, token)
+    footerMoreNavLinksWritten = footerMoreNav.length
+  }
+
+  // ── 12. Stamp SiteSettings with seed metadata ──────────────────────────────
   await updateGlobal(
     'site-settings',
     { seededVersion: SEED_VERSION, lastDeployed: new Date().toISOString() },
@@ -364,6 +405,7 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
     investorsLayoutBlocksWritten: (investorsLayout as unknown[]).length,
     projectsWritten,
     newsArticlesWritten,
+    footerMoreNavLinksWritten,
     warnings,
     errors,
   }
@@ -383,6 +425,7 @@ export function formatApplyReportConsole(report: ApplyReport): string {
     `Investors layout blocks written: ${report.investorsLayoutBlocksWritten}`,
     `Projects written:                ${report.projectsWritten}`,
     `News articles written:           ${report.newsArticlesWritten}`,
+    `Footer moreNav links written:    ${report.footerMoreNavLinksWritten}`,
     `Warnings: ${report.warnings.length}`,
     `Errors: ${report.errors.length}`,
   ]

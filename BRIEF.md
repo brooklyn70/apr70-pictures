@@ -1,8 +1,8 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-14 (v2 media rsync verified on NAS; `migrate:v2:apply-media` CLI for Payload Media + project/news layouts)  
+**Updated:** 2026-05-14 (payload.ts SWR cache + typed HTTP errors; v2 media apply-media still NAS operator step)  
 **Handoff:** `docs/handoff/composer-2026-05-14-media-migration.md`
-**Phase:** 5 in progress — run apply-media on NAS; payload.ts client; Gemini blocks next
+**Phase:** 5 in progress — run apply-media on NAS if not done; Gemini blocks next
 **Seeder:** v0.3.2
 
 ---
@@ -56,10 +56,9 @@ Orchestrator container up. Uses 1Password Service Account (cloud-based, works fr
 
 ## What's next
 
-1. **NAS:** After `git pull`, run `pnpm migrate:v2:apply-media -- --v2-root /v2-export/content` from `cms-seeder` (same env as apply; `MEDIA_ROOT=/app/media`) to create Media docs and PATCH projects/news layouts.
+1. **NAS:** After `git pull`, run `pnpm migrate:v2:apply-media` from `cms-seeder` (same env as apply; `MEDIA_ROOT=/app/media`; `--v2-root /v2-export/content`) to create Media docs and PATCH projects/news layouts. See handoff for the exact `docker compose` one-liner.
 2. **HeroSliderIsland / FilmstripBlock** — `[gemini]` lines in TASKS.md (not Cursor-only).
-3. **payload.ts** — `[cursor+claude]` caching and errors.
-4. **Visual QA** — `[requires-gui]` when Gemini/Cursor ship UI changes.
+3. **Visual QA** — `[requires-gui]` when Gemini/Cursor ship UI changes.
 
 ### Task tags (who owns what)
 

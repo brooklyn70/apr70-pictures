@@ -140,7 +140,7 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
 <section 
   class="filmstrip-block" 
   data-format={format}
-  data-mode={isEdgeOnlyFormat ? 'edge-only' : 'full-frame-assembly'}
+  data-mode={isEdgeOnlyFormat ? 'edge-only' : 'full-frame'}
   aria-label={isEdgeOnlyFormat ? "Filmstrip rail" : "Filmstrip gallery"}
   role={isEdgeOnlyFormat ? "presentation" : "region"}
 >
@@ -158,20 +158,26 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
         {isEdgeOnlyFormat && Array.from({ length: 8 }).map((_, i) => (
           <div class="film-segment edge-only-segment" aria-hidden="true">
             {showPerfs && (
-              <div class="perf-row top">
-                {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+              <div class="film-edge top">
+                <div class="edge-code-lane top"></div>
+                <div class="perf-row top">
+                  {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+                </div>
               </div>
             )}
             
-            <div class="edge-code-layer center">
+            <div class="edge-code-lane center">
               {i % 2 === 0 && (
-                <span class="code code-maroon">KODAK 5219 {83210 + i} • <span class="barcode-wrapper" set:html={barcodeSvg} /></span>
+                <span class="code code-maroon">KODAK 5219 {83210 + i}·<span class="barcode-wrapper" set:html={barcodeSvg} /></span>
               )}
             </div>
 
             {showPerfs && (
-              <div class="perf-row bottom">
-                {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+              <div class="film-edge bottom">
+                <div class="perf-row bottom">
+                  {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+                </div>
+                <div class="edge-code-lane bottom"></div>
               </div>
             )}
           </div>
@@ -183,8 +189,11 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
         {!isEdgeOnlyFormat && leaderSequence.map((item, lIdx) => (
           <div class="film-segment leader-frame-segment">
             {showPerfs && (
-              <div class="perf-row top">
-                {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+              <div class="film-edge top">
+                <div class="edge-code-lane top"></div>
+                <div class="perf-row top">
+                  {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+                </div>
               </div>
             )}
             
@@ -207,8 +216,11 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
             </div>
 
             {showPerfs && (
-              <div class="perf-row bottom">
-                {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+              <div class="film-edge bottom">
+                <div class="perf-row bottom">
+                  {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+                </div>
+                <div class="edge-code-lane bottom"></div>
               </div>
             )}
           </div>
@@ -230,17 +242,15 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
             >
               {/* TOP PERFORATION BAND & EDGE CODES */}
               {showPerfs && (
-                <div class="perf-row top">
-                  <div class="edge-code-layer top">
+                <div class="film-edge top">
+                  <div class="edge-code-lane top">
                     {format === 'super35' && i % 4 === 0 && (
-                      <span class="code">K KI 03 {1503 + Math.floor(i / 4)} 7040 • <span class="barcode-wrapper" set:html={barcodeSvg} /></span>
-                    )}
-                    {format === 'super35' && i % 4 === 2 && (
-                      <span class="code code-small">+32</span>
+                      <span class="code">K KI 03 {1503 + Math.floor(i / 4)} 7040·<span class="barcode-wrapper" set:html={barcodeSvg} /></span>
                     )}
                     {format === 'imax' && i % 8 === 0 && (
-                      <span class="code">E KI 03 {4690 + Math.floor(i / 8)} 7040 • <span class="barcode-wrapper" set:html={barcodeSvg} /></span>
+                      <span class="code">E KI 03 {4690 + Math.floor(i / 8)} 7040·<span class="barcode-wrapper" set:html={barcodeSvg} /></span>
                     )}
+
                     {format === 'imax' && i % 8 === 3 && (
                       <span class="code code-small">+40</span>
                     )}
@@ -248,7 +258,9 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
                       <span class="code code-small">+80</span>
                     )}
                   </div>
-                  {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+                  <div class="perf-row top">
+                    {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+                  </div>
                 </div>
               )}
 
@@ -273,22 +285,21 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
 
               {/* BOTTOM PERFORATION BAND & EDGE CODES */}
               {showPerfs && (
-                <div class="perf-row bottom">
-                  <div class="edge-code-layer bottom">
+                <div class="film-edge bottom">
+                  <div class="perf-row bottom">
+                    {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+                  </div>
+                  <div class="edge-code-lane bottom">
                     {format === 'academy' && i % 4 === 0 && (
-                      <span class="code">K KI 03 {1000 + Math.floor(i / 4)} 7040 • <span class="barcode-wrapper" set:html={barcodeSvg} /></span>
-                    )}
-                    {format === 'academy' && i % 4 === 2 && (
-                      <span class="code code-small">+32</span>
+                      <span class="code">K KI 03 {1000 + Math.floor(i / 4)} 7040·<span class="barcode-wrapper" set:html={barcodeSvg} /></span>
                     )}
                     {format === 'widescreen200' && i % 4 === 0 && (
-                      <span class="code">ANSCO COLOR 848 {10 + Math.floor(i / 4)} •</span>
+                      <span class="code">ANSCO COLOR 848 {10 + Math.floor(i / 4)}·</span>
                     )}
-                    {format === 'widescreen200' && i % 4 === 2 && (
-                      <span class="code code-small">+32</span>
+                    {format === 'imax' && i % 8 === 0 && (
+                      <span class="code code-imax-secondary">EASTMAN 5243 025 {("0" + (2401 + Math.floor(i / 8))).slice(-4)} ID</span>
                     )}
                   </div>
-                  {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
                 </div>
               )}
             </Element>
@@ -301,16 +312,22 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
         {!isEdgeOnlyFormat && tailSequence.map((item, lIdx) => (
           <div class="film-segment leader-frame-segment">
             {showPerfs && (
-              <div class="perf-row top">
-                {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+              <div class="film-edge top">
+                <div class="edge-code-lane top"></div>
+                <div class="perf-row top">
+                  {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+                </div>
               </div>
             )}
             <div class="leader-plate">
               {item.type === 'end' && <div class="leader-start-text">{item.label}</div>}
             </div>
             {showPerfs && (
-              <div class="perf-row bottom">
-                {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+              <div class="film-edge bottom">
+                <div class="perf-row bottom">
+                  {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+                </div>
+                <div class="edge-code-lane bottom"></div>
               </div>
             )}
           </div>
@@ -354,37 +371,44 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
     --perf-pitch: calc(var(--hole-w) + var(--hole-gap));
     --segment-w: calc(var(--perf-pitch) * var(--perfs));
     --frame-gap: 4px;
-    --band-h: 44px; /* Increased vertical breathing room for edge codes */
+    --code-lane-h: 20px; /* Explicit edge code lane height */
+    --perf-band-h: clamp(24px, 3.5vw, 32px); /* Explicit perf row height */
     --hole-radius: var(--r-hole);
     
     /* Shared Sub-blocks */
-  --backing-plane: #fbfbf9; /* Clean light table background */
+    --backing-plane: #fbfbf9; /* Clean light table background */
   }
 
   /* FORMAT DISCIPLINE: Super35 (Negative-forward) */
   .filmstrip-block[data-format="super35"] {
     --aspect: 2.39;
-    --film-base: rgba(212, 122, 38, 0.15); /* Kodak Vision3 500T amber base stain */
-    --edge-text: rgba(30, 10, 0, 0.85); /* High contrast */
-    --track-bg: transparent; /* Negative: gaps reveal base color */
+    --support-bg: rgba(200, 110, 30, 0.25); /* Paler warm amber base */
+    --edge-band-bg: rgba(160, 70, 10, 0.45); /* Denser latent edge */
+    --edge-text: rgba(30, 10, 0, 0.9);
+    --track-bg: transparent; /* Negative: frame gaps are unexposed base */
+    --aperture-bg: rgba(20, 10, 0, 0.85); /* Solid frame black */
   }
 
   /* FORMAT DISCIPLINE: Academy (Print-style) */
   .filmstrip-block[data-format="academy"] {
     --frame-gap: 6px;
     --aspect: 1.37;
-    --film-base: rgba(210, 210, 205, 0.15); /* Positive print clear/warm base stain */
-    --edge-text: rgba(20, 20, 20, 0.9);
-    --track-bg: rgba(0, 0, 0, 0.15); /* Soft separators instead of solid black boxes */
+    --support-bg: rgba(200, 200, 195, 0.2); /* Clear print base */
+    --edge-band-bg: rgba(10, 10, 10, 0.85); /* Black print emulsion edge */
+    --edge-text: rgba(240, 240, 235, 0.85); /* White text knocked out of black emulsion */
+    --track-bg: rgba(10, 10, 10, 0.9); /* Print frame gaps are black emulsion */
+    --aperture-bg: rgba(10, 10, 10, 0.95);
   }
 
   /* FORMAT DISCIPLINE: Widescreen 200 */
   .filmstrip-block[data-format="widescreen200"] {
     --hole-h: clamp(14px, 2vw, 20px);
     --aspect: 2.00;
-    --film-base: rgba(160, 40, 30, 0.12); /* Ansco maroon stain */
-    --edge-text: rgba(40, 0, 0, 0.85);
+    --support-bg: rgba(160, 40, 30, 0.25); 
+    --edge-band-bg: rgba(120, 20, 15, 0.45);
+    --edge-text: rgba(40, 0, 0, 0.9);
     --track-bg: transparent;
+    --aperture-bg: rgba(30, 5, 5, 0.85);
   }
 
   /* FORMAT DISCIPLINE: IMAX 15/70 (Horizontal Transport) */
@@ -393,13 +417,16 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
     --hole-w: clamp(12px, 1.8vw, 18px);
     --hole-h: clamp(18px, 2.8vw, 28px);
     --hole-gap: clamp(24px, 3vw, 40px);
-    --band-h: 40px;
+    --code-lane-h: 26px; /* Increased from 22px to prevent dot/barcode clipping */
+    --perf-band-h: clamp(28px, 4vw, 36px);
     --hole-radius: 4px;
     --frame-gap: 8px;
     --aspect: 1.43;
-    --film-base: rgba(43, 146, 156, 0.15); /* Eastman cyan intermediate stain */
-    --edge-text: rgba(0, 30, 40, 0.85);
+    --support-bg: rgba(40, 140, 150, 0.25);
+    --edge-band-bg: rgba(20, 100, 110, 0.45);
+    --edge-text: rgba(230, 245, 248, 0.95); /* Light text knocked out of cyan band */
     --track-bg: transparent;
+    --aperture-bg: rgba(5, 20, 25, 0.85);
   }
 
   /* EDGE-ONLY MODES */
@@ -408,9 +435,11 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
     --hole-w: 13px;
     --hole-h: 9px;
     --hole-gap: 16px;
-    --band-h: 44px;
-    --film-base: rgba(0, 0, 0, 0.05);
-    --edge-text: rgba(0, 0, 0, 0.65);
+    --code-lane-h: 20px;
+    --perf-band-h: 24px;
+    --support-bg: rgba(0, 0, 0, 0.1);
+    --edge-band-bg: rgba(0, 0, 0, 0.2);
+    --edge-text: rgba(0, 0, 0, 0.8);
     --backing-plane: #fbfbf9;
     padding: 0;
   }
@@ -451,8 +480,8 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
     display: flex;
     flex-direction: column;
     width: max-content;
-    background: var(--film-base);
-    box-shadow: 0 5px 25px rgba(0,0,0,0.05), inset 0 0 20px rgba(255,255,255,0.4);
+    background: var(--support-bg);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1), inset 0 0 15px rgba(255,255,255,0.2);
     border-radius: 2px;
     backdrop-filter: blur(1px); /* Slight diffusion of the backlight */
   }
@@ -483,12 +512,18 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
     outline: none;
   }
 
+  .film-edge {
+    display: flex;
+    flex-direction: column;
+    width: var(--segment-w);
+  }
+
   .perf-row {
     display: flex;
     align-items: center;
-    height: var(--band-h);
+    height: var(--perf-band-h);
     gap: var(--hole-gap);
-    width: var(--segment-w);
+    width: 100%;
     position: relative;
     padding: 0 4px;
   }
@@ -507,49 +542,68 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
   }
 
   /* EDGE CODES & KEYKODE */
-  .edge-code-layer {
-    position: absolute;
-    inset: 0;
+  .edge-code-lane {
     display: flex;
-    z-index: 2;
+    height: var(--code-lane-h);
+    width: 100%;
+    background: var(--edge-band-bg);
     white-space: nowrap;
+    overflow: hidden; /* Do not bleed */
     pointer-events: none;
   }
-  .edge-code-layer.top { 
-    align-items: flex-start;
-    padding-top: 4px;
-  }
-  .edge-code-layer.bottom { 
+  .edge-code-lane.top { 
     align-items: flex-end;
-    padding-bottom: 4px;
+    padding-bottom: 3px;
   }
-  .edge-code-layer.center { align-items: center; justify-content: center; }
+  .edge-code-lane.bottom { 
+    align-items: flex-start;
+    padding-top: 3px;
+  }
+  .edge-code-lane.center { align-items: center; justify-content: center; }
 
   .code {
+    display: flex;
+    align-items: center; /* Enforce common baseline with barcode */
     font-family: var(--font-mono);
-    font-size: 14px; /* Larger and more discoverable */
-    letter-spacing: var(--track-strip);
+    font-size: 11px; /* Realistic print size */
+    letter-spacing: 1px;
     color: var(--edge-text);
     text-transform: uppercase;
-    margin-left: 20%;
-    font-weight: 800; /* Max contrast */
+    margin-left: 24px; /* Explicit physical inset */
+    font-weight: 600; /* Realistic print weight */
+    line-height: 1;
   }
   .filmstrip-block[data-mode="edge-only"] .code {
     margin-left: 0;
   }
-  .code-small { 
-    font-size: 9px; 
-    margin-left: 10%; 
-    opacity: 0.5; /* Subordinate minor frame labels */
-    font-weight: 600;
+  
+  .filmstrip-block[data-format="imax"] .code {
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+  }
+  .filmstrip-block[data-format="imax"] .barcode-wrapper {
+    height: 10px;
+    width: 52px;
+  }
+  
+  .code-imax-secondary {
+    transform: rotate(180deg);
+    margin-right: 24px;
+    margin-left: auto;
+  }
+
+  .code-small {
+    font-size: 10px;
+    margin-left: 24px;
+    opacity: 0.8;
   }
 
   .barcode-wrapper {
-    display: inline-block;
-    height: 12px;
-    width: 45px;
+    display: block;
+    height: 8px; /* Tighter barcode */
+    width: 40px;
     margin-left: 10px;
-    vertical-align: middle;
     color: var(--edge-text);
   }
   .barcode-svg {
@@ -569,7 +623,7 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
 
   .soundtrack-reservation-area {
     width: clamp(10px, 2vw, 20px);
-    background-color: transparent; /* Lifted from solid black */
+    background-color: var(--track-bg); /* Use format variable for soundtrack background */
     border-right: 1px solid rgba(0,0,0,0.1);
     flex-shrink: 0;
     position: relative;
@@ -588,8 +642,8 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
     height: auto;
     aspect-ratio: var(--aspect);
     overflow: hidden;
-    background: rgba(0, 0, 0, 0.08); /* Reduced mass, no longer a giant black box */
-    border: 1px solid rgba(0,0,0,0.1); /* Subtle boundary hint */
+    background: var(--aperture-bg); /* Dedicated aperture dense layer */
+    border: 1px solid rgba(0,0,0,0.25); /* Defined aperture boundary */
     border-radius: 4px; /* Softer frame corners */
   }
 
@@ -681,7 +735,7 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
     font-size: clamp(3rem, 10vw, 8rem);
     color: var(--edge-text);
     z-index: 2;
-    background: var(--film-base); /* Punch out the crosshair behind the text */
+    background: var(--support-bg); /* Punch out the crosshair behind the text */
     padding: 0 1rem;
     font-weight: bold;
     letter-spacing: -2px;

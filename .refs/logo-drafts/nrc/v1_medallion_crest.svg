@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" aria-label="New Renaissance Cinema v1 — circular medallion crest">
+  <title>NRC — v1 Medallion Crest</title>
+  <desc>Classic Hollywood studio crest. MGM / Paramount / Columbia lineage applied with Bass-school restraint. Designed for dark backgrounds — nrc-grey rings + monogram, nrc-navy accent.</desc>
+
+  <defs>
+    <!-- Top arc path for "NEW RENAISSANCE CINEMA" -->
+    <path id="nrc-top-arc" d="M 90 250 A 160 160 0 0 1 410 250"/>
+    <!-- Bottom arc path for "EST · MMXXVI" (year 2026 in Roman numerals).
+         Path goes left-to-right via the BOTTOM of the circle (sweep flag 0 = CCW in screen space).
+         Standard crest convention: bottom text reads with caps facing outward. -->
+    <path id="nrc-bot-arc" d="M 90 250 A 160 160 0 0 0 410 250"/>
+  </defs>
+
+  <!-- OUTER RING -->
+  <circle id="ring-outer" cx="250" cy="250" r="190" fill="none" stroke="#C8C8C8" stroke-width="3"/>
+
+  <!-- INNER RING -->
+  <circle id="ring-inner" cx="250" cy="250" r="130" fill="none" stroke="#C8C8C8" stroke-width="1.2"/>
+
+  <!-- DECORATIVE STAR MARKS at 3, 6, 9, 12 o'clock between the rings — single-stroke geometric -->
+  <g id="cardinal-marks" fill="#C8C8C8" stroke="none">
+    <!-- Top -->
+    <circle cx="250" cy="75"  r="3"/>
+    <!-- Right -->
+    <circle cx="425" cy="250" r="3"/>
+    <!-- Bottom -->
+    <circle cx="250" cy="425" r="3"/>
+    <!-- Left -->
+    <circle cx="75"  cy="250" r="3"/>
+  </g>
+
+  <!-- TOP ARC TEXT — NEW RENAISSANCE CINEMA -->
+  <text id="company-name" font-family="Futura Std, Futura, Arial, sans-serif" font-weight="700" font-size="18" letter-spacing="6" fill="#C8C8C8" stroke="none">
+    <textPath href="#nrc-top-arc" startOffset="50%" text-anchor="middle">NEW · RENAISSANCE · CINEMA</textPath>
+  </text>
+
+  <!-- BOTTOM ARC TEXT — EST · MMXXVI (2026 in Roman numerals) -->
+  <text id="established" font-family="Futura Std, Futura, Arial, sans-serif" font-weight="500" font-size="14" letter-spacing="5" fill="#C8C8C8" stroke="none">
+    <textPath href="#nrc-bot-arc" startOffset="50%" text-anchor="middle">EST · MMXXVI</textPath>
+  </text>
+
+  <!-- CENTER MONOGRAM: NRC -->
+  <g id="monogram" font-family="Futura Std, Futura, Arial Black, sans-serif" stroke="none">
+    <text x="250" y="288" font-weight="900" font-size="120" letter-spacing="-2" text-anchor="middle" fill="#C8C8C8">NRC</text>
+  </g>
+
+  <!-- Single navy accent: a thin horizontal rule below the monogram, like a foundation line -->
+  <line id="foundation" x1="195" y1="310" x2="305" y2="310" stroke="#001F3F" stroke-width="2"/>
+</svg>

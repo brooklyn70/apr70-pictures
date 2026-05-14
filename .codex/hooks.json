@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/Users/marco/websites/apr70-pictures/.codex/hooks/on-stop.sh'"
+          }
+        ]
+      }
+    ]
+  }
+}

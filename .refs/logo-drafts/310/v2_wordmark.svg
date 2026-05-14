@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" aria-label="(310) Pictures v2 — pure wordmark, parallel to 212 v1">
+  <title>(310) Pictures — v2 Pure Wordmark</title>
+
+  <g id="wordmark" font-family="Futura Std, Futura, Arial Black, sans-serif" stroke="none">
+    <text id="paren-left"  x="125" y="290" font-weight="900" font-size="200" letter-spacing="0"  fill="#077082">(</text>
+    <g id="digits">
+      <text id="digit-3" x="175" y="290" font-weight="900" font-size="170" letter-spacing="-8" fill="#077082">3</text>
+      <text id="digit-1" x="255" y="290" font-weight="900" font-size="170" letter-spacing="-8" fill="#0077B6">1</text>
+      <text id="digit-0" x="310" y="290" font-weight="900" font-size="170" letter-spacing="-8" fill="#077082">0</text>
+    </g>
+    <text id="paren-right" x="370" y="290" font-weight="900" font-size="200" letter-spacing="0"  fill="#077082">)</text>
+  </g>
+
+  <line id="rule" x1="125" y1="335" x2="420" y2="335" stroke="#077082" stroke-width="1.5"/>
+
+  <text id="pictures" x="272.5" y="385" font-family="Futura Std, Futura, Arial, sans-serif" font-weight="700" font-size="38" letter-spacing="18" text-anchor="middle" fill="#077082">PICTURES</text>
+</svg>

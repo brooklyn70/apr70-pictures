@@ -70,7 +70,7 @@ function normalizeColorToken(raw: unknown): string {
 }
 
 /** Create a minimal Lexical JSON structure for plain text. */
-function createSimpleLexical(text: string): unknown {
+export function createSimpleLexical(text: string): unknown {
   if (!text) return null
   const lines = text.split('\n').filter((l) => l.trim().length > 0)
   return {

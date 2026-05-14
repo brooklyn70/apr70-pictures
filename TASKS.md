@@ -52,9 +52,9 @@ Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainst
 ## Phase 5 — Projects, News & Division Pages
 
 - [x] [p5] [claude] Project + NewsArticle collections — `cms/src/collections/Project.ts` (slug: projects), `NewsArticle.ts` (slug: news). Registered in payload.config.ts. Migration 20260513_185804 generated + applied. DONE 2026-05-13.
-- [x] [p5] [claude] Seeder v0.3.x — v0.3.0: upsertDoc() REST helper; 9 projects + 4 news; status normalization; v2 media stripping. v0.3.1: footer-links `moreNav` from `v2-export/content/pages/footer-more.json`. DONE 2026-05-13 (core) / 2026-05-14 (footer).
+- [x] [p5] [claude] Seeder v0.3.x — v0.3.0: upsertDoc() REST helper; 9 projects + 4 news; status normalization; v2 media stripping. v0.3.1: footer-links `moreNav` from `v2-export/content/pages/footer-more.json`. v0.3.2: division globals `212`/`310`/`nrc` default layout when empty. DONE 2026-05-13 (core) / 2026-05-14 (footer + division starters).
 - [x] [p5] [claude] /work + /news Astro pages — work.astro, work/[slug].astro, news/index.astro, news/[slug].astro. fetchProjects/fetchNewsArticles added to payload.ts. DONE 2026-05-13.
-- [x] [p5] [claude] Division pages — `/212`, `/310`, `/nrc` Payload globals + migration + Astro pages. Same pattern as About.ts. DONE 2026-05-13. NOTE: These are NET-NEW pages (no v2 source). Content must be authored in Payload admin or synthesized by agent. Logo work in progress separately.
+- [x] [p5] [claude] Division pages — `/212`, `/310`, `/nrc` Payload globals + migration + Astro pages. Same pattern as About.ts. DONE 2026-05-13. NOTE: NET-NEW (no v2 source). apply v0.3.2 seeds a 4-block starter layout per division global when `layout` is empty; otherwise leaves admin content untouched. Logo work in progress separately.
 - [x] [p5] [claude] Footer links seeding — read FooterLinks.ts schema, map from footer-more.json, call updateGlobal('footer-links', ..., token) in apply.ts. DONE 2026-05-14.
 - [x] [p5] [cursor+claude] Delete `/test-hero` dev artifact (`web/src/pages/test-hero.astro`). DONE 2026-05-13.
 - [ ] [p5] [gemini] HeroBlock slider island — React + GSAP crossfade. Auto-featured + curated modes.

@@ -1,8 +1,8 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-13 evening (housekeeping + orchestrator test)
-**Phase:** 5 in progress — footer seeding, division content, media migration next
-**Seeder:** v0.3.0
+**Updated:** 2026-05-14 (seeder v0.3.2: division starter layouts; v0.3.1 footer moreNav)
+**Phase:** 5 in progress — media migration, payload.ts client, Gemini blocks next
+**Seeder:** v0.3.2
 
 ---
 
@@ -26,7 +26,7 @@ Orchestrator container up. Uses 1Password Service Account (cloud-based, works fr
 | `/work/[slug]` | LIVE — 9 projects |
 | `/news` | LIVE — 4 articles |
 | `/news/[slug]` | LIVE — 4 articles |
-| `/212`, `/310`, `/nrc` | LIVE — empty (net-new, add blocks via admin) |
+| `/212`, `/310`, `/nrc` | LIVE — starter layout from seeder when globals were empty (hero + twoCol + richText + cta); re-run apply skips if blocks already exist |
 | `/privacy`, `/terms` | MISSING |
 
 ## CMS inventory
@@ -34,16 +34,16 @@ Orchestrator container up. Uses 1Password Service Account (cloud-based, works fr
 | Name | Slug | Status |
 |------|------|--------|
 | Home | `home` | Seeded (4 blocks) |
-| SiteSettings | `site-settings` | Seeded (v0.3.0) |
-| FooterLinks | `footer-links` | Schema exists — NOT seeded |
+| SiteSettings | `site-settings` | Seeded (see `seededVersion` in admin) |
+| FooterLinks | `footer-links` | `moreNav` from v2 footer-more.json when apply runs |
 | About | `about` | Seeded (4 blocks) |
 | Contact | `contact` | Seeded (4 blocks) |
 | Jobs | `jobs` | Seeded (5 blocks) |
 | Pitch | `pitch` | Seeded (6 blocks) |
 | Investors | `investors` | Seeded (4 blocks) |
-| Division 212 | `212` | Empty |
-| Division 310 | `310` | Empty |
-| Division NRC | `nrc` | Empty |
+| Division 212 | `212` | Default 4 blocks if empty before apply |
+| Division 310 | `310` | Default 4 blocks if empty before apply |
+| Division NRC | `nrc` | Default 4 blocks if empty before apply |
 | Media | (collection) | Empty — no media migration yet |
 | Projects | `projects` | 9 documents seeded |
 | News | `news` | 4 documents seeded |
@@ -55,13 +55,21 @@ Orchestrator container up. Uses 1Password Service Account (cloud-based, works fr
 
 ## What's next
 
-1. **Footer links seeding** — `v2-export/content/pages/footer-more.json` to FooterLinks global (claude)
-2. **Division page content** — net-new, author in admin or synthesize (requires-gui / claude)
-3. **Media migration** — needs rework as `[nas-shell]` or manual session (see handoff)
-4. **HeroSliderIsland** — React + GSAP crossfade (gemini)
-5. **FilmstripBlock renderer** — CSS scroll-snap (gemini)
-6. **Visual QA** — all pages (requires-gui)
-7. **payload.ts typed client** — error handling, SWR caching (cursor+claude)
+1. **NAS:** `git pull` apr70-pictures + rebuild stack, then run `pnpm migrate:v2:apply` (or NAS equivalent) so v0.3.2 division + footer hits Payload.
+2. **Media migration** — rework as `[nas-shell]` or manual (see `docs/handoff/claudecode-2026-05-13-evening-audit.md`).
+3. **HeroSliderIsland / FilmstripBlock** — `[gemini]` lines in TASKS.md (not Cursor-only).
+4. **payload.ts** — `[cursor+claude]` caching and errors.
+5. **Visual QA** — `[requires-gui]` when Gemini/Cursor ship UI changes.
+
+### Task tags (who owns what)
+
+| Tag | Meaning |
+|-----|---------|
+| `cursor+claude` | IDE + agent friendly |
+| `claude` | Long-context / architecture |
+| `gemini` | Visual, multimodal, motion-heavy block work |
+| `nas-headless` / `nas-shell` | NAS orchestrator or shell |
+| `requires-gui` | Marco sign-off on rendered UI |
 
 ## NAS redeploy
 
@@ -80,6 +88,8 @@ cd /volume1/apps/apr70-pictures && git pull origin main
 | v3 media volume | Docker `apr70v3_cms_media` → `/app/media` in cms |
 
 ## Orchestrator
+
+Container on NAS is **not** polled from this repo; BRIEF last noted it up 2026-05-13. Code on `main` includes **`git pull --rebase` before push** (`apr70-orchestrator`); rebuild that image on NAS to pick it up.
 
 Run: `sudo docker exec apr70-orchestrator op run -- python -m orchestrator.main --once`
 Dry-run: same but `--dry-run`

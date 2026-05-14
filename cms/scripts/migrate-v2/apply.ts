@@ -5,10 +5,11 @@
  *   - `home` global layout blocks from mapped v2 content
  *   - `about`, `contact`, `jobs`, `pitch`, `investors` global layout blocks
  *   - `footer-links` moreNav from v2 `footer-more.json` (NEWS / PITCH / JOBS)
+ *   - `212`, `310`, `nrc` division globals — default starter `layout` only when empty
  *   - `site-settings` seededVersion + lastDeployed
  *
- * Idempotent: POST to a global replaces the layout array on every run.
- * Safe to re-run; does not duplicate rows.
+ * Idempotent: POST to a global replaces the layout array on every run for v2-mapped globals.
+ * Division defaults apply only when the global's `layout` is empty so admin edits are preserved.
  *
  * Prerequisites:
  *   - CMS_URL env var (default: http://cms:3000)
@@ -16,12 +17,13 @@
  *   - v3 CMS container running and healthy
  */
 
+import { buildDefaultDivisionLayout, type DivisionSlug } from './division-default-layouts.js'
 import { discoverJsonDocuments } from './discover.js'
 import { inferDocumentId, mapV2DocumentToLayout } from './map-layout.js'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 
-const SEED_VERSION = '0.3.1'
+const SEED_VERSION = '0.3.2'
 const CMS_URL = process.env.CMS_URL ?? 'http://cms:3000'
 
 export type ApplyOptions = {
@@ -43,6 +45,7 @@ export type ApplyReport = {
   projectsWritten: number
   newsArticlesWritten: number
   footerMoreNavLinksWritten: number
+  divisionDefaultsSeeded: number
   warnings: string[]
   errors: string[]
 }
@@ -86,6 +89,17 @@ async function login(): Promise<string> {
   const data = (await res.json()) as { token?: string }
   if (!data.token) throw new Error('Login response missing token')
   return data.token
+}
+
+/** Count existing layout blocks on a global (depth=0) for idempotent division seed. */
+async function getGlobalLayoutBlockCount(slug: string, token: string): Promise<number | null> {
+  const res = await fetch(`${CMS_URL}/api/globals/${slug}?depth=0`, {
+    headers: { Authorization: `JWT ${token}` },
+  })
+  if (!res.ok) return null
+  const data = (await res.json()) as { layout?: unknown }
+  const layout = data.layout
+  return Array.isArray(layout) ? layout.length : 0
 }
 
 /** POST to a Payload global slug to update its data. */
@@ -213,6 +227,7 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
       projectsWritten: 0,
       newsArticlesWritten: 0,
       footerMoreNavLinksWritten: 0,
+      divisionDefaultsSeeded: 0,
       warnings,
       errors,
     }
@@ -271,6 +286,7 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
       projectsWritten: 0,
       newsArticlesWritten: 0,
       footerMoreNavLinksWritten: 0,
+      divisionDefaultsSeeded: 0,
       warnings,
       errors,
     }
@@ -327,7 +343,28 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
     warnings.push('investors: 0 blocks mapped; skipping updateGlobal for investors.')
   }
 
-  // ── 9. Seed Projects collection ────────────────────────────────────────────
+  // ── 9. Division globals — starter layout (only when empty) ─────────────────
+  const divisionSlugs: DivisionSlug[] = ['212', '310', 'nrc']
+  let divisionDefaultsSeeded = 0
+  for (const slug of divisionSlugs) {
+    const count = await getGlobalLayoutBlockCount(slug, token)
+    if (count === null) {
+      warnings.push(`division global ${slug}: GET failed; skipping default layout seed.`)
+      continue
+    }
+    if (count > 0) {
+      warnings.push(`division global ${slug}: already has ${count} block(s); skipping default layout seed.`)
+      continue
+    }
+    try {
+      await updateGlobal(slug, { layout: buildDefaultDivisionLayout(slug) }, token)
+      divisionDefaultsSeeded += 1
+    } catch (e) {
+      errors.push(`division global ${slug}: ${String(e)}`)
+    }
+  }
+
+  // ── 10. Seed Projects collection ────────────────────────────────────────────
   let projectsWritten = 0
   for (const f of files.filter((f) => f.kind === 'project')) {
     const result = await loadAndParse(f.absolutePath, f.relativePath, warnings)
@@ -352,7 +389,7 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
     }
   }
 
-  // ── 10. Seed NewsArticles collection ──────────────────────────────────────
+  // ── 11. Seed NewsArticles collection ──────────────────────────────────────
   let newsArticlesWritten = 0
   for (const f of files.filter((f) => f.relativePath.replaceAll('\\', '/').includes('news/'))) {
     const result = await loadAndParse(f.absolutePath, f.relativePath, warnings)
@@ -378,14 +415,14 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
     }
   }
 
-  // ── 11. Upsert FooterLinks.moreNav (v2 footer-more.json) ───────────────────
+  // ── 12. Upsert FooterLinks.moreNav (v2 footer-more.json) ───────────────────
   let footerMoreNavLinksWritten = 0
   if (footerMoreNav.length > 0) {
     await updateGlobal('footer-links', { moreNav: footerMoreNav }, token)
     footerMoreNavLinksWritten = footerMoreNav.length
   }
 
-  // ── 12. Stamp SiteSettings with seed metadata ──────────────────────────────
+  // ── 13. Stamp SiteSettings with seed metadata ──────────────────────────────
   await updateGlobal(
     'site-settings',
     { seededVersion: SEED_VERSION, lastDeployed: new Date().toISOString() },
@@ -406,6 +443,7 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
     projectsWritten,
     newsArticlesWritten,
     footerMoreNavLinksWritten,
+    divisionDefaultsSeeded,
     warnings,
     errors,
   }
@@ -426,6 +464,7 @@ export function formatApplyReportConsole(report: ApplyReport): string {
     `Projects written:                ${report.projectsWritten}`,
     `News articles written:           ${report.newsArticlesWritten}`,
     `Footer moreNav links written:    ${report.footerMoreNavLinksWritten}`,
+    `Division globals seeded (empty): ${report.divisionDefaultsSeeded}`,
     `Warnings: ${report.warnings.length}`,
     `Errors: ${report.errors.length}`,
   ]

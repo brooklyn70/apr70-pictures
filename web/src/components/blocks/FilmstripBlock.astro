@@ -1,7 +1,7 @@
 ---
 /**
- * FilmstripBlock.astro — Cinematic horizontal image track with perforation bands.
- * Uses native CSS scroll-snap for zero-jank mobile performance.
+ * FilmstripBlock.astro — Physically authentic film rail and frame renderer.
+ * Built with strict adherence to Kodak KeyKode, SMPTE leader specs, and BVA optical soundtracks.
  */
 import { fetchProjects, resolveMediaUrl } from '../../lib/payload'
 
@@ -23,6 +23,9 @@ const { block } = Astro.props
 const showPerfs = block.showPerforations !== false
 const format = block.format || 'super35'
 
+const isEdgeOnly = format.startsWith('v2-')
+const isFullFrame = !isEdgeOnly
+
 type ComputedTile = {
   url: string
   alt: string
@@ -33,7 +36,7 @@ type ComputedTile = {
 
 let computedTiles: ComputedTile[] = []
 
-if (block.source === 'from-projects') {
+if (block.source === 'from-projects' && isFullFrame) {
   const { projects } = await fetchProjects()
   let filtered = projects || []
   if (block.projectFilter && block.projectFilter !== 'all') {
@@ -54,7 +57,7 @@ if (block.source === 'from-projects') {
       }
     }
   }
-} else {
+} else if (isFullFrame) {
   const rawTiles = block.tiles || []
   for (const tile of rawTiles) {
     if (tile.media) {
@@ -72,7 +75,7 @@ if (block.source === 'from-projects') {
   }
 }
 
-const perfsPerFrame = format === 'imax' ? 15 : (format.startsWith('v2-') ? 24 : 4)
+const perfsPerFrame = format === 'imax' ? 15 : (isEdgeOnly ? 24 : 4)
 
 function getDivisionClass(div: string) {
   if (div === '212') return 'text-212'
@@ -81,40 +84,91 @@ function getDivisionClass(div: string) {
   return ''
 }
 
-const numLeaders = 8; // 8 blank frames of leader at start and end
+// =================================================================
+// 1. EXPLICIT MODE DEFINITIONS
+// =================================================================
+type SegmentMode = 'edge-only' | 'edge-with-image' | 'full-frame' | 'leader-frame';
+
+const isEdgeOnlyFormat = format.startsWith('v2-');
+
+// =================================================================
+// 2. LEADER / COUNTDOWN SEQUENCE
+// =================================================================
+const leaderSequence = [
+  { type: 'start', label: 'PICTURE START' },
+  { type: 'countdown', label: '8' },
+  { type: 'countdown', label: '7' },
+  { type: 'countdown', label: '6' },
+  { type: 'countdown', label: '5' },
+  { type: 'countdown', label: '4' },
+  { type: 'countdown', label: '3' },
+  { type: 'countdown', label: '2' },
+  { type: 'hold', label: '' },
+  { type: 'hold', label: '' },
+];
+
+const tailSequence = [
+  { type: 'hold', label: '' },
+  { type: 'hold', label: '' },
+  { type: 'end', label: 'PICTURE END' }
+];
+
+// SVG assets procedurally defined
+const barcodeSvg = `
+  <svg class="barcode-svg" viewBox="0 0 52 10" preserveAspectRatio="none">
+    <rect x="0" y="0" width="3" height="10" fill="currentColor"/>
+    <rect x="5" y="0" width="1" height="10" fill="currentColor"/>
+    <rect x="8" y="0" width="2" height="10" fill="currentColor"/>
+    <rect x="12" y="0" width="3" height="10" fill="currentColor"/>
+    <rect x="17" y="0" width="1" height="10" fill="currentColor"/>
+    <rect x="20" y="0" width="1" height="10" fill="currentColor"/>
+    <rect x="23" y="0" width="2" height="10" fill="currentColor"/>
+    <rect x="27" y="0" width="1" height="10" fill="currentColor"/>
+    <rect x="30" y="0" width="3" height="10" fill="currentColor"/>
+    <rect x="35" y="0" width="2" height="10" fill="currentColor"/>
+    <rect x="39" y="0" width="1" height="10" fill="currentColor"/>
+    <rect x="42" y="0" width="2" height="10" fill="currentColor"/>
+    <rect x="46" y="0" width="3" height="10" fill="currentColor"/>
+    <rect x="51" y="0" width="1" height="10" fill="currentColor"/>
+  </svg>
+`;
+
+const opticalWaveVerticalTop = "M10,0 L5,0 Q8,2.5 3,5 T4,10 T7,15 T2,20 T8,25 T5,30 T9,35 T3,40 T6,45 T2,50 T8,55 T5,60 T9,65 T4,70 T7,75 T3,80 T8,85 T4,90 T7,95 T2,100 L10,100 Z";
+const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20 T12,25 T15,30 T11,35 T17,40 T14,45 T18,50 T12,55 T15,60 T11,65 T16,70 T13,75 T17,80 T12,85 T16,90 T13,95 T18,100 L10,100 Z";
 ---
 
 <section 
   class="filmstrip-block" 
   data-format={format}
-  aria-label={format.startsWith('v2-') ? "Filmstrip rail" : "Filmstrip gallery"}
-  role={format.startsWith('v2-') ? "presentation" : "region"}
-  aria-roledescription={format.startsWith('v2-') ? undefined : "carousel"}
+  data-mode={isEdgeOnlyFormat ? 'edge-only' : 'full-frame-assembly'}
+  aria-label={isEdgeOnlyFormat ? "Filmstrip rail" : "Filmstrip gallery"}
+  role={isEdgeOnlyFormat ? "presentation" : "region"}
 >
-  <div class="scroll-window" tabindex="0" role="group" aria-label="Slides">
-    <div class="filmstrip-physical">
-      
-      {/* Top Edge Layer */}
-      {showPerfs && !format.startsWith('v2-') && (
-        <div class="edge-layer edge-top" aria-hidden="true">
-          <div class="edge-gradient"></div>
-        </div>
-      )}
+  <div class="backing-plane" aria-hidden="true"></div>
 
-      {/* Unified Film Track */}
+  <div class="scroll-window" tabindex="0" role="group" aria-label="Slides">
+    <div class="film-base-shell">
+      
       <div class="film-track">
         
-        {/* Head Leader */}
-        {!format.startsWith('v2-') && Array.from({ length: numLeaders }).map((_, lIdx) => (
-          <div class="film-segment leader-segment">
+        {/* ================================================================= */}
+        {/* MODE: edge-only                                                   */}
+        {/* Renders border components strictly separated from frame logic.    */}
+        {/* ================================================================= */}
+        {isEdgeOnlyFormat && Array.from({ length: 8 }).map((_, i) => (
+          <div class="film-segment edge-only-segment" aria-hidden="true">
             {showPerfs && (
               <div class="perf-row top">
                 {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
               </div>
             )}
-            <div class="tile-frame leader-frame">
-              {lIdx < 8 && <div class="countdown-text">{8 - lIdx}</div>}
+            
+            <div class="edge-code-layer center">
+              {i % 2 === 0 && (
+                <span class="code code-maroon">KODAK 5219 {83210 + i} • <span class="barcode-wrapper" set:html={barcodeSvg} /></span>
+              )}
             </div>
+
             {showPerfs && (
               <div class="perf-row bottom">
                 {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
@@ -123,63 +177,117 @@ const numLeaders = 8; // 8 blank frames of leader at start and end
           </div>
         ))}
 
-        {/* Frames */}
-        {computedTiles.map((tile, i) => {
+        {/* ================================================================= */}
+        {/* MODE: leader-frame (HEAD)                                         */}
+        {/* ================================================================= */}
+        {!isEdgeOnlyFormat && leaderSequence.map((item, lIdx) => (
+          <div class="film-segment leader-frame-segment">
+            {showPerfs && (
+              <div class="perf-row top">
+                {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+              </div>
+            )}
+            
+            <div class="leader-plate">
+              {item.type === 'countdown' && (
+                <div class="leader-target">
+                  <div class="target-circle outer"></div>
+                  <div class="target-circle inner"></div>
+                  <div class="crosshair-v"></div>
+                  <div class="crosshair-h"></div>
+                  <div class="clock-arm"></div>
+                  <div class="leader-numeral">{item.label}</div>
+                </div>
+              )}
+              {item.type === 'start' && (
+                <div class="leader-target">
+                  <div class="leader-start-text">{item.label}</div>
+                </div>
+              )}
+            </div>
+
+            {showPerfs && (
+              <div class="perf-row bottom">
+                {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+              </div>
+            )}
+          </div>
+        ))}
+
+        {/* ================================================================= */}
+        {/* MODE: edge-with-image                                             */}
+        {/* Defines the primary content sequence containing media tiles.      */}
+        {/* ================================================================= */}
+        {!isEdgeOnlyFormat && computedTiles.map((tile, i) => {
           const Element = tile.href ? 'a' : 'div'
           return (
             <Element
-              class={`film-segment filmstrip-tile ${format.startsWith('v2-') ? 'v2-segment' : ''}`}
+              class="film-segment filmstrip-tile"
               href={tile.href}
               role="group"
               aria-roledescription="slide"
               aria-label={`${i + 1} of ${computedTiles.length}`}
             >
-              {/* Top Perfs & Edge Codes */}
+              {/* TOP PERFORATION BAND & EDGE CODES */}
               {showPerfs && (
                 <div class="perf-row top">
-                  {/* Top Edge Codes injected here to sync perfectly with the frame */}
-                  {!format.startsWith('v2-') && (
-                    <div class="edge-code-container top">
-                      {format === 'super35' && i % 2 === 0 && (
-                        <>
-                          <span class="code code-yellow">KODAK 500T 5219 {83210 + i}</span>
-                          <div class="edge-stripe edge-stripe-orange"></div>
-                          <div class="edge-stripe edge-stripe-white"></div>
-                        </>
-                      )}
-                      {format === 'imax' && i % 2 === 0 && (
-                        <span class="code code-cyan">EASTMAN 5243 039 02401 {191 + i} 110</span>
-                      )}
-                    </div>
-                  )}
+                  <div class="edge-code-layer top">
+                    {format === 'super35' && i % 4 === 0 && (
+                      <span class="code">K KI 03 {1503 + Math.floor(i / 4)} 7040 • <span class="barcode-wrapper" set:html={barcodeSvg} /></span>
+                    )}
+                    {format === 'super35' && i % 4 === 2 && (
+                      <span class="code code-small">+32</span>
+                    )}
+                    {format === 'imax' && i % 8 === 0 && (
+                      <span class="code">E KI 03 {4690 + Math.floor(i / 8)} 7040 • <span class="barcode-wrapper" set:html={barcodeSvg} /></span>
+                    )}
+                    {format === 'imax' && i % 8 === 3 && (
+                      <span class="code code-small">+40</span>
+                    )}
+                    {format === 'imax' && i % 8 === 5 && (
+                      <span class="code code-small">+80</span>
+                    )}
+                  </div>
                   {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
                 </div>
               )}
 
-              {/* The Frame */}
-              {!format.startsWith('v2-') && (
-                <div class="tile-frame">
+              {/* IMAGE APERTURE AND SOUNDTRACK AREA */}
+              <div class="frame-assembly">
+                
+                {/* Print-style soundtrack geometry (vertical, beside image) */}
+                {format === 'academy' && (
+                  <div class="soundtrack-reservation-area">
+                    <svg class="optical-wave-vertical" viewBox="0 0 20 100" preserveAspectRatio="none">
+                      <path d={opticalWaveVerticalTop} fill="rgba(0,0,0,0.3)" />
+                      <path d={opticalWaveVerticalBottom} fill="rgba(0,0,0,0.3)" />
+                    </svg>
+                  </div>
+                )}
+
+                <div class="image-aperture">
                   <img src={tile.url} alt={tile.alt} loading="lazy" />
                   <div class="wireframe-cross"></div>
                 </div>
-              )}
+              </div>
 
-              {/* Bottom Perfs & Edge Codes */}
+              {/* BOTTOM PERFORATION BAND & EDGE CODES */}
               {showPerfs && (
                 <div class="perf-row bottom">
-                  {!format.startsWith('v2-') && (
-                    <div class="edge-code-container bottom">
-                      {format === 'academy' && i % 2 === 0 && (
-                        <span class="code code-grey">SAFETY FILM A {1000 + i}</span>
-                      )}
-                      {format === 'widescreen200' && i % 2 === 0 && (
-                        <span class="code code-maroon">ANSCO COLOR 848 {10 + i}</span>
-                      )}
-                      {format === 'imax' && i % 2 === 0 && (
-                        <span class="code code-cyan">EV 93 4554 {4690 + i}+40• <span class="barcode">{i % 3 === 0 ? '||| || ||| ||' : '||| | ||| |||'}</span></span>
-                      )}
-                    </div>
-                  )}
+                  <div class="edge-code-layer bottom">
+                    {format === 'academy' && i % 4 === 0 && (
+                      <span class="code">K KI 03 {1000 + Math.floor(i / 4)} 7040 • <span class="barcode-wrapper" set:html={barcodeSvg} /></span>
+                    )}
+                    {format === 'academy' && i % 4 === 2 && (
+                      <span class="code code-small">+32</span>
+                    )}
+                    {format === 'widescreen200' && i % 4 === 0 && (
+                      <span class="code">ANSCO COLOR 848 {10 + Math.floor(i / 4)} •</span>
+                    )}
+                    {format === 'widescreen200' && i % 4 === 2 && (
+                      <span class="code code-small">+32</span>
+                    )}
+                  </div>
                   {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
                 </div>
               )}
@@ -187,16 +295,18 @@ const numLeaders = 8; // 8 blank frames of leader at start and end
           )
         })}
 
-        {/* Tail Leader */}
-        {!format.startsWith('v2-') && Array.from({ length: numLeaders }).map((_, lIdx) => (
-          <div class="film-segment leader-segment">
+        {/* ================================================================= */}
+        {/* MODE: leader-frame (TAIL)                                         */}
+        {/* ================================================================= */}
+        {!isEdgeOnlyFormat && tailSequence.map((item, lIdx) => (
+          <div class="film-segment leader-frame-segment">
             {showPerfs && (
               <div class="perf-row top">
                 {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
               </div>
             )}
-            <div class="tile-frame leader-frame">
-              {lIdx === 0 && <div class="countdown-text" style="font-size: 1rem;">PICTURE START</div>}
+            <div class="leader-plate">
+              {item.type === 'end' && <div class="leader-start-text">{item.label}</div>}
             </div>
             {showPerfs && (
               <div class="perf-row bottom">
@@ -209,10 +319,9 @@ const numLeaders = 8; // 8 blank frames of leader at start and end
       </div>
 
       {/* Meta Track (Titles beneath the film strip) */}
-      {!format.startsWith('v2-') && (
+      {isFullFrame && (
         <div class="meta-track">
-          {/* Pad the meta track to align with the first actual frame */}
-          <div class="meta-segment" style={`width: calc((${numLeaders} * (var(--frame-w) + var(--frame-gap))) - var(--frame-gap))`}></div>
+          <div class="meta-segment" style={`width: calc((${leaderSequence.length} * (var(--frame-w) + var(--frame-gap))) - var(--frame-gap))`}></div>
           {computedTiles.map((tile) => (
             <div class="meta-segment">
               <div class="tile-meta">
@@ -226,13 +335,6 @@ const numLeaders = 8; // 8 blank frames of leader at start and end
         </div>
       )}
 
-      {/* Bottom Edge Layer */}
-      {showPerfs && !format.startsWith('v2-') && (
-        <div class="edge-layer edge-bottom" aria-hidden="true">
-          <div class="edge-gradient"></div>
-        </div>
-      )}
-
     </div>
   </div>
 </section>
@@ -241,30 +343,51 @@ const numLeaders = 8; // 8 blank frames of leader at start and end
   .filmstrip-block {
     width: 100%;
     overflow: hidden;
+    position: relative;
     padding: var(--s-7) 0;
     
-    /* Default variables (35mm: Academy, Super35, Widescreen) */
+    /* Default Physical Variables */
     --perfs: 4;
     --hole-w: clamp(8px, 1.2vw, 14px);
     --hole-h: clamp(16px, 2.5vw, 24px);
     --hole-gap: clamp(16px, 2vw, 32px);
     --perf-pitch: calc(var(--hole-w) + var(--hole-gap));
     --segment-w: calc(var(--perf-pitch) * var(--perfs));
-    --frame-gap: 4px; /* Frame lines thickness */
-    --band-h: 32px;
+    --frame-gap: 4px;
+    --band-h: 44px; /* Increased vertical breathing room for edge codes */
     --hole-radius: var(--r-hole);
-    --border-color: var(--rule);
+    
+    /* Shared Sub-blocks */
+  --backing-plane: #fbfbf9; /* Clean light table background */
   }
 
-  /* Format Overrides */
+  /* FORMAT DISCIPLINE: Super35 (Negative-forward) */
+  .filmstrip-block[data-format="super35"] {
+    --aspect: 2.39;
+    --film-base: rgba(212, 122, 38, 0.15); /* Kodak Vision3 500T amber base stain */
+    --edge-text: rgba(30, 10, 0, 0.85); /* High contrast */
+    --track-bg: transparent; /* Negative: gaps reveal base color */
+  }
+
+  /* FORMAT DISCIPLINE: Academy (Print-style) */
   .filmstrip-block[data-format="academy"] {
     --frame-gap: 6px;
+    --aspect: 1.37;
+    --film-base: rgba(210, 210, 205, 0.15); /* Positive print clear/warm base stain */
+    --edge-text: rgba(20, 20, 20, 0.9);
+    --track-bg: rgba(0, 0, 0, 0.15); /* Soft separators instead of solid black boxes */
   }
 
+  /* FORMAT DISCIPLINE: Widescreen 200 */
   .filmstrip-block[data-format="widescreen200"] {
     --hole-h: clamp(14px, 2vw, 20px);
+    --aspect: 2.00;
+    --film-base: rgba(160, 40, 30, 0.12); /* Ansco maroon stain */
+    --edge-text: rgba(40, 0, 0, 0.85);
+    --track-bg: transparent;
   }
 
+  /* FORMAT DISCIPLINE: IMAX 15/70 (Horizontal Transport) */
   .filmstrip-block[data-format="imax"] {
     --perfs: 15;
     --hole-w: clamp(12px, 1.8vw, 18px);
@@ -273,171 +396,79 @@ const numLeaders = 8; // 8 blank frames of leader at start and end
     --band-h: 40px;
     --hole-radius: 4px;
     --frame-gap: 8px;
+    --aspect: 1.43;
+    --film-base: rgba(43, 146, 156, 0.15); /* Eastman cyan intermediate stain */
+    --edge-text: rgba(0, 30, 40, 0.85);
+    --track-bg: transparent;
   }
 
-  .filmstrip-block[data-format="v2-header"],
-  .filmstrip-block[data-format="v2-footer"] {
+  /* EDGE-ONLY MODES */
+  .filmstrip-block[data-mode="edge-only"] {
     --perfs: 24;
     --hole-w: 13px;
     --hole-h: 9px;
     --hole-gap: 16px;
-    --band-h: 32px;
-    --hole-radius: var(--r-hole);
-    --border-color: #1e1e1e;
+    --band-h: 44px;
+    --film-base: rgba(0, 0, 0, 0.05);
+    --edge-text: rgba(0, 0, 0, 0.65);
+    --backing-plane: #fbfbf9;
     padding: 0;
   }
 
-  /* Scrolling Layout */
+  /* STRUCTURAL SUB-BLOCKS */
+  
+  .backing-plane {
+    position: absolute;
+    inset: 0;
+    background: var(--backing-plane);
+    z-index: 0;
+  }
+
   .scroll-window {
     width: 100%;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    position: relative;
+    z-index: 1;
+    padding: 0 var(--pad-x);
+  }
+  .filmstrip-block[data-mode="full-frame"] .scroll-window {
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
     mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
-    padding: 0 var(--pad-x);
   }
 
   .scroll-window:focus-visible {
     outline: 2px solid var(--apr-imax);
     outline-offset: 2px;
   }
-
   .scroll-window::-webkit-scrollbar {
     display: none;
   }
 
-  .filmstrip-block[data-format="v2-header"] .scroll-window,
-  .filmstrip-block[data-format="v2-footer"] .scroll-window {
-    -webkit-mask-image: none;
-    mask-image: none;
-    padding: 0;
-  }
-
-  .filmstrip-physical {
+  .film-base-shell {
     display: flex;
     flex-direction: column;
     width: max-content;
-    background: rgba(10, 10, 10, 0.7); /* Translucent film base */
-    backdrop-filter: blur(4px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    background: var(--film-base);
+    box-shadow: 0 5px 25px rgba(0,0,0,0.05), inset 0 0 20px rgba(255,255,255,0.4);
     border-radius: 2px;
+    backdrop-filter: blur(1px); /* Slight diffusion of the backlight */
   }
-
-  .filmstrip-block[data-format="v2-header"] .filmstrip-physical,
-  .filmstrip-block[data-format="v2-footer"] .filmstrip-physical {
-    background: #050505;
-    backdrop-filter: none;
+  .filmstrip-block[data-mode="edge-only"] .film-base-shell {
     box-shadow: none;
     border-radius: 0;
     width: 100vw;
   }
 
-  /* Edges */
-  .edge-layer {
-    position: relative;
-    height: 16px;
-    width: 100%;
-    overflow: hidden;
-  }
-
-  .edge-gradient {
-    position: absolute;
-    inset: 0;
-    opacity: 0.8;
-  }
-
-  /* Gradients per format */
-  .filmstrip-block[data-format="academy"] .edge-gradient {
-    background: linear-gradient(to bottom, rgba(200,210,200,0.4) 0%, transparent 100%);
-  }
-  .filmstrip-block[data-format="academy"] .edge-bottom .edge-gradient {
-    background: linear-gradient(to top, rgba(200,210,200,0.4) 0%, transparent 100%);
-  }
-
-  .filmstrip-block[data-format="super35"] .edge-gradient {
-    background: linear-gradient(to bottom, rgba(175,122,72,0.8) 0%, transparent 100%);
-  }
-  
-  .filmstrip-block[data-format="widescreen200"] .edge-gradient {
-    background: linear-gradient(to bottom, rgba(209,122,34,0.8) 0%, transparent 100%);
-  }
-  .filmstrip-block[data-format="widescreen200"] .edge-bottom .edge-gradient {
-    background: linear-gradient(to top, rgba(209,122,34,0.8) 0%, transparent 100%);
-  }
-
-  .filmstrip-block[data-format="imax"] .edge-gradient {
-    background: linear-gradient(to bottom, rgba(43,132,146,0.8) 0%, transparent 100%);
-  }
-  .filmstrip-block[data-format="imax"] .edge-bottom .edge-gradient {
-    background: linear-gradient(to top, rgba(43,132,146,0.8) 0%, transparent 100%);
-  }
-
-  /* Edge Codes */
-  .edge-code-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    z-index: 2;
-    white-space: nowrap;
-    pointer-events: none;
-  }
-  
-  .edge-code-container.top { top: -16px; bottom: auto; height: 16px; }
-  .edge-code-container.bottom { bottom: -16px; top: auto; height: 16px; }
-
-  .code {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: var(--track-strip);
-    opacity: 0.9;
-    text-transform: uppercase;
-    margin-left: 20%; /* Offset into the frame */
-  }
-  .code-yellow { color: #ffd54f; }
-  .code-cyan { color: #00e5ff; }
-  .code-maroon { color: #800000; font-weight: bold; letter-spacing: 0.2em; }
-  .code-grey { color: #555; font-weight: bold; }
-
-  .barcode {
-    font-weight: bold;
-    letter-spacing: 2px;
-    margin-left: 8px;
-  }
-
-  .edge-stripe {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-  }
-  .edge-stripe-orange {
-    left: 0px;
-    width: 6px;
-    background: #ff5722;
-  }
-  .edge-stripe-white {
-    left: 8px;
-    width: 2px;
-    background: #fff;
-    opacity: 0.9;
-  }
-
-  /* Film Track & Segments */
   .film-track {
     display: flex;
-    background: #020202; /* The frame lines will be this color */
+    background: var(--track-bg);
     padding: 0 5vw;
   }
-
-  .filmstrip-block[data-format="v2-header"] .film-track,
-  .filmstrip-block[data-format="v2-footer"] .film-track {
+  .filmstrip-block[data-mode="edge-only"] .film-track {
     padding: var(--s-3) var(--pad-x);
-    background: transparent;
   }
 
   .film-segment {
@@ -452,7 +483,6 @@ const numLeaders = 8; // 8 blank frames of leader at start and end
     outline: none;
   }
 
-  /* Perfs inside segment */
   .perf-row {
     display: flex;
     align-items: center;
@@ -460,59 +490,125 @@ const numLeaders = 8; // 8 blank frames of leader at start and end
     gap: var(--hole-gap);
     width: var(--segment-w);
     position: relative;
-    /* Since width is exact and flex items leave a remainder on the right equal to var(--hole-gap), it sequences perfectly! */
+    padding: 0 4px;
   }
 
   .perf-hole {
     width: var(--hole-w);
     height: var(--hole-h);
-    background: var(--bg-0); /* Punches through to page background */
+    background: var(--backing-plane); /* Punches through to the backing plane */
     border-radius: var(--hole-radius);
     flex-shrink: 0;
-    box-shadow: 
-      inset 0 1px 3px rgba(0,0,0,0.8), 
-      inset 0 -1px 1px rgba(255,255,255,0.2);
+    box-shadow: inset 0 1px 4px rgba(0,0,0,0.08); /* Soft punch thickness instead of deep black hole */
   }
-
-  .filmstrip-block[data-format="v2-header"] .perf-hole,
-  .filmstrip-block[data-format="v2-footer"] .perf-hole {
+  .filmstrip-block[data-mode="edge-only"] .perf-hole {
     box-shadow: none;
-    border: 1.5px solid var(--border-color);
+    border: 1.5px solid var(--rule);
   }
 
-  /* Frames inside segment */
-  .tile-frame {
-    position: relative;
+  /* EDGE CODES & KEYKODE */
+  .edge-code-layer {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    z-index: 2;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .edge-code-layer.top { 
+    align-items: flex-start;
+    padding-top: 4px;
+  }
+  .edge-code-layer.bottom { 
+    align-items: flex-end;
+    padding-bottom: 4px;
+  }
+  .edge-code-layer.center { align-items: center; justify-content: center; }
+
+  .code {
+    font-family: var(--font-mono);
+    font-size: 14px; /* Larger and more discoverable */
+    letter-spacing: var(--track-strip);
+    color: var(--edge-text);
+    text-transform: uppercase;
+    margin-left: 20%;
+    font-weight: 800; /* Max contrast */
+  }
+  .filmstrip-block[data-mode="edge-only"] .code {
+    margin-left: 0;
+  }
+  .code-small { 
+    font-size: 9px; 
+    margin-left: 10%; 
+    opacity: 0.5; /* Subordinate minor frame labels */
+    font-weight: 600;
+  }
+
+  .barcode-wrapper {
+    display: inline-block;
+    height: 12px;
+    width: 45px;
+    margin-left: 10px;
+    vertical-align: middle;
+    color: var(--edge-text);
+  }
+  .barcode-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* FRAME ASSEMBLY (Image + Soundtrack) */
+  .frame-assembly {
+    display: flex;
+    flex-direction: row;
+    height: auto;
     width: calc(var(--segment-w) - var(--frame-gap));
-    /* Deriving height from the fixed perfect width! */
-    height: calc((var(--segment-w) - var(--frame-gap)) / var(--aspect)); 
-    overflow: hidden;
-    background: #111;
-    border-radius: 2px;
-    margin-right: var(--frame-gap); /* This right margin acts as the black frame line! */
+    margin-right: var(--frame-gap);
   }
 
-  /* Fallback for aspect since CSS calc with division by variable is tricky if aspect is not purely a number. 
-     Wait, --aspect is e.g. "2.39 / 1" which doesn't work in calc(). 
-     Let's use aspect-ratio instead! */
-  .tile-frame {
+  .soundtrack-reservation-area {
+    width: clamp(10px, 2vw, 20px);
+    background-color: transparent; /* Lifted from solid black */
+    border-right: 1px solid rgba(0,0,0,0.1);
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .optical-wave-vertical {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .image-aperture {
+    position: relative;
+    flex-grow: 1;
     height: auto;
     aspect-ratio: var(--aspect);
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.08); /* Reduced mass, no longer a giant black box */
+    border: 1px solid rgba(0,0,0,0.1); /* Subtle boundary hint */
+    border-radius: 4px; /* Softer frame corners */
   }
 
-  .leader-frame {
-    background: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .image-aperture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.9) contrast(1.05);
+    transition: transform var(--dur-base) var(--ease-out), filter var(--dur-base) var(--ease-out);
   }
 
-  .countdown-text {
-    font-family: var(--font-mono);
-    font-size: 3rem;
-    color: rgba(255, 255, 255, 0.2);
-    font-weight: bold;
-    letter-spacing: 2px;
+  .filmstrip-tile:hover .image-aperture img,
+  .filmstrip-tile:focus-visible .image-aperture img {
+    transform: scale(1.03);
+    filter: saturate(1.15) contrast(1.1);
+  }
+  .filmstrip-tile:focus-visible .image-aperture {
+    outline: 2px solid var(--apr-imax);
+    outline-offset: 4px;
   }
 
   .wireframe-cross {
@@ -526,23 +622,77 @@ const numLeaders = 8; // 8 blank frames of leader at start and end
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
-  .tile-frame img {
+  /* PROCEDURAL LEADER PLATE */
+  .leader-plate {
+    position: relative;
+    width: calc(var(--segment-w) - var(--frame-gap));
+    aspect-ratio: var(--aspect);
+    margin-right: var(--frame-gap);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .leader-target {
+    position: relative;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    filter: saturate(0.9) contrast(1.05);
-    transition: transform var(--dur-base) var(--ease-out), filter var(--dur-base) var(--ease-out);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .filmstrip-tile:hover .tile-frame img,
-  .filmstrip-tile:focus-visible .tile-frame img {
-    transform: scale(1.03);
-    filter: saturate(1.15) contrast(1.1);
+  .target-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid var(--edge-text);
+  }
+  .target-circle.outer { width: 80%; height: 80%; }
+  .target-circle.inner { width: 60%; height: 60%; }
+
+  .crosshair-v {
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    background: var(--edge-text);
+  }
+  .crosshair-h {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: var(--edge-text);
   }
 
-  .filmstrip-tile:focus-visible .tile-frame {
-    outline: 2px solid var(--apr-imax);
-    outline-offset: 4px;
+  .clock-arm {
+    position: absolute;
+    width: 2px;
+    height: 50%;
+    top: 0;
+    left: calc(50% - 1px);
+    background: var(--edge-text);
+    transform-origin: bottom center;
+    transform: rotate(0deg); /* Stylized: Frozen at 12 o'clock */
+  }
+
+  .leader-numeral {
+    font-family: var(--font-mono);
+    font-size: clamp(3rem, 10vw, 8rem);
+    color: var(--edge-text);
+    z-index: 2;
+    background: var(--film-base); /* Punch out the crosshair behind the text */
+    padding: 0 1rem;
+    font-weight: bold;
+    letter-spacing: -2px;
+  }
+
+  .leader-start-text {
+    font-family: var(--font-mono);
+    font-size: clamp(1.5rem, 3vw, 3rem);
+    color: var(--edge-text);
+    font-weight: bold;
+    white-space: nowrap;
   }
 
   /* Meta Track */
@@ -550,12 +700,10 @@ const numLeaders = 8; // 8 blank frames of leader at start and end
     display: flex;
     padding: 0 5vw;
   }
-  
   .meta-segment {
     width: var(--segment-w);
     flex-shrink: 0;
   }
-
   .tile-meta {
     display: flex;
     justify-content: space-between;
@@ -564,7 +712,6 @@ const numLeaders = 8; // 8 blank frames of leader at start and end
     margin-right: var(--frame-gap);
     gap: var(--s-3);
   }
-
   .tile-caption {
     font-family: var(--font-body);
     font-size: var(--type-caption);
@@ -576,7 +723,6 @@ const numLeaders = 8; // 8 blank frames of leader at start and end
     text-overflow: ellipsis;
     font-weight: 500;
   }
-
   .tile-division {
     font-family: var(--font-mono);
     font-size: var(--type-tiny);

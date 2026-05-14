@@ -1,7 +1,7 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-14 (filmstrip research pack in `docs/reference/filmstrip-research/`; Gemini handoff updated)  
-**Handoff:** `docs/handoff/composer-2026-05-14-phase5-next.md`
+**Updated:** 2026-05-14 (filmstrip physically accurate mathematical model implemented; Perplexity research handoff generated)  
+**Handoff:** `docs/handoff/filmstrip-research-handoff.md`
 **Phase:** 5 in progress — run apply-media on NAS if not done; Gemini blocks next
 **Seeder:** v0.3.2
 

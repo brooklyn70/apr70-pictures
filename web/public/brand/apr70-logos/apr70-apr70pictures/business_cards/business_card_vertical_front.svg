@@ -1,0 +1,28 @@
+<svg viewBox="0 0 200 350" xmlns="http://www.w3.org/2000/svg">
+  <!-- Vertical business card: 2" x 3.5" at 100px/inch -->
+  <rect width="200" height="350" fill="#000"/>
+  
+  <!-- Centered logo - rotated concept with vertical film strip -->
+  <g transform="translate(50, 100)">
+    <!-- Left sprocket holes -->
+    <rect x="8" y="10" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+    <rect x="8" y="28" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+    <rect x="8" y="46" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+    <rect x="8" y="64" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+    <rect x="8" y="82" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+    <rect x="8" y="100" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+    <rect x="8" y="118" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+    <!-- Right sprocket holes -->
+    <rect x="86" y="10" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+    <rect x="86" y="28" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+    <rect x="86" y="46" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+    <rect x="86" y="64" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+    <rect x="86" y="82" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+    <rect x="86" y="100" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+    <rect x="86" y="118" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+    <!-- APR -->
+    <text x="50" y="52" font-family="Futura, Futura-Bold, Century Gothic, sans-serif" font-size="28" font-weight="700" fill="#FFF" text-anchor="middle" letter-spacing="0.14em">APR</text>
+    <!-- 70 -->
+    <text x="50" y="90" font-family="Futura, Futura-Bold, Century Gothic, sans-serif" font-size="28" font-weight="700" fill="#FFF" text-anchor="middle" letter-spacing="0.14em">70</text>
+  </g>
+</svg>

@@ -1,7 +1,7 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-14 (filmstrip physically accurate mathematical model implemented; Perplexity research handoff generated)  
-**Handoff:** `docs/handoff/filmstrip-research-handoff.md`
+**Updated:** 2026-05-14 (FilmstripBlock KeyKode / SMPTE work; `apr70-logos` vendored under `web/public/brand/`; brand integration plan in `docs/architecture/`)  
+**Handoff:** `docs/handoff/composer-2026-05-14-phase5-next.md`
 **Phase:** 5 in progress — run apply-media on NAS if not done; Gemini blocks next
 **Seeder:** v0.3.2
 
@@ -57,8 +57,9 @@ Orchestrator container up. Uses 1Password Service Account (cloud-based, works fr
 ## What's next
 
 1. **NAS:** After `git pull`, run `pnpm migrate:v2:apply-media` from `cms-seeder` (same env as apply; `MEDIA_ROOT=/app/media`; `--v2-root /v2-export/content`) to create Media docs and PATCH projects/news layouts. See handoff for the exact `docker compose` one-liner.
-2. **HeroSliderIsland** — `[gemini]` line in TASKS.md. (FilmstripBlock renderer shipped 2026-05-14).
-3. **Visual QA** — `[requires-gui]` when Gemini/Cursor ship UI changes.
+2. **Brand integration** — `docs/architecture/brand-assets-integration.md`; TASKS open line Payload + Astro (division globals, SiteSettings, HeroBlock, seed Media from `public/brand/apr70-logos/`).
+3. **HeroSliderIsland** — `[gemini]` line in TASKS.md. (FilmstripBlock renderer shipped 2026-05-14).
+4. **Visual QA** — `[requires-gui]` when Gemini/Cursor ship UI changes.
 
 ### Task tags (who owns what)
 

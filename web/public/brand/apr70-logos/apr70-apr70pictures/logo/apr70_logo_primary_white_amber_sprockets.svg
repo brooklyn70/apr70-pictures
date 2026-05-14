@@ -1,0 +1,25 @@
+<svg viewBox="0 0 480 160" xmlns="http://www.w3.org/2000/svg">
+  <defs><style>
+    @font-face{font-family:'Futura';font-weight:700;
+      src:local('Futura Bold'),local('Futura-Bold'),local('FuturaBQ-Bold'),local('Century Gothic Bold'),local('Century Gothic');}
+  </style></defs>
+
+  <rect x="18" y="22" width="8.4" height="5.94" rx="1.5" fill="#824B07"/>
+  <rect x="453.6" y="22" width="8.4" height="5.94" rx="1.5" fill="#824B07"/>
+  <rect x="18" y="39" width="8.4" height="5.94" rx="1.5" fill="#824B07"/>
+  <rect x="453.6" y="39" width="8.4" height="5.94" rx="1.5" fill="#824B07"/>
+  <rect x="18" y="56" width="8.4" height="5.94" rx="1.5" fill="#824B07"/>
+  <rect x="453.6" y="56" width="8.4" height="5.94" rx="1.5" fill="#824B07"/>
+  <rect x="18" y="73" width="8.4" height="5.94" rx="1.5" fill="#824B07"/>
+  <rect x="453.6" y="73" width="8.4" height="5.94" rx="1.5" fill="#824B07"/>
+  <rect x="18" y="90" width="8.4" height="5.94" rx="1.5" fill="#824B07"/>
+  <rect x="453.6" y="90" width="8.4" height="5.94" rx="1.5" fill="#824B07"/>
+  <rect x="18" y="107" width="8.4" height="5.94" rx="1.5" fill="#824B07"/>
+  <rect x="453.6" y="107" width="8.4" height="5.94" rx="1.5" fill="#824B07"/>
+  <rect x="18" y="124" width="8.4" height="5.94" rx="1.5" fill="#824B07"/>
+  <rect x="453.6" y="124" width="8.4" height="5.94" rx="1.5" fill="#824B07"/>
+  <text x="240" y="88" font-family="Futura, 'Century Gothic', 'Trebuchet MS', Arial, sans-serif" font-size="60" font-weight="700"
+    fill="#000000" text-anchor="middle" letter-spacing="0.18em">APR 70</text>
+  <text x="240" y="118" font-family="Futura, 'Century Gothic', 'Trebuchet MS', Arial, sans-serif" font-size="14" font-weight="700"
+    fill="#000000" text-anchor="middle" letter-spacing="0.50em">PICTURES</text>
+</svg>

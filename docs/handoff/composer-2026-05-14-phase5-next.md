@@ -5,6 +5,8 @@
 **Branch:** `main`  
 **Read first:** `BRIEF.md`, `TASKS.md`, `CLAUDE.md`
 
+**Brand / logos:** Vendored tree `web/public/brand/apr70-logos/` and rollout plan **`docs/architecture/brand-assets-integration.md`** (Payload Media, SiteSettings, division globals, Hero overlays). Next open TASK line: Payload + Astro brand integration.
+
 ---
 
 ## Housekeeping

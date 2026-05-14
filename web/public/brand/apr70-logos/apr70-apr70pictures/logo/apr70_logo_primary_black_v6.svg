@@ -1,0 +1,26 @@
+<svg viewBox="0 0 320 100" width="320" height="100" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+    <style>
+        @font-face {
+            font-family: 'Futura';
+            src: local('Futura Bold'), 
+                 local('Futura-Bold'), 
+                 local('FuturaBQ-Bold'),
+                 local('Futura');
+            font-weight: 700;
+        }
+    </style>
+</defs>
+    <rect width="320" height="100" fill="#000000"/>
+    <rect x="12" y="16.0" width="6.72" height="4.752" rx="1.2" fill="#FFFFFF"/>
+    <rect x="300" y="16.0" width="6.72" height="4.752" rx="1.2" fill="#FFFFFF"/>
+    <rect x="12" y="27.4" width="6.72" height="4.752" rx="1.2" fill="#FFFFFF"/>
+    <rect x="300" y="27.4" width="6.72" height="4.752" rx="1.2" fill="#FFFFFF"/>
+    <rect x="12" y="38.8" width="6.72" height="4.752" rx="1.2" fill="#FFFFFF"/>
+    <rect x="300" y="38.8" width="6.72" height="4.752" rx="1.2" fill="#FFFFFF"/>
+    <rect x="12" y="50.2" width="6.72" height="4.752" rx="1.2" fill="#FFFFFF"/>
+    <rect x="300" y="50.2" width="6.72" height="4.752" rx="1.2" fill="#FFFFFF"/>
+    <rect x="12" y="61.6" width="6.72" height="4.752" rx="1.2" fill="#FFFFFF"/>
+    <rect x="300" y="61.6" width="6.72" height="4.752" rx="1.2" fill="#FFFFFF"/>
+    <text x="160" y="58" font-family="Futura, Century Gothic, sans-serif" font-size="38" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.18em">APR 70</text>
+</svg>

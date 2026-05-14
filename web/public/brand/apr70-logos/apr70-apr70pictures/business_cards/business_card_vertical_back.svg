@@ -1,0 +1,28 @@
+<svg viewBox="0 0 200 350" xmlns="http://www.w3.org/2000/svg">
+  <!-- Vertical business card: 2" x 3.5" at 100px/inch -->
+  <rect width="200" height="350" fill="#FFF"/>
+  
+  <!-- Name - stacked -->
+  <text x="25" y="80" font-family="Futura, Futura-Bold, Century Gothic, sans-serif" font-size="14" font-weight="700" fill="#000" letter-spacing="0.06em">MARC ANDREW</text>
+  <text x="25" y="100" font-family="Futura, Futura-Bold, Century Gothic, sans-serif" font-size="14" font-weight="700" fill="#000" letter-spacing="0.06em">CARUSO</text>
+  
+  <!-- Contact info -->
+  <text x="25" y="150" font-family="Futura, Century Gothic, sans-serif" font-size="10" font-weight="400" fill="#000" letter-spacing="0.03em">caruso@apr70.com</text>
+  <text x="25" y="168" font-family="Futura, Century Gothic, sans-serif" font-size="10" font-weight="400" fill="#000" letter-spacing="0.03em">917.613.0728</text>
+  
+  <!-- Small monogram at bottom -->
+  <g transform="translate(77, 280)">
+    <rect x="0" y="0" width="45" height="38" fill="#000"/>
+    <rect x="3" y="6" width="3" height="2.1" rx="0.4" fill="#FFF"/>
+    <rect x="3" y="12" width="3" height="2.1" rx="0.4" fill="#FFF"/>
+    <rect x="3" y="18" width="3" height="2.1" rx="0.4" fill="#FFF"/>
+    <rect x="3" y="24" width="3" height="2.1" rx="0.4" fill="#FFF"/>
+    <rect x="3" y="30" width="3" height="2.1" rx="0.4" fill="#FFF"/>
+    <rect x="39" y="6" width="3" height="2.1" rx="0.4" fill="#FFF"/>
+    <rect x="39" y="12" width="3" height="2.1" rx="0.4" fill="#FFF"/>
+    <rect x="39" y="18" width="3" height="2.1" rx="0.4" fill="#FFF"/>
+    <rect x="39" y="24" width="3" height="2.1" rx="0.4" fill="#FFF"/>
+    <rect x="39" y="30" width="3" height="2.1" rx="0.4" fill="#FFF"/>
+    <text x="22.5" y="24" font-family="Futura, Futura-Bold, Century Gothic, sans-serif" font-size="12" font-weight="700" fill="#FFF" text-anchor="middle" letter-spacing="0.06em">70</text>
+  </g>
+</svg>

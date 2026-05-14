@@ -1,0 +1,14 @@
+<svg viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg">
+  <rect x="12" y="10" width="8" height="5.6" rx="1" fill="#FFFFFF"/>
+  <rect x="12" y="35" width="8" height="5.6" rx="1" fill="#FFFFFF"/>
+  <rect x="12" y="60" width="8" height="5.6" rx="1" fill="#FFFFFF"/>
+  <rect x="12" y="85" width="8" height="5.6" rx="1" fill="#FFFFFF"/>
+  <rect x="12" y="110" width="8" height="5.6" rx="1" fill="#FFFFFF"/>
+  <rect x="300" y="10" width="8" height="5.6" rx="1" fill="#FFFFFF"/>
+  <rect x="300" y="35" width="8" height="5.6" rx="1" fill="#FFFFFF"/>
+  <rect x="300" y="60" width="8" height="5.6" rx="1" fill="#FFFFFF"/>
+  <rect x="300" y="85" width="8" height="5.6" rx="1" fill="#FFFFFF"/>
+  <rect x="300" y="110" width="8" height="5.6" rx="1" fill="#FFFFFF"/>
+  <text x="160" y="55" font-family="Futura, Century Gothic, sans-serif" font-size="38" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.18em">APR 70</text>
+  <text x="160" y="78" font-family="Futura, Century Gothic, sans-serif" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5em">PICTURES</text>
+</svg>

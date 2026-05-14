@@ -1,0 +1,17 @@
+<svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="120" height="100" fill="#000"/>
+  <!-- Left sprocket holes -->
+  <rect x="8" y="16" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+  <rect x="8" y="30" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+  <rect x="8" y="44" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+  <rect x="8" y="58" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+  <rect x="8" y="72" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+  <!-- Right sprocket holes -->
+  <rect x="106" y="16" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+  <rect x="106" y="30" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+  <rect x="106" y="44" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+  <rect x="106" y="58" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+  <rect x="106" y="72" width="6" height="4.2" rx="0.8" fill="#FFF"/>
+  <!-- 70 text - Futura Bold -->
+  <text x="60" y="62" font-family="Futura, Futura-Bold, Century Gothic, sans-serif" font-size="36" font-weight="700" fill="#FFF" text-anchor="middle" letter-spacing="0.12em">70</text>
+</svg>

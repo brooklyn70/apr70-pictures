@@ -104,3 +104,8 @@ Telegram only works when wrapped with `op run --`.
 
 - Branch: main
 - Tip: b0cf8c5
+
+## Auto-stop note (2026-05-14 09:49 UTC)
+
+- Branch: main
+- Tip: fda0439

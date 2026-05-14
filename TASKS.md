@@ -59,7 +59,7 @@ Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainst
 - [x] [p5] [claude] Footer links seeding — read FooterLinks.ts schema, map from footer-more.json, call updateGlobal('footer-links', ..., token) in apply.ts. DONE 2026-05-14.
 - [x] [p5] [cursor+claude] Delete `/test-hero` dev artifact (`web/src/pages/test-hero.astro`). DONE 2026-05-13.
 - [ ] [p5] [gemini] HeroBlock slider island — React + GSAP crossfade. Auto-featured + curated modes.
-- [ ] [p5] [gemini] FilmstripBlock renderer — CSS scroll-snap, perforation bands, keyboard nav, ARIA.
+- [ ] [p5] [gemini] FilmstripBlock renderer — CSS scroll-snap, perforation bands, keyboard nav, ARIA. Reference pack: `docs/reference/filmstrip-research/` (+ README) for sprocket / aspect research before CSS lock-in.
 - [ ] [p5] [requires-gui] Hero + Filmstrip visual QA.
 
 ## Phase 6 — Division Showcase

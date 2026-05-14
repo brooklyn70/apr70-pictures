@@ -65,6 +65,23 @@ Rsync verification, volume layout, and migration script paths live in **`docs/ha
 
 ---
 
+## Gemini — Filmstrip research pack (read before FilmstripBlock)
+
+**Location:** `docs/reference/filmstrip-research/` (see `README.md` in that folder).
+
+Marco’s **filmstrip_research** materials are in-repo: format diagrams (Academy, Super 35, IMAX, 2:1), WebP variants, Kodak PDFs, and a few UI screenshots. Use them to tune perforation pitch, hole proportions, and horizontal rhythm so the block feels authentic without breaking the locked palette or `transition` rules.
+
+**Placement ideas (editor-driven `layout` only):**
+
+- **Project / news bodies:** Stack FilmstripBlock inside the collection `layout` where it reads well (e.g. under hero, between RichText and CTA).
+- **Globals (home, divisions, about, …):** Same block in the global `layout` array for a strip between sections.
+- **Header / footer chrome:** Cross-check with `SiteSettings.showFilmstripRails` and existing `Layout.astro` / footer rails — research can inform CSS, not new hardcoded page shells.
+- **Gallery / slideshow:** If the strip should behave like a gallery, scope interaction inside the block or the existing Hero slider island pattern; avoid a third animation stack beyond GSAP.
+
+Start with the README inventory, then sample the PNG/WebP line art before deep-reading the PDFs (large but high-signal for perforation and safe-area language).
+
+---
+
 ## Verification commands
 
 ```sh

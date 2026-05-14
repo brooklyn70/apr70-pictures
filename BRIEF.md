@@ -1,6 +1,6 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-14 (handoffs archived; current handoff + payload.ts SWR client on main; NAS apply-media if not run)  
+**Updated:** 2026-05-14 (filmstrip research pack in `docs/reference/filmstrip-research/`; Gemini handoff updated)  
 **Handoff:** `docs/handoff/composer-2026-05-14-phase5-next.md`
 **Phase:** 5 in progress — run apply-media on NAS if not done; Gemini blocks next
 **Seeder:** v0.3.2
@@ -57,7 +57,7 @@ Orchestrator container up. Uses 1Password Service Account (cloud-based, works fr
 ## What's next
 
 1. **NAS:** After `git pull`, run `pnpm migrate:v2:apply-media` from `cms-seeder` (same env as apply; `MEDIA_ROOT=/app/media`; `--v2-root /v2-export/content`) to create Media docs and PATCH projects/news layouts. See handoff for the exact `docker compose` one-liner.
-2. **HeroSliderIsland / FilmstripBlock** — `[gemini]` lines in TASKS.md (not Cursor-only).
+2. **HeroSliderIsland / FilmstripBlock** — `[gemini]` lines in TASKS.md (not Cursor-only). Filmstrip visual research: `docs/reference/filmstrip-research/` (see README there).
 3. **Visual QA** — `[requires-gui]` when Gemini/Cursor ship UI changes.
 
 ### Task tags (who owns what)

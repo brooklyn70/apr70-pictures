@@ -72,6 +72,7 @@ services:
       PAYLOAD_SECRET: ${PAYLOAD_SECRET:-dev-change-me}
       NODE_ENV: development
       CMS_URL: http://cms:3000
+      V2_CONTENT_ROOT: /v2-export/content
       PAYLOAD_SEED_EMAIL: ${PAYLOAD_SEED_EMAIL}
       PAYLOAD_SEED_PASSWORD: ${PAYLOAD_SEED_PASSWORD}
     volumes:

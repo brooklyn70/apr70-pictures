@@ -1,7 +1,7 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-14 (payload.ts SWR cache + typed HTTP errors; v2 media apply-media still NAS operator step)  
-**Handoff:** `docs/handoff/composer-2026-05-14-media-migration.md`
+**Updated:** 2026-05-14 (handoffs archived; current handoff + payload.ts SWR client on main; NAS apply-media if not run)  
+**Handoff:** `docs/handoff/composer-2026-05-14-phase5-next.md`
 **Phase:** 5 in progress — run apply-media on NAS if not done; Gemini blocks next
 **Seeder:** v0.3.2
 

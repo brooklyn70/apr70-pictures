@@ -1,6 +1,7 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-14 (v2 media rsync verified on NAS; `migrate:v2:apply-media` CLI for Payload Media + project/news layouts)
+**Updated:** 2026-05-14 (v2 media rsync verified on NAS; `migrate:v2:apply-media` CLI for Payload Media + project/news layouts)  
+**Handoff:** `docs/handoff/composer-2026-05-14-media-migration.md`
 **Phase:** 5 in progress — run apply-media on NAS; payload.ts client; Gemini blocks next
 **Seeder:** v0.3.2
 

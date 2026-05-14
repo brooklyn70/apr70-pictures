@@ -1,0 +1,46 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import FilmstripBlock from '../../components/blocks/FilmstripBlock.astro'
+
+const mockTiles = [
+  { url: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&q=80', alt: 'Test 1', caption: 'Test Reel 1', division: '212' },
+  { url: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&q=80', alt: 'Test 2', caption: 'Test Reel 2', division: '310' },
+  { url: 'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=800&q=80', alt: 'Test 3', caption: 'Test Reel 3', division: 'nrc' },
+  { url: 'https://images.unsplash.com/photo-1542204165-65bf26472b9b?w=800&q=80', alt: 'Test 4', caption: 'Test Reel 4', division: 'none' },
+]
+
+// Mock the block props
+function createBlock(format: string) {
+  return {
+    source: 'custom-media' as const,
+    format: format as any,
+    tiles: mockTiles.map(t => ({
+      media: { url: t.url, alt: t.alt },
+      caption: t.caption,
+      division: t.division,
+    }))
+  }
+}
+---
+
+<Layout title="Dev: Filmstrip Variants">
+  <div style="padding: 40px 0; background: #111;">
+    <h3 style="text-align: center; margin: 2rem 0 1rem; color: #fff; font-family: var(--font-mono); text-transform: uppercase;">Academy (1.37:1) - 310</h3>
+    <FilmstripBlock block={createBlock('academy')} />
+
+    <h3 style="text-align: center; margin: 4rem 0 1rem; color: #fff; font-family: var(--font-mono); text-transform: uppercase;">Super 35 (2.39:1) - 212</h3>
+    <FilmstripBlock block={createBlock('super35')} />
+
+    <h3 style="text-align: center; margin: 4rem 0 1rem; color: #fff; font-family: var(--font-mono); text-transform: uppercase;">2:1 Widescreen - NRC</h3>
+    <FilmstripBlock block={createBlock('widescreen200')} />
+
+    <h3 style="text-align: center; margin: 4rem 0 1rem; color: #fff; font-family: var(--font-mono); text-transform: uppercase;">IMAX (1.43:1)</h3>
+    <FilmstripBlock block={createBlock('imax')} />
+
+    <h3 style="text-align: center; margin: 4rem 0 1rem; color: #fff; font-family: var(--font-mono); text-transform: uppercase;">V2 Header</h3>
+    <FilmstripBlock block={createBlock('v2-header')} />
+
+    <h3 style="text-align: center; margin: 4rem 0 1rem; color: #fff; font-family: var(--font-mono); text-transform: uppercase;">V2 Footer</h3>
+    <FilmstripBlock block={createBlock('v2-footer')} />
+  </div>
+</Layout>

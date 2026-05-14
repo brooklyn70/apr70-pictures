@@ -72,8 +72,7 @@ if (block.source === 'from-projects') {
   }
 }
 
-// Generate plenty of holes for a long scrolling strip (200 is very safe for 8+ tiles)
-const holes = Array.from({ length: 200 })
+const perfsPerFrame = format === 'imax' ? 15 : (format.startsWith('v2-') ? 24 : 4)
 
 function getDivisionClass(div: string) {
   if (div === '212') return 'text-212'
@@ -81,6 +80,8 @@ function getDivisionClass(div: string) {
   if (div === 'nrc') return 'text-nrc'
   return ''
 }
+
+const numLeaders = 8; // 8 blank frames of leader at start and end
 ---
 
 <section 
@@ -93,105 +94,142 @@ function getDivisionClass(div: string) {
   <div class="scroll-window" tabindex="0" role="group" aria-label="Slides">
     <div class="filmstrip-physical">
       
-      {/* Top Edge / Perfs */}
-      {showPerfs && format !== 'v2-header' && format !== 'v2-footer' && (
+      {/* Top Edge Layer */}
+      {showPerfs && !format.startsWith('v2-') && (
         <div class="edge-layer edge-top" aria-hidden="true">
           <div class="edge-gradient"></div>
-          <div class="edge-codes">
-            {format === 'super35' && (
-              <>
-                <span class="code code-yellow" style="margin-left: 20vw;">KODAK 500T 5219</span>
-                <span class="code code-yellow" style="margin-left: 40vw;">KODAK 500T 5219</span>
-                <span class="code code-yellow" style="margin-left: 40vw;">KODAK 500T 5219</span>
-                <div class="edge-stripe edge-stripe-orange"></div>
-                <div class="edge-stripe edge-stripe-white"></div>
-              </>
+        </div>
+      )}
+
+      {/* Unified Film Track */}
+      <div class="film-track">
+        
+        {/* Head Leader */}
+        {!format.startsWith('v2-') && Array.from({ length: numLeaders }).map((_, lIdx) => (
+          <div class="film-segment leader-segment">
+            {showPerfs && (
+              <div class="perf-row top">
+                {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+              </div>
             )}
-            {format === 'imax' && (
-              <>
-                <span class="code code-cyan" style="margin-left: 15vw;">EASTMAN 5243 039 02401 191 110</span>
-                <span class="code code-cyan" style="margin-left: 40vw;">EASTMAN 5243 039 02401 191 110</span>
-                <span class="code code-cyan" style="margin-left: 40vw;">EASTMAN 5243 039 02401 191 110</span>
-              </>
+            <div class="tile-frame leader-frame">
+              {lIdx < 8 && <div class="countdown-text">{8 - lIdx}</div>}
+            </div>
+            {showPerfs && (
+              <div class="perf-row bottom">
+                {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+              </div>
             )}
           </div>
-        </div>
-      )}
+        ))}
 
-      {showPerfs && (
-        <div class="perf-row" aria-hidden="true">
-          {holes.map(() => <div class="perf-hole" />)}
-        </div>
-      )}
+        {/* Frames */}
+        {computedTiles.map((tile, i) => {
+          const Element = tile.href ? 'a' : 'div'
+          return (
+            <Element
+              class={`film-segment filmstrip-tile ${format.startsWith('v2-') ? 'v2-segment' : ''}`}
+              href={tile.href}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${i + 1} of ${computedTiles.length}`}
+            >
+              {/* Top Perfs & Edge Codes */}
+              {showPerfs && (
+                <div class="perf-row top">
+                  {/* Top Edge Codes injected here to sync perfectly with the frame */}
+                  {!format.startsWith('v2-') && (
+                    <div class="edge-code-container top">
+                      {format === 'super35' && i % 2 === 0 && (
+                        <>
+                          <span class="code code-yellow">KODAK 500T 5219 {83210 + i}</span>
+                          <div class="edge-stripe edge-stripe-orange"></div>
+                          <div class="edge-stripe edge-stripe-white"></div>
+                        </>
+                      )}
+                      {format === 'imax' && i % 2 === 0 && (
+                        <span class="code code-cyan">EASTMAN 5243 039 02401 {191 + i} 110</span>
+                      )}
+                    </div>
+                  )}
+                  {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+                </div>
+              )}
 
-      {/* Optical Track (e.g. Academy) */}
-      {format === 'academy' && (
-        <div class="optical-track-container" aria-hidden="true">
-          <div class="optical-track"></div>
-        </div>
-      )}
-
-      {/* Frame Row */}
-      {!format.startsWith('v2-') && (
-        <div class="frame-row">
-          {computedTiles.map((tile, i) => {
-            const Element = tile.href ? 'a' : 'div'
-            return (
-              <Element
-                class="filmstrip-tile"
-                href={tile.href}
-                role="group"
-                aria-roledescription="slide"
-                aria-label={`${i + 1} of ${computedTiles.length}`}
-              >
+              {/* The Frame */}
+              {!format.startsWith('v2-') && (
                 <div class="tile-frame">
                   <img src={tile.url} alt={tile.alt} loading="lazy" />
                   <div class="wireframe-cross"></div>
                 </div>
-                <div class="tile-meta">
-                  {tile.caption && <span class="tile-caption">{tile.caption}</span>}
-                  {tile.division !== 'none' && (
-                    <span class={`tile-division ${getDivisionClass(tile.division)}`}>{tile.division.toUpperCase()}</span>
+              )}
+
+              {/* Bottom Perfs & Edge Codes */}
+              {showPerfs && (
+                <div class="perf-row bottom">
+                  {!format.startsWith('v2-') && (
+                    <div class="edge-code-container bottom">
+                      {format === 'academy' && i % 2 === 0 && (
+                        <span class="code code-grey">SAFETY FILM A {1000 + i}</span>
+                      )}
+                      {format === 'widescreen200' && i % 2 === 0 && (
+                        <span class="code code-maroon">ANSCO COLOR 848 {10 + i}</span>
+                      )}
+                      {format === 'imax' && i % 2 === 0 && (
+                        <span class="code code-cyan">EV 93 4554 {4690 + i}+40• <span class="barcode">{i % 3 === 0 ? '||| || ||| ||' : '||| | ||| |||'}</span></span>
+                      )}
+                    </div>
                   )}
+                  {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
                 </div>
-              </Element>
-            )
-          })}
-        </div>
-      )}
+              )}
+            </Element>
+          )
+        })}
 
-      {/* Bottom Perfs */}
-      {showPerfs && format !== 'v2-header' && format !== 'v2-footer' && (
-        <div class="perf-row" aria-hidden="true">
-          {holes.map(() => <div class="perf-hole" />)}
-        </div>
-      )}
-
-      {/* Bottom Edge */}
-      {showPerfs && format !== 'v2-header' && format !== 'v2-footer' && (
-        <div class="edge-layer edge-bottom" aria-hidden="true">
-          <div class="edge-gradient"></div>
-          <div class="edge-codes">
-            {format === 'academy' && (
-              <>
-                <span class="code code-grey" style="margin-left: 20vw;">SAFETY FILM</span>
-                <span class="code code-grey" style="margin-left: 50vw;">SAFETY FILM</span>
-              </>
+        {/* Tail Leader */}
+        {!format.startsWith('v2-') && Array.from({ length: numLeaders }).map((_, lIdx) => (
+          <div class="film-segment leader-segment">
+            {showPerfs && (
+              <div class="perf-row top">
+                {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+              </div>
             )}
-            {format === 'widescreen200' && (
-              <>
-                <span class="code code-maroon" style="margin-left: 10vw;">ANSCO COLOR 848</span>
-                <span class="code code-maroon" style="margin-left: 35vw;">ANSCO COLOR 848</span>
-                <span class="code code-maroon" style="margin-left: 35vw;">ANSCO COLOR 848</span>
-              </>
-            )}
-            {format === 'imax' && (
-              <>
-                <span class="code code-cyan" style="margin-left: 25vw;">EV 93 4554 4694+40• <span class="barcode">||| || ||| ||</span></span>
-                <span class="code code-cyan" style="margin-left: 45vw;">EV 93 4554 4695+40• <span class="barcode">||| || ||| ||</span></span>
-              </>
+            <div class="tile-frame leader-frame">
+              {lIdx === 0 && <div class="countdown-text" style="font-size: 1rem;">PICTURE START</div>}
+            </div>
+            {showPerfs && (
+              <div class="perf-row bottom">
+                {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+              </div>
             )}
           </div>
+        ))}
+
+      </div>
+
+      {/* Meta Track (Titles beneath the film strip) */}
+      {!format.startsWith('v2-') && (
+        <div class="meta-track">
+          {/* Pad the meta track to align with the first actual frame */}
+          <div class="meta-segment" style={`width: calc((${numLeaders} * (var(--frame-w) + var(--frame-gap))) - var(--frame-gap))`}></div>
+          {computedTiles.map((tile) => (
+            <div class="meta-segment">
+              <div class="tile-meta">
+                {tile.caption && <span class="tile-caption">{tile.caption}</span>}
+                {tile.division !== 'none' && (
+                  <span class={`tile-division ${getDivisionClass(tile.division)}`}>{tile.division.toUpperCase()}</span>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Bottom Edge Layer */}
+      {showPerfs && !format.startsWith('v2-') && (
+        <div class="edge-layer edge-bottom" aria-hidden="true">
+          <div class="edge-gradient"></div>
         </div>
       )}
 
@@ -205,31 +243,30 @@ function getDivisionClass(div: string) {
     overflow: hidden;
     padding: var(--s-7) 0;
     
-    /* Default variables (Super 35) */
-    --aspect: 2.39 / 1;
+    /* Default variables (35mm: Academy, Super35, Widescreen) */
+    --perfs: 4;
     --hole-w: clamp(8px, 1.2vw, 14px);
     --hole-h: clamp(16px, 2.5vw, 24px);
     --hole-gap: clamp(16px, 2vw, 32px);
+    --perf-pitch: calc(var(--hole-w) + var(--hole-gap));
+    --segment-w: calc(var(--perf-pitch) * var(--perfs));
+    --frame-gap: 4px; /* Frame lines thickness */
     --band-h: 32px;
     --hole-radius: var(--r-hole);
     --border-color: var(--rule);
-    --frame-gap: 4px; /* Frame lines thickness */
   }
 
   /* Format Overrides */
   .filmstrip-block[data-format="academy"] {
-    --aspect: 1.37 / 1;
     --frame-gap: 6px;
   }
 
   .filmstrip-block[data-format="widescreen200"] {
-    --aspect: 2.00 / 1;
     --hole-h: clamp(14px, 2vw, 20px);
-    --frame-gap: 4px;
   }
 
   .filmstrip-block[data-format="imax"] {
-    --aspect: 1.43 / 1;
+    --perfs: 15;
     --hole-w: clamp(12px, 1.8vw, 18px);
     --hole-h: clamp(18px, 2.8vw, 28px);
     --hole-gap: clamp(24px, 3vw, 40px);
@@ -240,6 +277,7 @@ function getDivisionClass(div: string) {
 
   .filmstrip-block[data-format="v2-header"],
   .filmstrip-block[data-format="v2-footer"] {
+    --perfs: 24;
     --hole-w: 13px;
     --hole-h: 9px;
     --hole-gap: 16px;
@@ -256,7 +294,6 @@ function getDivisionClass(div: string) {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    /* Soft fade at the edges of the window */
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
     mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
     padding: 0 var(--pad-x);
@@ -302,8 +339,6 @@ function getDivisionClass(div: string) {
     position: relative;
     height: 16px;
     width: 100%;
-    display: flex;
-    align-items: center;
     overflow: hidden;
   }
 
@@ -340,13 +375,21 @@ function getDivisionClass(div: string) {
   }
 
   /* Edge Codes */
-  .edge-codes {
-    position: relative;
+  .edge-code-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
     display: flex;
     align-items: center;
     z-index: 2;
     white-space: nowrap;
+    pointer-events: none;
   }
+  
+  .edge-code-container.top { top: -16px; bottom: auto; height: 16px; }
+  .edge-code-container.bottom { bottom: -16px; top: auto; height: 16px; }
 
   .code {
     font-family: var(--font-mono);
@@ -354,6 +397,7 @@ function getDivisionClass(div: string) {
     letter-spacing: var(--track-strip);
     opacity: 0.9;
     text-transform: uppercase;
+    margin-left: 20%; /* Offset into the frame */
   }
   .code-yellow { color: #ffd54f; }
   .code-cyan { color: #00e5ff; }
@@ -372,24 +416,51 @@ function getDivisionClass(div: string) {
     bottom: 0;
   }
   .edge-stripe-orange {
-    left: 4px;
+    left: 0px;
     width: 6px;
     background: #ff5722;
   }
   .edge-stripe-white {
-    left: 12px;
+    left: 8px;
     width: 2px;
     background: #fff;
     opacity: 0.9;
   }
 
-  /* Perfs */
+  /* Film Track & Segments */
+  .film-track {
+    display: flex;
+    background: #020202; /* The frame lines will be this color */
+    padding: 0 5vw;
+  }
+
+  .filmstrip-block[data-format="v2-header"] .film-track,
+  .filmstrip-block[data-format="v2-footer"] .film-track {
+    padding: var(--s-3) var(--pad-x);
+    background: transparent;
+  }
+
+  .film-segment {
+    width: var(--segment-w);
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    scroll-snap-align: center;
+    text-decoration: none;
+    color: var(--fg-1);
+    outline: none;
+  }
+
+  /* Perfs inside segment */
   .perf-row {
     display: flex;
     align-items: center;
     height: var(--band-h);
     gap: var(--hole-gap);
-    padding: 0 calc(var(--hole-gap) * 2); /* Start holes slightly inset */
+    width: var(--segment-w);
+    position: relative;
+    /* Since width is exact and flex items leave a remainder on the right equal to var(--hole-gap), it sequences perfectly! */
   }
 
   .perf-hole {
@@ -409,55 +480,39 @@ function getDivisionClass(div: string) {
     border: 1.5px solid var(--border-color);
   }
 
-  /* Optical Track */
-  .optical-track-container {
-    width: 100%;
-    height: 12px;
-    position: relative;
-    overflow: hidden;
-  }
-  .optical-track {
-    width: 100%;
-    height: 100%;
-    background-image: 
-      repeating-linear-gradient(90deg, 
-        #000, #000 2px, 
-        transparent 2px, transparent 4px),
-      repeating-linear-gradient(90deg, 
-        transparent, transparent 1px, 
-        #000 1px, #000 3px);
-    background-position: 0 2px, 0 6px;
-    background-size: 10px 4px, 14px 4px;
-    background-repeat: repeat-x;
-    opacity: 0.8;
-  }
-
-  /* Frames */
-  .frame-row {
-    display: flex;
-    gap: var(--frame-gap); /* Black frame lines */
-    background: #020202; /* Frame line color */
-    padding: 0 calc(var(--hole-gap) * 10); /* Film Leader padding */
-  }
-
-  .filmstrip-tile {
-    flex-shrink: 0;
-    width: clamp(280px, 45vw, 600px);
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    color: var(--fg-1);
-    outline: none;
-    scroll-snap-align: center;
-  }
-
+  /* Frames inside segment */
   .tile-frame {
     position: relative;
-    width: 100%;
-    aspect-ratio: var(--aspect); 
+    width: calc(var(--segment-w) - var(--frame-gap));
+    /* Deriving height from the fixed perfect width! */
+    height: calc((var(--segment-w) - var(--frame-gap)) / var(--aspect)); 
     overflow: hidden;
     background: #111;
     border-radius: 2px;
+    margin-right: var(--frame-gap); /* This right margin acts as the black frame line! */
+  }
+
+  /* Fallback for aspect since CSS calc with division by variable is tricky if aspect is not purely a number. 
+     Wait, --aspect is e.g. "2.39 / 1" which doesn't work in calc(). 
+     Let's use aspect-ratio instead! */
+  .tile-frame {
+    height: auto;
+    aspect-ratio: var(--aspect);
+  }
+
+  .leader-frame {
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .countdown-text {
+    font-family: var(--font-mono);
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.2);
+    font-weight: bold;
+    letter-spacing: 2px;
   }
 
   .wireframe-cross {
@@ -490,11 +545,23 @@ function getDivisionClass(div: string) {
     outline-offset: 4px;
   }
 
+  /* Meta Track */
+  .meta-track {
+    display: flex;
+    padding: 0 5vw;
+  }
+  
+  .meta-segment {
+    width: var(--segment-w);
+    flex-shrink: 0;
+  }
+
   .tile-meta {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: var(--s-3);
+    margin-right: var(--frame-gap);
     gap: var(--s-3);
   }
 

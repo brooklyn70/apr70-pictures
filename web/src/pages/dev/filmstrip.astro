@@ -2,16 +2,10 @@
 import Layout from '../../layouts/Layout.astro'
 import FilmstripBlock from '../../components/blocks/FilmstripBlock.astro'
 
-const mockTiles = [
-  { caption: 'FRAME 01', division: '212' },
-  { caption: 'FRAME 02', division: '310' },
-  { caption: 'FRAME 03', division: 'nrc' },
-  { caption: 'FRAME 04', division: 'none' },
-  { caption: 'FRAME 05', division: '212' },
-  { caption: 'FRAME 06', division: '310' },
-  { caption: 'FRAME 07', division: 'nrc' },
-  { caption: 'FRAME 08', division: 'none' },
-]
+const mockTiles = Array.from({ length: 30 }).map((_, i) => ({
+  caption: `FRAME ${String(i + 1).padStart(2, '0')}`,
+  division: ['212', '310', 'nrc', 'none'][i % 4],
+}))
 
 // Mock the block props
 function createBlock(format: string) {

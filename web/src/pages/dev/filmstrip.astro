@@ -3,10 +3,10 @@ import Layout from '../../layouts/Layout.astro'
 import FilmstripBlock from '../../components/blocks/FilmstripBlock.astro'
 
 const mockTiles = [
-  { url: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&q=80', alt: 'Test 1', caption: 'Test Reel 1', division: '212' },
-  { url: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&q=80', alt: 'Test 2', caption: 'Test Reel 2', division: '310' },
-  { url: 'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=800&q=80', alt: 'Test 3', caption: 'Test Reel 3', division: 'nrc' },
-  { url: 'https://images.unsplash.com/photo-1542204165-65bf26472b9b?w=800&q=80', alt: 'Test 4', caption: 'Test Reel 4', division: 'none' },
+  { caption: 'FRAME 01', division: '212' },
+  { caption: 'FRAME 02', division: '310' },
+  { caption: 'FRAME 03', division: 'nrc' },
+  { caption: 'FRAME 04', division: 'none' },
 ]
 
 // Mock the block props
@@ -15,7 +15,7 @@ function createBlock(format: string) {
     source: 'custom-media' as const,
     format: format as any,
     tiles: mockTiles.map(t => ({
-      media: { url: t.url, alt: t.alt },
+      media: { url: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', alt: 'Wireframe' },
       caption: t.caption,
       division: t.division,
     }))

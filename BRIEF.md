@@ -1,7 +1,7 @@
 # BRIEF — apr70-pictures (v3)
 
 **Updated:** 2026-05-14 (FilmstripBlock physical zoning, authentic KeyKode typesetting, and visual QA locked).
-**Handoff:** `docs/handoff/composer-2026-05-14-phase5-next.md`
+**Handoff:** `docs/handoff/gemini-2026-05-14-phase5-hero-slider.md`
 **Phase:** 5 in progress — run apply-media on NAS if not done; Gemini Hero Slider next.
 **Seeder:** v0.3.2
 

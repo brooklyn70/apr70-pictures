@@ -1,89 +1,20 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   viewBox="0 0 500 500"
-   aria-label="New Renaissance Cinema v2 — monogram + stacked wordmark"
-   version="1.1"
-   id="svg1"
-   sodipodi:docname="v2_wordmark_monogram.svg"
-   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs1" />
-  <sodipodi:namedview
-     id="namedview1"
-     pagecolor="#505050"
-     bordercolor="#ffffff"
-     borderopacity="1"
-     inkscape:showpageshadow="0"
-     inkscape:pageopacity="0"
-     inkscape:pagecheckerboard="1"
-     inkscape:deskcolor="#505050"
-     inkscape:zoom="1.552"
-     inkscape:cx="250"
-     inkscape:cy="249.67784"
-     inkscape:window-width="3207"
-     inkscape:window-height="1186"
-     inkscape:window-x="0"
-     inkscape:window-y="30"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="svg1" />
-  <title
-     id="title1">NRC — v2 Monogram  Wordmark</title>
-  <desc
-     id="desc1">Vertical lockup. The &quot;NRC&quot; monogram dominates; the full name &quot;NEW RENAISSANCE CINEMA&quot; sits beneath as a single tracked line. Cleaner, more contemporary than v1's crest.</desc>
-  <!-- NRC monogram — huge, off-center to the right slightly (the "falling forward" quirk from 212 v1) -->
-  <g
-     id="monogram"
-     font-family="Futura Std, Futura, Arial Black, sans-serif"
-     stroke="none">
-    <text
-       id="letter-N"
-       x="105"
-       y="270"
-       font-weight="900"
-       font-size="180"
-       letter-spacing="-10"
-       fill="#C8C8C8">N</text>
-    <text
-       id="letter-R"
-       x="225"
-       y="270"
-       font-weight="900"
-       font-size="180"
-       letter-spacing="-10"
-       fill="#001F3F">R</text>
-    <text
-       id="letter-C"
-       x="345"
-       y="270"
-       font-weight="900"
-       font-size="180"
-       letter-spacing="-10"
-       fill="#C8C8C8">C</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" aria-label="New Renaissance Cinema v2 — monogram + stacked wordmark">
+  <title>NRC v2 — Monogram and Wordmark</title>
+  <desc>Vertical lockup. The NRC monogram dominates; the full name NEW RENAISSANCE CINEMA sits beneath as a single tracked line. EST line in Share Tech Mono as a slate-card meta footer.</desc>
+
+  <!-- NRC monogram — huge, center R in navy as the accent -->
+  <g id="monogram" font-family="Futura Std, Futura, Arial Black, sans-serif" stroke="none">
+    <text id="letter-N" x="105" y="270" font-weight="900" font-size="180" letter-spacing="-10" fill="#C8C8C8">N</text>
+    <text id="letter-R" x="225" y="270" font-weight="900" font-size="180" letter-spacing="-10" fill="#001F3F">R</text>
+    <text id="letter-C" x="345" y="270" font-weight="900" font-size="180" letter-spacing="-10" fill="#C8C8C8">C</text>
   </g>
-  <!-- Single hairline rule beneath the monogram — editorial device -->
-  <line
-     id="rule"
-     x1="105"
-     y1="305"
-     x2="455"
-     y2="305"
-     stroke="#C8C8C8"
-     stroke-width="1.5" />
+
+  <!-- Hairline rule beneath the monogram — editorial device -->
+  <line id="rule" x1="105" y1="305" x2="455" y2="305" stroke="#C8C8C8" stroke-width="1.5"/>
+
   <!-- Full company name — set wide, tight tracking, all caps -->
-  <text
-     id="company-name"
-     x="280"
-     y="345"
-     font-family="Futura Std, Futura, Arial, sans-serif"
-     font-weight="700"
-     font-size="22"
-     letter-spacing="8"
-     text-anchor="middle"
-     fill="#C8C8C8"
-     stroke="none">NEW RENAISSANCE CINEMA</text>
-  <!-- Establishment line in mono, very small, slate-card style -->
+  <text id="company-name" x="280" y="345" font-family="Futura Std, Futura, Arial, sans-serif" font-weight="700" font-size="22" letter-spacing="8" text-anchor="middle" fill="#C8C8C8" stroke="none">NEW RENAISSANCE CINEMA</text>
+
+  <!-- Slate-card meta footer in Share Tech Mono -->
+  <text id="established" x="280" y="380" font-family="Share Tech Mono, Courier New, monospace" font-size="12" letter-spacing="6" text-anchor="middle" fill="#001F3F" stroke="none">EST · MMXXVI · NEW YORK</text>
 </svg>

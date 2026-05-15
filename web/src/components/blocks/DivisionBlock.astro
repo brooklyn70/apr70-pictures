@@ -1,9 +1,11 @@
 ---
 /**
  * DivisionBlock.astro — Division Showcase renderer.
- * Currently renders Variant 0 (v2-faithful baseline: stacked rows with ghost numerals).
- * Variants 1-4 will be built during Phase 5.
+ * Supports 5 visual variants (v0 - v4) for Phase 6.
  */
+import DivisionAccordionIsland from '../islands/DivisionAccordionIsland'
+import { resolveMediaUrl } from '../../lib/payload'
+
 interface Division {
   name: string
   colorToken: string
@@ -22,76 +24,220 @@ interface Props {
 }
 
 const { block } = Astro.props
+const variant = block.variant ?? 'v0-baseline'
 const divisions = block.divisions ?? []
 
-/** Map token keys to CSS variable references */
 function tokenToVar(token: string): string {
   return `var(--color-${token})`
 }
 ---
 
-<section class="division-showcase">
-  {block.heading && (
-    <div class="division-header container">
-      <h2 class="h2" set:html={block.heading.replace(/\n/g, '<br />')} />
-      {block.subtext && (
-        <p class="body-lg" set:html={block.subtext.replace(/\n/g, '<br />')} />
-      )}
-    </div>
-  )}
+{variant === 'v0-baseline' && (
+  <section class="division-showcase v0-baseline">
+    {block.heading && (
+      <div class="division-header container">
+        <h2 class="h2" set:html={block.heading.replace(/\n/g, '<br />')} />
+        {block.subtext && (
+          <p class="body-lg" set:html={block.subtext.replace(/\n/g, '<br />')} />
+        )}
+      </div>
+    )}
 
-  <div class="division-rows container">
-    {divisions.map((div, i) => {
-      const num = String(i + 1).padStart(2, '0')
-      const color = tokenToVar(div.colorToken)
-      return (
-        <div class="division-row" style={`--div-color: ${color}`}>
-          {/* Ghost numeral */}
-          <span class="ghost-num" aria-hidden="true">{num}</span>
-
-          <div class="division-content">
-            <span class="eyebrow">{num}</span>
-            <h3 class="division-name" style={`color: ${color}`}>{div.name}</h3>
-            {div.subtitle && <span class="division-subtitle">{div.subtitle}</span>}
-            {div.description && (
-              <p class="division-desc" set:html={div.description.replace(/\n/g, '<br />')} />
-            )}
+    <div class="division-rows container">
+      {divisions.map((div, i) => {
+        const num = String(i + 1).padStart(2, '0')
+        const color = tokenToVar(div.colorToken)
+        return (
+          <div class="division-row" style={`--div-color: ${color}`}>
+            <span class="ghost-num" aria-hidden="true">{num}</span>
+            <div class="division-content">
+              <span class="eyebrow">{num}</span>
+              <h3 class="division-name" style={`color: ${color}`}>{div.name}</h3>
+              {div.subtitle && <span class="division-subtitle">{div.subtitle}</span>}
+              {div.description && (
+                <p class="division-desc" set:html={div.description.replace(/\n/g, '<br />')} />
+              )}
+            </div>
           </div>
-        </div>
-      )
-    })}
+        )
+      })}
+    </div>
+  </section>
+)}
+
+{variant === 'v1-accordion' && (
+  <div class="v1-accordion-wrapper">
+    <DivisionAccordionIsland client:visible block={block} />
   </div>
-</section>
+)}
+
+{variant === 'v2-cards' && (
+  <section class="division-showcase v2-cards">
+    {block.heading && (
+      <div class="division-header container">
+        <h2 class="h2" set:html={block.heading.replace(/\n/g, '<br />')} />
+        {block.subtext && (
+          <p class="body-lg" set:html={block.subtext.replace(/\n/g, '<br />')} />
+        )}
+      </div>
+    )}
+
+    <div class="cards-scroll-container">
+      <div class="cards-track">
+        {divisions.map((div, i) => {
+          const num = String(i + 1).padStart(2, '0')
+          const color = tokenToVar(div.colorToken)
+          const mediaSrc = resolveMediaUrl(div.media)
+          return (
+            <div class="division-card" style={`--div-color: ${color}; border-top: 4px solid ${color};`}>
+              <div class="card-inner">
+                <span class="eyebrow">{num}</span>
+                <h3 class="division-name" style={`color: ${color}`}>{div.name}</h3>
+                {div.subtitle && <span class="division-subtitle">{div.subtitle}</span>}
+                {div.description && (
+                  <p class="division-desc" set:html={div.description.replace(/\n/g, '<br />')} />
+                )}
+                {mediaSrc && (
+                   <img src={mediaSrc} alt={div.media?.alt || div.name} class="card-media" loading="lazy" />
+                )}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  </section>
+)}
+
+{variant === 'v3-split' && (
+  <section class="division-showcase v3-split container">
+    <div class="split-layout">
+      <div class="split-left">
+        <div class="sticky-header">
+          {block.heading && (
+            <h2 class="h2" set:html={block.heading.replace(/\n/g, '<br />')} />
+          )}
+          {block.subtext && (
+            <p class="body-lg" set:html={block.subtext.replace(/\n/g, '<br />')} />
+          )}
+        </div>
+      </div>
+      <div class="split-right">
+        {divisions.map((div, i) => {
+          const num = String(i + 1).padStart(2, '0')
+          const color = tokenToVar(div.colorToken)
+          return (
+            <div class="split-panel">
+              <span class="eyebrow" style={`color: ${color}`}>{num}</span>
+              <h3 class="division-name" style={`color: ${color}`}>{div.name}</h3>
+              {div.subtitle && <span class="division-subtitle">{div.subtitle}</span>}
+              {div.description && (
+                <p class="division-desc" set:html={div.description.replace(/\n/g, '<br />')} />
+              )}
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  </section>
+)}
+
+{variant === 'v4-timeline' && (
+  <section class="division-showcase v4-timeline container">
+    {block.heading && (
+      <div class="division-header" style="text-align: center;">
+        <h2 class="h2" set:html={block.heading.replace(/\n/g, '<br />')} />
+        {block.subtext && (
+          <p class="body-lg" set:html={block.subtext.replace(/\n/g, '<br />')} />
+        )}
+      </div>
+    )}
+
+    <div class="timeline-container">
+      <div class="timeline-spine"></div>
+      {divisions.map((div, i) => {
+        const num = String(i + 1).padStart(2, '0')
+        const color = tokenToVar(div.colorToken)
+        const isEven = i % 2 === 0
+        return (
+          <div class={`timeline-node ${isEven ? 'node-left' : 'node-right'}`}>
+            <div class="timeline-dot" style={`background-color: ${color}`}></div>
+            <div class="timeline-content">
+              <span class="eyebrow" style={`color: ${color}`}>{num}</span>
+              <h3 class="division-name" style={`color: ${color}`}>{div.name}</h3>
+              {div.subtitle && <span class="division-subtitle">{div.subtitle}</span>}
+              {div.description && (
+                <p class="division-desc" set:html={div.description.replace(/\n/g, '<br />')} />
+              )}
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  </section>
+)}
 
 <style>
+  /* Base styles */
   .division-showcase {
     padding: var(--s-9) 0;
   }
-
   .division-header {
     text-align: center;
     margin-bottom: var(--s-9);
   }
-
   .division-header .body-lg {
     max-width: 640px;
     margin: var(--s-5) auto 0;
     color: var(--fg-3);
   }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--fg-4);
+    display: block;
+    margin-bottom: var(--s-3);
+  }
+  .division-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.75rem, 4vw, 3rem);
+    line-height: 1;
+    letter-spacing: var(--track-tight);
+    margin-bottom: var(--s-4);
+    text-transform: uppercase;
+  }
+  .division-subtitle {
+    display: block;
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: clamp(0.8125rem, 1vw, 0.875rem);
+    color: var(--fg-4);
+    letter-spacing: var(--track-wide);
+    text-transform: uppercase;
+    margin-bottom: var(--s-5);
+  }
+  .division-desc {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: clamp(1rem, 1.3vw, 1.125rem);
+    color: var(--fg-2);
+    line-height: 1.72;
+    max-width: 620px;
+  }
 
-  .division-rows {
+  /* v0 Baseline */
+  .v0-baseline .division-rows {
     display: flex;
     flex-direction: column;
   }
-
-  .division-row {
+  .v0-baseline .division-row {
     position: relative;
     border-top: 1px solid var(--rule);
     padding: var(--s-9) 0;
     overflow: hidden;
   }
-
-  .ghost-num {
+  .v0-baseline .ghost-num {
     position: absolute;
     right: 0;
     top: 50%;
@@ -105,39 +251,154 @@ function tokenToVar(token: string): string {
     pointer-events: none;
     user-select: none;
   }
-
-  .division-content {
+  .v0-baseline .division-content {
     position: relative;
     max-width: 780px;
   }
 
-  .division-name {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(1.75rem, 4vw, 3rem);
-    line-height: 1;
-    letter-spacing: var(--track-tight);
-    margin-bottom: var(--s-4);
-    text-transform: uppercase;
+  /* v1 Accordion wrapper */
+  .v1-accordion-wrapper {
+    padding: var(--s-9) 0;
   }
 
-  .division-subtitle {
-    display: block;
-    font-family: var(--font-body);
-    font-weight: 300;
-    font-size: clamp(0.8125rem, 1vw, 0.875rem);
-    color: var(--fg-4);
-    letter-spacing: var(--track-wide);
-    text-transform: uppercase;
-    margin-bottom: var(--s-5);
+  /* v2 Cards */
+  .v2-cards {
+    overflow: hidden;
+  }
+  .cards-scroll-container {
+    width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding: 0 var(--s-4) var(--s-6) var(--s-4);
+  }
+  .cards-scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+  .cards-track {
+    display: flex;
+    gap: var(--s-6);
+    width: max-content;
+    padding: 0 calc(50vw - 320px);
+  }
+  @media (max-width: 768px) {
+    .cards-track {
+      padding: 0 var(--s-4);
+    }
+  }
+  .division-card {
+    scroll-snap-align: center;
+    background: var(--bg-2);
+    width: 80vw;
+    max-width: 480px;
+    border-radius: 4px;
+    padding: var(--s-7);
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-media {
+    margin-top: var(--s-6);
+    width: 100%;
+    height: auto;
+    border-radius: 2px;
+    object-fit: cover;
+    aspect-ratio: 16/9;
   }
 
-  .division-desc {
-    font-family: var(--font-body);
-    font-weight: 300;
-    font-size: clamp(1rem, 1.3vw, 1.125rem);
-    color: var(--fg-2);
-    line-height: 1.72;
-    max-width: 620px;
+  /* v3 Split */
+  .split-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-8);
+  }
+  @media (min-width: 900px) {
+    .split-layout {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-11);
+    }
+  }
+  .sticky-header {
+    position: sticky;
+    top: 120px;
+    padding-bottom: var(--s-8);
+  }
+  .split-panel {
+    padding: var(--s-8) 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .split-panel:first-child {
+    padding-top: 0;
+  }
+  .split-panel:last-child {
+    border-bottom: none;
+  }
+
+  /* v4 Timeline */
+  .timeline-container {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: var(--s-9) 0;
+  }
+  .timeline-spine {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    width: 2px;
+    background: var(--rule);
+  }
+  @media (min-width: 768px) {
+    .timeline-spine {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  .timeline-node {
+    position: relative;
+    margin-bottom: var(--s-9);
+    width: 100%;
+    display: flex;
+  }
+  .timeline-dot {
+    position: absolute;
+    left: 15px;
+    top: 24px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    z-index: 2;
+  }
+  .timeline-content {
+    margin-left: 50px;
+    width: calc(100% - 50px);
+    background: var(--bg-2);
+    padding: var(--s-7);
+    border-radius: 4px;
+  }
+  @media (min-width: 768px) {
+    .node-left, .node-right {
+      width: 50%;
+    }
+    .node-left {
+      justify-content: flex-end;
+      padding-right: 40px;
+    }
+    .node-right {
+      margin-left: 50%;
+      padding-left: 40px;
+    }
+    .node-left .timeline-content, .node-right .timeline-content {
+      margin-left: 0;
+      width: 100%;
+    }
+    .node-left .timeline-dot {
+      left: auto;
+      right: -6px;
+    }
+    .node-right .timeline-dot {
+      left: -6px;
+    }
   }
 </style>

@@ -1,0 +1,84 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import DivisionBlock from '../../components/blocks/DivisionBlock.astro'
+
+// Mock Data for the Division Showcase
+const mockDivisions = [
+  {
+    name: '(212) Pictures',
+    colorToken: '212-amber',
+    subtitle: 'Narrative Features & Television',
+    description: 'Specializing in independent storytelling with an emphasis on character-driven narratives.',
+  },
+  {
+    name: '310 IMAX',
+    colorToken: '310-imax',
+    subtitle: 'Large Format Documentaries',
+    description: 'Creating immersive, larger-than-life non-fiction experiences for giant screens.',
+  },
+  {
+    name: 'NRC',
+    colorToken: 'nrc-navy',
+    subtitle: 'Commercial & Branded Content',
+    description: 'Partnering with global brands to deliver high-end cinematic commercials.',
+  }
+]
+
+const variants = ['v0-baseline', 'v1-accordion', 'v2-cards', 'v3-split', 'v4-timeline']
+
+const createMockBlock = (variant: string) => ({
+  blockType: 'divisionShowcase',
+  variant,
+  heading: `Division Showcase\n${variant.toUpperCase()}`,
+  subtext: 'Exploring the different visual variants of the Division Showcase block.',
+  divisions: mockDivisions,
+})
+---
+
+<Layout title="Division Variants Preview">
+  <main class="variants-main">
+    <div class="container variants-intro">
+      <h1 class="h1">Division Showcase Variants</h1>
+      <p class="body-lg">Preview of all 5 division showcase layouts implemented in Phase 6.</p>
+    </div>
+
+    {variants.map((variant) => (
+      <div class="variant-wrapper">
+        <div class="container">
+          <div class="variant-label">{variant}</div>
+        </div>
+        <DivisionBlock block={createMockBlock(variant) as any} />
+      </div>
+    ))}
+  </main>
+</Layout>
+
+<style>
+  .variants-main {
+    padding-top: var(--s-11);
+    padding-bottom: var(--s-11);
+  }
+
+  .variants-intro {
+    margin-bottom: var(--s-11);
+  }
+
+  .variant-wrapper {
+    margin-bottom: var(--s-11);
+    padding-bottom: var(--s-10);
+    border-bottom: 2px dashed var(--rule);
+  }
+
+  .variant-label {
+    display: inline-block;
+    padding: var(--s-1) var(--s-3);
+    background: var(--fg-1);
+    color: var(--bg-1);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    font-size: 0.8125rem;
+    font-weight: bold;
+    letter-spacing: var(--track-wide);
+    margin-bottom: var(--s-6);
+  }
+</style>

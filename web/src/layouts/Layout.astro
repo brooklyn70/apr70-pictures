@@ -9,6 +9,8 @@ interface Props {
   title?: string
   description?: string
   faviconOverride?: unknown
+  navLogoOverride?: unknown
+  navLogoAltOverride?: string
 }
 
 const [{ settings }, { footerLinks }] = await Promise.all([
@@ -39,10 +41,15 @@ const faviconSrc = resolveMediaUrl(
   typeof faviconMedia === 'object' && faviconMedia ? faviconMedia as any : undefined,
 )
 
+const navLogoOverrideMedia = Astro.props.navLogoOverride
+const navLogoOverrideSrc = resolveMediaUrl(
+  typeof navLogoOverrideMedia === 'object' && navLogoOverrideMedia ? navLogoOverrideMedia as any : undefined,
+)
 const navLogoLightSrc = resolveMediaUrl(
   typeof settings?.navLogoLight === 'object' && settings.navLogoLight ? settings.navLogoLight as any : undefined,
 )
-const navLogoAlt = siteName
+const navLogoSrc = navLogoOverrideSrc ?? navLogoLightSrc
+const navLogoAlt = Astro.props.navLogoAltOverride ?? siteName
 ---
 
 <!doctype html>
@@ -80,7 +87,7 @@ const navLogoAlt = siteName
           <MagneticNavIsland
             client:idle
             items={primaryNav}
-            logoSrc={navLogoLightSrc}
+            logoSrc={navLogoSrc}
             logoAlt={navLogoAlt}
           />
         </div>

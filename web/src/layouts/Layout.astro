@@ -2,16 +2,15 @@
 import '../styles/global.css'
 import Footer from '../components/Footer.astro'
 import MagneticNavIsland from '../components/islands/MagneticNavIsland'
-import { fetchSiteSettings, fetchFooterLinks } from '../lib/payload'
+import { fetchSiteSettings, fetchFooterLinks, resolveMediaUrl } from '../lib/payload'
 import type { FooterLink } from '../lib/payload'
 
 interface Props {
   title?: string
   description?: string
+  faviconOverride?: unknown
 }
 
-// Fetch global chrome data once per page render.
-// These calls are parallelised; any failure degrades gracefully.
 const [{ settings }, { footerLinks }] = await Promise.all([
   fetchSiteSettings(),
   fetchFooterLinks(),
@@ -34,6 +33,16 @@ const primaryNav: FooterLink[] =
         { label: 'Investors', href: '/investors' },
         { label: 'Contact', href: '/contact' },
       ]
+
+const faviconMedia = Astro.props.faviconOverride ?? settings?.favicon
+const faviconSrc = resolveMediaUrl(
+  typeof faviconMedia === 'object' && faviconMedia ? faviconMedia as any : undefined,
+)
+
+const navLogoLightSrc = resolveMediaUrl(
+  typeof settings?.navLogoLight === 'object' && settings.navLogoLight ? settings.navLogoLight as any : undefined,
+)
+const navLogoAlt = siteName
 ---
 
 <!doctype html>
@@ -41,8 +50,14 @@ const primaryNav: FooterLink[] =
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    {faviconSrc ? (
+      <link rel="icon" type="image/svg+xml" href={faviconSrc} />
+    ) : (
+      <Fragment>
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.ico" />
+      </Fragment>
+    )}
     <title>{pageTitle}</title>
     {description && <meta name="description" content={description} />}
     <meta property="og:title" content={pageTitle} />
@@ -62,7 +77,12 @@ const primaryNav: FooterLink[] =
 
       <header class="site-header">
         <div class="container site-header__inner">
-          <MagneticNavIsland client:idle items={primaryNav} />
+          <MagneticNavIsland
+            client:idle
+            items={primaryNav}
+            logoSrc={navLogoLightSrc}
+            logoAlt={navLogoAlt}
+          />
         </div>
       </header>
     </div>

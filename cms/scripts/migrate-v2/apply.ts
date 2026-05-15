@@ -20,6 +20,7 @@
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 
+import { runBrandSeed } from './apply-brand.js'
 import { buildDefaultDivisionLayout, type DivisionSlug } from './division-default-layouts.js'
 import { discoverJsonDocuments } from './discover.js'
 import { inferDocumentId, mapV2DocumentToLayout } from './map-layout.js'
@@ -402,7 +403,18 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
     footerMoreNavLinksWritten = footerMoreNav.length
   }
 
-  // ── 13. Stamp SiteSettings with seed metadata ──────────────────────────────
+  // ── 13. Brand asset seeding ─────────────────────────────────────────────────
+  try {
+    const brandReport = await runBrandSeed(token)
+    if (brandReport.errors.length > 0) {
+      warnings.push(...brandReport.errors.map(e => `[brand] ${e}`))
+    }
+    console.log(`Brand seed: ${brandReport.mediaUploaded} uploaded, ${brandReport.mediaSkipped} skipped, ${brandReport.globalsUpdated.length} globals updated`)
+  } catch (e) {
+    warnings.push(`[brand] Brand seed failed: ${String(e)}`)
+  }
+
+  // ── 14. Stamp SiteSettings with seed metadata ──────────────────────────────
   await updateGlobal(
     'site-settings',
     { seededVersion: SEED_VERSION, lastDeployed: new Date().toISOString() },

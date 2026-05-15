@@ -41,10 +41,17 @@ function useChromeMode(): 'full' | 'simple' {
   return mode
 }
 
-function StaticNav({ items }: { items: MagneticNavItem[] }) {
+function StaticNav({ items, logoSrc, logoAlt }: { items: MagneticNavItem[]; logoSrc?: string; logoAlt?: string }) {
   return (
     <nav className="magnetic-nav magnetic-nav--static" aria-label="Primary">
       <ul className="magnetic-nav__list">
+        {logoSrc && (
+          <li className="magnetic-nav__item magnetic-nav__logo-item">
+            <a className="magnetic-nav__link" href="/">
+              <img className="magnetic-nav__logo" src={logoSrc} alt={logoAlt ?? 'Home'} />
+            </a>
+          </li>
+        )}
         {items.map((item) => (
           <li key={`${item.href}-${item.label}`} className="magnetic-nav__item">
             <a
@@ -63,7 +70,7 @@ function StaticNav({ items }: { items: MagneticNavItem[] }) {
   )
 }
 
-export default function MagneticNavIsland({ items }: { items: MagneticNavItem[] }) {
+export default function MagneticNavIsland({ items, logoSrc, logoAlt }: { items: MagneticNavItem[]; logoSrc?: string; logoAlt?: string }) {
   const mode = useChromeMode()
   const navRef = useRef<HTMLElement>(null)
   const pillRef = useRef<HTMLDivElement>(null)
@@ -141,7 +148,7 @@ export default function MagneticNavIsland({ items }: { items: MagneticNavItem[] 
   if (items.length === 0) return null
 
   if (mode === 'simple') {
-    return <StaticNav items={items} />
+    return <StaticNav items={items} logoSrc={logoSrc} logoAlt={logoAlt} />
   }
 
   return (
@@ -152,6 +159,13 @@ export default function MagneticNavIsland({ items }: { items: MagneticNavItem[] 
         aria-hidden="true"
       />
       <ul className="magnetic-nav__list">
+        {logoSrc && (
+          <li className="magnetic-nav__logo-item">
+            <a className="magnetic-nav__link" href="/">
+              <img className="magnetic-nav__logo" src={logoSrc} alt={logoAlt ?? 'Home'} />
+            </a>
+          </li>
+        )}
         {items.map((item) => (
           <li key={`${item.href}-${item.label}`} className="magnetic-nav__item">
             <a

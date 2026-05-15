@@ -61,3 +61,13 @@
   z-index: 0;
   will-change: transform, opacity;
 }
+
+.magnetic-nav__logo {
+  height: 1.5rem;
+  width: auto;
+  display: block;
+}
+
+.magnetic-nav__logo-item {
+  margin-inline-end: var(--s-2, 0.5rem);
+}

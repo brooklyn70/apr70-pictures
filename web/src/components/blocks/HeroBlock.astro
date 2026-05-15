@@ -19,6 +19,15 @@ const media = typeof block.media === 'object' && block.media ? block.media : nul
 const mediaSrc = resolveMediaUrl(media ?? undefined)
 const isVideo = Boolean(media?.mimeType?.startsWith('video/'))
 
+const lockupMedia = typeof block.lockupLogo === 'object' && block.lockupLogo ? block.lockupLogo : null
+const lockupSrc = resolveMediaUrl(lockupMedia ?? undefined)
+
+const watermarkMedia = typeof block.watermarkLogo === 'object' && block.watermarkLogo ? block.watermarkLogo : null
+const watermarkSrc = resolveMediaUrl(watermarkMedia ?? undefined)
+const watermarkOpacity = (block as any).watermarkOpacity ?? 0.15
+const watermarkPosition = (block as any).watermarkPosition ?? 'bottom-right'
+const watermarkShowOnMobile = (block as any).watermarkShowOnMobile ?? false
+
 const divisionClass =
   block.division === 'pictures-212'
     ? 'hero--212'
@@ -80,6 +89,11 @@ if (isSlider) {
     />
   ) : (
     <div class="hero__inner">
+      {lockupSrc && (
+        <div class="hero__lockup">
+          <img src={lockupSrc} alt={lockupMedia?.alt ?? ''} class="hero__lockup-img" />
+        </div>
+      )}
       <div class="hero__copy">
         <h1 id={`hero-heading-${block.id ?? 'x'}`} class="hero__heading">{block.heading}</h1>
         {block.subtext ? <p class="hero__subtext">{block.subtext}</p> : null}
@@ -96,6 +110,19 @@ if (isSlider) {
                 alt={media?.alt ?? ''}
                 width={media?.width ?? undefined}
                 height={media?.height ?? undefined}
+              />
+            )}
+            {watermarkSrc && (
+              <img
+                class:list={[
+                  'hero__watermark',
+                  `hero__watermark--${watermarkPosition}`,
+                  { 'hero__watermark--hide-mobile': !watermarkShowOnMobile },
+                ]}
+                src={watermarkSrc}
+                alt=""
+                aria-hidden="true"
+                style={`opacity: ${watermarkOpacity};`}
               />
             )}
           </div>
@@ -169,6 +196,7 @@ if (isSlider) {
   }
 
   .hero__media {
+    position: relative;
     width: 100%;
   }
 
@@ -193,5 +221,54 @@ if (isSlider) {
   .hero--corporate {
     --hero-heading: var(--fg-1);
     --hero-sub: var(--fg-3);
+  }
+
+  .hero__lockup {
+    margin-bottom: var(--s-4);
+  }
+
+  .hero__lockup-img {
+    height: clamp(2rem, 4vw, 3.5rem);
+    width: auto;
+    display: block;
+  }
+
+  .hero__watermark {
+    position: absolute;
+    pointer-events: none;
+    max-width: 15%;
+    height: auto;
+  }
+
+  .hero__watermark--bottom-right {
+    bottom: var(--s-3);
+    right: var(--s-3);
+  }
+
+  .hero__watermark--bottom-left {
+    bottom: var(--s-3);
+    left: var(--s-3);
+  }
+
+  .hero__watermark--center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 30%;
+  }
+
+  .hero__watermark--top-right {
+    top: var(--s-3);
+    right: var(--s-3);
+  }
+
+  .hero__watermark--hide-mobile {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .hero__watermark--hide-mobile {
+      display: block;
+    }
   }
 </style>

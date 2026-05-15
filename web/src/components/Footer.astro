@@ -15,9 +15,11 @@ import type { SiteSettingsData, FooterLinksData, FooterLink } from '../lib/paylo
 interface Props {
   settings?: SiteSettingsData | null
   footerLinks?: FooterLinksData | null
+  footerLogoSrc?: string
+  footerLogoAlt?: string
 }
 
-const { settings, footerLinks } = Astro.props
+const { settings, footerLinks, footerLogoSrc, footerLogoAlt } = Astro.props
 
 const brand      = settings?.brandLabel  ?? 'APR 70 Pictures'
 const legal      = settings?.legalEntity ?? 'APR 70 Pictures LLC'
@@ -46,7 +48,13 @@ function linkAttrs(link: FooterLink) {
   <div class="footer__inner container">
     <!-- Col 1: Brand -->
     <div class="footer__col footer__col--brand">
-      <p class="footer__logotype">{brand}</p>
+      {footerLogoSrc ? (
+        <a href="/" class="footer__logo-link" aria-label={footerLogoAlt ?? brand}>
+          <img class="footer__logo" src={footerLogoSrc} alt={footerLogoAlt ?? brand} loading="lazy" />
+        </a>
+      ) : (
+        <p class="footer__logotype">{brand}</p>
+      )}
       <p class="footer__tagline">{tagline}</p>
       <p class="footer__copy">
         &copy; {year} {legal}<br />All rights reserved.
@@ -192,6 +200,17 @@ function linkAttrs(link: FooterLink) {
     text-transform: uppercase;
     color: var(--fg-1);
     margin: 0 0 var(--s-3);
+  }
+
+  .footer__logo-link {
+    display: inline-block;
+    margin-bottom: var(--s-3);
+  }
+
+  .footer__logo {
+    display: block;
+    max-height: clamp(2rem, 4vw, 3rem);
+    width: auto;
   }
 
   .footer__tagline {

@@ -11,6 +11,8 @@ interface Props {
   faviconOverride?: unknown
   navLogoOverride?: unknown
   navLogoAltOverride?: string
+  footerLogoOverride?: unknown
+  footerLogoAltOverride?: string
 }
 
 const [{ settings }, { footerLinks }] = await Promise.all([
@@ -50,6 +52,12 @@ const navLogoLightSrc = resolveMediaUrl(
 )
 const navLogoSrc = navLogoOverrideSrc ?? navLogoLightSrc
 const navLogoAlt = Astro.props.navLogoAltOverride ?? siteName
+
+const footerLogoOverrideMedia = Astro.props.footerLogoOverride
+const footerLogoSrc = resolveMediaUrl(
+  typeof footerLogoOverrideMedia === 'object' && footerLogoOverrideMedia ? footerLogoOverrideMedia as any : undefined,
+)
+const footerLogoAlt = Astro.props.footerLogoAltOverride
 ---
 
 <!doctype html>
@@ -96,7 +104,7 @@ const navLogoAlt = Astro.props.navLogoAltOverride ?? siteName
 
     <slot />
 
-    <Footer settings={settings} footerLinks={footerLinks} />
+    <Footer settings={settings} footerLinks={footerLinks} footerLogoSrc={footerLogoSrc} footerLogoAlt={footerLogoAlt} />
   </body>
 </html>
 

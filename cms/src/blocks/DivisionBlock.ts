@@ -20,8 +20,9 @@ export const DivisionBlock: Block = {
         { label: 'v0 — Baseline (stacked rows, ghost numerals)', value: 'v0-baseline' },
         { label: 'v1 — Interactive Accordion', value: 'v1-accordion' },
         { label: 'v2 — Horizontal Card Stack', value: 'v2-cards' },
-        { label: 'v3 — Split-Screen Reveal', value: 'v3-split' },
-        { label: 'v4 — Timeline Spine', value: 'v4-timeline' },
+        { label: 'v3 — Baseline + Darkmode Filmstrip', value: 'v3-baseline-filmstrip' },
+        { label: 'v4 — Accordion + Darkmode Filmstrip', value: 'v4-accordion-filmstrip' },
+        { label: 'v5 — Horizontal Card Stack + Darkmode Filmstrip', value: 'v5-cards-filmstrip' },
       ],
       admin: {
         description: 'Select the visual layout variant. Preview all at /dev/division-variants.',

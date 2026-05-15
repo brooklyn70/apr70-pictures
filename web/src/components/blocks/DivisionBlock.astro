@@ -1,9 +1,10 @@
 ---
 /**
  * DivisionBlock.astro — Division Showcase renderer.
- * Supports 5 visual variants (v0 - v4) for Phase 6.
+ * Supports 6 visual variants for Phase 6.
  */
 import DivisionAccordionIsland from '../islands/DivisionAccordionIsland'
+import FilmstripBlock from './FilmstripBlock.astro'
 import { resolveMediaUrl } from '../../lib/payload'
 
 interface Division {
@@ -29,6 +30,21 @@ const divisions = block.divisions ?? []
 
 function tokenToVar(token: string): string {
   return `var(--color-${token})`
+}
+
+function getProjectFilter(name: string): 'all' | '212' | '310' | 'nrc' {
+  const n = name.toLowerCase()
+  if (n.includes('212')) return '212'
+  if (n.includes('310')) return '310'
+  if (n.includes('nrc')) return 'nrc'
+  return 'all'
+}
+
+function getFormat(name: string): 'super35' | 'imax' | 'academy' {
+  const n = name.toLowerCase()
+  if (n.includes('310')) return 'imax'
+  if (n.includes('nrc')) return 'academy'
+  return 'super35'
 }
 ---
 
@@ -109,43 +125,10 @@ function tokenToVar(token: string): string {
   </section>
 )}
 
-{variant === 'v3-split' && (
-  <section class="division-showcase v3-split container">
-    <div class="split-layout">
-      <div class="split-left">
-        <div class="sticky-header">
-          {block.heading && (
-            <h2 class="h2" set:html={block.heading.replace(/\n/g, '<br />')} />
-          )}
-          {block.subtext && (
-            <p class="body-lg" set:html={block.subtext.replace(/\n/g, '<br />')} />
-          )}
-        </div>
-      </div>
-      <div class="split-right">
-        {divisions.map((div, i) => {
-          const num = String(i + 1).padStart(2, '0')
-          const color = tokenToVar(div.colorToken)
-          return (
-            <div class="split-panel">
-              <span class="eyebrow" style={`color: ${color}`}>{num}</span>
-              <h3 class="division-name" style={`color: ${color}`}>{div.name}</h3>
-              {div.subtitle && <span class="division-subtitle">{div.subtitle}</span>}
-              {div.description && (
-                <p class="division-desc" set:html={div.description.replace(/\n/g, '<br />')} />
-              )}
-            </div>
-          )
-        })}
-      </div>
-    </div>
-  </section>
-)}
-
-{variant === 'v4-timeline' && (
-  <section class="division-showcase v4-timeline container">
+{variant === 'v3-baseline-filmstrip' && (
+  <section class="division-showcase v3-baseline dark-mode-enforcer" data-theme="dark">
     {block.heading && (
-      <div class="division-header" style="text-align: center;">
+      <div class="division-header container">
         <h2 class="h2" set:html={block.heading.replace(/\n/g, '<br />')} />
         {block.subtext && (
           <p class="body-lg" set:html={block.subtext.replace(/\n/g, '<br />')} />
@@ -153,26 +136,119 @@ function tokenToVar(token: string): string {
       </div>
     )}
 
-    <div class="timeline-container">
-      <div class="timeline-spine"></div>
+    <div class="division-rows">
       {divisions.map((div, i) => {
         const num = String(i + 1).padStart(2, '0')
         const color = tokenToVar(div.colorToken)
-        const isEven = i % 2 === 0
+        const format = getFormat(div.name)
+        const filter = getProjectFilter(div.name)
         return (
-          <div class={`timeline-node ${isEven ? 'node-left' : 'node-right'}`}>
-            <div class="timeline-dot" style={`background-color: ${color}`}></div>
-            <div class="timeline-content">
-              <span class="eyebrow" style={`color: ${color}`}>{num}</span>
-              <h3 class="division-name" style={`color: ${color}`}>{div.name}</h3>
-              {div.subtitle && <span class="division-subtitle">{div.subtitle}</span>}
-              {div.description && (
-                <p class="division-desc" set:html={div.description.replace(/\n/g, '<br />')} />
-              )}
+          <div class="division-row" style={`--div-color: ${color}`}>
+            <div class="container position-relative">
+              <span class="ghost-num" aria-hidden="true">{num}</span>
+              <div class="division-content">
+                <span class="eyebrow">{num}</span>
+                <h3 class="division-name" style={`color: ${color}`}>{div.name}</h3>
+                {div.subtitle && <span class="division-subtitle">{div.subtitle}</span>}
+                {div.description && (
+                  <p class="division-desc" set:html={div.description.replace(/\n/g, '<br />')} />
+                )}
+              </div>
+            </div>
+            <div class="filmstrip-wrapper">
+               <FilmstripBlock block={{ source: 'from-projects', projectFilter: filter, format: format, showPerforations: true }} />
             </div>
           </div>
         )
       })}
+    </div>
+  </section>
+)}
+
+{variant === 'v4-accordion-filmstrip' && (
+  <section class="division-showcase v4-accordion dark-mode-enforcer" data-theme="dark">
+    <div class="container">
+      {block.heading && (
+        <div class="division-header">
+          <h2 class="h2" set:html={block.heading.replace(/\n/g, '<br />')} />
+          {block.subtext && (
+            <p class="body-lg" set:html={block.subtext.replace(/\n/g, '<br />')} />
+          )}
+        </div>
+      )}
+
+      <div class="accordion-native-list">
+        {divisions.map((div, i) => {
+          const num = String(i + 1).padStart(2, '0')
+          const color = tokenToVar(div.colorToken)
+          const format = getFormat(div.name)
+          const filter = getProjectFilter(div.name)
+          return (
+            <details class="accordion-native-item" name="division-accordion" open={i === 0}>
+              <summary class="accordion-native-summary">
+                <div class="summary-left">
+                  <span class="eyebrow-mono">{num}</span>
+                  <h3 class="division-name-small" style={`color: ${color}`}>{div.name}</h3>
+                </div>
+                <div class="summary-icon">
+                  <span class="icon-h"></span>
+                  <span class="icon-v"></span>
+                </div>
+              </summary>
+              <div class="accordion-native-body">
+                <div class="accordion-native-text">
+                  {div.subtitle && <span class="division-subtitle">{div.subtitle}</span>}
+                  {div.description && (
+                    <p class="division-desc" set:html={div.description.replace(/\n/g, '<br />')} />
+                  )}
+                </div>
+                <div class="filmstrip-wrapper">
+                   <FilmstripBlock block={{ source: 'from-projects', projectFilter: filter, format: format }} />
+                </div>
+              </div>
+            </details>
+          )
+        })}
+      </div>
+    </div>
+  </section>
+)}
+
+{variant === 'v5-cards-filmstrip' && (
+  <section class="division-showcase v5-cards dark-mode-enforcer" data-theme="dark">
+    {block.heading && (
+      <div class="division-header container">
+        <h2 class="h2" set:html={block.heading.replace(/\n/g, '<br />')} />
+        {block.subtext && (
+          <p class="body-lg" set:html={block.subtext.replace(/\n/g, '<br />')} />
+        )}
+      </div>
+    )}
+
+    <div class="cards-scroll-container">
+      <div class="cards-track">
+        {divisions.map((div, i) => {
+          const num = String(i + 1).padStart(2, '0')
+          const color = tokenToVar(div.colorToken)
+          const format = getFormat(div.name)
+          const filter = getProjectFilter(div.name)
+          return (
+            <div class="division-card card-filmstrip-variant" style={`border-top: 4px solid ${color};`}>
+              <div class="card-inner">
+                <span class="eyebrow">{num}</span>
+                <h3 class="division-name" style={`color: ${color}`}>{div.name}</h3>
+                {div.subtitle && <span class="division-subtitle">{div.subtitle}</span>}
+                {div.description && (
+                  <p class="division-desc" set:html={div.description.replace(/\n/g, '<br />')} />
+                )}
+              </div>
+              <div class="card-filmstrip-wrapper">
+                 <FilmstripBlock block={{ source: 'from-projects', projectFilter: filter, format: format }} />
+              </div>
+            </div>
+          )
+        })}
+      </div>
     </div>
   </section>
 )}
@@ -198,6 +274,11 @@ function tokenToVar(token: string): string {
     display: block;
     margin-bottom: var(--s-3);
   }
+  .eyebrow-mono {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--fg-4);
+  }
   .division-name {
     font-family: var(--font-display);
     font-weight: 700;
@@ -205,6 +286,13 @@ function tokenToVar(token: string): string {
     line-height: 1;
     letter-spacing: var(--track-tight);
     margin-bottom: var(--s-4);
+    text-transform: uppercase;
+  }
+  .division-name-small {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    margin: 0;
+    line-height: 1;
     text-transform: uppercase;
   }
   .division-subtitle {
@@ -224,20 +312,24 @@ function tokenToVar(token: string): string {
     color: var(--fg-2);
     line-height: 1.72;
     max-width: 620px;
+    margin: 0;
   }
 
-  /* v0 Baseline */
-  .v0-baseline .division-rows {
+  /* v0 & v3 Baseline layout */
+  .division-rows {
     display: flex;
     flex-direction: column;
   }
-  .v0-baseline .division-row {
+  .division-row {
     position: relative;
     border-top: 1px solid var(--rule);
     padding: var(--s-9) 0;
     overflow: hidden;
   }
-  .v0-baseline .ghost-num {
+  .position-relative {
+    position: relative;
+  }
+  .ghost-num {
     position: absolute;
     right: 0;
     top: 50%;
@@ -250,10 +342,12 @@ function tokenToVar(token: string): string {
     letter-spacing: var(--track-tight);
     pointer-events: none;
     user-select: none;
+    z-index: 0;
   }
-  .v0-baseline .division-content {
+  .division-content {
     position: relative;
     max-width: 780px;
+    z-index: 1;
   }
 
   /* v1 Accordion wrapper */
@@ -261,10 +355,7 @@ function tokenToVar(token: string): string {
     padding: var(--s-9) 0;
   }
 
-  /* v2 Cards */
-  .v2-cards {
-    overflow: hidden;
-  }
+  /* v2 & v5 Cards */
   .cards-scroll-container {
     width: 100%;
     overflow-x: auto;
@@ -306,99 +397,83 @@ function tokenToVar(token: string): string {
     aspect-ratio: 16/9;
   }
 
-  /* v3 Split */
-  .split-layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--s-8);
+  /* Dark mode enforcer (Filmstrips) */
+  .dark-mode-enforcer {
+    background: var(--bg-1);
+    color: var(--fg-1);
   }
-  @media (min-width: 900px) {
-    .split-layout {
-      grid-template-columns: 1fr 1fr;
-      gap: var(--s-11);
-    }
-  }
-  .sticky-header {
-    position: sticky;
-    top: 120px;
-    padding-bottom: var(--s-8);
-  }
-  .split-panel {
-    padding: var(--s-8) 0;
-    border-bottom: 1px solid var(--rule);
-  }
-  .split-panel:first-child {
-    padding-top: 0;
-  }
-  .split-panel:last-child {
-    border-bottom: none;
+  /* Force dark backing plane inside the enforcer to ensure authentic filmstrip darkmode */
+  .dark-mode-enforcer :global(.filmstrip-block) {
+    --backing-plane: #000000;
   }
 
-  /* v4 Timeline */
-  .timeline-container {
-    position: relative;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: var(--s-9) 0;
-  }
-  .timeline-spine {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 20px;
-    width: 2px;
-    background: var(--rule);
-  }
-  @media (min-width: 768px) {
-    .timeline-spine {
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
-  .timeline-node {
-    position: relative;
-    margin-bottom: var(--s-9);
+  .filmstrip-wrapper {
+    margin-top: var(--s-7);
     width: 100%;
+  }
+
+  /* v4 Native Accordion overrides */
+  .accordion-native-list {
+    border-top: 1px solid var(--rule);
+  }
+  .accordion-native-item {
+    border-bottom: 1px solid var(--rule);
+  }
+  .accordion-native-summary {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--s-6) 0;
+    cursor: pointer;
+    list-style: none;
   }
-  .timeline-dot {
+  .accordion-native-summary::-webkit-details-marker {
+    display: none;
+  }
+  .summary-left {
+    display: flex;
+    align-items: center;
+    gap: var(--s-5);
+  }
+  .summary-icon {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    transition: transform 0.4s var(--ease-out);
+  }
+  .icon-h, .icon-v {
     position: absolute;
-    left: 15px;
-    top: 24px;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    z-index: 2;
+    background: var(--fg-1);
   }
-  .timeline-content {
-    margin-left: 50px;
-    width: calc(100% - 50px);
-    background: var(--bg-2);
-    padding: var(--s-7);
-    border-radius: 4px;
+  .icon-h { top: 11px; left: 0; width: 24px; height: 2px; }
+  .icon-v { top: 0; left: 11px; width: 2px; height: 24px; transition: transform 0.4s var(--ease-out); }
+  
+  .accordion-native-item[open] .summary-icon {
+    transform: rotate(90deg);
   }
-  @media (min-width: 768px) {
-    .node-left, .node-right {
-      width: 50%;
-    }
-    .node-left {
-      justify-content: flex-end;
-      padding-right: 40px;
-    }
-    .node-right {
-      margin-left: 50%;
-      padding-left: 40px;
-    }
-    .node-left .timeline-content, .node-right .timeline-content {
-      margin-left: 0;
-      width: 100%;
-    }
-    .node-left .timeline-dot {
-      left: auto;
-      right: -6px;
-    }
-    .node-right .timeline-dot {
-      left: -6px;
-    }
+  .accordion-native-item[open] .icon-v {
+    transform: scaleY(0);
+  }
+  .accordion-native-body {
+    padding-left: calc(var(--s-5) + 20px);
+    padding-bottom: var(--s-8);
+  }
+  .accordion-native-text {
+    margin-bottom: var(--s-6);
+  }
+
+  /* v5 Cards Filmstrip overrides */
+  .card-filmstrip-variant {
+    max-width: 800px;
+    width: 85vw;
+    padding: var(--s-7) 0;
+    background: transparent;
+    border-radius: 0;
+  }
+  .card-filmstrip-variant .card-inner {
+    padding: 0 var(--s-7);
+  }
+  .card-filmstrip-wrapper {
+    width: 100%;
   }
 </style>

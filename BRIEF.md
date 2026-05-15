@@ -1,7 +1,7 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-15 (Brand integration complete).
-**Phase:** 5 — Brand integration shipped. Hero Slider still paused.
+**Updated:** 2026-05-15 (NAS redeployed with brand fields migration).
+**Phase:** 5 — Brand integration deployed to NAS. Brand seed pending. Hero Slider still paused.
 **Seeder:** v0.3.2 (brand seed runs on next `pnpm migrate:v2:apply`)
 
 ---
@@ -55,8 +55,8 @@ Orchestrator container up. Uses 1Password Service Account (cloud-based, works fr
 
 ## What's next
 
-1. **NAS:** After `git pull`, run `pnpm migrate:v2:apply-media` from `cms-seeder` (same env as apply; `MEDIA_ROOT=/app/media`; `--v2-root /v2-export/content`) to create Media docs and PATCH projects/news layouts. See handoff for the exact `docker compose` one-liner.
-2. **Brand integration (DONE)** — All 13 tasks complete. CMS schemas + migration, Astro fetch layer, Layout.astro dynamic favicon/nav logo, MagneticNavIsland logo props, division page favicon overrides, HeroBlock lockup/watermark overlays, brand seed script. Brand seed runs automatically on next `pnpm migrate:v2:apply`.
+1. **Brand seed** — run `docker compose --profile seed run --rm cms-seeder` on NAS to upload SVGs and set defaults. Migration already applied.
+2. **Brand integration (DEPLOYED)** — All 13 tasks + footer logo wiring. NAS redeployed 2026-05-15 with manual SQL migration (brand_fields). Docker compose postgres port conflict fixed.
 3. **HeroSliderIsland** — `[gemini]` line in TASKS.md. (FilmstripBlock renderer shipped 2026-05-14).
 4. **Visual QA** — `[requires-gui]` when Gemini/Cursor ship UI changes.
 

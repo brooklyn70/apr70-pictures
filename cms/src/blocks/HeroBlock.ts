@@ -91,5 +91,33 @@ export const HeroBlock: Block = {
           siblingData?.variant === 'slider-auto' || siblingData?.variant === 'slider-curated',
       },
     },
+    {
+      name: 'sliderItems',
+      type: 'array',
+      labels: {
+        singular: 'Curated Slide',
+        plural: 'Curated Slides',
+      },
+      admin: {
+        description: 'Explicitly curated slides (image + optional text).',
+        condition: (_, siblingData) => siblingData?.variant === 'slider-curated',
+      },
+      fields: [
+        {
+          name: 'media',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+        },
+        {
+          name: 'title',
+          type: 'text',
+        },
+        {
+          name: 'subtext',
+          type: 'text',
+        },
+      ],
+    },
   ],
 }

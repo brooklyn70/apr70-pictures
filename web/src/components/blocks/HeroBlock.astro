@@ -2,6 +2,7 @@
 import type { Home } from 'payload-types'
 
 import { resolveMediaUrl } from '../../lib/payload'
+import HeroSliderIsland from '../islands/HeroSliderIsland'
 
 type HeroBlockData = Extract<
   NonNullable<NonNullable<Home['layout']>[number]>,
@@ -30,36 +31,78 @@ const variantClass =
     ? 'hero--split'
     : block.variant === 'fullscreen'
       ? 'hero--fullscreen'
-      : 'hero--default'
+      : block.variant === 'slider-auto' || block.variant === 'slider-curated'
+        ? `hero--${block.variant}`
+        : 'hero--default'
+
+const isSlider = block.variant === 'slider-auto' || block.variant === 'slider-curated'
+
+let slides: any[] = []
+
+if (isSlider) {
+  if (block.variant === 'slider-curated') {
+    // We added sliderItems in payload schema
+    const curatedItems = (block as any).sliderItems || []
+    slides = curatedItems.map((item: any) => ({
+      id: item.id || Math.random().toString(),
+      title: item.title || '',
+      subtext: item.subtext || '',
+      mediaSrc: typeof item.media === 'object' ? resolveMediaUrl(item.media) : undefined,
+      mediaAlt: typeof item.media === 'object' ? item.media?.alt : '',
+    }))
+  } else if (block.variant === 'slider-auto') {
+    const { fetchProjects } = await import('../../lib/payload')
+    const { projects } = await fetchProjects()
+    slides = projects.filter(p => p.heroImage).slice(0, 4).map(p => ({
+      id: String(p.id),
+      title: p.title,
+      subtext: p.subtitle ?? '',
+      mediaSrc: resolveMediaUrl(p.heroImage as any),
+      mediaAlt: typeof p.heroImage === 'object' && p.heroImage ? (p.heroImage as any).alt : '',
+    }))
+  }
+}
 ---
 
 <section
   class:list={['hero', divisionClass, variantClass]}
   aria-labelledby={`hero-heading-${block.id ?? 'x'}`}
 >
-  <div class="hero__inner">
-    <div class="hero__copy">
-      <h1 id={`hero-heading-${block.id ?? 'x'}`} class="hero__heading">{block.heading}</h1>
-      {block.subtext ? <p class="hero__subtext">{block.subtext}</p> : null}
+  {isSlider ? (
+    <HeroSliderIsland
+      client:idle
+      slides={slides}
+      fadeDuration={block.fadeDuration ?? 700}
+      autoplayDelay={block.autoplayDelay ?? 5000}
+      showIndicator={block.showIndicator ?? true}
+      baseHeading={block.heading}
+      baseSubtext={block.subtext}
+    />
+  ) : (
+    <div class="hero__inner">
+      <div class="hero__copy">
+        <h1 id={`hero-heading-${block.id ?? 'x'}`} class="hero__heading">{block.heading}</h1>
+        {block.subtext ? <p class="hero__subtext">{block.subtext}</p> : null}
+      </div>
+      {
+        mediaSrc ? (
+          <div class="hero__media">
+            {isVideo ? (
+              <video class="hero__video" controls preload="metadata" src={mediaSrc} />
+            ) : (
+              <img
+                class="hero__img"
+                src={mediaSrc}
+                alt={media?.alt ?? ''}
+                width={media?.width ?? undefined}
+                height={media?.height ?? undefined}
+              />
+            )}
+          </div>
+        ) : null
+      }
     </div>
-    {
-      mediaSrc ? (
-        <div class="hero__media">
-          {isVideo ? (
-            <video class="hero__video" controls preload="metadata" src={mediaSrc} />
-          ) : (
-            <img
-              class="hero__img"
-              src={mediaSrc}
-              alt={media?.alt ?? ''}
-              width={media?.width ?? undefined}
-              height={media?.height ?? undefined}
-            />
-          )}
-        </div>
-      ) : null
-    }
-  </div>
+  )}
 </section>
 
 <style>
@@ -99,6 +142,11 @@ const variantClass =
 
   .hero--fullscreen .hero__inner {
     width: 100%;
+  }
+
+  .hero--slider-auto,
+  .hero--slider-curated {
+    padding: 0;
   }
 
   .hero__heading {

@@ -1,8 +1,8 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-14 (FilmstripBlock physical zoning, authentic KeyKode typesetting, and visual QA locked).
-**Handoff:** `docs/handoff/gemini-2026-05-14-phase5-hero-slider.md`
-**Phase:** 5 in progress — run apply-media on NAS if not done; Gemini Hero Slider next.
+**Updated:** 2026-05-14 (Phase 5: Hero Slider interactive GSAP React island implemented).
+**Handoff:** `docs/handoff/gemini-2026-05-14-phase5-hero-slider.md` (done)
+**Phase:** 5 done — GUI review needed for HeroSliderIsland. Run apply-media on NAS if not done.
 **Seeder:** v0.3.2
 
 ---

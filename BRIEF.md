@@ -98,3 +98,8 @@ Telegram only works when wrapped with `op run --`.
 ## Reference materials
 
 Design and research reference moved to `/Users/marco/websites/apr70-website-reference-repository/` on 2026-05-15. See that repo's README for contents. Key folders: `filmstrip-research/`, `design-system-reference/`, `news-page-reference/` (vintage cinema magazines for news/project page design direction).
+
+## Auto-stop note (2026-05-15 19:41 UTC)
+
+- Branch: main
+- Tip: 0e18e3f

@@ -46,9 +46,11 @@ async function uploadMedia(asset: BrandAsset, token: string): Promise<number> {
 
   const formData = new FormData()
   formData.append('file', new Blob([fileBuffer], { type: 'image/svg+xml' }), filename)
-  formData.append('alt', asset.alt)
-  formData.append('mediaKind', asset.mediaKind)
-  formData.append('divisionTag', asset.divisionTag)
+  formData.append('_payload', JSON.stringify({
+    alt: asset.alt,
+    mediaKind: asset.mediaKind,
+    divisionTag: asset.divisionTag,
+  }))
 
   const res = await fetch(`${CMS_URL}/api/media`, {
     method: 'POST',

@@ -1,8 +1,8 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-14 (Phase 5: Hero Slider interactive GSAP React island implemented).
-**Handoff:** `docs/handoff/gemini-2026-05-14-phase5-hero-slider.md` (done)
-**Phase:** 5 done — GUI review needed for HeroSliderIsland. Run apply-media on NAS if not done.
+**Updated:** 2026-05-14 (Phase 5 paused: Hero Slider needs global nav and actual project data to be tested fully).
+**Handoff:** `docs/handoff/gemini-2026-05-14-phase5-hero-slider.md` (paused)
+**Phase:** 5 in progress (PAUSED) — waiting on global nav/header and actual project pages before finalizing Hero Slider full screen layout and video support.
 **Seeder:** v0.3.2
 
 ---
@@ -95,102 +95,6 @@ Run: `sudo docker exec apr70-orchestrator op run -- python -m orchestrator.main 
 Dry-run: same but `--dry-run`
 Telegram only works when wrapped with `op run --`.
 
-## Auto-stop note (2026-05-13 21:37 UTC)
+## Reference materials
 
-- Branch: main
-- Tip: 22b5773
-
-## Auto-stop note (2026-05-14 09:33 UTC)
-
-- Branch: main
-- Tip: abc8c47
-
-## Auto-stop note (2026-05-14 09:41 UTC)
-
-- Branch: main
-- Tip: d5752f6
-
-## Auto-stop note (2026-05-14 09:41 UTC)
-
-- Branch: main
-- Tip: b0cf8c5
-
-## Auto-stop note (2026-05-14 09:49 UTC)
-
-- Branch: main
-- Tip: fda0439
-
-## Auto-stop note (2026-05-14 10:04 UTC)
-
-- Branch: main
-- Tip: 52db66b
-
-## Auto-stop note (2026-05-14 10:07 UTC)
-
-- Branch: main
-- Tip: 32248e7
-
-## Auto-stop note (2026-05-14 10:14 UTC)
-
-- Branch: main
-- Tip: 6944c5d
-
-## Auto-stop note (2026-05-14 12:47 UTC)
-
-- Branch: main
-- Tip: a9eb8cd
-
-## Auto-stop note (2026-05-14 12:53 UTC)
-
-- Branch: main
-- Tip: 0fb4113
-
-## Auto-stop note (2026-05-14 12:59 UTC)
-
-- Branch: main
-- Tip: c5fbcbb
-
-## Auto-stop note (2026-05-14 13:10 UTC)
-
-- Branch: main
-- Tip: 4c2d951
-
-## Auto-stop note (2026-05-14 14:19 UTC)
-
-- Branch: main
-- Tip: 01dfca1
-
-## Auto-stop note (2026-05-14 14:36 UTC)
-
-- Branch: main
-- Tip: 77b2b7d
-
-## Auto-stop note (2026-05-14 14:43 UTC)
-
-- Branch: main
-- Tip: 465b27e
-
-## Auto-stop note (2026-05-14 14:59 UTC)
-
-- Branch: main
-- Tip: 0e7b6fe
-
-## Auto-stop note (2026-05-14 15:14 UTC)
-
-- Branch: main
-- Tip: 8d49348
-
-## Auto-stop note (2026-05-14 15:19 UTC)
-
-- Branch: main
-- Tip: 84b81c4
-
-## Auto-stop note (2026-05-14 20:43 UTC)
-
-- Branch: main
-- Tip: 1a28aa1
-
-## Auto-stop note (2026-05-15 00:07 UTC)
-
-- Branch: main
-- Tip: cb098c7
+Design and research reference moved to `/Users/marco/websites/apr70-website-reference-repository/` on 2026-05-15. See that repo's README for contents. Key folders: `filmstrip-research/`, `design-system-reference/`, `news-page-reference/` (vintage cinema magazines for news/project page design direction).

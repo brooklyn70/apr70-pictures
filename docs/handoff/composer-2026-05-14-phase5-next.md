@@ -69,7 +69,7 @@ Rsync verification, volume layout, and migration script paths live in **`docs/ha
 
 ## Gemini — Filmstrip research pack (read before FilmstripBlock)
 
-**Location:** `docs/reference/filmstrip-research/` (see `README.md` in that folder).
+**Location:** `/Users/marco/websites/apr70-website-reference-repository/filmstrip-research/` (see `README.md` in that folder).
 
 Marco’s **filmstrip_research** materials are in-repo: format diagrams (Academy, Super 35, IMAX, 2:1), WebP variants, Kodak PDFs, and a few UI screenshots. Use them to tune perforation pitch, hole proportions, and horizontal rhythm so the block feels authentic without breaking the locked palette or `transition` rules.
 

@@ -11,7 +11,7 @@
 
 ### 1. `DESIGN.md` at repo root — portable canonical design spec
 
-**Why:** The brand was scattered across `web/src/styles/tokens.css`, the v2 `APR 70 Pictures Design System/` reference folder, and prose in CLAUDE.md. Any external agent (Claude Design, Gemini, Cursor, image generators, future logo work) had no single file to consume. `DESIGN.md` is Google's `@google/design.md` format — YAML front matter (machine-readable design tokens) + markdown prose (human-readable rationale).
+**Why:** The brand was scattered across `web/src/styles/tokens.css`, the v2 design system reference folder (now at `/Users/marco/websites/apr70-website-reference-repository/design-system-reference/`), and prose in CLAUDE.md. Any external agent (Claude Design, Gemini, Cursor, image generators, future logo work) had no single file to consume. `DESIGN.md` is Google's `@google/design.md` format — YAML front matter (machine-readable design tokens) + markdown prose (human-readable rationale).
 
 **Contents:**
 - 22 colors, all matching v3's token keys exactly (`212-amber`, `212-sicilian-orange`, `310-imax`, `310-sicilian-blue`, `nrc-grey`, `nrc-navy`, light-mode pair, fg/bg ramps)

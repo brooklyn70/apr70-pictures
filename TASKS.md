@@ -61,7 +61,7 @@ Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainst
 - [x] [p5] [claude] Footer links seeding — read FooterLinks.ts schema, map from footer-more.json, call updateGlobal('footer-links', ..., token) in apply.ts. DONE 2026-05-14.
 - [x] [p5] [cursor+claude] Delete `/test-hero` dev artifact (`web/src/pages/test-hero.astro`). DONE 2026-05-13.
 - [ ] [p5] [gemini] HeroBlock slider island — React + GSAP crossfade. Auto-featured + curated modes.
-- [x] [p5] [gemini] FilmstripBlock renderer — CSS scroll-snap, perforation bands, keyboard nav, ARIA. Reference pack: `docs/reference/filmstrip-research/` (+ README) for sprocket / aspect research before CSS lock-in.
+- [x] [p5] [gemini] FilmstripBlock renderer — CSS scroll-snap, perforation bands, keyboard nav, ARIA. Reference pack: `/Users/marco/websites/apr70-website-reference-repository/filmstrip-research/` (+ README) for sprocket / aspect research before CSS lock-in.
 - [ ] [p5] [requires-gui] Hero visual QA. (Filmstrip visually locked and physically authentic).
 
 ## Phase 6 — Division Showcase
@@ -77,6 +77,7 @@ Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainst
 ## Phase 7 — Continuous Slate & Polish
 
 - [ ] [p7] [gemini] MasonryBlock island — React, IntersectionObserver, cursor pagination, skeleton loaders, "Load More" fallback.
+- [ ] [p7] [gemini] News page editorial design — use vintage cinema magazine reference (`/Users/marco/websites/apr70-website-reference-repository/news-page-reference/`) for layout, typography, and visual tone on `/news` index and `/news/[slug]` article pages. Same design language can apply to `/work/[slug]` project pages. Magazines: Screenland, Movie Classic, Sight and Sound, American Cinematographer (1930s-40s).
 - [ ] [p7] [requires-gui] Compose all pages from blocks (home, about, work, investors, contact, jobs, pitch, news).
 - [ ] [p7] [requires-gui] Lighthouse audit — LCP < 2.5s, CLS < 0.1.
 - [ ] [p7] [requires-gui] WCAG AA audit — 4.5:1 contrast, keyboard nav, reduced motion.

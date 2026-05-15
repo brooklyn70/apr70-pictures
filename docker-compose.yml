@@ -10,6 +10,8 @@ services:
     # conflict prevents postgres from re-attaching to apr70v3_default on
     # restart. v3 services reach it over the compose network via service
     # name. For ad-hoc psql from the host use `docker exec apr70v3-postgres-1 psql ...`.
+    ports:
+      - '5432:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:

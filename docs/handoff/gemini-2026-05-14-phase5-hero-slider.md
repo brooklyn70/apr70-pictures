@@ -32,3 +32,19 @@ You are beginning Phase 5: **HeroBlock Slider Island (`[gemini]`)**.
 2. Draft the React Island component (e.g. `HeroSliderIsland.tsx`).
 3. Wire GSAP for the crossfade transitions.
 4. Execute and ask Marco to review via `[requires-gui]`.
+
+## 5. Current Status (PAUSED)
+**Update: 2026-05-14**
+The initial structure for the `HeroSliderIsland` has been implemented, adding `sliderItems` to the `HeroBlock` Payload schema and creating the GSAP React island. 
+
+However, visual QA with the user revealed the following issues that cannot be resolved until other dependencies are completed:
+1. **Video Support:** The slider currently only renders `<img>` tags for media. It needs to detect and render `<video>` tags properly when video media is selected.
+2. **True Fullscreen Layout:** The slider does not currently overlap or hide the global navigation header, and scroll bars remain on the side. The image needs to be truly full-screen within the viewport, staying fixed regardless of resize, without being pushed down by the nav.
+3. **Text Positioning & Z-index:** Overlay text falls off or renders underneath the image. It needs proper styling to float above the image crossfades.
+
+**Next Steps:**
+This task is marked as **IN PROGRESS (PAUSED)**. 
+Do not resume this task until:
+1. The global navigation and header are fully implemented.
+2. Actual project pages and project media are populated in the database.
+Once those are ready, return to this task to finalize the layout, absolute positioning, text overlay CSS, and video rendering logic.

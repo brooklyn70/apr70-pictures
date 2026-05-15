@@ -49,22 +49,42 @@ All 4 containers now healthy on kimaserver:8080.
 
 ## What's next
 
-### Immediate (NAS shell)
-1. **Brand seed** -- run `pnpm migrate:v2:apply` via cms-seeder container to upload 10 curated SVGs to Media and set defaults on SiteSettings + division globals. Command:
+### Next session (Claude via SSH — do these first)
+
+All 4 NAS containers are healthy. Schema migration is applied. These two commands run inside the cms-seeder container which mounts the media volume and v2-export.
+
+1. **Brand seed** -- uploads 10 curated SVGs to Media collection, sets favicon/logo defaults on SiteSettings and division globals.
    ```sh
-   cd /volume1/apps/apr70-pictures
-   /usr/local/bin/docker compose -f docker-compose.yml -p apr70v3 --profile seed run --rm cms-seeder
+   ssh apr70-nas "cd /volume1/apps/apr70-pictures && /usr/local/bin/docker compose -f docker-compose.yml -p apr70v3 --profile seed run --rm cms-seeder"
    ```
+   This runs the default `pnpm migrate:v2:apply` which calls `runBrandSeed()` as Step 13.
+
+2. **Media migration (apply-media)** -- creates Media documents from rsynced v2 files (537 MB already on volume), PATCHes projects/news layouts to link media relationships. Without this, project/news hero images and filmstrip media fields are null.
+   ```sh
+   ssh apr70-nas "cd /volume1/apps/apr70-pictures && /usr/local/bin/docker compose -f docker-compose.yml -p apr70v3 --profile seed run --rm cms-seeder pnpm migrate:v2:apply-media"
+   ```
+   Env vars `MEDIA_ROOT=/app/media` and `V2_CONTENT_ROOT=/v2-export/content` are set in docker-compose.yml.
+
+3. **Verify** -- after both run, check CMS admin at kimaserver:8080/admin:
+   - SiteSettings should have favicon + nav logos set
+   - Division globals should have headerLogo + footerLogo + faviconOverride set
+   - Media collection should have brand SVGs + v2 project/news images
+   - Projects/news should have non-null media in hero blocks
+
+### SSH details
+- Host alias: `apr70-nas` (100.69.2.30, user caruso, ed25519 key)
+- Docker binary: `/usr/local/bin/docker` (not in default PATH on DSM)
+- Postgres has NO host port (DSM conflict fixed this session) -- use `docker exec apr70v3-postgres-1 psql -U postgres apr70_cms` for ad-hoc queries
 
 ### Gemini tasks (local dev, visual/creative)
-2. **HeroSliderIsland** -- React + GSAP crossfade. Auto-featured + curated modes. Phase 5 in TASKS.md.
-3. **Division Showcase v0-v4** -- Phase 6. Five visual variants, dev preview route, director review.
-4. **MasonryBlock island** -- Phase 7. React, IntersectionObserver, cursor pagination.
-5. **News page editorial design** -- Phase 7. Vintage cinema magazine reference in `/Users/marco/websites/apr70-website-reference-repository/news-page-reference/`.
+4. **HeroSliderIsland** -- React + GSAP crossfade. Auto-featured + curated modes. Phase 5 in TASKS.md.
+5. **Division Showcase v0-v4** -- Phase 6. Five visual variants, dev preview route, director review.
+6. **MasonryBlock island** -- Phase 7. React, IntersectionObserver, cursor pagination.
+7. **News page editorial design** -- Phase 7. Vintage cinema magazine reference in `/Users/marco/websites/apr70-website-reference-repository/news-page-reference/`.
 
 ### Marco (requires-gui)
-6. **Visual QA** -- brand logos need review once seed runs on NAS.
-7. **Hero visual QA** -- filmstrip physically authentic check.
+8. **Visual QA** -- brand logos need review once seed runs on NAS.
+9. **Hero visual QA** -- filmstrip physically authentic check.
 
 ---
 

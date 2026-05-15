@@ -56,9 +56,9 @@ Orchestrator container up. Uses 1Password Service Account (cloud-based, works fr
 ## What's next
 
 1. **Brand seed** — run `docker compose --profile seed run --rm cms-seeder` on NAS to upload SVGs and set defaults. Migration already applied.
-2. **Brand integration (DEPLOYED)** — All 13 tasks + footer logo wiring. NAS redeployed 2026-05-15 with manual SQL migration (brand_fields). Docker compose postgres port conflict fixed.
-3. **HeroSliderIsland** — `[gemini]` line in TASKS.md. (FilmstripBlock renderer shipped 2026-05-14).
-4. **Visual QA** — `[requires-gui]` when Gemini/Cursor ship UI changes.
+2. **Division Showcase Variants** — 5 variants (v0-v4) implemented and available at `/dev/division-variants`. Awaiting `[requires-gui]` Director review to lock canonical variant.
+3. **HeroSliderIsland** — `[gemini]` line in TASKS.md. (Still paused, as per previous handoff).
+4. **Visual QA** — `[requires-gui]` for the new Division Showcase variants.
 
 ### Task tags (who owns what)
 

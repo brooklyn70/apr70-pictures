@@ -66,12 +66,12 @@ Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainst
 
 ## Phase 6 — Division Showcase
 
-- [ ] [p6] [gemini] Division Showcase v0 — v2-faithful baseline (stacked rows, ghost numerals).
-- [ ] [p6] [gemini] Division Showcase v1 — Interactive Accordion variant.
-- [ ] [p6] [gemini] Division Showcase v2 — Horizontal Card Stack variant.
-- [ ] [p6] [gemini] Division Showcase v3 — Split-Screen Reveal variant.
-- [ ] [p6] [gemini] Division Showcase v4 — Timeline Spine variant.
-- [ ] [p6] [gemini] `/dev/division-variants` preview route (dev-only, env-gated).
+- [x] [p6] [gemini] Division Showcase v0 — v2-faithful baseline (stacked rows, ghost numerals).
+- [x] [p6] [gemini] Division Showcase v1 — Interactive Accordion variant.
+- [x] [p6] [gemini] Division Showcase v2 — Horizontal Card Stack variant.
+- [x] [p6] [gemini] Division Showcase v3 — Split-Screen Reveal variant.
+- [x] [p6] [gemini] Division Showcase v4 — Timeline Spine variant.
+- [x] [p6] [gemini] `/dev/division-variants` preview route (dev-only, env-gated).
 - [ ] [p6] [requires-gui] Director review → lock canonical variant, delete unused code.
 
 ## Phase 7 — Continuous Slate & Polish

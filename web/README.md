@@ -30,12 +30,12 @@ To learn more about the folder structure of an Astro project, refer to [our guid
 
 ## 🧞 Commands
 
-All commands are run from the root of the project, from a terminal:
+From the **`web/`** directory (or run **`pnpm dev`** from the repo root — root `package.json` forwards to `web`):
 
 | Command                   | Action                                           |
 | :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
+| `pnpm install`             | Installs dependencies (run inside `web/` or `cms/`) |
+| `pnpm dev`                 | From **`web/`**: starts Astro at `http://localhost:4321`. From **repo root**: same (root `package.json` forwards to `web`). |
 | `pnpm build`           | Build your production site to `./dist/`          |
 | `pnpm preview`         | Preview your build locally, before deploying     |
 | `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |

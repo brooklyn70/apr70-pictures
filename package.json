@@ -1,0 +1,12 @@
+{
+  "name": "apr70-pictures",
+  "private": true,
+  "description": "Monorepo-style scripts; packages live in web/ and cms/",
+  "scripts": {
+    "dev": "pnpm -C web run dev",
+    "dev:web": "pnpm -C web run dev",
+    "dev:cms": "pnpm -C cms run dev",
+    "build:web": "pnpm -C web run build",
+    "preflight": "pnpm -C cms run preflight"
+  }
+}

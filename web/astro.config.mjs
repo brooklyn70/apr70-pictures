@@ -17,6 +17,13 @@ export default defineConfig({
   output: 'server',
   adapter: node({ mode: 'standalone' }),
 
+  // Listen on all interfaces so remote previews (IDE tunnels, Anti-Gravity, etc.)
+  // can reach the dev server. Default port 4321; if busy Astro tries the next.
+  server: {
+    host: true,
+    port: 4321,
+  },
+
   integrations: [react(), sitemap()],
 
   vite: {

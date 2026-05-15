@@ -10,12 +10,14 @@ import { FilmstripBlock } from '../blocks/FilmstripBlock'
 import { DivisionBlock } from '../blocks/DivisionBlock'
 import { StatsBlock } from '../blocks/StatsBlock'
 import { DividerBlock } from '../blocks/DividerBlock'
+import { divisionBrandFields } from '../fields/divisionBrandFields'
 
 export const Division212: GlobalConfig = {
   slug: '212',
   label: '212 Division',
   access: { read: () => true },
   fields: [
+    ...divisionBrandFields,
     {
       name: 'layout',
       type: 'blocks',

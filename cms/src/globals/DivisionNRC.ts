@@ -10,12 +10,14 @@ import { FilmstripBlock } from '../blocks/FilmstripBlock'
 import { DivisionBlock } from '../blocks/DivisionBlock'
 import { StatsBlock } from '../blocks/StatsBlock'
 import { DividerBlock } from '../blocks/DividerBlock'
+import { divisionBrandFields } from '../fields/divisionBrandFields'
 
 export const DivisionNRC: GlobalConfig = {
   slug: 'nrc',
   label: 'NRC Division',
   access: { read: () => true },
   fields: [
+    ...divisionBrandFields,
     {
       name: 'layout',
       type: 'blocks',

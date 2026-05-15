@@ -1,8 +1,8 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-14 (Phase 5 paused: Hero Slider needs global nav and actual project data to be tested fully).
-**Handoff:** `docs/handoff/gemini-2026-05-14-phase5-hero-slider.md` (paused)
-**Phase:** 5 in progress (PAUSED) — waiting on global nav/header and actual project pages before finalizing Hero Slider full screen layout and video support.
+**Updated:** 2026-05-15 (Brand integration Tasks 1-7 of 13 in working tree, uncommitted).
+**Handoff:** `docs/handoff/opus-2026-05-15-brand-integration.md`
+**Phase:** 5 in progress — Brand integration partially implemented (CMS schemas + migration + fetch layer done, Astro wiring Tasks 8-13 remain). Hero Slider still paused.
 **Seeder:** v0.3.2
 
 ---
@@ -57,7 +57,7 @@ Orchestrator container up. Uses 1Password Service Account (cloud-based, works fr
 ## What's next
 
 1. **NAS:** After `git pull`, run `pnpm migrate:v2:apply-media` from `cms-seeder` (same env as apply; `MEDIA_ROOT=/app/media`; `--v2-root /v2-export/content`) to create Media docs and PATCH projects/news layouts. See handoff for the exact `docker compose` one-liner.
-2. **Brand integration** — `docs/architecture/brand-assets-integration.md`; TASKS open line Payload + Astro (division globals, SiteSettings, HeroBlock, seed Media from `public/brand/apr70-logos/`).
+2. **Brand integration (IN PROGRESS)** — Tasks 1-7 of 13 done (uncommitted). CMS schemas, migration, and Astro fetch types complete. Remaining: Layout.astro favicon/logo wiring (T8), MagneticNavIsland logo (T9), division page favicon override (T10), HeroBlock lockup/watermark (T11), seed script (T12), verification (T13). Plan: `docs/superpowers/plans/2026-05-15-brand-integration.md`. Handoff: `docs/handoff/opus-2026-05-15-brand-integration.md`.
 3. **HeroSliderIsland** — `[gemini]` line in TASKS.md. (FilmstripBlock renderer shipped 2026-05-14).
 4. **Visual QA** — `[requires-gui]` when Gemini/Cursor ship UI changes.
 

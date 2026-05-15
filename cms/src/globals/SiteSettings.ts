@@ -58,6 +58,61 @@ export const SiteSettings: GlobalConfig = {
       },
     },
 
+    // -- Brand Identity (logos & favicon) -----------------------------------------
+    {
+      type: 'collapsible',
+      label: 'Brand Identity',
+      admin: {
+        description: 'Site-wide favicon and navigation logos. Upload SVG or PNG to Media first.',
+        initCollapsed: true,
+      },
+      fields: [
+        {
+          name: 'favicon',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Favicon',
+          admin: {
+            description: 'SVG or PNG favicon. Falls back to /favicon.svg if unset.',
+          },
+          filterOptions: {
+            mediaKind: { in: ['favicon'] },
+          },
+        },
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'navLogoLight',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Nav Logo (Light theme)',
+              admin: {
+                description: 'Logotype or mark for the header on light backgrounds.',
+                width: '50%',
+              },
+              filterOptions: {
+                mediaKind: { in: ['logo', 'wordmark'] },
+              },
+            },
+            {
+              name: 'navLogoDark',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Nav Logo (Dark theme)',
+              admin: {
+                description: 'Logotype or mark for the header on dark backgrounds.',
+                width: '50%',
+              },
+              filterOptions: {
+                mediaKind: { in: ['logo', 'wordmark'] },
+              },
+            },
+          ],
+        },
+      ],
+    },
+
     // ── Feature Flags ─────────────────────────────────────────────────────────
     {
       name: 'showFilmstripRails',

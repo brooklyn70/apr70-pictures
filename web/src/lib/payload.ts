@@ -35,6 +35,19 @@ export type SiteSettingsData = {
   showFilmstripRails?: boolean | null
   lastDeployed?: string | null
   seededVersion?: string | null
+  favicon?: Media | number | null
+  navLogoLight?: Media | number | null
+  navLogoDark?: Media | number | null
+}
+
+export type DivisionGlobalData = {
+  id?: number
+  headerLogo?: Media | number | null
+  footerLogo?: Media | number | null
+  faviconOverride?: Media | number | null
+  layout?: unknown[] | null
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 
 export type FooterLinksData = {
@@ -317,7 +330,7 @@ export async function fetchSiteSettings(): Promise<{
   error: string | null
   stale?: boolean
 }> {
-  const { data, error, stale } = await fetchGlobal<SiteSettingsData>('site-settings')
+  const { data, error, stale } = await fetchGlobal<SiteSettingsData>('site-settings', 2)
   return { settings: data, error, stale }
 }
 
@@ -376,29 +389,29 @@ export async function fetchInvestorsGlobal(): Promise<{
 }
 
 export async function fetchDivision212Global(): Promise<{
-  division212: PageGlobalData | null
+  division212: DivisionGlobalData | null
   error: string | null
   stale?: boolean
 }> {
-  const { data, error, stale } = await fetchGlobal<PageGlobalData>('212')
+  const { data, error, stale } = await fetchGlobal<DivisionGlobalData>('212', 2)
   return { division212: data, error, stale }
 }
 
 export async function fetchDivision310Global(): Promise<{
-  division310: PageGlobalData | null
+  division310: DivisionGlobalData | null
   error: string | null
   stale?: boolean
 }> {
-  const { data, error, stale } = await fetchGlobal<PageGlobalData>('310')
+  const { data, error, stale } = await fetchGlobal<DivisionGlobalData>('310', 2)
   return { division310: data, error, stale }
 }
 
 export async function fetchDivisionNRCGlobal(): Promise<{
-  divisionNRC: PageGlobalData | null
+  divisionNRC: DivisionGlobalData | null
   error: string | null
   stale?: boolean
 }> {
-  const { data, error, stale } = await fetchGlobal<PageGlobalData>('nrc')
+  const { data, error, stale } = await fetchGlobal<DivisionGlobalData>('nrc', 2)
   return { divisionNRC: data, error, stale }
 }
 

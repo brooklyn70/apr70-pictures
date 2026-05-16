@@ -1,8 +1,8 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-15 (NAS redeployed with brand fields migration).
-**Phase:** 5 — Brand integration deployed to NAS. Brand seed pending. Hero Slider still paused.
-**Seeder:** v0.3.2 (brand seed runs on next `pnpm migrate:v2:apply`)
+**Updated:** 2026-05-16 (Both seeds executed. Brand logos in Media but NOT rendering on pages.)
+**Phase:** 5 — Seeds complete. Logo rendering bug is top priority.
+**Seeder:** v0.3.2 applied. 69 media rows. 10 brand SVGs. 4 globals updated.
 
 ---
 
@@ -11,6 +11,10 @@
 All four containers healthy on kimaserver:8080.
 Postgres, CMS (Payload on :3000), Web (Astro SSR on :4321), nginx (:8080).
 Orchestrator container up. Uses 1Password Service Account (cloud-based, works from any network).
+
+## BUG: Logos in Media but not rendering on pages
+
+Brand SVGs uploaded to Media (IDs 60-69). Division globals have headerLogo/footerLogo/faviconOverride set. But logos do NOT appear on /212, /310, /nrc pages. Debug locally first. See handoff doc for investigation plan.
 
 ## Route status
 
@@ -44,21 +48,22 @@ Orchestrator container up. Uses 1Password Service Account (cloud-based, works fr
 | Division 212 | `212` | Default 4 blocks if empty before apply |
 | Division 310 | `310` | Default 4 blocks if empty before apply |
 | Division NRC | `nrc` | Default 4 blocks if empty before apply |
-| Media | (collection) | Rsync of v2 public to `apr70v3_cms_media` done 2026-05-14; populate rows + relink with `pnpm migrate:v2:apply-media` on `cms-seeder` |
+| Media | (collection) | 69 rows: 59 v2 images + 10 brand SVGs. Projects linked. |
 | Projects | `projects` | 9 documents seeded |
 | News | `news` | 4 documents seeded |
 
 ## Known data issues
 
 - 2 projects have null status (v2 `bible`/`pitch` — set manually in admin)
-- Project/news hero and filmstrip `media` fields are null until `migrate:v2:apply-media` is run against Payload (after rsync).
+- News article media fields still null (news images not in v2 export)
+- 12 v2 HTML files (slide-decks/treatments) correctly rejected by media migration
 
 ## What's next
 
-1. **Brand seed** — run `docker compose --profile seed run --rm cms-seeder` on NAS to upload SVGs and set defaults. Migration already applied.
-2. **Division Showcase Variants** — 5 variants (v0-v4) implemented and available at `/dev/division-variants`. Awaiting `[requires-gui]` Director review to lock canonical variant.
-3. **HeroSliderIsland** — `[gemini]` line in TASKS.md. (Still paused, as per previous handoff).
-4. **Visual QA** — `[requires-gui]` for the new Division Showcase variants.
+1. **FIX: Logo rendering on division pages** — Debug locally (`pnpm dev`). Logos are in CMS but not appearing on pages. Likely depth/URL resolution issue. See `docs/handoff/opus-2026-05-16-seed-complete-logos-not-rendering.md`.
+2. **Division Showcase Variants** — 5 variants (v0-v4) at `/dev/division-variants`. Awaiting `[requires-gui]` Director review.
+3. **HeroSliderIsland** — `[gemini]` line in TASKS.md. (Still paused).
+4. **Visual QA** — `[requires-gui]` for rendered brand logos once fix lands.
 
 ### Task tags (who owns what)
 

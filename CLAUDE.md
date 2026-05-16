@@ -45,6 +45,7 @@ Layout is editor-authored via block stacking. Each page Global has a `layout: Bl
 12. **GUI tasks need Marco.** Tasks tagged `requires-gui` need visual review.
 13. **Preflight before NAS deploy.** Run `pnpm preflight` from `cms/` and confirm it exits 0 before any `docker compose up --build` on the NAS. This catches missing components, TypeScript errors, and broken imports that the dry-run cannot see.
 14. **Context handoff (ENFORCED BY HOOK).** A `PreToolUse` hook (`.claude/hooks/context-gate.sh`) tracks accumulated tool output via `.claude/.context-meter`. At ~250KB accumulated output (~55-60% context), the hook warns the agent and then hard-blocks all tools except Write/Edit/Read/git. The agent MUST: write a handoff doc to `docs/handoff/[model]-[date]-[summary].md`, update `BRIEF.md`, commit+push, and tell the user to start a fresh session. The Stop hook resets the meter for the next session.
+15. **One handoff in `docs/handoff/`.** Only the current session's handoff doc lives at the top level. On session start, move any existing handoff docs to `docs/handoff/archive/` before writing a new one. The user should always find exactly one file (the latest) without digging.
 
 ---
 

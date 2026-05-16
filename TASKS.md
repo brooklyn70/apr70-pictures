@@ -72,7 +72,9 @@ Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainst
 - [x] [p6] [gemini] Division Showcase v3 — Split-Screen Reveal variant.
 - [x] [p6] [gemini] Division Showcase v4 — Timeline Spine variant.
 - [x] [p6] [gemini] `/dev/division-variants` preview route (dev-only, env-gated).
-- [ ] [p6] [requires-gui] Director review → lock canonical variant, delete unused code.
+- [x] [p6] [gemini] Division Showcase v5 — Animated filmstrip with logo-build park (countdown → per-frame logo assembly → rest on division logo). Hybrid scroll-link via GSAP ScrollTrigger scrub. Supersedes v4 visual review.
+- [ ] [p6] [requires-gui] Director review v5 → confirm motion, countdown polish, logo build cadence.
+- [ ] [p6] [requires-gui] Director review → lock canonical variant, delete unused code (see v5 above first).
 
 ## Phase 7 — Continuous Slate & Polish
 

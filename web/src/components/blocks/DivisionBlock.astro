@@ -4,6 +4,7 @@
  * Supports v0-baseline, v3-baseline-filmstrip, and v4-animated-filmstrip.
  */
 import FilmstripBlock from './FilmstripBlock.astro'
+import DivisionFilmstripV5 from './DivisionFilmstripV5.astro'
 import { resolveMediaUrl } from '../../lib/payload'
 
 interface Division {
@@ -45,10 +46,26 @@ function getFormat(name: string): 'super35' | 'widescreen200' | 'academy' {
   if (n.includes('nrc')) return 'academy'
   return 'super35'
 }
+
+function getDivisionCode(name: string): '212' | '310' | 'NRC' {
+  const n = name.toLowerCase()
+  if (n.includes('212')) return '212'
+  if (n.includes('310')) return '310'
+  if (n.includes('nrc') || n.includes('renaissance')) return 'NRC'
+  return '212'
+}
+
+function getDivisionId(name: string): '212' | '310' | 'nrc' {
+  const n = name.toLowerCase()
+  if (n.includes('212')) return '212'
+  if (n.includes('310')) return '310'
+  if (n.includes('nrc') || n.includes('renaissance')) return 'nrc'
+  return '212'
+}
 ---
 
 {variant === 'v0-baseline' && (
-  <section class="division-showcase v0-baseline">
+  <section class="division-showcase v0-baseline dark-mode-enforcer" data-theme="dark">
     {block.heading && (
       <div class="division-header container">
         <h2 class="h2" set:html={block.heading.replace(/\n/g, '<br />')} />
@@ -60,23 +77,55 @@ function getFormat(name: string): 'super35' | 'widescreen200' | 'academy' {
 
     <div class="division-rows container">
       {divisions.map((div, i) => {
-        const num = String(i + 1).padStart(2, '0')
+        const divCode = getDivisionCode(div.name)
         const color = tokenToVar(div.colorToken)
         return (
-          <div class="division-row" style={`--div-color: ${color}`}>
-            <span class="ghost-num" aria-hidden="true">{num}</span>
-            <div class="division-content">
-              <span class="eyebrow">{num}</span>
-              <h3 class="division-name" style={`color: ${color}`}>{div.name}</h3>
-              {div.subtitle && <span class="division-subtitle">{div.subtitle}</span>}
+          <div class="v0-editorial-grid" style={`--div-color: ${color}`}>
+            <div class="v0-grid-left">
+              <span class="v0-meta-label">DIVISION CODE</span>
+              <span class="v0-division-code" aria-hidden="true" style={`color: ${color}`}>{divCode}</span>
+              <div class="v0-meta-footer">
+                <span class="v0-meta-item">FORMAT: {getFormat(div.name).toUpperCase()}</span>
+                <span class="v0-meta-item">APR70 SYSTEM</span>
+              </div>
+            </div>
+            
+            <div class="v0-grid-right">
+              <span class="v0-eyebrow">APR 70 / {divCode}</span>
+              <h3 class="v0-division-name">{div.name}</h3>
+              {div.subtitle && <span class="v0-division-subtitle" style={`color: ${color}; border-color: ${color}`}>{div.subtitle}</span>}
               {div.description && (
-                <p class="division-desc" set:html={div.description.replace(/\n/g, '<br />')} />
+                <p class="v0-division-desc" set:html={div.description.replace(/\n/g, '<br />')} />
               )}
             </div>
           </div>
         )
       })}
     </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('v0-revealed');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15 });
+
+        const cards = document.querySelectorAll('.v0-editorial-grid');
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        cards.forEach((card, index) => {
+          if (prefersReducedMotion) {
+            card.classList.add('v0-revealed');
+          } else {
+            (card as HTMLElement).style.setProperty('--reveal-delay', `${index * 80}ms`);
+            observer.observe(card);
+          }
+        });
+      });
+    </script>
   </section>
 )}
 
@@ -171,6 +220,51 @@ function getFormat(name: string): 'super35' | 'widescreen200' | 'academy' {
   </section>
 )}
 
+{variant === 'v5-animated-filmstrip' && (
+  <section class="division-showcase v5-animated dark-mode-enforcer" data-theme="dark">
+    {block.heading && (
+      <div class="division-header container">
+        <h2 class="h2" set:html={block.heading.replace(/\n/g, '<br />')} />
+        {block.subtext && (
+          <p class="body-lg" set:html={block.subtext.replace(/\n/g, '<br />')} />
+        )}
+      </div>
+    )}
+
+    <div class="division-rows">
+      {divisions.map((div, i) => {
+        const divCode = getDivisionCode(div.name)
+        const color = tokenToVar(div.colorToken)
+        const format = getFormat(div.name)
+        const filter = getProjectFilter(div.name)
+        return (
+          <div class="division-row v5-row v5-editorial-layout" style={`--div-color: ${color}`}>
+            <div class="container v5-editorial-header">
+              <div class="v5-header-left">
+                <span class="v5-meta-label">DIVISION {divCode}</span>
+                <h3 class="v5-division-name">{div.name}</h3>
+              </div>
+              <div class="v5-header-right">
+                {div.subtitle && <span class="v5-division-subtitle" style={`color: ${color}; border-color: ${color}`}>{div.subtitle}</span>}
+                {div.description && (
+                  <p class="v5-division-desc" set:html={div.description.replace(/\n/g, '<br />')} />
+                )}
+              </div>
+            </div>
+            <div class="filmstrip-wrapper v5-filmstrip-track" data-division={filter}>
+               <DivisionFilmstripV5 
+                 division={getDivisionId(div.name)}
+                 format={format}
+                 colorToken={div.colorToken}
+               />
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  </section>
+)}
+
 <script>
   import gsap from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -178,6 +272,7 @@ function getFormat(name: string): 'super35' | 'widescreen200' | 'academy' {
   gsap.registerPlugin(ScrollTrigger);
 
   document.addEventListener('DOMContentLoaded', () => {
+    // V4 animation
     const tracks = document.querySelectorAll('.animated-filmstrip-track .scroll-window');
     
     tracks.forEach((track) => {
@@ -210,6 +305,82 @@ function getFormat(name: string): 'super35' | 'widescreen200' | 'academy' {
           }
         });
       }
+    });
+
+    // V5 animation
+    // Check user preference for reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const v5Rows = document.querySelectorAll('.v5-row');
+    v5Rows.forEach((row) => {
+      const track = row.querySelector('.v5-filmstrip-track .scroll-window') as HTMLElement;
+      if (!track) return;
+      
+      const segments = track.querySelectorAll('.film-segment');
+      const parkFrame = Array.from(segments).find(s => s.classList.contains('logo-park-frame')) as HTMLElement;
+      if (!parkFrame) return;
+
+      const paddingLeft = parseInt(window.getComputedStyle(track).paddingLeft || '0');
+      const viewportWidth = track.clientWidth;
+      const parkOffset = Math.max(0, parkFrame.offsetLeft - paddingLeft - (viewportWidth / 2) + (parkFrame.clientWidth / 2));
+
+      if (prefersReducedMotion) {
+        // Pre-park for accessibility
+        track.scrollLeft = parkOffset;
+        parkFrame.setAttribute('data-parked', 'true');
+        return;
+      }
+
+      // Hybrid scrub implementation
+      ScrollTrigger.create({
+        trigger: row,
+        start: 'top top',
+        end: '+=120%', // pin duration
+        pin: true,
+        scrub: 1, // 1 second smoothing
+        invalidateOnRefresh: true,
+        animation: gsap.to(track, {
+          scrollLeft: parkOffset,
+          ease: 'none',
+        }),
+        onEnter: () => {
+          track.style.scrollSnapType = 'none';
+        },
+        onLeave: () => {
+          track.style.scrollSnapType = '';
+          parkFrame.setAttribute('data-parked', 'true');
+        },
+        onLeaveBack: () => {
+          track.style.scrollSnapType = '';
+          parkFrame.setAttribute('data-parked', 'false');
+        },
+        onEnterBack: () => {
+          track.style.scrollSnapType = 'none';
+          parkFrame.setAttribute('data-parked', 'false');
+        }
+      });
+      
+      // Intersection Observer for countdown animation and park triggers
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-active');
+            if (entry.target.classList.contains('logo-park-frame')) {
+               entry.target.setAttribute('data-parked', 'true');
+            }
+          } else {
+            entry.target.classList.remove('is-active');
+            if (entry.target.classList.contains('logo-park-frame')) {
+               entry.target.setAttribute('data-parked', 'false');
+            }
+          }
+        });
+      }, {
+        root: track,
+        threshold: 0.6
+      });
+
+      segments.forEach(seg => observer.observe(seg));
     });
   });
 </script>
@@ -308,5 +479,217 @@ function getFormat(name: string): 'super35' | 'widescreen200' | 'academy' {
   .filmstrip-wrapper {
     margin-top: var(--s-7);
     width: 100%;
+  }
+
+  /* V0 REDESIGN - Sight & Sound Editorial */
+  .v0-baseline {
+    background: #0a0a0a;
+    color: var(--fg-1);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  .v0-baseline .division-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding-bottom: var(--s-8);
+  }
+  .v0-editorial-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding: var(--s-10) 0;
+    cursor: default;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 420ms cubic-bezier(0.16, 1, 0.3, 1), transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .v0-editorial-grid.v0-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .v0-editorial-grid::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--div-color);
+    transition: width 220ms cubic-bezier(0.16, 1, 0.3, 1);
+    transform-origin: left;
+  }
+  .v0-editorial-grid:hover::before {
+    width: 4px;
+  }
+  @media (min-width: 768px) {
+    .v0-editorial-grid {
+      grid-template-columns: 1fr 2fr;
+    }
+  }
+  .v0-grid-left {
+    display: flex;
+    flex-direction: column;
+    border-right: none;
+    padding-bottom: var(--s-6);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    margin-bottom: var(--s-6);
+  }
+  .v0-grid-right {
+    transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .v0-editorial-grid:hover .v0-grid-right {
+    transform: translateX(6px);
+  }
+  @media (min-width: 768px) {
+    .v0-grid-left {
+      border-right: 1px solid rgba(255, 255, 255, 0.15);
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+      padding-right: var(--s-8);
+    }
+    .v0-grid-right {
+      padding-left: var(--s-8);
+    }
+  }
+  .v0-meta-label, .v0-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--fg-4);
+    letter-spacing: var(--track-widest);
+    text-transform: uppercase;
+  }
+  .v0-meta-item {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--fg-4);
+    letter-spacing: var(--track-widest);
+    text-transform: uppercase;
+    transition: color 180ms ease;
+  }
+  .v0-editorial-grid:hover .v0-meta-item {
+    color: var(--fg-1);
+  }
+  .v0-meta-label {
+    margin-bottom: var(--s-2);
+  }
+  .v0-division-code {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    line-height: 0.8;
+    letter-spacing: var(--track-tight);
+    margin-bottom: var(--s-8);
+    opacity: 0.55;
+    transition: opacity 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .v0-editorial-grid:hover .v0-division-code {
+    opacity: 1.0;
+  }
+  .v0-meta-footer {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+  .v0-division-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1;
+    letter-spacing: var(--track-tight);
+    margin-top: var(--s-2);
+    margin-bottom: var(--s-4);
+    text-transform: uppercase;
+    color: var(--fg-1);
+  }
+  .v0-division-subtitle {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 400;
+    letter-spacing: var(--track-wider);
+    text-transform: uppercase;
+    margin-bottom: var(--s-6);
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom-color 200ms ease;
+  }
+  .v0-editorial-grid:hover .v0-division-subtitle {
+    border-bottom-color: var(--div-color);
+  }
+  .v0-division-desc {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: clamp(1rem, 1.3vw, 1.125rem);
+    color: var(--fg-2);
+    line-height: 1.72;
+    max-width: 600px;
+    margin: 0;
+  }
+
+  /* V5 ANIMATED FILMSTRIP - Editorial */
+  .v5-animated {
+    padding-top: var(--s-10);
+  }
+  .v5-editorial-layout {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding: var(--s-10) 0;
+  }
+  .v5-editorial-header {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-6);
+    margin-bottom: var(--s-8);
+  }
+  @media (min-width: 768px) {
+    .v5-editorial-header {
+      grid-template-columns: 1fr 2fr;
+      align-items: end;
+      gap: var(--s-8);
+    }
+  }
+  .v5-header-left {
+    border-bottom: 1px solid var(--div-color);
+    padding-bottom: var(--s-4);
+  }
+  @media (min-width: 768px) {
+    .v5-header-left { border-bottom: none; border-right: 1px solid var(--div-color); padding-bottom: 0; padding-right: var(--s-6); }
+  }
+  .v5-meta-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--fg-4);
+    letter-spacing: var(--track-widest);
+    display: block;
+    margin-bottom: var(--s-2);
+  }
+  .v5-division-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1;
+    letter-spacing: var(--track-tight);
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .v5-division-subtitle {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: var(--track-wider);
+    text-transform: uppercase;
+    margin-bottom: var(--s-4);
+    border: 1px solid var(--div-color);
+    padding: 2px 6px;
+  }
+  .v5-division-desc {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: clamp(0.875rem, 1vw, 1rem);
+    color: var(--fg-2);
+    line-height: 1.6;
+    max-width: 500px;
+    margin: 0;
   }
 </style>

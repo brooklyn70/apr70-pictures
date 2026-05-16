@@ -1,8 +1,8 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-16 (Logo URLs fixed by Gemini. Context hook enforced. Ready for NAS deploy.)
+**Updated:** 2026-05-16 (Gemini retired from project after failing design correction pass. Handoff created.)
 **Phase:** 5 — Bugs fixed, context enforcement wired, ready for NAS deploy and visual review.
-**Handoff:** `docs/handoff/opus-2026-05-16-context-hook-and-local-db.md`
+**Handoff:** `docs/handoff/gemini-2026-05-16-1713.md`
 
 ---
 
@@ -60,8 +60,8 @@ Brand SVGs uploaded to Media (IDs 60-69). Division globals have headerLogo/foote
 
 ## What's next
 
-1. **DONE: Logo rendering on division pages** — Fixed URL resolution. Astro SSR was passing internal Docker hostnames (`http://cms:3000/...`) into the generated HTML. Updated `resolveMediaUrl` to pass relative paths, and added `/media` location block to `nginx/default.conf` to correctly proxy these requests to the CMS. 
-2. **Review/Merge: Division Showcase Variant** — Awaiting `[requires-gui]` Director review for `v4-animated-filmstrip`.
+1. **URGENT:** Gemini failed the V0 and V5 design correction pass on `dev/division-variants`. A new agent (Claude) must read `docs/handoff/gemini-2026-05-16-1713.md` and completely redo the CSS/art direction for these components to meet the Sight & Sound / Pentagram / A24 level of premium quality. 
+2. **Review/Merge: Division Showcase Variant** — Awaiting `[requires-gui]` Director review.
 3. **Visual QA** — `[requires-gui]` for rendered brand logos once NAS is redeployed.
 4. **HeroSliderIsland** — `[gemini]` line in TASKS.md. (Still paused).
 

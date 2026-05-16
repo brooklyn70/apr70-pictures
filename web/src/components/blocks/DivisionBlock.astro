@@ -158,11 +158,10 @@ function getFormat(name: string): 'super35' | 'widescreen200' | 'academy' {
             </div>
             <div class="filmstrip-wrapper animated-filmstrip-track">
                <FilmstripBlock block={{ 
-                 source: 'from-projects', 
-                 projectFilter: filter, 
+                 source: 'custom-media', 
                  format: format, 
                  showPerforations: true,
-                 tiles: div.media ? [{ media: div.media, caption: div.name, division: filter }] : []
+                 tiles: div.media ? Array(16).fill({ media: div.media, caption: div.name, division: filter }) : []
                }} />
             </div>
           </div>

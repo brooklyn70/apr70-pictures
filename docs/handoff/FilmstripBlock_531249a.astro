@@ -36,7 +36,28 @@ type ComputedTile = {
 
 let computedTiles: ComputedTile[] = []
 
-if (isFullFrame) {
+if (block.source === 'from-projects' && isFullFrame) {
+  const { projects } = await fetchProjects()
+  let filtered = projects || []
+  if (block.projectFilter && block.projectFilter !== 'all') {
+    filtered = filtered.filter(p => p.division === block.projectFilter)
+  }
+  for (const proj of filtered) {
+    if (proj.heroImage && typeof proj.heroImage === 'object' && 'url' in proj.heroImage) {
+      const media = proj.heroImage as any
+      const url = resolveMediaUrl(media)
+      if (url) {
+        computedTiles.push({
+          url,
+          alt: media.alt || proj.title,
+          caption: proj.title,
+          division: proj.division || 'none',
+          href: `/work/${proj.slug}`
+        })
+      }
+    }
+  }
+} else if (isFullFrame) {
   const rawTiles = block.tiles || []
   for (const tile of rawTiles) {
     if (tile.media) {
@@ -44,34 +65,11 @@ if (isFullFrame) {
       if (url) {
         computedTiles.push({
           url,
-          alt: typeof tile.media === 'object' && tile.media?.alt ? tile.media.alt : (tile.caption || ''),
+          alt: tile.media.alt || tile.caption || '',
           caption: tile.caption || '',
           division: tile.division || 'none',
           href: undefined
         })
-      }
-    }
-  }
-
-  if (block.source === 'from-projects') {
-    const { projects } = await fetchProjects()
-    let filtered = projects || []
-    if (block.projectFilter && block.projectFilter !== 'all') {
-      filtered = filtered.filter(p => p.division === block.projectFilter)
-    }
-    for (const proj of filtered) {
-      if (proj.heroImage && typeof proj.heroImage === 'object' && 'url' in proj.heroImage) {
-        const media = proj.heroImage as any
-        const url = resolveMediaUrl(media)
-        if (url) {
-          computedTiles.push({
-            url,
-            alt: media.alt || proj.title,
-            caption: proj.title,
-            division: proj.division || 'none',
-            href: `/work/${proj.slug}`
-          })
-        }
       }
     }
   }
@@ -137,31 +135,6 @@ const barcodeSvg = `
 
 const opticalWaveVerticalTop = "M10,0 L5,0 Q8,2.5 3,5 T4,10 T7,15 T2,20 T8,25 T5,30 T9,35 T3,40 T6,45 T2,50 T8,55 T5,60 T9,65 T4,70 T7,75 T3,80 T8,85 T4,90 T7,95 T2,100 L10,100 Z";
 const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20 T12,25 T15,30 T11,35 T17,40 T14,45 T18,50 T12,55 T15,60 T11,65 T16,70 T13,75 T17,80 T12,85 T16,90 T13,95 T18,100 L10,100 Z";
-
-function renderEdgeCodeTop(fmt: string, index: number) {
-  if (fmt === 'super35' && index % 4 === 0) {
-    return `<span class="code">K KI 03 ${1500 + Math.floor(index / 4)} 7040·<span class="barcode-wrapper">${barcodeSvg}</span></span>`;
-  }
-  if (fmt === 'imax' && index % 8 === 0) {
-    return `<span class="code">E KI 03 ${4600 + Math.floor(index / 8)} 7040·<span class="barcode-wrapper">${barcodeSvg}</span></span>`;
-  }
-  if (fmt === 'imax' && index % 8 === 3) return `<span class="code code-small">+40</span>`;
-  if (fmt === 'imax' && index % 8 === 5) return `<span class="code code-small">+80</span>`;
-  return '';
-}
-
-function renderEdgeCodeBottom(fmt: string, index: number) {
-  if (fmt === 'academy' && index % 4 === 0) {
-    return `<span class="code">K KI 03 ${1000 + Math.floor(index / 4)} 7040·<span class="barcode-wrapper">${barcodeSvg}</span></span>`;
-  }
-  if (fmt === 'widescreen200' && index % 4 === 0) {
-    return `<span class="code">ANSCO COLOR 848 ${10 + Math.floor(index / 4)}·</span>`;
-  }
-  if (fmt === 'imax' && index % 8 === 0) {
-    return `<span class="code code-imax-secondary">EASTMAN 5243 025 ${("0" + (2400 + Math.floor(index / 8))).slice(-4)} ID</span>`;
-  }
-  return '';
-}
 ---
 
 <section 
@@ -217,7 +190,7 @@ function renderEdgeCodeBottom(fmt: string, index: number) {
           <div class="film-segment leader-frame-segment">
             {showPerfs && (
               <div class="film-edge top">
-                <div class="edge-code-lane top" set:html={renderEdgeCodeTop(format, lIdx)}></div>
+                <div class="edge-code-lane top"></div>
                 <div class="perf-row top">
                   {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
                 </div>
@@ -247,7 +220,7 @@ function renderEdgeCodeBottom(fmt: string, index: number) {
                 <div class="perf-row bottom">
                   {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
                 </div>
-                <div class="edge-code-lane bottom" set:html={renderEdgeCodeBottom(format, lIdx)}></div>
+                <div class="edge-code-lane bottom"></div>
               </div>
             )}
           </div>
@@ -258,7 +231,6 @@ function renderEdgeCodeBottom(fmt: string, index: number) {
         {/* Defines the primary content sequence containing media tiles.      */}
         {/* ================================================================= */}
         {!isEdgeOnlyFormat && computedTiles.map((tile, i) => {
-          const globalIdx = leaderSequence.length + i;
           const Element = tile.href ? 'a' : 'div'
           return (
             <Element
@@ -271,7 +243,21 @@ function renderEdgeCodeBottom(fmt: string, index: number) {
               {/* TOP PERFORATION BAND & EDGE CODES */}
               {showPerfs && (
                 <div class="film-edge top">
-                  <div class="edge-code-lane top" set:html={renderEdgeCodeTop(format, globalIdx)}></div>
+                  <div class="edge-code-lane top">
+                    {format === 'super35' && i % 4 === 0 && (
+                      <span class="code">K KI 03 {1503 + Math.floor(i / 4)} 7040·<span class="barcode-wrapper" set:html={barcodeSvg} /></span>
+                    )}
+                    {format === 'imax' && i % 8 === 0 && (
+                      <span class="code">E KI 03 {4690 + Math.floor(i / 8)} 7040·<span class="barcode-wrapper" set:html={barcodeSvg} /></span>
+                    )}
+
+                    {format === 'imax' && i % 8 === 3 && (
+                      <span class="code code-small">+40</span>
+                    )}
+                    {format === 'imax' && i % 8 === 5 && (
+                      <span class="code code-small">+80</span>
+                    )}
+                  </div>
                   <div class="perf-row top">
                     {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
                   </div>
@@ -303,7 +289,17 @@ function renderEdgeCodeBottom(fmt: string, index: number) {
                   <div class="perf-row bottom">
                     {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
                   </div>
-                  <div class="edge-code-lane bottom" set:html={renderEdgeCodeBottom(format, globalIdx)}></div>
+                  <div class="edge-code-lane bottom">
+                    {format === 'academy' && i % 4 === 0 && (
+                      <span class="code">K KI 03 {1000 + Math.floor(i / 4)} 7040·<span class="barcode-wrapper" set:html={barcodeSvg} /></span>
+                    )}
+                    {format === 'widescreen200' && i % 4 === 0 && (
+                      <span class="code">ANSCO COLOR 848 {10 + Math.floor(i / 4)}·</span>
+                    )}
+                    {format === 'imax' && i % 8 === 0 && (
+                      <span class="code code-imax-secondary">EASTMAN 5243 025 {("0" + (2401 + Math.floor(i / 8))).slice(-4)} ID</span>
+                    )}
+                  </div>
                 </div>
               )}
             </Element>
@@ -313,32 +309,29 @@ function renderEdgeCodeBottom(fmt: string, index: number) {
         {/* ================================================================= */}
         {/* MODE: leader-frame (TAIL)                                         */}
         {/* ================================================================= */}
-        {!isEdgeOnlyFormat && tailSequence.map((item, lIdx) => {
-          const globalIdx = leaderSequence.length + computedTiles.length + lIdx;
-          return (
-            <div class="film-segment leader-frame-segment">
-              {showPerfs && (
-                <div class="film-edge top">
-                  <div class="edge-code-lane top" set:html={renderEdgeCodeTop(format, globalIdx)}></div>
-                  <div class="perf-row top">
-                    {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
-                  </div>
+        {!isEdgeOnlyFormat && tailSequence.map((item, lIdx) => (
+          <div class="film-segment leader-frame-segment">
+            {showPerfs && (
+              <div class="film-edge top">
+                <div class="edge-code-lane top"></div>
+                <div class="perf-row top">
+                  {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
                 </div>
-              )}
-              <div class="leader-plate">
-                {item.type === 'end' && <div class="leader-start-text">{item.label}</div>}
               </div>
-              {showPerfs && (
-                <div class="film-edge bottom">
-                  <div class="perf-row bottom">
-                    {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
-                  </div>
-                  <div class="edge-code-lane bottom" set:html={renderEdgeCodeBottom(format, globalIdx)}></div>
-                </div>
-              )}
+            )}
+            <div class="leader-plate">
+              {item.type === 'end' && <div class="leader-start-text">{item.label}</div>}
             </div>
-          )
-        })}
+            {showPerfs && (
+              <div class="film-edge bottom">
+                <div class="perf-row bottom">
+                  {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+                </div>
+                <div class="edge-code-lane bottom"></div>
+              </div>
+            )}
+          </div>
+        ))}
 
       </div>
 
@@ -390,8 +383,7 @@ function renderEdgeCodeBottom(fmt: string, index: number) {
   .filmstrip-block[data-format="super35"] {
     --aspect: 2.39;
     --support-bg: rgba(200, 110, 30, 0.25); /* Paler warm amber base */
-    --edge-bg-top: linear-gradient(to bottom, rgba(175,122,72,0.8) 0%, transparent 100%);
-    --edge-bg-bottom: linear-gradient(to top, rgba(175,122,72,0.8) 0%, transparent 100%);
+    --edge-band-bg: rgba(160, 70, 10, 0.45); /* Denser latent edge */
     --edge-text: rgba(30, 10, 0, 0.9);
     --track-bg: transparent; /* Negative: frame gaps are unexposed base */
     --aperture-bg: rgba(20, 10, 0, 0.85); /* Solid frame black */
@@ -402,8 +394,7 @@ function renderEdgeCodeBottom(fmt: string, index: number) {
     --frame-gap: 6px;
     --aspect: 1.37;
     --support-bg: rgba(200, 200, 195, 0.2); /* Clear print base */
-    --edge-bg-top: linear-gradient(to bottom, rgba(200,210,200,0.4) 0%, transparent 100%);
-    --edge-bg-bottom: linear-gradient(to top, rgba(200,210,200,0.4) 0%, transparent 100%);
+    --edge-band-bg: rgba(10, 10, 10, 0.85); /* Black print emulsion edge */
     --edge-text: rgba(240, 240, 235, 0.85); /* White text knocked out of black emulsion */
     --track-bg: rgba(10, 10, 10, 0.9); /* Print frame gaps are black emulsion */
     --aperture-bg: rgba(10, 10, 10, 0.95);
@@ -414,8 +405,7 @@ function renderEdgeCodeBottom(fmt: string, index: number) {
     --hole-h: clamp(14px, 2vw, 20px);
     --aspect: 2.00;
     --support-bg: rgba(160, 40, 30, 0.25); 
-    --edge-bg-top: linear-gradient(to bottom, rgba(209,122,34,0.8) 0%, transparent 100%);
-    --edge-bg-bottom: linear-gradient(to top, rgba(209,122,34,0.8) 0%, transparent 100%);
+    --edge-band-bg: rgba(120, 20, 15, 0.45);
     --edge-text: rgba(40, 0, 0, 0.9);
     --track-bg: transparent;
     --aperture-bg: rgba(30, 5, 5, 0.85);
@@ -433,8 +423,7 @@ function renderEdgeCodeBottom(fmt: string, index: number) {
     --frame-gap: 8px;
     --aspect: 1.43;
     --support-bg: rgba(40, 140, 150, 0.25);
-    --edge-bg-top: linear-gradient(to bottom, rgba(43,132,146,0.8) 0%, transparent 100%);
-    --edge-bg-bottom: linear-gradient(to top, rgba(43,132,146,0.8) 0%, transparent 100%);
+    --edge-band-bg: rgba(20, 100, 110, 0.45);
     --edge-text: rgba(230, 245, 248, 0.95); /* Light text knocked out of cyan band */
     --track-bg: transparent;
     --aperture-bg: rgba(5, 20, 25, 0.85);
@@ -449,8 +438,7 @@ function renderEdgeCodeBottom(fmt: string, index: number) {
     --code-lane-h: 20px;
     --perf-band-h: 24px;
     --support-bg: rgba(0, 0, 0, 0.1);
-    --edge-bg-top: rgba(0, 0, 0, 0.2);
-    --edge-bg-bottom: rgba(0, 0, 0, 0.2);
+    --edge-band-bg: rgba(0, 0, 0, 0.2);
     --edge-text: rgba(0, 0, 0, 0.8);
     --backing-plane: #fbfbf9;
     padding: 0;
@@ -461,7 +449,7 @@ function renderEdgeCodeBottom(fmt: string, index: number) {
   .backing-plane {
     position: absolute;
     inset: 0;
-    background: transparent; /* Light box ONLY shows through perf holes now */
+    background: var(--backing-plane);
     z-index: 0;
   }
 
@@ -476,7 +464,8 @@ function renderEdgeCodeBottom(fmt: string, index: number) {
     padding: 0 var(--pad-x);
   }
   .filmstrip-block[data-mode="full-frame"] .scroll-window {
-    /* Mask removed to eliminate dead space at edges */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
   }
 
   .scroll-window:focus-visible {
@@ -492,9 +481,9 @@ function renderEdgeCodeBottom(fmt: string, index: number) {
     flex-direction: column;
     width: max-content;
     background: var(--support-bg);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,255,255,0.2);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1), inset 0 0 15px rgba(255,255,255,0.2);
     border-radius: 2px;
-    backdrop-filter: blur(4px); /* Emulsion diffusion */
+    backdrop-filter: blur(1px); /* Slight diffusion of the backlight */
   }
   .filmstrip-block[data-mode="edge-only"] .film-base-shell {
     box-shadow: none;
@@ -528,12 +517,6 @@ function renderEdgeCodeBottom(fmt: string, index: number) {
     flex-direction: column;
     width: var(--segment-w);
   }
-  .film-edge.top {
-    background: var(--edge-bg-top);
-  }
-  .film-edge.bottom {
-    background: var(--edge-bg-bottom);
-  }
 
   .perf-row {
     display: flex;
@@ -551,7 +534,7 @@ function renderEdgeCodeBottom(fmt: string, index: number) {
     background: var(--backing-plane); /* Punches through to the backing plane */
     border-radius: var(--hole-radius);
     flex-shrink: 0;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.8), inset 0 -1px 1px rgba(255,255,255,0.2);
+    box-shadow: inset 0 1px 4px rgba(0,0,0,0.08); /* Soft punch thickness instead of deep black hole */
   }
   .filmstrip-block[data-mode="edge-only"] .perf-hole {
     box-shadow: none;
@@ -563,11 +546,10 @@ function renderEdgeCodeBottom(fmt: string, index: number) {
     display: flex;
     height: var(--code-lane-h);
     width: 100%;
-    background: transparent;
+    background: var(--edge-band-bg);
     white-space: nowrap;
-    overflow: visible; /* Allow text to flow across boundaries smoothly */
+    overflow: hidden; /* Do not bleed */
     pointer-events: none;
-    z-index: 2;
   }
   .edge-code-lane.top { 
     align-items: flex-end;
@@ -700,12 +682,11 @@ function renderEdgeCodeBottom(fmt: string, index: number) {
     width: calc(var(--segment-w) - var(--frame-gap));
     aspect-ratio: var(--aspect);
     margin-right: var(--frame-gap);
-    background: var(--aperture-bg); /* Filled behind countdown */
+    background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    container-type: size;
   }
 
   .leader-target {
@@ -722,8 +703,8 @@ function renderEdgeCodeBottom(fmt: string, index: number) {
     border-radius: 50%;
     border: 2px solid var(--edge-text);
   }
-  .target-circle.outer { height: 80%; aspect-ratio: 1/1; }
-  .target-circle.inner { height: 60%; aspect-ratio: 1/1; }
+  .target-circle.outer { width: 80%; height: 80%; }
+  .target-circle.inner { width: 60%; height: 60%; }
 
   .crosshair-v {
     position: absolute;
@@ -751,10 +732,10 @@ function renderEdgeCodeBottom(fmt: string, index: number) {
 
   .leader-numeral {
     font-family: var(--font-mono);
-    font-size: 50cqh; /* Exactly half the frame height */
+    font-size: clamp(3rem, 10vw, 8rem);
     color: var(--edge-text);
     z-index: 2;
-    background: var(--aperture-bg); /* Punch out the crosshair behind the text */
+    background: var(--support-bg); /* Punch out the crosshair behind the text */
     padding: 0 1rem;
     font-weight: bold;
     letter-spacing: -2px;

@@ -1,0 +1,520 @@
+---
+/**
+ * FilmstripBlock.astro — Cinematic horizontal image track with perforation bands.
+ * Uses native CSS scroll-snap for zero-jank mobile performance.
+ */
+import { fetchProjects, resolveMediaUrl } from '../../lib/payload'
+
+interface Props {
+  block: {
+    source: 'custom-media' | 'from-projects'
+    format?: 'academy' | 'super35' | 'widescreen200' | 'imax' | 'v2-header' | 'v2-footer'
+    projectFilter?: 'all' | '212' | '310' | 'nrc'
+    tiles?: Array<{
+      media: any
+      caption?: string
+      division?: string
+    }>
+    showPerforations?: boolean
+  }
+}
+
+const { block } = Astro.props
+const showPerfs = block.showPerforations !== false
+const format = block.format || 'super35'
+
+type ComputedTile = {
+  url: string
+  alt: string
+  caption: string
+  division: string
+  href?: string
+}
+
+let computedTiles: ComputedTile[] = []
+
+if (block.source === 'from-projects') {
+  const { projects } = await fetchProjects()
+  let filtered = projects || []
+  if (block.projectFilter && block.projectFilter !== 'all') {
+    filtered = filtered.filter(p => p.division === block.projectFilter)
+  }
+  for (const proj of filtered) {
+    if (proj.heroImage && typeof proj.heroImage === 'object' && 'url' in proj.heroImage) {
+      const media = proj.heroImage as any
+      const url = resolveMediaUrl(media)
+      if (url) {
+        computedTiles.push({
+          url,
+          alt: media.alt || proj.title,
+          caption: proj.title,
+          division: proj.division || 'none',
+          href: `/work/${proj.slug}`
+        })
+      }
+    }
+  }
+} else {
+  const rawTiles = block.tiles || []
+  for (const tile of rawTiles) {
+    if (tile.media) {
+      const url = resolveMediaUrl(tile.media)
+      if (url) {
+        computedTiles.push({
+          url,
+          alt: tile.media.alt || tile.caption || '',
+          caption: tile.caption || '',
+          division: tile.division || 'none',
+          href: undefined
+        })
+      }
+    }
+  }
+}
+
+// Generate plenty of holes for a long scrolling strip (200 is very safe for 8+ tiles)
+const holes = Array.from({ length: 200 })
+
+function getDivisionClass(div: string) {
+  if (div === '212') return 'text-212'
+  if (div === '310') return 'text-310'
+  if (div === 'nrc') return 'text-nrc'
+  return ''
+}
+---
+
+<section 
+  class="filmstrip-block" 
+  data-format={format}
+  aria-label={format.startsWith('v2-') ? "Filmstrip rail" : "Filmstrip gallery"}
+  role={format.startsWith('v2-') ? "presentation" : "region"}
+  aria-roledescription={format.startsWith('v2-') ? undefined : "carousel"}
+>
+  <div class="scroll-window" tabindex="0" role="group" aria-label="Slides">
+    <div class="filmstrip-physical">
+      
+      {/* Top Edge / Perfs */}
+      {showPerfs && format !== 'v2-header' && format !== 'v2-footer' && (
+        <div class="edge-layer edge-top" aria-hidden="true">
+          <div class="edge-gradient"></div>
+          <div class="edge-codes">
+            {format === 'super35' && (
+              <>
+                <span class="code code-yellow" style="margin-left: 20vw;">KODAK 500T 5219</span>
+                <span class="code code-yellow" style="margin-left: 40vw;">KODAK 500T 5219</span>
+                <span class="code code-yellow" style="margin-left: 40vw;">KODAK 500T 5219</span>
+                <div class="edge-stripe edge-stripe-orange"></div>
+                <div class="edge-stripe edge-stripe-white"></div>
+              </>
+            )}
+            {format === 'imax' && (
+              <>
+                <span class="code code-cyan" style="margin-left: 15vw;">EASTMAN 5243 039 02401 191 110</span>
+                <span class="code code-cyan" style="margin-left: 40vw;">EASTMAN 5243 039 02401 191 110</span>
+                <span class="code code-cyan" style="margin-left: 40vw;">EASTMAN 5243 039 02401 191 110</span>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {showPerfs && (
+        <div class="perf-row" aria-hidden="true">
+          {holes.map(() => <div class="perf-hole" />)}
+        </div>
+      )}
+
+      {/* Optical Track (e.g. Academy) */}
+      {format === 'academy' && (
+        <div class="optical-track-container" aria-hidden="true">
+          <div class="optical-track"></div>
+        </div>
+      )}
+
+      {/* Frame Row */}
+      {!format.startsWith('v2-') && (
+        <div class="frame-row">
+          {computedTiles.map((tile, i) => {
+            const Element = tile.href ? 'a' : 'div'
+            return (
+              <Element
+                class="filmstrip-tile"
+                href={tile.href}
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`${i + 1} of ${computedTiles.length}`}
+              >
+                <div class="tile-frame">
+                  <img src={tile.url} alt={tile.alt} loading="lazy" />
+                  <div class="wireframe-cross"></div>
+                </div>
+                <div class="tile-meta">
+                  {tile.caption && <span class="tile-caption">{tile.caption}</span>}
+                  {tile.division !== 'none' && (
+                    <span class={`tile-division ${getDivisionClass(tile.division)}`}>{tile.division.toUpperCase()}</span>
+                  )}
+                </div>
+              </Element>
+            )
+          })}
+        </div>
+      )}
+
+      {/* Bottom Perfs */}
+      {showPerfs && format !== 'v2-header' && format !== 'v2-footer' && (
+        <div class="perf-row" aria-hidden="true">
+          {holes.map(() => <div class="perf-hole" />)}
+        </div>
+      )}
+
+      {/* Bottom Edge */}
+      {showPerfs && format !== 'v2-header' && format !== 'v2-footer' && (
+        <div class="edge-layer edge-bottom" aria-hidden="true">
+          <div class="edge-gradient"></div>
+          <div class="edge-codes">
+            {format === 'academy' && (
+              <>
+                <span class="code code-grey" style="margin-left: 20vw;">SAFETY FILM</span>
+                <span class="code code-grey" style="margin-left: 50vw;">SAFETY FILM</span>
+              </>
+            )}
+            {format === 'widescreen200' && (
+              <>
+                <span class="code code-maroon" style="margin-left: 10vw;">ANSCO COLOR 848</span>
+                <span class="code code-maroon" style="margin-left: 35vw;">ANSCO COLOR 848</span>
+                <span class="code code-maroon" style="margin-left: 35vw;">ANSCO COLOR 848</span>
+              </>
+            )}
+            {format === 'imax' && (
+              <>
+                <span class="code code-cyan" style="margin-left: 25vw;">EV 93 4554 4694+40• <span class="barcode">||| || ||| ||</span></span>
+                <span class="code code-cyan" style="margin-left: 45vw;">EV 93 4554 4695+40• <span class="barcode">||| || ||| ||</span></span>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .filmstrip-block {
+    width: 100%;
+    overflow: hidden;
+    padding: var(--s-7) 0;
+    
+    /* Default variables (Super 35) */
+    --aspect: 2.39 / 1;
+    --hole-w: clamp(8px, 1.2vw, 14px);
+    --hole-h: clamp(16px, 2.5vw, 24px);
+    --hole-gap: clamp(16px, 2vw, 32px);
+    --band-h: 32px;
+    --hole-radius: var(--r-hole);
+    --border-color: var(--rule);
+    --frame-gap: 4px; /* Frame lines thickness */
+  }
+
+  /* Format Overrides */
+  .filmstrip-block[data-format="academy"] {
+    --aspect: 1.37 / 1;
+    --frame-gap: 6px;
+  }
+
+  .filmstrip-block[data-format="widescreen200"] {
+    --aspect: 2.00 / 1;
+    --hole-h: clamp(14px, 2vw, 20px);
+    --frame-gap: 4px;
+  }
+
+  .filmstrip-block[data-format="imax"] {
+    --aspect: 1.43 / 1;
+    --hole-w: clamp(12px, 1.8vw, 18px);
+    --hole-h: clamp(18px, 2.8vw, 28px);
+    --hole-gap: clamp(24px, 3vw, 40px);
+    --band-h: 40px;
+    --hole-radius: 4px;
+    --frame-gap: 8px;
+  }
+
+  .filmstrip-block[data-format="v2-header"],
+  .filmstrip-block[data-format="v2-footer"] {
+    --hole-w: 13px;
+    --hole-h: 9px;
+    --hole-gap: 16px;
+    --band-h: 32px;
+    --hole-radius: var(--r-hole);
+    --border-color: #1e1e1e;
+    padding: 0;
+  }
+
+  /* Scrolling Layout */
+  .scroll-window {
+    width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* Soft fade at the edges of the window */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    padding: 0 var(--pad-x);
+  }
+
+  .scroll-window:focus-visible {
+    outline: 2px solid var(--apr-imax);
+    outline-offset: 2px;
+  }
+
+  .scroll-window::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filmstrip-block[data-format="v2-header"] .scroll-window,
+  .filmstrip-block[data-format="v2-footer"] .scroll-window {
+    -webkit-mask-image: none;
+    mask-image: none;
+    padding: 0;
+  }
+
+  .filmstrip-physical {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    background: rgba(10, 10, 10, 0.7); /* Translucent film base */
+    backdrop-filter: blur(4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    border-radius: 2px;
+  }
+
+  .filmstrip-block[data-format="v2-header"] .filmstrip-physical,
+  .filmstrip-block[data-format="v2-footer"] .filmstrip-physical {
+    background: #050505;
+    backdrop-filter: none;
+    box-shadow: none;
+    border-radius: 0;
+    width: 100vw;
+  }
+
+  /* Edges */
+  .edge-layer {
+    position: relative;
+    height: 16px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .edge-gradient {
+    position: absolute;
+    inset: 0;
+    opacity: 0.8;
+  }
+
+  /* Gradients per format */
+  .filmstrip-block[data-format="academy"] .edge-gradient {
+    background: linear-gradient(to bottom, rgba(200,210,200,0.4) 0%, transparent 100%);
+  }
+  .filmstrip-block[data-format="academy"] .edge-bottom .edge-gradient {
+    background: linear-gradient(to top, rgba(200,210,200,0.4) 0%, transparent 100%);
+  }
+
+  .filmstrip-block[data-format="super35"] .edge-gradient {
+    background: linear-gradient(to bottom, rgba(175,122,72,0.8) 0%, transparent 100%);
+  }
+  
+  .filmstrip-block[data-format="widescreen200"] .edge-gradient {
+    background: linear-gradient(to bottom, rgba(209,122,34,0.8) 0%, transparent 100%);
+  }
+  .filmstrip-block[data-format="widescreen200"] .edge-bottom .edge-gradient {
+    background: linear-gradient(to top, rgba(209,122,34,0.8) 0%, transparent 100%);
+  }
+
+  .filmstrip-block[data-format="imax"] .edge-gradient {
+    background: linear-gradient(to bottom, rgba(43,132,146,0.8) 0%, transparent 100%);
+  }
+  .filmstrip-block[data-format="imax"] .edge-bottom .edge-gradient {
+    background: linear-gradient(to top, rgba(43,132,146,0.8) 0%, transparent 100%);
+  }
+
+  /* Edge Codes */
+  .edge-codes {
+    position: relative;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+    white-space: nowrap;
+  }
+
+  .code {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: var(--track-strip);
+    opacity: 0.9;
+    text-transform: uppercase;
+  }
+  .code-yellow { color: #ffd54f; }
+  .code-cyan { color: #00e5ff; }
+  .code-maroon { color: #800000; font-weight: bold; letter-spacing: 0.2em; }
+  .code-grey { color: #555; font-weight: bold; }
+
+  .barcode {
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-left: 8px;
+  }
+
+  .edge-stripe {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+  }
+  .edge-stripe-orange {
+    left: 4px;
+    width: 6px;
+    background: #ff5722;
+  }
+  .edge-stripe-white {
+    left: 12px;
+    width: 2px;
+    background: #fff;
+    opacity: 0.9;
+  }
+
+  /* Perfs */
+  .perf-row {
+    display: flex;
+    align-items: center;
+    height: var(--band-h);
+    gap: var(--hole-gap);
+    padding: 0 calc(var(--hole-gap) * 2); /* Start holes slightly inset */
+  }
+
+  .perf-hole {
+    width: var(--hole-w);
+    height: var(--hole-h);
+    background: var(--bg-0); /* Punches through to page background */
+    border-radius: var(--hole-radius);
+    flex-shrink: 0;
+    box-shadow: 
+      inset 0 1px 3px rgba(0,0,0,0.8), 
+      inset 0 -1px 1px rgba(255,255,255,0.2);
+  }
+
+  .filmstrip-block[data-format="v2-header"] .perf-hole,
+  .filmstrip-block[data-format="v2-footer"] .perf-hole {
+    box-shadow: none;
+    border: 1.5px solid var(--border-color);
+  }
+
+  /* Optical Track */
+  .optical-track-container {
+    width: 100%;
+    height: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .optical-track {
+    width: 100%;
+    height: 100%;
+    background-image: 
+      repeating-linear-gradient(90deg, 
+        #000, #000 2px, 
+        transparent 2px, transparent 4px),
+      repeating-linear-gradient(90deg, 
+        transparent, transparent 1px, 
+        #000 1px, #000 3px);
+    background-position: 0 2px, 0 6px;
+    background-size: 10px 4px, 14px 4px;
+    background-repeat: repeat-x;
+    opacity: 0.8;
+  }
+
+  /* Frames */
+  .frame-row {
+    display: flex;
+    gap: var(--frame-gap); /* Black frame lines */
+    background: #020202; /* Frame line color */
+    padding: 0 calc(var(--hole-gap) * 10); /* Film Leader padding */
+  }
+
+  .filmstrip-tile {
+    flex-shrink: 0;
+    width: clamp(280px, 45vw, 600px);
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: var(--fg-1);
+    outline: none;
+    scroll-snap-align: center;
+  }
+
+  .tile-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: var(--aspect); 
+    overflow: hidden;
+    background: #111;
+    border-radius: 2px;
+  }
+
+  .wireframe-cross {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.15;
+    background-image: 
+      linear-gradient(to bottom right, transparent calc(50% - 1px), #fff calc(50% - 1px), #fff calc(50% + 1px), transparent calc(50% + 1px)),
+      linear-gradient(to top right, transparent calc(50% - 1px), #fff calc(50% - 1px), #fff calc(50% + 1px), transparent calc(50% + 1px));
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .tile-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.9) contrast(1.05);
+    transition: transform var(--dur-base) var(--ease-out), filter var(--dur-base) var(--ease-out);
+  }
+
+  .filmstrip-tile:hover .tile-frame img,
+  .filmstrip-tile:focus-visible .tile-frame img {
+    transform: scale(1.03);
+    filter: saturate(1.15) contrast(1.1);
+  }
+
+  .filmstrip-tile:focus-visible .tile-frame {
+    outline: 2px solid var(--apr-imax);
+    outline-offset: 4px;
+  }
+
+  .tile-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--s-3);
+    gap: var(--s-3);
+  }
+
+  .tile-caption {
+    font-family: var(--font-body);
+    font-size: var(--type-caption);
+    letter-spacing: var(--track-wider);
+    text-transform: uppercase;
+    color: var(--fg-3);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+  }
+
+  .tile-division {
+    font-family: var(--font-mono);
+    font-size: var(--type-tiny);
+    letter-spacing: var(--track-strip);
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+</style>

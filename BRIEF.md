@@ -60,10 +60,10 @@ Brand SVGs uploaded to Media (IDs 60-69). Division globals have headerLogo/foote
 
 ## What's next
 
-1. **FIX: Logo rendering on division pages** — Debug locally (`pnpm dev`). Logos are in CMS but not appearing on pages. Likely depth/URL resolution issue. See `docs/handoff/opus-2026-05-16-seed-complete-logos-not-rendering.md`.
-2. **Division Showcase Variants** — 5 variants (v0-v4) at `/dev/division-variants`. Awaiting `[requires-gui]` Director review.
-3. **HeroSliderIsland** — `[gemini]` line in TASKS.md. (Still paused).
-4. **Visual QA** — `[requires-gui]` for rendered brand logos once fix lands.
+1. **DONE: Logo rendering on division pages** — Fixed URL resolution. Astro SSR was passing internal Docker hostnames (`http://cms:3000/...`) into the generated HTML. Updated `resolveMediaUrl` to pass relative paths, and added `/media` location block to `nginx/default.conf` to correctly proxy these requests to the CMS. 
+2. **Review/Merge: Division Showcase Variant** — Awaiting `[requires-gui]` Director review for `v4-animated-filmstrip`.
+3. **Visual QA** — `[requires-gui]` for rendered brand logos once NAS is redeployed.
+4. **HeroSliderIsland** — `[gemini]` line in TASKS.md. (Still paused).
 
 ### Task tags (who owns what)
 

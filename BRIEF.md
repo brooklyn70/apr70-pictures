@@ -106,3 +106,8 @@ Design and research reference moved to `/Users/marco/websites/apr70-website-refe
 ## Context enforcement (rule #14)
 
 Hard-stop hook wired in `.claude/settings.json` via `PreToolUse`/`PostToolUse`. Tracks accumulated tool output in `.claude/.context-meter`. At 250KB, warns agent then blocks non-handoff tools. Stop hook resets meter. See `CLAUDE.md` rule #14 and `.claude/hooks/context-gate.sh`.
+
+## Auto-stop note (2026-05-16 16:43 UTC)
+
+- Branch: main
+- Tip: b44e51d

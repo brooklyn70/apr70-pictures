@@ -36,28 +36,7 @@ type ComputedTile = {
 
 let computedTiles: ComputedTile[] = []
 
-if (block.source === 'from-projects' && isFullFrame) {
-  const { projects } = await fetchProjects()
-  let filtered = projects || []
-  if (block.projectFilter && block.projectFilter !== 'all') {
-    filtered = filtered.filter(p => p.division === block.projectFilter)
-  }
-  for (const proj of filtered) {
-    if (proj.heroImage && typeof proj.heroImage === 'object' && 'url' in proj.heroImage) {
-      const media = proj.heroImage as any
-      const url = resolveMediaUrl(media)
-      if (url) {
-        computedTiles.push({
-          url,
-          alt: media.alt || proj.title,
-          caption: proj.title,
-          division: proj.division || 'none',
-          href: `/work/${proj.slug}`
-        })
-      }
-    }
-  }
-} else if (isFullFrame) {
+if (isFullFrame) {
   const rawTiles = block.tiles || []
   for (const tile of rawTiles) {
     if (tile.media) {
@@ -65,11 +44,34 @@ if (block.source === 'from-projects' && isFullFrame) {
       if (url) {
         computedTiles.push({
           url,
-          alt: tile.media.alt || tile.caption || '',
+          alt: typeof tile.media === 'object' && tile.media?.alt ? tile.media.alt : (tile.caption || ''),
           caption: tile.caption || '',
           division: tile.division || 'none',
           href: undefined
         })
+      }
+    }
+  }
+
+  if (block.source === 'from-projects') {
+    const { projects } = await fetchProjects()
+    let filtered = projects || []
+    if (block.projectFilter && block.projectFilter !== 'all') {
+      filtered = filtered.filter(p => p.division === block.projectFilter)
+    }
+    for (const proj of filtered) {
+      if (proj.heroImage && typeof proj.heroImage === 'object' && 'url' in proj.heroImage) {
+        const media = proj.heroImage as any
+        const url = resolveMediaUrl(media)
+        if (url) {
+          computedTiles.push({
+            url,
+            alt: media.alt || proj.title,
+            caption: proj.title,
+            division: proj.division || 'none',
+            href: `/work/${proj.slug}`
+          })
+        }
       }
     }
   }
@@ -135,6 +137,31 @@ const barcodeSvg = `
 
 const opticalWaveVerticalTop = "M10,0 L5,0 Q8,2.5 3,5 T4,10 T7,15 T2,20 T8,25 T5,30 T9,35 T3,40 T6,45 T2,50 T8,55 T5,60 T9,65 T4,70 T7,75 T3,80 T8,85 T4,90 T7,95 T2,100 L10,100 Z";
 const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20 T12,25 T15,30 T11,35 T17,40 T14,45 T18,50 T12,55 T15,60 T11,65 T16,70 T13,75 T17,80 T12,85 T16,90 T13,95 T18,100 L10,100 Z";
+
+function renderEdgeCodeTop(fmt: string, index: number) {
+  if (fmt === 'super35' && index % 4 === 0) {
+    return `<span class="code">K KI 03 ${1500 + Math.floor(index / 4)} 7040·<span class="barcode-wrapper">${barcodeSvg}</span></span>`;
+  }
+  if (fmt === 'imax' && index % 8 === 0) {
+    return `<span class="code">E KI 03 ${4600 + Math.floor(index / 8)} 7040·<span class="barcode-wrapper">${barcodeSvg}</span></span>`;
+  }
+  if (fmt === 'imax' && index % 8 === 3) return `<span class="code code-small">+40</span>`;
+  if (fmt === 'imax' && index % 8 === 5) return `<span class="code code-small">+80</span>`;
+  return '';
+}
+
+function renderEdgeCodeBottom(fmt: string, index: number) {
+  if (fmt === 'academy' && index % 4 === 0) {
+    return `<span class="code">K KI 03 ${1000 + Math.floor(index / 4)} 7040·<span class="barcode-wrapper">${barcodeSvg}</span></span>`;
+  }
+  if (fmt === 'widescreen200' && index % 4 === 0) {
+    return `<span class="code">ANSCO COLOR 848 ${10 + Math.floor(index / 4)}·</span>`;
+  }
+  if (fmt === 'imax' && index % 8 === 0) {
+    return `<span class="code code-imax-secondary">EASTMAN 5243 025 ${("0" + (2400 + Math.floor(index / 8))).slice(-4)} ID</span>`;
+  }
+  return '';
+}
 ---
 
 <section 
@@ -190,7 +217,7 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
           <div class="film-segment leader-frame-segment">
             {showPerfs && (
               <div class="film-edge top">
-                <div class="edge-code-lane top"></div>
+                <div class="edge-code-lane top" set:html={renderEdgeCodeTop(format, lIdx)}></div>
                 <div class="perf-row top">
                   {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
                 </div>
@@ -220,7 +247,7 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
                 <div class="perf-row bottom">
                   {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
                 </div>
-                <div class="edge-code-lane bottom"></div>
+                <div class="edge-code-lane bottom" set:html={renderEdgeCodeBottom(format, lIdx)}></div>
               </div>
             )}
           </div>
@@ -231,6 +258,7 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
         {/* Defines the primary content sequence containing media tiles.      */}
         {/* ================================================================= */}
         {!isEdgeOnlyFormat && computedTiles.map((tile, i) => {
+          const globalIdx = leaderSequence.length + i;
           const Element = tile.href ? 'a' : 'div'
           return (
             <Element
@@ -243,21 +271,7 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
               {/* TOP PERFORATION BAND & EDGE CODES */}
               {showPerfs && (
                 <div class="film-edge top">
-                  <div class="edge-code-lane top">
-                    {format === 'super35' && i % 4 === 0 && (
-                      <span class="code">K KI 03 {1503 + Math.floor(i / 4)} 7040·<span class="barcode-wrapper" set:html={barcodeSvg} /></span>
-                    )}
-                    {format === 'imax' && i % 8 === 0 && (
-                      <span class="code">E KI 03 {4690 + Math.floor(i / 8)} 7040·<span class="barcode-wrapper" set:html={barcodeSvg} /></span>
-                    )}
-
-                    {format === 'imax' && i % 8 === 3 && (
-                      <span class="code code-small">+40</span>
-                    )}
-                    {format === 'imax' && i % 8 === 5 && (
-                      <span class="code code-small">+80</span>
-                    )}
-                  </div>
+                  <div class="edge-code-lane top" set:html={renderEdgeCodeTop(format, globalIdx)}></div>
                   <div class="perf-row top">
                     {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
                   </div>
@@ -289,17 +303,7 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
                   <div class="perf-row bottom">
                     {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
                   </div>
-                  <div class="edge-code-lane bottom">
-                    {format === 'academy' && i % 4 === 0 && (
-                      <span class="code">K KI 03 {1000 + Math.floor(i / 4)} 7040·<span class="barcode-wrapper" set:html={barcodeSvg} /></span>
-                    )}
-                    {format === 'widescreen200' && i % 4 === 0 && (
-                      <span class="code">ANSCO COLOR 848 {10 + Math.floor(i / 4)}·</span>
-                    )}
-                    {format === 'imax' && i % 8 === 0 && (
-                      <span class="code code-imax-secondary">EASTMAN 5243 025 {("0" + (2401 + Math.floor(i / 8))).slice(-4)} ID</span>
-                    )}
-                  </div>
+                  <div class="edge-code-lane bottom" set:html={renderEdgeCodeBottom(format, globalIdx)}></div>
                 </div>
               )}
             </Element>
@@ -309,29 +313,32 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
         {/* ================================================================= */}
         {/* MODE: leader-frame (TAIL)                                         */}
         {/* ================================================================= */}
-        {!isEdgeOnlyFormat && tailSequence.map((item, lIdx) => (
-          <div class="film-segment leader-frame-segment">
-            {showPerfs && (
-              <div class="film-edge top">
-                <div class="edge-code-lane top"></div>
-                <div class="perf-row top">
-                  {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+        {!isEdgeOnlyFormat && tailSequence.map((item, lIdx) => {
+          const globalIdx = leaderSequence.length + computedTiles.length + lIdx;
+          return (
+            <div class="film-segment leader-frame-segment">
+              {showPerfs && (
+                <div class="film-edge top">
+                  <div class="edge-code-lane top" set:html={renderEdgeCodeTop(format, globalIdx)}></div>
+                  <div class="perf-row top">
+                    {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+                  </div>
                 </div>
+              )}
+              <div class="leader-plate">
+                {item.type === 'end' && <div class="leader-start-text">{item.label}</div>}
               </div>
-            )}
-            <div class="leader-plate">
-              {item.type === 'end' && <div class="leader-start-text">{item.label}</div>}
+              {showPerfs && (
+                <div class="film-edge bottom">
+                  <div class="perf-row bottom">
+                    {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
+                  </div>
+                  <div class="edge-code-lane bottom" set:html={renderEdgeCodeBottom(format, globalIdx)}></div>
+                </div>
+              )}
             </div>
-            {showPerfs && (
-              <div class="film-edge bottom">
-                <div class="perf-row bottom">
-                  {Array.from({ length: perfsPerFrame }).map(() => <div class="perf-hole" />)}
-                </div>
-                <div class="edge-code-lane bottom"></div>
-              </div>
-            )}
-          </div>
-        ))}
+          )
+        })}
 
       </div>
 

@@ -111,7 +111,13 @@ function getFormat(name: string): 'super35' | 'widescreen200' | 'academy' {
               </div>
             </div>
             <div class="filmstrip-wrapper">
-               <FilmstripBlock block={{ source: 'from-projects', projectFilter: filter, format: format, showPerforations: true }} />
+               <FilmstripBlock block={{ 
+                 source: 'from-projects', 
+                 projectFilter: filter, 
+                 format: format, 
+                 showPerforations: true,
+                 tiles: div.media ? [{ media: div.media, caption: div.name, division: filter }] : []
+               }} />
             </div>
           </div>
         )
@@ -151,7 +157,13 @@ function getFormat(name: string): 'super35' | 'widescreen200' | 'academy' {
               </div>
             </div>
             <div class="filmstrip-wrapper animated-filmstrip-track">
-               <FilmstripBlock block={{ source: 'from-projects', projectFilter: filter, format: format, showPerforations: true }} />
+               <FilmstripBlock block={{ 
+                 source: 'from-projects', 
+                 projectFilter: filter, 
+                 format: format, 
+                 showPerforations: true,
+                 tiles: div.media ? [{ media: div.media, caption: div.name, division: filter }] : []
+               }} />
             </div>
           </div>
         )

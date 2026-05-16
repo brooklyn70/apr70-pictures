@@ -1,8 +1,8 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-16 (Both seeds executed. Brand logos in Media but NOT rendering on pages.)
-**Phase:** 5 — Seeds complete. Logo rendering bug is top priority.
-**Seeder:** v0.3.2 applied. 69 media rows. 10 brand SVGs. 4 globals updated.
+**Updated:** 2026-05-16 (Logo URLs fixed, Filmstrip physics fixed)
+**Phase:** 5 — Bugs fixed, ready for NAS deploy and visual review.
+**Handoff:** `docs/handoff/antigravity-2026-05-16-1220.md`
 
 ---
 

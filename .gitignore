@@ -35,8 +35,9 @@ Thumbs.db
 *.tgz
 .tsbuildinfo
 
-# Stop-hook state (transient)
+# Hook state (transient, session-local)
 .claude-session-*
+.claude/.context-meter
 
 # nginx secrets
 nginx/.htpasswd*

@@ -61,7 +61,10 @@ else
   echo "[on-stop] no upstream for $BRANCH; skipping push"
 fi
 
-# 3) Append a session note to BRIEF.md if it exists.
+# 3) Reset context meter for next session.
+rm -f .claude/.context-meter
+
+# 4) Append a session note to BRIEF.md if it exists.
 if [ -f BRIEF.md ]; then
   TS=$(date -u +"%Y-%m-%d %H:%M UTC")
   printf "\n## Auto-stop note (%s)\n\n- Branch: %s\n- Tip: %s\n" \

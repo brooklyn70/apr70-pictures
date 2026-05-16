@@ -18,11 +18,8 @@ export const DivisionBlock: Block = {
       defaultValue: 'v0-baseline',
       options: [
         { label: 'v0 — Baseline (stacked rows, ghost numerals)', value: 'v0-baseline' },
-        { label: 'v1 — Interactive Accordion', value: 'v1-accordion' },
-        { label: 'v2 — Horizontal Card Stack', value: 'v2-cards' },
         { label: 'v3 — Baseline + Darkmode Filmstrip', value: 'v3-baseline-filmstrip' },
-        { label: 'v4 — Accordion + Darkmode Filmstrip', value: 'v4-accordion-filmstrip' },
-        { label: 'v5 — Horizontal Card Stack + Darkmode Filmstrip', value: 'v5-cards-filmstrip' },
+        { label: 'v4 — Animated Auto-Scrolling Filmstrip', value: 'v4-animated-filmstrip' },
       ],
       admin: {
         description: 'Select the visual layout variant. Preview all at /dev/division-variants.',

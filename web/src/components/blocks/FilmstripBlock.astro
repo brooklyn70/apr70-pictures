@@ -449,7 +449,7 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
   .backing-plane {
     position: absolute;
     inset: 0;
-    background: var(--backing-plane);
+    background: transparent; /* Light box ONLY shows through perf holes now */
     z-index: 0;
   }
 
@@ -682,7 +682,7 @@ const opticalWaveVerticalBottom = "M10,0 L15,0 Q12,2.5 17,5 T16,10 T13,15 T18,20
     width: calc(var(--segment-w) - var(--frame-gap));
     aspect-ratio: var(--aspect);
     margin-right: var(--frame-gap);
-    background: transparent;
+    background: var(--aperture-bg); /* Filled behind countdown */
     display: flex;
     align-items: center;
     justify-content: center;

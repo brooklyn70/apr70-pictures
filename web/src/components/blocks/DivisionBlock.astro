@@ -1,9 +1,8 @@
 ---
 /**
  * DivisionBlock.astro — Division Showcase renderer.
- * Supports 6 visual variants for Phase 6.
+ * Supports v0-baseline, v3-baseline-filmstrip, and v4-animated-filmstrip.
  */
-import DivisionAccordionIsland from '../islands/DivisionAccordionIsland'
 import FilmstripBlock from './FilmstripBlock.astro'
 import { resolveMediaUrl } from '../../lib/payload'
 
@@ -40,9 +39,9 @@ function getProjectFilter(name: string): 'all' | '212' | '310' | 'nrc' {
   return 'all'
 }
 
-function getFormat(name: string): 'super35' | 'imax' | 'academy' {
+function getFormat(name: string): 'super35' | 'widescreen200' | 'academy' {
   const n = name.toLowerCase()
-  if (n.includes('310')) return 'imax'
+  if (n.includes('310')) return 'widescreen200'
   if (n.includes('nrc')) return 'academy'
   return 'super35'
 }
@@ -77,50 +76,6 @@ function getFormat(name: string): 'super35' | 'imax' | 'academy' {
           </div>
         )
       })}
-    </div>
-  </section>
-)}
-
-{variant === 'v1-accordion' && (
-  <div class="v1-accordion-wrapper">
-    <DivisionAccordionIsland client:visible block={block} />
-  </div>
-)}
-
-{variant === 'v2-cards' && (
-  <section class="division-showcase v2-cards">
-    {block.heading && (
-      <div class="division-header container">
-        <h2 class="h2" set:html={block.heading.replace(/\n/g, '<br />')} />
-        {block.subtext && (
-          <p class="body-lg" set:html={block.subtext.replace(/\n/g, '<br />')} />
-        )}
-      </div>
-    )}
-
-    <div class="cards-scroll-container">
-      <div class="cards-track">
-        {divisions.map((div, i) => {
-          const num = String(i + 1).padStart(2, '0')
-          const color = tokenToVar(div.colorToken)
-          const mediaSrc = resolveMediaUrl(div.media)
-          return (
-            <div class="division-card" style={`--div-color: ${color}; border-top: 4px solid ${color};`}>
-              <div class="card-inner">
-                <span class="eyebrow">{num}</span>
-                <h3 class="division-name" style={`color: ${color}`}>{div.name}</h3>
-                {div.subtitle && <span class="division-subtitle">{div.subtitle}</span>}
-                {div.description && (
-                  <p class="division-desc" set:html={div.description.replace(/\n/g, '<br />')} />
-                )}
-                {mediaSrc && (
-                   <img src={mediaSrc} alt={div.media?.alt || div.name} class="card-media" loading="lazy" />
-                )}
-              </div>
-            </div>
-          )
-        })}
-      </div>
     </div>
   </section>
 )}
@@ -165,57 +120,8 @@ function getFormat(name: string): 'super35' | 'imax' | 'academy' {
   </section>
 )}
 
-{variant === 'v4-accordion-filmstrip' && (
-  <section class="division-showcase v4-accordion dark-mode-enforcer" data-theme="dark">
-    <div class="container">
-      {block.heading && (
-        <div class="division-header">
-          <h2 class="h2" set:html={block.heading.replace(/\n/g, '<br />')} />
-          {block.subtext && (
-            <p class="body-lg" set:html={block.subtext.replace(/\n/g, '<br />')} />
-          )}
-        </div>
-      )}
-
-      <div class="accordion-native-list">
-        {divisions.map((div, i) => {
-          const num = String(i + 1).padStart(2, '0')
-          const color = tokenToVar(div.colorToken)
-          const format = getFormat(div.name)
-          const filter = getProjectFilter(div.name)
-          return (
-            <details class="accordion-native-item" name="division-accordion" open={i === 0}>
-              <summary class="accordion-native-summary">
-                <div class="summary-left">
-                  <span class="eyebrow-mono">{num}</span>
-                  <h3 class="division-name-small" style={`color: ${color}`}>{div.name}</h3>
-                </div>
-                <div class="summary-icon">
-                  <span class="icon-h"></span>
-                  <span class="icon-v"></span>
-                </div>
-              </summary>
-              <div class="accordion-native-body">
-                <div class="accordion-native-text">
-                  {div.subtitle && <span class="division-subtitle">{div.subtitle}</span>}
-                  {div.description && (
-                    <p class="division-desc" set:html={div.description.replace(/\n/g, '<br />')} />
-                  )}
-                </div>
-                <div class="filmstrip-wrapper">
-                   <FilmstripBlock block={{ source: 'from-projects', projectFilter: filter, format: format }} />
-                </div>
-              </div>
-            </details>
-          )
-        })}
-      </div>
-    </div>
-  </section>
-)}
-
-{variant === 'v5-cards-filmstrip' && (
-  <section class="division-showcase v5-cards dark-mode-enforcer" data-theme="dark">
+{variant === 'v4-animated-filmstrip' && (
+  <section class="division-showcase v4-animated dark-mode-enforcer" data-theme="dark">
     {block.heading && (
       <div class="division-header container">
         <h2 class="h2" set:html={block.heading.replace(/\n/g, '<br />')} />
@@ -225,16 +131,17 @@ function getFormat(name: string): 'super35' | 'imax' | 'academy' {
       </div>
     )}
 
-    <div class="cards-scroll-container">
-      <div class="cards-track">
-        {divisions.map((div, i) => {
-          const num = String(i + 1).padStart(2, '0')
-          const color = tokenToVar(div.colorToken)
-          const format = getFormat(div.name)
-          const filter = getProjectFilter(div.name)
-          return (
-            <div class="division-card card-filmstrip-variant" style={`border-top: 4px solid ${color};`}>
-              <div class="card-inner">
+    <div class="division-rows">
+      {divisions.map((div, i) => {
+        const num = String(i + 1).padStart(2, '0')
+        const color = tokenToVar(div.colorToken)
+        const format = getFormat(div.name)
+        const filter = getProjectFilter(div.name)
+        return (
+          <div class="division-row" style={`--div-color: ${color}`}>
+            <div class="container position-relative">
+              <span class="ghost-num" aria-hidden="true">{num}</span>
+              <div class="division-content">
                 <span class="eyebrow">{num}</span>
                 <h3 class="division-name" style={`color: ${color}`}>{div.name}</h3>
                 {div.subtitle && <span class="division-subtitle">{div.subtitle}</span>}
@@ -242,16 +149,59 @@ function getFormat(name: string): 'super35' | 'imax' | 'academy' {
                   <p class="division-desc" set:html={div.description.replace(/\n/g, '<br />')} />
                 )}
               </div>
-              <div class="card-filmstrip-wrapper">
-                 <FilmstripBlock block={{ source: 'from-projects', projectFilter: filter, format: format }} />
-              </div>
             </div>
-          )
-        })}
-      </div>
+            <div class="filmstrip-wrapper animated-filmstrip-track">
+               <FilmstripBlock block={{ source: 'from-projects', projectFilter: filter, format: format, showPerforations: true }} />
+            </div>
+          </div>
+        )
+      })}
     </div>
   </section>
 )}
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const tracks = document.querySelectorAll('.animated-filmstrip-track .scroll-window');
+    
+    tracks.forEach((track) => {
+      const segments = track.querySelectorAll('.film-segment');
+      const firstTileIndex = Array.from(segments).findIndex(s => s.classList.contains('filmstrip-tile'));
+      
+      if (firstTileIndex > 0) {
+        const targetElement = segments[firstTileIndex] as HTMLElement;
+        
+        ScrollTrigger.create({
+          trigger: track,
+          start: 'top 80%',
+          once: true,
+          onEnter: () => {
+             const paddingLeft = parseInt(window.getComputedStyle(track).paddingLeft || '0');
+             const targetScroll = targetElement.offsetLeft - paddingLeft;
+             
+             // Temporarily disable scroll snapping so GSAP doesn't fight the browser
+             const originalSnap = (track as HTMLElement).style.scrollSnapType;
+             (track as HTMLElement).style.scrollSnapType = 'none';
+
+             gsap.to(track, {
+               scrollLeft: targetScroll,
+               duration: 2.5,
+               ease: 'power2.inOut',
+               onComplete: () => {
+                 (track as HTMLElement).style.scrollSnapType = originalSnap;
+               }
+             });
+          }
+        });
+      }
+    });
+  });
+</script>
 
 <style>
   /* Base styles */
@@ -274,11 +224,6 @@ function getFormat(name: string): 'super35' | 'imax' | 'academy' {
     display: block;
     margin-bottom: var(--s-3);
   }
-  .eyebrow-mono {
-    font-family: var(--font-mono);
-    font-size: 0.875rem;
-    color: var(--fg-4);
-  }
   .division-name {
     font-family: var(--font-display);
     font-weight: 700;
@@ -286,13 +231,6 @@ function getFormat(name: string): 'super35' | 'imax' | 'academy' {
     line-height: 1;
     letter-spacing: var(--track-tight);
     margin-bottom: var(--s-4);
-    text-transform: uppercase;
-  }
-  .division-name-small {
-    font-family: var(--font-display);
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
-    margin: 0;
-    line-height: 1;
     text-transform: uppercase;
   }
   .division-subtitle {
@@ -315,7 +253,7 @@ function getFormat(name: string): 'super35' | 'imax' | 'academy' {
     margin: 0;
   }
 
-  /* v0 & v3 Baseline layout */
+  /* Baseline layout */
   .division-rows {
     display: flex;
     flex-direction: column;
@@ -350,130 +288,14 @@ function getFormat(name: string): 'super35' | 'imax' | 'academy' {
     z-index: 1;
   }
 
-  /* v1 Accordion wrapper */
-  .v1-accordion-wrapper {
-    padding: var(--s-9) 0;
-  }
-
-  /* v2 & v5 Cards */
-  .cards-scroll-container {
-    width: 100%;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    padding: 0 var(--s-4) var(--s-6) var(--s-4);
-  }
-  .cards-scroll-container::-webkit-scrollbar {
-    display: none;
-  }
-  .cards-track {
-    display: flex;
-    gap: var(--s-6);
-    width: max-content;
-    padding: 0 calc(50vw - 320px);
-  }
-  @media (max-width: 768px) {
-    .cards-track {
-      padding: 0 var(--s-4);
-    }
-  }
-  .division-card {
-    scroll-snap-align: center;
-    background: var(--bg-2);
-    width: 80vw;
-    max-width: 480px;
-    border-radius: 4px;
-    padding: var(--s-7);
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-  }
-  .card-media {
-    margin-top: var(--s-6);
-    width: 100%;
-    height: auto;
-    border-radius: 2px;
-    object-fit: cover;
-    aspect-ratio: 16/9;
-  }
-
   /* Dark mode enforcer (Filmstrips) */
   .dark-mode-enforcer {
-    background: var(--bg-1);
+    background: transparent;
     color: var(--fg-1);
-  }
-  /* Force dark backing plane inside the enforcer to ensure authentic filmstrip darkmode */
-  .dark-mode-enforcer :global(.filmstrip-block) {
-    --backing-plane: #000000;
   }
 
   .filmstrip-wrapper {
     margin-top: var(--s-7);
-    width: 100%;
-  }
-
-  /* v4 Native Accordion overrides */
-  .accordion-native-list {
-    border-top: 1px solid var(--rule);
-  }
-  .accordion-native-item {
-    border-bottom: 1px solid var(--rule);
-  }
-  .accordion-native-summary {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--s-6) 0;
-    cursor: pointer;
-    list-style: none;
-  }
-  .accordion-native-summary::-webkit-details-marker {
-    display: none;
-  }
-  .summary-left {
-    display: flex;
-    align-items: center;
-    gap: var(--s-5);
-  }
-  .summary-icon {
-    width: 24px;
-    height: 24px;
-    position: relative;
-    transition: transform 0.4s var(--ease-out);
-  }
-  .icon-h, .icon-v {
-    position: absolute;
-    background: var(--fg-1);
-  }
-  .icon-h { top: 11px; left: 0; width: 24px; height: 2px; }
-  .icon-v { top: 0; left: 11px; width: 2px; height: 24px; transition: transform 0.4s var(--ease-out); }
-  
-  .accordion-native-item[open] .summary-icon {
-    transform: rotate(90deg);
-  }
-  .accordion-native-item[open] .icon-v {
-    transform: scaleY(0);
-  }
-  .accordion-native-body {
-    padding-left: calc(var(--s-5) + 20px);
-    padding-bottom: var(--s-8);
-  }
-  .accordion-native-text {
-    margin-bottom: var(--s-6);
-  }
-
-  /* v5 Cards Filmstrip overrides */
-  .card-filmstrip-variant {
-    max-width: 800px;
-    width: 85vw;
-    padding: var(--s-7) 0;
-    background: transparent;
-    border-radius: 0;
-  }
-  .card-filmstrip-variant .card-inner {
-    padding: 0 var(--s-7);
-  }
-  .card-filmstrip-wrapper {
     width: 100%;
   }
 </style>

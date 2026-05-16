@@ -1,8 +1,8 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-16 (Logo URLs fixed, Filmstrip physics fixed)
-**Phase:** 5 — Bugs fixed, ready for NAS deploy and visual review.
-**Handoff:** `docs/handoff/antigravity-2026-05-16-1220.md`
+**Updated:** 2026-05-16 (Logo URLs fixed by Gemini. Context hook enforced. Ready for NAS deploy.)
+**Phase:** 5 — Bugs fixed, context enforcement wired, ready for NAS deploy and visual review.
+**Handoff:** `docs/handoff/opus-2026-05-16-context-hook-and-local-db.md`
 
 ---
 
@@ -103,82 +103,6 @@ Telegram only works when wrapped with `op run --`.
 
 Design and research reference moved to `/Users/marco/websites/apr70-website-reference-repository/` on 2026-05-15. See that repo's README for contents. Key folders: `filmstrip-research/`, `design-system-reference/`, `news-page-reference/` (vintage cinema magazines for news/project page design direction).
 
-## Auto-stop note (2026-05-15 19:41 UTC)
+## Context enforcement (rule #14)
 
-- Branch: main
-- Tip: 0e18e3f
-
-## Auto-stop note (2026-05-15 19:47 UTC)
-
-- Branch: main
-- Tip: 178986e
-
-## Auto-stop note (2026-05-15 20:10 UTC)
-
-- Branch: main
-- Tip: 3eabb3c
-
-## Auto-stop note (2026-05-15 20:21 UTC)
-
-- Branch: main
-- Tip: cea1ab9
-
-## Auto-stop note (2026-05-15 20:30 UTC)
-
-- Branch: main
-- Tip: 158dfef
-
-## Auto-stop note (2026-05-15 20:34 UTC)
-
-- Branch: main
-- Tip: 495233e
-
-## Auto-stop note (2026-05-15 20:35 UTC)
-
-- Branch: main
-- Tip: 751b7b5
-
-## Auto-stop note (2026-05-15 21:10 UTC)
-
-- Branch: main
-- Tip: b51642f
-
-## Auto-stop note (2026-05-15 21:28 UTC)
-
-- Branch: main
-- Tip: 1375f56
-
-## Auto-stop note (2026-05-15 21:38 UTC)
-
-- Branch: main
-- Tip: 9435367
-
-## Auto-stop note (2026-05-15 21:40 UTC)
-
-- Branch: main
-- Tip: b929046
-
-## Auto-stop note (2026-05-15 21:44 UTC)
-
-- Branch: main
-- Tip: d275336
-
-## Auto-stop note (2026-05-15 21:46 UTC)
-
-- Branch: main
-- Tip: 0e55315
-
-## Auto-stop note (2026-05-15 22:13 UTC)
-
-- Branch: main
-- Tip: e8179b5
-
-## Auto-stop note (2026-05-16 15:47 UTC)
-
-- Branch: main
-- Tip: 77ee878
-
-## Auto-stop note (2026-05-16 15:54 UTC)
-
-- Branch: main
-- Tip: 2095619
+Hard-stop hook wired in `.claude/settings.json` via `PreToolUse`/`PostToolUse`. Tracks accumulated tool output in `.claude/.context-meter`. At 250KB, warns agent then blocks non-handoff tools. Stop hook resets meter. See `CLAUDE.md` rule #14 and `.claude/hooks/context-gate.sh`.

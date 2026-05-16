@@ -269,11 +269,10 @@ export function resolveMediaUrl(media: Media | null | undefined): string | undef
   if (!media?.url) return undefined
   const u = media.url
   if (u.startsWith('http://') || u.startsWith('https://')) return u
-  const base = PAYLOAD_URL
-    ? trimSlash(PAYLOAD_URL)
-    : ''
-  if (!base) return u
-  return `${base}${u.startsWith('/') ? '' : '/'}${u}`
+  // In Docker production, PAYLOAD_URL is an internal hostname (http://cms:3000)
+  // which is unresolvable by the browser. We return the relative path so it
+  // resolves via the Nginx reverse proxy.
+  return `${u.startsWith('/') ? '' : '/'}${u}`
 }
 
 // ── Generic fetcher ───────────────────────────────────────────────────────────

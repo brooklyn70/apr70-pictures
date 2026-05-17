@@ -1,8 +1,8 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-17 07:20 EDT (V0.0 rejected by Marco; revision spec written for V0.1–V0.4 pass.)
-**Phase:** 6 — V0-Baseline revision pass (V0.1, V0.2, V0.3, V0.4). Filmstrip work paused until V0 is signed off.
-**Handoff:** `docs/handoff/sonnet-2026-05-17-session-b-division-baseline.md`
+**Updated:** 2026-05-17 09:00 EDT (V0.1 stroke revised to v2 height-transition pattern; V0.2/V0.4 deleted; V0.3 hover states added. Context gate hit — commit + build verify pending.)
+**Phase:** 6 — V0-Baseline revision pass. V0.1 + V0.3 at `/dev/division-variants`. Marco selects one to advance.
+**Handoff:** `docs/handoff/sonnet-2026-05-17-v01-v03-revision.md`
 
 ---
 

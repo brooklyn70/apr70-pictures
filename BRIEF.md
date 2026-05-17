@@ -1,7 +1,7 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-16 (Gemini retired from project after failing design correction pass. Handoff created.)
-**Phase:** 5 — Bugs fixed, context enforcement wired, ready for NAS deploy and visual review.
+**Updated:** 2026-05-17 (Logo fix verified locally. Migration applied. NAS deploy pending Marco approval.)
+**Phase:** 5 — Logo bug fixed (migration applied), orchestrator retired, ready for NAS deploy.
 **Handoff:** `docs/handoff/gemini-2026-05-16-1713.md`
 
 ---
@@ -10,11 +10,21 @@
 
 All four containers healthy on kimaserver:8080.
 Postgres, CMS (Payload on :3000), Web (Astro SSR on :4321), nginx (:8080).
-Orchestrator container up. Uses 1Password Service Account (cloud-based, works from any network).
 
-## BUG: Logos in Media but not rendering on pages
+## Logo bug — FIXED (pending NAS deploy)
 
-Brand SVGs uploaded to Media (IDs 60-69). Division globals have headerLogo/footerLogo/faviconOverride set. But logos do NOT appear on /212, /310, /nrc pages. Debug locally first. See handoff doc for investigation plan.
+Root cause: `brand_fields` migration (20260515_201608_brand_fields) was never applied to NAS postgres. Columns `header_logo_id`, `footer_logo_id`, `favicon_override_id` on `212`/`310`/`nrc` tables did not exist. Also missing: `media_kind`/`division_tag` on `media`, hero brand columns, filmstrip `format` columns.
+
+Fix: Migration rewritten as proper incremental SQL (was a broken dev-snapshot). Verified locally: migration applies cleanly, brand seed runs, `GET /api/globals/212?depth=2` returns populated `headerLogo` object.
+
+**NAS deploy steps** (run after Marco approves `git push`):
+```sh
+ssh apr70-nas "cd /volume1/apps/apr70-pictures && git pull origin main && /usr/local/bin/docker compose -f docker-compose.yml -p apr70v3 up -d cms"
+# Then in cms container:
+docker exec apr70v3-cms-1 pnpm payload migrate
+# Logos were already set in admin UI; they'll now persist to DB.
+# If logos vanished: re-run brand seed (needs admin credentials).
+```
 
 ## Route status
 
@@ -60,8 +70,8 @@ Brand SVGs uploaded to Media (IDs 60-69). Division globals have headerLogo/foote
 
 ## What's next
 
-1. **URGENT:** Gemini failed the V0 and V5 design correction pass on `dev/division-variants`. A new agent (Claude) must read `docs/handoff/gemini-2026-05-16-1713.md` and completely redo the CSS/art direction for these components to meet the Sight & Sound / Pentagram / A24 level of premium quality. 
-2. **Review/Merge: Division Showcase Variant** — Awaiting `[requires-gui]` Director review.
+1. **NAS deploy** — Push to NAS, run `pnpm payload migrate` in the cms container. See "Logo bug" section above.
+2. **Division CSS redesign** — V0 and V5 CSS/art direction need a full redo (Gemini failed). See `docs/handoff/gemini-2026-05-16-1713.md` for design spec and `docs/plans/` for session plan. Use Claude Code (Session B = v0-baseline, Session C = v5-animated-filmstrip).
 3. **Visual QA** — `[requires-gui]` for rendered brand logos once NAS is redeployed.
 4. **HeroSliderIsland** — `[gemini]` line in TASKS.md. (Still paused).
 
@@ -72,7 +82,7 @@ Brand SVGs uploaded to Media (IDs 60-69). Division globals have headerLogo/foote
 | `cursor+claude` | IDE + agent friendly |
 | `claude` | Long-context / architecture |
 | `gemini` | Visual, multimodal, motion-heavy block work |
-| `nas-headless` / `nas-shell` | NAS orchestrator or shell |
+| `nas-headless` / `nas-shell` | Runs directly on NAS via SSH/shell |
 | `requires-gui` | Marco sign-off on rendered UI |
 
 ## NAS redeploy
@@ -90,14 +100,6 @@ cd /volume1/apps/apr70-pictures && git pull origin main
 | v2 content | `/volume1/apps/apr70-pictures/v2-export/content` |
 | v2 media | `/volume1/apps/apr70/public/` (537 MB) |
 | v3 media volume | Docker `apr70v3_cms_media` → `/app/media` in cms |
-
-## Orchestrator
-
-Container on NAS is **not** polled from this repo; BRIEF last noted it up 2026-05-13. Code on `main` includes **`git pull --rebase` before push** (`apr70-orchestrator`); rebuild that image on NAS to pick it up.
-
-Run: `sudo docker exec apr70-orchestrator op run -- python -m orchestrator.main --once`
-Dry-run: same but `--dry-run`
-Telegram only works when wrapped with `op run --`.
 
 ## Reference materials
 

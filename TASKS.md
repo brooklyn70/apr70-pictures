@@ -6,7 +6,7 @@ Priority-ordered backlog. Marco edits this in the morning; agents work it during
 
 Each line is: checkbox, phase tag (`[p1]` … `[p7]`), tool hint in backticks, then the task text.
 
-Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainstream IDE work. `gemini` = visual / creative. `cline` = mechanical. `requires-gui` = needs Marco's eyes (visual QA). `nas-headless` = orchestrator can run autonomously.
+Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainstream IDE work. `gemini` = visual / creative. `cline` = mechanical. `requires-gui` = needs Marco's eyes (visual QA). `nas-headless` = runs directly on NAS via SSH/shell.
 
 ---
 

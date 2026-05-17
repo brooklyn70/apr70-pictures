@@ -101,9 +101,13 @@ Typography: Futura Std (display), Barlow (body), Share Tech Mono (filmstrip/meta
 
 ---
 
-## Orchestrator integration
+## Automation
 
-This repo is consumed by the orchestrator at `brooklyn70/apr70-orchestrator`. The orchestrator picks tasks from `TASKS.md`, dispatches them, captures USAGE, and updates `BRIEF.md`.
+Tasks are managed manually via `TASKS.md`. No external orchestrator. Scheduled checks run via the Claude Code scheduled-tasks MCP from Marco's Mac.
+
+**NAS health check** — daily at 9:03am. To create: open Claude Code and ask "Create a daily 9am NAS health check that SSHs to apr70-nas, runs `docker compose ps` on the apr70v3 stack, and curls the CMS API and web frontend." Task stored at `~/.claude/scheduled-tasks/apr70-nas-health/`.
+
+**Post-deploy verification** — run on demand after NAS deploys. Ask Claude Code: "Verify the apr70 NAS deploy: check containers healthy, CMS API responds, /212 /310 /nrc pages return content, media URLs resolve."
 
 ---
 

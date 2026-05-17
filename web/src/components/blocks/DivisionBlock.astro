@@ -149,6 +149,8 @@ function getDivisionId(name: string): '212' | '310' | 'nrc' {
         const color = tokenToVar(div.colorToken)
         return (
           <div class="v01-card" style={`--div-color: ${color}`}>
+            {/* Stroke: draws top→bottom on hover, height 0→100%, 1.5s — v2 slate-card pattern */}
+            <span class="v01-stroke" style={`background: ${color}`} aria-hidden="true"></span>
             <div class="reg-marks" aria-hidden="true">
               <span class="rm-tl"></span><span class="rm-tr"></span>
               <span class="rm-bl"></span><span class="rm-br"></span>
@@ -181,48 +183,6 @@ function getDivisionId(name: string): '212' | '310' | 'nrc' {
   </section>
 )}
 
-{variant === 'v0.2' && (
-  <section class="division-showcase v02-showcase" data-theme="dark">
-    {block.heading && (
-      <div class="division-header container">
-        <span class="v02-header-eyebrow">APR 70 PICTURES · EST. 2026</span>
-        <h2 class="h2" set:html={block.heading.replace(/\n/g, '<br />')} />
-        {block.subtext && <p class="body-lg">{block.subtext}</p>}
-      </div>
-    )}
-    <div class="v02-grid container">
-      {divisions.map((div, i) => {
-        const num = String(i + 1).padStart(2, '0')
-        const divCode = getDivisionCode(div.name)
-        const color = tokenToVar(div.colorToken)
-        const isNRC = divCode === 'NRC'
-        return (
-          <div class={`v02-card${isNRC ? ' v02-card--nrc' : ''}`} style={`--div-color: ${color}`}>
-            <div class="reg-marks" aria-hidden="true">
-              <span class="rm-tl"></span><span class="rm-tr"></span>
-              <span class="rm-bl"></span><span class="rm-br"></span>
-            </div>
-            <div class="v02-color-bar"></div>
-            <div class="v02-card-body">
-              <div class="v02-card-top">
-                <span class="v02-num">{num}</span>
-                <span class="v02-ghost-code" aria-hidden="true">{divCode}</span>
-              </div>
-              <h3 class="v02-name">{div.name}</h3>
-              <div class="v02-taglines">
-                {(div.taglineLines ?? []).map(line => (
-                  <span class="v02-tagline-line">{line}</span>
-                ))}
-              </div>
-              <p class="v02-desc">{div.description}</p>
-              <a class="v02-cta link-cta" href="#">Enter &rarr;</a>
-            </div>
-          </div>
-        )
-      })}
-    </div>
-  </section>
-)}
 
 {variant === 'v0.3' && (
   <section class="division-showcase v03-showcase" data-theme="dark">
@@ -240,6 +200,8 @@ function getDivisionId(name: string): '212' | '310' | 'nrc' {
         const color = tokenToVar(div.colorToken)
         return (
           <div class="v03-row" style={`--div-color: ${color}`}>
+            {/* Stroke: same v2 height-transition pattern */}
+            <span class="v03-stroke" style={`background: ${color}`} aria-hidden="true"></span>
             <div class="reg-marks" aria-hidden="true">
               <span class="rm-tl"></span><span class="rm-tr"></span>
               <span class="rm-bl"></span><span class="rm-br"></span>
@@ -251,7 +213,10 @@ function getDivisionId(name: string): '212' | '310' | 'nrc' {
                 <span class="v03-code" style={`color: ${color}`}>{divCode}</span>
               </span>
               <h3 class="v03-name">{div.name}</h3>
-              <a class="v03-cta link-cta" href="#">Enter &rarr;</a>
+              <a class="v03-cta" href="#">
+                <span class="v03-cta-label">Enter</span>
+                <span class="v03-cta-arrow" aria-hidden="true">&rarr;</span>
+              </a>
             </div>
             <div class="v03-row-body">
               <div class="v03-taglines">
@@ -280,58 +245,6 @@ function getDivisionId(name: string): '212' | '310' | 'nrc' {
   </section>
 )}
 
-{variant === 'v0.4' && (
-  <section class="division-showcase v04-showcase" data-theme="dark">
-    {block.heading && (
-      <div class="v04-header container">
-        <span class="v04-header-eyebrow">APR 70 PICTURES · EST. 2026</span>
-        <h2 class="h2" set:html={block.heading.replace(/\n/g, '<br />')} />
-        {block.subtext && <p class="body-lg">{block.subtext}</p>}
-      </div>
-    )}
-    <div class="v04-rows">
-      {divisions.map((div, i) => {
-        const num = String(i + 1).padStart(2, '0')
-        const divCode = getDivisionCode(div.name)
-        const color = tokenToVar(div.colorToken)
-        const isNRC = divCode === 'NRC'
-        return (
-          <div class={`v04-row${isNRC ? ' v04-row--nrc' : ''}`} style={`--div-color: ${color}`}>
-            <div class="reg-marks" aria-hidden="true">
-              <span class="rm-tl"></span><span class="rm-tr"></span>
-              <span class="rm-bl"></span><span class="rm-br"></span>
-            </div>
-            <div class="v04-left-panel">
-              <span class="v04-seq">{num}</span>
-              <span class="v04-code" aria-hidden="true">{divCode}</span>
-              <div class="v04-taglines">
-                {(div.taglineLines ?? []).map(line => (
-                  <span class="v04-tagline">{line}</span>
-                ))}
-              </div>
-            </div>
-            <div class="v04-right-panel">
-              <h3 class="v04-name">{div.name}</h3>
-              {div.subtitle && <span class="v04-subtitle">{div.subtitle}</span>}
-              {div.description && <p class="v04-desc">{div.description}</p>}
-              {(div.projects ?? []).length > 0 && (
-                <ul class="v04-projects" role="list">
-                  {(div.projects ?? []).map(p => (
-                    <li class="v04-project">
-                      <span class="v04-project-title">{p.title}</span>
-                      <span class="v04-badge">{p.badge}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-              <a class="v04-cta link-cta" href="#">Enter division &rarr;</a>
-            </div>
-          </div>
-        )
-      })}
-    </div>
-  </section>
-)}
 
 {variant === 'v3-baseline-filmstrip' && (
   <section class="division-showcase v3-baseline dark-mode-enforcer" data-theme="dark">
@@ -952,7 +865,7 @@ function getDivisionId(name: string): '212' | '310' | 'nrc' {
     padding-bottom: var(--s-8);
     margin-bottom: var(--s-9);
   }
-  .v01-header-eyebrow, .v02-header-eyebrow, .v03-header-eyebrow, .v04-header-eyebrow {
+  .v01-header-eyebrow, .v03-header-eyebrow {
     display: block;
     font-family: var(--font-mono);
     font-size: var(--type-micro);
@@ -978,21 +891,19 @@ function getDivisionId(name: string): '212' | '310' | 'nrc' {
       grid-template-columns: 180px 1fr;
     }
   }
-  /* Hover stroke: invisible by default, draws top→bottom over 1.5s */
-  .v01-card::before {
-    content: '';
+  /* Stroke: hidden by default, height 0→100% on hover — matches v2 slate-card pattern */
+  .v01-stroke {
     position: absolute;
-    left: 0;
     top: 0;
-    bottom: 0;
-    width: 2px;
-    background: var(--div-color);
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform 1.5s var(--ease-out);
+    left: 0;
+    width: 3px;
+    height: 0;
+    pointer-events: none;
+    transition: height 1.5s ease;
+    z-index: 3;
   }
-  .v01-card:hover::before {
-    transform: scaleY(1);
+  .v01-card:hover .v01-stroke {
+    height: 100%;
   }
   .v01-left {
     position: relative;
@@ -1117,123 +1028,6 @@ function getDivisionId(name: string): '212' | '310' | 'nrc' {
   }
 
   /* ============================================================
-     V0.2 — CARD GRID: 3-column cards with color top bar
-     ============================================================ */
-  .v02-showcase {
-    background: var(--bg-1);
-    color: var(--fg-1);
-    border-top: 1px solid var(--rule);
-    padding: var(--s-9) 0;
-  }
-  .v02-showcase .division-header {
-    border-bottom: 1px solid var(--rule);
-    padding-bottom: var(--s-8);
-    margin-bottom: var(--s-9);
-  }
-  .v02-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--s-5);
-  }
-  @media (min-width: 640px) {
-    .v02-grid { grid-template-columns: repeat(3, 1fr); }
-  }
-  .v02-card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--rule);
-    overflow: hidden;
-    transition: border-color var(--dur-base) var(--ease-in);
-  }
-  .v02-card:hover {
-    border-color: var(--div-color);
-  }
-  .v02-card--nrc .v02-card-body {
-    color: var(--fg-1);
-  }
-  .v02-color-bar {
-    height: 4px;
-    background: var(--div-color);
-    flex-shrink: 0;
-  }
-  .v02-card-body {
-    display: flex;
-    flex-direction: column;
-    padding: var(--s-6);
-    flex: 1;
-    position: relative;
-  }
-  .v02-card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: var(--s-5);
-  }
-  .v02-num {
-    font-family: var(--font-mono);
-    font-size: var(--type-micro);
-    color: var(--fg-4);
-    letter-spacing: var(--track-eyebrow);
-  }
-  .v02-ghost-code {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(3rem, 7vw, 5rem);
-    line-height: var(--leading-crush);
-    letter-spacing: var(--track-tight);
-    color: var(--div-color);
-    opacity: 0.18;
-    pointer-events: none;
-    user-select: none;
-    transition: opacity var(--dur-base) var(--ease-in);
-  }
-  .v02-card:hover .v02-ghost-code {
-    opacity: 0.4;
-  }
-  .v02-name {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-    line-height: var(--leading-tight);
-    letter-spacing: var(--track-tight);
-    text-transform: uppercase;
-    color: var(--fg-1);
-    margin: 0 0 var(--s-4);
-  }
-  .v02-taglines {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    margin-bottom: var(--s-5);
-  }
-  .v02-tagline-line {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(1.5rem, 3.5vw, 2.5rem);
-    line-height: var(--leading-crush);
-    letter-spacing: var(--track-tight);
-    text-transform: uppercase;
-    color: var(--div-color);
-  }
-  .v02-card--nrc .v02-tagline-line {
-    color: var(--fg-1);
-  }
-  .v02-desc {
-    font-family: var(--font-body);
-    font-weight: 300;
-    font-size: var(--type-small);
-    color: var(--fg-3);
-    line-height: var(--leading-body);
-    margin: 0 0 var(--s-6);
-    flex: 1;
-  }
-  .v02-cta {
-    display: inline-block;
-    margin-top: auto;
-  }
-
-  /* ============================================================
      V0.3 — LEDGER ROWS: typographic hierarchy, project list
      ============================================================ */
   .v03-showcase {
@@ -1257,21 +1051,23 @@ function getDivisionId(name: string): '212' | '310' | 'nrc' {
     padding: var(--s-8) 0;
     overflow: hidden;
   }
-  /* Hover stroke: same treatment as V0.1 */
-  .v03-row::before {
-    content: '';
+  /* Stroke — same v2 height pattern */
+  .v03-stroke {
     position: absolute;
-    left: 0;
     top: 0;
-    bottom: 0;
-    width: 2px;
-    background: var(--div-color);
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform 1.5s var(--ease-out);
+    left: 0;
+    width: 3px;
+    height: 0;
+    pointer-events: none;
+    transition: height 1.5s ease;
+    z-index: 3;
   }
-  .v03-row:hover::before {
-    transform: scaleY(1);
+  .v03-row:hover .v03-stroke {
+    height: 100%;
+  }
+  /* Row hover: subtle surface lift + rule brightens */
+  .v03-row:hover {
+    background: rgba(255, 255, 255, 0.015);
   }
   .v03-row-top {
     display: flex;
@@ -1317,9 +1113,40 @@ function getDivisionId(name: string): '212' | '310' | 'nrc' {
     margin: 0;
     flex: 1;
   }
+  /* CTA — faint at rest, full at hover, arrow slides right */
   .v03-cta {
-    display: inline-block;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 5px;
     flex-shrink: 0;
+    font-family: var(--font-body);
+    font-size: var(--type-caption);
+    letter-spacing: var(--track-wider);
+    text-transform: uppercase;
+    color: var(--fg-4);
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    opacity: 0;
+    transition:
+      color var(--dur-base) var(--ease-in),
+      border-color var(--dur-base) var(--ease-in),
+      opacity var(--dur-base) var(--ease-in);
+  }
+  .v03-row:hover .v03-cta {
+    opacity: 1;
+    color: var(--fg-2);
+    border-bottom-color: var(--rule);
+  }
+  .v03-cta:hover {
+    color: var(--fg-1) !important;
+    border-bottom-color: var(--rule-strong) !important;
+  }
+  .v03-cta-arrow {
+    display: inline-block;
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+  .v03-cta:hover .v03-cta-arrow {
+    transform: translateX(5px);
   }
   .v03-row-body {
     display: grid;
@@ -1344,6 +1171,29 @@ function getDivisionId(name: string): '212' | '310' | 'nrc' {
     letter-spacing: var(--track-tight);
     text-transform: uppercase;
     color: var(--div-color);
+  }
+  /* Code brightens on row hover */
+  .v03-code {
+    transition: opacity var(--dur-base) var(--ease-in);
+    opacity: 0.7;
+  }
+  .v03-row:hover .v03-code {
+    opacity: 1;
+  }
+  /* Name shifts slightly on hover */
+  .v03-name {
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+  .v03-row:hover .v03-name {
+    transform: translateX(4px);
+  }
+  /* Taglines intensify */
+  .v03-tagline {
+    transition: opacity var(--dur-base) var(--ease-in);
+    opacity: 0.7;
+  }
+  .v03-row:hover .v03-tagline {
+    opacity: 1;
   }
   .v03-content {}
   .v03-desc {
@@ -1374,10 +1224,15 @@ function getDivisionId(name: string): '212' | '310' | 'nrc' {
     color: var(--fg-4);
     border-top: 1px solid var(--rule);
     padding-top: var(--s-2);
-    transition: color var(--dur-base) var(--ease-in);
+    transition:
+      color var(--dur-base) var(--ease-in),
+      border-color var(--dur-base) var(--ease-in),
+      transform var(--dur-base) var(--ease-out);
   }
   .v03-row:hover .v03-project {
     color: var(--fg-2);
+    border-top-color: var(--rule-strong);
+    transform: translateX(3px);
   }
   .v03-project-title {
     flex: 1;
@@ -1387,166 +1242,4 @@ function getDivisionId(name: string): '212' | '310' | 'nrc' {
     opacity: 0.7;
   }
 
-  /* ============================================================
-     V0.4 — SPLIT PANEL: color block left, dark content right
-     ============================================================ */
-  .v04-showcase {
-    background: var(--bg-1);
-    color: var(--fg-1);
-    border-top: 1px solid var(--rule);
-    padding: var(--s-9) 0;
-  }
-  .v04-header {
-    border-bottom: 1px solid var(--rule);
-    padding-bottom: var(--s-8);
-    margin-bottom: var(--s-9);
-    max-width: var(--max-content);
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: var(--pad-x);
-    padding-right: var(--pad-x);
-  }
-  .v04-rows {
-    display: flex;
-    flex-direction: column;
-  }
-  .v04-row {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr;
-    border-bottom: 1px solid var(--rule);
-    overflow: hidden;
-    min-height: 320px;
-  }
-  @media (min-width: 640px) {
-    .v04-row {
-      grid-template-columns: 35% 1fr;
-    }
-  }
-  .v04-left-panel {
-    background: var(--div-color);
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: var(--s-7) var(--s-7) var(--s-6);
-    overflow: hidden;
-    min-height: 200px;
-  }
-  @media (min-width: 640px) {
-    .v04-left-panel { min-height: auto; }
-  }
-  /* NRC left panel: off-white bg, dark text */
-  .v04-row--nrc .v04-left-panel {
-    background: var(--div-color);
-  }
-  .v04-seq {
-    font-family: var(--font-mono);
-    font-size: var(--type-micro);
-    letter-spacing: var(--track-eyebrow);
-    text-transform: uppercase;
-    color: rgba(0,0,0,0.35);
-    display: block;
-  }
-  .v04-row--nrc .v04-seq {
-    color: rgba(0,0,0,0.4);
-  }
-  .v04-code {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(3.5rem, 10vw, 8rem);
-    line-height: var(--leading-crush);
-    letter-spacing: var(--track-tight);
-    color: rgba(255,255,255,0.9);
-    display: block;
-    position: relative;
-    z-index: 1;
-  }
-  .v04-row--nrc .v04-code {
-    color: rgba(0,0,0,0.7);
-  }
-  .v04-taglines {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  .v04-tagline {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(1rem, 2vw, 1.5rem);
-    line-height: var(--leading-tight);
-    letter-spacing: var(--track-tight);
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.75);
-  }
-  .v04-row--nrc .v04-tagline {
-    color: rgba(0,0,0,0.6);
-  }
-  .v04-right-panel {
-    background: var(--bg-1);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: var(--s-7) var(--s-8);
-    position: relative;
-  }
-  .v04-name {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(1.5rem, 3.5vw, 2.5rem);
-    line-height: var(--leading-tight);
-    letter-spacing: var(--track-tight);
-    text-transform: uppercase;
-    color: var(--fg-1);
-    margin: 0 0 var(--s-3);
-  }
-  .v04-subtitle {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: var(--type-micro);
-    color: var(--fg-4);
-    letter-spacing: var(--track-eyebrow);
-    text-transform: uppercase;
-    margin-bottom: var(--s-5);
-  }
-  .v04-desc {
-    font-family: var(--font-body);
-    font-weight: 300;
-    font-size: clamp(0.875rem, 1.2vw, 1rem);
-    color: var(--fg-2);
-    line-height: var(--leading-body);
-    max-width: 480px;
-    margin: 0 0 var(--s-5);
-  }
-  .v04-projects {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 var(--s-6);
-    display: flex;
-    flex-direction: column;
-    gap: var(--s-2);
-  }
-  .v04-project {
-    display: flex;
-    align-items: baseline;
-    gap: var(--s-4);
-    font-family: var(--font-mono);
-    font-size: var(--type-micro);
-    letter-spacing: var(--track-eyebrow);
-    text-transform: uppercase;
-    color: var(--fg-4);
-    border-top: 1px solid var(--rule);
-    padding-top: var(--s-2);
-  }
-  .v04-project-title { flex: 1; }
-  .v04-badge {
-    color: var(--div-color);
-    opacity: 0.8;
-  }
-  .v04-row--nrc .v04-badge {
-    color: var(--fg-3);
-  }
-  .v04-cta {
-    display: inline-block;
-  }
 </style>

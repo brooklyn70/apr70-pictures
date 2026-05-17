@@ -1,9 +1,9 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-17 09:30 EDT (Paperclip-on-Apex Phase 0 done — Apex SSH established, full service inventory captured, plan + 4 decisions resolved. Context-gate hit at ExitPlanMode.)
-**Phase:** 6 — V0-Baseline revision pass still open (V0.1+V0.3 at `/dev/division-variants`, Marco selects one). PLUS Paperclip Phase 1 queued.
-**Handoff:** `docs/handoff/opus-2026-05-17-paperclip-apex-phase0.md`
-**Paperclip plan to execute next:** `/Users/marco/.claude/plans/read-users-marco-claude-plans-read-the-p-vivid-aho.md`
+**Updated:** 2026-05-17 13:00 EDT (Paperclip Phase 1 mostly shipped — steps 0–7 live on the Apex; step 8 deferred with a written spec; steps 9–10 await Marco's CEO claim + smoke pass. Context-gate fired mid–step 8.)
+**Phase:** 6 — V0-Baseline revision pass still open (V0.1+V0.3 at `/dev/division-variants`, Marco selects one). Paperclip Phase 1 partially shipped; CEO claim is the next user action.
+**Handoff:** `docs/handoff/opus-2026-05-17-paperclip-apex-phase1.md`
+**Paperclip CEO bootstrap invite (expires 2026-05-20):** `http://100.67.28.106:3100/invite/pcp_bootstrap_2acda9f018aa3e89242d05ae21b35692ec3a78886a64e6c8` (also at `https://paperclip.renaissancecinema.com/invite/…` once CF Access policy is in place).
 
 ---
 

@@ -73,12 +73,6 @@ function getDivisionLogo(name: string): string {
   return '/brand/apr70-logos/new-renaissance-cinema/nrc_v1.svg'
 }
 
-/* Y offset crops the SVG's own internal top padding so content bleeds to the element edge */
-function getLogoOffsetY(name: string): string {
-  const n = name.toLowerCase()
-  if (n.includes('nrc') || n.includes('renaissance')) return '17%'
-  return '9%' // 212_footer + 310_footer: content starts at ~y=20/230
-}
 ---
 
 {variant === 'v0-baseline' && (
@@ -212,7 +206,6 @@ function getLogoOffsetY(name: string): string {
         const num = String(i + 1).padStart(2, '0')
         const color = tokenToVar(div.colorToken)
         const logoSrc = getDivisionLogo(div.name)
-        const logoOffsetY = getLogoOffsetY(div.name)
         return (
           <div class="v03-row" style={`--div-color: ${color}`}>
             {/* Stroke: same v2 height-transition pattern */}
@@ -225,7 +218,7 @@ function getLogoOffsetY(name: string): string {
               <span class="v03-index">
                 <span class="v03-num">{num}</span>
               </span>
-              <img class="v03-logo" src={logoSrc} alt={div.name} style={`object-position: left ${logoOffsetY}`} />
+              <img class="v03-logo" src={logoSrc} alt={div.name} />
               <a class="v03-cta" href="#">
                 <span class="v03-cta-label">Enter</span>
                 <span class="v03-cta-arrow" aria-hidden="true">&rarr;</span>
@@ -400,6 +393,36 @@ function getLogoOffsetY(name: string): string {
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
   
   gsap.registerPlugin(ScrollTrigger);
+
+  // V0.3 scroll-aware hover — CSS :hover doesn't update during scroll
+  ;(function () {
+    const rows = document.querySelectorAll<HTMLElement>('.v03-row')
+    if (!rows.length) return
+
+    let mouseX = -1, mouseY = -1
+    let rafPending = false
+
+    function updateHover () {
+      rafPending = false
+      if (mouseX < 0) return
+      rows.forEach(row => {
+        const r = row.getBoundingClientRect()
+        const over = mouseX >= r.left && mouseX <= r.right && mouseY >= r.top && mouseY <= r.bottom
+        row.classList.toggle('is-hovered', over)
+      })
+    }
+
+    document.addEventListener('pointermove', e => { mouseX = e.clientX; mouseY = e.clientY })
+
+    window.addEventListener('scroll', () => {
+      if (!rafPending) { rafPending = true; requestAnimationFrame(updateHover) }
+    }, { passive: true })
+
+    rows.forEach(row => {
+      row.addEventListener('mouseenter', () => row.classList.add('is-hovered'))
+      row.addEventListener('mouseleave', () => row.classList.remove('is-hovered'))
+    })
+  })()
 
   document.addEventListener('DOMContentLoaded', () => {
     // V4 animation
@@ -912,7 +935,7 @@ function getLogoOffsetY(name: string): string {
     width: 6px;
     height: 0;
     pointer-events: none;
-    transition: height 1.5s ease;
+    transition: height 0.9s ease;
     z-index: 3;
   }
   .v01-card:hover .v01-stroke {
@@ -1038,6 +1061,10 @@ function getLogoOffsetY(name: string): string {
     pointer-events: none;
     user-select: none;
     z-index: 0;
+    transition: opacity 0.5s ease;
+  }
+  .v01-card:hover .v01-ghost {
+    opacity: 0.14;
   }
 
   /* ============================================================
@@ -1075,11 +1102,11 @@ function getLogoOffsetY(name: string): string {
     transition: height 1.5s ease;
     z-index: 3;
   }
-  .v03-row:hover .v03-stroke {
+  .v03-row.is-hovered .v03-stroke {
     height: calc(100% - 16px);
   }
   /* Row hover: subtle surface lift + rule brightens */
-  .v03-row:hover {
+  .v03-row.is-hovered {
     background: rgba(255, 255, 255, 0.015);
   }
   .v03-row-top {
@@ -1107,8 +1134,13 @@ function getLogoOffsetY(name: string): string {
     flex: 1;
     display: block;
     min-width: 0;
-    height: clamp(280px, 35vw, 440px);
-    object-fit: cover;
+    height: clamp(140px, 20vw, 260px);
+    object-fit: contain;
+    object-position: left center;
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+  .v03-row.is-hovered .v03-logo {
+    transform: translateX(4px);
   }
   /* CTA — faint at rest, full at hover, arrow slides right */
   .v03-cta {
@@ -1129,7 +1161,7 @@ function getLogoOffsetY(name: string): string {
       border-color var(--dur-base) var(--ease-in),
       opacity var(--dur-base) var(--ease-in);
   }
-  .v03-row:hover .v03-cta {
+  .v03-row.is-hovered .v03-cta {
     opacity: 1;
     color: var(--fg-2);
     border-bottom-color: var(--rule);
@@ -1174,22 +1206,15 @@ function getLogoOffsetY(name: string): string {
     transition: opacity var(--dur-base) var(--ease-in);
     opacity: 0.7;
   }
-  .v03-row:hover .v03-code {
+  .v03-row.is-hovered .v03-code {
     opacity: 1;
-  }
-  /* Logo shifts slightly on hover */
-  .v03-logo {
-    transition: transform var(--dur-base) var(--ease-out);
-  }
-  .v03-row:hover .v03-logo {
-    transform: translateX(4px);
   }
   /* Taglines intensify */
   .v03-tagline {
     transition: opacity var(--dur-base) var(--ease-in);
     opacity: 0.7;
   }
-  .v03-row:hover .v03-tagline {
+  .v03-row.is-hovered .v03-tagline {
     opacity: 1;
   }
   .v03-content {}
@@ -1226,7 +1251,7 @@ function getLogoOffsetY(name: string): string {
       border-color var(--dur-base) var(--ease-in),
       transform var(--dur-base) var(--ease-out);
   }
-  .v03-row:hover .v03-project {
+  .v03-row.is-hovered .v03-project {
     color: var(--fg-2);
     border-top-color: var(--rule-strong);
     transform: translateX(3px);

@@ -1,8 +1,8 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-17 ~13:30 EDT (Division V0.1+V0.3 revision pass B complete — stroke in printer frame, logos large in V0.3, black space fixed. Marco has NOT yet selected a variant.)
+**Updated:** 2026-05-17 ~19:30 EDT (Division V0.1+V0.3 revision pass C — V0.1 stroke faster + ghost fade-in; V0.3 logo fixed to contain (no cropping), scroll hover fixed. Marco has NOT yet selected a variant.)
 **Phase:** 6 — V0-Baseline revision pass in progress. V0.1+V0.3 at `/dev/division-variants`. Marco picks one → advance to V1 production block.
-**Handoff:** `docs/handoff/sonnet-2026-05-17-division-v01-v03-revision-b.md`
+**Handoff:** `docs/handoff/sonnet-2026-05-17-division-v01-v03-revision-c.md`
 **Paperclip CEO bootstrap invite (expires 2026-05-20):** `http://100.67.28.106:3100/invite/pcp_bootstrap_2acda9f018aa3e89242d05ae21b35692ec3a78886a64e6c8` (also at `https://paperclip.renaissancecinema.com/invite/…` once CF Access policy is in place).
 
 ---

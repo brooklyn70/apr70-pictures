@@ -71,9 +71,10 @@ docker exec apr70v3-cms-1 pnpm payload migrate
 ## What's next
 
 1. **NAS deploy** — Push to NAS, run `pnpm payload migrate` in the cms container. See "Logo bug" section above.
-2. **Division CSS redesign** — V0 and V5 CSS/art direction need a full redo (Gemini failed). See `docs/handoff/gemini-2026-05-16-1713.md` for design spec and `docs/plans/` for session plan. Use Claude Code (Session B = v0-baseline, Session C = v5-animated-filmstrip).
-3. **Visual QA** — `[requires-gui]` for rendered brand logos once NAS is redeployed.
-4. **HeroSliderIsland** — `[gemini]` line in TASKS.md. (Still paused).
+2. **Session B done** — v0-baseline Division CSS redesigned (commit f42a061). Preview at `http://localhost:4322/dev/division-variants`. Visual QA needed from Marco before NAS push.
+3. **Session C** — v5-animated-filmstrip redesign. See plan Phase 3 in `/Users/marco/.claude/plans/read-docs-handoff-opus-2026-05-16-review-gleaming-hickey.md`.
+4. **Visual QA** — `[requires-gui]` for rendered brand logos + division showcase once NAS is redeployed.
+5. **HeroSliderIsland** — `[gemini]` line in TASKS.md. (Still paused).
 
 ### Task tags (who owns what)
 

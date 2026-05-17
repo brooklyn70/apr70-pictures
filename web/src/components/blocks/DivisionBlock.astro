@@ -1076,12 +1076,14 @@ function getDivisionLogo(name: string): string {
   }
   .v03-row-top {
     display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
+    flex-wrap: nowrap;
+    align-items: center;
     gap: var(--s-5);
     margin-bottom: var(--s-6);
     border-bottom: 1px solid var(--rule);
     padding-bottom: var(--s-5);
+    height: clamp(88px, 14vw, 180px);
+    overflow: hidden;
   }
   .v03-index {
     display: flex;
@@ -1096,12 +1098,10 @@ function getDivisionLogo(name: string): string {
     letter-spacing: var(--track-wide);
   }
   .v03-logo {
-    flex: 1;
     display: block;
-    min-width: 0;
-    height: clamp(48px, 7vw, 88px);
+    height: 100%;
     width: auto;
-    max-width: 100%;
+    flex-shrink: 0;
     object-fit: contain;
     object-position: left center;
   }

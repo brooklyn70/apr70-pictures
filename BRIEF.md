@@ -1,8 +1,8 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-17 (Logo fix verified locally. Migration applied. NAS deploy pending Marco approval.)
-**Phase:** 5 — Logo bug fixed (migration applied), orchestrator retired, ready for NAS deploy.
-**Handoff:** `docs/handoff/gemini-2026-05-16-1713.md`
+**Updated:** 2026-05-17 07:14 EDT (Opus 4.7 cleaned up hung Sonnet agent; Session B committed at f42a061; Session C queued.)
+**Phase:** 6 — Session B (v0-baseline Division CSS) committed locally; Session C (v5-animated-filmstrip) next.
+**Handoff:** `docs/handoff/sonnet-2026-05-17-session-b-division-baseline.md`
 
 ---
 

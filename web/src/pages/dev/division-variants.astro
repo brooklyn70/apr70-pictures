@@ -44,9 +44,8 @@ const mockDivisions = [
 ]
 
 const variantMeta: { key: string; label: string }[] = [
-  { key: 'v0-baseline', label: 'V0.0 — baseline (rejected reference)' },
-  { key: 'v0.1', label: 'V0.1 — fixes: NRC color, stroke-on-hover, no code repetition, reg marks' },
-  { key: 'v0.3', label: 'V0.3 — ledger rows: typographic hierarchy, project list, hover states' },
+  { key: 'v0.1', label: 'V0.1 — card layout, printer-frame stroke, reg marks' },
+  { key: 'v0.3', label: 'V0.3 — ledger rows, typographic hierarchy, hover states' },
 ]
 
 const createMockBlock = (variant: string) => ({
@@ -62,7 +61,7 @@ const createMockBlock = (variant: string) => ({
   <main class="variants-main">
     <div class="container variants-intro">
       <h1 class="h1">Division Variants</h1>
-      <p class="body-lg">V0.1 through V0.4 for Marco's selection. V0.0 kept at top for reference.</p>
+      <p class="body-lg">V0.1 and V0.3 — pick one to advance to V1.</p>
     </div>
 
     {variantMeta.map(({ key, label }) => (

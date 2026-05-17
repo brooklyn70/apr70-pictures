@@ -883,7 +883,7 @@ function getDivisionId(name: string): '212' | '310' | 'nrc' {
     display: grid;
     grid-template-columns: 1fr;
     border-bottom: 1px solid var(--rule);
-    padding: var(--s-9) 0;
+    padding: var(--s-9) 0 var(--s-9) var(--s-5);
     overflow: hidden;
   }
   @media (min-width: 768px) {
@@ -891,19 +891,19 @@ function getDivisionId(name: string): '212' | '310' | 'nrc' {
       grid-template-columns: 180px 1fr;
     }
   }
-  /* Stroke: hidden by default, height 0→100% on hover — matches v2 slate-card pattern */
+  /* Stroke: anchored to printer-frame edges (8px inset), never exits reg-mark boundary */
   .v01-stroke {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 3px;
+    top: 8px;
+    left: 8px;
+    width: 6px;
     height: 0;
     pointer-events: none;
     transition: height 1.5s ease;
     z-index: 3;
   }
   .v01-card:hover .v01-stroke {
-    height: 100%;
+    height: calc(100% - 16px);
   }
   .v01-left {
     position: relative;
@@ -1048,22 +1048,22 @@ function getDivisionId(name: string): '212' | '310' | 'nrc' {
   .v03-row {
     position: relative;
     border-bottom: 1px solid var(--rule);
-    padding: var(--s-8) 0;
+    padding: var(--s-8) 0 var(--s-8) var(--s-5);
     overflow: hidden;
   }
-  /* Stroke — same v2 height pattern */
+  /* Stroke: anchored to printer-frame edges (8px inset), never exits reg-mark boundary */
   .v03-stroke {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 3px;
+    top: 8px;
+    left: 8px;
+    width: 6px;
     height: 0;
     pointer-events: none;
     transition: height 1.5s ease;
     z-index: 3;
   }
   .v03-row:hover .v03-stroke {
-    height: 100%;
+    height: calc(100% - 16px);
   }
   /* Row hover: subtle surface lift + rule brightens */
   .v03-row:hover {

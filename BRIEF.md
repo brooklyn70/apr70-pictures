@@ -1,7 +1,7 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-17 07:14 EDT (Opus 4.7 cleaned up hung Sonnet agent; Session B committed at f42a061; Session C queued.)
-**Phase:** 6 — Session B (v0-baseline Division CSS) committed locally; Session C (v5-animated-filmstrip) next.
+**Updated:** 2026-05-17 07:20 EDT (V0.0 rejected by Marco; revision spec written for V0.1–V0.4 pass.)
+**Phase:** 6 — V0-Baseline revision pass (V0.1, V0.2, V0.3, V0.4). Filmstrip work paused until V0 is signed off.
 **Handoff:** `docs/handoff/sonnet-2026-05-17-session-b-division-baseline.md`
 
 ---
@@ -71,8 +71,8 @@ docker exec apr70v3-cms-1 pnpm payload migrate
 ## What's next
 
 1. **NAS deploy** — Push to NAS, run `pnpm payload migrate` in the cms container. See "Logo bug" section above.
-2. **Session B done** — v0-baseline Division CSS redesigned (commit f42a061). Preview at `http://localhost:4322/dev/division-variants`. Visual QA needed from Marco before NAS push.
-3. **Session C** — v5-animated-filmstrip redesign. See plan Phase 3 in `/Users/marco/.claude/plans/read-docs-handoff-opus-2026-05-16-review-gleaming-hickey.md`.
+2. **V0.0 rejected** — see handoff for Marco's 8-point revision spec. Next pass produces V0.1 (fixes), V0.2/V0.3/V0.4 (variants). All four at `http://localhost:4322/dev/division-variants`. No filmstrip touches.
+3. **Session C (filmstrip)** — DEFERRED until V0 is signed off. Plan still at `/Users/marco/.claude/plans/read-docs-handoff-opus-2026-05-16-review-gleaming-hickey.md` Phase 3.
 4. **Visual QA** — `[requires-gui]` for rendered brand logos + division showcase once NAS is redeployed.
 5. **HeroSliderIsland** — `[gemini]` line in TASKS.md. (Still paused).
 

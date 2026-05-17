@@ -65,6 +65,13 @@ function getDivisionId(name: string): '212' | '310' | 'nrc' {
   if (n.includes('nrc') || n.includes('renaissance')) return 'nrc'
   return '212'
 }
+
+function getDivisionLogo(name: string): string {
+  const n = name.toLowerCase()
+  if (n.includes('212')) return '/brand/apr70-logos/212-pictures/212_footer.svg'
+  if (n.includes('310')) return '/brand/apr70-logos/310-pictures/310_footer.svg'
+  return '/brand/apr70-logos/new-renaissance-cinema/nrc_v1.svg'
+}
 ---
 
 {variant === 'v0-baseline' && (
@@ -196,8 +203,8 @@ function getDivisionId(name: string): '212' | '310' | 'nrc' {
     <div class="v03-rows container">
       {divisions.map((div, i) => {
         const num = String(i + 1).padStart(2, '0')
-        const divCode = getDivisionCode(div.name)
         const color = tokenToVar(div.colorToken)
+        const logoSrc = getDivisionLogo(div.name)
         return (
           <div class="v03-row" style={`--div-color: ${color}`}>
             {/* Stroke: same v2 height-transition pattern */}
@@ -210,7 +217,7 @@ function getDivisionId(name: string): '212' | '310' | 'nrc' {
               <span class="v03-index">
                 <span class="v03-num">{num}</span>
                 <span class="v03-slash">/</span>
-                <span class="v03-code" style={`color: ${color}`}>{divCode}</span>
+                <img class="v03-logo" src={logoSrc} alt={div.name} aria-hidden="true" />
               </span>
               <h3 class="v03-name">{div.name}</h3>
               <a class="v03-cta" href="#">
@@ -883,7 +890,7 @@ function getDivisionId(name: string): '212' | '310' | 'nrc' {
     display: grid;
     grid-template-columns: 1fr;
     border-bottom: 1px solid var(--rule);
-    padding: var(--s-9) 0 var(--s-9) var(--s-5);
+    padding: var(--s-9) var(--s-5);
     overflow: hidden;
   }
   @media (min-width: 768px) {
@@ -1048,7 +1055,7 @@ function getDivisionId(name: string): '212' | '310' | 'nrc' {
   .v03-row {
     position: relative;
     border-bottom: 1px solid var(--rule);
-    padding: var(--s-8) 0 var(--s-8) var(--s-5);
+    padding: var(--s-8) var(--s-5);
     overflow: hidden;
   }
   /* Stroke: anchored to printer-frame edges (8px inset), never exits reg-mark boundary */
@@ -1095,12 +1102,14 @@ function getDivisionId(name: string): '212' | '310' | 'nrc' {
     font-size: var(--type-caption);
     color: var(--fg-5);
   }
-  .v03-code {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(1.25rem, 3vw, 2rem);
-    line-height: 1;
-    letter-spacing: var(--track-tight);
+  .v03-logo {
+    display: block;
+    height: clamp(28px, 4vw, 40px);
+    width: auto;
+    max-width: 100px;
+    object-fit: contain;
+    object-position: left center;
+    flex-shrink: 0;
   }
   .v03-name {
     font-family: var(--font-display);

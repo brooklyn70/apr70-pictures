@@ -216,10 +216,8 @@ function getDivisionLogo(name: string): string {
             <div class="v03-row-top">
               <span class="v03-index">
                 <span class="v03-num">{num}</span>
-                <span class="v03-slash">/</span>
-                <img class="v03-logo" src={logoSrc} alt={div.name} aria-hidden="true" />
               </span>
-              <h3 class="v03-name">{div.name}</h3>
+              <img class="v03-logo" src={logoSrc} alt={div.name} />
               <a class="v03-cta" href="#">
                 <span class="v03-cta-label">Enter</span>
                 <span class="v03-cta-arrow" aria-hidden="true">&rarr;</span>
@@ -1097,30 +1095,15 @@ function getDivisionLogo(name: string): string {
     color: var(--fg-4);
     letter-spacing: var(--track-wide);
   }
-  .v03-slash {
-    font-family: var(--font-mono);
-    font-size: var(--type-caption);
-    color: var(--fg-5);
-  }
   .v03-logo {
+    flex: 1;
     display: block;
-    height: clamp(28px, 4vw, 40px);
+    min-width: 0;
+    height: clamp(48px, 7vw, 88px);
     width: auto;
-    max-width: 100px;
+    max-width: 100%;
     object-fit: contain;
     object-position: left center;
-    flex-shrink: 0;
-  }
-  .v03-name {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(1.5rem, 4vw, 3rem);
-    line-height: var(--leading-tight);
-    letter-spacing: var(--track-tight);
-    text-transform: uppercase;
-    color: var(--fg-1);
-    margin: 0;
-    flex: 1;
   }
   /* CTA — faint at rest, full at hover, arrow slides right */
   .v03-cta {
@@ -1189,11 +1172,11 @@ function getDivisionLogo(name: string): string {
   .v03-row:hover .v03-code {
     opacity: 1;
   }
-  /* Name shifts slightly on hover */
-  .v03-name {
+  /* Logo shifts slightly on hover */
+  .v03-logo {
     transition: transform var(--dur-base) var(--ease-out);
   }
-  .v03-row:hover .v03-name {
+  .v03-row:hover .v03-logo {
     transform: translateX(4px);
   }
   /* Taglines intensify */

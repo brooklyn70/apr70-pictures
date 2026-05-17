@@ -72,6 +72,13 @@ function getDivisionLogo(name: string): string {
   if (n.includes('310')) return '/brand/apr70-logos/310-pictures/310_footer.svg'
   return '/brand/apr70-logos/new-renaissance-cinema/nrc_v1.svg'
 }
+
+/* Y offset crops the SVG's own internal top padding so content bleeds to the element edge */
+function getLogoOffsetY(name: string): string {
+  const n = name.toLowerCase()
+  if (n.includes('nrc') || n.includes('renaissance')) return '17%'
+  return '9%' // 212_footer + 310_footer: content starts at ~y=20/230
+}
 ---
 
 {variant === 'v0-baseline' && (
@@ -205,6 +212,7 @@ function getDivisionLogo(name: string): string {
         const num = String(i + 1).padStart(2, '0')
         const color = tokenToVar(div.colorToken)
         const logoSrc = getDivisionLogo(div.name)
+        const logoOffsetY = getLogoOffsetY(div.name)
         return (
           <div class="v03-row" style={`--div-color: ${color}`}>
             {/* Stroke: same v2 height-transition pattern */}
@@ -217,7 +225,7 @@ function getDivisionLogo(name: string): string {
               <span class="v03-index">
                 <span class="v03-num">{num}</span>
               </span>
-              <img class="v03-logo" src={logoSrc} alt={div.name} />
+              <img class="v03-logo" src={logoSrc} alt={div.name} style={`object-position: left ${logoOffsetY}`} />
               <a class="v03-cta" href="#">
                 <span class="v03-cta-label">Enter</span>
                 <span class="v03-cta-arrow" aria-hidden="true">&rarr;</span>
@@ -1081,8 +1089,6 @@ function getDivisionLogo(name: string): string {
     gap: var(--s-5);
     margin-bottom: var(--s-6);
     border-bottom: 1px solid var(--rule);
-    padding-bottom: var(--s-5);
-    height: clamp(88px, 14vw, 180px);
     overflow: hidden;
   }
   .v03-index {
@@ -1098,12 +1104,11 @@ function getDivisionLogo(name: string): string {
     letter-spacing: var(--track-wide);
   }
   .v03-logo {
+    flex: 1;
     display: block;
-    height: 100%;
-    width: auto;
-    flex-shrink: 0;
-    object-fit: contain;
-    object-position: left center;
+    min-width: 0;
+    height: clamp(280px, 35vw, 440px);
+    object-fit: cover;
   }
   /* CTA — faint at rest, full at hover, arrow slides right */
   .v03-cta {

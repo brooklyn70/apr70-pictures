@@ -1,8 +1,9 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-17 09:00 EDT (V0.1 stroke revised to v2 height-transition pattern; V0.2/V0.4 deleted; V0.3 hover states added. Context gate hit — commit + build verify pending.)
-**Phase:** 6 — V0-Baseline revision pass. V0.1 + V0.3 at `/dev/division-variants`. Marco selects one to advance.
-**Handoff:** `docs/handoff/sonnet-2026-05-17-v01-v03-revision.md`
+**Updated:** 2026-05-17 09:30 EDT (Paperclip-on-Apex Phase 0 done — Apex SSH established, full service inventory captured, plan + 4 decisions resolved. Context-gate hit at ExitPlanMode.)
+**Phase:** 6 — V0-Baseline revision pass still open (V0.1+V0.3 at `/dev/division-variants`, Marco selects one). PLUS Paperclip Phase 1 queued.
+**Handoff:** `docs/handoff/opus-2026-05-17-paperclip-apex-phase0.md`
+**Paperclip plan to execute next:** `/Users/marco/.claude/plans/read-users-marco-claude-plans-read-the-p-vivid-aho.md`
 
 ---
 

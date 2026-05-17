@@ -1,8 +1,8 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-17 13:00 EDT (Paperclip Phase 1 mostly shipped — steps 0–7 live on the Apex; step 8 deferred with a written spec; steps 9–10 await Marco's CEO claim + smoke pass. Context-gate fired mid–step 8.)
-**Phase:** 6 — V0-Baseline revision pass still open (V0.1+V0.3 at `/dev/division-variants`, Marco selects one). Paperclip Phase 1 partially shipped; CEO claim is the next user action.
-**Handoff:** `docs/handoff/opus-2026-05-17-paperclip-apex-phase1.md`
+**Updated:** 2026-05-17 ~13:30 EDT (Division V0.1+V0.3 revision pass B complete — stroke in printer frame, logos large in V0.3, black space fixed. Marco has NOT yet selected a variant.)
+**Phase:** 6 — V0-Baseline revision pass in progress. V0.1+V0.3 at `/dev/division-variants`. Marco picks one → advance to V1 production block.
+**Handoff:** `docs/handoff/sonnet-2026-05-17-division-v01-v03-revision-b.md`
 **Paperclip CEO bootstrap invite (expires 2026-05-20):** `http://100.67.28.106:3100/invite/pcp_bootstrap_2acda9f018aa3e89242d05ae21b35692ec3a78886a64e6c8` (also at `https://paperclip.renaissancecinema.com/invite/…` once CF Access policy is in place).
 
 ---

@@ -2,57 +2,77 @@
 import Layout from '../../layouts/Layout.astro'
 import DivisionBlock from '../../components/blocks/DivisionBlock.astro'
 
-// Mock Data for the Division Showcase
 const mockDivisions = [
   {
     name: '(212) Pictures',
     colorToken: '212-amber',
-    subtitle: 'Narrative Features & Television',
-    description: 'Specializing in independent storytelling with an emphasis on character-driven narratives.',
+    subtitle: 'New York TV Label',
+    description: 'Character-driven drama, crime, and documentary rooted in the American Northeast. Named for the original Manhattan area code.',
+    number: '01',
+    taglineLines: ['New York.', 'Television.'],
+    projects: [
+      { title: 'A NEED GROWS IN BROOKLYN', badge: '10 EPS' },
+      { title: 'THE MAYORS', badge: 'DOC · 11 EPS' },
+      { title: 'THE MALTESE FALCON', badge: 'STAGE' },
+    ],
   },
   {
-    name: '310 Pictures',
+    name: '(310) Pictures',
     colorToken: '310-imax',
-    subtitle: 'Large Format Documentaries',
-    description: 'Creating immersive, larger-than-life non-fiction experiences for giant screens.',
+    subtitle: 'LA / Global TV Label',
+    description: 'Elevated genre — political thrillers, sci-fi, and hybrid formats. Los Angeles-rooted, globally minded.',
+    number: '02',
+    taglineLines: ['Los Angeles.', 'Global.'],
+    projects: [
+      { title: 'L.A. DOLCE VITA', badge: '$30–50M' },
+      { title: "L'ODISSEA DI CLEOPATRA", badge: '$40–80M' },
+      { title: 'SHADOWMASTER', badge: 'HYBRID' },
+    ],
   },
   {
-    name: 'NRC',
-    colorToken: 'nrc-navy',
-    subtitle: 'Commercial & Branded Content',
-    description: 'Partnering with global brands to deliver high-end cinematic commercials.',
-  }
+    name: 'New Renaissance Cinema',
+    colorToken: 'nrc-grey',
+    subtitle: 'Feature Film',
+    description: 'Auteur-driven feature films with a classic-modern sensibility. The art of the possible.',
+    number: '03',
+    taglineLines: ['Features.', 'Auteur.'],
+    projects: [
+      { title: 'U BRUCCULINU', badge: 'FEATURE' },
+      { title: 'ALPHA YY', badge: 'FEATURE' },
+    ],
+  },
 ]
 
-const variants = [
-  'v0-baseline',
-  'v3-baseline-filmstrip',
-  'v4-animated-filmstrip',
-  'v5-animated-filmstrip',
+const variantMeta: { key: string; label: string }[] = [
+  { key: 'v0-baseline', label: 'V0.0 — baseline (rejected reference)' },
+  { key: 'v0.1', label: 'V0.1 — fixes: NRC color, stroke-on-hover, no code repetition, reg marks' },
+  { key: 'v0.2', label: 'V0.2 — card grid: 3-column cards with color top bar' },
+  { key: 'v0.3', label: 'V0.3 — ledger rows: typographic hierarchy, project list' },
+  { key: 'v0.4', label: 'V0.4 — split panel: color block left, dark content right' },
 ]
 
 const createMockBlock = (variant: string) => ({
   blockType: 'divisionShowcase',
   variant,
-  heading: `Division Showcase\n${variant.toUpperCase()}`,
-  subtext: 'Exploring the different visual variants of the Division Showcase block.',
+  heading: `APR 70 — EST. 2026`,
+  subtext: 'The classics never go out of style.',
   divisions: mockDivisions,
 })
 ---
 
-<Layout title="Division Variants Preview">
+<Layout title="Division Variants — V0.1–V0.4">
   <main class="variants-main">
     <div class="container variants-intro">
-      <h1 class="h1">Division Showcase Variants</h1>
-      <p class="body-lg">Preview of all 5 division showcase layouts implemented in Phase 6.</p>
+      <h1 class="h1">Division Variants</h1>
+      <p class="body-lg">V0.1 through V0.4 for Marco's selection. V0.0 kept at top for reference.</p>
     </div>
 
-    {variants.map((variant) => (
+    {variantMeta.map(({ key, label }) => (
       <div class="variant-wrapper">
         <div class="container">
-          <div class="variant-label">{variant}</div>
+          <div class="variant-label">{label}</div>
         </div>
-        <DivisionBlock block={createMockBlock(variant) as any} />
+        <DivisionBlock block={createMockBlock(key) as any} />
       </div>
     ))}
   </main>
@@ -63,17 +83,14 @@ const createMockBlock = (variant: string) => ({
     padding-top: var(--s-11);
     padding-bottom: var(--s-11);
   }
-
   .variants-intro {
     margin-bottom: var(--s-11);
   }
-
   .variant-wrapper {
     margin-bottom: var(--s-11);
     padding-bottom: var(--s-10);
     border-bottom: 2px dashed var(--rule);
   }
-
   .variant-label {
     display: inline-block;
     padding: var(--s-1) var(--s-3);

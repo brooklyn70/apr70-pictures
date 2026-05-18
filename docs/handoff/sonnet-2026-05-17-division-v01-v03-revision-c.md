@@ -26,7 +26,7 @@
 
 ## Current git state
 
-All changes are in `web/src/components/blocks/DivisionBlock.astro`. Commit this session's work before starting fresh.
+Committed and pushed: `5b7bb03` on main. Clean working tree.
 
 ---
 

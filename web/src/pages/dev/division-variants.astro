@@ -105,7 +105,7 @@ const createMockBlock = (variant: string) => ({
 
     const interval = 20
 
-    // horizontal lines
+    // horizontal lines + x markers at each major vertical crossing
     for (let y = 0; y <= h; y += interval) {
       ctx.strokeStyle = y % 100 === 0 ? 'rgba(255,0,0,0.6)' : 'rgba(255,0,0,0.2)'
       ctx.lineWidth = y % 100 === 0 ? 1.5 : 0.5
@@ -114,9 +114,17 @@ const createMockBlock = (variant: string) => ({
       ctx.lineTo(w, y)
       ctx.stroke()
 
+      // y label on the left
       ctx.fillStyle = 'rgba(255,0,0,0.85)'
       ctx.font = 'bold 9px monospace'
       ctx.fillText(String(y), 4, y > 4 ? y - 2 : 10)
+
+      // x markers: at every major vertical line (100px), print the x value on this horizontal line
+      ctx.font = '7px monospace'
+      ctx.fillStyle = 'rgba(255,80,80,0.7)'
+      for (let x = 100; x <= w; x += 100) {
+        ctx.fillText(String(x), x + 2, y > 4 ? y - 2 : 10)
+      }
     }
 
     // vertical lines

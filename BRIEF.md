@@ -1,9 +1,8 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-18 ~16:15 EDT (Phase 0.5 "Streets & Avenues" done — Paperclip API probed via SSH, 12+1 tutorials written, apex-preflight skill staged + smoke-tested 14 OK / 1 SKIP / 1 FAIL, 3 feeds research one-pagers written, 5 new API keys upserted to Apex ~/.env. Next: Marco approves CLI auth URL → install preflight as plugin → file reshape issue.)
-**Phase:** 6 (website V0.3) AND Paperclip Phase 0.5 (Apex APR 70 Operations company). Independent tracks.
-**Handoff:** `docs/handoff/opus-2026-05-18-phase-0-5-streets-and-avenues.md`
-**Paperclip CEO bootstrap invite (expires 2026-05-20):** `http://100.67.28.106:3100/invite/pcp_bootstrap_2acda9f018aa3e89242d05ae21b35692ec3a78886a64e6c8` (also at `https://paperclip.renaissancecinema.com/invite/…` once CF Access policy is in place).
+**Updated:** 2026-05-18 ~17:10 EDT (Paperclip work relocated out of this repo to `/Users/marco/websites/apr70-operations/` for Cursor 2.5. Stale root docs HANDOFF.md + AGENTS.md removed — CLAUDE.md is now the single canonical config doc. Website-only from here.)
+**Phase:** 6 — V0-Baseline revision pass in progress. V0.1+V0.3 at `/dev/division-variants` (scroll to bottom for alignment debug grid). Marco picks one → advance to V1 production block.
+**Handoff:** (no website-side handoff in flight; next session writes one when needed)
 
 ---
 

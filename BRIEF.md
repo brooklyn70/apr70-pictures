@@ -1,9 +1,9 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-18 ~05:30 EDT (Division V0.3 layout revision — split header (logo left / taglines right), hero SVGs for 212+310, removed interior borders, font/logo size rebalanced. Marco has NOT yet selected V0.1 vs V0.3 — still needs visual approval at `/dev/division-variants`.)
-**Phase:** 6 — V0-Baseline revision pass in progress. V0.1+V0.3 at `/dev/division-variants`. Marco picks one → advance to V1 production block.
-**Handoff:** `docs/handoff/sonnet-2026-05-18-division-v03-layout-fix.md`
-**Note:** Archive `docs/handoff/sonnet-2026-05-17-division-v01-v03-revision-c.md` → `docs/handoff/archive/` (bash was blocked this session by context gate; could not run git or mv).
+**Updated:** 2026-05-18 ~05:45 EDT (V0.3 alignment fix: seq number moved to absolute position, `align-items: start` on header grid so logo top = tagline top. Project borders restored. Debug grid added to dev page. Still awaiting Marco's V0.1 vs V0.3 pick.)
+**Phase:** 6 — V0-Baseline revision pass in progress. V0.1+V0.3 at `/dev/division-variants` (scroll to bottom for alignment debug grid). Marco picks one → advance to V1 production block.
+**Handoff:** `docs/handoff/sonnet-2026-05-18-division-v03-alignment-debug.md`
+**Note:** Archive previous two handoff docs → `docs/handoff/archive/` (bash blocked this session by context gate).
 **Paperclip CEO bootstrap invite (expires 2026-05-20):** `http://100.67.28.106:3100/invite/pcp_bootstrap_2acda9f018aa3e89242d05ae21b35692ec3a78886a64e6c8` (also at `https://paperclip.renaissancecinema.com/invite/…` once CF Access policy is in place).
 
 ---

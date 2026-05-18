@@ -72,8 +72,60 @@ const createMockBlock = (variant: string) => ({
         <DivisionBlock block={createMockBlock(key) as any} />
       </div>
     ))}
+
+    <div class="variant-wrapper">
+      <div class="container">
+        <div class="variant-label" style="background: red;">V0.3 — ALIGNMENT DEBUG GRID (lines every 20px)</div>
+        <p style="font-family: monospace; font-size: 0.75rem; color: #888; margin-bottom: 1rem;">
+          Red lines = 20px intervals. The TOP of the logo image and the TOP of "NEW YORK." must land on the same line.
+          Logo is in the LEFT column. Text is in the RIGHT column. If they share a grid line → aligned. If not → adjust padding-top on one side.
+        </p>
+      </div>
+      <div class="debug-grid-wrapper" id="debug-wrapper">
+        <DivisionBlock block={createMockBlock('v0.3') as any} />
+        <canvas id="debug-canvas" aria-hidden="true"></canvas>
+      </div>
+    </div>
   </main>
 </Layout>
+
+<script>
+  const wrapper = document.getElementById('debug-wrapper') as HTMLElement
+  const canvas = document.getElementById('debug-canvas') as HTMLCanvasElement
+
+  function drawGrid() {
+    if (!wrapper || !canvas) return
+    const h = wrapper.offsetHeight
+    const w = wrapper.offsetWidth
+    canvas.width = w
+    canvas.height = h
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    ctx.clearRect(0, 0, w, h)
+
+    const interval = 20
+    for (let y = 0; y <= h; y += interval) {
+      ctx.strokeStyle = y % 100 === 0 ? 'rgba(255,0,0,0.6)' : 'rgba(255,0,0,0.2)'
+      ctx.lineWidth = y % 100 === 0 ? 1.5 : 0.5
+      ctx.beginPath()
+      ctx.moveTo(0, y)
+      ctx.lineTo(w, y)
+      ctx.stroke()
+
+      ctx.fillStyle = 'rgba(255,0,0,0.85)'
+      ctx.font = 'bold 9px monospace'
+      ctx.fillText(String(y), 4, y > 4 ? y - 2 : 10)
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', drawGrid)
+  } else {
+    drawGrid()
+  }
+  window.addEventListener('resize', drawGrid)
+</script>
 
 <style>
   .variants-main {
@@ -99,5 +151,14 @@ const createMockBlock = (variant: string) => ({
     font-weight: bold;
     letter-spacing: var(--track-wide);
     margin-bottom: var(--s-6);
+  }
+  .debug-grid-wrapper {
+    position: relative;
+  }
+  #debug-canvas {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
   }
 </style>

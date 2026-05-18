@@ -1119,22 +1119,27 @@ function getDivisionLogo(name: string): string {
   @media (min-width: 640px) {
     .v03-row-header {
       grid-template-columns: 1fr 1fr;
-      align-items: center;
+      align-items: start;
       gap: var(--s-8);
     }
   }
 
-  /* Left col: seq number + logo */
+  /* Left col: logo (seq number overlaid absolutely so it doesn't push logo down) */
   .v03-header-logo {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: var(--s-3);
   }
   .v03-num {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
     font-family: var(--font-mono);
     font-size: var(--type-caption);
     color: var(--fg-4);
     letter-spacing: var(--track-wide);
+    line-height: 1;
   }
   .v03-logo {
     display: block;
@@ -1234,13 +1239,16 @@ function getDivisionLogo(name: string): string {
     letter-spacing: var(--track-eyebrow);
     text-transform: uppercase;
     color: var(--fg-4);
-    padding: var(--s-2) 0;
+    border-top: 1px solid var(--rule);
+    padding: var(--s-3) 0;
     transition:
       color var(--dur-base) var(--ease-in),
+      border-color var(--dur-base) var(--ease-in),
       transform var(--dur-base) var(--ease-out);
   }
   .v03-row.is-hovered .v03-project {
     color: var(--fg-2);
+    border-top-color: var(--rule-strong);
     transform: translateX(3px);
   }
   .v03-project-title {

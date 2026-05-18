@@ -475,3 +475,8 @@ Hard-stop hook wired in `.claude/settings.json` via `PreToolUse`/`PostToolUse`. 
 
 - Branch: main
 - Tip: e27333e
+
+## Auto-stop note (2026-05-18 17:08 UTC)
+
+- Branch: main
+- Tip: 96357df

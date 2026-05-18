@@ -1,8 +1,8 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-18 ~09:30 EDT (Stale handoffs archived. All V0.3 alignment code committed. Debug grid functional. Visual pixel check NOT yet done — context gate fired before zoom. Next session: verify only, no code change expected.)
+**Updated:** 2026-05-18 ~11:30 EDT (5 V0.3 design corrections applied: 01→X=320, logo→X=100+doubled, text→X=400, Y=350 for both, gray line at Y=530 removed. NOT yet visually verified — context gate fired. Next session: screenshot verify + further Marco feedback.)
 **Phase:** 6 — V0-Baseline revision pass in progress. V0.1+V0.3 at `/dev/division-variants` (scroll to bottom for alignment debug grid). Marco picks one → advance to V1 production block.
-**Handoff:** `docs/handoff/sonnet-2026-05-18-division-v03-visual-verify.md`
+**Handoff:** `docs/handoff/sonnet-2026-05-18-v03-design-corrections.md`
 **Paperclip CEO bootstrap invite (expires 2026-05-20):** `http://100.67.28.106:3100/invite/pcp_bootstrap_2acda9f018aa3e89242d05ae21b35692ec3a78886a64e6c8` (also at `https://paperclip.renaissancecinema.com/invite/…` once CF Access policy is in place).
 
 ---

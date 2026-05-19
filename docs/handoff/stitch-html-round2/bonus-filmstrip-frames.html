@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>New Renaissance Cinema - Division Showcase</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&amp;family=Share+Tech+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#b4b5b5",
+                        "light-bg": "#FAFAF8",
+                        "surface-container-highest": "#353535",
+                        "surface-tint": "#c6c6c6",
+                        "background": "#131313",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "on-tertiary": "#303030",
+                        "212-amber": "#824B07",
+                        "tertiary-container": "#000000",
+                        "error": "#ffb4ab",
+                        "310-imax": "#077082",
+                        "on-secondary": "#2f3131",
+                        "on-tertiary-container": "#757575",
+                        "surface": "#131313",
+                        "on-primary-container": "#757575",
+                        "secondary-fixed": "#e2e2e2",
+                        "surface-container": "#1f1f1f",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "inverse-primary": "#5e5e5e",
+                        "on-secondary-fixed-variant": "#454747",
+                        "inverse-surface": "#e2e2e2",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "on-primary-fixed-variant": "#474747",
+                        "surface-container-lowest": "#0e0e0e",
+                        "fg-muted": "#888888",
+                        "tertiary": "#c6c6c6",
+                        "outline-variant": "#4c4546",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "on-surface": "#e2e2e2",
+                        "primary-container": "#000000",
+                        "surface-bright": "#393939",
+                        "surface-dim": "#131313",
+                        "outline": "#988e90",
+                        "on-error-container": "#ffdad6",
+                        "310-sicilian-blue": "#0077B6",
+                        "212-sicilian-orange": "#E85D04",
+                        "on-error": "#690005",
+                        "on-primary": "#303030",
+                        "secondary-container": "#454747",
+                        "on-surface-variant": "#cfc4c5",
+                        "surface-container-low": "#1b1b1b",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "on-background": "#e2e2e2",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "primary": "#c6c6c6",
+                        "surface-variant": "#353535",
+                        "primary-fixed": "#e2e2e2",
+                        "nrc-grey": "#C8C8C8",
+                        "light-fg": "#1A1A1A",
+                        "tertiary-fixed": "#e2e2e2",
+                        "nrc-navy": "#001F3F",
+                        "inverse-on-surface": "#303030",
+                        "on-primary-fixed": "#1b1b1b",
+                        "secondary": "#c6c6c7",
+                        "surface-container-high": "#2a2a2a",
+                        "error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "s-5": "24px",
+                        "s-10": "128px",
+                        "s-2": "8px",
+                        "s-6": "32px",
+                        "s-4": "16px",
+                        "s-8": "64px",
+                        "s-3": "12px",
+                        "s-9": "96px",
+                        "s-7": "48px",
+                        "s-1": "4px",
+                        "s-11": "192px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Barlow"],
+                        "h1": ["Futura Std", "sans-serif"],
+                        "h3": ["Futura Std", "sans-serif"],
+                        "h1-mobile": ["Montserrat", "sans-serif"],
+                        "body-md": ["Barlow"],
+                        "meta-mono": ["Share Tech Mono"],
+                        "hero": ["Futura Std", "sans-serif"],
+                        "h2": ["Futura Std", "sans-serif"],
+                        "eyebrow": ["Barlow"],
+                        "h4": ["Barlow"],
+                        "keycode": ["Share Tech Mono"],
+                        "label-caps": ["Barlow"],
+                        "body-sm": ["Barlow"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["1.125rem", { "lineHeight": "1.8", "fontWeight": "300" }],
+                        "h1": ["4rem", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "h3": ["2rem", { "lineHeight": "1.15", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                        "h1-mobile": ["48px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["1rem", { "lineHeight": "1.7", "fontWeight": "300" }],
+                        "meta-mono": ["0.75rem", { "letterSpacing": "0.3em", "fontWeight": "400" }],
+                        "hero": ["8rem", { "lineHeight": "0.85", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "h2": ["3rem", { "lineHeight": "1.15", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "eyebrow": ["0.625rem", { "lineHeight": "1.0", "letterSpacing": "0.4em", "fontWeight": "500" }],
+                        "h4": ["1.25rem", { "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "keycode": ["0.5625rem", { "lineHeight": "1.0", "letterSpacing": "0.55em", "fontWeight": "400" }],
+                        "label-caps": ["0.75rem", { "lineHeight": "1.2", "letterSpacing": "0.2em", "fontWeight": "500" }],
+                        "body-sm": ["0.875rem", { "lineHeight": "1.7", "fontWeight": "300" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .film-sprocket {
+            width: 16px;
+            height: 24px;
+            background-color: var(--color-background);
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+        .sprocket-rail {
+            background-color: var(--color-surface-container-highest);
+            width: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+        .frame-content {
+            border: 1px solid var(--color-outline-variant);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col antialiased selection:bg-surface-tint selection:text-surface">
+<!-- Top Navigation (Generated from JSON) -->
+<nav class="bg-background dark:bg-background text-on-background dark:text-on-background flex justify-between items-center w-full px-s-6 py-s-4 max-w-full docked full-width top-0 rounded-none border-b border-outline-variant dark:border-outline-variant z-50">
+<div class="flex items-center gap-s-6">
+<a class="font-h3 text-h3 font-bold text-on-background tracking-tighter uppercase" href="#">NEW RENAISSANCE</a>
+<div class="hidden md:flex items-center gap-s-4">
+<a class="font-label-caps text-label-caps text-primary dark:text-primary border-b-2 border-primary pb-1 uppercase" href="#">Divisions</a>
+<a class="font-label-caps text-label-caps text-fg-muted dark:text-fg-muted hover:text-on-background hover:bg-surface-variant/10 transition-colors duration-300 uppercase" href="#">Projects</a>
+<a class="font-label-caps text-label-caps text-fg-muted dark:text-fg-muted hover:text-on-background hover:bg-surface-variant/10 transition-colors duration-300 uppercase" href="#">Legacy</a>
+<a class="font-label-caps text-label-caps text-fg-muted dark:text-fg-muted hover:text-on-background hover:bg-surface-variant/10 transition-colors duration-300 uppercase" href="#">About</a>
+</div>
+</div>
+<div class="flex items-center">
+<a class="font-label-caps text-label-caps uppercase bg-on-background text-background px-s-4 py-s-2 hover:bg-surface-tint transition-colors" href="#">Contact</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-[1920px] mx-auto px-s-4 md:px-s-8 py-s-9 flex flex-col md:flex-row gap-s-6 overflow-hidden">
+<!-- Header / Intro Section -->
+<div class="w-full md:w-1/4 flex flex-col gap-s-6 shrink-0 md:sticky md:top-[120px] h-fit">
+<h1 class="font-h2 text-h2 uppercase text-on-background">Divisions</h1>
+<p class="font-body-lg text-body-lg text-fg-muted">Three distinct production arms. One unified vision for modern cinema. The New Renaissance studio ecosystem is built to support narratives at any scale, from independent grit to global spectacle.</p>
+<div class="h-[1px] w-full bg-outline-variant my-s-4"></div>
+<p class="font-meta-mono text-meta-mono text-on-surface-variant uppercase">Select a frame to explore</p>
+</div>
+<!-- Filmstrip Frames Showcase -->
+<div class="w-full flex flex-col lg:flex-row gap-s-6 md:gap-s-4 overflow-x-auto pb-s-4 no-scrollbar">
+<!-- Division 1: (212) Pictures -->
+<article class="flex-shrink-0 w-full md:w-[400px] flex group cursor-pointer">
+<!-- Left Perforation -->
+<div class="sprocket-rail flex flex-col justify-between">
+<div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+</div>
+<div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+</div>
+</div>
+<!-- Frame Content -->
+<div class="flex-grow frame-content bg-surface flex flex-col relative transition-transform duration-500 group-hover:-translate-y-2">
+<!-- Image Area -->
+<div class="h-[250px] w-full relative overflow-hidden bg-surface-container-highest border-b border-outline-variant">
+<img alt="" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 ease-in-out" src="https://lh3.googleusercontent.com/aida/ADBb0uiFPLkRpQUZdKQjvbWZPg0L-ETs-nRT8T8wKgxVEVVsKpd6F3yU9rvcGJCXnm_HyAsWM3VlBDg9TNi5g_vp_L9kDSXAUvL1edlr90ODC44KpGPDdw4y0AiWNjQe5hHA7uGu2njL4tXZgf_hQmKi5jtYDRuSoci2UIda9Y4O5sS9KF_lLoLvIfM3dhX5rnFaGaHYeUsyE-pR2zWQ7MvMyjkC3YLdobmfCQcZO-5j8JO91LW6dIGebZmFAnE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80"></div>
+<div class="absolute bottom-s-4 left-s-4 flex flex-col">
+<span class="font-keycode text-keycode text-212-amber uppercase mb-s-1">SEQ 01</span>
+<h2 class="font-h3 text-h3 text-on-background uppercase">(212) Pictures</h2>
+</div>
+</div>
+<!-- Text Area -->
+<div class="p-s-6 flex flex-col flex-grow justify-between gap-s-6">
+<p class="font-body-md text-body-md text-fg-muted">Independent narrative features rooted in the gritty, authentic texture of New York City.</p>
+<div class="flex justify-between items-end border-t border-outline-variant pt-s-4">
+<div class="flex gap-s-2 items-center">
+<div class="w-3 h-3 bg-212-amber border border-surface-container-highest"></div>
+<div class="w-3 h-3 bg-212-sicilian-orange border border-surface-container-highest"></div>
+</div>
+<button class="font-label-caps text-label-caps uppercase text-on-background border border-outline-variant px-s-4 py-s-2 hover:bg-on-background hover:text-background transition-colors duration-300">See Projects</button>
+</div>
+</div>
+</div>
+<!-- Right Perforation -->
+<div class="sprocket-rail flex flex-col justify-between">
+<div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+</div>
+<div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+</div>
+</div>
+</article>
+<!-- Division 2: (310) Pictures -->
+<article class="flex-shrink-0 w-full md:w-[400px] flex group cursor-pointer">
+<div class="sprocket-rail flex flex-col justify-between">
+<div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+</div>
+<div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+</div>
+</div>
+<div class="flex-grow frame-content bg-surface flex flex-col relative transition-transform duration-500 group-hover:-translate-y-2">
+<div class="h-[250px] w-full relative overflow-hidden bg-surface-container-highest border-b border-outline-variant">
+<img alt="" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 ease-in-out" src="https://lh3.googleusercontent.com/aida/ADBb0uhtUWbJtP8w9GfuMnheXKTdX0TeVpLaKfenjB8xhs94Q22N7k1QVki_2JU-5VlsyLVFas7Uy04HZp0Om6A4r9404iSGlr1IVc7cV7qvJAfdEK1cn-LVv-JhDHNWjp_7nEWHg2TZPoo1evveBwJr0C7iXHwAqjCvK6ODqRerDYWwJgxU6rQdSqFd-rPJsURCmc-logMbzytifgFZwliAN9UyeHdiXztLA5CIKgBT7yQCzaDbG3KtuMVCbA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80"></div>
+<div class="absolute bottom-s-4 left-s-4 flex flex-col">
+<span class="font-keycode text-keycode text-310-imax uppercase mb-s-1">SEQ 02</span>
+<h2 class="font-h3 text-h3 text-on-background uppercase">(310) Pictures</h2>
+</div>
+</div>
+<div class="p-s-6 flex flex-col flex-grow justify-between gap-s-6">
+<p class="font-body-md text-body-md text-fg-muted">High-concept genre filmmaking and commercial IP development based in Los Angeles.</p>
+<div class="flex justify-between items-end border-t border-outline-variant pt-s-4">
+<div class="flex gap-s-2 items-center">
+<div class="w-3 h-3 bg-310-imax border border-surface-container-highest"></div>
+<div class="w-3 h-3 bg-310-sicilian-blue border border-surface-container-highest"></div>
+</div>
+<button class="font-label-caps text-label-caps uppercase text-on-background border border-outline-variant px-s-4 py-s-2 hover:bg-on-background hover:text-background transition-colors duration-300">See Projects</button>
+</div>
+</div>
+</div>
+<div class="sprocket-rail flex flex-col justify-between">
+<div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+</div>
+<div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+</div>
+</div>
+</article>
+<!-- Division 3: NRC -->
+<article class="flex-shrink-0 w-full md:w-[400px] flex group cursor-pointer">
+<div class="sprocket-rail flex flex-col justify-between">
+<div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+</div>
+<div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+</div>
+</div>
+<div class="flex-grow frame-content bg-surface flex flex-col relative transition-transform duration-500 group-hover:-translate-y-2">
+<div class="h-[250px] w-full relative overflow-hidden bg-surface-container-highest border-b border-outline-variant">
+<img alt="" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 ease-in-out" src="https://lh3.googleusercontent.com/aida/ADBb0uhwDfy2fXrfABuvrXuHpw4vBSxVIa5vXF5pL5Mzwfz812xTB1m65aqNACcf57Q5JboZUO2IfeeDXVV0int6_rmEot9rlE4SrVs2HSrH0-AN-jCyLJ0ajphTj22EOqOBD685vHd7G78YKXoaNWpdXHxnfwFFlG6ejfvLoKHROO4gT4DHopzTB62aPbSPBxYFBxjdJVemArQrkjz4KCulp3cWXSj_YdQd4fteqDnHq7RldelX_TXTnPOd_cs"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80"></div>
+<div class="absolute bottom-s-4 left-s-4 flex flex-col">
+<span class="font-keycode text-keycode text-nrc-grey uppercase mb-s-1">SEQ 03</span>
+<h2 class="font-h3 text-h3 text-on-background uppercase">NRC Labs</h2>
+</div>
+</div>
+<div class="p-s-6 flex flex-col flex-grow justify-between gap-s-6">
+<p class="font-body-md text-body-md text-fg-muted">Global production services, physical studio space, and technical innovation lab.</p>
+<div class="flex justify-between items-end border-t border-outline-variant pt-s-4">
+<div class="flex gap-s-2 items-center">
+<div class="w-3 h-3 bg-nrc-grey border border-surface-container-highest"></div>
+<div class="w-3 h-3 bg-nrc-navy border border-surface-container-highest"></div>
+</div>
+<button class="font-label-caps text-label-caps uppercase text-on-background border border-outline-variant px-s-4 py-s-2 hover:bg-on-background hover:text-background transition-colors duration-300">See Projects</button>
+</div>
+</div>
+</div>
+<div class="sprocket-rail flex flex-col justify-between">
+<div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+</div>
+<div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+<div class="film-sprocket"></div>
+</div>
+</div>
+</article>
+</div>
+</main>
+<!-- Footer (Generated from JSON) -->
+<footer class="bg-background dark:bg-background text-fg-muted dark:text-fg-muted font-meta-mono text-meta-mono uppercase tracking-widest w-full px-s-6 py-s-7 flex flex-col md:flex-row justify-between items-center full-width rounded-none border-t border-outline-variant mt-auto">
+<div class="font-label-caps text-label-caps text-on-background mb-s-4 md:mb-0">
+            © 2024 NEW RENAISSANCE CINEMA. ALL RIGHTS RESERVED.
+        </div>
+<div class="flex gap-s-6">
+<a class="text-fg-muted hover:text-on-background transition-colors" href="#">Privacy Policy</a>
+<a class="text-fg-muted hover:text-on-background transition-colors" href="#">Terms of Service</a>
+<a class="text-fg-muted hover:text-on-background transition-colors" href="#">Press Kit</a>
+</div>
+</footer>
+</body></html>

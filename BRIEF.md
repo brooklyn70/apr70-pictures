@@ -1,8 +1,8 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-18 ~17:10 EDT (Paperclip work relocated out of this repo to `/Users/marco/websites/apr70-operations/` for Cursor 2.5. Stale root docs HANDOFF.md + AGENTS.md removed — CLAUDE.md is now the single canonical config doc. Website-only from here.)
-**Phase:** 6 — V0-Baseline revision pass in progress. V0.1+V0.3 at `/dev/division-variants` (scroll to bottom for alignment debug grid). Marco picks one → advance to V1 production block.
-**Handoff:** (no website-side handoff in flight; next session writes one when needed)
+**Updated:** 2026-05-18 ~9pm EDT  
+**Phase:** 6 — Division Showcase. V0.3 alignment verified and committed. Stitch project created with 3 generated variants. Awaiting Marco's direction on which to wire in.  
+**Handoff:** `docs/handoff/sonnet-2026-05-18-stitch-retirement.md` — full Stitch session debrief + wiring instructions for next agent.
 
 ---
 

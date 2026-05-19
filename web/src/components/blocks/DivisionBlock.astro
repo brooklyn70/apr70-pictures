@@ -258,7 +258,7 @@ function getDivisionLogo(name: string): string {
       <span class="vss-eyebrow">APR 70 PICTURES — DIVISIONS</span>
     </header>
     <div class="vss-rows">
-      {divisions.map((div, i) => {
+      {divisions.map((div) => {
         const divId = getDivisionId(div.name)
         const color = tokenToVar(div.colorToken)
         const logoSrc = getDivisionLogo(div.name)

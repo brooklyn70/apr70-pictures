@@ -17,6 +17,7 @@ export const DivisionBlock: Block = {
       required: true,
       defaultValue: 'v0-baseline',
       options: [
+        { label: 'v0-slate-stack — Slate Stack (logo left, tagline + ledger right)', value: 'v0-slate-stack' },
         { label: 'v0 — Baseline (stacked rows, ghost numerals)', value: 'v0-baseline' },
         { label: 'v3 — Baseline + Darkmode Filmstrip', value: 'v3-baseline-filmstrip' },
         { label: 'v4 — Animated Auto-Scrolling Filmstrip', value: 'v4-animated-filmstrip' },

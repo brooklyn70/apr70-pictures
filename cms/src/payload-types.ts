@@ -499,7 +499,7 @@ export interface Home {
             /**
              * Select the visual layout variant. Preview all at /dev/division-variants.
              */
-            variant: 'v0-baseline' | 'v1-accordion' | 'v2-cards' | 'v3-split' | 'v4-timeline';
+            variant: 'v0-slate-stack' | 'v0-baseline' | 'v1-accordion' | 'v2-cards' | 'v3-split' | 'v4-timeline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
             /**
              * Optional section heading above the division rows. Line breaks are intentional.
              */
@@ -836,7 +836,7 @@ export interface About {
             /**
              * Select the visual layout variant. Preview all at /dev/division-variants.
              */
-            variant: 'v0-baseline' | 'v1-accordion' | 'v2-cards' | 'v3-split' | 'v4-timeline';
+            variant: 'v0-slate-stack' | 'v0-baseline' | 'v1-accordion' | 'v2-cards' | 'v3-split' | 'v4-timeline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
             /**
              * Optional section heading above the division rows. Line breaks are intentional.
              */
@@ -1091,7 +1091,7 @@ export interface Contact {
             /**
              * Select the visual layout variant. Preview all at /dev/division-variants.
              */
-            variant: 'v0-baseline' | 'v1-accordion' | 'v2-cards' | 'v3-split' | 'v4-timeline';
+            variant: 'v0-slate-stack' | 'v0-baseline' | 'v1-accordion' | 'v2-cards' | 'v3-split' | 'v4-timeline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
             /**
              * Optional section heading above the division rows. Line breaks are intentional.
              */
@@ -1346,7 +1346,7 @@ export interface Job {
             /**
              * Select the visual layout variant. Preview all at /dev/division-variants.
              */
-            variant: 'v0-baseline' | 'v1-accordion' | 'v2-cards' | 'v3-split' | 'v4-timeline';
+            variant: 'v0-slate-stack' | 'v0-baseline' | 'v1-accordion' | 'v2-cards' | 'v3-split' | 'v4-timeline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
             /**
              * Optional section heading above the division rows. Line breaks are intentional.
              */
@@ -1601,7 +1601,7 @@ export interface Pitch {
             /**
              * Select the visual layout variant. Preview all at /dev/division-variants.
              */
-            variant: 'v0-baseline' | 'v1-accordion' | 'v2-cards' | 'v3-split' | 'v4-timeline';
+            variant: 'v0-slate-stack' | 'v0-baseline' | 'v1-accordion' | 'v2-cards' | 'v3-split' | 'v4-timeline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
             /**
              * Optional section heading above the division rows. Line breaks are intentional.
              */
@@ -1856,7 +1856,7 @@ export interface Investor {
             /**
              * Select the visual layout variant. Preview all at /dev/division-variants.
              */
-            variant: 'v0-baseline' | 'v1-accordion' | 'v2-cards' | 'v3-split' | 'v4-timeline';
+            variant: 'v0-slate-stack' | 'v0-baseline' | 'v1-accordion' | 'v2-cards' | 'v3-split' | 'v4-timeline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
             /**
              * Optional section heading above the division rows. Line breaks are intentional.
              */

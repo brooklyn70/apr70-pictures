@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>APR 70 PICTURES — THE SLATE STACK</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&amp;family=Share+Tech+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-dim": "#131313",
+                        "secondary-container": "#454747",
+                        "on-secondary-container": "#b4b5b5",
+                        "fg-4": "#595959",
+                        "primary-container": "#000000",
+                        "on-tertiary-container": "#757575",
+                        "fg-5": "#333333",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "310-imax": "#077082",
+                        "bg-2": "#111111",
+                        "212-amber": "#824B07",
+                        "secondary": "#c6c6c7",
+                        "on-error": "#690005",
+                        "surface-container-highest": "#353535",
+                        "bg-3": "#1A1A1A",
+                        "fg-6": "#1A1A1A",
+                        "on-primary-container": "#757575",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "on-surface-variant": "#cfc4c5",
+                        "on-primary-fixed-variant": "#474747",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-secondary": "#2f3131",
+                        "light-fg": "#1A1A1A",
+                        "nrc-grey": "#C8C8C8",
+                        "surface-tint": "#c6c6c6",
+                        "surface-container": "#1f1f1f",
+                        "secondary-fixed": "#e2e2e2",
+                        "bg-0": "#000000",
+                        "inverse-surface": "#e2e2e2",
+                        "tertiary-container": "#000000",
+                        "surface": "#131313",
+                        "fg-3": "#8C8C8C",
+                        "primary-fixed": "#e2e2e2",
+                        "outline": "#988e90",
+                        "fg-2": "#CCCCCC",
+                        "tertiary-fixed": "#e2e2e2",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-bright": "#393939",
+                        "on-error-container": "#ffdad6",
+                        "nrc-navy": "#001F3F",
+                        "212-sicilian-orange": "#E85D04",
+                        "310-sicilian-blue": "#0077B6",
+                        "muted": "#888888",
+                        "primary": "#c6c6c6",
+                        "tertiary": "#c6c6c6",
+                        "surface-container-low": "#1b1b1b",
+                        "light-bg": "#FAFAF8",
+                        "on-surface": "#e2e2e2",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "background": "#131313",
+                        "on-background": "#e2e2e2",
+                        "on-secondary-fixed-variant": "#454747",
+                        "inverse-on-surface": "#303030",
+                        "bg-1": "#0A0A0A",
+                        "outline-variant": "#4c4546",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "on-primary-fixed": "#1b1b1b",
+                        "on-primary": "#303030",
+                        "fg-1": "#FFFFFF",
+                        "surface-variant": "#353535",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "inverse-primary": "#5e5e5e",
+                        "error": "#ffb4ab",
+                        "on-tertiary": "#303030",
+                        "error-container": "#93000a"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "0px"
+                    },
+                    spacing: {
+                        "s-2": "8px",
+                        "s-7": "48px",
+                        "s-4": "16px",
+                        "s-8": "64px",
+                        "s-9": "96px",
+                        "s-3": "12px",
+                        "s-1": "4px",
+                        "s-6": "32px",
+                        "s-5": "24px",
+                        "s-11": "192px",
+                        "s-10": "128px"
+                    },
+                    fontFamily: {
+                        "hero": ["'Futura Std'", "Futura", "sans-serif"],
+                        "h4": ["Barlow", "sans-serif"],
+                        "meta-mono": ["'Share Tech Mono'", "monospace"],
+                        "h2": ["'Futura Std'", "Futura", "sans-serif"],
+                        "body-lg": ["Barlow", "sans-serif"],
+                        "label-caps": ["Barlow", "sans-serif"],
+                        "body-md": ["Barlow", "sans-serif"],
+                        "eyebrow": ["Barlow", "sans-serif"],
+                        "keycode": ["'Share Tech Mono'", "monospace"],
+                        "body-sm": ["Barlow", "sans-serif"],
+                        "h3": ["'Futura Std'", "Futura", "sans-serif"],
+                        "h1": ["'Futura Std'", "Futura", "sans-serif"]
+                    },
+                    fontSize: {
+                        "hero": ["8rem", { lineHeight: "0.85", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "h4": ["1.25rem", { lineHeight: "1.2", letterSpacing: "0.1em", fontWeight: "600" }],
+                        "meta-mono": ["0.75rem", { lineHeight: "1.0", letterSpacing: "0.3em", fontWeight: "400" }],
+                        "h2": ["3rem", { lineHeight: "1.15", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "body-lg": ["1.125rem", { lineHeight: "1.8", fontWeight: "300" }],
+                        "label-caps": ["0.75rem", { lineHeight: "1.2", letterSpacing: "0.2em", fontWeight: "500" }],
+                        "body-md": ["1rem", { lineHeight: "1.7", fontWeight: "300" }],
+                        "eyebrow": ["0.625rem", { lineHeight: "1.0", letterSpacing: "0.4em", fontWeight: "500" }],
+                        "keycode": ["0.5625rem", { lineHeight: "1.0", letterSpacing: "0.55em", fontWeight: "400" }],
+                        "body-sm": ["0.875rem", { lineHeight: "1.7", fontWeight: "300" }],
+                        "h3": ["2rem", { lineHeight: "1.15", letterSpacing: "-0.02em", fontWeight: "500" }],
+                        "h1": ["4rem", { lineHeight: "1.0", letterSpacing: "-0.02em", fontWeight: "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #0A0A0A; color: #FFFFFF; font-family: 'Barlow', sans-serif; margin: 0; }
+        .slate-row { position: relative; border-top: 1px solid rgba(255,255,255,0.15); transition: background-color 0.3s ease; }
+        .slate-row:hover { background-color: rgba(255,255,255,0.02); }
+        .hover-stroke { 
+            position: absolute; 
+            left: 0; 
+            top: 0; 
+            bottom: 0; 
+            width: 2px; 
+            opacity: 0; 
+            transition: opacity 0.2s ease; 
+        }
+        .slate-row:hover .hover-stroke { opacity: 1; }
+        
+        .tagline-clamp { font-size: clamp(3rem, 5vw, 5rem); }
+        
+        /* Custom Status Badge */
+        .status-badge {
+            padding: 2px 8px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 10px;
+            border: 1px solid currentColor;
+            display: inline-block;
+        }
+
+        .row-212 .hover-stroke { background-color: #E85D04; }
+        .row-310 .hover-stroke { background-color: #077082; }
+        .row-nrc .hover-stroke { background-color: #C8C8C8; }
+        
+        .divider-dots {
+            background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 8px 8px;
+        }
+    </style>
+</head>
+<body class="max-w-[1440px] mx-auto overflow-x-hidden">
+<!-- Top Eyebrow -->
+<header class="pt-s-8 pb-s-4 px-s-8">
+<h1 class="font-meta-mono text-keycode text-fg-2 uppercase tracking-[0.4em]">
+            APR 70 PICTURES — DIVISIONS
+        </h1>
+</header>
+<main class="w-full flex flex-col">
+<!-- Row 1: (212) Pictures -->
+<section class="slate-row row-212 flex flex-col md:flex-row items-stretch min-h-[400px]" style="opacity: 1; transition: opacity 0.8s ease-out; background-image: none;">
+<div class="hover-stroke"></div>
+<!-- Left: Logo -->
+<div class="flex-1 flex items-center justify-start min-h-[250px] pl-s-7 py-s-8">
+<div class="w-full max-w-[517px]">
+<svg class="w-full h-auto" viewbox="0 0 360 280" xmlns="http://www.w3.org/2000/svg">
+<g font-family="'Futura Std', Futura, 'Arial Black', sans-serif" font-weight="900">
+<text fill="#824B07" font-size="190" x="20" y="195">(</text>
+<text fill="#824B07" font-size="170" letter-spacing="-8" x="85" y="195">2</text>
+<text fill="#E85D04" font-size="170" letter-spacing="-8" x="165" y="195">1</text>
+<text fill="#824B07" font-size="170" letter-spacing="-8" x="225" y="195">2</text>
+<text fill="#824B07" font-size="190" x="290" y="195">)</text>
+</g>
+<text fill="#824B07" font-family="'Futura Std', Futura, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="16" text-anchor="middle" x="180" y="255">PICTURES</text>
+</svg>
+</div>
+</div>
+<!-- Right: Content -->
+<div class="flex-1 flex flex-col justify-between p-s-8 text-right border-l border-white/5">
+<div>
+<h2 class="font-hero tagline-clamp text-fg-1 uppercase mb-s-6">Stories from the urban margin.</h2>
+</div>
+<!-- Slate List -->
+<div class="space-y-s-2 font-meta-mono text-fg-2 text-[14px]">
+<div class="flex items-center justify-end gap-s-4 group cursor-default bg-bg-2" style="padding-left: 0.5rem; padding-right: 0.5rem; border-radius: 0.25rem;">
+<span class="text-fg-1">THE SICILIAN CORRIDOR // FEATURE // 2026</span>
+<span class="status-badge text-212-sicilian-orange shadow-[0_0_10px_rgba(232,93,4,0.5)]">IN PRODUCTION</span>
+</div>
+<div class="flex items-center justify-end gap-s-4 group cursor-default">
+<span class="">CROWN HEIGHTS // SHORT // 2025</span>
+<span class="status-badge text-fg-3">COMPLETED</span>
+</div>
+<div class="flex items-center justify-end gap-s-4 group cursor-default">
+<span class="">AFTER THE BRIDGE // FEATURE DEV</span>
+<span class="status-badge text-212-amber">IN DEVELOPMENT</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Row 2: (310) Pictures -->
+<section class="slate-row row-310 flex flex-col md:flex-row items-stretch min-h-[400px]" style="opacity: 1; transition: opacity 0.8s ease-out; background-image: none;">
+<div class="hover-stroke"></div>
+<!-- Left: Logo -->
+<div class="flex-1 flex items-center justify-start min-h-[250px] pl-s-7 py-s-8">
+<div class="w-full max-w-[517px] translate-x-[100px]" style="transform: scale(1.25); transform-origin: left center;">
+<svg class="w-full h-auto" viewbox="0 0 360 230" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#077082" height="100" width="100" x="25" y="20"></rect>
+<rect fill="#0077B6" height="100" width="100" x="130" y="20"></rect>
+<rect fill="#077082" height="100" width="100" x="235" y="20"></rect>
+<g fill="#FFFFFF" font-family="'Futura Std', Futura, 'Arial Black', sans-serif" font-size="74" font-weight="900" letter-spacing="-2" text-anchor="middle">
+<text x="75" y="95">3</text>
+<text x="180" y="95">1</text>
+<text x="285" y="95">0</text>
+</g>
+<line stroke="#FFFFFF" stroke-opacity="0.25" stroke-width="1" x1="50" x2="310" y1="158" y2="158"></line>
+<text fill="#077082" font-family="'Futura Std', Futura, Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="18" text-anchor="middle" x="180" y="190">PICTURES</text>
+</svg>
+</div>
+</div>
+<!-- Right: Content -->
+<div class="flex-1 flex flex-col justify-between p-s-8 text-right border-l border-white/5">
+<div>
+<h2 class="font-hero tagline-clamp text-fg-1 uppercase mb-s-6">Cinema at maximum aperture.</h2>
+</div>
+<!-- Slate List -->
+<div class="space-y-s-2 font-meta-mono text-fg-2 text-[14px]">
+<div class="flex items-center justify-end gap-s-4">
+<span class="">PACIFIC FAULT // FEATURE // 2026</span>
+<span class="status-badge text-310-imax">IN PRODUCTION</span>
+</div>
+<div class="flex items-center justify-end gap-s-4">
+<span class="">THE LONG RETURN // DOC // 2025</span>
+<span class="status-badge text-fg-3">COMPLETED</span>
+</div>
+<div class="flex items-center justify-end gap-s-4">
+<span class="">MERIDIAN // FEATURE DEV</span>
+<span class="status-badge text-310-sicilian-blue">IN DEVELOPMENT</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Row 3: New Renaissance Cinema -->
+<section class="slate-row row-nrc flex flex-col md:flex-row items-stretch min-h-[400px]" style="opacity: 1; transition: opacity 0.8s ease-out; background-image: none;">
+<div class="hover-stroke"></div>
+<!-- Left: Logo -->
+<div class="flex-1 flex items-center justify-start min-h-[250px] pl-s-7 py-s-8">
+<div class="w-full max-w-[575px]">
+<svg class="w-full h-auto" viewbox="0 0 580 460" xmlns="http://www.w3.org/2000/svg">
+<text fill="#C8C8C8" font-family="'Futura Std', Futura, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="12" text-anchor="middle" x="287" y="100">NEW RENAISSANCE</text>
+<g font-family="'Futura Std', Futura, 'Arial Black', sans-serif" font-weight="900">
+<text fill="#C8C8C8" font-size="260" letter-spacing="-10" x="50" y="310">N</text>
+<text fill="#001F3F" font-size="260" letter-spacing="-10" x="215" y="310">R</text>
+<text fill="#C8C8C8" font-size="260" letter-spacing="-10" x="360" y="310">C</text>
+</g>
+<text fill="#C8C8C8" font-family="'Futura Std', Futura, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="54" text-anchor="middle" x="287" y="405">CINEMA</text>
+<g transform="translate(163.5 216.5) rotate(54.6)">
+<rect fill="#001F3F" height="22" width="215" x="-107.5" y="-11"></rect>
+<text dominant-baseline="middle" fill="#FFFFFF" font-family="'Share Tech Mono', 'Courier New', monospace" font-size="11.5" letter-spacing="2" text-anchor="middle" x="0" y="0.5">EST · MMXXVI · NEW YORK</text>
+</g>
+</svg>
+</div>
+</div>
+<!-- Right: Content -->
+<div class="flex-1 flex flex-col justify-between p-s-8 text-right border-l border-white/5">
+<div>
+<h2 class="font-hero tagline-clamp text-fg-1 uppercase mb-s-6">Art that refuses compromise.</h2>
+</div>
+<!-- Slate List -->
+<div class="space-y-s-2 font-meta-mono text-fg-2 text-[14px]">
+<div class="flex items-center justify-end gap-s-4">
+<span class="">VOLTA // ARTHOUSE // 2026</span>
+<span class="status-badge text-nrc-grey">IN PRODUCTION</span>
+</div>
+<div class="flex items-center justify-end gap-s-4">
+<span class="">THE CURATOR'S EYE // SHORT // 2025</span>
+<span class="status-badge text-fg-3">COMPLETED</span>
+</div>
+<div class="flex items-center justify-end gap-s-4">
+<span class="">UNNAMED NRC #3 // FEATURE DEV</span>
+<span class="status-badge text-nrc-navy border-nrc-navy bg-nrc-grey">IN DEVELOPMENT</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Graphic Rule -->
+<div class="h-s-10 border-t border-white/15 divider-dots opacity-20"></div>
+</main>
+<script>
+        // Micro-interaction for atmospheric feeling
+        document.querySelectorAll('.slate-row').forEach(row => {
+            row.addEventListener('mousemove', (e) => {
+                const rect = row.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // Subtle follow light effect
+                row.style.backgroundImage = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.03) 0%, transparent 40%)`;
+            });
+            
+            row.addEventListener('mouseleave', () => {
+                row.style.backgroundImage = 'none';
+            });
+        });
+
+        // Add a technical flicker on load
+        window.onload = () => {
+            const rows = document.querySelectorAll('.slate-row');
+            rows.forEach((row, i) => {
+                row.style.opacity = '0';
+                setTimeout(() => {
+                    row.style.transition = 'opacity 0.8s ease-out';
+                    row.style.opacity = '1';
+                }, 100 * i);
+            });
+        };
+    </script>
+</body></html>

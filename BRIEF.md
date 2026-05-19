@@ -1,9 +1,9 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-19 ~6:05am EDT  
-**Phase:** 6 — Division Showcase. Stitch Round 3 complete. 10 new screens generated: 4 logo-injected variants of existing screens + 3 requested new logo-first variants (Production Log, Slate Stack, Architectural Slate) + 3 bonus cascades. HTML saved to `docs/handoff/stitch-html-round3/`. Awaiting Marco approval.  
-**Handoff:** `docs/handoff/stitch-output-divisions-2026-05-19-round3.md` — full screen inventory, violation report, screenshot URLs, recommended review order.  
-**Best candidates (clean + strong):** r3-new-slate-stack (20 logo refs, zero violations), r3-new-production-log (18 refs, zero violations), r3-v03-ledger-rows-logos (17 refs, border-radius only), r3-open-brief-architectural-slate (18 refs, transition:all only).
+**Updated:** 2026-05-19 ~5:15pm EDT  
+**Phase:** 6 — Division Showcase. Marco approved The Slate Stack ("BACK TO CLAUDE"). Variant `v0-slate-stack` added to DivisionBlock.astro. Three new Stitch division homepage projects created (212, 310, NRC). Context gate hit — commit required before continuing.  
+**Handoff:** `docs/handoff/sonnet-2026-05-19-slate-stack-div-homepages.md` — full Stitch project IDs, generation prompts, commit instructions.  
+**Approved design:** v0-slate-stack — logo left, tagline + ledger right, cursor-follow glow. Canonical HTML in `docs/handoff/stitch-html-round3/r3-back-to-claude-*.html`.
 
 ---
 
@@ -71,11 +71,12 @@ docker exec apr70v3-cms-1 pnpm payload migrate
 
 ## What's next
 
-1. **NAS deploy** — Push to NAS, run `pnpm payload migrate` in the cms container. See "Logo bug" section above.
-2. **V0.0 rejected** — see handoff for Marco's 8-point revision spec. Next pass produces V0.1 (fixes), V0.2/V0.3/V0.4 (variants). All four at `http://localhost:4322/dev/division-variants`. No filmstrip touches.
-3. **Session C (filmstrip)** — DEFERRED until V0 is signed off. Plan still at `/Users/marco/.claude/plans/read-docs-handoff-opus-2026-05-16-review-gleaming-hickey.md` Phase 3.
-4. **Visual QA** — `[requires-gui]` for rendered brand logos + division showcase once NAS is redeployed.
-5. **HeroSliderIsland** — `[gemini]` line in TASKS.md. (Still paused).
+1. **COMMIT** — Stage + commit + push the v0-slate-stack changes. See handoff for exact git commands. Also archive stale handoff docs to `docs/handoff/archive/`.
+2. **TypeScript check** — `pnpm --filter web typecheck` in the project root. Then browse `http://localhost:4322/dev/division-variants` — v0-slate-stack should appear first.
+3. **Division homepage Stitch work** — Upload DESIGN.md + generate 4 screens per project for 212, 310, NRC. Full prompts in handoff doc. Project IDs: 212=`10388160894163022728`, 310=`13932882577618101661`, NRC=`6601419679785046440`.
+4. **Wire v0-slate-stack into division seed** — After QA approves, update seed.ts so `/212`, `/310`, `/nrc` use `v0-slate-stack` variant.
+5. **NAS deploy** — Push to NAS, run `pnpm payload migrate`. See "Logo bug" section.
+6. **Session C (filmstrip)** — DEFERRED. Plan at `/Users/marco/.claude/plans/read-docs-handoff-opus-2026-05-16-review-gleaming-hickey.md` Phase 3.
 
 ### Task tags (who owns what)
 

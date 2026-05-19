@@ -252,6 +252,46 @@ function getDivisionLogo(name: string): string {
 )}
 
 
+{variant === 'v0-slate-stack' && (
+  <section class="division-showcase vss-showcase" data-theme="dark">
+    <header class="vss-eyebrow-bar container">
+      <span class="vss-eyebrow">APR 70 PICTURES — DIVISIONS</span>
+    </header>
+    <div class="vss-rows">
+      {divisions.map((div, i) => {
+        const divId = getDivisionId(div.name)
+        const color = tokenToVar(div.colorToken)
+        const logoSrc = getDivisionLogo(div.name)
+        return (
+          <section class="vss-row" data-division={divId} style={`--div-color: ${color}`}>
+            <span class="vss-stroke" aria-hidden="true"></span>
+            <div class="vss-logo-col">
+              <img class="vss-logo" src={logoSrc} alt={div.name} loading="lazy" />
+            </div>
+            <div class="vss-content-col">
+              <h3 class="vss-tagline">
+                {(div.taglineLines ?? []).join(' ')}
+              </h3>
+              {(div.projects ?? []).length > 0 && (
+                <div class="vss-projects">
+                  {(div.projects ?? []).map(p => (
+                    <div class="vss-project-row">
+                      <span class="vss-project-title">{p.title}</span>
+                      <span class="vss-badge" style={`color: ${color}; border-color: ${color}`}>{p.badge}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </section>
+        )
+      })}
+    </div>
+    <div class="vss-footer-rule" aria-hidden="true"></div>
+  </section>
+)}
+
+
 {variant === 'v3-baseline-filmstrip' && (
   <section class="division-showcase v3-baseline dark-mode-enforcer" data-theme="dark">
     {block.heading && (
@@ -393,6 +433,23 @@ function getDivisionLogo(name: string): string {
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
   
   gsap.registerPlugin(ScrollTrigger);
+
+  // V0-SLATE-STACK cursor-follow radial glow
+  ;(function () {
+    const vssRows = document.querySelectorAll<HTMLElement>('.vss-row')
+    if (!vssRows.length) return
+    vssRows.forEach(row => {
+      row.addEventListener('mousemove', (e) => {
+        const rect = row.getBoundingClientRect()
+        const x = e.clientX - rect.left
+        const y = e.clientY - rect.top
+        row.style.backgroundImage = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.03) 0%, transparent 40%)`
+      })
+      row.addEventListener('mouseleave', () => {
+        row.style.backgroundImage = 'none'
+      })
+    })
+  })()
 
   // V0.3 scroll-aware hover — CSS :hover doesn't update during scroll
   ;(function () {
@@ -1263,6 +1320,128 @@ function getDivisionLogo(name: string): string {
     color: var(--div-color);
     opacity: 0.7;
     font-size: clamp(0.75rem, 1vw, 0.8125rem);
+  }
+
+  /* ============================================================
+     V0-SLATE-STACK — "Back to Claude" — logo left, ledger right
+     ============================================================ */
+  .vss-showcase {
+    background: var(--bg-1);
+    color: var(--fg-1);
+    overflow-x: hidden;
+  }
+  .vss-eyebrow-bar {
+    padding: var(--s-8) 0 var(--s-4);
+  }
+  .vss-eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--type-micro);
+    color: var(--fg-2);
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+  }
+  .vss-rows {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .vss-row {
+    position: relative;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+    transition: background-color 0.3s ease;
+    animation: vss-fade-in 0.8s ease-out both;
+  }
+  .vss-row:nth-child(1) { animation-delay: 0ms; }
+  .vss-row:nth-child(2) { animation-delay: 100ms; }
+  .vss-row:nth-child(3) { animation-delay: 200ms; }
+  @keyframes vss-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .vss-row { animation: none; }
+  }
+  @media (min-width: 768px) {
+    .vss-row { flex-direction: row; align-items: stretch; }
+  }
+  .vss-row:hover { background-color: rgba(255,255,255,0.02); }
+  .vss-stroke {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--div-color);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .vss-row:hover .vss-stroke { opacity: 1; }
+  .vss-logo-col {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 250px;
+    padding: var(--s-8) var(--s-7);
+  }
+  .vss-logo {
+    width: 100%;
+    max-width: 420px;
+    height: clamp(160px, 17vw, 260px);
+    object-fit: contain;
+    object-position: left center;
+  }
+  .vss-content-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: var(--s-8);
+    text-align: right;
+    border-left: 1px solid rgba(255,255,255,0.05);
+  }
+  .vss-tagline {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--fg-1);
+    margin: 0 0 var(--s-6);
+  }
+  .vss-projects {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+  .vss-project-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--s-4);
+    font-family: var(--font-mono);
+    font-size: clamp(0.75rem, 1.1vw, 0.875rem);
+    color: var(--fg-2);
+  }
+  .vss-badge {
+    padding: 2px 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    border: 1px solid currentColor;
+    display: inline-block;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+  .vss-footer-rule {
+    height: var(--s-10);
+    border-top: 1px solid rgba(255,255,255,0.15);
+    background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 8px 8px;
+    opacity: 0.2;
   }
 
 </style>

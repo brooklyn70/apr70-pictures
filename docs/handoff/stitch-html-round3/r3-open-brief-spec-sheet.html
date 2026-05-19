@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>APR 70 Pictures Division Showcase V0.3</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#2a2a2a",
+                        "on-background": "#e2e2e2",
+                        "surface-container-highest": "#353535",
+                        "secondary": "#c6c6c7",
+                        "muted": "#888888",
+                        "secondary-fixed": "#e2e2e2",
+                        "surface-tint": "#c6c6c6",
+                        "on-secondary": "#2f3131",
+                        "fg-5": "#333333",
+                        "310-sicilian-blue": "#0077B6",
+                        "surface-container-lowest": "#0e0e0e",
+                        "primary": "#c6c6c6",
+                        "on-tertiary": "#303030",
+                        "light-fg": "#1A1A1A",
+                        "nrc-navy": "#001F3F",
+                        "surface-dim": "#131313",
+                        "surface-container-low": "#1b1b1b",
+                        "on-secondary-fixed-variant": "#454747",
+                        "tertiary": "#c6c6c6",
+                        "surface": "#131313",
+                        "fg-2": "#CCCCCC",
+                        "tertiary-fixed": "#e2e2e2",
+                        "nrc-grey": "#C8C8C8",
+                        "primary-container": "#000000",
+                        "on-secondary-container": "#b4b5b5",
+                        "background": "#131313",
+                        "light-bg": "#FAFAF8",
+                        "on-tertiary-container": "#757575",
+                        "surface-bright": "#393939",
+                        "fg-1": "#FFFFFF",
+                        "bg-2": "#111111",
+                        "on-primary": "#303030",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "on-surface": "#e2e2e2",
+                        "bg-3": "#1A1A1A",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "primary-fixed": "#e2e2e2",
+                        "error-container": "#93000a",
+                        "outline": "#988e90",
+                        "on-primary-fixed-variant": "#474747",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "tertiary-container": "#000000",
+                        "on-error": "#690005",
+                        "on-surface-variant": "#cfc4c5",
+                        "fg-6": "#1A1A1A",
+                        "212-amber": "#824B07",
+                        "surface-container": "#1f1f1f",
+                        "on-primary-container": "#757575",
+                        "inverse-primary": "#5e5e5e",
+                        "310-imax": "#077082",
+                        "fg-4": "#595959",
+                        "surface-variant": "#353535",
+                        "bg-0": "#000000",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "bg-1": "#0A0A0A",
+                        "inverse-surface": "#e2e2e2",
+                        "inverse-on-surface": "#303030",
+                        "fg-3": "#8C8C8C",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "on-error-container": "#ffdad6",
+                        "secondary-container": "#454747",
+                        "outline-variant": "#4c4546",
+                        "on-primary-fixed": "#1b1b1b",
+                        "error": "#ffb4ab",
+                        "212-sicilian-orange": "#E85D04"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "s-4": "16px",
+                        "s-8": "64px",
+                        "s-7": "48px",
+                        "s-9": "96px",
+                        "s-5": "24px",
+                        "s-3": "12px",
+                        "s-1": "4px",
+                        "s-2": "8px",
+                        "s-6": "32px",
+                        "s-11": "192px",
+                        "s-10": "128px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Futura Std", "sans-serif"],
+                        "h1": ["Futura Std", "sans-serif"],
+                        "body-lg": ["Barlow", "sans-serif"],
+                        "h3": ["Futura Std", "sans-serif"],
+                        "body-md": ["Barlow", "sans-serif"],
+                        "h4": ["Barlow", "sans-serif"],
+                        "eyebrow": ["Barlow", "sans-serif"],
+                        "keycode": ["Share Tech Mono", "monospace"],
+                        "hero": ["Futura Std", "sans-serif"],
+                        "body-sm": ["Barlow", "sans-serif"],
+                        "meta-mono": ["Share Tech Mono", "monospace"],
+                        "label-caps": ["Barlow", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "h2": ["3rem", { "lineHeight": "1.15", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "h1": ["4rem", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["1.125rem", { "lineHeight": "1.8", "fontWeight": "300" }],
+                        "h3": ["2rem", { "lineHeight": "1.15", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                        "body-md": ["1rem", { "lineHeight": "1.7", "fontWeight": "300" }],
+                        "h4": ["1.25rem", { "lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "eyebrow": ["0.625rem", { "lineHeight": "1.0", "letterSpacing": "0.4em", "fontWeight": "500" }],
+                        "keycode": ["0.5625rem", { "lineHeight": "1.0", "letterSpacing": "0.55em", "fontWeight": "400" }],
+                        "hero": ["8rem", { "lineHeight": "0.85", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-sm": ["0.875rem", { "lineHeight": "1.7", "fontWeight": "300" }],
+                        "meta-mono": ["0.75rem", { "lineHeight": "1.0", "letterSpacing": "0.3em", "fontWeight": "400" }],
+                        "label-caps": ["0.75rem", { "lineHeight": "1.2", "letterSpacing": "0.2em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;500;600&family=Share+Tech+Mono&display=swap');
+        
+        /* Futura Std placeholder mapping since local font isn't available */
+        @font-face {
+            font-family: 'Futura Std';
+            src: local('Helvetica Neue'), local('Helvetica'), local('Arial'), sans-serif;
+            font-weight: 500;
+        }
+        @font-face {
+            font-family: 'Futura Std';
+            src: local('Helvetica Neue'), local('Helvetica'), local('Arial'), sans-serif;
+            font-weight: 700;
+        }
+
+        .registration-mark-tl { border-top: 1px solid theme('colors.fg-4'); border-left: 1px solid theme('colors.fg-4'); width: 12px; height: 12px; position: absolute; top: 8px; left: 8px; }
+        .registration-mark-tr { border-top: 1px solid theme('colors.fg-4'); border-right: 1px solid theme('colors.fg-4'); width: 12px; height: 12px; position: absolute; top: 8px; right: 8px; }
+        .registration-mark-bl { border-bottom: 1px solid theme('colors.fg-4'); border-left: 1px solid theme('colors.fg-4'); width: 12px; height: 12px; position: absolute; bottom: 8px; left: 8px; }
+        .registration-mark-br { border-bottom: 1px solid theme('colors.fg-4'); border-right: 1px solid theme('colors.fg-4'); width: 12px; height: 12px; position: absolute; bottom: 8px; right: 8px; }
+
+        .ledger-row {
+            transition: all 0.3s ease;
+        }
+        .ledger-row:hover .row-stroke {
+            height: 100%;
+        }
+        .ledger-row:hover .hover-cta {
+            opacity: 1;
+        }
+        .row-stroke {
+            height: 0;
+            transition: height 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-bg-1 text-on-background min-h-screen overflow-x-hidden selection:bg-fg-1 selection:text-bg-0">
+<!-- TopNavBar -->
+<nav class="bg-background dark:bg-background text-on-background dark:text-on-background flex justify-between items-center w-full px-s-6 py-s-4 max-w-full border-b border-outline-variant dark:border-outline-variant fixed top-0 left-0 z-50">
+<div class="font-h3 text-h3 font-bold text-on-background tracking-tighter uppercase">NEW RENAISSANCE</div>
+<div class="hidden md:flex items-center gap-s-6">
+<a class="font-label-caps text-label-caps text-primary dark:text-primary border-b-2 border-primary pb-1 opacity-80 transition-opacity" href="#">Divisions</a>
+<a class="font-label-caps text-label-caps text-fg-muted dark:text-fg-muted hover:text-on-background hover:bg-surface-variant/10 transition-colors duration-300 px-s-2 py-s-1" href="#">Projects</a>
+<a class="font-label-caps text-label-caps text-fg-muted dark:text-fg-muted hover:text-on-background hover:bg-surface-variant/10 transition-colors duration-300 px-s-2 py-s-1" href="#">Legacy</a>
+<a class="font-label-caps text-label-caps text-fg-muted dark:text-fg-muted hover:text-on-background hover:bg-surface-variant/10 transition-colors duration-300 px-s-2 py-s-1" href="#">About</a>
+</div>
+<div>
+<button class="bg-fg-1 text-bg-0 font-label-caps text-label-caps px-s-5 py-s-2 uppercase hover:bg-fg-2 transition-colors">Contact</button>
+</div>
+</nav>
+<main class="pt-[80px]"><!-- Row 01: 212 Pictures -->
+<section class="ledger-row relative w-full border-b border-fg-5 bg-bg-1 min-h-[500px] flex flex-col">
+<!-- Filmstrip Rail -->
+<div class="h-[32px] w-full bg-bg-1 border-b border-fg-5 flex items-center px-s-4 justify-between font-meta-mono text-[10px] text-fg-4 tracking-widest">
+<span>DIV: 212_TV_SPEC_V.04</span>
+<span>FPS: 23.976</span>
+<span>STATUS: IN_DEVELOPMENT</span>
+</div>
+<div class="flex-1 flex flex-col md:flex-row relative">
+<!-- Vertical Hero Tagline -->
+<div class="absolute right-0 top-0 bottom-0 w-[120px] border-l border-fg-5 flex items-center justify-center">
+<div class="font-h1 text-[80px] text-212-amber/20 uppercase tracking-tighter rotate-90 whitespace-nowrap origin-center">
+                NEW YORK TELEVISION
+            </div>
+</div>
+<!-- Left Spec Content -->
+<div class="w-full md:w-1/2 p-s-6 border-r border-fg-5 relative">
+<div class="registration-mark-tl !border-212-amber"></div>
+<div class="w-[160px] h-[220px] border border-fg-5 bg-bg-2 flex items-center justify-center mb-s-6">
+<span class="font-meta-mono text-meta-mono text-fg-4">212_LOGO.SVG</span>
+</div>
+<div class="font-meta-mono text-body-sm text-fg-3 space-y-2">
+<p>[LOCATION: NYC_TRIBECA]</p>
+<p>[FOCUS: LONG_FORM_SCRIPTED]</p>
+<p>[TECH: ARRI_LF_PRORES_4444]</p>
+</div>
+</div>
+<!-- Project List with Masking Background -->
+<div class="w-full md:w-1/2 p-s-6 relative overflow-hidden">
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<span class="font-keycode text-[300px] leading-none text-fg-5/10 select-none">01</span>
+</div>
+<div class="relative z-10">
+<div class="font-meta-mono text-label-caps text-fg-4 mb-s-4">SLATE_01 // PRODUCTION_LOG</div>
+<table class="w-full font-meta-mono text-[11px] text-fg-1">
+<thead class="text-fg-4 border-b border-fg-5">
+<tr>
+<th class="text-left py-2">PROJECT_ID</th>
+<th class="text-center py-2">DATE_START</th>
+<th class="text-right py-2">TC_OUT</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-fg-5/30">
+<tr class="hover:bg-212-amber/5 cursor-pointer">
+<td class="py-3">A NEED GROWS IN BROOKLYN</td>
+<td class="text-center">09.24.23</td>
+<td class="text-right text-212-amber">10:00:00:00</td>
+</tr>
+<tr class="hover:bg-212-amber/5 cursor-pointer">
+<td class="py-3">THE MAYORS</td>
+<td class="text-center">11.12.23</td>
+<td class="text-right text-212-amber">11:22:15:08</td>
+</tr>
+<tr class="hover:bg-212-amber/5 cursor-pointer">
+<td class="py-3">THE MALTESE FALCON</td>
+<td class="text-center">01.15.24</td>
+<td class="text-right text-212-amber">LIVE_STAGE</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<!-- Row 02: 310 Pictures -->
+<section class="ledger-row relative w-full border-b border-fg-5 bg-bg-1 min-h-[500px] flex flex-col">
+<!-- Filmstrip Rail -->
+<div class="h-[32px] w-full bg-bg-1 border-b border-fg-5 flex items-center px-s-4 justify-between font-meta-mono text-[10px] text-fg-4 tracking-widest">
+<span>DIV: 310_GLOBAL_SPEC_V.02</span>
+<span>RES: 8K_RAW</span>
+<span>STATUS: PRE_PRODUCTION</span>
+</div>
+<div class="flex-1 flex flex-col md:flex-row relative">
+<!-- Vertical Hero Tagline -->
+<div class="absolute right-0 top-0 bottom-0 w-[120px] border-l border-fg-5 flex items-center justify-center">
+<div class="font-h1 text-[80px] text-310-imax/20 uppercase tracking-tighter rotate-90 whitespace-nowrap origin-center">
+                LOS ANGELES GLOBAL
+            </div>
+</div>
+<!-- Left Spec Content -->
+<div class="w-full md:w-1/2 p-s-6 border-r border-fg-5 relative">
+<div class="registration-mark-tl !border-310-imax"></div>
+<div class="w-[160px] h-[220px] border border-fg-5 bg-bg-2 flex items-center justify-center mb-s-6">
+<span class="font-meta-mono text-meta-mono text-fg-4">310_LOGO.SVG</span>
+</div>
+<div class="font-meta-mono text-body-sm text-fg-3 space-y-2">
+<p>[LOCATION: LAX_CENTRAL]</p>
+<p>[FOCUS: WORLDWIDE_THEATRICAL]</p>
+<p>[TECH: IMAX_15_70MM]</p>
+</div>
+</div>
+<!-- Project List with Masking Background -->
+<div class="w-full md:w-1/2 p-s-6 relative overflow-hidden">
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<span class="font-keycode text-[300px] leading-none text-fg-5/10 select-none">02</span>
+</div>
+<div class="relative z-10">
+<div class="font-meta-mono text-label-caps text-fg-4 mb-s-4">SLATE_02 // PRODUCTION_LOG</div>
+<table class="w-full font-meta-mono text-[11px] text-fg-1">
+<thead class="text-fg-4 border-b border-fg-5">
+<tr>
+<th class="text-left py-2">PROJECT_ID</th>
+<th class="text-center py-2">DATE_START</th>
+<th class="text-right py-2">TC_OUT</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-fg-5/30">
+<tr class="hover:bg-310-imax/5 cursor-pointer">
+<td class="py-3">L.A. DOLCE VITA</td>
+<td class="text-center">02.10.24</td>
+<td class="text-right text-310-imax">02:14:00:00</td>
+</tr>
+<tr class="hover:bg-310-imax/5 cursor-pointer">
+<td class="py-3">L'ODISSEA DI CLEOPATRA</td>
+<td class="text-center">05.15.24</td>
+<td class="text-right text-310-imax">03:45:12:23</td>
+</tr>
+<tr class="hover:bg-310-imax/5 cursor-pointer">
+<td class="py-3">SHADOWMASTER</td>
+<td class="text-center">08.20.24</td>
+<td class="text-right text-310-imax">HYBRID_TC</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<!-- Row 03: NRC Features -->
+<section class="ledger-row relative w-full border-b border-fg-5 bg-bg-1 min-h-[500px] flex flex-col">
+<!-- Filmstrip Rail -->
+<div class="h-[32px] w-full bg-bg-1 border-b border-fg-5 flex items-center px-s-4 justify-between font-meta-mono text-[10px] text-fg-4 tracking-widest">
+<span>DIV: NRC_FEATURES_SPEC_V.01</span>
+<span>RATIO: 2.39:1</span>
+<span>STATUS: ARCHIVAL_SCAN</span>
+</div>
+<div class="flex-1 flex flex-col md:flex-row relative">
+<!-- Vertical Hero Tagline -->
+<div class="absolute right-0 top-0 bottom-0 w-[120px] border-l border-fg-5 flex items-center justify-center">
+<div class="font-h1 text-[80px] text-nrc-grey/20 uppercase tracking-tighter rotate-90 whitespace-nowrap origin-center">
+                NEW RENAISSANCE FEATURES
+            </div>
+</div>
+<!-- Left Spec Content -->
+<div class="w-full md:w-1/2 p-s-6 border-r border-fg-5 relative">
+<div class="registration-mark-tl !border-nrc-grey"></div>
+<div class="w-[160px] h-[220px] border border-fg-5 bg-bg-2 flex items-center justify-center mb-s-6">
+<span class="font-meta-mono text-meta-mono text-fg-4">NRC_LOGO.SVG</span>
+</div>
+<div class="font-meta-mono text-body-sm text-fg-3 space-y-2">
+<p>[LOCATION: GLOBAL_DISTRIBUTION]</p>
+<p>[FOCUS: CULT_CLASSICS]</p>
+<p>[TECH: 4K_LASER_RESTORE]</p>
+</div>
+</div>
+<!-- Project List with Masking Background -->
+<div class="w-full md:w-1/2 p-s-6 relative overflow-hidden">
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<span class="font-keycode text-[300px] leading-none text-fg-5/10 select-none">03</span>
+</div>
+<div class="relative z-10">
+<div class="font-meta-mono text-label-caps text-fg-4 mb-s-4">SLATE_03 // PRODUCTION_LOG</div>
+<table class="w-full font-meta-mono text-[11px] text-fg-1">
+<thead class="text-fg-4 border-b border-fg-5">
+<tr>
+<th class="text-left py-2">PROJECT_ID</th>
+<th class="text-center py-2">DATE_START</th>
+<th class="text-right py-2">TC_OUT</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-fg-5/30">
+<tr class="hover:bg-nrc-grey/5 cursor-pointer">
+<td class="py-3">U BRUCCULINU</td>
+<td class="text-center">01.04.22</td>
+<td class="text-right text-nrc-grey">01:54:10:00</td>
+</tr>
+<tr class="hover:bg-nrc-grey/5 cursor-pointer">
+<td class="py-3">ALPHA YY</td>
+<td class="text-center">06.18.22</td>
+<td class="text-right text-nrc-grey">02:08:44:12</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section></main>
+<!-- Footer -->
+<footer class="bg-background dark:bg-background w-full px-s-6 py-s-7 flex flex-col md:flex-row justify-between items-center border-t border-outline-variant rounded-none">
+<div class="font-label-caps text-label-caps text-on-background mb-s-4 md:mb-0">
+            NEW RENAISSANCE CINEMA
+        </div>
+<div class="flex gap-s-6 mb-s-4 md:mb-0">
+<a class="font-meta-mono text-meta-mono uppercase tracking-widest text-fg-muted hover:text-on-background transition-colors" href="#">Privacy Policy</a>
+<a class="font-meta-mono text-meta-mono uppercase tracking-widest text-fg-muted hover:text-on-background transition-colors" href="#">Terms of Service</a>
+<a class="font-meta-mono text-meta-mono uppercase tracking-widest text-fg-muted hover:text-on-background transition-colors" href="#">Press Kit</a>
+</div>
+<div class="font-meta-mono text-meta-mono uppercase tracking-widest text-fg-muted">
+            © 2024 NEW RENAISSANCE CINEMA. ALL RIGHTS RESERVED.
+        </div>
+</footer>
+</body></html>

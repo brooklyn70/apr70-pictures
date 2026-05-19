@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Production Log | APR 70 PICTURES</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&amp;family=Share+Tech+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-bright": "#393939",
+                        "on-secondary": "#2f3131",
+                        "on-secondary-fixed-variant": "#454747",
+                        "light-fg": "#1A1A1A",
+                        "inverse-on-surface": "#303030",
+                        "on-error-container": "#ffdad6",
+                        "fg-1": "#FFFFFF",
+                        "surface-container-low": "#1b1b1b",
+                        "fg-6": "#1A1A1A",
+                        "secondary-container": "#454747",
+                        "310-sicilian-blue": "#0077B6",
+                        "on-primary-container": "#757575",
+                        "inverse-surface": "#e2e2e2",
+                        "fg-3": "#8C8C8C",
+                        "nrc-grey": "#C8C8C8",
+                        "primary": "#c6c6c6",
+                        "surface-dim": "#131313",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "212-amber": "#824B07",
+                        "secondary-fixed": "#e2e2e2",
+                        "on-primary": "#303030",
+                        "on-background": "#e2e2e2",
+                        "on-surface-variant": "#cfc4c5",
+                        "outline-variant": "#4c4546",
+                        "tertiary-container": "#000000",
+                        "on-tertiary-container": "#757575",
+                        "212-sicilian-orange": "#E85D04",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "surface-container-highest": "#353535",
+                        "surface-container": "#1f1f1f",
+                        "fg-4": "#595959",
+                        "310-imax": "#077082",
+                        "on-tertiary": "#303030",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "on-primary-fixed-variant": "#474747",
+                        "on-error": "#690005",
+                        "surface": "#131313",
+                        "inverse-primary": "#5e5e5e",
+                        "tertiary-fixed": "#e2e2e2",
+                        "on-primary-fixed": "#1b1b1b",
+                        "on-surface": "#e2e2e2",
+                        "fg-2": "#CCCCCC",
+                        "on-secondary-container": "#b4b5b5",
+                        "surface-variant": "#353535",
+                        "surface-container-high": "#2a2a2a",
+                        "background": "#131313",
+                        "bg-2": "#111111",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "bg-1": "#0A0A0A",
+                        "bg-3": "#1A1A1A",
+                        "fg-5": "#333333",
+                        "surface-container-lowest": "#0e0e0e",
+                        "primary-container": "#000000",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "bg-0": "#000000",
+                        "muted": "#888888",
+                        "error": "#ffb4ab",
+                        "nrc-navy": "#001F3F",
+                        "light-bg": "#FAFAF8",
+                        "surface-tint": "#c6c6c6",
+                        "tertiary": "#c6c6c6",
+                        "primary-fixed": "#e2e2e2",
+                        "secondary": "#c6c6c7",
+                        "error-container": "#93000a",
+                        "outline": "#988e90"
+                    },
+                    spacing: {
+                        "s-1": "4px", "s-2": "8px", "s-3": "12px", "s-4": "16px", "s-5": "24px",
+                        "s-6": "32px", "s-7": "48px", "s-8": "64px", "s-9": "96px", "s-10": "128px", "s-11": "192px"
+                    },
+                    fontFamily: {
+                        "eyebrow": ["Barlow", "sans-serif"],
+                        "label-caps": ["Barlow", "sans-serif"],
+                        "body-md": ["Barlow", "sans-serif"],
+                        "h3": ["Futura Std", "sans-serif"],
+                        "body-sm": ["Barlow", "sans-serif"],
+                        "hero": ["Futura Std", "sans-serif"],
+                        "h1": ["Futura Std", "sans-serif"],
+                        "h2": ["Futura Std", "sans-serif"],
+                        "body-lg": ["Barlow", "sans-serif"],
+                        "meta-mono": ["Share Tech Mono", "monospace"],
+                        "h4": ["Barlow", "sans-serif"],
+                        "keycode": ["Share Tech Mono", "monospace"]
+                    },
+                    fontSize: {
+                        "eyebrow": ["0.625rem", { lineHeight: "1.0", letterSpacing: "0.4em", fontWeight: "500" }],
+                        "label-caps": ["0.75rem", { lineHeight: "1.2", letterSpacing: "0.2em", fontWeight: "500" }],
+                        "body-md": ["1rem", { lineHeight: "1.7", fontWeight: "300" }],
+                        "h3": ["2rem", { lineHeight: "1.15", letterSpacing: "-0.02em", fontWeight: "500" }],
+                        "h1": ["4rem", { lineHeight: "1.0", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "h2": ["3rem", { lineHeight: "1.15", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "meta-mono": ["0.75rem", { lineHeight: "1.0", letterSpacing: "0.3em", fontWeight: "400" }],
+                        "h4": ["1.25rem", { lineHeight: "1.2", letterSpacing: "0.1em", fontWeight: "600" }],
+                        "keycode": ["0.5625rem", { lineHeight: "1.0", letterSpacing: "0.55em", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        @font-face {
+            font-family: 'Futura Std';
+            src: local('Futura Std Bold'), local('Futura-Bold'), url('https://fonts.cdnfonts.com/s/14897/FuturaStdBold.woff') format('woff');
+            font-weight: 700;
+        }
+        @font-face {
+            font-family: 'Futura Std';
+            src: local('Futura Std Heavy'), local('Futura-Heavy'), url('https://fonts.cdnfonts.com/s/14897/FuturaStdHeavy.woff') format('woff');
+            font-weight: 900;
+        }
+        body {
+            background-color: #0A0A0A;
+            color: #FFFFFF;
+            -webkit-font-smoothing: antialiased;
+        }
+        .division-column {
+            border-right: 1px solid rgba(255, 255, 255, 0.15);
+            min-height: 100vh;
+        }
+        .division-column:last-child {
+            border-right: none;
+        }
+        .ledger-row {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .watermark {
+            pointer-events: none;
+            user-select: none;
+            z-index: 0;
+        }
+        .content-layer {
+            position: relative;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="bg-bg-1 overflow-x-hidden">
+<div class="max-w-[1440px] mx-auto min-h-screen relative">
+<!-- Top Eyebrow -->
+<header class="pt-s-6 px-s-8 pb-s-8">
+<span class="font-meta-mono text-meta-mono text-fg-3 uppercase tracking-[0.4em]">
+                APR 70 PICTURES / DIVISION SHOWCASE
+            </span>
+</header>
+<main class="grid grid-cols-1 md:grid-cols-3 w-full border-t border-white/15">
+<!-- Column 01: (212) Pictures -->
+<section class="division-column relative flex flex-col pt-s-8 overflow-hidden">
+<div class="px-s-8 mb-s-8">
+<svg class="w-full h-auto min-h-[160px]" viewbox="0 0 360 280" xmlns="http://www.w3.org/2000/svg">
+<g font-family="'Futura Std', Futura, 'Arial Black', sans-serif" font-weight="900">
+<text fill="#824B07" font-size="190" x="20" y="195">(</text>
+<text fill="#824B07" font-size="170" letter-spacing="-8" x="85" y="195">2</text>
+<text fill="#E85D04" font-size="170" letter-spacing="-8" x="165" y="195">1</text>
+<text fill="#824B07" font-size="170" letter-spacing="-8" x="225" y="195">2</text>
+<text fill="#824B07" font-size="190" x="290" y="195">)</text>
+</g>
+<text fill="#824B07" font-family="'Futura Std', Futura, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="16" text-anchor="middle" x="180" y="255">PICTURES</text>
+</svg>
+</div>
+<!-- Watermark -->
+<div class="watermark absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.05] font-h1 text-[400px] leading-none text-white select-none">
+                    01
+                </div>
+<div class="content-layer px-s-8 flex-grow flex flex-col justify-end pb-s-11">
+<div class="mb-s-4">
+<span class="font-meta-mono text-keycode text-212-sicilian-orange uppercase">Division Ledger</span>
+</div>
+<div class="ledger-row py-s-4 flex justify-between items-baseline group hover:bg-white/5 transition-colors cursor-default">
+<h2 class="font-h2 text-h3 text-fg-1">The Sicilian Corridor</h2>
+<span class="font-meta-mono text-meta-mono text-fg-3">FEATURE / 2026</span>
+</div>
+<div class="ledger-row py-s-4 flex justify-between items-baseline group hover:bg-white/5 transition-colors cursor-default">
+<h2 class="font-h2 text-h3 text-fg-1">Crown Heights</h2>
+<span class="font-meta-mono text-meta-mono text-fg-3">SHORT / 2025</span>
+</div>
+<div class="ledger-row py-s-4 flex justify-between items-baseline group hover:bg-white/5 transition-colors cursor-default">
+<h2 class="font-h2 text-h3 text-fg-1">After the Bridge</h2>
+<span class="font-meta-mono text-meta-mono text-fg-3">FEATURE / DEV</span>
+</div>
+</div>
+</section>
+<!-- Column 02: (310) Pictures -->
+<section class="division-column relative flex flex-col pt-s-8 overflow-hidden">
+<div class="px-s-8 mb-s-8">
+<svg class="w-full h-auto min-h-[160px]" viewbox="0 0 360 230" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#077082" height="100" width="100" x="25" y="20"></rect>
+<rect fill="#0077B6" height="100" width="100" x="130" y="20"></rect>
+<rect fill="#077082" height="100" width="100" x="235" y="20"></rect>
+<g fill="#FFFFFF" font-family="'Futura Std', Futura, 'Arial Black', sans-serif" font-size="74" font-weight="900" letter-spacing="-2" text-anchor="middle">
+<text x="75" y="95">3</text>
+<text x="180" y="95">1</text>
+<text x="285" y="95">0</text>
+</g>
+<line stroke="#FFFFFF" stroke-opacity="0.25" stroke-width="1" x1="50" x2="310" y1="158" y2="158"></line>
+<text fill="#077082" font-family="'Futura Std', Futura, Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="18" text-anchor="middle" x="180" y="190">PICTURES</text>
+</svg>
+</div>
+<!-- Watermark -->
+<div class="watermark absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.05] font-h1 text-[400px] leading-none text-white select-none">
+                    02
+                </div>
+<div class="content-layer px-s-8 flex-grow flex flex-col justify-end pb-s-11">
+<div class="mb-s-4">
+<span class="font-meta-mono text-keycode text-310-sicilian-blue uppercase">Division Ledger</span>
+</div>
+<div class="ledger-row py-s-4 flex justify-between items-baseline group hover:bg-white/5 transition-colors cursor-default">
+<h2 class="font-h2 text-h3 text-fg-1">Pacific Fault</h2>
+<span class="font-meta-mono text-meta-mono text-fg-3">FEATURE / 2026</span>
+</div>
+<div class="ledger-row py-s-4 flex justify-between items-baseline group hover:bg-white/5 transition-colors cursor-default">
+<h2 class="font-h2 text-h3 text-fg-1">The Long Return</h2>
+<span class="font-meta-mono text-meta-mono text-fg-3">DOC / 2025</span>
+</div>
+<div class="ledger-row py-s-4 flex justify-between items-baseline group hover:bg-white/5 transition-colors cursor-default">
+<h2 class="font-h2 text-h3 text-fg-1">Meridian</h2>
+<span class="font-meta-mono text-meta-mono text-fg-3">FEATURE / DEV</span>
+</div>
+</div>
+</section>
+<!-- Column 03: NRC -->
+<section class="division-column relative flex flex-col pt-s-8 overflow-hidden">
+<div class="px-s-8 mb-s-8">
+<svg class="w-full h-auto min-h-[160px]" viewbox="0 0 580 460" xmlns="http://www.w3.org/2000/svg">
+<text fill="#C8C8C8" font-family="'Futura Std', Futura, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="12" text-anchor="middle" x="287" y="100">NEW RENAISSANCE</text>
+<g font-family="'Futura Std', Futura, 'Arial Black', sans-serif" font-weight="900">
+<text fill="#C8C8C8" font-size="260" letter-spacing="-10" x="50" y="310">N</text>
+<text fill="#001F3F" font-size="260" letter-spacing="-10" x="215" y="310">R</text>
+<text fill="#C8C8C8" font-size="260" letter-spacing="-10" x="360" y="310">C</text>
+</g>
+<text fill="#C8C8C8" font-family="'Futura Std', Futura, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="54" text-anchor="middle" x="287" y="405">CINEMA</text>
+<g transform="translate(163.5 216.5) rotate(54.6)">
+<rect fill="#001F3F" height="22" width="215" x="-107.5" y="-11"></rect>
+<text dominant-baseline="middle" fill="#FFFFFF" font-family="'Share Tech Mono', 'Courier New', monospace" font-size="11.5" letter-spacing="2" text-anchor="middle" x="0" y="0.5">EST · MMXXVI · NEW YORK</text>
+</g>
+</svg>
+</div>
+<!-- Watermark -->
+<div class="watermark absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.05] font-h1 text-[400px] leading-none text-white select-none">
+                    03
+                </div>
+<div class="content-layer px-s-8 flex-grow flex flex-col justify-end pb-s-11">
+<div class="mb-s-4">
+<span class="font-meta-mono text-keycode text-nrc-grey uppercase">Division Ledger</span>
+</div>
+<div class="ledger-row py-s-4 flex justify-between items-baseline group hover:bg-white/5 transition-colors cursor-default">
+<h2 class="font-h2 text-h3 text-fg-1">Volta</h2>
+<span class="font-meta-mono text-meta-mono text-fg-3">ARTHOUSE / 2026</span>
+</div>
+<div class="ledger-row py-s-4 flex justify-between items-baseline group hover:bg-white/5 transition-colors cursor-default">
+<h2 class="font-h2 text-h3 text-fg-1">The Curator's Eye</h2>
+<span class="font-meta-mono text-meta-mono text-fg-3">SHORT / 2025</span>
+</div>
+<div class="ledger-row py-s-4 flex justify-between items-baseline group hover:bg-white/5 transition-colors cursor-default">
+<h2 class="font-h2 text-h3 text-fg-1">Unnamed NRC #3</h2>
+<span class="font-meta-mono text-meta-mono text-fg-3">FEATURE / DEV</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Sprocket Hole Decoration (Atmospheric) -->
+<div class="fixed left-4 top-0 bottom-0 flex flex-col justify-around py-s-11 opacity-20 pointer-events-none">
+<div class="w-2 h-2 bg-white rounded-[2px]"></div>
+<div class="w-2 h-2 bg-white rounded-[2px]"></div>
+<div class="w-2 h-2 bg-white rounded-[2px]"></div>
+<div class="w-2 h-2 bg-white rounded-[2px]"></div>
+<div class="w-2 h-2 bg-white rounded-[2px]"></div>
+<div class="w-2 h-2 bg-white rounded-[2px]"></div>
+</div>
+<div class="fixed right-4 top-0 bottom-0 flex flex-col justify-around py-s-11 opacity-20 pointer-events-none">
+<div class="w-2 h-2 bg-white rounded-[2px]"></div>
+<div class="w-2 h-2 bg-white rounded-[2px]"></div>
+<div class="w-2 h-2 bg-white rounded-[2px]"></div>
+<div class="w-2 h-2 bg-white rounded-[2px]"></div>
+<div class="w-2 h-2 bg-white rounded-[2px]"></div>
+<div class="w-2 h-2 bg-white rounded-[2px]"></div>
+</div>
+</div>
+<script>
+        // Subtle interaction for rows
+        document.querySelectorAll('.ledger-row').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.querySelector('h2').classList.add('translate-x-2');
+                row.querySelector('h2').classList.add('transition-transform');
+            });
+            row.addEventListener('mouseleave', () => {
+                row.querySelector('h2').classList.remove('translate-x-2');
+            });
+        });
+
+        // Optional: Atmospheric Parallax on watermarks
+        window.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.pageX) / 50;
+            const y = (window.innerHeight / 2 - e.pageY) / 50;
+            document.querySelectorAll('.watermark').forEach(wm => {
+                wm.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+                wm.style.transition = 'transform 0.1s ease-out';
+            });
+        });
+    </script>
+</body></html>

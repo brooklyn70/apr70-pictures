@@ -1,8 +1,9 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-19 ~12:30am EDT  
-**Phase:** 6 — Division Showcase. Stitch Round 2 complete. 8 screens generated from actual V0.1/V0.3 code (not DESIGN.md). All HTML saved locally. Awaiting Round 3: logo integration + 3 new variants.  
-**Handoff:** `docs/handoff/sonnet-2026-05-19-stitch-round2.md` — Round 2 debrief, logo SVG code, Marco's feedback, and exact instructions for Round 3.
+**Updated:** 2026-05-19 ~6:05am EDT  
+**Phase:** 6 — Division Showcase. Stitch Round 3 complete. 10 new screens generated: 4 logo-injected variants of existing screens + 3 requested new logo-first variants (Production Log, Slate Stack, Architectural Slate) + 3 bonus cascades. HTML saved to `docs/handoff/stitch-html-round3/`. Awaiting Marco approval.  
+**Handoff:** `docs/handoff/stitch-output-divisions-2026-05-19-round3.md` — full screen inventory, violation report, screenshot URLs, recommended review order.  
+**Best candidates (clean + strong):** r3-new-slate-stack (20 logo refs, zero violations), r3-new-production-log (18 refs, zero violations), r3-v03-ledger-rows-logos (17 refs, border-radius only), r3-open-brief-architectural-slate (18 refs, transition:all only).
 
 ---
 

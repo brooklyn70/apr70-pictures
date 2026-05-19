@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Division Showcase</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;500;600&amp;family=Share+Tech+Mono&amp;display=swap" rel="stylesheet"/>
+<style>
+        /* Fallback for local fonts if not installed */
+        @font-face {
+            font-family: 'Futura Std';
+            src: local('Futura'), local('Futura-Medium'), local('Arial'); /* Basic fallback */
+            font-weight: normal;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-container": "#b4b5b5",
+                        "light-bg": "#FAFAF8",
+                        "surface-container-highest": "#353535",
+                        "surface-tint": "#c6c6c6",
+                        "background": "#131313",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "on-tertiary": "#303030",
+                        "212-amber": "#824B07",
+                        "tertiary-container": "#000000",
+                        "error": "#ffb4ab",
+                        "310-imax": "#077082",
+                        "on-secondary": "#2f3131",
+                        "on-tertiary-container": "#757575",
+                        "surface": "#131313",
+                        "on-primary-container": "#757575",
+                        "secondary-fixed": "#e2e2e2",
+                        "surface-container": "#1f1f1f",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "inverse-primary": "#5e5e5e",
+                        "on-secondary-fixed-variant": "#454747",
+                        "inverse-surface": "#e2e2e2",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "on-primary-fixed-variant": "#474747",
+                        "surface-container-lowest": "#0e0e0e",
+                        "fg-muted": "#888888",
+                        "tertiary": "#c6c6c6",
+                        "outline-variant": "#4c4546",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "on-surface": "#e2e2e2",
+                        "primary-container": "#000000",
+                        "surface-bright": "#393939",
+                        "surface-dim": "#131313",
+                        "outline": "#988e90",
+                        "on-error-container": "#ffdad6",
+                        "310-sicilian-blue": "#0077B6",
+                        "212-sicilian-orange": "#E85D04",
+                        "on-error": "#690005",
+                        "on-primary": "#303030",
+                        "secondary-container": "#454747",
+                        "on-surface-variant": "#cfc4c5",
+                        "surface-container-low": "#1b1b1b",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "on-background": "#e2e2e2",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "primary": "#c6c6c6",
+                        "surface-variant": "#353535",
+                        "primary-fixed": "#e2e2e2",
+                        "nrc-grey": "#C8C8C8",
+                        "light-fg": "#1A1A1A",
+                        "tertiary-fixed": "#e2e2e2",
+                        "nrc-navy": "#001F3F",
+                        "inverse-on-surface": "#303030",
+                        "on-primary-fixed": "#1b1b1b",
+                        "secondary": "#c6c6c7",
+                        "surface-container-high": "#2a2a2a",
+                        "error-container": "#93000a"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "0px"
+                    },
+                    spacing: {
+                        "s-5": "24px",
+                        "s-10": "128px",
+                        "s-2": "8px",
+                        "s-6": "32px",
+                        "s-4": "16px",
+                        "s-8": "64px",
+                        "s-3": "12px",
+                        "s-9": "96px",
+                        "s-7": "48px",
+                        "s-1": "4px",
+                        "s-11": "192px"
+                    },
+                    fontFamily: {
+                        "body-lg": ["Barlow"],
+                        "h1": ["Futura Std"],
+                        "h3": ["Futura Std"],
+                        "h1-mobile": ["Montserrat"],
+                        "body-md": ["Barlow"],
+                        "meta-mono": ["Share Tech Mono"],
+                        "hero": ["Futura Std"],
+                        "h2": ["Futura Std"],
+                        "eyebrow": ["Barlow"],
+                        "h4": ["Barlow"],
+                        "keycode": ["Share Tech Mono"],
+                        "label-caps": ["Barlow"],
+                        "body-sm": ["Barlow"]
+                    },
+                    fontSize: {
+                        "body-lg": ["1.125rem", { "lineHeight": "1.8", "fontWeight": "300" }],
+                        "h1": ["4rem", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "h3": ["2rem", { "lineHeight": "1.15", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                        "h1-mobile": ["48px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["1rem", { "lineHeight": "1.7", "fontWeight": "300" }],
+                        "meta-mono": ["0.75rem", { "letterSpacing": "0.3em", "fontWeight": "400" }],
+                        "hero": ["8rem", { "lineHeight": "0.85", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "h2": ["3rem", { "lineHeight": "1.15", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "eyebrow": ["0.625rem", { "lineHeight": "1.0", "letterSpacing": "0.4em", "fontWeight": "500" }],
+                        "h4": ["1.25rem", { "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "keycode": ["0.5625rem", { "lineHeight": "1.0", "letterSpacing": "0.55em", "fontWeight": "400" }],
+                        "label-caps": ["0.75rem", { "lineHeight": "1.2", "letterSpacing": "0.2em", "fontWeight": "500" }],
+                        "body-sm": ["0.875rem", { "lineHeight": "1.7", "fontWeight": "300" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background dark:bg-background text-on-background dark:text-on-background font-body-md text-body-md min-h-screen flex flex-col">
+<!-- Top Navigation Placeholder (Updated with requested company name) -->
+<nav class="hidden md:flex justify-between items-center w-full px-s-6 py-s-4 max-w-full bg-background dark:bg-background border-b border-outline-variant dark:border-outline-variant absolute top-0 z-50">
+<div class="font-h3 text-h3 font-bold text-on-background tracking-tighter uppercase">APR 70 PICTURES</div>
+<div class="flex gap-s-6">
+<a class="text-primary dark:text-primary border-b-2 border-primary pb-1 font-label-caps text-label-caps hover:bg-surface-variant/10" href="#">Divisions</a>
+<a class="text-fg-muted dark:text-fg-muted hover:text-on-background font-label-caps text-label-caps hover:bg-surface-variant/10" href="#">Projects</a>
+<a class="text-fg-muted dark:text-fg-muted hover:text-on-background font-label-caps text-label-caps hover:bg-surface-variant/10" href="#">Legacy</a>
+<a class="text-fg-muted dark:text-fg-muted hover:text-on-background font-label-caps text-label-caps hover:bg-surface-variant/10" href="#">About</a>
+</div>
+<a class="text-on-background dark:text-on-background font-label-caps text-label-caps hover:bg-surface-variant/10" href="#">Contact</a>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col pt-[72px] md:pt-0">
+<!-- Header Section -->
+<header class="w-full px-s-6 py-s-9 border-b border-outline-variant">
+<h1 class="font-hero text-hero uppercase tracking-tighter max-w-5xl leading-none">Divisions</h1>
+<p class="font-meta-mono text-meta-mono mt-s-4 text-fg-muted">OPERATIONAL STRUCTURE / NEW YORK, NY</p>
+</header>
+<!-- Division Showcase Grid (Ruled Column Layout) -->
+<section class="flex flex-col md:flex-row w-full flex-grow border-b border-outline-variant">
+<!-- Division 1: (212) Pictures -->
+<article class="flex-1 border-b md:border-b-0 md:border-r border-outline-variant relative group overflow-hidden bg-background hover:bg-surface flex flex-col min-h-[614px] md:min-h-0">
+<!-- Top Hover Rule -->
+<div class="absolute top-0 left-0 w-full h-[8px] bg-212-amber transform -translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out origin-top z-10"></div>
+<div class="p-s-6 flex flex-col h-full z-20 relative">
+<div class="flex justify-between items-start mb-s-8">
+<span class="font-meta-mono text-meta-mono text-fg-muted group-hover:text-212-amber">SEQ.01</span>
+<span class="material-symbols-outlined text-fg-muted group-hover:text-212-sicilian-orange" style="font-variation-settings: 'FILL' 0;">movie</span>
+</div>
+<div class="mt-auto mb-s-6 flex flex-col gap-s-6">
+<!-- (212) Logo Replacement -->
+<div class="h-[120px] w-full max-w-[240px]">
+<svg class="w-full h-full" viewbox="0 0 360 280" xmlns="http://www.w3.org/2000/svg"><g font-family="'Futura Std', Futura, 'Arial Black', sans-serif" font-weight="900"><text fill="#824B07" font-size="190" x="20" y="195">(</text><text fill="#824B07" font-size="170" letter-spacing="-8" x="85" y="195">2</text><text fill="#E85D04" font-size="170" letter-spacing="-8" x="165" y="195">1</text><text fill="#824B07" font-size="170" letter-spacing="-8" x="225" y="195">2</text><text fill="#824B07" font-size="190" x="290" y="195">)</text></g><text fill="#824B07" font-family="'Futura Std', Futura, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="16" text-anchor="middle" x="180" y="255">PICTURES</text></svg>
+</div>
+<p class="font-body-lg text-body-lg text-fg-muted max-w-sm">Premium narrative features grounded in New York reality. Uncompromising storytelling.</p>
+</div>
+<a class="mt-s-6 inline-flex items-center gap-s-2 font-label-caps text-label-caps text-on-background group-hover:text-212-sicilian-orange w-fit" href="#">
+                        SEE PROJECTS
+                        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+<!-- Abstract Background Graphic -->
+<div class="absolute bottom-0 right-0 w-64 h-64 bg-212-amber/5 rounded-none transform translate-x-1/4 translate-y-1/4 rotate-45 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+</article>
+<!-- Division 2: (310) Pictures -->
+<article class="flex-1 border-b md:border-b-0 md:border-r border-outline-variant relative group overflow-hidden bg-background hover:bg-surface flex flex-col min-h-[614px] md:min-h-0">
+<!-- Top Hover Rule -->
+<div class="absolute top-0 left-0 w-full h-[8px] bg-310-imax transform -translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out origin-top z-10"></div>
+<div class="p-s-6 flex flex-col h-full z-20 relative">
+<div class="flex justify-between items-start mb-s-8">
+<span class="font-meta-mono text-meta-mono text-fg-muted group-hover:text-310-imax">SEQ.02</span>
+<span class="material-symbols-outlined text-fg-muted group-hover:text-310-sicilian-blue" style="font-variation-settings: 'FILL' 0;">videocam</span>
+</div>
+<div class="mt-auto mb-s-6 flex flex-col gap-s-6">
+<!-- (310) Logo Replacement -->
+<div class="h-[120px] w-full max-w-[240px]">
+<svg class="w-full h-full" viewbox="0 0 360 230" xmlns="http://www.w3.org/2000/svg"><rect fill="#077082" height="100" width="100" x="25" y="20"></rect><rect fill="#0077B6" height="100" width="100" x="130" y="20"></rect><rect fill="#077082" height="100" width="100" x="235" y="20"></rect><g fill="#FFFFFF" font-family="'Futura Std', Futura, 'Arial Black', sans-serif" font-size="74" font-weight="900" letter-spacing="-2" text-anchor="middle"><text x="75" y="95">3</text><text x="180" y="95">1</text><text x="285" y="95">0</text></g><line stroke="#FFFFFF" stroke-opacity="0.25" stroke-width="1" x1="50" x2="310" y1="158" y2="158"></line><text fill="#077082" font-family="'Futura Std', Futura, Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="18" text-anchor="middle" x="180" y="190">PICTURES</text></svg>
+</div>
+<p class="font-body-lg text-body-lg text-fg-muted max-w-sm">Large-format cinematic experiences. Pushing technical boundaries in visual narrative.</p>
+</div>
+<a class="mt-s-6 inline-flex items-center gap-s-2 font-label-caps text-label-caps text-on-background group-hover:text-310-sicilian-blue w-fit" href="#">
+                        SEE PROJECTS
+                        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+<!-- Abstract Background Graphic -->
+<div class="absolute bottom-0 right-0 w-64 h-64 bg-310-imax/5 rounded-none transform translate-x-1/4 translate-y-1/4 -rotate-12 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+</article>
+<!-- Division 3: NRC -->
+<article class="flex-1 relative group overflow-hidden bg-background hover:bg-surface flex flex-col min-h-[614px] md:min-h-0">
+<!-- Top Hover Rule -->
+<div class="absolute top-0 left-0 w-full h-[8px] bg-nrc-grey transform -translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out origin-top z-10"></div>
+<div class="p-s-6 flex flex-col h-full z-20 relative">
+<div class="flex justify-between items-start mb-s-8">
+<span class="font-meta-mono text-meta-mono text-fg-muted group-hover:text-nrc-grey">SEQ.03</span>
+<span class="material-symbols-outlined text-fg-muted group-hover:text-nrc-navy" style="font-variation-settings: 'FILL' 0;">theater_comedy</span>
+</div>
+<div class="mt-auto mb-s-6 flex flex-col gap-s-6">
+<!-- NRC Logo Replacement -->
+<div class="h-[120px] w-full max-w-[240px]">
+<svg class="w-full h-full" viewbox="0 0 580 460" xmlns="http://www.w3.org/2000/svg"><text fill="#C8C8C8" font-family="'Futura Std', Futura, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="12" text-anchor="middle" x="287" y="100">NEW RENAISSANCE</text><g font-family="'Futura Std', Futura, 'Arial Black', sans-serif" font-weight="900"><text fill="#C8C8C8" font-size="260" letter-spacing="-10" x="50" y="310">N</text><text fill="#001F3F" font-size="260" letter-spacing="-10" x="215" y="310">R</text><text fill="#C8C8C8" font-size="260" letter-spacing="-10" x="360" y="310">C</text></g><text fill="#C8C8C8" font-family="'Futura Std', Futura, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="54" text-anchor="middle" x="287" y="405">CINEMA</text><g transform="translate(163.5 216.5) rotate(54.6)"><rect fill="#001F3F" height="22" width="215" x="-107.5" y="-11"></rect><text dominant-baseline="middle" fill="#FFFFFF" font-family="'Share Tech Mono', 'Courier New', monospace" font-size="11.5" letter-spacing="2" text-anchor="middle" x="0" y="0.5">EST · MMXXVI · NEW YORK</text></g></svg>
+</div>
+<p class="font-body-lg text-body-lg text-fg-muted max-w-sm">The central hub. Experimental projects and global distribution networks.</p>
+</div>
+<a class="mt-s-6 inline-flex items-center gap-s-2 font-label-caps text-label-caps text-on-background group-hover:text-nrc-navy w-fit" href="#">
+                        SEE PROJECTS
+                        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+<!-- Abstract Background Graphic -->
+<div class="absolute bottom-0 right-0 w-64 h-64 bg-nrc-grey/5 rounded-none transform translate-x-1/4 translate-y-1/4 rotate-90 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+</article>
+</section>
+<!-- Bottom Spacer to ensure full height if needed -->
+<div class="h-s-10 w-full bg-background"></div>
+</main>
+</body></html>

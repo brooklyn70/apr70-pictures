@@ -55,7 +55,7 @@ Mount the file into the nginx container (`volumes:` in compose) and redeploy.
 ## 4. Operational notes
 
 - Rotate Basic Auth credentials when team membership changes; keep them out of git.
-- Coordinate with Marco for **orchestrator / 1Password** secrets: `PAYLOAD_SECRET`, DB URL, and preview keys stay in the CMS container env, not in static `web`.
+- Coordinate with Marco for **1Password** secrets: `PAYLOAD_SECRET`, DB URL, and preview keys stay in the CMS container env, not in static `web`.
 - After changing proxy rules, clear browser cache or test in a private window; HSTS on the hostname can mask misconfigured HTTP redirects.
 
 ## References

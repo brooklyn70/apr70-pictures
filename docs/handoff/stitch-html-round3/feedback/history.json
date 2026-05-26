@@ -1,1 +1,27 @@
-[]
+[
+  {
+    "batch_id": "b-2026-05-26-nrc-logo-resize",
+    "timestamp": "2026-05-26T17:17:00.000Z",
+    "comments": [
+      {
+        "type": "selection",
+        "comment": "this logo should be larger and closer to the divider",
+        "quote": "N R C CINEMA",
+        "anchor": {
+          "cf_id": "el-6",
+          "selector": "[data-cf-id=\"el-6\"]",
+          "tag": "section"
+        }
+      }
+    ],
+    "changes": [
+      {
+        "id": "ch-nrc-logo-larger-closer",
+        "in_response_to": ["el-6"],
+        "anchor": "ch-nrc-logo-larger-closer",
+        "title": "Enlarged NRC logo and anchored it to the bottom divider",
+        "description": "Scaled the NRC SVG mark to 1.3x from the bottom-left origin (slightly larger than 310's 1.25x to balance the wider N R C wordmark), and flipped the logo column from items-center / py-s-8 to items-end / pt-s-8 pb-0 so the mark hugs the dotted rule beneath the row instead of floating in the middle."
+      }
+    ]
+  }
+]

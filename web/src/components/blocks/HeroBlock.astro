@@ -1,7 +1,7 @@
 ---
 import type { Home } from 'payload-types'
 
-import { resolveMediaUrl } from '../../lib/payload'
+import { resolveMediaUrl, resolveMediaSrcOrPlaceholder } from '../../lib/payload'
 import HeroSliderIsland from '../islands/HeroSliderIsland'
 
 type HeroBlockData = Extract<
@@ -16,8 +16,14 @@ interface Props {
 const { block } = Astro.props
 
 const media = typeof block.media === 'object' && block.media ? block.media : null
-const mediaSrc = resolveMediaUrl(media ?? undefined)
 const isVideo = Boolean(media?.mimeType?.startsWith('video/'))
+// Hero placeholder uses 16x9 by default, tinted by division when set.
+const heroImg = resolveMediaSrcOrPlaceholder(media, {
+  aspect: '16x9',
+  division: block.division,
+})
+const mediaSrc = isVideo ? resolveMediaUrl(media ?? undefined) : heroImg.src
+const showMedia = block.variant !== 'slider-auto' && block.variant !== 'slider-curated'
 
 const lockupMedia = typeof block.lockupLogo === 'object' && block.lockupLogo ? block.lockupLogo : null
 const lockupSrc = resolveMediaUrl(lockupMedia ?? undefined)
@@ -99,17 +105,17 @@ if (isSlider) {
         {block.subtext ? <p class="hero__subtext">{block.subtext}</p> : null}
       </div>
       {
-        mediaSrc ? (
-          <div class="hero__media">
-            {isVideo ? (
+        showMedia ? (
+          <div class="hero__media" data-placeholder={heroImg.isPlaceholder && !isVideo ? 'true' : undefined}>
+            {isVideo && mediaSrc ? (
               <video class="hero__video" controls preload="metadata" src={mediaSrc} />
             ) : (
               <img
                 class="hero__img"
-                src={mediaSrc}
-                alt={media?.alt ?? ''}
-                width={media?.width ?? undefined}
-                height={media?.height ?? undefined}
+                src={heroImg.src}
+                alt={heroImg.alt}
+                width={heroImg.width}
+                height={heroImg.height}
               />
             )}
             {watermarkSrc && (

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 675 1200" role="img" aria-label="APR70 / DEFAULT / 9:16 placeholder" preserveAspectRatio="xMidYMid slice">
+  <rect width="675" height="1200" fill="#16181C"/>
+  <rect x="0" y="0" width="675" height="28" fill="#C8C8C8" opacity="0.85"/><circle cx="28.0" cy="14.0" r="8" fill="#16181C"/><circle cx="84.0" cy="14.0" r="8" fill="#16181C"/><circle cx="140.0" cy="14.0" r="8" fill="#16181C"/><circle cx="196.0" cy="14.0" r="8" fill="#16181C"/><circle cx="252.0" cy="14.0" r="8" fill="#16181C"/><circle cx="308.0" cy="14.0" r="8" fill="#16181C"/><circle cx="364.0" cy="14.0" r="8" fill="#16181C"/><circle cx="420.0" cy="14.0" r="8" fill="#16181C"/><circle cx="476.0" cy="14.0" r="8" fill="#16181C"/><circle cx="532.0" cy="14.0" r="8" fill="#16181C"/><circle cx="588.0" cy="14.0" r="8" fill="#16181C"/><circle cx="644.0" cy="14.0" r="8" fill="#16181C"/>
+  <rect x="0" y="1172" width="675" height="28" fill="#C8C8C8" opacity="0.85"/><circle cx="28.0" cy="1186.0" r="8" fill="#16181C"/><circle cx="84.0" cy="1186.0" r="8" fill="#16181C"/><circle cx="140.0" cy="1186.0" r="8" fill="#16181C"/><circle cx="196.0" cy="1186.0" r="8" fill="#16181C"/><circle cx="252.0" cy="1186.0" r="8" fill="#16181C"/><circle cx="308.0" cy="1186.0" r="8" fill="#16181C"/><circle cx="364.0" cy="1186.0" r="8" fill="#16181C"/><circle cx="420.0" cy="1186.0" r="8" fill="#16181C"/><circle cx="476.0" cy="1186.0" r="8" fill="#16181C"/><circle cx="532.0" cy="1186.0" r="8" fill="#16181C"/><circle cx="588.0" cy="1186.0" r="8" fill="#16181C"/><circle cx="644.0" cy="1186.0" r="8" fill="#16181C"/>
+  <g font-family="'Share Tech Mono', ui-monospace, SFMono-Regular, Menlo, monospace" fill="#8A8F98" text-anchor="middle">
+    <line x1="216.0" y1="559.3" x2="459.0" y2="559.3" stroke="#8A8F98" stroke-width="1" opacity="0.4"/>
+    <text x="337.5" y="603.7" font-size="74" font-weight="400" letter-spacing="6" fill="#C8C8C8">APR70</text>
+    <line x1="216.0" y1="640.7" x2="459.0" y2="640.7" stroke="#8A8F98" stroke-width="1" opacity="0.4"/>
+    <text x="337.5" y="688.8" font-size="26" letter-spacing="3" opacity="0.75">DEFAULT · 9:16</text>
+    <text x="337.5" y="725.8" font-size="18" letter-spacing="2" opacity="0.5">PLACEHOLDER</text>
+  </g>
+</svg>

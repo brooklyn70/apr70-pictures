@@ -1,7 +1,7 @@
 ---
 import type { Home } from 'payload-types'
 import { richTextLexicalToHtml } from '../../lib/lexicalToHtml'
-import { resolveMediaUrl } from '../../lib/payload'
+import { resolveMediaSrcOrPlaceholder } from '../../lib/payload'
 
 type GridBlockType = Extract<
   NonNullable<NonNullable<Home['layout']>[number]>,
@@ -25,23 +25,21 @@ const { block } = Astro.props
   <div class="grid-block__grid">
     {block.items?.map((item) => {
       const media = typeof item.media === 'object' && item.media ? item.media : null
-      const mediaSrc = resolveMediaUrl(media ?? undefined)
+      const img = resolveMediaSrcOrPlaceholder(media, { aspect: '16x9' })
       const html = richTextLexicalToHtml(item.description ?? undefined)
 
       return (
         <article class="grid-card">
-          {mediaSrc && (
-            <div class="grid-card__media">
-              <img
-                class="grid-card__img"
-                src={mediaSrc}
-                alt={media?.alt ?? ''}
-                width={media?.width ?? undefined}
-                height={media?.height ?? undefined}
-                loading="lazy"
-              />
-            </div>
-          )}
+          <div class="grid-card__media" data-placeholder={img.isPlaceholder ? 'true' : undefined}>
+            <img
+              class="grid-card__img"
+              src={img.src}
+              alt={img.alt}
+              width={img.width}
+              height={img.height}
+              loading="lazy"
+            />
+          </div>
           <div class="grid-card__content">
             {item.title && <h3 class="grid-card__title">{item.title}</h3>}
             {html && <div class="payload-richtext grid-card__desc" set:html={html} />}

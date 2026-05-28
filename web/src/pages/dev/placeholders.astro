@@ -1,0 +1,97 @@
+---
+// Dev-only preview of the placeholder image set. See
+// web/public/brand/placeholders/README.md for the system overview.
+import Layout from '../../layouts/Layout.astro'
+
+const ASPECTS = ['16x9', '4x3', '1x1', '9x16'] as const
+const DIVISIONS = ['default', '212', '310', 'nrc'] as const
+---
+
+<Layout title="Dev — placeholders">
+  <main class="placeholders-dev">
+    <header>
+      <h1>Placeholder image set</h1>
+      <p>
+        Render-time fallback for any block without a Media reference. Helper:
+        <code>resolveMediaSrcOrPlaceholder(media, &#123; aspect, division &#125;)</code>.
+      </p>
+    </header>
+
+    {ASPECTS.map((aspect) => (
+      <section>
+        <h2>Aspect {aspect.replace('x', ':')}</h2>
+        <div class="row">
+          {DIVISIONS.map((division) => (
+            <figure>
+              <img
+                src={`/brand/placeholders/placeholder-${aspect}-${division}.svg`}
+                alt={`${division} ${aspect} placeholder`}
+                width="320"
+              />
+              <figcaption>{division}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+    ))}
+  </main>
+</Layout>
+
+<style>
+  .placeholders-dev {
+    max-width: var(--max-content);
+    margin: 0 auto;
+    padding: var(--s-6) var(--s-3);
+    font-family: var(--font-body);
+  }
+  header {
+    margin-bottom: var(--s-6);
+  }
+  h1 {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: var(--track-tight);
+    margin: 0 0 var(--s-2);
+  }
+  code {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.85em;
+    background: var(--bg-1);
+    padding: 2px 6px;
+  }
+  section {
+    margin-bottom: var(--s-6);
+  }
+  section h2 {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: var(--type-body);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+    border-bottom: 1px solid var(--bg-2);
+    padding-bottom: var(--s-2);
+    margin-bottom: var(--s-3);
+  }
+  .row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--s-4);
+  }
+  figure {
+    margin: 0;
+  }
+  figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: var(--bg-1);
+  }
+  figcaption {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+    margin-top: var(--s-2);
+  }
+</style>

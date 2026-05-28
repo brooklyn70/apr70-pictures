@@ -1,4 +1,5 @@
 import type { Home, Media } from 'payload-types'
+import { placeholderUrl, type PlaceholderOptions } from './placeholder'
 
 // Generic layout-bearing global (About, Contact, Jobs, Pitch, Investors share
 // the same shape as Home; types will be generated after next `payload generate:types`).
@@ -273,6 +274,33 @@ export function resolveMediaUrl(media: Media | null | undefined): string | undef
   // which is unresolvable by the browser. We return the relative path so it
   // resolves via the Nginx reverse proxy.
   return `${u.startsWith('/') ? '' : '/'}${u}`
+}
+
+/**
+ * Returns a usable image URL for a block. Real Media wins; when missing,
+ * falls back to a branded placeholder so iteration pages always render.
+ * Pass `opts.aspect` to match the block's display ratio and `opts.division`
+ * to tint the placeholder (`212`/`310`/`nrc`/`null`).
+ */
+export function resolveMediaSrcOrPlaceholder(
+  media: Media | null | undefined,
+  opts: PlaceholderOptions = {},
+): { src: string; isPlaceholder: boolean; alt: string; width?: number; height?: number } {
+  const real = resolveMediaUrl(media ?? undefined)
+  if (real) {
+    return {
+      src: real,
+      isPlaceholder: false,
+      alt: media?.alt ?? '',
+      width: media?.width ?? undefined,
+      height: media?.height ?? undefined,
+    }
+  }
+  return {
+    src: placeholderUrl(opts),
+    isPlaceholder: true,
+    alt: '',
+  }
 }
 
 // ── Generic fetcher ───────────────────────────────────────────────────────────

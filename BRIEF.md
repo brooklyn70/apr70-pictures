@@ -1,8 +1,11 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-19 ~5:15pm EDT  
-**Phase:** 6 — Division Showcase. Marco approved The Slate Stack ("BACK TO CLAUDE"). Variant `v0-slate-stack` added to DivisionBlock.astro. Three new Stitch division homepage projects created (212, 310, NRC). Context gate hit — commit required before continuing.  
-**Handoff:** `docs/handoff/sonnet-2026-05-19-slate-stack-div-homepages.md` — full Stitch project IDs, generation prompts, commit instructions.  
+**Updated:** 2026-05-27 ~8:55pm EDT  
+**Phase:** 6 — Division Showcase + content scaffolding. Context gate hit after 4 of 6 Stitch generations — fresh session required.  
+**This session (Opus, 2026-05-27):** ✅ NAS logo migration deployed (logos now persist on /212 API). ✅ Placeholder image system shipped (16 SVGs, helper, dev preview, wired into HeroBlock/GridBlock). ✅ v0-slate-stack wired into division default seed via `slateStackShowcase()` helper. 🟡 Stitch screens — 4 of 6 done: 212 A+B and 310 A+B generated; NRC A+B blocked by context gate.  
+**Next session priorities:** (1) Commit + push this session if stop hook didn't. (2) Generate the 2 NRC screens sequentially (project `6601419679785046440`, parent design system `c12e1d9837594aa9be2761ce1ecf907c`, prompts in handoff). (3) Implement News.html from `https://api.anthropic.com/v1/design/h/HWgp9WOoBly2CcrSfof9MA`.  
+**Handoff:** `docs/handoff/opus-2026-05-27-placeholders-and-stitch-divisions.md` — full session log, file inventory, NRC retry prompts.  
+**Placeholder system:** `web/public/brand/placeholders/` (16 SVGs). Helper `resolveMediaSrcOrPlaceholder()` in `web/src/lib/payload.ts`. Preview at `/dev/placeholders`. Regenerate via `node web/scripts/gen-placeholders.mjs`.  
 **Approved design:** v0-slate-stack — logo left, tagline + ledger right, cursor-follow glow. Canonical HTML in `docs/handoff/stitch-html-round3/r3-back-to-claude-*.html`.
 
 ---

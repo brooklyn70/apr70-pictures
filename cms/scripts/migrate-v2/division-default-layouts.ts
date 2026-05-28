@@ -7,6 +7,41 @@ import { createSimpleLexical } from './map-layout.js'
 
 export type DivisionSlug = '212' | '310' | 'nrc'
 
+/**
+ * Shared "Family of Companies" showcase rendered as the approved
+ * v0-slate-stack variant. Used on every division global and the home
+ * layout so all three marks stay one click apart.
+ */
+function slateStackShowcase(): unknown {
+  return {
+    blockType: 'divisionShowcase',
+    variant: 'v0-slate-stack',
+    divisions: [
+      {
+        name: '(212) Pictures',
+        colorToken: '212-sicilian-orange',
+        subtitle: 'Brooklyn, New York',
+        description:
+          'Character-driven theatrical development and production. Long-view physical craft, in-house origination.',
+      },
+      {
+        name: '(310) Pictures',
+        colorToken: '310-imax',
+        subtitle: 'Los Angeles, California',
+        description:
+          'Large-format origination and partner-finance packaging. Built for the print path before cameras roll.',
+      },
+      {
+        name: 'NRC',
+        colorToken: 'nrc-navy',
+        subtitle: 'New Renaissance Cinema',
+        description:
+          'Specialty exhibition and restoration-minded development. Films that belong in cinemas with intent.',
+      },
+    ],
+  }
+}
+
 export function buildDefaultDivisionLayout(slug: DivisionSlug): unknown[] {
   if (slug === '212') {
     return [
@@ -17,6 +52,7 @@ export function buildDefaultDivisionLayout(slug: DivisionSlug): unknown[] {
         subtext: 'Brooklyn-rooted development and production.',
         division: 'pictures-212',
       },
+      slateStackShowcase(),
       {
         blockType: 'twoCol',
         leftHeading: 'Mandate',
@@ -51,6 +87,7 @@ export function buildDefaultDivisionLayout(slug: DivisionSlug): unknown[] {
         subtext: 'West-coast pipeline for scale and format origination.',
         division: 'pictures-310',
       },
+      slateStackShowcase(),
       {
         blockType: 'twoCol',
         leftHeading: 'Mandate',
@@ -84,6 +121,7 @@ export function buildDefaultDivisionLayout(slug: DivisionSlug): unknown[] {
       subtext: 'NRC — specialty exhibition and restoration-minded development.',
       division: 'nrc',
     },
+    slateStackShowcase(),
     {
       blockType: 'twoCol',
       leftHeading: 'Mandate',

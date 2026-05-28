@@ -3,6 +3,7 @@ import * as migration_20260513_131001 from './20260513_131001';
 import * as migration_20260513_185804 from './20260513_185804';
 import * as migration_20260513_194834 from './20260513_194834';
 import * as migration_20260515_201608_brand_fields from './20260515_201608_brand_fields';
+import * as migration_20260528_020717_dispatch_schema from './20260528_020717_dispatch_schema';
 
 export const migrations = [
   {
@@ -28,6 +29,11 @@ export const migrations = [
   {
     up: migration_20260515_201608_brand_fields.up,
     down: migration_20260515_201608_brand_fields.down,
-    name: '20260515_201608_brand_fields'
+    name: '20260515_201608_brand_fields',
+  },
+  {
+    up: migration_20260528_020717_dispatch_schema.up,
+    down: migration_20260528_020717_dispatch_schema.down,
+    name: '20260528_020717_dispatch_schema'
   },
 ];

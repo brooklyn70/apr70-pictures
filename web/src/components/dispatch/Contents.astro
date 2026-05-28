@@ -1,0 +1,55 @@
+---
+import type { DispatchIssueDoc } from '../../lib/payload'
+
+interface Props {
+  groups: DispatchIssueDoc['contents']
+  indicia: DispatchIssueDoc['indicia']
+}
+
+const { groups, indicia } = Astro.props
+const groupsList = groups ?? []
+---
+
+<section class="contents" aria-labelledby="contents-title">
+  <aside class="contents-side">
+    <h2 class="contents-side-issue" id="contents-title">In This Issue.</h2>
+    <p class="contents-side-deck">
+      A first quarterly. Four features, three division dispatches, four
+      departments. Read end-to-end, or pick the folio.
+    </p>
+    <div class="contents-side-meta">
+      {indicia.volume} · {indicia.number}<br/>
+      {indicia.season}<br/>
+      PRINTED IN {indicia.offices}<br/>
+      {indicia.reel}
+    </div>
+  </aside>
+  <div class="contents-main">
+    {groupsList.map((g) => (
+      <div class="contents-group">
+        <div class="contents-group-head">
+          <span class="contents-group-label">{g.label}</span>
+          <span class="contents-group-meta">{g.meta}</span>
+        </div>
+        {(g.entries ?? []).map((e) => (
+          <a
+            class="contents-entry"
+            data-dispatch-open
+            data-folio={e.folio}
+            data-title={e.title}
+            data-deck={e.deck ?? ''}
+            data-by={e.by ?? ''}
+            href={`#folio-${e.folio}`}
+          >
+            <span class="contents-entry-folio">{e.folio}</span>
+            <span class="contents-entry-body">
+              <span class="contents-entry-title">{e.title}</span>
+              <span class="contents-entry-deck">{e.deck}</span>
+            </span>
+            <span class="contents-entry-by">{e.by}</span>
+          </a>
+        ))}
+      </div>
+    ))}
+  </div>
+</section>

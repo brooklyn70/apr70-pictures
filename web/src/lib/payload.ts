@@ -553,3 +553,155 @@ export async function fetchNewsArticle(
   const { data, error, stale } = await fetchCollectionDoc<NewsArticleDoc>('news', slug)
   return { article: data, error, stale }
 }
+
+// ── DISPATCH Issue (magazine layout for /news) ────────────────────────────────
+
+export type DispatchHeadlineWord = { text: string; style?: 'normal' | 'accent' | 'outline' | null }
+export type DispatchCoverline = { num?: string | null; head?: string | null; deck?: string | null }
+export type DispatchContentsEntry = {
+  folio: string
+  title: string
+  deck?: string | null
+  by?: string | null
+}
+export type DispatchContentsGroup = {
+  label: string
+  meta?: string | null
+  entries?: DispatchContentsEntry[] | null
+}
+export type DispatchTitlePart = { text: string; italic?: boolean | null }
+export type DispatchMetaRow = { key: string; value: string }
+export type DispatchParagraphVariant = 'text' | 'first' | 'pull' | 'small' | 'head'
+export type DispatchParagraph = {
+  variant: DispatchParagraphVariant
+  text: string
+  attr?: string | null
+}
+export type DispatchFactboxField = {
+  key: string
+  value: string
+  accent?: 'none' | 'amber' | 'teal' | 'orange' | null
+}
+export type DispatchRelated = { idx?: string | null; name: string; meta?: string | null }
+export type DispatchDispatchCard = {
+  division: '212' | '310' | 'nrc'
+  date: string
+  title: string
+  body?: string | null
+  status?: string | null
+  link?: string | null
+  ghost?: string | null
+}
+export type DispatchTrade = {
+  pub: string
+  city?: string | null
+  headline: string
+  deck?: string | null
+  attr?: string | null
+}
+export type DispatchCalendarEntry = {
+  date: string
+  title: string
+  sub?: string | null
+  tag?: string | null
+}
+export type DispatchClassified = {
+  cat: string
+  title: string
+  body?: string | null
+  meta?: string | null
+}
+export type DispatchArchiveCard = {
+  vol?: string | null
+  no?: string | null
+  season?: string | null
+  mast?: string | null
+  line?: string | null
+  state?: string | null
+  isCurrent?: boolean | null
+}
+
+export type DispatchIssueDoc = {
+  id?: number
+  slug: string
+  displayTitle: string
+  current?: boolean | null
+  releaseDate?: string | null
+  indicia: {
+    volume: string
+    number: string
+    season: string
+    reel?: string | null
+    isoDate?: string | null
+    printRun?: string | null
+    offices?: string | null
+    tagline?: string | null
+  }
+  cover: {
+    kicker?: string | null
+    deck?: string | null
+    byline?: string | null
+    coverImage?: Media | number | null
+    lines?: DispatchHeadlineWord[] | null
+    coverlines?: DispatchCoverline[] | null
+  }
+  contents?: DispatchContentsGroup[] | null
+  editorial: {
+    eyebrow?: string | null
+    title?: string | null
+    lead?: string | null
+    paragraphs?: { text: string }[] | null
+    signatureName?: string | null
+    signatureMeta?: string | null
+    quote?: string | null
+    portrait?: Media | number | null
+  }
+  feature: {
+    eyebrow?: string | null
+    deck?: string | null
+    jumpFrom?: string | null
+    jumpTo?: string | null
+    heroImage?: Media | number | null
+    titleParts?: DispatchTitlePart[] | null
+    meta?: DispatchMetaRow[] | null
+    imageCaption?: { caption?: string | null; credit?: string | null } | null
+    paragraphs?: DispatchParagraph[] | null
+    factbox?: {
+      label?: string | null
+      fields?: DispatchFactboxField[] | null
+    } | null
+    related?: DispatchRelated[] | null
+  }
+  dispatches?: DispatchDispatchCard[] | null
+  trades?: DispatchTrade[] | null
+  calendar?: DispatchCalendarEntry[] | null
+  classifieds?: DispatchClassified[] | null
+  archive?: DispatchArchiveCard[] | null
+  colophon: {
+    legal?: string | null
+    type?: string | null
+    baseline?: string | null
+  }
+}
+
+async function fetchCurrentDispatchUncached(): Promise<PayloadFetchResult<DispatchIssueDoc>> {
+  const apiBase = PAYLOAD_URL
+  if (!apiBase) return { data: null, error: 'Set PUBLIC_PAYLOAD_URL' }
+  const url = `${trimSlash(apiBase)}/api/dispatch-issues?where[current][equals]=true&depth=2&limit=1`
+  const got = await payloadGetJson(url)
+  if ('error' in got) return { data: null, error: got.error }
+  const raw = got.json as CollectionResponse<DispatchIssueDoc>
+  const doc = raw.docs?.[0] ?? null
+  if (!doc) return { data: null, error: 'No current DISPATCH issue found.' }
+  return { data: doc, error: null }
+}
+
+export async function fetchCurrentDispatchIssue(): Promise<{
+  issue: DispatchIssueDoc | null
+  error: string | null
+  stale?: boolean
+}> {
+  const key = 'dispatch:current'
+  const { data, error, stale } = await withSwrCache(key, fetchCurrentDispatchUncached)
+  return { issue: data, error, stale }
+}

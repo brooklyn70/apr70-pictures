@@ -4,7 +4,20 @@
    Built strictly within the APR 70 token system.
    ============================================================== */
 
-@import url('./colors_and_type.css');
+/* Bridge tokens — dispatch.css uses a few aliases that the project's
+   tokens.css doesn't ship; declare them here so /news is self-contained. */
+:root {
+  --apr-teal:      var(--apr-imax, #077082);
+  --apr-offwhite:  var(--apr-grey, #c8c8c8);
+  --apr-ink:       #1c1208;
+  --apr-parchment: #ede8de;
+  --apr-steenbeck: #d8cdb8;
+
+  --mag-gutter:    clamp(20px, 4vw, 64px);
+  --mag-max:       1320px;
+  --folio-color:   var(--fg-4);
+  --accent:        var(--apr-orange);
+}
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }

@@ -211,6 +211,7 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
       newsArticlesWritten: 0,
       footerMoreNavLinksWritten: 0,
       divisionDefaultsSeeded: 0,
+      dispatchIssuesWritten: 0,
       warnings,
       errors,
     }
@@ -270,6 +271,7 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
       newsArticlesWritten: 0,
       footerMoreNavLinksWritten: 0,
       divisionDefaultsSeeded: 0,
+      dispatchIssuesWritten: 0,
       warnings,
       errors,
     }

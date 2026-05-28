@@ -1,0 +1,43 @@
+---
+import type { DispatchIssueDoc } from '../../lib/payload'
+
+interface Props {
+  data: DispatchIssueDoc['colophon']
+  indicia: DispatchIssueDoc['indicia']
+}
+
+const { data, indicia } = Astro.props
+---
+
+<footer class="colophon">
+  <div class="colophon-row">
+    <div class="colophon-col">
+      <h5>DISPATCH — A QUARTERLY OF APR 70 PICTURES</h5>
+      <p>{data.legal}</p>
+      <p style="margin-top: 14px">{data.type}</p>
+    </div>
+    <div class="colophon-col">
+      <h5>EDITORIAL</h5>
+      <p>Marc A. Caruso — Editor</p>
+      <p>Editorial Desk — APR 70</p>
+      <p>news@apr70.com</p>
+    </div>
+    <div class="colophon-col">
+      <h5>PUBLISHING</h5>
+      <p>APR 70 LLC, Long Island City</p>
+      <p>Quarterly · 4 issues/yr</p>
+      <p>Subscriptions: direct</p>
+    </div>
+    <div class="colophon-col">
+      <h5>INDICIA</h5>
+      <p class="mono">{indicia.volume}</p>
+      <p class="mono">{indicia.number}</p>
+      <p class="mono">{indicia.reel}</p>
+    </div>
+  </div>
+  <div class="colophon-baseline">
+    <span>© 2026 APR 70 LLC</span>
+    <span>{data.baseline}</span>
+    <span>SET IN FUTURA + BARLOW</span>
+  </div>
+</footer>

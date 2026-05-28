@@ -1,0 +1,82 @@
+---
+import type { DispatchIssueDoc } from '../../lib/payload'
+import { resolveMediaSrcOrPlaceholder } from '../../lib/payload'
+import type { Media } from 'payload-types'
+
+interface Props {
+  cover: DispatchIssueDoc['cover']
+  indicia: DispatchIssueDoc['indicia']
+}
+
+const { cover, indicia } = Astro.props
+const lines = cover.lines ?? []
+const coverlines = cover.coverlines ?? []
+
+const coverImage =
+  typeof cover.coverImage === 'object' && cover.coverImage
+    ? (cover.coverImage as Media)
+    : null
+const heroSrc = resolveMediaSrcOrPlaceholder(coverImage, {
+  aspect: '9x16',
+  division: null,
+})
+---
+
+<section class="cover" aria-labelledby="cover-title">
+  <div class="cover-left">
+    <div>
+      <div class="cover-eyebrow">{cover.kicker}</div>
+    </div>
+    <div class="cover-title-stack">
+      <span class="cover-kicker">THE INAUGURAL ISSUE</span>
+      <h1 id="cover-title" class="cover-line">
+        {lines.map((l) => (
+          <>
+            <span class={l.style === 'accent' ? 'accent-word' : l.style === 'outline' ? 'outline' : ''}>
+              {l.text}
+            </span>{' '}
+          </>
+        ))}
+      </h1>
+      <p class="cover-deck">{cover.deck}</p>
+    </div>
+    <div class="cover-footer">
+      <span>{cover.byline}</span>
+      <span>FOLIO · 001</span>
+    </div>
+    <div class="cover-spine" aria-hidden="true">
+      {Array.from({ length: 14 }).map(() => <div class="h"></div>)}
+    </div>
+  </div>
+  <div class="cover-right">
+    <div class="cover-image-wrap">
+      <img class="cover-image" src={heroSrc.src} alt={heroSrc.alt || 'Cover image'} />
+      <div class="cover-image-vignette"></div>
+      <div class="cover-coverlines">
+        {coverlines.map((cl) => (
+          <div class="cover-coverline">
+            <span class="cover-coverline-num">{cl.num}</span>
+            <span class="cover-coverline-head">{cl.head}</span>
+            <span class="cover-coverline-deck">{cl.deck}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class="cover-seal" aria-hidden="true">
+      <div class="cover-seal-top">{(indicia.season ?? '').split(' ')[0]}</div>
+      <div class="cover-seal-big">26</div>
+      <div class="cover-seal-sub">QUARTERLY</div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cover-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+</style>

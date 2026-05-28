@@ -1,0 +1,32 @@
+---
+interface Props {
+  accentColor?: string
+  keycode?: string
+}
+
+const { accentColor = '#E85D04', keycode = 'APR 70 PICTURES // DISPATCH' } = Astro.props
+---
+
+<div class="filmstrip">
+  <div class="filmstrip-accent" style={`background: ${accentColor}`}></div>
+  <div class="filmstrip-holes" data-dispatch-holes></div>
+  <div class="filmstrip-keycode">{keycode}</div>
+</div>
+
+<script is:inline>
+  (function () {
+    const el = document.querySelector('[data-dispatch-holes]')
+    if (!el) return
+    const draw = () => {
+      el.innerHTML = ''
+      const count = Math.ceil(window.innerWidth / 30) + 4
+      for (let i = 0; i < count; i++) {
+        const h = document.createElement('div')
+        h.className = 'sprocket-hole'
+        el.appendChild(h)
+      }
+    }
+    draw()
+    window.addEventListener('resize', draw)
+  })()
+</script>

@@ -1,0 +1,41 @@
+---
+import { resolveMediaUrl } from '../../lib/payload'
+import type { SiteSettingsData } from '../../lib/payload'
+import type { Media } from 'payload-types'
+
+interface Props {
+  settings?: SiteSettingsData | null
+}
+
+const { settings } = Astro.props
+
+const logoSrc =
+  resolveMediaUrl(
+    typeof settings?.navLogoLight === 'object' && settings.navLogoLight
+      ? (settings.navLogoLight as Media)
+      : undefined,
+  ) ?? '/brand/apr70-logos/apr70-apr70pictures/apr70_logo_full_white.svg'
+
+const items = [
+  { n: '01', label: 'Divisions', href: '/' },
+  { n: '02', label: 'Slate', href: '/work' },
+  { n: '03', label: 'Partners', href: '/investors' },
+  { n: '04', label: 'News', href: '/news', active: true },
+  { n: '05', label: 'Contact', href: '/contact' },
+]
+---
+
+<nav class="nav">
+  <a class="nav-logo" href="/">
+    <img src={logoSrc} alt="APR 70 Pictures" />
+  </a>
+  <div class="nav-links">
+    <span class="nav-version">v086</span>
+    {items.map((it) => (
+      <a class={`nav-link ${it.active ? 'is-active' : ''}`} href={it.href}>
+        <span class="nav-num">{it.n}</span>
+        <span class="nav-label">{it.label}</span>
+      </a>
+    ))}
+  </div>
+</nav>

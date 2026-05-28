@@ -21,6 +21,7 @@ import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 
 import { runBrandSeed } from './apply-brand.js'
+import { seedDispatchInaugural } from './seed-dispatch.js'
 import { buildDefaultDivisionLayout, type DivisionSlug } from './division-default-layouts.js'
 import { discoverJsonDocuments } from './discover.js'
 import { inferDocumentId, mapV2DocumentToLayout } from './map-layout.js'
@@ -48,6 +49,7 @@ export type ApplyReport = {
   newsArticlesWritten: number
   footerMoreNavLinksWritten: number
   divisionDefaultsSeeded: number
+  dispatchIssuesWritten: number
   warnings: string[]
   errors: string[]
 }
@@ -414,6 +416,19 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
     warnings.push(`[brand] Brand seed failed: ${String(e)}`)
   }
 
+  // ── 14a. DISPATCH inaugural issue seed ──────────────────────────────────────
+  let dispatchIssuesWritten = 0
+  try {
+    const dispatchReport = await seedDispatchInaugural(token)
+    dispatchIssuesWritten = dispatchReport.issuesWritten
+    if (dispatchReport.errors.length > 0) {
+      warnings.push(...dispatchReport.errors.map(e => `[dispatch] ${e}`))
+    }
+    console.log(`Dispatch seed: ${dispatchIssuesWritten} issue(s) written`)
+  } catch (e) {
+    warnings.push(`[dispatch] DISPATCH seed failed: ${String(e)}`)
+  }
+
   // ── 14. Stamp SiteSettings with seed metadata ──────────────────────────────
   await updateGlobal(
     'site-settings',
@@ -436,6 +451,7 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
     newsArticlesWritten,
     footerMoreNavLinksWritten,
     divisionDefaultsSeeded,
+    dispatchIssuesWritten,
     warnings,
     errors,
   }
@@ -457,6 +473,7 @@ export function formatApplyReportConsole(report: ApplyReport): string {
     `News articles written:           ${report.newsArticlesWritten}`,
     `Footer moreNav links written:    ${report.footerMoreNavLinksWritten}`,
     `Division globals seeded (empty): ${report.divisionDefaultsSeeded}`,
+    `DISPATCH issues written:         ${report.dispatchIssuesWritten}`,
     `Warnings: ${report.warnings.length}`,
     `Errors: ${report.errors.length}`,
   ]

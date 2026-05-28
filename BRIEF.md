@@ -1,11 +1,11 @@
 # BRIEF — apr70-pictures (v3)
 
-**Updated:** 2026-05-27 ~9:10pm EDT  
-**Phase:** 6 — Division Showcase + content scaffolding. All 6 division-homepage Stitch screens generated. Ready for Marco's canonical-variant pick.  
-**This session (Opus, 2026-05-27 continuation):** ✅ Confirmed prior session `cbc6c17` already pushed to origin/main. ✅ Generated remaining 2 NRC Stitch screens sequentially — Art Film + Deconstructed Gallery variants on project `6601419679785046440`. 🚫 News.html design fetch from `https://api.anthropic.com/v1/design/h/HWgp9WOoBly2CcrSfof9MA` returned 404 — auth-gated or stale URL. Needs Marco to provide a working source.  
-**Stitch tally:** 212 ✅ (Title Card + Editorial) | 310 ✅ (IMAX Scale + Architectural) | NRC ✅ (Art Film + Deconstructed Gallery).  
-**Next session priorities:** (1) Marco reviews all 6 division screens in Stitch UI and picks canonical variant per division. (2) Extract chosen designs via `stitch-design:extract-static-html` to `docs/handoff/stitch-html-round4/`. (3) Marco provides accessible News.html design source so Priority 4 can proceed. (4) Convert canonical variants to Astro components for `/212`, `/310`, `/nrc` once chosen.  
-**Handoff:** `docs/handoff/opus-2026-05-27-nrc-stitch-complete.md` — this session's continuation log with new NRC screen IDs.  
+**Updated:** 2026-05-27 ~10:00pm EDT  
+**Phase:** 6 — Division Showcase complete + DISPATCH (News page) CMS foundation shipped. Frontend port pending fresh session.  
+**This session (Opus, 2026-05-27 continuation #2):** Marco delivered the full `News Page.zip` design — DISPATCH, a quarterly print-magazine layout for `/news` (replaces existing simple article list). ✅ Reviewed all source files (Chrome/CoverSection/Sections/Reader/data/dispatch.css). ✅ Copied `dispatch.css` (1218 lines) + favicon + image-slot.js into web/. ✅ Built `cms/src/collections/DispatchIssue.ts` — one collection with full nested schema mirroring DISPATCH_DATA shape (indicia, cover, contents, editorial, feature with paragraph variant enum, dispatches with division enum, trades, calendar, classifieds, archive, colophon). ✅ Wired into `payload.config.ts`. ✅ Built `cms/scripts/migrate-v2/seed-dispatch.ts` — ports entire data.jsx Vol.01 No.01 Spring 2026 content. ✅ Wired seed into `apply.ts` step 14a. Context gate HIT at 312KB; frontend Astro port + migration generation + page rewrite all deferred to fresh session.  
+**Stitch tally:** 212 ✅ | 310 ✅ | NRC ✅ — all 6 division-homepage screens still awaiting Marco's canonical pick.  
+**Next session priorities:** (1) `cd cms && pnpm payload generate:migration --name dispatch_schema`, review SQL, apply locally. (2) Port all DISPATCH JSX components to Astro components under `web/src/components/dispatch/`. (3) Build Reader modal as React island. (4) Replace `web/src/pages/news/index.astro` with the DISPATCH renderer (bypass standard Layout chrome). (5) Preflight + commit. (6) Marco still owes canonical-pick per division.  
+**Handoff:** `docs/handoff/opus-2026-05-27-dispatch-cms-foundation.md` — full session log with file inventory, schema decisions, and step-by-step next-session instructions.  
 **Placeholder system:** `web/public/brand/placeholders/` (16 SVGs). Helper `resolveMediaSrcOrPlaceholder()` in `web/src/lib/payload.ts`. Preview at `/dev/placeholders`. Regenerate via `node web/scripts/gen-placeholders.mjs`.  
 **Approved design:** v0-slate-stack — logo left, tagline + ledger right, cursor-follow glow. Canonical HTML in `docs/handoff/stitch-html-round3/r3-back-to-claude-*.html`.
 

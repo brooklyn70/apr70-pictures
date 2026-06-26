@@ -11,12 +11,14 @@ import { DivisionBlock } from '../blocks/DivisionBlock'
 import { StatsBlock } from '../blocks/StatsBlock'
 import { DividerBlock } from '../blocks/DividerBlock'
 import { divisionBrandFields } from '../fields/divisionBrandFields'
+import { themeField } from '../fields/themeField'
 
 export const Division310: GlobalConfig = {
   slug: '310',
   label: '310 Division',
   access: { read: () => true },
   fields: [
+    themeField,
     ...divisionBrandFields,
     {
       name: 'layout',

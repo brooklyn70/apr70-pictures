@@ -2,15 +2,17 @@
 import Layout from '../layouts/Layout.astro';
 import BlockRenderer from '../components/blocks/BlockRenderer.astro';
 import { fetchDivision212Global } from '../lib/payload';
+import { resolveDesign, DIVISION_DEFAULT_DESIGN } from '../designs/manifest';
 
 const { division212, error } = await fetchDivision212Global();
 const blocks = division212?.layout || [];
+const design = resolveDesign((division212 as any)?.theme, DIVISION_DEFAULT_DESIGN['212']);
 const faviconOverride = typeof division212?.faviconOverride === 'object' ? division212.faviconOverride : undefined;
 const headerLogo = typeof division212?.headerLogo === 'object' ? division212.headerLogo : undefined;
 const footerLogo = typeof division212?.footerLogo === 'object' ? division212.footerLogo : undefined;
 ---
 
-<Layout title="212 Division" faviconOverride={faviconOverride} navLogoOverride={headerLogo} navLogoAltOverride="212 Pictures" footerLogoOverride={footerLogo} footerLogoAltOverride="212 Pictures">
+<Layout title="212 Division" design={design} faviconOverride={faviconOverride} navLogoOverride={headerLogo} navLogoAltOverride="212 Pictures" footerLogoOverride={footerLogo} footerLogoAltOverride="212 Pictures">
   <main>
     {error && (
       <div style="padding: 1rem; margin: 2rem auto; max-width: 600px; background: rgba(255,0,0,0.1); border: 1px solid red; border-radius: 4px; font-family: var(--font-body); color: #cc0000;">

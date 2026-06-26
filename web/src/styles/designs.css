@@ -1,0 +1,82 @@
+/* ============================================================
+   apr70 — PER-DIVISION DESIGN SKINS
+   Every rule is scoped under [data-design="<slug>"] so themes
+   never leak across each other. A skin only REBINDS existing
+   tokens (--apr-*, --bg-*, --fg-*, --rule*, --font-display).
+   No new global tokens — token discipline per CLAUDE.md.
+
+   Wiring: Layout.astro sets data-design on <html>; division
+   pages choose the slug from Payload `theme` or a sensible
+   per-division default (see web/src/designs/manifest.ts).
+   ============================================================ */
+
+/* ---- SIGNATURE (default / house style) ----
+   Identity skin: inherits :root from tokens.css unchanged.
+   Present for completeness + explicit selection in the picker. */
+[data-design='signature'] {
+  /* no overrides — this IS the base palette */
+}
+
+/* ---- NOIR — stark monochrome, single grey accent ---- */
+[data-design='noir'] {
+  --bg-0: #000000;
+  --bg-1: #060606;
+  --bg-2: #0d0d0d;
+  --bg-3: #161616;
+  --apr-amber: #c8c8c8;
+  --apr-imax: #ffffff;
+  --apr-orange: #ffffff;
+  --rule: rgba(255, 255, 255, 0.10);
+  --rule-strong: rgba(255, 255, 255, 0.28);
+}
+[data-design='noir'] ::selection { background: #ffffff; color: #000000; }
+
+/* ---- AMBER HEAT — warm, 212 New York television ---- */
+[data-design='amber-heat'] {
+  --bg-0: #0a0705;
+  --bg-1: #120b06;
+  --bg-2: #1a0f08;
+  --bg-3: #24160c;
+  --apr-amber: #b9690b;
+  --apr-imax: #E85D04;   /* swap the cool primary for orange warmth */
+  --apr-orange: #ff7a1a;
+  --rule: rgba(232, 93, 4, 0.12);
+  --rule-strong: rgba(232, 93, 4, 0.30);
+}
+[data-design='amber-heat'] ::selection { background: var(--apr-orange); color: #0a0705; }
+
+/* ---- IMAX DEEP — cool, 310 elevated genre ---- */
+[data-design='imax-deep'] {
+  --bg-0: #00111f;
+  --bg-1: #001827;
+  --bg-2: #001F3F;
+  --bg-3: #06294e;
+  --apr-amber: #0077B6;  /* warm primary becomes Sicilian blue */
+  --apr-imax: #15a0b5;
+  --apr-orange: #2bb7cf;
+  --rule: rgba(7, 112, 130, 0.16);
+  --rule-strong: rgba(7, 112, 130, 0.36);
+}
+[data-design='imax-deep'] ::selection { background: var(--apr-imax); color: #00111f; }
+
+/* ---- DAYLIGHT — bright editorial (light base) ----
+   Pairs with data-theme="light"; mirrors the light ramp from
+   tokens.css and keeps the amber accent. */
+[data-design='daylight'] {
+  --bg-0: #FAFAF8;
+  --bg-1: #F2F0EC;
+  --bg-2: #E8E6E2;
+  --bg-3: #DCDAD6;
+  --fg-1: #1A1A1A;
+  --fg-2: rgba(26, 26, 26, 0.80);
+  --fg-3: rgba(26, 26, 26, 0.55);
+  --fg-4: rgba(26, 26, 26, 0.40);
+  --fg-5: rgba(26, 26, 26, 0.25);
+  --fg-6: rgba(26, 26, 26, 0.12);
+  --rule: rgba(26, 26, 26, 0.10);
+  --rule-strong: rgba(26, 26, 26, 0.25);
+  --muted: #666666;
+}
+[data-design='daylight'] body { background: var(--bg-0); color: var(--fg-1); }
+[data-design='daylight'] .btn-solid { color: var(--bg-0); background: var(--fg-1); border-color: var(--fg-1); }
+[data-design='daylight'] .btn-solid:hover { background: transparent; color: var(--fg-1); }

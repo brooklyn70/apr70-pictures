@@ -4,6 +4,7 @@ import * as migration_20260513_185804 from './20260513_185804';
 import * as migration_20260513_194834 from './20260513_194834';
 import * as migration_20260515_201608_brand_fields from './20260515_201608_brand_fields';
 import * as migration_20260528_020717_dispatch_schema from './20260528_020717_dispatch_schema';
+import * as migration_20260625_division_theme from './20260625_division_theme';
 
 export const migrations = [
   {
@@ -35,5 +36,10 @@ export const migrations = [
     up: migration_20260528_020717_dispatch_schema.up,
     down: migration_20260528_020717_dispatch_schema.down,
     name: '20260528_020717_dispatch_schema'
+  },
+  {
+    up: migration_20260625_division_theme.up,
+    down: migration_20260625_division_theme.down,
+    name: '20260625_division_theme',
   },
 ];

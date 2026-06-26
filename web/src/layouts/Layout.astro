@@ -1,9 +1,11 @@
 ---
 import '../styles/global.css'
+import '../styles/designs.css'
 import Footer from '../components/Footer.astro'
 import MagneticNavIsland from '../components/islands/MagneticNavIsland'
 import { fetchSiteSettings, fetchFooterLinks, resolveMediaUrl } from '../lib/payload'
 import type { FooterLink } from '../lib/payload'
+import { resolveDesign, designThemeMode } from '../designs/manifest'
 
 interface Props {
   title?: string
@@ -13,6 +15,8 @@ interface Props {
   navLogoAltOverride?: string
   footerLogoOverride?: unknown
   footerLogoAltOverride?: string
+  /** Per-division theme skin slug. Falls back to the house style. */
+  design?: string
 }
 
 const [{ settings }, { footerLinks }] = await Promise.all([
@@ -58,10 +62,13 @@ const footerLogoSrc = resolveMediaUrl(
   typeof footerLogoOverrideMedia === 'object' && footerLogoOverrideMedia ? footerLogoOverrideMedia as any : undefined,
 )
 const footerLogoAlt = Astro.props.footerLogoAltOverride
+
+const design = resolveDesign(Astro.props.design)
+const themeMode = designThemeMode(design)
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-design={design} data-theme={themeMode}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

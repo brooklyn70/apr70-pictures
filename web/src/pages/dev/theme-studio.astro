@@ -1,0 +1,139 @@
+---
+/**
+ * /dev/theme-studio — preview surface for the per-division design layer.
+ * Pick a division (212 / 310 / NRC) and flip through every theme skin live.
+ * Dev-only: gated to `astro dev` or PUBLIC_ENABLE_STUDIO=true.
+ */
+import Layout from '../../layouts/Layout.astro'
+import BlockRenderer from '../../components/blocks/BlockRenderer.astro'
+import {
+  fetchDivision212Global,
+  fetchDivision310Global,
+  fetchDivisionNRCGlobal,
+} from '../../lib/payload'
+import { DESIGNS, DIVISION_DEFAULT_DESIGN } from '../../designs/manifest'
+
+const enabled = import.meta.env.DEV || import.meta.env.PUBLIC_ENABLE_STUDIO === 'true'
+if (!enabled) return Astro.redirect('/404')
+
+const [{ division212 }, { division310 }, { divisionNRC }] = await Promise.all([
+  fetchDivision212Global(),
+  fetchDivision310Global(),
+  fetchDivisionNRCGlobal(),
+])
+
+const divisions = [
+  { id: '212', label: '(212)', blocks: division212?.layout || [], def: DIVISION_DEFAULT_DESIGN['212'] },
+  { id: '310', label: '(310)', blocks: division310?.layout || [], def: DIVISION_DEFAULT_DESIGN['310'] },
+  { id: 'nrc', label: 'NRC', blocks: divisionNRC?.layout || [], def: DIVISION_DEFAULT_DESIGN['nrc'] },
+]
+---
+
+<Layout title="Theme Studio" design="signature">
+  <main>
+    {divisions.map((d, i) => (
+      <section data-division={d.id} style={i === 0 ? '' : 'display:none'}>
+        {d.blocks.length ? (
+          <BlockRenderer blocks={d.blocks as any} />
+        ) : (
+          <div style="padding:6rem 2rem;text-align:center;font-family:var(--font-body);color:var(--fg-3)">
+            No blocks on the {d.label} division global yet — add some in /admin to preview them skinned.
+          </div>
+        )}
+      </section>
+    ))}
+  </main>
+
+  <aside class="studio" aria-label="Theme studio controls">
+    <p class="studio__eyebrow">THEME STUDIO · DEV</p>
+
+    <div class="studio__group">
+      <span class="studio__legend">Division</span>
+      <div class="studio__row" id="divRow">
+        {divisions.map((d, i) => (
+          <button class:list={['studio__chip', i === 0 && 'is-on']} data-div={d.id} data-def={d.def}>{d.label}</button>
+        ))}
+      </div>
+    </div>
+
+    <div class="studio__group">
+      <span class="studio__legend">Theme</span>
+      <div class="studio__row studio__row--wrap" id="themeRow">
+        {DESIGNS.map((t) => (
+          <button class="studio__theme" data-design={t.slug} data-base={t.base} title={t.blurb}>
+            <span class="studio__swatch">{t.swatch.map((c) => <i style={`background:${c}`} />)}</span>
+            <span class="studio__name">{t.name}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <p class="studio__hint" id="studioHint"></p>
+  </aside>
+</Layout>
+
+<style>
+  .studio {
+    position: fixed; top: 84px; right: 16px; z-index: 200;
+    width: 240px; padding: 14px;
+    background: color-mix(in srgb, #000 78%, transparent);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--rule-strong);
+    font-family: var(--font-body);
+  }
+  .studio__eyebrow { font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; color: var(--fg-4); margin: 0 0 12px; }
+  .studio__group { margin-bottom: 14px; }
+  .studio__legend { display: block; font-size: 10px; letter-spacing: .25em; text-transform: uppercase; color: var(--fg-4); margin-bottom: 8px; }
+  .studio__row { display: flex; gap: 6px; }
+  .studio__row--wrap { flex-wrap: wrap; }
+  .studio__chip, .studio__theme {
+    cursor: pointer; background: transparent; color: var(--fg-2);
+    border: 1px solid var(--rule); padding: 6px 10px; font-size: 11px;
+    letter-spacing: .1em; text-transform: uppercase; transition: border-color .2s, color .2s;
+  }
+  .studio__chip.is-on, .studio__theme.is-on { color: #fff; border-color: #fff; }
+  .studio__theme { display: flex; align-items: center; gap: 7px; padding: 5px 8px; }
+  .studio__swatch { display: inline-flex; }
+  .studio__swatch i { width: 9px; height: 14px; display: block; }
+  .studio__swatch i + i { margin-left: -1px; }
+  .studio__name { font-size: 10px; }
+  .studio__hint { font-size: 10px; line-height: 1.5; color: var(--fg-4); margin: 4px 0 0; min-height: 2.4em; }
+</style>
+
+<script>
+  const root = document.documentElement
+  const themeRow = document.getElementById('themeRow')!
+  const divRow = document.getElementById('divRow')!
+  const hint = document.getElementById('studioHint')!
+  const sections = Array.from(document.querySelectorAll<HTMLElement>('[data-division]'))
+
+  function applyTheme(slug: string, base: string) {
+    root.dataset.design = slug
+    root.dataset.theme = base === 'light' ? 'light' : 'dark'
+    themeRow.querySelectorAll('.studio__theme').forEach((b) =>
+      b.classList.toggle('is-on', (b as HTMLElement).dataset.design === slug),
+    )
+  }
+
+  themeRow.querySelectorAll<HTMLButtonElement>('.studio__theme').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      applyTheme(btn.dataset.design!, btn.dataset.base!)
+      hint.textContent = btn.getAttribute('title')
+    })
+  })
+
+  divRow.querySelectorAll<HTMLButtonElement>('.studio__chip').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.div!
+      divRow.querySelectorAll('.studio__chip').forEach((b) => b.classList.toggle('is-on', b === btn))
+      sections.forEach((s) => (s.style.display = s.dataset.division === id ? '' : 'none'))
+      // jump to this division's recommended default theme
+      const def = btn.dataset.def!
+      const target = themeRow.querySelector<HTMLButtonElement>(`[data-design="${def}"]`)
+      if (target) target.click()
+    })
+  })
+
+  // boot on the first division's default
+  ;(divRow.querySelector('.studio__chip') as HTMLButtonElement)?.click()
+</script>

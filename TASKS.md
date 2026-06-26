@@ -86,6 +86,21 @@ Tool hints: `claude` = needs Claude Pro / high-context. `cursor+claude` = mainst
 - [ ] [p7] [nas-headless] DSM reverse-proxy slot for staging-v3.apr70.com.
 - [ ] [p7] [nas-headless] DNS plan: apr70.com → v3.
 
+## Phase 8 — Themes + AI build assistant (NEW, 2026-06-25)
+
+Port of `kima-site-build` concepts onto the Astro/NAS stack. Decisions: per-division themes,
+AI = authoring + theme-design assistant (no visitor chat). Design: `docs/architecture/themes-and-ai.md`.
+
+- [x] [p8] [claude] Per-division theme registry + 5 skins (`web/src/designs/manifest.ts`, `web/src/styles/designs.css`).
+- [x] [p8] [claude] Wire `Layout.astro` (`data-design`) + division pages (Payload `theme` → default).
+- [x] [p8] [claude] CMS `theme` select on 212/310/NRC globals + migration `20260625_division_theme.ts`.
+- [x] [p8] [claude] `/dev/theme-studio` live theme picker (dev-gated).
+- [x] [p8] [claude] AI assist: `lib/ai/assist.ts` + `POST /api/ai/assist` + `/dev/ai-studio` (dev-gated).
+- [ ] [p8] [nas-shell] Activate: `pnpm install` (web), `pnpm payload migrate`, set `ANTHROPIC_API_KEY`.
+- [ ] [p8] [requires-gui] Review the 5 skins per division; confirm or retune palettes at `/dev/theme-studio`.
+- [ ] [p8] [claude] Deepen AI grounding — feed real project/news titles into author-mode `context`.
+- [ ] [p8] [requires-gui] Decide whether a global (whole-site) theme picker is wanted beyond divisions.
+
 ---
 
 ## Done

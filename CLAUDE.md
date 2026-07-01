@@ -16,6 +16,7 @@
 3. This file — project conventions.
 4. `docs/architecture/` — schema + block library + integration specs.
 5. `docs/architecture/v3-master-plan.md` — the director-approved architecture plan.
+6. `docs/decisions/2026-07-01-vms-lessons-and-cloud-migration.md` — **Vik Muniz build lessons (Supabase pooler/caching/R2/GEO laws) + the approved Supabase/Vercel/store migration plan.** Read before any DB, deploy, or data-layer work.
 
 ---
 

@@ -115,3 +115,6 @@ Tasks are managed manually via `TASKS.md`. No external orchestrator. Scheduled c
 ## File line cap
 
 This file should stay under 200 lines. Older context lives in `docs/architecture/`.
+
+## Working style
+Follow my global prompting rules in `~/.claude/CLAUDE.md` (outcome-first; act when you have enough; prove-it before calling something done; human go on anything irreversible; no standing "explain your reasoning" line). Invoke **"assess and stop"** or **"act when you have enough"** to set the dial.

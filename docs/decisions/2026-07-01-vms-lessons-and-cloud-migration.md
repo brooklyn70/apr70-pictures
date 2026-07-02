@@ -28,14 +28,14 @@ Steps (in order; ⚙ = agent can do, 👤 = Marco):
 5. 👤 DNS: point apr70.com at Vercel when v3 content is signed off; NAS becomes staging/backup.
 6. ⚙ GEO/AEO pass (lesson #6) rides the same deploy.
 
-## 3. APR70 store ("why not!")
+## 3. APR70 store — REMOVED (Marco ruling, 2026-07-02)
 
-Cheapest credible v1, reusing VMS research (`~/websites/vik-muniz-studio/docs/make-a-muniz-pod-research.md`):
-- **Printful** print-on-demand (posters/tees/hats per property — 212 monochrome NY imagery, LADV key art from the mood boards). True mockup-generation API, no inventory.
-- v1 = a **Store block + nav link** on the site (per hard rule #1, it's a block, not a page template) linking to a Printful-backed storefront (Printful × Shopify Starter, or Printful's own quick store) — zero build cost, real link for the launch tweets.
-- v2 (post-launch, if traction) = native `/store` with cart + Stripe, product mockups generated from property art.
-- 👤 needs: Printful account (APR70-owned), which properties get merch first.
+No storefront on the site, period. The roast council verdict (RESHAPE) and Marco's ruling agree:
+merch cannot precede fandom, and a shop link on a pre-launch studio site reads wrong to the only
+audience that matters. Nothing to remove in code — neither v2 nor v3 ever shipped store surface.
+Dormant option, revisit ONLY after a public trailer exists: one numbered, human-finished
+"Founding 100" artifact behind an email-reserve page ($35, no checkout). Not before.
 
 ## 4. Open decisions for Marco
 
-- Supabase org + card (Free w/ caching, per above) · Vercel team for apr70 · DNS cutover timing · store platform (Printful-link v1 recommended) · reconcile division labels: site data says LADV=212/Mayors=310, vault canon says LADV=**310**/Mayors=**212** — vault is canon, fix the seed data.
+- Supabase org + card (Free w/ caching, per above) · Vercel team for apr70 · DNS cutover timing · reconcile division labels: site data says LADV=212/Mayors=310, vault canon says LADV=**310**/Mayors=**212** — vault is canon, fix the seed data.

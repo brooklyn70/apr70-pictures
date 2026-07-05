@@ -285,14 +285,17 @@ function parseGlobalResponse<T>(raw: unknown): T | null {
 
 // ── Media URL resolver ────────────────────────────────────────────────────────
 
+// On NAS/Docker, relative media paths resolve via the nginx reverse proxy.
+// On Vercel the web origin has no media proxy, so Vercel builds set
+// PUBLIC_MEDIA_BASE to the CMS origin and media URLs become absolute.
+const MEDIA_BASE =
+  ((import.meta.env.PUBLIC_MEDIA_BASE as string | undefined) ?? '').replace(/\/+$/, '')
+
 export function resolveMediaUrl(media: Media | null | undefined): string | undefined {
   if (!media?.url) return undefined
   const u = media.url
   if (u.startsWith('http://') || u.startsWith('https://')) return u
-  // In Docker production, PAYLOAD_URL is an internal hostname (http://cms:3000)
-  // which is unresolvable by the browser. We return the relative path so it
-  // resolves via the Nginx reverse proxy.
-  return `${u.startsWith('/') ? '' : '/'}${u}`
+  return `${MEDIA_BASE}${u.startsWith('/') ? '' : '/'}${u}`
 }
 
 /**

@@ -1,151 +1,189 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { fetchProjects } from '../lib/payload';
+/**
+ * /work — the slate, as a text-forward zine index (v4).
+ *
+ * DB projects render when available, overlaid with the bundle's canon
+ * (Da Hook retitle, U Bruculinu spelling, NRC divisions) and completed with
+ * bundle-only properties (Sea Gate). With no DB, the compiled-in V4 slate
+ * renders whole. Copy from the V4 bundle ("The Slate, On Record").
+ */
+import Layout from '../layouts/Layout.astro'
+import { fetchProjects } from '../lib/payload'
+import { V4_LISTING_OVERLAY, V4_PROPERTIES } from '../content/v4'
 
-const { projects, error } = await fetchProjects();
+const { projects } = await fetchProjects()
 
 const divisionLabel: Record<string, string> = {
-  '212': '212 Pictures',
-  '310': '310 Pictures',
+  '212': '(212) Pictures',
+  '310': '(310) Pictures',
   nrc: 'New Renaissance Cinema',
   corporate: 'Corporate',
-};
+}
+
+type SlateRow = {
+  slug: string
+  title: string
+  division?: string | null
+  subtitle?: string | null
+}
+
+let rows: SlateRow[]
+if (projects.length) {
+  rows = projects.map((p) => ({
+    slug: p.slug,
+    title: p.title,
+    division: p.division,
+    subtitle: p.subtitle,
+    ...(V4_LISTING_OVERLAY[p.slug] ?? {}),
+  }))
+  for (const prop of V4_PROPERTIES) {
+    if (!rows.some((r) => r.slug === prop.slug)) {
+      rows.push({
+        slug: prop.slug,
+        title: prop.title,
+        division: prop.division,
+        subtitle: prop.subtitle,
+      })
+    }
+  }
+} else {
+  rows = V4_PROPERTIES.map((p) => ({
+    slug: p.slug,
+    title: p.title,
+    division: p.division,
+    subtitle: p.subtitle,
+  }))
+}
 ---
 
-<Layout title="Work">
-  <main class="work-index">
-    <header class="work-index__header">
-      <h1 class="work-index__title">Current Slate.</h1>
-    </header>
+<Layout title="The Slate, On Record">
+  <main class="slate">
+    <div class="container">
+      <header class="slate__header">
+        <h1 class="slate__title">The Slate, On Record</h1>
+        <p class="slate__dek">
+          Draft synopses from every desk — the boroughs, the coasts, the
+          feature slate. The work earns its position or it doesn't get made.
+        </p>
+      </header>
 
-    {error && (
-      <div class="fetch-error">
-        <strong>Fetch Error:</strong> {error}
-      </div>
-    )}
-
-    {!projects.length && !error ? (
-      <div class="work-index__empty">
-        No projects found. Add projects in Payload admin.
-      </div>
-    ) : (
-      <ul class="work-index__grid">
-        {projects.map((project) => (
-          <li class="work-card">
-            <a href={`/work/${project.slug}`} class="work-card__link">
-              <div class="work-card__body">
-                {project.division && (
-                  <span class="work-card__division">
-                    {divisionLabel[project.division] ?? project.division}
-                  </span>
-                )}
-                <h2 class="work-card__title">{project.title}</h2>
-                {project.subtitle && (
-                  <p class="work-card__subtitle">{project.subtitle}</p>
-                )}
-                {project.status && (
-                  <span class="work-card__status">{project.status}</span>
-                )}
-              </div>
+      <ol class="slate__list">
+        {rows.map((row, i) => (
+          <li class="slate__row">
+            <a href={`/work/${row.slug}`} class="slate__link">
+              <span class="slate__num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="slate__name">
+                <span class="slate__name-title">{row.title}</span>
+                {row.subtitle && <span class="slate__name-sub">{row.subtitle}</span>}
+              </span>
+              <span class="slate__division">
+                {row.division ? (divisionLabel[row.division] ?? row.division) : ''}
+              </span>
             </a>
           </li>
         ))}
-      </ul>
-    )}
+      </ol>
+    </div>
   </main>
 </Layout>
 
 <style>
-  .work-index {
-    padding: clamp(2rem, 5vw, 6rem) clamp(1rem, 4vw, 4rem);
-    max-width: 1440px;
-    margin: 0 auto;
+  .slate {
+    padding: clamp(2.5rem, 6vw, 5rem) 0 clamp(2rem, 5vw, 4rem);
   }
 
-  .work-index__header {
-    margin-bottom: clamp(2rem, 4vw, 4rem);
+  .slate__header {
+    border-bottom: 1px solid var(--rule-strong);
+    padding-bottom: clamp(1.25rem, 3vw, 2rem);
+    margin-bottom: clamp(0.5rem, 1.5vw, 1rem);
   }
 
-  .work-index__title {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 5vw, 4rem);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--color-fg);
+  .slate__title {
+    font-size: clamp(2rem, 7vw, 5rem);
+    margin: 0 0 var(--s-4);
   }
 
-  .work-index__grid {
-    list-style: none;
-    padding: 0;
+  .slate__dek {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: var(--type-body-lg);
+    line-height: var(--leading-body);
+    color: var(--fg-2);
+    max-width: 60ch;
     margin: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
-    gap: 1px;
   }
 
-  .work-card__link {
-    display: block;
-    padding: clamp(1.5rem, 3vw, 2.5rem);
-    border: 1px solid var(--color-border, #c8c8c8);
+  .slate__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .slate__link {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--s-2) var(--s-5);
+    align-items: baseline;
+    padding: clamp(0.875rem, 2vw, 1.25rem) 0;
+    border-bottom: 1px solid var(--rule);
     text-decoration: none;
     color: inherit;
-    transition: background-color 0.2s;
+    transition: background-color var(--dur-quick) var(--ease-out);
   }
 
-  .work-card__link:hover {
-    background-color: var(--color-surface-hover, rgba(0,0,0,0.04));
+  @media (min-width: 720px) {
+    .slate__link {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+    }
   }
 
-  .work-card__division {
-    display: block;
+  .slate__link:hover {
+    background-color: var(--bg-1);
+  }
+
+  .slate__num {
     font-family: var(--font-mono);
-    font-size: 0.625rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-mid, #888);
-    margin-bottom: 0.5rem;
+    font-size: var(--type-micro);
+    letter-spacing: var(--track-wider);
+    color: var(--fg-4);
   }
 
-  .work-card__title {
+  .slate__name {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+  }
+
+  .slate__name-title {
     font-family: var(--font-display);
-    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    font-weight: 700;
+    font-size: clamp(1.25rem, 3vw, 2rem);
+    letter-spacing: var(--track-tight);
     text-transform: uppercase;
-    letter-spacing: 0.04em;
-    margin: 0 0 0.5rem;
+    color: var(--fg-1);
+    line-height: var(--leading-tight);
   }
 
-  .work-card__subtitle {
+  .slate__name-sub {
     font-family: var(--font-body);
-    font-size: 0.875rem;
-    color: var(--color-mid, #888);
-    margin: 0 0 0.75rem;
+    font-weight: 300;
+    font-size: var(--type-small);
+    color: var(--fg-3);
   }
 
-  .work-card__status {
-    display: inline-block;
+  .slate__division {
+    grid-column: 2;
     font-family: var(--font-mono);
-    font-size: 0.625rem;
+    font-size: var(--type-micro);
+    letter-spacing: var(--track-wider);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    padding: 0.2em 0.6em;
-    border: 1px solid currentColor;
-    color: var(--color-mid, #888);
+    color: var(--fg-3);
+    white-space: nowrap;
   }
 
-  .fetch-error {
-    padding: 1rem;
-    margin-bottom: 2rem;
-    background: rgba(255, 0, 0, 0.08);
-    border: 1px solid red;
-    border-radius: 4px;
-    font-family: var(--font-body);
-    color: #cc0000;
-  }
-
-  .work-index__empty {
-    padding: 4rem;
-    text-align: center;
-    font-family: var(--font-body);
-    color: var(--color-mid, #888);
+  @media (min-width: 720px) {
+    .slate__division {
+      grid-column: auto;
+    }
   }
 </style>

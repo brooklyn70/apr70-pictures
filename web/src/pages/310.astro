@@ -2,9 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 import BlockRenderer from '../components/blocks/BlockRenderer.astro';
 import { fetchDivision310Global } from '../lib/payload';
+import { V4_DIVISION_PASSAGES } from '../content/v4';
 
 const { division310, error } = await fetchDivision310Global();
-const blocks = division310?.layout || [];
+const dbBlocks = division310?.layout || [];
+// V4 zine: the bundle's division copy leads. Once the Payload layout carries
+// a zinePassage block (apply-v4-content.ts), the DB version takes over.
+const hasZine = dbBlocks.some((b) => (b as { blockType?: string }).blockType === 'zinePassage');
+const blocks = hasZine ? dbBlocks : [V4_DIVISION_PASSAGES['310'], ...dbBlocks];
 // Themes are global + visitor-selected: the Payload `theme` field is dormant
 // and divisions no longer force a skin (division logo/favicon still apply).
 const faviconOverride = typeof division310?.faviconOverride === 'object' ? division310.faviconOverride : undefined;
@@ -19,12 +24,6 @@ const footerLogo = typeof division310?.footerLogo === 'object' ? division310.foo
         <strong>Fetch Error:</strong> {error}
       </div>
     )}
-    {!blocks.length && !error ? (
-      <div style="padding: 4rem; text-align: center; font-family: var(--font-body); color: var(--apr-mid-dark);">
-        No blocks found. Add some blocks to the 310 Division global in Payload!
-      </div>
-    ) : (
-      <BlockRenderer blocks={blocks} />
-    )}
+    <BlockRenderer blocks={blocks} />
   </main>
 </Layout>

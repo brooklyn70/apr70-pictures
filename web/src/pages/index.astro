@@ -1,25 +1,31 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import BlockRenderer from '../components/blocks/BlockRenderer.astro';
-import { fetchHomeGlobal } from '../lib/payload';
+/**
+ * / — the zine front door (v4).
+ *
+ * DISPATCH-masthead identity front door: nameplate + identity strip +
+ * numbered-issue convention + text-forward teaser stack (Troupe radio play
+ * leads, divisions, the slate). Rendered through Layout.astro so the global
+ * visitor-selected theme system (pre-paint stamp + ThemeControlIsland) applies.
+ *
+ * Content truth is the Payload Home global. Until its layout carries the v4
+ * zine blocks (see cms/scripts/apply-v4-content.ts), the complete front door
+ * is compiled in from the V4 copy bundle (web/src/content/v4.ts).
+ */
+import Layout from '../layouts/Layout.astro'
+import BlockRenderer from '../components/blocks/BlockRenderer.astro'
+import { fetchHomeGlobal } from '../lib/payload'
+import { V4_FRONT_DOOR_BLOCKS } from '../content/v4'
 
-const { home, error } = await fetchHomeGlobal();
-const blocks = home?.layout || [];
+const { home } = await fetchHomeGlobal()
+const dbBlocks = home?.layout ?? []
+const isV4 = dbBlocks.some(
+  (b) => (b as { blockType?: string }).blockType === 'zineMasthead',
+)
+const blocks = isV4 ? dbBlocks : V4_FRONT_DOOR_BLOCKS
 ---
 
 <Layout>
   <main>
-    {error && (
-      <div style="padding: 1rem; margin: 2rem auto; max-width: 600px; background: rgba(255,0,0,0.1); border: 1px solid red; border-radius: 4px; font-family: var(--font-body); color: #cc0000;">
-        <strong>Fetch Error:</strong> {error}
-      </div>
-    )}
-    {!blocks.length && !error ? (
-      <div style="padding: 4rem; text-align: center; font-family: var(--font-body); color: var(--apr-mid-dark);">
-        No blocks found. Add some blocks to the Home global in Payload!
-      </div>
-    ) : (
-      <BlockRenderer blocks={blocks} />
-    )}
+    <BlockRenderer blocks={blocks} />
   </main>
 </Layout>

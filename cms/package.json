@@ -20,6 +20,7 @@
     "migrate:v2:apply": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/migrate-v2-to-v3.ts --apply",
     "migrate:v2:apply-media": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/migrate-v2-to-v3.ts --apply-media",
     "migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate",
+    "apply:v4": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/apply-v4-content.ts",
     "seed": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/migrate-v2-to-v3.ts --apply",
     "preflight": "pnpm run build && echo 'Preflight passed: CMS builds clean.'"
   },

@@ -11,6 +11,7 @@
  * Falls back gracefully if Payload is unreachable.
  */
 import type { SiteSettingsData, FooterLinksData, FooterLink } from '../lib/payload'
+import { V4_FOOTER } from '../content/v4'
 
 interface Props {
   settings?: SiteSettingsData | null
@@ -23,7 +24,9 @@ const { settings, footerLinks, footerLogoSrc, footerLogoAlt } = Astro.props
 
 const brand      = settings?.brandLabel  ?? 'APR 70 Pictures'
 const legal      = settings?.legalEntity ?? 'APR 70 Pictures LLC'
-const tagline    = settings?.tagline     ?? 'Cinema. Story. Scale.'
+/* V4 boilerplate (copy bundle): studio one-liner is the standing tagline.
+   Payload site-settings.tagline wins once apply-v4-content.ts has run. */
+const tagline    = settings?.tagline     ?? V4_FOOTER.studioLine
 const year       = new Date().getFullYear()
 
 const primaryNav  = footerLinks?.primaryNav  ?? []
@@ -101,9 +104,9 @@ function linkAttrs(link: FooterLink) {
         </ul>
       ) : (
         <ul class="footer__links" role="list">
-          <li><a class="footer__link" href="/212">(212) Pictures</a></li>
-          <li><a class="footer__link" href="/310">(310) Pictures</a></li>
-          <li><a class="footer__link" href="/nrc">New Renaissance Cinema</a></li>
+          {V4_FOOTER.divisions.map((d) => (
+            <li><a class="footer__link" href={d.href}>{d.label}</a></li>
+          ))}
         </ul>
       )}
     </nav>
@@ -139,6 +142,19 @@ function linkAttrs(link: FooterLink) {
         <a class="footer__link footer__link--legal" href="/terms">Terms</a>
       </div>
     </div>
+  </div>
+
+  <!-- V4 boilerplate strip (copy bundle: FOOTER / BOILERPLATE) -->
+  <div class="footer__boilerplate container">
+    <p class="footer__wordlist">
+      {V4_FOOTER.divisions.map((d, i) => (
+        <>
+          {i > 0 && <span class="footer__wordlist-sep" aria-hidden="true"> | </span>}
+          <span>{d.label} — {d.meta}</span>
+        </>
+      ))}
+    </p>
+    <p class="footer__address">{V4_FOOTER.addressLine}</p>
   </div>
 
   <!-- Filmstrip bottom rail -->
@@ -284,5 +300,31 @@ function linkAttrs(link: FooterLink) {
   .footer__legal-sep {
     color: var(--fg-6);
     font-size: var(--type-caption);
+  }
+
+  /* ── V4 boilerplate strip ───────────────────────────────────────────────── */
+  .footer__boilerplate {
+    border-top: 1px solid var(--rule);
+    padding-top: var(--s-5);
+    padding-bottom: var(--s-5);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-6);
+    justify-content: space-between;
+  }
+
+  .footer__wordlist,
+  .footer__address {
+    font-family: var(--font-mono);
+    font-size: var(--type-tiny);
+    letter-spacing: var(--track-wide);
+    text-transform: uppercase;
+    color: var(--fg-4);
+    margin: 0;
+  }
+
+  .footer__wordlist-sep {
+    color: var(--fg-6);
+    padding: 0 var(--s-2);
   }
 </style>

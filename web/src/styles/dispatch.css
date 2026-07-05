@@ -119,6 +119,11 @@ body.theme-parchment .nav-logo img { filter: invert(1) hue-rotate(180deg) bright
 .page-shell {
   padding-top: calc(var(--filmstrip-h) + var(--nav-h));
 }
+/* v4: /news renders inside Layout.astro (global sticky chrome) — no fixed
+   filmstrip/nav of its own, so the shell needs no top offset. */
+.page-shell--flush {
+  padding-top: 0;
+}
 
 /* ==============================================================
    MASTHEAD (above the cover)

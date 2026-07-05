@@ -6,6 +6,7 @@ import * as migration_20260515_201608_brand_fields from './20260515_201608_brand
 import * as migration_20260528_020717_dispatch_schema from './20260528_020717_dispatch_schema';
 import * as migration_20260625_division_theme from './20260625_division_theme';
 import * as migration_20260705_troupe_page from './20260705_troupe_page';
+import * as migration_20260705_v4_zine_blocks from './20260705_v4_zine_blocks';
 
 export const migrations = [
   {
@@ -47,5 +48,10 @@ export const migrations = [
     up: migration_20260705_troupe_page.up,
     down: migration_20260705_troupe_page.down,
     name: '20260705_troupe_page',
+  },
+  {
+    up: migration_20260705_v4_zine_blocks.up,
+    down: migration_20260705_v4_zine_blocks.down,
+    name: '20260705_v4_zine_blocks',
   },
 ];

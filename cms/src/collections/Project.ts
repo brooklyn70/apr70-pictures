@@ -10,6 +10,7 @@ import { FilmstripBlock } from '../blocks/FilmstripBlock'
 import { DivisionBlock } from '../blocks/DivisionBlock'
 import { StatsBlock } from '../blocks/StatsBlock'
 import { DividerBlock } from '../blocks/DividerBlock'
+import { ZineSynopsisBlock } from '../blocks/ZineSynopsisBlock'
 
 export const Project: CollectionConfig = {
   slug: 'projects',
@@ -70,7 +71,7 @@ export const Project: CollectionConfig = {
     {
       name: 'layout',
       type: 'blocks',
-      blocks: [HeroBlock, RichTextBlock, TwoColBlock, GridBlock, CTABlock, QuotesBlock, FilmstripBlock, DivisionBlock, StatsBlock, DividerBlock],
+      blocks: [HeroBlock, RichTextBlock, TwoColBlock, GridBlock, CTABlock, QuotesBlock, FilmstripBlock, DivisionBlock, StatsBlock, DividerBlock, ZineSynopsisBlock],
       labels: { singular: 'Block', plural: 'Layout blocks' },
     },
   ],

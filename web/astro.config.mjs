@@ -49,5 +49,16 @@ export default defineConfig({
         'payload-types': path.resolve(__dirname, '../cms/src/payload-types.ts'),
       },
     },
+    // Dev-only: mirror the prod nginx rules that send Payload media to the CMS
+    // origin (resolveMediaUrl returns relative /api/media/... and /media/...
+    // paths so the browser resolves them via the reverse proxy). Without this,
+    // every Media file 404s under `astro dev` and pages silently lose images.
+    // Vite ignores `server.proxy` outside the dev server, so prod is untouched.
+    server: {
+      proxy: {
+        '/api/media': process.env.PUBLIC_PAYLOAD_URL ?? 'http://localhost:3000',
+        '/media': process.env.PUBLIC_PAYLOAD_URL ?? 'http://localhost:3000',
+      },
+    },
   },
 });

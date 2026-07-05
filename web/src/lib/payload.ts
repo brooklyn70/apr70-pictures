@@ -79,7 +79,26 @@ export type PayloadFetchResult<T> = {
   stale?: boolean
 }
 
-// ── Cache / SWR (in-process; effective with @astrojs/node standalone) ─────────
+// ── Cache / SWR (in-process TTL + stale-while-revalidate + single-flight) ────
+//
+// Egress discipline (VMS lesson #2): every fetcher below runs through this
+// cache, and the LIST fetchers cache mapped SLIM projections — never raw
+// Payload docs. VMS burned 55 GB of Supabase egress in a month with 0 users
+// from uncached full-catalogue reads (builds, dev servers, crawlers). Any
+// deploy that points at Supabase ships WITH this layer, non-negotiable.
+//
+// Scope — the cache is PER-INSTANCE, in-process:
+// - @astrojs/node standalone (NAS/local): one long-lived process, so TTLs
+//   behave exactly as configured.
+// - Vercel serverless (DEPLOY_TARGET=vercel): each function instance holds
+//   its own Map. A cold start begins empty (first request pays one cms
+//   round-trip per key) and N concurrent instances hold N copies. Fluid
+//   Compute reuses instances, so hit rates are good in practice — but this
+//   is a best-effort egress damper, not a shared cache. If cms/DB load ever
+//   matters at scale, promote hot keys to a shared layer (Vercel Runtime
+//   Cache / KV); keep the slim projections either way.
+// - Single-flight dedupe (coldInflight/bgInflight) also only dedupes within
+//   one instance.
 
 const swrCache = new Map<string, { value: PayloadFetchResult<unknown>; at: number }>()
 const coldInflight = new Map<string, Promise<void>>()
@@ -458,6 +477,7 @@ export async function fetchDivisionNRCGlobal(): Promise<{
 
 // ── Collection types ──────────────────────────────────────────────────────────
 
+/** Full doc shape — returned ONLY by single-doc fetchers (detail pages need `layout`). */
 export type ProjectDoc = {
   id: number
   title: string
@@ -470,6 +490,7 @@ export type ProjectDoc = {
   layout?: unknown[] | null
 }
 
+/** Full doc shape — returned ONLY by single-doc fetchers (detail pages need `layout`). */
 export type NewsArticleDoc = {
   id: number
   title: string
@@ -478,6 +499,79 @@ export type NewsArticleDoc = {
   deck?: string | null
   featured?: boolean | null
   layout?: unknown[] | null
+}
+
+// ── Slim projections (what LIST fetchers return and cache) ───────────────────
+// Only the fields the frontend actually renders. `layout` (the heavy block
+// tree) is deliberately absent: list surfaces never render it, and caching it
+// is exactly the full-catalogue egress mistake VMS made.
+
+export type SlimMediaRef = {
+  url?: string | null
+  alt?: string | null
+  width?: number | null
+  height?: number | null
+}
+
+export type ProjectCard = {
+  id: number
+  title: string
+  slug: string
+  division?: string | null
+  subtitle?: string | null
+  status?: string | null
+  year?: string | null
+  heroImage?: SlimMediaRef | null
+}
+
+export type NewsCard = {
+  id: number
+  title: string
+  slug: string
+  date?: string | null
+  deck?: string | null
+  featured?: boolean | null
+}
+
+function slimMedia(input: unknown): SlimMediaRef | null {
+  if (!input || typeof input !== 'object' || !('url' in input)) return null
+  const m = input as Record<string, unknown>
+  return {
+    url: typeof m.url === 'string' ? m.url : null,
+    alt: typeof m.alt === 'string' ? m.alt : null,
+    width: typeof m.width === 'number' ? m.width : null,
+    height: typeof m.height === 'number' ? m.height : null,
+  }
+}
+
+function mapProjectCard(raw: unknown): ProjectCard | null {
+  if (!raw || typeof raw !== 'object') return null
+  const doc = raw as Record<string, unknown>
+  if (typeof doc.id !== 'number' || typeof doc.slug !== 'string') return null
+  return {
+    id: doc.id,
+    title: typeof doc.title === 'string' ? doc.title : '',
+    slug: doc.slug,
+    division: typeof doc.division === 'string' ? doc.division : null,
+    subtitle: typeof doc.subtitle === 'string' ? doc.subtitle : null,
+    status: typeof doc.status === 'string' ? doc.status : null,
+    year: typeof doc.year === 'string' ? doc.year : null,
+    heroImage: slimMedia(doc.heroImage),
+  }
+}
+
+function mapNewsCard(raw: unknown): NewsCard | null {
+  if (!raw || typeof raw !== 'object') return null
+  const doc = raw as Record<string, unknown>
+  if (typeof doc.id !== 'number' || typeof doc.slug !== 'string') return null
+  return {
+    id: doc.id,
+    title: typeof doc.title === 'string' ? doc.title : '',
+    slug: doc.slug,
+    date: typeof doc.date === 'string' ? doc.date : null,
+    deck: typeof doc.deck === 'string' ? doc.deck : null,
+    featured: typeof doc.featured === 'boolean' ? doc.featured : null,
+  }
 }
 
 type CollectionResponse<T> = {
@@ -502,12 +596,25 @@ async function fetchCollectionUncached<T>(
   return { data: raw.docs ?? [], error: null }
 }
 
-async function fetchCollection<T>(
+/**
+ * List fetcher with egress discipline: fetches with a `select`-narrowed query,
+ * maps each doc through `project` to a slim shape, and caches THE SLIM ARRAY —
+ * the raw Payload docs are never stored.
+ */
+async function fetchSlimList<TSlim>(
+  cacheKey: string,
   collection: string,
-  params = '',
-): Promise<PayloadFetchResult<T[]>> {
-  const key = `col:${collection}:${params}`
-  return withSwrCache(key, () => fetchCollectionUncached<T>(collection, params))
+  params: string,
+  project: (raw: unknown) => TSlim | null,
+): Promise<PayloadFetchResult<TSlim[]>> {
+  return withSwrCache(cacheKey, async () => {
+    const got = await fetchCollectionUncached<unknown>(collection, params)
+    if (got.error !== null || got.data == null) {
+      return { data: null, error: got.error ?? `Unexpected empty ${collection} response` }
+    }
+    const slim = got.data.map(project).filter((item): item is NonNullable<TSlim> => item != null)
+    return { data: slim, error: null }
+  })
 }
 
 async function fetchCollectionDocUncached<T>(
@@ -533,12 +640,26 @@ async function fetchCollectionDoc<T>(
   return withSwrCache(key, () => fetchCollectionDocUncached<T>(collection, slug))
 }
 
+// REST-side slimming for the projects list: `select` narrows the project
+// columns, `populate[media]` narrows the depth-1 heroImage doc. Even if a
+// Payload version ignores `populate`, mapProjectCard slims before caching.
+const PROJECT_CARD_PARAMS =
+  '&select[title]=true&select[slug]=true&select[division]=true&select[subtitle]=true' +
+  '&select[status]=true&select[year]=true&select[heroImage]=true' +
+  '&populate[media][url]=true&populate[media][alt]=true' +
+  '&populate[media][width]=true&populate[media][height]=true'
+
 export async function fetchProjects(): Promise<{
-  projects: ProjectDoc[]
+  projects: ProjectCard[]
   error: string | null
   stale?: boolean
 }> {
-  const { data, error, stale } = await fetchCollection<ProjectDoc>('projects')
+  const { data, error, stale } = await fetchSlimList<ProjectCard>(
+    'col:projects:card',
+    'projects',
+    PROJECT_CARD_PARAMS,
+    mapProjectCard,
+  )
   return { projects: data ?? [], error, stale }
 }
 
@@ -549,14 +670,20 @@ export async function fetchProject(
   return { project: data, error, stale }
 }
 
+const NEWS_CARD_PARAMS =
+  '&sort=-date&select[title]=true&select[slug]=true&select[date]=true' +
+  '&select[deck]=true&select[featured]=true'
+
 export async function fetchNewsArticles(): Promise<{
-  articles: NewsArticleDoc[]
+  articles: NewsCard[]
   error: string | null
   stale?: boolean
 }> {
-  const { data, error, stale } = await fetchCollection<NewsArticleDoc>(
+  const { data, error, stale } = await fetchSlimList<NewsCard>(
+    'col:news:card',
     'news',
-    '&sort=-date',
+    NEWS_CARD_PARAMS,
+    mapNewsCard,
   )
   return { articles: data ?? [], error, stale }
 }

@@ -7,7 +7,10 @@ const __filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(__filename)
 
 const nextConfig: NextConfig = {
-  output: 'standalone',
+  // 'standalone' is for the NAS Docker image (see Dockerfile runner stage).
+  // On Vercel (VERCEL=1 set by the platform) let Vercel manage the output
+  // format itself — standalone tracing is unnecessary there.
+  ...(process.env.VERCEL ? {} : { output: 'standalone' as const }),
   images: {
     localPatterns: [
       {

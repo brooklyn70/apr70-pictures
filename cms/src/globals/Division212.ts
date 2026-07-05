@@ -10,6 +10,7 @@ import { FilmstripBlock } from '../blocks/FilmstripBlock'
 import { DivisionBlock } from '../blocks/DivisionBlock'
 import { StatsBlock } from '../blocks/StatsBlock'
 import { DividerBlock } from '../blocks/DividerBlock'
+import { ZinePassageBlock } from '../blocks/ZinePassageBlock'
 import { divisionBrandFields } from '../fields/divisionBrandFields'
 import { themeField } from '../fields/themeField'
 
@@ -23,7 +24,7 @@ export const Division212: GlobalConfig = {
     {
       name: 'layout',
       type: 'blocks',
-      blocks: [HeroBlock, RichTextBlock, TwoColBlock, GridBlock, CTABlock, QuotesBlock, FilmstripBlock, DivisionBlock, StatsBlock, DividerBlock],
+      blocks: [HeroBlock, RichTextBlock, TwoColBlock, GridBlock, CTABlock, QuotesBlock, FilmstripBlock, DivisionBlock, StatsBlock, DividerBlock, ZinePassageBlock],
       labels: { singular: 'Block', plural: 'Layout blocks' },
     },
   ],

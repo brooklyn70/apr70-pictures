@@ -10,6 +10,8 @@ import { FilmstripBlock } from '../blocks/FilmstripBlock'
 import { DivisionBlock } from '../blocks/DivisionBlock'
 import { StatsBlock } from '../blocks/StatsBlock'
 import { DividerBlock } from '../blocks/DividerBlock'
+import { ZineMastheadBlock } from '../blocks/ZineMastheadBlock'
+import { ZinePassageBlock } from '../blocks/ZinePassageBlock'
 
 export const Home: GlobalConfig = {
   slug: 'home',
@@ -32,6 +34,8 @@ export const Home: GlobalConfig = {
         DivisionBlock,
         StatsBlock,
         DividerBlock,
+        ZineMastheadBlock,
+        ZinePassageBlock,
       ],
       labels: {
         singular: 'Block',

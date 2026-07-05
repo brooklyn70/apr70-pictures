@@ -71,3 +71,12 @@
 .magnetic-nav__logo-item {
   margin-inline-end: var(--s-2, 0.5rem);
 }
+
+/* Failsafe when the brand SVG cannot load: live text in currentColor. */
+.magnetic-nav__brand-text {
+  font-family: var(--font-display, sans-serif);
+  font-weight: 700;
+  letter-spacing: var(--track-wider, 0.2em);
+  color: currentColor;
+  white-space: nowrap;
+}

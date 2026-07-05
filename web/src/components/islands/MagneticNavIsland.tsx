@@ -12,7 +12,62 @@ export type MagneticNavItem = {
   openInNewTab?: boolean | null
 }
 
+type NavProps = {
+  items: MagneticNavItem[]
+  logoSrc?: string
+  logoAlt?: string
+  /** True when the mark is the global apr70 wordmark, swappable by the theme picker. */
+  brandSwappable?: boolean
+}
+
 const pillBaseWidth = 100
+
+/**
+ * Global brand mark. When swappable, the current src is owned by the
+ * `data-logo-src` attribute on <html> (stamped pre-paint from localStorage,
+ * updated live by ThemeControlIsland via `img[data-brand-wordmark]`).
+ * If the file fails to load, fall back to live text in currentColor so the
+ * brand never silently disappears.
+ */
+function BrandMark({ src, alt, swappable }: { src: string; alt?: string; swappable?: boolean }) {
+  const [failed, setFailed] = useState(false)
+  const imgRef = useRef<HTMLImageElement>(null)
+
+  useEffect(() => {
+    // Catch errors that fired before hydration attached the onError handler.
+    const img = imgRef.current
+    if (img && img.complete && img.naturalWidth === 0 && img.naturalHeight === 0) {
+      setFailed(true)
+    }
+  }, [])
+
+  const domSrc =
+    swappable && typeof document !== 'undefined'
+      ? document.documentElement.getAttribute('data-logo-src')
+      : null
+  const effectiveSrc = domSrc ?? src
+
+  if (failed) {
+    return (
+      <a className="magnetic-nav__link magnetic-nav__brand-text" href="/">
+        APR 70
+      </a>
+    )
+  }
+
+  return (
+    <a className="magnetic-nav__link" href="/">
+      <img
+        ref={imgRef}
+        className="magnetic-nav__logo"
+        src={effectiveSrc}
+        alt={alt ?? 'Home'}
+        {...(swappable ? { 'data-brand-wordmark': 'true' } : {})}
+        onError={() => setFailed(true)}
+      />
+    </a>
+  )
+}
 
 function useChromeMode(): 'full' | 'simple' {
   const [mode, setMode] = useState<'full' | 'simple'>(() => {
@@ -41,15 +96,13 @@ function useChromeMode(): 'full' | 'simple' {
   return mode
 }
 
-function StaticNav({ items, logoSrc, logoAlt }: { items: MagneticNavItem[]; logoSrc?: string; logoAlt?: string }) {
+function StaticNav({ items, logoSrc, logoAlt, brandSwappable }: NavProps) {
   return (
     <nav className="magnetic-nav magnetic-nav--static" aria-label="Primary">
       <ul className="magnetic-nav__list">
         {logoSrc && (
           <li className="magnetic-nav__item magnetic-nav__logo-item">
-            <a className="magnetic-nav__link" href="/">
-              <img className="magnetic-nav__logo" src={logoSrc} alt={logoAlt ?? 'Home'} />
-            </a>
+            <BrandMark src={logoSrc} alt={logoAlt} swappable={brandSwappable} />
           </li>
         )}
         {items.map((item) => (
@@ -70,7 +123,7 @@ function StaticNav({ items, logoSrc, logoAlt }: { items: MagneticNavItem[]; logo
   )
 }
 
-export default function MagneticNavIsland({ items, logoSrc, logoAlt }: { items: MagneticNavItem[]; logoSrc?: string; logoAlt?: string }) {
+export default function MagneticNavIsland({ items, logoSrc, logoAlt, brandSwappable }: NavProps) {
   const mode = useChromeMode()
   const navRef = useRef<HTMLElement>(null)
   const pillRef = useRef<HTMLDivElement>(null)
@@ -148,7 +201,7 @@ export default function MagneticNavIsland({ items, logoSrc, logoAlt }: { items: 
   if (items.length === 0) return null
 
   if (mode === 'simple') {
-    return <StaticNav items={items} logoSrc={logoSrc} logoAlt={logoAlt} />
+    return <StaticNav items={items} logoSrc={logoSrc} logoAlt={logoAlt} brandSwappable={brandSwappable} />
   }
 
   return (
@@ -161,9 +214,7 @@ export default function MagneticNavIsland({ items, logoSrc, logoAlt }: { items: 
       <ul className="magnetic-nav__list">
         {logoSrc && (
           <li className="magnetic-nav__logo-item">
-            <a className="magnetic-nav__link" href="/">
-              <img className="magnetic-nav__logo" src={logoSrc} alt={logoAlt ?? 'Home'} />
-            </a>
+            <BrandMark src={logoSrc} alt={logoAlt} swappable={brandSwappable} />
           </li>
         )}
         {items.map((item) => (

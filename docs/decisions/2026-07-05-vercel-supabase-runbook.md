@@ -137,3 +137,21 @@ Re-run the checklist against the prod URLs (`*.vercel.app` domains, pre-DNS).
 
 ### Post-cutover (same deploy train, per plan doc)
 GEO/AEO pass (llms.txt, JSON-LD, robots allowlist — VMS law #6) and the LADV/Mayors division-label reconciliation (vault is canon: LADV=310, Mayors=212).
+
+---
+
+## As deployed — 2026-07-05 (live)
+
+What actually happened, where it diverged from the plan above:
+
+- **Projects**: `apr70-cms` + `apr70-web` under team `brooklyn70s-projects` (team_4j270fbiuTLwUa7w6r01bk1u). Stable domains: `apr70-cms-brooklyn70-brooklyn70s-projects.vercel.app` (short name was taken) and `apr70-web.vercel.app`.
+- **Supabase**: project `apr70` (ref rrxeqsryndjoivcsnkqq, us-east-1, +$10/mo on the Pro org — approved by Marco). NAS dump restored via session pooler with ZERO errors, exact parity (9→10 projects after apply:v4, 4 news, 69 media, 228 tables). Migrations applied via `DATABASE_URL=... pnpm payload migrate` — note `20260625_division_theme` had never been applied on the NAS.
+- **cms on Vercel**: remote build works, but ONLY after excluding `scripts/` + `test.ts` from tsconfig (CLI scripts import from `../web/`, which is outside the upload root → type-check fails on Vercel only).
+- **web on Vercel**: remote builds CANNOT work (vite alias to `../cms/src/payload-types.ts` is outside the upload root). Use the prebuilt flow, and do NOT rely on `vercel build` picking up DEPLOY_TARGET — set env explicitly:
+  `rm -rf .vercel/output && DEPLOY_TARGET=vercel PUBLIC_PAYLOAD_URL=<cms-domain> npx astro build && vercel deploy --prebuilt --prod`
+  (A node-adapter build silently produces client/server under static/ → deployment is Ready but 404s everywhere. `functions/_render.func` present = correct adapter.)
+- **gsap crashes Vercel functions** (`SyntaxError: Cannot use import statement outside a module`): fixed with `vite.ssr.noExternal: ['gsap']` in astro.config.mjs.
+- **Deployment protection**: Standard Protection shields even *production* `*.vercel.app` URLs (only custom domains are public). Disabled Vercel Authentication on both projects via API PATCH `{"ssoProtection":null}` using the CLI token — required for web→cms server-side fetches AND public staging review. Re-enable per-project after DNS cutover if desired.
+- **Troupe global**: apply:v4 does NOT seed it (only migrate-v2 step 9b does). Seeded on Supabase by `pg_dump --data-only -t 'troupe*'` from the verified local DB piped into the Supabase session pooler.
+- **`vercel promote` needs `--yes`** non-interactively.
+- **Still open**: R2 bucket + S3 keys (media 404s on Vercel until then — needs Marco's Cloudflare dashboard for the token); DNS cutover (Marco, last); NAS remains live at apr70.com and untouched.

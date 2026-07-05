@@ -1,4 +1,15 @@
-# BRIEF — apr70-pictures (v3)
+# BRIEF — apr70-pictures (v3 → V4 live on Vercel)
+
+**Updated:** 2026-07-05 (Fable 5 orchestrated session)
+**Phase:** V4 SHIPPED TO VERCEL STAGING — https://apr70-web.vercel.app (Astro serverless) + https://apr70-cms-brooklyn70-brooklyn70s-projects.vercel.app (Payload → Supabase `apr70` ref rrxeqsryndjoivcsnkqq). NAS still serves apr70.com, untouched; DNS cutover deliberately NOT done.
+**What shipped (5 worktree branches merged to main):** (1) Global visitor-facing theme system — 5 designs via draggable ThemeControlIsland (design + logo assortment + font scale, localStorage, no-FOUC pre-paint); divisions unified (logo inside global theme, per-division skins dormant). (2) `/troupe` — APR 70 Troupe Presents No. 1, playbill block, spoiler-safe DRAFT copy, placeholder SVGs + PD ledger in vault. (3) Zine re-arrange — `/` = DISPATCH-masthead front door, `/news` joined Layout.astro, zineMasthead/zinePassage/zineSynopsis blocks, `/work` text-forward with 7 draft synopses, Sea Gate created, falcon→Da Hook, indicia numbered-never-dated. (4) Infra — DEPLOY_TARGET adapter switch, pool discipline, slim-projection SWR cache, S3-gated R2. (5) Copy bundle + n8n note in vault `11.05 V4 Launch/03-public-site/`.
+**Verification:** local 70/70 Playwright matrix (5 designs × 375/1440), 3 bugs fixed (hydration forks, dev media proxy, /news overflow); live smoke green (Sea Gate/Da Hook/no-Maltese/indicia/picker). `astro check` baseline 26, 0 net-new.
+**Read:** `docs/decisions/2026-07-05-vercel-supabase-runbook.md` → "As deployed" section for every Vercel/Supabase gotcha (prebuilt-only web deploys, gsap ssr.noExternal, tsconfig scripts exclusion, protection disabled, troupe seed path).
+**Open:** R2 bucket + S3 keys (media 404s on Vercel until then — Marco's Cloudflare dashboard); n8n copy pass (Apex offline); Marco's copy edit in /admin (everything DRAFT-marked); DNS cutover (Marco, last); QUARTERLY editorial copy on /news is body copy not indicia — Marco's call.
+
+---
+
+# Previous brief (2026-05-28, DISPATCH ship) follows
 
 **Updated:** 2026-05-28 ~5:25am EDT  
 **Phase:** 6 — DISPATCH (News page) end-to-end SHIPPED TO NAS 2026-05-29 (Opus). Migration `20260528_020717_dispatch_schema` applied; `brand_fields` confirmed in ledger (logo columns present on 212/310/nrc); DISPATCH Vol.01 No.01 seeded (`dispatch_issues`=1). `/news` live at 52KB; all routes 200; containers healthy. NAS migrate/seed runs via `docker compose -p apr70v3 --profile seed run --build --rm migrate` then `... run --rm cms-seeder node_modules/.bin/tsx scripts/migrate-v2/run-dispatch-seed.ts` (the running cms image is slim Next standalone — no pnpm/CLI; use the seed profile).  

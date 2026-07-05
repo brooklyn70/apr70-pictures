@@ -44,3 +44,6 @@ nginx/.htpasswd*
 
 # Vercel (build output + project link)
 .vercel/
+
+# secrets hand-off file (human-built, never committed)
+.env.workflow

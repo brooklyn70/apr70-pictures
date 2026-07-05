@@ -690,6 +690,12 @@ body.theme-cinema .feature-body p.first::first-letter { color: #000; }
   margin: 0 0 14px;
   break-after: column;
 }
+/* Cancel the forced column break when the body is single-column — with
+   column-count: 1 it pushes everything after the separator into an overflow
+   column off the right edge of the viewport (horizontal scroll at 375). */
+@media (max-width: 560px) {
+  .feature-body .small { break-after: auto; }
+}
 
 .feature-side { display: flex; flex-direction: column; gap: 22px; }
 .feature-side h4 {

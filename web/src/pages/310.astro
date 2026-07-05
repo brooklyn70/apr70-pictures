@@ -2,17 +2,17 @@
 import Layout from '../layouts/Layout.astro';
 import BlockRenderer from '../components/blocks/BlockRenderer.astro';
 import { fetchDivision310Global } from '../lib/payload';
-import { resolveDesign, DIVISION_DEFAULT_DESIGN } from '../designs/manifest';
 
 const { division310, error } = await fetchDivision310Global();
 const blocks = division310?.layout || [];
-const design = resolveDesign((division310 as any)?.theme, DIVISION_DEFAULT_DESIGN['310']);
+// Themes are global + visitor-selected: the Payload `theme` field is dormant
+// and divisions no longer force a skin (division logo/favicon still apply).
 const faviconOverride = typeof division310?.faviconOverride === 'object' ? division310.faviconOverride : undefined;
 const headerLogo = typeof division310?.headerLogo === 'object' ? division310.headerLogo : undefined;
 const footerLogo = typeof division310?.footerLogo === 'object' ? division310.footerLogo : undefined;
 ---
 
-<Layout title="310 Division" design={design} faviconOverride={faviconOverride} navLogoOverride={headerLogo} navLogoAltOverride="310 Pictures" footerLogoOverride={footerLogo} footerLogoAltOverride="310 Pictures">
+<Layout title="310 Division" faviconOverride={faviconOverride} navLogoOverride={headerLogo} navLogoAltOverride="310 Pictures" footerLogoOverride={footerLogo} footerLogoAltOverride="310 Pictures">
   <main>
     {error && (
       <div style="padding: 1rem; margin: 2rem auto; max-width: 600px; background: rgba(255,0,0,0.1); border: 1px solid red; border-radius: 4px; font-family: var(--font-body); color: #cc0000;">

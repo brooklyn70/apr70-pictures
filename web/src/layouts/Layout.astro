@@ -3,9 +3,11 @@ import '../styles/global.css'
 import '../styles/designs.css'
 import Footer from '../components/Footer.astro'
 import MagneticNavIsland from '../components/islands/MagneticNavIsland'
+import ThemeControlIsland from '../components/islands/ThemeControlIsland'
 import { fetchSiteSettings, fetchFooterLinks, resolveMediaUrl } from '../lib/payload'
 import type { FooterLink } from '../lib/payload'
-import { resolveDesign, designThemeMode } from '../designs/manifest'
+import { DESIGNS, resolveDesign, designThemeMode } from '../designs/manifest'
+import { DEFAULT_LOGO, logoFileMap, logoSrc } from '../designs/logos'
 
 interface Props {
   title?: string
@@ -15,7 +17,9 @@ interface Props {
   navLogoAltOverride?: string
   footerLogoOverride?: unknown
   footerLogoAltOverride?: string
-  /** Per-division theme skin slug. Falls back to the house style. */
+  /** SSR design slug (dev/preview surfaces only). Themes are GLOBAL and
+      visitor-selected — the pre-paint script overrides this from
+      localStorage (`apr70:design`). Divisions no longer force a skin. */
   design?: string
 }
 
@@ -51,10 +55,11 @@ const navLogoOverrideMedia = Astro.props.navLogoOverride
 const navLogoOverrideSrc = resolveMediaUrl(
   typeof navLogoOverrideMedia === 'object' && navLogoOverrideMedia ? navLogoOverrideMedia as any : undefined,
 )
-const navLogoLightSrc = resolveMediaUrl(
-  typeof settings?.navLogoLight === 'object' && settings.navLogoLight ? settings.navLogoLight as any : undefined,
-)
-const navLogoSrc = navLogoOverrideSrc ?? navLogoLightSrc
+/* Global brand mark is visitor-picked (ThemeControlIsland). A division page
+   still shows its own division logo via navLogoOverride — that one is never
+   swapped by the picker. SSR falls back to the default mark for the SSR
+   design; the pre-paint script + body sync correct it before first paint. */
+const brandSwappable = !navLogoOverrideSrc
 const navLogoAlt = Astro.props.navLogoAltOverride ?? siteName
 
 const footerLogoOverrideMedia = Astro.props.footerLogoOverride
@@ -65,6 +70,12 @@ const footerLogoAlt = Astro.props.footerLogoAltOverride
 
 const design = resolveDesign(Astro.props.design)
 const themeMode = designThemeMode(design)
+const navLogoSrc = navLogoOverrideSrc ?? logoSrc(DEFAULT_LOGO, themeMode)
+
+/* Data for the pre-paint stamp script (kept in sync with manifest + logos.ts). */
+const designModes = Object.fromEntries(DESIGNS.map((d) => [d.slug, d.base]))
+const logoFiles = logoFileMap()
+const defaultLogo = DEFAULT_LOGO
 ---
 
 <!doctype html>
@@ -72,6 +83,37 @@ const themeMode = designThemeMode(design)
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline define:vars={{ designModes, logoFiles, defaultLogo }}>
+      /* Pre-paint stamp — global visitor-selected theme state. Runs before
+         first paint so there is no FOUC. Keys: apr70:design, apr70:logo,
+         apr70:font-scale. Live updates come from ThemeControlIsland. */
+      ;(function () {
+        var doc = document.documentElement
+        function read(key) {
+          try {
+            return localStorage.getItem(key)
+          } catch (e) {
+            return null
+          }
+        }
+        var design = read('apr70:design')
+        if (!design || !designModes[design]) design = doc.getAttribute('data-design') || 'signature'
+        doc.setAttribute('data-design', design)
+        var mode = designModes[design] === 'light' ? 'light' : 'dark'
+        doc.setAttribute('data-theme', mode)
+
+        var logo = read('apr70:logo')
+        if (!logo || !logoFiles[logo]) logo = defaultLogo
+        doc.setAttribute('data-logo', logo)
+        doc.setAttribute('data-logo-src', logoFiles[logo][mode])
+
+        var scales = { s: '0.9', m: '1', l: '1.1', xl: '1.2' }
+        var scale = read('apr70:font-scale')
+        if (!scale || !scales[scale]) scale = 'm'
+        doc.setAttribute('data-font-scale', scale)
+        doc.style.setProperty('--font-scale', scales[scale])
+      })()
+    </script>
     {faviconSrc ? (
       <link rel="icon" type="image/svg+xml" href={faviconSrc} />
     ) : (
@@ -104,14 +146,25 @@ const themeMode = designThemeMode(design)
             items={primaryNav}
             logoSrc={navLogoSrc}
             logoAlt={navLogoAlt}
+            brandSwappable={brandSwappable}
           />
         </div>
       </header>
+      <script is:inline>
+        /* Sync the SSR brand mark to the pre-paint pick before the nav hydrates. */
+        ;(function () {
+          var src = document.documentElement.getAttribute('data-logo-src')
+          var img = document.querySelector('img[data-brand-wordmark]')
+          if (src && img && img.getAttribute('src') !== src) img.setAttribute('src', src)
+        })()
+      </script>
     </div>
 
     <slot />
 
     <Footer settings={settings} footerLinks={footerLinks} footerLogoSrc={footerLogoSrc} footerLogoAlt={footerLogoAlt} />
+
+    <ThemeControlIsland client:load />
   </body>
 </html>
 

@@ -1,14 +1,16 @@
 /**
- * Theme registry — apr70 per-division design layer.
+ * Theme registry — apr70 design layer.
  *
- * Ported from the kima-site-build `src/designs/` concept onto the existing
- * Astro/Payload/NAS stack. Each "design" is a named skin: shared block content
- * rendered through a scoped set of token overrides under `[data-design="<slug>"]`
+ * Each "design" is a named skin: shared block content rendered through a
+ * scoped set of token overrides under `[data-design="<slug>"]`
  * (see `web/src/styles/designs.css`). Content is untouched — only the palette,
  * surface ramp, and display font rebind.
  *
- * Per-division assignment: a division's `theme` field in Payload (optional) wins;
- * otherwise it falls back to DIVISION_DEFAULT_DESIGN, otherwise DEFAULT_DESIGN.
+ * v4 (2026-07-05): themes are GLOBAL and visitor-selected. The choice lives in
+ * localStorage (`apr70:design`), is stamped pre-paint by Layout.astro, and is
+ * changed live via ThemeControlIsland. Divisions no longer force a skin; the
+ * Payload `theme` field is dormant (schema kept) and DIVISION_DEFAULT_DESIGN
+ * remains only for the dev theme-studio preview surface.
  */
 
 export type DesignSlug =

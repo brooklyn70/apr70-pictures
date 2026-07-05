@@ -193,6 +193,10 @@
    SEMANTIC RESETS & ELEMENT STYLES
    ============================================================ */
 html {
+  /* Visitor type-size dial (S/M/L/XL -> 0.9/1/1.1/1.2). --font-scale is set
+     inline on <html> by the pre-paint script / ThemeControlIsland; every rem
+     in the type scale follows the root size. */
+  font-size: calc(100% * var(--font-scale, 1));
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

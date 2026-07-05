@@ -8,6 +8,16 @@ visitor-facing chat).**
 
 ---
 
+> **v4 update (2026-07-05, ruled by Marco):** themes are now **GLOBAL and
+> visitor-selected** — divisions no longer force their own skin. The visitor's
+> choice persists in localStorage (`apr70:design`, plus `apr70:logo` and
+> `apr70:font-scale`), is stamped on `<html>` pre-paint by an inline script in
+> `Layout.astro`, and is changed live via the draggable `ThemeControlIsland`
+> (design picker + brand-mark picker + type size). A division page keeps its
+> division logo/favicon but renders inside the global theme. The Payload
+> `theme` field below is **dormant** (schema kept, no longer applied on the
+> frontend). Section 1 below is retained as historical reference.
+
 ## 1. Per-division theme layer
 
 Each division (212 / 310 / NRC) renders the same blocks through its own **skin** — a named

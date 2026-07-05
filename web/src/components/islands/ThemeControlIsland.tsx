@@ -76,20 +76,24 @@ function syncBrandMark(logo: LogoChoiceId, mode: 'light' | 'dark') {
 type Pos = { x: number; y: number }
 
 export default function ThemeControlIsland() {
-  const isClient = typeof document !== 'undefined'
-
   const [open, setOpen] = useState(false)
-  const [design, setDesign] = useState<DesignSlug>(() =>
-    isClient ? resolveDesign(document.documentElement.getAttribute('data-design')) : DEFAULT_DESIGN,
-  )
-  const [logo, setLogo] = useState<LogoChoiceId>(() =>
-    isClient ? resolveLogo(document.documentElement.getAttribute('data-logo')) : DEFAULT_LOGO,
-  )
-  const [scale, setScale] = useState<FontScaleId>(() =>
-    isClient ? resolveScale(document.documentElement.getAttribute('data-font-scale')) : 'm',
-  )
+  /* Defaults on BOTH server and first client render — reading the <html>
+     attributes in the initializer forked the trees (pill swatch styles) and
+     broke hydration on non-default designs. The mount effect below syncs
+     state to the pre-paint stamp. */
+  const [design, setDesign] = useState<DesignSlug>(DEFAULT_DESIGN)
+  const [logo, setLogo] = useState<LogoChoiceId>(DEFAULT_LOGO)
+  const [scale, setScale] = useState<FontScaleId>('m')
   /** null = default CSS anchor (bottom-right). Set once dragged / restored. */
   const [pos, setPos] = useState<Pos | null>(null)
+
+  /* Adopt the visitor's persisted choices (stamped pre-paint on <html>). */
+  useEffect(() => {
+    const doc = document.documentElement
+    setDesign(resolveDesign(doc.getAttribute('data-design')))
+    setLogo(resolveLogo(doc.getAttribute('data-logo')))
+    setScale(resolveScale(doc.getAttribute('data-font-scale')))
+  }, [])
 
   const rootRef = useRef<HTMLDivElement>(null)
   const drag = useRef<{

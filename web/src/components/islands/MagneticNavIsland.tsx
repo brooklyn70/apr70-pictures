@@ -41,11 +41,16 @@ function BrandMark({ src, alt, swappable }: { src: string; alt?: string; swappab
     }
   }, [])
 
-  const domSrc =
-    swappable && typeof document !== 'undefined'
-      ? document.documentElement.getAttribute('data-logo-src')
-      : null
-  const effectiveSrc = domSrc ?? src
+  /* The visitor-picked mark lives on <html data-logo-src> (stamped pre-paint).
+     Never read it during render — that forks the client tree from SSR and
+     breaks hydration. Sync it after mount instead (also covers remounts when
+     the nav upgrades from simple to full chrome). */
+  useEffect(() => {
+    if (!swappable) return
+    const img = imgRef.current
+    const domSrc = document.documentElement.getAttribute('data-logo-src')
+    if (img && domSrc && img.getAttribute('src') !== domSrc) img.setAttribute('src', domSrc)
+  }, [swappable])
 
   if (failed) {
     return (
@@ -55,27 +60,29 @@ function BrandMark({ src, alt, swappable }: { src: string; alt?: string; swappab
     )
   }
 
+  /* suppressHydrationWarning: the inline body script swaps src pre-hydration
+     for non-default picks — the attribute is intentionally DOM-owned. */
   return (
     <a className="magnetic-nav__link" href="/">
       <img
         ref={imgRef}
         className="magnetic-nav__logo"
-        src={effectiveSrc}
+        src={src}
         alt={alt ?? 'Home'}
         {...(swappable ? { 'data-brand-wordmark': 'true' } : {})}
         onError={() => setFailed(true)}
+        suppressHydrationWarning
       />
     </a>
   )
 }
 
 function useChromeMode(): 'full' | 'simple' {
-  const [mode, setMode] = useState<'full' | 'simple'>(() => {
-    if (typeof window === 'undefined') return 'simple'
-    const coarse = window.matchMedia('(pointer: coarse)').matches
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    return coarse || reduce ? 'simple' : 'full'
-  })
+  // Always start 'simple' so the first client render matches SSR exactly —
+  // reading matchMedia in the initializer forked server/client trees and
+  // failed hydration on every page. The mount effect below upgrades to
+  // 'full' on fine-pointer, motion-ok devices.
+  const [mode, setMode] = useState<'full' | 'simple'>('simple')
 
   useEffect(() => {
     const coarse = window.matchMedia('(pointer: coarse)')

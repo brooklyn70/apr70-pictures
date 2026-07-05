@@ -41,3 +41,6 @@ Thumbs.db
 
 # nginx secrets
 nginx/.htpasswd*
+
+# Vercel (build output + project link)
+.vercel/

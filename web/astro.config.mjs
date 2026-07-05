@@ -11,11 +11,27 @@ import sitemap from '@astrojs/sitemap';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+// ── Deploy-target adapter selection ──────────────────────────────────────────
+// DEPLOY_TARGET=vercel  → @astrojs/vercel serverless adapter (Vercel project).
+// unset / anything else → @astrojs/node standalone (NAS Docker + local dev,
+// unchanged default). The Vercel adapter is imported lazily so local/NAS
+// builds never even evaluate it. Vercel's own builds set DEPLOY_TARGET=vercel
+// via project env (see docs/decisions/2026-07-05-vercel-supabase-runbook.md).
+const deployTarget = process.env.DEPLOY_TARGET ?? 'node';
+
+const adapter =
+  deployTarget === 'vercel'
+    ? (await import('@astrojs/vercel')).default({
+        // No ISR/edge config: SSR functions only. In-process SWR cache in
+        // src/lib/payload.ts handles egress discipline per instance.
+      })
+    : node({ mode: 'standalone' });
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://apr70.com',
   output: 'server',
-  adapter: node({ mode: 'standalone' }),
+  adapter,
 
   // Listen on all interfaces so remote previews (IDE tunnels, Anti-Gravity, etc.)
   // can reach the dev server. Default port 4321; if busy Astro tries the next.

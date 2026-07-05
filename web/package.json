@@ -16,6 +16,7 @@
     "@astrojs/node": "^10.1.0",
     "@astrojs/react": "^5.0.4",
     "@astrojs/sitemap": "^3.7.2",
+    "@astrojs/vercel": "^11.0.2",
     "@gsap/react": "^2.1.2",
     "@payloadcms/richtext-lexical": "3.84.1",
     "@tailwindcss/vite": "^4.3.0",

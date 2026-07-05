@@ -94,7 +94,7 @@ export default function DispatchReader() {
           {
             variant: 'text',
             text:
-              'The cadence is quarterly. The discipline is the work. The byline is the room. — Editorial Desk',
+              'Issues are numbered, never dated. The discipline is the work. The byline is the room. — Editorial Desk',
           },
         ],
       })
@@ -146,7 +146,7 @@ export default function DispatchReader() {
         <span className="reader-bar-label">
           DISPATCH · {article.section || 'FEATURE'} · {article.folio}
         </span>
-        <span className="reader-bar-center">VOL. 01 · NO. 01 · SPRING 2026</span>
+        <span className="reader-bar-center">VOL. 01 · NO. 01</span>
         <button className="reader-bar-close" onClick={() => setArticle(null)}>
           CLOSE — ESC
         </button>

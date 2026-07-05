@@ -1,5 +1,6 @@
 ---
 import type { DispatchIssueDoc } from '../../lib/payload'
+import { V4_DISPATCH_INDICIA } from '../../content/v4'
 
 interface Props {
   indicia: DispatchIssueDoc['indicia']
@@ -8,6 +9,8 @@ interface Props {
 
 const { indicia, title = 'DIS·PATCH' } = Astro.props
 const parts = String(title).split('·')
+/* Numbered, never dated: the masthead renders Vol/No (+ reel keycode) only —
+   no season, no month, no year, regardless of what the data still carries. */
 ---
 
 <div class="masthead">
@@ -21,12 +24,12 @@ const parts = String(title).split('·')
         </>
       ))}
     </div>
-    <div class="masthead-right">{indicia.season}</div>
+    <div class="masthead-right">{indicia.reel}</div>
   </div>
   <div class="masthead-indicia">
-    <span><b>APR 70 PICTURES</b> QUARTERLY</span>
-    <span>{indicia.isoDate}</span>
+    <span><b>APR 70 PICTURES</b></span>
+    <span>{V4_DISPATCH_INDICIA.numberedLine}</span>
     <span>{indicia.offices}</span>
-    <span>{indicia.printRun} · {indicia.reel}</span>
+    <span>{indicia.printRun}</span>
   </div>
 </div>

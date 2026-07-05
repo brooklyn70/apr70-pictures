@@ -20,6 +20,10 @@ const heroSrc = resolveMediaSrcOrPlaceholder(coverImage, {
   aspect: '9x16',
   division: null,
 })
+
+/* Numbered, never dated: the cover seal shows the issue number, not a
+   season/year (bundle CANON FLAGS item 10). */
+const issueDigits = (indicia.number ?? '').replace(/[^0-9]/g, '') || '01'
 ---
 
 <section class="cover" aria-labelledby="cover-title">
@@ -63,9 +67,9 @@ const heroSrc = resolveMediaSrcOrPlaceholder(coverImage, {
       </div>
     </div>
     <div class="cover-seal" aria-hidden="true">
-      <div class="cover-seal-top">{(indicia.season ?? '').split(' ')[0]}</div>
-      <div class="cover-seal-big">26</div>
-      <div class="cover-seal-sub">QUARTERLY</div>
+      <div class="cover-seal-top">{indicia.volume}</div>
+      <div class="cover-seal-big">{issueDigits}</div>
+      <div class="cover-seal-sub">DISPATCH</div>
     </div>
   </div>
 </section>

@@ -415,6 +415,20 @@ export async function fetchInvestorsGlobal(): Promise<{
   return { investors: data, error, stale }
 }
 
+/**
+ * Troupe Presents page global (/troupe). The global only exists after the
+ * 20260705_troupe_page migration runs; callers must fall back to the static
+ * layout in lib/troupe.ts when this returns null.
+ */
+export async function fetchTroupeGlobal(): Promise<{
+  troupe: PageGlobalData | null
+  error: string | null
+  stale?: boolean
+}> {
+  const { data, error, stale } = await fetchGlobal<PageGlobalData>('troupe', 2)
+  return { troupe: data, error, stale }
+}
+
 export async function fetchDivision212Global(): Promise<{
   division212: DivisionGlobalData | null
   error: string | null

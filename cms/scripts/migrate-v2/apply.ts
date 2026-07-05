@@ -22,6 +22,7 @@ import path from 'node:path'
 
 import { runBrandSeed } from './apply-brand.js'
 import { seedDispatchInaugural } from './seed-dispatch.js'
+import { seedTroupePage } from './seed-troupe.js'
 import { buildDefaultDivisionLayout, type DivisionSlug } from './division-default-layouts.js'
 import { discoverJsonDocuments } from './discover.js'
 import { inferDocumentId, mapV2DocumentToLayout } from './map-layout.js'
@@ -50,6 +51,7 @@ export type ApplyReport = {
   footerMoreNavLinksWritten: number
   divisionDefaultsSeeded: number
   dispatchIssuesWritten: number
+  troupePageSeeded: number
   warnings: string[]
   errors: string[]
 }
@@ -212,6 +214,7 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
       footerMoreNavLinksWritten: 0,
       divisionDefaultsSeeded: 0,
       dispatchIssuesWritten: 0,
+      troupePageSeeded: 0,
       warnings,
       errors,
     }
@@ -272,6 +275,7 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
       footerMoreNavLinksWritten: 0,
       divisionDefaultsSeeded: 0,
       dispatchIssuesWritten: 0,
+      troupePageSeeded: 0,
       warnings,
       errors,
     }
@@ -347,6 +351,18 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
     } catch (e) {
       errors.push(`division global ${slug}: ${String(e)}`)
     }
+  }
+
+  // ── 9b. Troupe Presents page — DRAFT layout (only when empty) ──────────────
+  let troupePageSeeded = 0
+  try {
+    const troupeReport = await seedTroupePage(token)
+    troupePageSeeded = troupeReport.seeded
+    warnings.push(...troupeReport.warnings.map((w) => `[troupe] ${w}`))
+    errors.push(...troupeReport.errors.map((e) => `[troupe] ${e}`))
+    console.log(`Troupe seed: ${troupePageSeeded} page(s) seeded`)
+  } catch (e) {
+    warnings.push(`[troupe] Troupe seed failed: ${String(e)}`)
   }
 
   // ── 10. Seed Projects collection ────────────────────────────────────────────
@@ -454,6 +470,7 @@ export async function runApply(opts: ApplyOptions): Promise<ApplyReport> {
     footerMoreNavLinksWritten,
     divisionDefaultsSeeded,
     dispatchIssuesWritten,
+    troupePageSeeded,
     warnings,
     errors,
   }
@@ -476,6 +493,7 @@ export function formatApplyReportConsole(report: ApplyReport): string {
     `Footer moreNav links written:    ${report.footerMoreNavLinksWritten}`,
     `Division globals seeded (empty): ${report.divisionDefaultsSeeded}`,
     `DISPATCH issues written:         ${report.dispatchIssuesWritten}`,
+    `Troupe page seeded (empty only): ${report.troupePageSeeded}`,
     `Warnings: ${report.warnings.length}`,
     `Errors: ${report.errors.length}`,
   ]

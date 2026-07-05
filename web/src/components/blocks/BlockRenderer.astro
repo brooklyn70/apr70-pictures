@@ -1,5 +1,6 @@
 ---
 import type { Home } from 'payload-types'
+import type { TroupeLayoutBlock } from '../../lib/troupe'
 
 import HeroBlock from './HeroBlock.astro'
 import RichTextBlock from './RichTextBlock.astro'
@@ -11,11 +12,14 @@ import FilmstripBlock from './FilmstripBlock.astro'
 import DivisionBlock from './DivisionBlock.astro'
 import StatsBlock from './StatsBlock.astro'
 import DividerBlock from './DividerBlock.astro'
+import PlaybillBlock from './PlaybillBlock.astro'
 
-type LayoutBlock = NonNullable<Home['layout']>[number]
+// TroupeLayoutBlock = generated Home layout union + the playbill block
+// (playbill enters the generated types after `payload generate:types` post-merge).
+type LayoutBlock = TroupeLayoutBlock
 
 interface Props {
-  blocks: Home['layout']
+  blocks: Home['layout'] | TroupeLayoutBlock[] | null | undefined
 }
 
 const { blocks } = Astro.props
@@ -44,6 +48,8 @@ const { blocks } = Astro.props
         return <StatsBlock block={block} />
       case 'divider':
         return <DividerBlock block={block} />
+      case 'playbill':
+        return <PlaybillBlock block={block} />
       default:
         return null
     }

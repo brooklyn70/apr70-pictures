@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" role="img" aria-label="Placeholder line art: bradded script cover">
+  <!-- PLACEHOLDER artwork, hand-drawn line art. Palette tokens only:
+       212-sicilian-orange #E85D04 / 310-imax #077082 / nrc-grey #c8c8c8.
+       To be replaced by a PD-verified photograph (see vault pd-image-ledger-troupe.md). -->
+
+  <!-- sprocket-hole strips -->
+  <g fill="#c8c8c8" fill-opacity="0.45">
+    <rect x="22" y="40"  width="26" height="20" rx="2"/>
+    <rect x="22" y="130" width="26" height="20" rx="2"/>
+    <rect x="22" y="220" width="26" height="20" rx="2"/>
+    <rect x="22" y="310" width="26" height="20" rx="2"/>
+    <rect x="22" y="400" width="26" height="20" rx="2"/>
+    <rect x="22" y="490" width="26" height="20" rx="2"/>
+    <rect x="22" y="580" width="26" height="20" rx="2"/>
+    <rect x="22" y="670" width="26" height="20" rx="2"/>
+    <rect x="552" y="40"  width="26" height="20" rx="2"/>
+    <rect x="552" y="130" width="26" height="20" rx="2"/>
+    <rect x="552" y="220" width="26" height="20" rx="2"/>
+    <rect x="552" y="310" width="26" height="20" rx="2"/>
+    <rect x="552" y="400" width="26" height="20" rx="2"/>
+    <rect x="552" y="490" width="26" height="20" rx="2"/>
+    <rect x="552" y="580" width="26" height="20" rx="2"/>
+    <rect x="552" y="670" width="26" height="20" rx="2"/>
+  </g>
+
+  <!-- page behind (offset) -->
+  <rect x="140" y="88" width="350" height="540" fill="none" stroke="#c8c8c8" stroke-width="4"/>
+  <!-- page front -->
+  <rect x="120" y="70" width="350" height="540" fill="none" stroke="#E85D04" stroke-width="6"/>
+
+  <!-- brads on the left edge -->
+  <g fill="none" stroke="#077082" stroke-width="6">
+    <circle cx="150" cy="180" r="14"/>
+    <circle cx="150" cy="500" r="14"/>
+    <line x1="150" y1="166" x2="150" y2="152"/>
+    <line x1="150" y1="486" x2="150" y2="472"/>
+  </g>
+
+  <!-- title block -->
+  <text x="305" y="250" text-anchor="middle" font-family="'Share Tech Mono','Courier New',monospace" font-size="26" letter-spacing="10" fill="#077082">NO. 1</text>
+  <g stroke="#077082" stroke-width="5" stroke-linecap="round">
+    <line x1="205" y1="300" x2="405" y2="300"/>
+    <line x1="225" y1="336" x2="385" y2="336"/>
+  </g>
+
+  <!-- body lines -->
+  <g stroke="#c8c8c8" stroke-width="4" stroke-linecap="round" stroke-opacity="0.8">
+    <line x1="185" y1="410" x2="425" y2="410"/>
+    <line x1="185" y1="444" x2="425" y2="444"/>
+    <line x1="185" y1="478" x2="385" y2="478"/>
+    <line x1="185" y1="512" x2="425" y2="512"/>
+    <line x1="185" y1="546" x2="345" y2="546"/>
+  </g>
+
+  <text x="300" y="680" text-anchor="middle" font-family="'Share Tech Mono','Courier New',monospace" font-size="18" letter-spacing="8" fill="#c8c8c8">PLACEHOLDER</text>
+</svg>

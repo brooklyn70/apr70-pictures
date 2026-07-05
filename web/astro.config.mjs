@@ -49,6 +49,12 @@ export default defineConfig({
         'payload-types': path.resolve(__dirname, '../cms/src/payload-types.ts'),
       },
     },
+    // Bundle gsap into the SSR build: its package ships ESM under a CJS-looking
+    // entry, and Vercel's serverless runtime require()s it → SyntaxError. Vite
+    // transforms it when noExternal; harmless for the node/NAS target.
+    ssr: {
+      noExternal: ['gsap'],
+    },
     // Dev-only: mirror the prod nginx rules that send Payload media to the CMS
     // origin (resolveMediaUrl returns relative /api/media/... and /media/...
     // paths so the browser resolves them via the reverse proxy). Without this,

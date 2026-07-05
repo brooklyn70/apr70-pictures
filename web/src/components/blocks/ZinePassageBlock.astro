@@ -1,0 +1,141 @@
+---
+/**
+ * ZinePassageBlock.astro — general text-forward zine section.
+ * Kicker rail + heading + lede + plain-text paragraphs + numbered link index.
+ * Zero JS, tokens only, mobile-first.
+ */
+import type { ZinePassageData } from '../../content/v4'
+import { toParagraphs } from '../../content/v4'
+
+interface Props {
+  block: ZinePassageData
+}
+
+const { block } = Astro.props
+const paragraphs = toParagraphs(block.body)
+const links = (block.links ?? []).filter((l) => l?.label && l?.href)
+---
+
+<section class="zine-passage">
+  <div class="container zine-passage__inner">
+    <div class="zine-passage__rail">
+      {block.kicker && <span class="zine-passage__kicker">{block.kicker}</span>}
+    </div>
+    <div class="zine-passage__main">
+      <h2 class="zine-passage__heading">{block.heading}</h2>
+      {block.lede && <p class="zine-passage__lede">{block.lede}</p>}
+      {paragraphs.map((p) => (
+        <p class="zine-passage__body">{p}</p>
+      ))}
+      {links.length > 0 && (
+        <nav class="zine-passage__links" aria-label={`${block.heading} links`}>
+          {links.map((link, i) => (
+            <a class="zine-passage__link" href={link.href}>
+              <span class="zine-passage__link-num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="zine-passage__link-label">{link.label}</span>
+              <span class="zine-passage__link-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          ))}
+        </nav>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .zine-passage {
+    border-bottom: 1px solid var(--rule);
+    padding: clamp(2rem, 5vw, 3.5rem) 0;
+  }
+
+  .zine-passage__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-4) var(--s-8);
+  }
+
+  @media (min-width: 820px) {
+    .zine-passage__inner {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2.6fr);
+    }
+  }
+
+  .zine-passage__kicker {
+    font-family: var(--font-mono);
+    font-size: var(--type-micro);
+    letter-spacing: var(--track-eyebrow);
+    text-transform: uppercase;
+    color: var(--apr-orange);
+  }
+
+  .zine-passage__heading {
+    font-size: clamp(1.75rem, 5vw, 3.25rem);
+    margin: 0 0 var(--s-4);
+    color: var(--fg-1);
+  }
+
+  .zine-passage__lede {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
+    line-height: var(--leading-snug);
+    color: var(--fg-2);
+    margin: 0 0 var(--s-5);
+  }
+
+  .zine-passage__body {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: var(--type-body-lg);
+    line-height: var(--leading-body);
+    color: var(--fg-2);
+    max-width: 66ch;
+    margin: 0 0 var(--s-5);
+  }
+
+  .zine-passage__body:last-child {
+    margin-bottom: 0;
+  }
+
+  .zine-passage__links {
+    margin-top: var(--s-5);
+    border-top: 1px solid var(--rule);
+  }
+
+  .zine-passage__link {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s-4);
+    padding: var(--s-3) 0;
+    border-bottom: 1px solid var(--rule);
+    text-decoration: none;
+    color: var(--fg-2);
+    transition: color var(--dur-quick) var(--ease-out);
+  }
+
+  .zine-passage__link:hover {
+    color: var(--fg-1);
+  }
+
+  .zine-passage__link-num {
+    font-family: var(--font-mono);
+    font-size: var(--type-micro);
+    letter-spacing: var(--track-wider);
+    color: var(--fg-4);
+  }
+
+  .zine-passage__link-label {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: var(--type-small);
+    letter-spacing: var(--track-wide);
+    text-transform: uppercase;
+  }
+
+  .zine-passage__link-arrow {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: var(--type-caption);
+    color: var(--apr-orange);
+  }
+</style>

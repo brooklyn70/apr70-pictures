@@ -11,11 +11,17 @@ import FilmstripBlock from './FilmstripBlock.astro'
 import DivisionBlock from './DivisionBlock.astro'
 import StatsBlock from './StatsBlock.astro'
 import DividerBlock from './DividerBlock.astro'
+import ZineMastheadBlock from './ZineMastheadBlock.astro'
+import ZinePassageBlock from './ZinePassageBlock.astro'
+import ZineSynopsisBlock from './ZineSynopsisBlock.astro'
+import type { ZineBlockData } from '../../content/v4'
 
-type LayoutBlock = NonNullable<Home['layout']>[number]
+/* Zine block types are structural (see content/v4.ts) until payload type
+   generation is unblocked; the union keeps the switch type-safe. */
+type LayoutBlock = NonNullable<Home['layout']>[number] | ZineBlockData
 
 interface Props {
-  blocks: Home['layout']
+  blocks: Home['layout'] | LayoutBlock[] | null | undefined
 }
 
 const { blocks } = Astro.props
@@ -44,6 +50,12 @@ const { blocks } = Astro.props
         return <StatsBlock block={block} />
       case 'divider':
         return <DividerBlock block={block} />
+      case 'zineMasthead':
+        return <ZineMastheadBlock block={block} />
+      case 'zinePassage':
+        return <ZinePassageBlock block={block} />
+      case 'zineSynopsis':
+        return <ZineSynopsisBlock block={block} />
       default:
         return null
     }

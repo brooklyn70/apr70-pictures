@@ -1,61 +1,72 @@
 /* ============================================================
-   T5 · PICTURE PALACE — SCAFFOLD (Wave C completes the deployment).
+   T5 · PICTURE PALACE — the night marquee (FULL DEPLOYMENT, Wave C2).
 
-   PERSONALITY CONTRACT
-   Night-marquee deco. Black-blue NIGHT (#050810) with brand blue
-   #0077B6 + white. Futura Condensed stacked in VERTICAL letter
-   towers (marquee columns); footlight GLOW (radial gradients from
-   below); brass hairlines. Nav = marquee cells that light on
-   hover. Motion = letters illuminate in sequence (staggered
-   brightness, tiny flicker on arrival ≤2 per page); glow blooms
-   on scroll arrival. NO auto-motion, NO tickers. DEFAULT MODE:
-   DARK. Light = daytime palace: cool plaster white, navy type.
+   DESIGN, not palette. The front door is re-read as a 1930s movie
+   palace after dark: Futura Std Condensed stacked tall; a grand
+   illuminated MARQUEE nameplate framed in brass double-rules with a
+   bulb band and footlights rising from below; NAV rebuilt as marquee
+   cells that LIGHT on hover; the cover display raised into VERTICAL
+   letter TOWERS (writing-mode blades) like a theatre's vertical sign;
+   footlight radial glows under every hero; brass hairlines throughout.
+   Motion (picture-palace.ts): letters ILLUMINATE in sequence, ≤2
+   flickers on arrival, glow blooms on scroll arrival. No auto-motion.
 
-   This scaffold binds BOTH modes so the theme is legible today.
-   Wave C replaces/extends below with the real marquee + glow.
+   Palette: brand blue #0077B6 + white on a deco NIGHT (#050810);
+   brass #b9922e hairlines. DEFAULT MODE: dark (night). Light = a
+   daytime palace: cool plaster white, navy type.
+   Everything scoped under [data-design='picture-palace'].
    ============================================================ */
 
 [data-design='picture-palace'] {
   --accent: var(--apr-blue);
   --font-display: 'Futura Std Condensed', 'Futura Std', 'Arial Narrow', sans-serif;
-  /* Brass hairline (Wave C uses for rules). */
+  /* Brass hairline system — a warm gold that reads on night and plaster alike. */
   --brass: #b9922e;
+  --brass-lit: #e2c063;
+  --brass-dim: rgba(185, 146, 46, 0.42);
+  /* Footlight bloom amount — motion animates this 0→1 on scroll arrival;
+     SSR/no-JS default is 1 so the glow is present without JS. */
+  --pp-glow: 1;
 }
 
-/* ---- DARK (default) — deco night, blue + white ---- */
+/* ---- DARK (default) — deco night, blue + white + brass ---- */
 [data-design='picture-palace'][data-theme='dark'] {
   --bg-0: #050810;
-  --bg-1: #080c1a;
-  --bg-2: #0c1226;
-  --bg-3: #121a36;
+  --bg-1: #080d1c;
+  --bg-2: #0c1428;
+  --bg-3: #121d3a;
   --fg-1: #ffffff;
-  --fg-2: rgba(255, 255, 255, 0.82);
-  --fg-3: rgba(255, 255, 255, 0.56);
-  --fg-4: rgba(255, 255, 255, 0.38);
-  --fg-5: rgba(255, 255, 255, 0.22);
-  --fg-6: rgba(255, 255, 255, 0.10);
-  --rule: rgba(255, 255, 255, 0.12);
-  --rule-strong: rgba(0, 119, 182, 0.50);
+  --fg-2: rgba(233, 240, 250, 0.84);
+  --fg-3: rgba(210, 224, 242, 0.60);
+  --fg-4: rgba(190, 208, 232, 0.42);
+  --fg-5: rgba(170, 192, 222, 0.26);
+  --fg-6: rgba(150, 178, 214, 0.12);
+  --rule: rgba(150, 178, 214, 0.16);
+  --rule-strong: rgba(0, 119, 182, 0.55);
   --muted: #7f93ad;
-  --cursor-color: rgba(0, 119, 182, 0.95);
+  --cursor-color: rgba(0, 160, 230, 0.95);
+  --bulb: #cfe6ff;
+  --footlight: rgba(0, 130, 200, 0.42);
 }
 
-/* ---- LIGHT — daytime palace: cool plaster, navy type ---- */
+/* ---- LIGHT — daytime palace: cool plaster, navy type, brass trim ---- */
 [data-design='picture-palace'][data-theme='light'] {
-  --bg-0: #eef1f4;
-  --bg-1: #e6eaef;
-  --bg-2: #dae0e7;
-  --bg-3: #c8d1db;
+  --bg-0: #eef1f5;
+  --bg-1: #e6ebf1;
+  --bg-2: #dbe2ea;
+  --bg-3: #c9d3df;
   --fg-1: #001f3f;
-  --fg-2: rgba(0, 31, 63, 0.82);
-  --fg-3: rgba(0, 31, 63, 0.58);
-  --fg-4: rgba(0, 31, 63, 0.42);
-  --fg-5: rgba(0, 31, 63, 0.28);
-  --fg-6: rgba(0, 31, 63, 0.12);
-  --rule: rgba(0, 31, 63, 0.14);
-  --rule-strong: rgba(0, 119, 182, 0.40);
-  --muted: #4a5f78;
+  --fg-2: rgba(0, 31, 63, 0.84);
+  --fg-3: rgba(0, 31, 63, 0.60);
+  --fg-4: rgba(0, 31, 63, 0.44);
+  --fg-5: rgba(0, 31, 63, 0.30);
+  --fg-6: rgba(0, 31, 63, 0.14);
+  --rule: rgba(0, 31, 63, 0.16);
+  --rule-strong: rgba(0, 119, 182, 0.45);
+  --muted: #47597a;
   --cursor-color: rgba(0, 31, 63, 0.85);
+  --bulb: #ffd77a;
+  --footlight: rgba(0, 119, 182, 0.20);
 }
 [data-design='picture-palace'][data-theme='light'] body {
   background: var(--bg-0);
@@ -69,4 +80,446 @@
 [data-design='picture-palace'] :focus-visible {
   outline: 2px solid var(--apr-blue);
   outline-offset: 3px;
+}
+
+/* ============================================================
+   VOICE — Futura Condensed leads the display; Barlow stays for the
+   reading body. Deco = tall, narrow, confident caps.
+   ============================================================ */
+[data-design='picture-palace'] h1,
+[data-design='picture-palace'] h2,
+[data-design='picture-palace'] h3 {
+  font-family: var(--font-display);
+}
+
+/* ============================================================
+   CHROME 1 · TOP RAIL → the marquee bulb band. Sprockets become
+   glowing bulbs; the rail gets a brass base rule; the leader tab
+   stays a blue cue; the keycode reads in brass.
+   ============================================================ */
+[data-design='picture-palace'] .strip-rail {
+  background: linear-gradient(180deg, #0a1224 0%, #05080f 100%);
+  border-bottom: 2px solid var(--brass);
+  gap: 18px;
+}
+[data-design='picture-palace'] .strip-rail .sprocket {
+  width: 6px;
+  height: 6px;
+  border: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0 32%, var(--bulb) 46%, transparent 72%);
+  box-shadow: 0 0 7px 0 color-mix(in srgb, var(--bulb) 75%, transparent);
+}
+[data-design='picture-palace'] .strip-rail__keycode {
+  background: transparent;
+  color: var(--brass-lit);
+  letter-spacing: 0.4em;
+}
+[data-design='picture-palace'] .strip-rail--leader::before {
+  background: var(--apr-blue);
+  box-shadow: 0 0 10px 0 color-mix(in srgb, var(--apr-blue) 80%, transparent);
+}
+/* the sticky header is the palace facade at night: brass sill, no grey haze */
+[data-design='picture-palace'] .site-header {
+  background: color-mix(in srgb, var(--bg-1) 92%, transparent);
+  border-bottom: 1px solid var(--brass-dim);
+}
+
+/* ============================================================
+   CHROME 2 · NAV → marquee cells. Each entry is a brass-edged tile
+   that LIGHTS (blue bloom) on hover/focus and stays lit when active.
+   The underline-draw is retired for a lit cell.
+   ============================================================ */
+[data-design='picture-palace'] .site-nav__links {
+  gap: clamp(6px, 1vw, 12px);
+}
+[data-design='picture-palace'] .site-nav__link {
+  padding: 7px 13px;
+  border: 1px solid var(--brass-dim);
+  background: color-mix(in srgb, var(--bg-2) 55%, transparent);
+  align-items: center;
+  gap: 8px;
+  transition: background 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+}
+[data-design='picture-palace'] .site-nav__link::after {
+  display: none; /* no underline draw — the whole cell lights instead */
+}
+[data-design='picture-palace'] .site-nav__num {
+  color: var(--brass-lit);
+  font-family: var(--font-mono);
+  transition: color 0.28s ease, transform 0.28s ease;
+}
+[data-design='picture-palace'] .site-nav__label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--fg-2);
+  transition: color 0.28s ease;
+}
+[data-design='picture-palace'] .site-nav__link:hover,
+[data-design='picture-palace'] .site-nav__link:focus-visible,
+[data-design='picture-palace'] .site-nav__link[aria-current='page'] {
+  background: color-mix(in srgb, var(--apr-blue) 24%, var(--bg-2));
+  border-color: var(--apr-blue);
+  box-shadow:
+    0 0 18px -3px color-mix(in srgb, var(--apr-blue) 60%, transparent),
+    inset 0 0 14px -6px color-mix(in srgb, var(--apr-blue) 70%, transparent);
+}
+[data-design='picture-palace'] .site-nav__link:hover .site-nav__num,
+[data-design='picture-palace'] .site-nav__link:focus-visible .site-nav__num,
+[data-design='picture-palace'] .site-nav__link:hover .site-nav__label,
+[data-design='picture-palace'] .site-nav__link:focus-visible .site-nav__label,
+[data-design='picture-palace'] .site-nav__link[aria-current='page'] .site-nav__num,
+[data-design='picture-palace'] .site-nav__link[aria-current='page'] .site-nav__label {
+  color: #ffffff;
+  transform: none;
+}
+[data-design='picture-palace'] .site-nav__folio {
+  font-family: var(--font-mono);
+  color: var(--brass-lit);
+}
+[data-design='picture-palace'] .site-nav__folio b {
+  color: var(--apr-blue);
+}
+
+/* ============================================================
+   BLOCK 1 · NAMEPLATE → the grand illuminated MARQUEE. Futura
+   Condensed inside a brass double-rule frame, bulb strips top and
+   bottom, footlights rising from below.
+   ============================================================ */
+[data-design='picture-palace'] .front-nameplate {
+  position: relative;
+  border-bottom: none;
+  overflow: hidden;
+  padding-bottom: clamp(2rem, 5vw, 4rem);
+}
+/* footlights: a blue bloom rising from the bottom edge */
+[data-design='picture-palace'] .front-nameplate::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -14%;
+  transform: translateX(-50%);
+  width: min(900px, 96vw);
+  height: 62%;
+  background: radial-gradient(ellipse at bottom, var(--footlight), transparent 68%);
+  opacity: var(--pp-glow);
+  pointer-events: none;
+}
+[data-design='picture-palace'] .front-nameplate .front-nameplate__inner {
+  position: relative;
+  border: 4px double var(--brass);
+  padding: clamp(1.75rem, 4.5vw, 3.5rem) clamp(1.25rem, 3vw, 2.5rem) clamp(2rem, 5vw, 3.5rem);
+  background: color-mix(in srgb, var(--bg-1) 40%, transparent);
+}
+/* bulb strips along the top and bottom of the marquee */
+[data-design='picture-palace'] .front-nameplate .front-nameplate__inner::before,
+[data-design='picture-palace'] .front-nameplate .front-nameplate__inner::after {
+  content: '';
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  height: 7px;
+  background-image: radial-gradient(circle, var(--bulb) 0 2.1px, transparent 2.6px);
+  background-size: 18px 7px;
+  background-repeat: repeat-x;
+  background-position: center;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--bulb) 70%, transparent));
+  opacity: var(--pp-glow);
+}
+[data-design='picture-palace'] .front-nameplate .front-nameplate__inner::before { top: 9px; }
+[data-design='picture-palace'] .front-nameplate .front-nameplate__inner::after { bottom: 9px; }
+[data-design='picture-palace'] .front-nameplate .front-nameplate__wordmark {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.01em;
+  line-height: 0.92;
+  color: #ffffff;
+  text-shadow:
+    0 0 18px color-mix(in srgb, var(--apr-blue) 55%, transparent),
+    0 0 2px color-mix(in srgb, var(--apr-blue) 40%, transparent);
+}
+[data-design='picture-palace'][data-theme='light'] .front-nameplate .front-nameplate__wordmark {
+  color: var(--fg-1);
+  text-shadow: 0 0 14px color-mix(in srgb, var(--apr-blue) 22%, transparent);
+}
+/* the full stop is the brightest jewel on the marquee (blue, not orange) */
+[data-design='picture-palace'] .front-nameplate .front-nameplate__dot {
+  color: var(--apr-blue);
+  text-shadow: 0 0 16px color-mix(in srgb, var(--apr-blue) 85%, transparent);
+}
+[data-design='picture-palace'] .front-nameplate .front-nameplate__subline {
+  font-family: var(--font-mono);
+  color: var(--brass-lit);
+}
+[data-design='picture-palace'] .front-nameplate .front-nameplate__location {
+  color: var(--fg-3);
+}
+[data-design='picture-palace'] .front-nameplate .front-nameplate__indicia {
+  border-top: 1px solid var(--brass-dim);
+}
+[data-design='picture-palace'] .front-nameplate .front-nameplate__indicium b {
+  color: var(--apr-blue);
+}
+
+/* ============================================================
+   BLOCK 2 · IDENTITY STRIP → a lobby placard. Barlow read, opening
+   line in blue with a brass under-rule.
+   ============================================================ */
+[data-design='picture-palace'] .front-identity {
+  border-bottom: 1px solid var(--brass-dim);
+}
+[data-design='picture-palace'] .front-identity .front-identity__read {
+  color: var(--fg-2);
+}
+[data-design='picture-palace'] .front-identity .front-identity__read .first-words {
+  color: var(--apr-blue);
+  font-weight: 600;
+}
+
+/* ============================================================
+   BLOCK 3 · DISPATCH BAND → a brass-framed marquee band. Blue cue,
+   condensed name, hover lights the CTA blue.
+   ============================================================ */
+[data-design='picture-palace'] .front-dispatch .front-dispatch__band {
+  border-top: 3px double var(--brass);
+  border-bottom: 3px double var(--brass);
+}
+[data-design='picture-palace'] .front-dispatch .front-dispatch__band::before {
+  background: var(--apr-blue);
+  box-shadow: 0 0 12px 0 color-mix(in srgb, var(--apr-blue) 70%, transparent);
+}
+[data-design='picture-palace'] .front-dispatch .front-dispatch__name {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+[data-design='picture-palace'] .front-dispatch .front-dispatch__name b {
+  color: var(--apr-blue);
+}
+[data-design='picture-palace'] .front-dispatch .front-dispatch__cta:hover,
+[data-design='picture-palace'] .front-dispatch .front-dispatch__cta:focus-visible {
+  background: var(--apr-blue);
+  border-color: var(--apr-blue);
+  color: #ffffff;
+  box-shadow: 0 0 16px -3px color-mix(in srgb, var(--apr-blue) 70%, transparent);
+}
+
+/* ============================================================
+   BLOCK 4 · COVER STORY → VERTICAL letter towers. The stacked
+   display (L.A. / DOLCE / VITA) is raised into three writing-mode
+   blades like a theatre's vertical sign; the plate is framed in
+   brass with a footlight; the ghost blade is outlined and unlit.
+   ============================================================ */
+[data-design='picture-palace'] .front-cover .front-cover__eyebrow {
+  color: var(--brass-lit);
+}
+[data-design='picture-palace'] .front-cover .front-cover__eyebrow::before {
+  background: var(--brass);
+}
+/* the vertical marquee blades */
+[data-design='picture-palace'] .front-cover .front-cover__display {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: clamp(0.5rem, 2vw, 1.5rem);
+  font-family: var(--font-display);
+  font-weight: 900;
+  line-height: 1;
+}
+[data-design='picture-palace'] .front-cover .front-cover__line {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-size: clamp(2rem, 4.6vw, 3.9rem);
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  text-shadow: 0 0 16px color-mix(in srgb, var(--apr-blue) 45%, transparent);
+}
+[data-design='picture-palace'][data-theme='light'] .front-cover .front-cover__line {
+  color: var(--fg-1);
+  text-shadow: none;
+}
+[data-design='picture-palace'] .front-cover .front-cover__display .ghost {
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--apr-blue) 70%, var(--fg-1));
+  text-shadow: none;
+}
+[data-design='picture-palace'] .front-cover .front-cover__deck {
+  color: var(--fg-2);
+}
+[data-design='picture-palace'] .front-cover .front-cover__cta:hover,
+[data-design='picture-palace'] .front-cover .front-cover__cta:focus-visible {
+  background: var(--apr-blue);
+  border-color: var(--apr-blue);
+  color: #ffffff;
+  box-shadow: 0 0 16px -3px color-mix(in srgb, var(--apr-blue) 70%, transparent);
+}
+[data-design='picture-palace'] .front-cover .front-cover__plate {
+  padding: 9px;
+  border: 3px double var(--brass);
+  background: color-mix(in srgb, var(--bg-2) 50%, transparent);
+}
+[data-design='picture-palace'] .front-cover .front-cover__plate::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -18px;
+  transform: translateX(-50%);
+  width: 78%;
+  height: 40px;
+  background: radial-gradient(ellipse at top, var(--footlight), transparent 70%);
+  opacity: var(--pp-glow);
+  pointer-events: none;
+}
+[data-design='picture-palace'] .front-cover .front-cover__img {
+  border-color: var(--brass-dim);
+}
+[data-design='picture-palace'] .front-cover .front-cover__credit {
+  color: var(--brass-lit);
+}
+[data-design='picture-palace'] .front-cover .front-cover__coverline-num {
+  color: var(--apr-blue);
+}
+[data-design='picture-palace'] .front-cover .front-cover__coverline-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.03em;
+}
+
+/* ============================================================
+   BLOCK 5 · THREE DOORS → marquee cells that light from below.
+   Brass grid; each door glows blue on hover with a footlight bloom;
+   condensed names; the coloured division sweep is retuned to a
+   blue footlight so the palace reads as one lit house.
+   ============================================================ */
+[data-design='picture-palace'] .front-doors .front-doors__head {
+  border-top: 3px double var(--brass);
+}
+[data-design='picture-palace'] .front-doors .front-doors__heading {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.03em;
+}
+[data-design='picture-palace'] .front-doors .front-doors__grid {
+  background: var(--brass-dim);
+  border: 1px solid var(--brass-dim);
+}
+[data-design='picture-palace'] .front-door {
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+/* retune the division sweep into a shared blue footlight rising from the base */
+[data-design='picture-palace'] .front-door::before {
+  background: linear-gradient(0deg, var(--footlight), transparent 70%);
+  opacity: 0;
+  transform: none;
+  transition: opacity 0.35s ease;
+}
+[data-design='picture-palace'] .front-door:hover::before,
+[data-design='picture-palace'] .front-door:focus-visible::before {
+  transform: none;
+  opacity: 1;
+}
+[data-design='picture-palace'] .front-door:hover,
+[data-design='picture-palace'] .front-door:focus-visible {
+  box-shadow: inset 0 -3px 0 var(--apr-blue);
+}
+[data-design='picture-palace'] .front-door .front-door__name {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  font-size: 1.6rem;
+}
+[data-design='picture-palace'] .front-door .front-door__foot::before {
+  background: var(--apr-blue);
+}
+
+/* ============================================================
+   BLOCK 6 · THE SLATE → the programme board. Brass rules; each row
+   lights blue on hover with a brass cue bar; condensed titles.
+   ============================================================ */
+[data-design='picture-palace'] .front-slate {
+  border-top: 3px double var(--brass);
+  border-bottom: 3px double var(--brass);
+}
+[data-design='picture-palace'] .front-slate .front-slate__heading {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.03em;
+}
+[data-design='picture-palace'] .front-slate .front-slate__row:hover,
+[data-design='picture-palace'] .front-slate .front-slate__row:focus-visible {
+  background: color-mix(in srgb, var(--apr-blue) 12%, transparent);
+  box-shadow: inset 3px 0 0 var(--brass-lit);
+}
+[data-design='picture-palace'] .front-slate .front-slate__title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  font-size: clamp(1.15rem, 2.2vw, 1.7rem);
+}
+[data-design='picture-palace'] .front-slate .front-slate__idx {
+  color: var(--brass-lit);
+}
+
+/* ============================================================
+   BLOCK 7 · ABOUT WINDOW → the footlights before the house goes
+   dark. The centred radial is re-anchored to rise from below in
+   blue; the closing rule glows blue.
+   ============================================================ */
+[data-design='picture-palace'] .front-about::before {
+  top: auto;
+  bottom: -8%;
+  width: min(760px, 94vw);
+  height: 320px;
+  border-radius: 0;
+  background: radial-gradient(ellipse at bottom, var(--footlight), transparent 68%);
+  opacity: var(--pp-glow);
+}
+[data-design='picture-palace'] .front-about .front-about__window {
+  color: var(--fg-1);
+}
+[data-design='picture-palace'] .front-about .front-about__rule {
+  color: var(--apr-blue);
+}
+
+/* ============================================================
+   FOOTER · brass hairlines and marks under the night palette. NRC's
+   navy lockup sinks into the deco night (and its grey sinks into
+   plaster), so it gets a per-mode brightness lift (scoped filter —
+   Footer.astro is never touched). Footer boiler → condensed.
+   ============================================================ */
+[data-design='picture-palace'] .site-footer {
+  border-top: 1px solid var(--brass-dim);
+}
+[data-design='picture-palace'] .footer__colophon,
+[data-design='picture-palace'] .footer__boilerplate {
+  border-top: 1px solid var(--brass-dim);
+}
+[data-design='picture-palace'] .footer__boiler {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.03em;
+}
+[data-design='picture-palace'] .footer__colophon-head {
+  color: var(--brass-lit);
+}
+/* NRC navy on the night ground: lift + saturate so it reads as blue-lit brass,
+   not a black hole; on plaster its grey is inked down. */
+[data-design='picture-palace'][data-theme='dark'] .footer__mark--nrc {
+  filter: brightness(2.7) saturate(1.15);
+}
+[data-design='picture-palace'][data-theme='light'] .footer__mark--nrc {
+  filter: brightness(0.5);
+}
+
+/* ============================================================
+   MOTION SUPPORT · illumination tweens opacity/brightness; the
+   global a{transition:opacity} would fight those, so illuminated
+   letters/glow hooks opt out of inherited transitions. Glow pseudos
+   read --pp-glow (default 1 = visible without JS); motion blooms it
+   0→1 on scroll arrival. SSR default is fully lit — no pre-hide.
+   ============================================================ */
+[data-design='picture-palace'] [data-motion='nameplate-line'],
+[data-design='picture-palace'] [data-motion='cover-line'] {
+  transition: none;
 }

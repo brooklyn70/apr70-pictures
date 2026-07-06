@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APR 70 Pictures — DISPATCH · Vol. 1 No. 1</title>
+<link rel="icon" type="image/svg+xml" href="assets/apr70_favicon_white.svg">
+<link rel="stylesheet" href="dispatch.css">
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script src="image-slot.js"></script>
+<script type="text/babel" src="data.jsx"></script>
+<script type="text/babel" src="Chrome.jsx"></script>
+<script type="text/babel" src="CoverSection.jsx"></script>
+<script type="text/babel" src="Sections.jsx"></script>
+<script type="text/babel" src="Reader.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+
+<script type="text/babel">
+const { useState, useEffect } = React;
+const D = window.DISPATCH_DATA;
+
+// Default tweaks — editable in-place via the host
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "theme": "cinema",
+  "accent": "#E85D04",
+  "showSeal": true,
+  "coverDensity": "spare",
+  "featureColumns": 3,
+  "showGhostNumerals": true,
+  "filmstripAccent": "#E85D04",
+  "issueTitle": "DA·NEWS"
+}/*EDITMODE-END*/;
+
+const ACCENT_OPTIONS = ['#E85D04', '#824B07', '#077082', '#0077B6', '#c8c8c8'];
+const ACCENT_LABELS  = { '#E85D04': 'ORANGE', '#824B07': 'AMBER', '#077082': 'TEAL', '#0077B6': 'NAVY', '#c8c8c8': 'OFFWHITE' };
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const [reader, setReader] = useState(null);
+
+  // Apply tweaks at document/body level
+  useEffect(() => {
+    document.body.classList.toggle('theme-parchment', t.theme === 'parchment');
+    document.body.classList.toggle('theme-cinema', t.theme === 'cinema');
+    document.body.classList.toggle('no-seal', !t.showSeal);
+    document.body.classList.toggle('cover-spare', t.coverDensity === 'spare');
+    document.documentElement.style.setProperty('--accent', t.accent);
+    document.documentElement.style.setProperty('--feature-cols', t.featureColumns);
+    document.documentElement.style.setProperty('--ghost-opacity', t.showGhostNumerals ? 0.05 : 0);
+  }, [t.theme, t.accent, t.featureColumns, t.showSeal, t.coverDensity, t.showGhostNumerals]);
+
+  // Build a reader article for the cover-story Feature
+  const featureArticle = {
+    section: 'FEATURES',
+    folio: '012',
+    eyebrow: 'FEATURE · COVER STORY · (212) PICTURES',
+    title: 'The Mayors — Fifteen Years in the Vault.',
+    deck: D.FEATURE.deck,
+    by: 'M.A. CARUSO',
+    date: 'APR 14, 2026',
+    length: '11 MIN READ',
+    body: [
+      { first: true, text: 'New York has had one hundred and ten mayors. The good and bad of them is a matter of public record. The footage of them is not. It is a matter of municipal archives, family estates, three TV stations that no longer exist, and the basement of a building on Chambers Street that we were not, at first, allowed inside.' },
+      { text: 'The premise of the series is simple. Each of the last twenty-five mayors, going back to John F. Hylan in 1918, gets a forty-five-minute hour, working forward in time. Each hour is built around primary footage — campaign reels, City Hall press conferences, Saturday morning broadcasts that nobody has watched since the broadcast itself.' },
+      { head: 'The tape comes first.' },
+      { text: 'That rule was set in the second month of development. It is a rule that is hard to keep. It is much easier to put a historian on camera for an hour and ask leading questions. The tape, on the other hand, is contested, inconsistent, missing for three of the eleven episodes, and — when it does exist — runs at three different frame rates and has audio in monophonic 1940s telephone quality.' },
+      { pull: '"The thesis of the series — that the office is shaped by the person, and the person is shaped by the office — does not survive the talking-head treatment."' },
+      { text: 'But the tape is the show. The thesis survives when you watch Fiorello LaGuardia read the funny papers over WNYC on a Sunday morning in 1945 because the newspaper strike has cut off the city, and you understand why nobody after him sounded like him. It survives when you watch David Dinkins, in the rotunda, the day after a verdict, choose his words.' },
+      { head: 'Eight hours locked. Three to go.' },
+      { text: 'The first eight hours have locked picture. Three remain. The Bloomberg hour is the one we have spent the most on. The de Blasio hour is the one we have argued about most. The Adams hour we have postponed twice; it is the one with the most footage and the least clarity.' },
+      { text: 'We have not announced a network. We have shown the first hour to four buyers; we have placed it with none of them, yet. The thinking on that is the same as the thinking on everything else at APR 70: take the time, get the work right, and the distribution will follow the work. The reverse has never been true in this town and it is not going to start being true now.' },
+      { pull: '"A documentary is the cheapest way to learn how to make television. You cannot fake one."' },
+      { text: 'A reasonable question would be: why a documentary as the first major project? Because a documentary is the cheapest way to learn how to make television. You cannot fake it. By the time we shoot the first day of A Need Grows in Brooklyn — which is on the books for late summer — the company will have already shipped eleven hours of finished work.' },
+      { text: 'The series will be called The Mayors. The release will be one hour per month for the eleven months that follow the announcement of the buyer. The episodes will be in chronological order, except for one. The episode order is the one piece of editorial business we have already locked.' },
+    ],
+  };
+
+  const openContents = (entry) => {
+    setReader({
+      section: 'CONTENTS',
+      folio: entry.folio,
+      eyebrow: 'FEATURE · ' + entry.folio,
+      title: entry.title,
+      deck: entry.deck,
+      by: entry.by,
+      date: 'APR 2026',
+      length: '8 MIN READ',
+      body: [
+        { first: true, text: entry.deck + ' This piece is filed for the inaugural issue of DISPATCH; the long version sits in the print folio at the page noted in the contents.' },
+        { text: 'Editorial copy continues here for the reading view. In the live edition, this is where the reported feature appears in full — pages, photos, pull-quotes, the works. For preview purposes the deck is reproduced and a stub follows.' },
+        { pull: '"' + (entry.deck.split('.')[0]) + '."' },
+        { text: 'The cadence is quarterly. The discipline is the work. The byline is the room. — Editorial Desk' },
+      ],
+    });
+  };
+
+  return (
+    <>
+      <FilmstripRail accentColor={t.filmstripAccent} keycode={`APR 70 PICTURES // DISPATCH ${D.ISSUE.volume} ${D.ISSUE.number} // ${D.ISSUE.reel}`} />
+      <Nav />
+      <div className="page-shell">
+        <Masthead issue={D.ISSUE} title={t.issueTitle} />
+        <Cover cover={D.COVER} issue={D.ISSUE} />
+
+        <SectionRail num="§ 01" title="Contents" meta={`${D.ISSUE.season} · ${D.ISSUE.volume} · ${D.ISSUE.number}`} />
+        <Contents groups={D.CONTENTS} issue={D.ISSUE} onOpen={openContents} />
+
+        <SectionRail num="§ 02" title="From the Editor" meta="P. 008 — LETTER" />
+        <Editorial data={D.EDITORIAL} />
+
+        <SectionRail num="§ 03" title="Cover Story — The Mayors" meta="P. 012 — FEATURE" />
+        <Feature data={D.FEATURE} onOpen={() => setReader(featureArticle)} />
+
+        <SectionRail num="§ 04" title="Slate Dispatches" meta={`PP. 048 — 056 · ${D.DISPATCHES.length} ITEMS`} />
+        <Dispatches items={D.DISPATCHES} />
+
+        <SectionRail num="§ 05" title="The Trades & The Calendar" meta="PP. 058 — 066 · INDUSTRY ROUNDUP" />
+        <Trades trades={D.TRADES} calendar={D.CALENDAR} />
+
+        <SectionRail num="§ 06" title="Open Calls & Notices" meta="PP. 068 — 070 · BACK OF BOOK" />
+        <Classifieds items={D.CLASSIFIEDS} />
+
+        <SectionRail num="§ 07" title="Archive — Past Folios" meta="ISSUES 0 — 1" />
+        <Archive issues={D.ARCHIVE} />
+
+        <Colophon data={D.COLOPHON} issue={D.ISSUE} />
+      </div>
+      <CornerAccent />
+
+      <TweaksPanel title="Tweaks — DISPATCH">
+        <TweakSection title="Theme">
+          <TweakRadio
+            label="Mode"
+            value={t.theme}
+            onChange={(v) => setTweak('theme', v)}
+            options={[
+              { value: 'cinema', label: 'Cinema' },
+              { value: 'parchment', label: 'Parchment' },
+            ]}
+          />
+          <TweakColor
+            label="Accent"
+            value={t.accent}
+            onChange={(v) => setTweak({ accent: v, filmstripAccent: v })}
+            options={ACCENT_OPTIONS}
+          />
+        </TweakSection>
+
+        <TweakSection title="Cover">
+          <TweakToggle
+            label="Show price seal"
+            value={t.showSeal}
+            onChange={(v) => setTweak('showSeal', v)}
+          />
+          <TweakRadio
+            label="Density"
+            value={t.coverDensity}
+            onChange={(v) => setTweak('coverDensity', v)}
+            options={[
+              { value: 'rich', label: 'Rich' },
+              { value: 'spare', label: 'Spare' },
+            ]}
+          />
+          <TweakText
+            label="Wordmark"
+            value={t.issueTitle}
+            onChange={(v) => setTweak('issueTitle', v)}
+          />
+        </TweakSection>
+
+        <TweakSection title="Feature spread">
+          <TweakRadio
+            label="Columns"
+            value={String(t.featureColumns)}
+            onChange={(v) => setTweak('featureColumns', Number(v))}
+            options={[
+              { value: '2', label: '2-col' },
+              { value: '3', label: '3-col' },
+            ]}
+          />
+          <TweakToggle
+            label="Ghost numerals on dispatches"
+            value={t.showGhostNumerals}
+            onChange={(v) => setTweak('showGhostNumerals', v)}
+          />
+        </TweakSection>
+      </TweaksPanel>
+
+      {reader && <Reader article={reader} onClose={() => setReader(null)} />}
+    </>
+  );
+}
+
+// CSS hooks driven by body classes / CSS vars set in App effects
+const style = document.createElement('style');
+style.textContent = `
+  body.no-seal .cover-seal { display: none !important; }
+  body.cover-spare .cover-coverlines { display: none; }
+  body.cover-spare .cover-image-vignette { background: linear-gradient(to top, rgba(0,0,0,0.25), transparent 40%); }
+  .feature-body { column-count: var(--feature-cols, 3); }
+  .dispatch-card-ghost { opacity: var(--ghost-opacity, 0.05); }
+`;
+document.head.appendChild(style);
+
+setTimeout(() => {
+  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+}, 80);
+</script>
+</body>
+</html>

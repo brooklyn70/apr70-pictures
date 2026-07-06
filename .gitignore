@@ -47,3 +47,6 @@ nginx/.htpasswd*
 
 # secrets hand-off file (human-built, never committed)
 .env.workflow
+
+# PD image masters (large source files; processed web tiers are tracked)
+design-source/pd-masters/

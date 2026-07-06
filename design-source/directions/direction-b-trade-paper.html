@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en" data-direction="trade-paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direction B — The Trade Paper · DISPATCH No. 1 · APR 70 Pictures</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Share+Tech+Mono&display=swap">
+<style>
+/* Hallmark · macrostructure: Broadsheet Front Page · tone: printed trade paper, letterpress · anchor hue: amber 45°
+ * theme: APR 70 house system, parchment deployment (locked brand tokens) · studied: yes · DNA-source: Trade Review v2 "Document mode"
+ * pre-emit critique: P5 H5 E4 S5 R5 V5
+ * direction: B — THE TRADE PAPER. Ink on parchment, broadsheet columns, hairline rules, the company as a daily read.
+ */
+
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Book.otf') format('opentype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Medium.otf') format('opentype'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Bold.otf') format('opentype'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Heavy.otf') format('opentype'); font-weight: 900; font-display: swap; }
+@font-face { font-family: 'Futura Std Condensed'; src: url('fonts/FuturaStd-CondensedBold.otf') format('opentype'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Futura Std Condensed'; src: url('fonts/FuturaStd-CondensedExtraBd.otf') format('opentype'); font-weight: 900; font-display: swap; }
+
+:root {
+  --paper: #ede8de;
+  --paper-2: #e6dfd2;
+  --paper-3: #ddd4c2;
+  --ink: #1c1208;
+  --ink-2: rgba(28,18,8,0.78);
+  --ink-3: rgba(28,18,8,0.55);
+  --ink-4: rgba(28,18,8,0.38);
+  --ink-5: rgba(28,18,8,0.22);
+  --rule: rgba(80,60,38,0.28);
+  --rule-soft: rgba(80,60,38,0.14);
+  --amber: #824B07;
+  --teal: #077082;
+  --orange: #E85D04;
+  --stamp-red: #a33107;
+
+  --font-display: 'Futura Std', Futura, sans-serif;
+  --font-cond: 'Futura Std Condensed', 'Arial Narrow', sans-serif;
+  --font-body: 'Barlow', 'Helvetica Neue', sans-serif;
+  --font-mono: 'Share Tech Mono', ui-monospace, monospace;
+
+  --type-nameplate: clamp(3.75rem, 13.5vw, 13rem);
+  --type-lead: clamp(1.9rem, 4.6vw, 3.9rem);
+  --type-caption: 0.75rem;
+  --type-micro: 0.65rem;
+  --type-tiny: 0.5625rem;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur: 0.3s;
+  --pad-x: clamp(1.25rem, 4.5vw, 3.5rem);
+  --max-w: 1360px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { overflow-x: clip; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.65;
+  overflow-x: clip;
+  background-image:
+    radial-gradient(ellipse 1200px 700px at 50% -140px, rgba(255,252,244,0.75), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.27 0 0 0 0 0.16 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+::selection { background: var(--amber); color: var(--paper); }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; }
+:focus-visible { outline: 2px solid var(--stamp-red); outline-offset: 3px; }
+
+.sheet { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad-x); }
+
+/* ---------- TOP EARS + NAMEPLATE ---------- */
+.plate-top {
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; gap: 18px;
+  padding-top: clamp(1.5rem, 3.5vw, 2.75rem);
+}
+.ear { font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-3); line-height: 1.9; }
+.ear.right { text-align: right; }
+.ear b { color: var(--ink); font-weight: 400; }
+.ear .price {
+  display: inline-block; border: 1.5px solid var(--ink); padding: 6px 12px; margin-top: 4px;
+  font-size: 0.8rem; letter-spacing: 0.14em; color: var(--ink); font-weight: 400;
+}
+.plate-mark img { height: clamp(56px, 7vw, 92px); display: block; margin: 0 auto; }
+
+.nameplate { text-align: center; padding: clamp(0.5rem, 1.5vw, 1.25rem) 0 0; }
+.nameplate h1 {
+  font-family: var(--font-display); font-weight: 900;
+  font-size: var(--type-nameplate); line-height: 0.9; letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+.nameplate .from {
+  margin-top: 0.9rem; font-size: var(--type-caption); letter-spacing: 0.28em;
+  text-transform: uppercase; color: var(--ink-3);
+}
+.dateline {
+  margin-top: clamp(1.1rem, 2.5vw, 1.75rem);
+  border-top: 3px double var(--ink); border-bottom: 1px solid var(--ink);
+  display: flex; justify-content: space-between; gap: 14px; padding: 9px 2px;
+  font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.26em;
+  text-transform: uppercase; color: var(--ink-3);
+}
+.dateline b { color: var(--ink); font-weight: 400; }
+
+/* ---------- FOLIO NAV ---------- */
+.folio-nav { display: flex; justify-content: center; gap: 4px; flex-wrap: wrap; padding: 10px 0; border-bottom: 1px solid var(--ink); }
+.folio-link {
+  display: flex; gap: 8px; align-items: baseline; padding: 7px 16px;
+  font-size: var(--type-micro); letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-2); font-weight: 500;
+  transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+}
+.folio-link .pg { font-family: var(--font-mono); font-size: var(--type-tiny); color: var(--ink-4); letter-spacing: 0.1em; transition: color var(--dur); }
+.folio-link:hover { background: var(--ink); color: var(--paper); }
+.folio-link:hover .pg { color: rgba(237,232,222,0.7); }
+.folio-link[aria-current] { box-shadow: inset 0 -3px 0 var(--stamp-red); color: var(--ink); }
+.folio-link[aria-current] .pg { color: var(--stamp-red); }
+
+/* ---------- IDENTITY BANNER ---------- */
+.identity {
+  text-align: center; padding: clamp(1.5rem, 3.5vw, 2.5rem) 0;
+  border-bottom: 1px solid var(--rule);
+}
+.identity p {
+  font-size: clamp(1rem, 1.7vw, 1.2rem); font-weight: 400; font-style: italic; line-height: 1.75;
+  color: var(--ink-2); max-width: 74ch; margin: 0 auto;
+}
+
+/* ---------- BROADSHEET ---------- */
+.broadsheet {
+  display: grid; grid-template-columns: minmax(0, 7.2fr) minmax(0, 3fr) minmax(0, 2.8fr);
+  gap: 0; padding: clamp(1.75rem, 4vw, 3rem) 0;
+}
+.bs-col { padding: 0 clamp(1rem, 2.4vw, 2rem); }
+.bs-col + .bs-col { border-left: 1px solid var(--rule-soft); }
+.bs-col:first-child { padding-left: 0; }
+.bs-col:last-child { padding-right: 0; }
+
+.lead-kicker {
+  display: inline-block; font-size: var(--type-micro); letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--paper); background: var(--stamp-red); padding: 5px 12px; font-weight: 500;
+}
+.lead-head {
+  margin-top: 1.1rem; font-family: var(--font-cond); font-weight: 900; text-transform: uppercase;
+  font-size: var(--type-lead); line-height: 0.94; letter-spacing: 0.005em;
+}
+.lead-standfirst { margin-top: 1.1rem; font-size: 1.06rem; font-style: italic; color: var(--ink-2); max-width: 56ch; }
+.lead-cols { margin-top: 1.5rem; columns: 2; column-gap: 2rem; column-rule: 1px solid var(--rule-soft); text-align: justify; hyphens: auto; font-size: 0.94rem; color: var(--ink-2); }
+.lead-cols p + p { margin-top: 0.9rem; }
+.lead-cols .dropcap::first-letter {
+  font-family: var(--font-display); font-weight: 900; float: left;
+  font-size: 3.4em; line-height: 0.78; padding: 0.06em 0.12em 0 0; color: var(--ink);
+}
+.lead-cta {
+  display: inline-block; margin-top: 1.4rem;
+  font-size: var(--type-micro); letter-spacing: 0.3em; text-transform: uppercase; font-weight: 600;
+  color: var(--ink); border-bottom: 2px solid var(--stamp-red); padding-bottom: 3px;
+  transition: color var(--dur), border-color var(--dur);
+}
+.lead-cta:hover { color: var(--stamp-red); }
+.lead-plate { margin-top: 1.75rem; border: 1px solid var(--rule); padding: 10px; background: var(--paper-2); }
+.lead-plate img { display: block; width: 100%; filter: sepia(0.25) contrast(0.98); }
+.lead-plate figcaption { padding-top: 8px; font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-4); text-align: center; }
+
+/* column head device */
+.col-head {
+  font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; letter-spacing: 0.18em;
+  text-transform: uppercase; text-align: center; padding: 8px 0; margin-bottom: 1.2rem;
+  border-top: 3px double var(--ink); border-bottom: 1px solid var(--ink);
+}
+
+/* THREE DOORS column */
+.door-item { padding: 1.1rem 0; border-bottom: 1px solid var(--rule-soft); }
+.door-item:last-child { border-bottom: 0; }
+.door-item img { height: 56px; width: auto; display: block; margin-bottom: 0.8rem; }
+.door-item h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.02rem; text-transform: uppercase; letter-spacing: 0.03em; }
+.door-item .tag { font-style: italic; font-size: 0.88rem; color: var(--ink-2); margin-top: 3px; }
+.door-item .mandate { font-size: 0.85rem; color: var(--ink-3); margin-top: 7px; }
+.door-item .slug { margin-top: 9px; font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.2em; text-transform: uppercase; }
+.door-item .slug.s212 { color: var(--amber); }
+.door-item .slug.s310 { color: var(--teal); }
+.door-item .slug.snrc { color: var(--ink-3); }
+
+/* SLATE index column */
+.slate-item { display: flex; gap: 10px; align-items: baseline; padding: 0.72rem 0; border-bottom: 1px dotted var(--rule); transition: padding-left var(--dur) var(--ease-out); }
+.slate-item:hover { padding-left: 6px; }
+.slate-item .n { font-family: var(--font-mono); font-size: var(--type-tiny); color: var(--stamp-red); }
+.slate-item .t { font-family: var(--font-cond); font-weight: 700; text-transform: uppercase; font-size: 1.04rem; letter-spacing: 0.02em; }
+.slate-item .d { margin-left: auto; font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.12em; color: var(--ink-4); white-space: nowrap; }
+.slate-note { margin-top: 0.9rem; font-size: 0.8rem; font-style: italic; color: var(--ink-3); }
+
+/* ---------- ABOUT BAND ---------- */
+.about-band { border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); background: var(--paper-2); }
+.about-inner { padding: clamp(2rem, 4.5vw, 3.5rem) 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(1.5rem, 4vw, 4rem); align-items: center; }
+.about-inner .window { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.2rem, 2.6vw, 1.9rem); line-height: 1.35; max-width: 26ch; }
+.about-inner .body { margin-top: 1rem; font-size: 0.95rem; color: var(--ink-2); max-width: 52ch; }
+.about-rule {
+  border: 1.5px solid var(--ink); padding: clamp(1.25rem, 2.5vw, 2rem); text-align: center; max-width: 300px;
+  box-shadow: 4px 4px 0 var(--paper-3);
+}
+.about-rule .lbl { font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-4); }
+.about-rule p { margin-top: 0.8rem; font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: 1.02rem; line-height: 1.4; }
+
+/* ---------- MARKS ---------- */
+.marks { padding: clamp(2rem, 4.5vw, 3.5rem) 0 1.5rem; text-align: center; }
+.marks .lbl { font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.4em; text-transform: uppercase; color: var(--ink-4); margin-bottom: 2rem; }
+.marks-row { display: flex; justify-content: center; align-items: center; gap: clamp(1.5rem, 4.5vw, 4rem); flex-wrap: wrap; }
+.marks-row img { height: clamp(40px, 5.5vw, 64px); width: auto; transition: transform var(--dur) var(--ease-out); }
+.marks-row img:hover { transform: translateY(-3px); }
+
+.investor-line { text-align: center; padding: 0.5rem 0 2rem; font-size: var(--type-caption); color: var(--ink-3); font-style: italic; }
+
+/* ---------- FOOTER ---------- */
+footer.site { border-top: 3px double var(--ink); padding: 1.75rem 0 2.5rem; }
+.foot-boiler { text-align: center; font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: clamp(0.95rem, 1.8vw, 1.15rem); }
+.foot-wordlist { margin-top: 1rem; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-3); }
+.foot-wordlist .sep { color: var(--ink-5); }
+.foot-addr { margin-top: 0.9rem; text-align: center; font-size: var(--type-micro); letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-4); }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 1000px) {
+  .broadsheet { grid-template-columns: 1fr; }
+  .bs-col { padding: 0; }
+  .bs-col + .bs-col { border-left: 0; border-top: 1px solid var(--rule); margin-top: 1.75rem; padding-top: 1.75rem; }
+  .about-inner { grid-template-columns: 1fr; }
+  .about-rule { max-width: none; }
+}
+@media (max-width: 640px) {
+  .lead-cols { columns: 1; }
+  .plate-top { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .ear.right { text-align: center; }
+  .dateline { flex-direction: column; gap: 5px; align-items: center; text-align: center; }
+  .folio-nav { gap: 0; }
+  .folio-link { padding: 7px 9px; letter-spacing: 0.18em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- EARS + MARK -->
+  <div class="plate-top">
+    <div class="ear">
+      From the offices of<br><b>APR 70 Pictures</b><br>Long Island City, New York
+    </div>
+    <div class="plate-mark">
+      <img src="brand/apr70-logos/apr70-apr70pictures/monogram/apr70_monogram_black_v6.svg" alt="APR 70 Pictures monogram">
+    </div>
+    <div class="ear right">
+      Issues numbered,<br>never dated<br><span class="price">No. 1</span>
+    </div>
+  </div>
+
+  <!-- NAMEPLATE -->
+  <header class="nameplate">
+    <h1>Dispatch</h1>
+    <p class="from">From the offices of APR 70 Pictures, Long Island City, New York.</p>
+    <div class="dateline">
+      <span><b>Dispatch No. 1</b></span>
+      <span>The number is the only clock</span>
+      <span>Three divisions · One standard</span>
+    </div>
+    <nav class="folio-nav" aria-label="Primary">
+      <a class="folio-link" href="#" aria-current="page">Dispatch <span class="pg">P.01</span></a>
+      <a class="folio-link" href="#divisions">Divisions <span class="pg">P.02</span></a>
+      <a class="folio-link" href="#slate">Slate <span class="pg">P.03</span></a>
+      <a class="folio-link" href="#">Troupe <span class="pg">P.04</span></a>
+      <a class="folio-link" href="#about">About <span class="pg">P.05</span></a>
+      <a class="folio-link" href="#">Contact <span class="pg">P.06</span></a>
+    </nav>
+  </header>
+
+  <!-- IDENTITY -->
+  <section class="identity">
+    <p>Seven actors around real microphones. Index cards on a wall in Long Island City. We make pictures for audiences who've been waiting: crime and documentary built out of the five boroughs, elevated genre for global television, auteur features that trade formula for conviction.</p>
+  </section>
+
+  <!-- BROADSHEET -->
+  <main class="broadsheet">
+
+    <!-- LEAD STORY -->
+    <article class="bs-col">
+      <span class="lead-kicker">The APR 70 Troupe Presents No. 1</span>
+      <h2 class="lead-head">L.A. Dolce Vita:<br>Seven Voices and a Clock</h2>
+      <p class="lead-standfirst">A radio drama for seven voices and a clock. When we cut, the clock will tell you where you stand. Listen for it.</p>
+      <div class="lead-cols">
+        <p class="dropcap">From APR 70 Pictures, the APR 70 Troupe, performing number one of its programs: L.A. Dolce Vita, a radio drama for seven voices and a clock. One story, three places at once: a ranch in Mojave County, Arizona; the city of Los Angeles; a train crossing Italy toward Venice on the first night of Carnevale. Ten days in February. This is the first day.</p>
+        <p>A scandal has a first day. So does the girl on the motorcycle. So does the man on the train. Program No. 1 plays here. Leave your address at the masthead and the Troupe will tell you when No. 2 exists.</p>
+        <p>Voices first, film after. The Troupe works in the old tradition: a resident company, seven players and many parts to a player, and we will not tell you which. Numbered programs, performed by human actors and released as finished things. No dates, no episodes dropped into a feed. Just No. 1, then No. 2. The radio drama came before the picture once, and it can again. The Troupe will return.</p>
+      </div>
+      <a class="lead-cta" href="#">Program No. 1 plays here</a>
+      <figure class="lead-plate">
+        <img src="brand/placeholders/placeholder-16x9-default.svg" alt="Lead plate slot — production photograph to come">
+        <figcaption>PLATE 01 · AWAITING PRODUCTION PHOTOGRAPH · THE DESK, LONG ISLAND CITY</figcaption>
+      </figure>
+    </article>
+
+    <!-- THREE DOORS COLUMN -->
+    <aside class="bs-col" id="divisions">
+      <h2 class="col-head">Three Doors</h2>
+      <div class="door-item">
+        <img src="brand/apr70-logos/212-pictures/212_hero.svg" alt="(212) Pictures">
+        <h3>(212) Pictures</h3>
+        <p class="tag">Everything you want. Everything you don't want.</p>
+        <p class="mandate">East Coast. New York first. Every format the city touches.</p>
+        <p class="slug s212">New York · East Coast</p>
+      </div>
+      <div class="door-item">
+        <img src="brand/apr70-logos/310-pictures/310_hero.svg" alt="(310) Pictures">
+        <h3>(310) Pictures</h3>
+        <p class="tag">Los Angeles, and every market a signal reaches.</p>
+        <p class="mandate">West Coast and global television.</p>
+        <p class="slug s310">Los Angeles · Global</p>
+      </div>
+      <div class="door-item">
+        <img src="brand/apr70-logos/new-renaissance-cinema/nrc_v3.svg" alt="New Renaissance Cinema">
+        <h3>New Renaissance Cinema</h3>
+        <p class="tag">Feature films, by mandate.</p>
+        <p class="mandate">Auteur-driven, morally clear, built for permanence rather than a release window.</p>
+        <p class="slug snrc">Feature Films</p>
+      </div>
+    </aside>
+
+    <!-- SLATE COLUMN -->
+    <aside class="bs-col" id="slate">
+      <h2 class="col-head">The Slate, On Record</h2>
+      <a class="slate-item" href="#"><span class="n">01</span><span class="t">The Mayors</span><span class="d">(212) · DOC</span></a>
+      <a class="slate-item" href="#"><span class="n">02</span><span class="t">Movement</span><span class="d">(212)</span></a>
+      <a class="slate-item" href="#"><span class="n">03</span><span class="t">Sea Gate</span><span class="d">(212)</span></a>
+      <a class="slate-item" href="#"><span class="n">04</span><span class="t">Da Hook</span><span class="d">(212)</span></a>
+      <a class="slate-item" href="#"><span class="n">05</span><span class="t">A Need Grows in Brooklyn</span><span class="d">NRC</span></a>
+      <a class="slate-item" href="#"><span class="n">06</span><span class="t">Shadowmaster</span><span class="d">NRC</span></a>
+      <a class="slate-item" href="#"><span class="n">07</span><span class="t">U Bruculinu</span><span class="d">NRC</span></a>
+      <p class="slate-note">Draft synopses from every desk. The boroughs, the coasts, the feature slate. On the record before it's on the screen.</p>
+    </aside>
+
+  </main>
+</div>
+
+<!-- ABOUT BAND -->
+<section class="about-band" id="about">
+  <div class="sheet about-inner">
+    <div>
+      <p class="window">A window lit at two in the morning in Long Island City. Somebody is still reading.</p>
+      <p class="body">APR 70 Pictures is a film and television production company. Three divisions, one parent company, one standard. The work earns its position or it doesn't get made.</p>
+    </div>
+    <div class="about-rule">
+      <p class="lbl">The Rule</p>
+      <p>The audience first, always. Not our slate... their evening.</p>
+    </div>
+  </div>
+</section>
+
+<div class="sheet">
+  <!-- MARKS -->
+  <section class="marks">
+    <p class="lbl">The Marks of the House</p>
+    <div class="marks-row">
+      <img src="brand/apr70-logos/apr70-apr70pictures/logo/apr70_logo_full_black_v6.svg" alt="APR 70 Pictures wordmark">
+      <img src="brand/apr70-logos/apr70-apr70pictures/monogram/apr70_monogram_black_v6.svg" alt="APR 70 monogram">
+      <img src="brand/apr70-logos/212-pictures/212_hero.svg" alt="(212) Pictures">
+      <img src="brand/apr70-logos/310-pictures/310_hero.svg" alt="(310) Pictures">
+      <img src="brand/apr70-logos/new-renaissance-cinema/nrc_v3.svg" alt="New Renaissance Cinema">
+      <img src="logos/apr70_logo_full_black_orange_sprockets.svg" alt="APR 70 sprocket mark">
+    </div>
+  </section>
+
+  <p class="investor-line">Investor conversations happen in person. Write to the offices.</p>
+</div>
+
+<!-- FOOTER -->
+<footer class="site">
+  <div class="sheet">
+    <p class="foot-boiler">APR 70 Pictures. Three divisions. No decorative flourishes. Built to last.</p>
+    <p class="foot-wordlist">
+      <span>(212) Pictures · New York · East Coast</span><span class="sep">|</span>
+      <span>(310) Pictures · Los Angeles · Global</span><span class="sep">|</span>
+      <span>New Renaissance Cinema · Feature Films</span>
+    </p>
+    <p class="foot-addr">Long Island City, New York.</p>
+  </div>
+</footer>
+
+</body>
+</html>

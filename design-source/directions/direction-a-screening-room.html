@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en" data-direction="screening-room">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direction A — Screening Room · APR 70 Pictures</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Share+Tech+Mono&display=swap">
+<style>
+/* Hallmark · macrostructure: Poster Cover / front-page · tone: cinema-modernist dark · anchor hue: orange 35°
+ * theme: APR 70 house system (locked brand tokens) · studied: yes · DNA-source: design-source drafts (Trade Review v2 + DISPATCH magazine)
+ * pre-emit critique: P5 H5 E4 S5 R4 V5
+ * direction: A — SCREENING ROOM. Black house, Futura Heavy at poster scale, sprocket chrome, orange leader.
+ */
+
+/* ---------- FONTS ---------- */
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Light.otf') format('opentype'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Book.otf') format('opentype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Medium.otf') format('opentype'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Bold.otf') format('opentype'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Heavy.otf') format('opentype'); font-weight: 900; font-display: swap; }
+@font-face { font-family: 'Futura Std Condensed'; src: url('fonts/FuturaStd-CondensedBold.otf') format('opentype'); font-weight: 700; font-display: swap; }
+
+/* ---------- TOKENS (locked APR 70 system) ---------- */
+:root {
+  --apr-black: #000000;
+  --apr-white: #ffffff;
+  --apr-amber: #824B07;
+  --apr-teal: #077082;
+  --apr-orange: #E85D04;
+  --apr-blue: #0077B6;
+  --apr-offwhite: #c8c8c8;
+
+  --fg-1: #ffffff;
+  --fg-2: rgba(255,255,255,0.80);
+  --fg-3: rgba(255,255,255,0.55);
+  --fg-4: rgba(255,255,255,0.35);
+  --fg-5: rgba(255,255,255,0.20);
+  --bg-0: #000000;
+  --bg-1: #0a0a0a;
+  --bg-2: #111111;
+  --bg-3: #1a1a1a;
+  --rule: rgba(255,255,255,0.10);
+  --rule-strong: rgba(255,255,255,0.24);
+
+  --font-display: 'Futura Std', Futura, 'Arial Black', sans-serif;
+  --font-cond: 'Futura Std Condensed', 'Futura Std', 'Arial Narrow', sans-serif;
+  --font-body: 'Barlow', 'Helvetica Neue', sans-serif;
+  --font-mono: 'Share Tech Mono', ui-monospace, monospace;
+
+  --type-nameplate: clamp(4.5rem, 17vw, 19rem);
+  --type-h1: clamp(2.75rem, 9vw, 8.5rem);
+  --type-h2: clamp(1.75rem, 4.5vw, 3.25rem);
+  --type-body-lg: clamp(1.05rem, 1.5vw, 1.3rem);
+  --type-caption: 0.75rem;
+  --type-micro: 0.625rem;
+  --type-tiny: 0.5625rem;
+
+  --track-eyebrow: 0.4em;
+  --track-strip: 0.55em;
+  --track-wider: 0.2em;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-base: 0.35s;
+  --dur-reel: 0.7s;
+
+  --pad-x: clamp(1.25rem, 5vw, 4rem);
+  --max-w: 1400px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: clip; }
+body {
+  background: var(--bg-0);
+  color: var(--fg-1);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.7;
+  cursor: crosshair;
+  overflow-x: clip;
+}
+::selection { background: var(--apr-orange); color: var(--apr-black); }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; }
+:focus-visible { outline: 2px solid var(--apr-orange); outline-offset: 3px; }
+
+.wrap { max-width: var(--max-w); margin: 0 auto; padding-left: var(--pad-x); padding-right: var(--pad-x); }
+
+/* ---------- FILMSTRIP RAIL ---------- */
+.filmstrip {
+  position: relative; height: 34px; background: #050505;
+  border-bottom: 1px solid var(--bg-3);
+  display: flex; align-items: center; gap: 16px; padding: 0 14px;
+  overflow: hidden;
+}
+.filmstrip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--apr-orange); }
+.sprocket { width: 13px; height: 9px; border: 1.5px solid #222; border-radius: 2px; flex-shrink: 0; }
+.filmstrip .keycode {
+  position: absolute; right: 16px; font-family: var(--font-mono);
+  font-size: var(--type-tiny); letter-spacing: var(--track-strip);
+  color: var(--fg-5); text-transform: uppercase; background: #050505; padding-left: 12px;
+}
+
+/* ---------- NAV ---------- */
+.nav {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px; border-bottom: 1px solid var(--rule);
+  padding: 0 var(--pad-x);
+  position: sticky; top: 0; background: rgba(0,0,0,0.92); backdrop-filter: blur(8px); z-index: 50;
+}
+.nav-brand img { height: 34px; display: block; }
+.nav-links { display: flex; gap: clamp(14px, 2.5vw, 34px); align-items: baseline; }
+.nav-link { position: relative; display: flex; gap: 9px; align-items: baseline; padding: 6px 2px; }
+.nav-num {
+  font-family: var(--font-mono); font-size: var(--type-tiny);
+  color: var(--fg-5); letter-spacing: 0.15em;
+  transition: color var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+}
+.nav-label {
+  font-size: var(--type-micro); letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase; color: var(--fg-3); font-weight: 500;
+  transition: color var(--dur-base) var(--ease-out);
+}
+.nav-link::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: var(--apr-orange); transform: scaleX(0); transform-origin: left;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.nav-link:hover .nav-num, .nav-link:hover .nav-label { color: var(--fg-1); }
+.nav-link:hover .nav-num { transform: translateY(-2px); }
+.nav-link:hover::after { transform: scaleX(1); }
+.nav-link[aria-current] .nav-num { color: var(--apr-orange); }
+.nav-link[aria-current] .nav-label { color: var(--fg-1); }
+.nav-link[aria-current]::after { transform: scaleX(1); }
+.nav-folio { font-family: var(--font-mono); font-size: var(--type-micro); letter-spacing: 0.2em; color: var(--fg-4); }
+.nav-folio b { color: var(--apr-orange); font-weight: 400; }
+
+/* ---------- NAMEPLATE ---------- */
+.masthead { padding: clamp(2.5rem, 6vw, 5rem) 0 0; border-bottom: 1px solid var(--rule-strong); }
+.masthead-wordmark {
+  font-family: var(--font-display); font-weight: 900;
+  font-size: var(--type-nameplate); line-height: 0.85; letter-spacing: -0.02em;
+  text-transform: uppercase; text-align: center;
+}
+.masthead-wordmark .dot { color: var(--apr-orange); }
+.masthead-from {
+  text-align: center; margin-top: 1.1rem;
+  font-size: var(--type-caption); letter-spacing: var(--track-wider); text-transform: uppercase; color: var(--fg-3);
+}
+.masthead-indicia {
+  display: flex; justify-content: space-between; gap: 16px;
+  margin-top: clamp(1.5rem, 3vw, 2.5rem); padding: 12px 0;
+  border-top: 1px solid var(--rule);
+  font-family: var(--font-mono); font-size: var(--type-tiny);
+  letter-spacing: 0.3em; text-transform: uppercase; color: var(--fg-4);
+}
+.masthead-indicia b { color: var(--fg-1); font-weight: 400; }
+.mast-line { display: block; overflow: hidden; }
+
+/* ---------- DISPATCH BAND ---------- */
+.dispatch-band {
+  display: flex; align-items: center; gap: clamp(14px, 3vw, 32px); flex-wrap: wrap;
+  border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong);
+  padding: 16px var(--pad-x); position: relative; overflow: hidden;
+}
+.dispatch-band::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--apr-orange); }
+.db-name { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: clamp(1.1rem, 2.4vw, 1.6rem); letter-spacing: 0.01em; }
+.db-name b { color: var(--apr-orange); font-weight: 900; }
+.db-from { font-size: var(--type-caption); color: var(--fg-3); letter-spacing: 0.04em; }
+.db-note { margin-left: auto; font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.28em; text-transform: uppercase; color: var(--fg-4); }
+.db-cta {
+  font-size: var(--type-micro); letter-spacing: var(--track-wider); text-transform: uppercase; font-weight: 500;
+  color: var(--fg-1); border: 1px solid var(--rule-strong); padding: 9px 18px;
+  transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+}
+.db-cta:hover { background: var(--apr-orange); border-color: var(--apr-orange); color: var(--apr-black); }
+
+.cd-line { display: block; }
+@keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+/* ---------- IDENTITY STRIP ---------- */
+.identity { padding: clamp(2rem, 5vw, 4rem) 0; border-bottom: 1px solid var(--rule); }
+.identity p {
+  font-size: var(--type-body-lg); line-height: 1.8; color: var(--fg-2);
+  max-width: 62ch; margin: 0 auto; text-align: center;
+}
+.identity .first-words { color: var(--apr-orange); font-weight: 500; }
+
+/* ---------- COVER STORY ---------- */
+.cover { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2rem, 4vw, 4rem); padding: clamp(3rem, 6vw, 5.5rem) 0; align-items: end; }
+.cover-eyebrow {
+  display: flex; align-items: center; gap: 14px;
+  font-size: var(--type-micro); letter-spacing: var(--track-eyebrow); text-transform: uppercase;
+  color: var(--apr-orange); font-weight: 500; margin-bottom: 2rem;
+}
+.cover-eyebrow::before { content: ''; width: 44px; height: 2px; background: var(--apr-orange); }
+.cover-display {
+  font-family: var(--font-display); font-weight: 900; text-transform: uppercase;
+  font-size: var(--type-h1); line-height: 0.88; letter-spacing: -0.015em;
+}
+.cover-display .ghost {
+  color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,0.65);
+  font-style: italic; font-weight: 700;
+}
+.cover-deck { margin-top: 2rem; font-size: var(--type-body-lg); color: var(--fg-2); max-width: 46ch; }
+.cover-cta {
+  display: inline-block; margin-top: 2.2rem;
+  font-size: var(--type-caption); letter-spacing: var(--track-wider); text-transform: uppercase;
+  color: var(--fg-2); border: 1px solid var(--rule-strong); padding: 14px 28px;
+  transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+}
+.cover-cta:hover { background: var(--apr-orange); border-color: var(--apr-orange); color: var(--apr-black); }
+.cover-plate { position: relative; }
+.cover-plate img { display: block; width: 100%; border: 1px solid var(--rule); }
+.cover-plate figcaption {
+  margin-top: 10px; font-family: var(--font-mono); font-size: var(--type-tiny);
+  letter-spacing: 0.25em; text-transform: uppercase; color: var(--fg-4);
+}
+.coverlines { margin-top: 1.75rem; border-top: 1px solid var(--rule); }
+.coverline { display: flex; gap: 18px; padding: 1.1rem 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+.coverline-num { font-family: var(--font-mono); font-size: var(--type-caption); color: var(--apr-orange); }
+.coverline h3 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: 1.05rem; letter-spacing: 0.04em; }
+.coverline p { font-size: 0.85rem; color: var(--fg-3); margin-top: 4px; max-width: 40ch; }
+
+/* ---------- THREE DOORS ---------- */
+.doors-head { display: flex; align-items: baseline; justify-content: space-between; border-top: 1px solid var(--rule-strong); padding-top: 1.25rem; }
+.doors-head h2 { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: var(--type-h2); letter-spacing: -0.01em; }
+.doors-head .keycode { font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: var(--track-strip); color: var(--fg-5); text-transform: uppercase; }
+.doors { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 2.25rem 0 0; }
+.door { position: relative; background: var(--bg-0); padding: clamp(1.75rem, 3vw, 3rem); overflow: hidden; min-height: 380px; display: flex; flex-direction: column; }
+.door::before {
+  content: ''; position: absolute; inset: 0; background: var(--door-c);
+  transform: translateY(101%); transition: transform 0.5s var(--ease-out); opacity: 0.14;
+}
+.door:hover::before { transform: translateY(0); }
+.door-logo { height: 96px; display: flex; align-items: center; margin-bottom: 2rem; }
+.door-logo img { max-height: 100%; width: auto; max-width: 220px; }
+.door-num { position: absolute; top: 1.25rem; right: 1.5rem; font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.3em; color: var(--fg-5); }
+.door h3 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: 1.5rem; letter-spacing: 0.01em; }
+.door .tagline { margin-top: 0.6rem; font-style: italic; color: var(--door-c-text, var(--fg-2)); font-size: 1rem; }
+.door .mandate { margin-top: 1.1rem; font-size: 0.9rem; color: var(--fg-3); line-height: 1.7; max-width: 38ch; }
+.door .door-foot {
+  margin-top: auto; padding-top: 1.5rem; font-family: var(--font-mono);
+  font-size: var(--type-tiny); letter-spacing: 0.25em; text-transform: uppercase; color: var(--fg-4);
+  display: flex; align-items: center; gap: 10px;
+}
+.door .door-foot::before { content: ''; width: 26px; height: 2px; background: var(--door-c); }
+.door-212 { --door-c: var(--apr-amber); --door-c-text: #c98a3f; }
+.door-310 { --door-c: var(--apr-teal); --door-c-text: #3aa8ba; }
+.door-nrc { --door-c: var(--apr-offwhite); --door-c-text: var(--apr-offwhite); }
+
+/* ---------- SLATE ---------- */
+.slate { background: var(--bg-1); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-top: clamp(3rem, 6vw, 5rem); }
+.slate-inner { padding: clamp(2.5rem, 5vw, 4rem) 0; }
+.slate-head { display: flex; align-items: baseline; gap: 22px; flex-wrap: wrap; }
+.slate-head h2 { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: var(--type-h2); }
+.slate-head p { color: var(--fg-3); font-size: 0.95rem; }
+.slate-list { margin-top: 2rem; border-top: 1px solid var(--rule); }
+.slate-row {
+  display: grid; grid-template-columns: 3.5rem minmax(0,1fr) auto auto; gap: 18px; align-items: baseline;
+  padding: 0.95rem 0; border-bottom: 1px solid var(--rule);
+  transition: padding-left var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out);
+}
+.slate-row:hover { padding-left: 12px; background: rgba(255,255,255,0.02); }
+.slate-row .idx { font-family: var(--font-mono); font-size: var(--type-caption); color: var(--fg-5); }
+.slate-row .title { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: clamp(1.05rem, 2vw, 1.5rem); letter-spacing: 0.01em; }
+.slate-row .div { font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.2em; color: var(--slate-c, var(--fg-4)); text-transform: uppercase; }
+.slate-row .fmt { font-size: var(--type-micro); letter-spacing: 0.2em; color: var(--fg-4); text-transform: uppercase; text-align: right; }
+
+/* ---------- ABOUT ---------- */
+.about { padding: clamp(3.5rem, 8vw, 7rem) 0; text-align: center; position: relative; }
+.about::before {
+  content: ''; position: absolute; top: 20%; left: 50%; transform: translateX(-50%);
+  width: min(480px, 80vw); height: 260px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(232,93,4,0.09), transparent 70%);
+  pointer-events: none;
+}
+.about p.window { font-size: clamp(1.3rem, 3vw, 2rem); font-weight: 300; color: var(--fg-1); font-family: var(--font-body); max-width: 30ch; margin: 0 auto; line-height: 1.5; }
+.about p.body { margin: 1.75rem auto 0; max-width: 52ch; color: var(--fg-3); }
+.about p.rule-line { margin: 2.5rem auto 0; font-size: var(--type-caption); letter-spacing: var(--track-wider); text-transform: uppercase; color: var(--apr-orange); }
+
+/* ---------- COLOPHON MARKS ---------- */
+.marks { border-top: 1px solid var(--rule); padding: clamp(2.5rem, 5vw, 4rem) 0; }
+.marks-head { font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: var(--track-strip); text-transform: uppercase; color: var(--fg-5); text-align: center; margin-bottom: 2.5rem; }
+.marks-row { display: flex; justify-content: center; align-items: center; gap: clamp(1.75rem, 5vw, 4.5rem); flex-wrap: wrap; }
+.marks-row img { height: clamp(44px, 6vw, 72px); width: auto; opacity: 0.9; transition: opacity var(--dur-base), transform var(--dur-base) var(--ease-out); }
+.marks-row img:hover { opacity: 1; transform: translateY(-4px); }
+
+/* ---------- FOOTER ---------- */
+.investor-line { text-align: center; padding: 0 0 2rem; font-size: var(--type-caption); color: var(--fg-4); letter-spacing: 0.08em; }
+footer.site { border-top: 1px solid var(--rule-strong); padding: 2.5rem 0 3rem; }
+.foot-boiler { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: clamp(1rem, 2.2vw, 1.4rem); text-align: center; letter-spacing: 0.02em; }
+.foot-wordlist { margin-top: 1.5rem; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-4); }
+.foot-wordlist .sep { color: var(--fg-5); }
+.foot-addr { margin-top: 1.25rem; text-align: center; font-size: var(--type-micro); letter-spacing: 0.3em; text-transform: uppercase; color: var(--fg-5); }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  .cover { grid-template-columns: 1fr; align-items: start; }
+  .doors { grid-template-columns: 1fr; }
+  .door { min-height: 0; }
+  .nav-links { display: none; }
+  .slate-row { grid-template-columns: 2.2rem minmax(0,1fr); }
+  .slate-row .fmt { display: none; }
+  .masthead-indicia { flex-direction: column; gap: 6px; align-items: center; text-align: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- FILMSTRIP RAIL -->
+<div class="filmstrip" aria-hidden="true">
+  <div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div><div class="sprocket"></div>
+  <span class="keycode">APR 70 PICTURES // LONG ISLAND CITY NY // REEL 086</span>
+</div>
+
+<!-- NAV -->
+<nav class="nav" aria-label="Primary">
+  <a class="nav-brand" href="#"><img src="brand/apr70-logos/apr70-apr70pictures/monogram/apr70_monogram_white_v6.svg" alt="APR 70 Pictures"></a>
+  <div class="nav-links">
+    <a class="nav-link" href="#" aria-current="page"><span class="nav-num">01</span><span class="nav-label">Front Door</span></a>
+    <a class="nav-link" href="#doors"><span class="nav-num">02</span><span class="nav-label">Divisions</span></a>
+    <a class="nav-link" href="#slate"><span class="nav-num">03</span><span class="nav-label">Slate</span></a>
+    <a class="nav-link" href="#"><span class="nav-num">04</span><span class="nav-label">Troupe</span></a>
+    <a class="nav-link" href="#dispatch"><span class="nav-num">05</span><span class="nav-label">Dispatch</span></a>
+    <a class="nav-link" href="#"><span class="nav-num">06</span><span class="nav-label">Contact</span></a>
+  </div>
+  <span class="nav-folio">LIC <b>·</b> NY</span>
+</nav>
+
+<!-- NAMEPLATE -->
+<header class="masthead wrap">
+  <h1 class="masthead-wordmark"><span class="mast-line">APR 70</span><span class="mast-line">Pictures<span class="dot">.</span></span></h1>
+  <p class="masthead-from">A film and television production company. Long Island City, New York.</p>
+  <div class="masthead-indicia">
+    <span><b>Three Divisions</b></span>
+    <span>One parent company</span>
+    <span>One standard</span>
+  </div>
+</header>
+
+<!-- IDENTITY STRIP -->
+<section class="identity wrap">
+  <p id="identity-read"><span class="first-words">Seven actors around real microphones.</span> Index cards on a wall in Long Island City. We make pictures for audiences who've been waiting: crime and documentary built out of the five boroughs, elevated genre for global television, auteur features that trade formula for conviction.</p>
+</section>
+
+<!-- DISPATCH BAND -->
+<section class="dispatch-band" id="dispatch">
+  <span class="db-name">Dispatch <b>No. 1</b></span>
+  <span class="db-from">From the offices of APR 70 Pictures, Long Island City, New York.</span>
+  <span class="db-note">Issues numbered, never dated</span>
+  <a class="db-cta" href="#">Read the issue</a>
+</section>
+
+<!-- COVER STORY -->
+<main class="cover wrap">
+  <div>
+    <p class="cover-eyebrow">The APR 70 Troupe Presents No. 1</p>
+    <h2 class="cover-display"><span class="cd-line">L.A.</span><span class="cd-line">Dolce</span><span class="cd-line ghost">Vita</span></h2>
+    <p class="cover-deck">A radio drama for seven voices and a clock. When we cut, the clock will tell you where you stand. Listen for it.</p>
+    <a class="cover-cta" href="#">Program No. 1 plays here</a>
+  </div>
+  <figure class="cover-plate">
+    <img src="brand/placeholders/placeholder-4x3-nrc.svg" alt="Cover plate slot — production still to come">
+    <figcaption>COVER PLATE // SLOT 01 // AWAITING PRODUCTION STILL</figcaption>
+    <div class="coverlines">
+      <div class="coverline">
+        <span class="coverline-num">02</span>
+        <div>
+          <h3>Three Doors</h3>
+          <p>(212): the five boroughs at street level. (310): Los Angeles, and every market a signal reaches. New Renaissance Cinema: feature films built for permanence.</p>
+        </div>
+      </div>
+      <div class="coverline">
+        <span class="coverline-num">03</span>
+        <div>
+          <h3>The Slate, On Record</h3>
+          <p>Draft synopses from every desk. The boroughs, the coasts, the feature slate. On the record before it's on the screen.</p>
+        </div>
+      </div>
+    </div>
+  </figure>
+</main>
+
+<!-- THREE DOORS -->
+<section class="wrap" id="doors">
+  <div class="doors-head">
+    <h2>Three Doors</h2>
+    <span class="keycode">DIVISIONS // 212 · 310 · NRC</span>
+  </div>
+  <div class="doors">
+    <article class="door door-212">
+      <span class="door-num">DOOR 01</span>
+      <div class="door-logo"><img src="brand/apr70-logos/212-pictures/212_hero.svg" alt="(212) Pictures"></div>
+      <h3>(212) Pictures</h3>
+      <p class="tagline">Everything you want. Everything you don't want.</p>
+      <p class="mandate">East Coast. New York first. Every format the city touches.</p>
+      <p class="door-foot">New York · East Coast</p>
+    </article>
+    <article class="door door-310">
+      <span class="door-num">DOOR 02</span>
+      <div class="door-logo"><img src="brand/apr70-logos/310-pictures/310_hero.svg" alt="(310) Pictures"></div>
+      <h3>(310) Pictures</h3>
+      <p class="tagline">Los Angeles, and every market a signal reaches.</p>
+      <p class="mandate">West Coast and global television.</p>
+      <p class="door-foot">Los Angeles · Global</p>
+    </article>
+    <article class="door door-nrc">
+      <span class="door-num">DOOR 03</span>
+      <div class="door-logo"><img src="brand/apr70-logos/new-renaissance-cinema/nrc_v3.svg" alt="New Renaissance Cinema"></div>
+      <h3>New Renaissance Cinema</h3>
+      <p class="tagline">Feature films, by mandate.</p>
+      <p class="mandate">Auteur-driven, morally clear, built for permanence rather than a release window.</p>
+      <p class="door-foot">Feature Films</p>
+    </article>
+  </div>
+</section>
+
+<!-- SLATE -->
+<section class="slate" id="slate">
+  <div class="slate-inner wrap">
+    <div class="slate-head">
+      <h2>The Slate, On Record</h2>
+      <p>On the record before it's on the screen.</p>
+    </div>
+    <div class="slate-list">
+      <a class="slate-row" href="#" style="--slate-c:#c98a3f"><span class="idx">S.01</span><span class="title">The Mayors</span><span class="div">(212)</span><span class="fmt">Documentary · 11 Episodes</span></a>
+      <a class="slate-row" href="#" style="--slate-c:#c98a3f"><span class="idx">S.02</span><span class="title">Movement</span><span class="div">(212)</span><span class="fmt">Series</span></a>
+      <a class="slate-row" href="#" style="--slate-c:#c98a3f"><span class="idx">S.03</span><span class="title">Sea Gate</span><span class="div">(212)</span><span class="fmt">Episodic</span></a>
+      <a class="slate-row" href="#" style="--slate-c:#c98a3f"><span class="idx">S.04</span><span class="title">Da Hook</span><span class="div">(212)</span><span class="fmt">Episodic · Radio Parallel</span></a>
+      <a class="slate-row" href="#" style="--slate-c:#c8c8c8"><span class="idx">S.05</span><span class="title">A Need Grows in Brooklyn</span><span class="div">NRC · (212) Co-Prod</span><span class="fmt">Feature</span></a>
+      <a class="slate-row" href="#" style="--slate-c:#c8c8c8"><span class="idx">S.06</span><span class="title">Shadowmaster</span><span class="div">NRC · Series to (310)</span><span class="fmt">Feature First</span></a>
+      <a class="slate-row" href="#" style="--slate-c:#c8c8c8"><span class="idx">S.07</span><span class="title">U Bruculinu</span><span class="div">NRC</span><span class="fmt">Feature, Probable</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about wrap" id="about">
+  <p class="window">A window lit at two in the morning in Long Island City. Somebody is still reading.</p>
+  <p class="body">APR 70 Pictures is a film and television production company. Three divisions, one parent company, one standard. The work earns its position or it doesn't get made.</p>
+  <p class="rule-line">The audience first, always. Not our slate... their evening.</p>
+</section>
+
+<!-- COLOPHON MARKS -->
+<section class="marks wrap">
+  <p class="marks-head">THE MARKS OF THE HOUSE</p>
+  <div class="marks-row">
+    <img src="logos/apr70_logo_full_white.svg" alt="APR 70 Pictures wordmark">
+    <img src="brand/apr70-logos/apr70-apr70pictures/monogram/apr70_monogram_orange_v6.svg" alt="APR 70 monogram">
+    <img src="brand/apr70-logos/212-pictures/212_hero.svg" alt="(212) Pictures">
+    <img src="brand/apr70-logos/310-pictures/310_hero.svg" alt="(310) Pictures">
+    <img src="brand/apr70-logos/new-renaissance-cinema/nrc_v3.svg" alt="New Renaissance Cinema">
+    <img src="logos/apr70_logo_full_white_orange_sprockets.svg" alt="APR 70 sprocket mark">
+  </div>
+</section>
+
+<p class="investor-line">Investor conversations happen in person. Write to the offices.</p>
+
+<!-- FOOTER -->
+<footer class="site">
+  <div class="wrap">
+    <p class="foot-boiler">APR 70 Pictures. Three divisions. No decorative flourishes. Built to last.</p>
+    <p class="foot-wordlist">
+      <span>(212) Pictures · New York · East Coast</span><span class="sep">|</span>
+      <span>(310) Pictures · Los Angeles · Global</span><span class="sep">|</span>
+      <span>New Renaissance Cinema · Feature Films</span>
+    </p>
+    <p class="foot-addr">Long Island City, New York.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+<script>
+/* Screening Room — typographic choreography.
+   Doctrine: motion serves reading. Nothing auto-scrolls. Everything is scroll-driven or a one-time settle.
+   Reduced motion collapses to static. */
+gsap.registerPlugin(ScrollTrigger, SplitText);
+
+const mm = gsap.matchMedia();
+mm.add('(prefers-reduced-motion: no-preference)', () => {
+
+  /* 1 — The nameplate composes itself: letters settle like set type. */
+  document.fonts.ready.then(() => {
+    const mast = new SplitText('.masthead-wordmark .mast-line', { type: 'chars' });
+    gsap.from(mast.chars, {
+      yPercent: 110, opacity: 0, duration: 1.1, ease: 'power4.out',
+      stagger: { each: 0.045, from: 'start' }
+    });
+    gsap.from('.masthead-from, .masthead-indicia', { opacity: 0, y: 14, duration: 0.8, delay: 0.9, stagger: 0.15, ease: 'power2.out' });
+    gsap.from('.nav', { yPercent: -100, duration: 0.7, delay: 0.2, ease: 'power3.out' });
+
+    /* 2 — The identity strip reads itself: words develop as you scroll. The scroll IS the read. */
+    const read = new SplitText('#identity-read', { type: 'words' });
+    gsap.fromTo(read.words, { opacity: 0.12 }, {
+      opacity: 1, stagger: 0.06, ease: 'none',
+      scrollTrigger: { trigger: '#identity-read', start: 'top 82%', end: 'bottom 45%', scrub: true }
+    });
+  });
+
+  /* 3 — Dispatch band: the leader tab slides through. */
+  gsap.from('.dispatch-band > *', {
+    x: -28, opacity: 0, duration: 0.7, stagger: 0.08, ease: 'power3.out',
+    scrollTrigger: { trigger: '.dispatch-band', start: 'top 88%' }
+  });
+
+  /* 4 — Cover display: lines wipe in like a film gate, then drift apart on scrub. */
+  gsap.utils.toArray('.cd-line').forEach((line, i) => {
+    gsap.from(line, {
+      clipPath: 'inset(0 100% 0 0)', duration: 0.9, delay: i * 0.14, ease: 'power4.inOut',
+      scrollTrigger: { trigger: '.cover-display', start: 'top 80%' }
+    });
+    gsap.to(line, {
+      xPercent: [4, -5, 7][i % 3], ease: 'none',
+      scrollTrigger: { trigger: '.cover', start: 'top 70%', end: 'bottom top', scrub: true }
+    });
+  });
+  gsap.from('.cover-deck, .cover-cta', {
+    opacity: 0, y: 22, duration: 0.8, stagger: 0.12, ease: 'power2.out',
+    scrollTrigger: { trigger: '.cover-deck', start: 'top 88%' }
+  });
+  gsap.from('.cover-plate', {
+    opacity: 0, scale: 0.96, duration: 1, ease: 'power2.out',
+    scrollTrigger: { trigger: '.cover-plate', start: 'top 85%' }
+  });
+
+  /* 5 — Section heads dissolve as they leave: a film dissolve, not a cut. */
+  gsap.utils.toArray('.doors-head h2, .slate-head h2, .cover-display').forEach(el => {
+    gsap.to(el, {
+      opacity: 0.14, filter: 'blur(6px)', ease: 'none',
+      scrollTrigger: { trigger: el, start: 'bottom 26%', end: 'bottom -6%', scrub: true }
+    });
+  });
+
+  /* 6 — Three doors: panels rise, marks settle from oversized. */
+  gsap.from('.door', {
+    y: 44, opacity: 0, duration: 0.85, stagger: 0.14, ease: 'power3.out',
+    scrollTrigger: { trigger: '.doors', start: 'top 82%' }
+  });
+  gsap.utils.toArray('.door-logo img').forEach(img => {
+    gsap.from(img, {
+      scale: 1.35, transformOrigin: 'left center', duration: 1.1, ease: 'power3.out',
+      scrollTrigger: { trigger: img, start: 'top 85%' }
+    });
+  });
+
+  /* 7 — The slate files in: rows advance one frame at a time. */
+  gsap.from('.slate-row', {
+    x: -34, opacity: 0, duration: 0.55, stagger: 0.09, ease: 'power2.out',
+    scrollTrigger: { trigger: '.slate-list', start: 'top 82%' }
+  });
+
+  /* 8 — The 2 a.m. window: the line develops out of the dark as you arrive. */
+  document.fonts.ready.then(() => {
+    const win = new SplitText('.about .window', { type: 'words' });
+    gsap.fromTo(win.words, { opacity: 0.08 }, {
+      opacity: 1, stagger: 0.05, ease: 'none',
+      scrollTrigger: { trigger: '.about', start: 'top 75%', end: 'top 30%', scrub: true }
+    });
+    gsap.from('.about .body, .about .rule-line', {
+      opacity: 0, y: 18, duration: 0.9, stagger: 0.2, ease: 'power2.out',
+      scrollTrigger: { trigger: '.about .body', start: 'top 85%' }
+    });
+  });
+
+  /* 9 — The marks take their places. */
+  gsap.from('.marks-row img', {
+    y: 26, opacity: 0, duration: 0.7, stagger: 0.09, ease: 'power3.out',
+    scrollTrigger: { trigger: '.marks-row', start: 'top 88%' }
+  });
+});
+</script>
+
+</body>
+</html>

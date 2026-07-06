@@ -1,0 +1,438 @@
+/* ============================================================
+   APR 70 PICTURES — COLORS & TYPE
+   Bold. Mature. In your face.
+   Italian Modernist / Vignelli-Munari lineage. Film sprocket DNA.
+   ============================================================ */
+
+/* ---------- WEBFONTS ---------- */
+@font-face {
+  font-family: 'Futura Std';
+  src: url('fonts/FuturaStd-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Futura Std';
+  src: url('fonts/FuturaStd-Book.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Futura Std';
+  src: url('fonts/FuturaStd-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Futura Std';
+  src: url('fonts/FuturaStd-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Futura Std';
+  src: url('fonts/FuturaStd-BoldOblique.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Futura Std';
+  src: url('fonts/FuturaStd-Heavy.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Futura Std Condensed';
+  src: url('fonts/FuturaStd-CondensedBold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Futura Std Condensed';
+  src: url('fonts/FuturaStd-CondensedExtraBd.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Barlow via Google Fonts (body) — production site uses this */
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
+
+/* ---------- ROOT TOKENS ---------- */
+:root {
+  /* BRAND COLORS — locked per CLAUDE.md production system */
+  --apr-black:      #000000;  /* primary background */
+  --apr-white:      #ffffff;  /* primary foreground */
+  --apr-amber:      #824B07;  /* (212) Pictures — Brooklyn rust */
+  --apr-teal:       #077082;  /* (310) Pictures — LA deep teal */
+  --apr-orange:     #E85D04;  /* accent / investor / sprocket warmth */
+  --apr-blue:       #0077B6;  /* navy accent / sprocket cool */
+  --apr-offwhite:   #c8c8c8;  /* NRC / secondary text */
+  --apr-steenbeck:  #d8cdb8;  /* warm parchment / light-mode accent */
+  --apr-parchment:  #ede8de;  /* light-mode background */
+  --apr-ink:        #1c1208;  /* light-mode foreground */
+
+  /* NEUTRAL RAMP (dark mode) */
+  --fg-1:   #ffffff;           /* primary text */
+  --fg-2:   rgba(255,255,255,0.80);
+  --fg-3:   rgba(255,255,255,0.55);
+  --fg-4:   rgba(255,255,255,0.35);
+  --fg-5:   rgba(255,255,255,0.20);
+  --fg-6:   rgba(255,255,255,0.10);
+  --bg-0:   #000000;
+  --bg-1:   #0a0a0a;
+  --bg-2:   #111111;
+  --bg-3:   #1a1a1a;
+  --rule:   rgba(255,255,255,0.08);
+  --rule-strong: rgba(255,255,255,0.20);
+  --muted:  #888888;
+
+  /* TYPE FAMILIES */
+  --font-display:   'Futura Std', Futura, 'Trebuchet MS', Impact, 'Arial Black', sans-serif;
+  --font-condensed: 'Futura Std Condensed', 'Futura Std', 'Arial Narrow', sans-serif;
+  --font-body:      'Barlow', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-mono:      'Share Tech Mono', 'Courier New', ui-monospace, monospace;
+
+  /* TYPE SCALE — cinema/editorial rhythm */
+  --type-hero:      clamp(3.5rem, 15vw, 18rem);    /* SLATE-sized display */
+  --type-h1:        clamp(2.5rem, 9vw, 8rem);      /* Hero headline */
+  --type-h2:        clamp(2rem, 8vw, 4.5rem);      /* Section heading */
+  --type-h3:        clamp(1.5rem, 4vw, 3rem);
+  --type-h4:        clamp(1.125rem, 2vw, 1.75rem);
+  --type-body-lg:   clamp(1rem, 1.4vw, 1.25rem);
+  --type-body:      1rem;
+  --type-small:     0.875rem;
+  --type-caption:   0.75rem;
+  --type-micro:     0.625rem;   /* 10px — eyebrow labels */
+  --type-tiny:      0.5625rem;  /* 9px — footer / strip labels */
+
+  /* TRACKING — signature wide letterspacing on all-caps */
+  --track-tight:    -0.02em;
+  --track-normal:   0;
+  --track-wide:     0.1em;
+  --track-wider:    0.2em;
+  --track-widest:   0.3em;
+  --track-eyebrow:  0.4em;      /* micro-label signature */
+  --track-strip:    0.55em;     /* filmstrip keycode */
+
+  /* LINE HEIGHTS */
+  --leading-crush:  0.85;       /* giant display, no breathing room */
+  --leading-tight:  1.0;
+  --leading-snug:   1.15;
+  --leading-body:   1.7;
+  --leading-loose:  1.8;
+
+  /* SPACING — 8px grid */
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  24px;
+  --s-6:  32px;
+  --s-7:  48px;
+  --s-8:  64px;
+  --s-9:  96px;
+  --s-10: 128px;
+  --s-11: 192px;
+
+  /* RADII — minimal; system is mostly hard-edged */
+  --r-none: 0;
+  --r-xs:   2px;
+  --r-sm:   4px;
+  --r-hole: 2px;                /* sprocket perforation corner */
+
+  /* BORDERS */
+  --b-hair: 1px solid var(--rule);
+  --b-rule: 1px solid var(--rule-strong);
+
+  /* MOTION */
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);     /* signature "film advance" */
+  --ease-in:   cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-quick: 0.25s;
+  --dur-base:  0.35s;
+  --dur-slow:  0.55s;
+  --dur-reel:  0.7s;
+  --dur-epic:  1s;
+
+  /* LAYOUT CONSTANTS */
+  --filmstrip-h: 32px;
+  --nav-h:       62px;
+  --pad-x:       clamp(1.5rem, 5vw, 4rem);
+  --max-content: 1200px;
+}
+
+/* ---------- DIVISION TOKENS ---------- */
+:root {
+  --div-212-color:  var(--apr-amber);
+  --div-212-label:  "(212) PICTURES";
+  --div-310-color:  var(--apr-teal);
+  --div-310-label:  "(310) PICTURES";
+  --div-nrc-color:  var(--apr-offwhite);
+  --div-nrc-label:  "NEW RENAISSANCE CINEMA";
+}
+
+/* ============================================================
+   SEMANTIC RESETS & ELEMENT STYLES
+   ============================================================ */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--bg-0);
+  color: var(--fg-1);
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: var(--type-body);
+  line-height: var(--leading-body);
+  cursor: crosshair;  /* signature APR 70 cursor */
+}
+
+/* ---------- DISPLAY TYPE ---------- */
+h1, .h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--type-h1);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--track-tight);
+  text-transform: uppercase;
+}
+
+h2, .h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--type-h2);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--track-tight);
+  text-transform: uppercase;
+}
+
+h3, .h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--type-h3);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--track-tight);
+  text-transform: uppercase;
+}
+
+h4, .h4 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--type-h4);
+  letter-spacing: var(--track-wide);
+  text-transform: uppercase;
+}
+
+/* Massive page-anchor display — "SLATE", "CRAFT OF CONSTRAINT" */
+.display-mega {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--type-hero);
+  line-height: var(--leading-crush);
+  letter-spacing: var(--track-tight);
+  text-transform: uppercase;
+}
+
+.display-outlined {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.8);
+}
+
+/* ---------- BODY TYPE ---------- */
+p, .body {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: var(--type-body);
+  line-height: var(--leading-body);
+  color: var(--fg-2);
+}
+
+.body-lg {
+  font-size: var(--type-body-lg);
+  line-height: var(--leading-loose);
+  color: var(--fg-3);
+}
+
+.body-small {
+  font-size: var(--type-small);
+  color: var(--fg-3);
+}
+
+/* ---------- LABEL / EYEBROW / META ---------- */
+.eyebrow {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--type-micro);
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--fg-4);
+}
+
+.keycode {
+  font-family: var(--font-mono);
+  font-size: var(--type-tiny);
+  letter-spacing: var(--track-strip);
+  text-transform: uppercase;
+  color: var(--fg-5);
+}
+
+.counter {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--track-wide);
+}
+
+/* ---------- LINKS ---------- */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--dur-base) var(--ease-in),
+              opacity var(--dur-base) var(--ease-in);
+}
+
+a:hover { color: var(--fg-1); }
+
+/* Signature CTA — under-bar, tight-tracked, tiny caps */
+.link-cta {
+  font-family: var(--font-body);
+  font-size: var(--type-caption);
+  letter-spacing: var(--track-wider);
+  text-transform: uppercase;
+  color: var(--fg-3);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 2px;
+  transition: color var(--dur-base), border-color var(--dur-base);
+}
+.link-cta:hover {
+  color: var(--fg-1);
+  border-color: var(--rule-strong);
+}
+
+/* ---------- BUTTONS ---------- */
+.btn-ghost {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--type-caption);
+  letter-spacing: var(--track-wider);
+  text-transform: uppercase;
+  color: var(--fg-4);
+  border: 1px solid var(--rule);
+  padding: 12px 24px;
+  background: transparent;
+  cursor: pointer;
+  transition: color var(--dur-base), border-color var(--dur-base);
+}
+.btn-ghost:hover {
+  color: var(--fg-1);
+  border-color: var(--rule-strong);
+}
+
+.btn-solid {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--type-caption);
+  letter-spacing: var(--track-wider);
+  text-transform: uppercase;
+  color: var(--apr-black);
+  background: var(--apr-white);
+  border: 1px solid var(--apr-white);
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: background var(--dur-base), color var(--dur-base);
+}
+.btn-solid:hover {
+  background: transparent;
+  color: var(--apr-white);
+}
+
+/* ---------- SELECTION ---------- */
+::selection {
+  background: var(--apr-amber);
+  color: var(--apr-white);
+}
+
+/* ---------- DIVIDERS ---------- */
+.rule {
+  height: 1px;
+  background: var(--rule);
+  border: 0;
+}
+
+/* ============================================================
+   SIGNATURE MOTIFS — film sprockets, filmstrip rails
+   ============================================================ */
+.sprocket {
+  width: 13px;
+  height: 9px;
+  border: 1.5px solid #1e1e1e;
+  border-radius: var(--r-hole);
+  flex-shrink: 0;
+}
+
+.strip-rail {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 14px;
+  height: var(--filmstrip-h);
+  background: #050505;
+  border-bottom: 1px solid var(--bg-3);
+  overflow: hidden;
+}
+
+/* ============================================================
+   LIGHT MODE — warm parchment / production document
+   Opt-in via `body.light`
+   ============================================================ */
+body.light {
+  background: var(--apr-parchment);
+  color: var(--apr-ink);
+  --fg-1: var(--apr-ink);
+  --fg-2: rgba(28,18,8,0.80);
+  --fg-3: rgba(28,18,8,0.55);
+  --fg-4: rgba(28,18,8,0.40);
+  --fg-5: rgba(28,18,8,0.25);
+  --fg-6: rgba(28,18,8,0.12);
+  --rule: rgba(100,80,55,0.12);
+  --rule-strong: rgba(100,80,55,0.28);
+}
+body.light ::selection {
+  background: var(--apr-amber);
+  color: var(--apr-parchment);
+}
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+.container {
+  max-width: var(--max-content);
+  margin: 0 auto;
+  padding: 0 var(--pad-x);
+}
+
+.uppercase { text-transform: uppercase; }
+.track-eyebrow { letter-spacing: var(--track-eyebrow); }
+.track-wider   { letter-spacing: var(--track-wider); }
+.track-widest  { letter-spacing: var(--track-widest); }
+
+.text-212 { color: var(--apr-amber); }
+.text-310 { color: var(--apr-teal); }
+.text-nrc { color: var(--apr-offwhite); }
+.text-orange { color: var(--apr-orange); }
+
+.bg-212 { background: var(--apr-amber); }
+.bg-310 { background: var(--apr-teal); }
+.bg-orange { background: var(--apr-orange); }

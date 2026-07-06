@@ -1,0 +1,2942 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APR 70 Pictures — The Trade Review (v2)</title>
+<link rel="icon" type="image/svg+xml" href="assets/apr70_favicon_white.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   APR 70 PICTURES — COLORS & TYPE
+   Bold. Mature. In your face.
+   Italian Modernist / Vignelli-Munari lineage. Film sprocket DNA.
+   ============================================================ */
+
+/* ---------- WEBFONTS ---------- */
+@font-face {
+  font-family: 'Futura Std';
+  src: url('fonts/FuturaStd-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Futura Std';
+  src: url('fonts/FuturaStd-Book.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Futura Std';
+  src: url('fonts/FuturaStd-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Futura Std';
+  src: url('fonts/FuturaStd-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Futura Std';
+  src: url('fonts/FuturaStd-BoldOblique.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Futura Std';
+  src: url('fonts/FuturaStd-Heavy.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Futura Std Condensed';
+  src: url('fonts/FuturaStd-CondensedBold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Futura Std Condensed';
+  src: url('fonts/FuturaStd-CondensedExtraBd.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Barlow via Google Fonts (body) — production site uses this */
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
+
+/* ---------- ROOT TOKENS ---------- */
+:root {
+  /* BRAND COLORS — locked per CLAUDE.md production system */
+  --apr-black:      #000000;  /* primary background */
+  --apr-white:      #ffffff;  /* primary foreground */
+  --apr-amber:      #824B07;  /* (212) Pictures — Brooklyn rust */
+  --apr-teal:       #077082;  /* (310) Pictures — LA deep teal */
+  --apr-orange:     #E85D04;  /* accent / investor / sprocket warmth */
+  --apr-blue:       #0077B6;  /* navy accent / sprocket cool */
+  --apr-offwhite:   #c8c8c8;  /* NRC / secondary text */
+  --apr-steenbeck:  #d8cdb8;  /* warm parchment / light-mode accent */
+  --apr-parchment:  #ede8de;  /* light-mode background */
+  --apr-ink:        #1c1208;  /* light-mode foreground */
+
+  /* NEUTRAL RAMP (dark mode) */
+  --fg-1:   #ffffff;           /* primary text */
+  --fg-2:   rgba(255,255,255,0.80);
+  --fg-3:   rgba(255,255,255,0.55);
+  --fg-4:   rgba(255,255,255,0.35);
+  --fg-5:   rgba(255,255,255,0.20);
+  --fg-6:   rgba(255,255,255,0.10);
+  --bg-0:   #000000;
+  --bg-1:   #0a0a0a;
+  --bg-2:   #111111;
+  --bg-3:   #1a1a1a;
+  --rule:   rgba(255,255,255,0.08);
+  --rule-strong: rgba(255,255,255,0.20);
+  --muted:  #888888;
+
+  /* TYPE FAMILIES */
+  --font-display:   'Futura Std', Futura, 'Trebuchet MS', Impact, 'Arial Black', sans-serif;
+  --font-condensed: 'Futura Std Condensed', 'Futura Std', 'Arial Narrow', sans-serif;
+  --font-body:      'Barlow', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-mono:      'Share Tech Mono', 'Courier New', ui-monospace, monospace;
+
+  /* TYPE SCALE — cinema/editorial rhythm */
+  --type-hero:      clamp(3.5rem, 15vw, 18rem);    /* SLATE-sized display */
+  --type-h1:        clamp(2.5rem, 9vw, 8rem);      /* Hero headline */
+  --type-h2:        clamp(2rem, 8vw, 4.5rem);      /* Section heading */
+  --type-h3:        clamp(1.5rem, 4vw, 3rem);
+  --type-h4:        clamp(1.125rem, 2vw, 1.75rem);
+  --type-body-lg:   clamp(1rem, 1.4vw, 1.25rem);
+  --type-body:      1rem;
+  --type-small:     0.875rem;
+  --type-caption:   0.75rem;
+  --type-micro:     0.625rem;   /* 10px — eyebrow labels */
+  --type-tiny:      0.5625rem;  /* 9px — footer / strip labels */
+
+  /* TRACKING — signature wide letterspacing on all-caps */
+  --track-tight:    -0.02em;
+  --track-normal:   0;
+  --track-wide:     0.1em;
+  --track-wider:    0.2em;
+  --track-widest:   0.3em;
+  --track-eyebrow:  0.4em;      /* micro-label signature */
+  --track-strip:    0.55em;     /* filmstrip keycode */
+
+  /* LINE HEIGHTS */
+  --leading-crush:  0.85;       /* giant display, no breathing room */
+  --leading-tight:  1.0;
+  --leading-snug:   1.15;
+  --leading-body:   1.7;
+  --leading-loose:  1.8;
+
+  /* SPACING — 8px grid */
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  24px;
+  --s-6:  32px;
+  --s-7:  48px;
+  --s-8:  64px;
+  --s-9:  96px;
+  --s-10: 128px;
+  --s-11: 192px;
+
+  /* RADII — minimal; system is mostly hard-edged */
+  --r-none: 0;
+  --r-xs:   2px;
+  --r-sm:   4px;
+  --r-hole: 2px;                /* sprocket perforation corner */
+
+  /* BORDERS */
+  --b-hair: 1px solid var(--rule);
+  --b-rule: 1px solid var(--rule-strong);
+
+  /* MOTION */
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);     /* signature "film advance" */
+  --ease-in:   cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-quick: 0.25s;
+  --dur-base:  0.35s;
+  --dur-slow:  0.55s;
+  --dur-reel:  0.7s;
+  --dur-epic:  1s;
+
+  /* LAYOUT CONSTANTS */
+  --filmstrip-h: 32px;
+  --nav-h:       62px;
+  --pad-x:       clamp(1.5rem, 5vw, 4rem);
+  --max-content: 1200px;
+}
+
+/* ---------- DIVISION TOKENS ---------- */
+:root {
+  --div-212-color:  var(--apr-amber);
+  --div-212-label:  "(212) PICTURES";
+  --div-310-color:  var(--apr-teal);
+  --div-310-label:  "(310) PICTURES";
+  --div-nrc-color:  var(--apr-offwhite);
+  --div-nrc-label:  "NEW RENAISSANCE CINEMA";
+}
+
+/* ============================================================
+   SEMANTIC RESETS & ELEMENT STYLES
+   ============================================================ */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--bg-0);
+  color: var(--fg-1);
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: var(--type-body);
+  line-height: var(--leading-body);
+  cursor: crosshair;  /* signature APR 70 cursor */
+}
+
+/* ---------- DISPLAY TYPE ---------- */
+h1, .h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--type-h1);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--track-tight);
+  text-transform: uppercase;
+}
+
+h2, .h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--type-h2);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--track-tight);
+  text-transform: uppercase;
+}
+
+h3, .h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--type-h3);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--track-tight);
+  text-transform: uppercase;
+}
+
+h4, .h4 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--type-h4);
+  letter-spacing: var(--track-wide);
+  text-transform: uppercase;
+}
+
+/* Massive page-anchor display — "SLATE", "CRAFT OF CONSTRAINT" */
+.display-mega {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--type-hero);
+  line-height: var(--leading-crush);
+  letter-spacing: var(--track-tight);
+  text-transform: uppercase;
+}
+
+.display-outlined {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.8);
+}
+
+/* ---------- BODY TYPE ---------- */
+p, .body {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: var(--type-body);
+  line-height: var(--leading-body);
+  color: var(--fg-2);
+}
+
+.body-lg {
+  font-size: var(--type-body-lg);
+  line-height: var(--leading-loose);
+  color: var(--fg-3);
+}
+
+.body-small {
+  font-size: var(--type-small);
+  color: var(--fg-3);
+}
+
+/* ---------- LABEL / EYEBROW / META ---------- */
+.eyebrow {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--type-micro);
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--fg-4);
+}
+
+.keycode {
+  font-family: var(--font-mono);
+  font-size: var(--type-tiny);
+  letter-spacing: var(--track-strip);
+  text-transform: uppercase;
+  color: var(--fg-5);
+}
+
+.counter {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--track-wide);
+}
+
+/* ---------- LINKS ---------- */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--dur-base) var(--ease-in),
+              opacity var(--dur-base) var(--ease-in);
+}
+
+a:hover { color: var(--fg-1); }
+
+/* Signature CTA — under-bar, tight-tracked, tiny caps */
+.link-cta {
+  font-family: var(--font-body);
+  font-size: var(--type-caption);
+  letter-spacing: var(--track-wider);
+  text-transform: uppercase;
+  color: var(--fg-3);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 2px;
+  transition: color var(--dur-base), border-color var(--dur-base);
+}
+.link-cta:hover {
+  color: var(--fg-1);
+  border-color: var(--rule-strong);
+}
+
+/* ---------- BUTTONS ---------- */
+.btn-ghost {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--type-caption);
+  letter-spacing: var(--track-wider);
+  text-transform: uppercase;
+  color: var(--fg-4);
+  border: 1px solid var(--rule);
+  padding: 12px 24px;
+  background: transparent;
+  cursor: pointer;
+  transition: color var(--dur-base), border-color var(--dur-base);
+}
+.btn-ghost:hover {
+  color: var(--fg-1);
+  border-color: var(--rule-strong);
+}
+
+.btn-solid {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--type-caption);
+  letter-spacing: var(--track-wider);
+  text-transform: uppercase;
+  color: var(--apr-black);
+  background: var(--apr-white);
+  border: 1px solid var(--apr-white);
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: background var(--dur-base), color var(--dur-base);
+}
+.btn-solid:hover {
+  background: transparent;
+  color: var(--apr-white);
+}
+
+/* ---------- SELECTION ---------- */
+::selection {
+  background: var(--apr-amber);
+  color: var(--apr-white);
+}
+
+/* ---------- DIVIDERS ---------- */
+.rule {
+  height: 1px;
+  background: var(--rule);
+  border: 0;
+}
+
+/* ============================================================
+   SIGNATURE MOTIFS — film sprockets, filmstrip rails
+   ============================================================ */
+.sprocket {
+  width: 13px;
+  height: 9px;
+  border: 1.5px solid #1e1e1e;
+  border-radius: var(--r-hole);
+  flex-shrink: 0;
+}
+
+.strip-rail {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 14px;
+  height: var(--filmstrip-h);
+  background: #050505;
+  border-bottom: 1px solid var(--bg-3);
+  overflow: hidden;
+}
+
+/* ============================================================
+   LIGHT MODE — warm parchment / production document
+   Opt-in via `body.light`
+   ============================================================ */
+body.light {
+  background: var(--apr-parchment);
+  color: var(--apr-ink);
+  --fg-1: var(--apr-ink);
+  --fg-2: rgba(28,18,8,0.80);
+  --fg-3: rgba(28,18,8,0.55);
+  --fg-4: rgba(28,18,8,0.40);
+  --fg-5: rgba(28,18,8,0.25);
+  --fg-6: rgba(28,18,8,0.12);
+  --rule: rgba(100,80,55,0.12);
+  --rule-strong: rgba(100,80,55,0.28);
+}
+body.light ::selection {
+  background: var(--apr-amber);
+  color: var(--apr-parchment);
+}
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+.container {
+  max-width: var(--max-content);
+  margin: 0 auto;
+  padding: 0 var(--pad-x);
+}
+
+.uppercase { text-transform: uppercase; }
+.track-eyebrow { letter-spacing: var(--track-eyebrow); }
+.track-wider   { letter-spacing: var(--track-wider); }
+.track-widest  { letter-spacing: var(--track-widest); }
+
+.text-212 { color: var(--apr-amber); }
+.text-310 { color: var(--apr-teal); }
+.text-nrc { color: var(--apr-offwhite); }
+.text-orange { color: var(--apr-orange); }
+
+.bg-212 { background: var(--apr-amber); }
+.bg-310 { background: var(--apr-teal); }
+.bg-orange { background: var(--apr-orange); }
+
+/* ============================================================
+   APR 70 PICTURES — WEBSITE v2
+   "The Trade" — 1930s–50s Hollywood magazine architecture
+   rendered in the locked APR 70 modernist system.
+   No grain. No texture. Hard edges. The rail is the texture.
+   Tokens linked in <head> before this file.
+   ============================================================ */
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-0);
+  color: var(--fg-1);
+  font-family: var(--font-body);
+  font-weight: 300;
+  cursor: crosshair;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+a, button { cursor: crosshair; }
+img { display: block; max-width: 100%; }
+
+/* Condensed display alias — the trade-mag headline voice */
+.cond {
+  font-family: var(--font-condensed);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.9;
+}
+.mono { font-family: var(--font-mono); }
+
+/* ============================================================
+   PARCHMENT "DOCUMENT" MODE
+   body.light is defined in tokens; extend surfaces here.
+   ============================================================ */
+body.light { background: var(--apr-parchment); color: var(--apr-ink); }
+body.light .filmstrip { background: #e2dccd; border-bottom-color: rgba(100,80,55,0.22); }
+body.light .sprocket-hole { border-color: rgba(100,80,55,0.45); }
+body.light .filmstrip-keycode { color: rgba(100,80,55,0.5); }
+body.light .nameplate { background: linear-gradient(to bottom, var(--apr-parchment) 62%, transparent); }
+body.light .project-card,
+body.light .news-card,
+body.light .doc-panel { background: #f3efe6; }
+body.light .ad-cell { background: #e7e1d3; }
+
+/* ============================================================
+   FILMSTRIP RAIL
+   ============================================================ */
+.filmstrip {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--filmstrip-h);
+  background: #050505;
+  border-bottom: 1px solid #1a1a1a;
+  z-index: 300; overflow: hidden;
+}
+.filmstrip-accent { position: absolute; top: 0; bottom: 0; left: 0; width: 4px; }
+.filmstrip-holes { position: absolute; inset: 0; display: flex; align-items: center; gap: 16px; padding: 0 14px; }
+.sprocket-hole { width: 13px; height: 9px; border: 1.5px solid #1e1e1e; border-radius: 2px; flex-shrink: 0; }
+.filmstrip-keycode {
+  position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+  font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.42em;
+  color: #242424; text-transform: uppercase; white-space: nowrap;
+}
+
+/* ============================================================
+   NAMEPLATE NAV  (publication header bar)
+   ============================================================ */
+.nameplate {
+  position: fixed; top: var(--filmstrip-h); left: 0; right: 0;
+  z-index: 200;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.98) 62%, transparent);
+  padding: 0 var(--pad-x);
+}
+.nameplate-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  height: var(--nav-h);
+  max-width: var(--max-content); margin: 0 auto;
+}
+.nameplate-logo img { height: 26px; display: block; }
+.nameplate-logo .light-only { display: none; }
+body.light .nameplate-logo .dark-only { display: none; }
+body.light .nameplate-logo .light-only { display: block; }
+
+.nameplate-issue {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.3em;
+  color: var(--fg-4); text-transform: uppercase; text-align: right; line-height: 1.5;
+}
+.toc-toggle {
+  display: none;
+  background: transparent; border: 1px solid var(--rule-strong);
+  color: var(--fg-2); font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.3em; text-transform: uppercase; padding: 8px 14px;
+}
+
+/* Contents / chapter index strip beneath the nameplate */
+.toc-strip {
+  border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  background: rgba(0,0,0,0.92);
+}
+body.light .toc-strip { background: rgba(237,232,222,0.94); }
+.toc-inner {
+  display: flex; align-items: stretch; max-width: var(--max-content);
+  margin: 0 auto; overflow-x: auto; scrollbar-width: none;
+}
+.toc-inner::-webkit-scrollbar { display: none; }
+.toc-item {
+  display: flex; align-items: baseline; gap: 8px;
+  padding: 10px 20px; white-space: nowrap;
+  border-right: 1px solid var(--rule);
+  transition: background var(--dur-base) var(--ease-in), color var(--dur-base);
+}
+.toc-item:first-child { border-left: 1px solid var(--rule); }
+.toc-item .toc-num { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.2em; color: var(--fg-4); }
+.toc-item .toc-label { font-family: var(--font-body); font-weight: 500; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-3); }
+.toc-item:hover { background: rgba(255,255,255,0.04); }
+body.light .toc-item:hover { background: rgba(100,80,55,0.06); }
+.toc-item:hover .toc-label { color: var(--fg-1); }
+.toc-item.is-active { box-shadow: inset 0 -3px 0 var(--accent, var(--apr-orange)); }
+.toc-item.is-active .toc-num { color: var(--accent, var(--apr-orange)); }
+.toc-item.is-active .toc-label { color: var(--fg-1); font-weight: 600; }
+
+/* Mobile drawer */
+@media (max-width: 880px) {
+  .toc-strip { display: none; }
+  .toc-strip.is-open { display: block; position: fixed; top: calc(var(--filmstrip-h) + var(--nav-h)); left: 0; right: 0; z-index: 190; }
+  .toc-strip.is-open .toc-inner { flex-direction: column; }
+  .toc-strip.is-open .toc-item { border-right: 0; border-left: 0; border-bottom: 1px solid var(--rule); }
+  .toc-toggle { display: block; }
+}
+
+/* ============================================================
+   PAGE SHELL  +  shared editorial primitives
+   ============================================================ */
+.page { padding-top: calc(var(--filmstrip-h) + var(--nav-h) + 41px); min-height: 100vh; }
+.wrap { max-width: var(--max-content); margin: 0 auto; padding: 0 var(--pad-x); }
+.wrap-wide { max-width: 1440px; margin: 0 auto; padding: 0 var(--pad-x); }
+
+/* Folio / page-number style metadata */
+.folio {
+  display: flex; align-items: center; gap: 14px;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.32em;
+  text-transform: uppercase; color: var(--fg-4);
+}
+.folio .folio-line { flex: 1; height: 1px; background: var(--rule); }
+
+/* Section masthead (page title block) */
+.page-masthead { padding: 56px 0 36px; border-bottom: 2px solid var(--fg-1); }
+.page-masthead .kicker {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.5em;
+  text-transform: uppercase; color: var(--accent, var(--apr-orange)); margin-bottom: 22px;
+}
+.page-masthead h1 {
+  font-family: var(--font-condensed); font-weight: 900; text-transform: uppercase;
+  font-size: clamp(3.5rem, 12vw, 11rem); line-height: 0.82; letter-spacing: -0.02em; margin: 0;
+}
+.page-masthead .standfirst {
+  font-family: var(--font-body); font-weight: 300; font-size: clamp(1.05rem, 1.8vw, 1.5rem);
+  line-height: 1.5; color: var(--fg-2); max-width: 720px; margin: 28px 0 0;
+}
+
+/* Dateline lead-in (NEW YORK — APR 2026 —) */
+.dateline {
+  font-family: var(--font-mono); font-weight: 400; font-size: 11px;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent, var(--apr-orange));
+}
+.byline {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.28em;
+  text-transform: uppercase; color: var(--fg-4);
+}
+
+/* Editorial column text with drop cap */
+.editorial { font-family: var(--font-body); font-weight: 300; color: var(--fg-2); line-height: 1.75; }
+.editorial p { margin: 0 0 1.1em; text-wrap: pretty; }
+.editorial.cols-2 { columns: 2; column-gap: 48px; column-rule: 1px solid var(--rule); }
+.editorial.cols-3 { columns: 3; column-gap: 40px; column-rule: 1px solid var(--rule); }
+.editorial.justify p { text-align: justify; hyphens: auto; }
+.dropcap::first-letter {
+  font-family: var(--font-condensed); font-weight: 900;
+  float: left; font-size: 4.6em; line-height: 0.72; padding: 6px 12px 0 0;
+  color: var(--fg-1);
+}
+@media (max-width: 880px) {
+  .editorial.cols-2, .editorial.cols-3 { columns: 1; }
+}
+
+/* Pull quote */
+.pullquote {
+  font-family: var(--font-condensed); font-weight: 700; text-transform: uppercase;
+  font-size: clamp(1.6rem, 3.4vw, 3rem); line-height: 0.98; letter-spacing: -0.01em;
+  color: var(--fg-1); border-top: 2px solid var(--accent, var(--apr-orange));
+  border-bottom: 1px solid var(--rule); padding: 24px 0; margin: 8px 0;
+}
+
+/* Buttons */
+.btn-solid {
+  display: inline-block; font-family: var(--font-body); font-weight: 500;
+  font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: #000; background: #fff; border: 1px solid #fff; padding: 14px 28px;
+  transition: background var(--dur-base), color var(--dur-base);
+}
+.btn-solid:hover { background: transparent; color: #fff; }
+body.light .btn-solid { color: var(--apr-parchment); background: var(--apr-ink); border-color: var(--apr-ink); }
+body.light .btn-solid:hover { background: transparent; color: var(--apr-ink); }
+.btn-ghost {
+  display: inline-block; font-family: var(--font-body); font-weight: 400;
+  font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--fg-3); background: transparent; border: 1px solid var(--rule-strong);
+  padding: 14px 28px; transition: color var(--dur-base), border-color var(--dur-base);
+}
+.btn-ghost:hover { color: var(--fg-1); border-color: var(--fg-2); }
+
+/* Image slot skinning */
+image-slot {
+  --slot-bg: #0a0a0a;
+  background: #0a0a0a;
+}
+body.light image-slot { background: #e7e1d3; }
+.slot-cap {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--fg-4); margin-top: 8px;
+}
+
+/* ============================================================
+   COVER  (the magazine cover landing)
+   ============================================================ */
+.cover { position: relative; }
+.cover-top {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 24px; padding: 18px 0 14px; border-bottom: 1px solid var(--rule); flex-wrap: wrap;
+}
+.cover-top .ct-meta { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--fg-4); }
+.cover-top .ct-price { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--accent, var(--apr-orange)); }
+
+.cover-masthead {
+  text-align: center; padding: 22px 0 8px;
+  border-bottom: 3px solid var(--fg-1);
+}
+.cover-masthead .mh-line {
+  font-family: var(--font-condensed); font-weight: 900; text-transform: uppercase;
+  font-size: clamp(4.5rem, 22vw, 20rem); line-height: 0.8; letter-spacing: -0.03em; margin: 0;
+  color: var(--fg-1);
+}
+.cover-masthead .mh-sub {
+  display: flex; align-items: center; justify-content: center; gap: 18px;
+  margin-top: 14px; flex-wrap: wrap;
+}
+.cover-masthead .mh-sub span {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.4em;
+  text-transform: uppercase; color: var(--fg-3);
+}
+.cover-masthead .mh-sub .dot { color: var(--accent, var(--apr-orange)); }
+
+/* Cover body: dominant image + cover lines */
+.cover-body {
+  display: grid; grid-template-columns: 1.55fr 1fr; gap: 0;
+  border-bottom: 2px solid var(--fg-1);
+}
+.cover-feature { position: relative; border-right: 2px solid var(--fg-1); }
+.cover-feature image-slot { width: 100%; height: 100%; min-height: 540px; }
+.cover-feature .feat-overlay {
+  position: absolute; left: 0; bottom: 0; right: 0;
+  padding: 40px var(--s-7) 32px;
+  background: linear-gradient(to top, rgba(0,0,0,0.92) 12%, rgba(0,0,0,0.4) 60%, transparent);
+  pointer-events: none;
+}
+.cover-feature .feat-kicker {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.42em;
+  text-transform: uppercase; color: var(--apr-orange); margin-bottom: 14px;
+}
+.cover-feature .feat-title {
+  font-family: var(--font-condensed); font-weight: 900; text-transform: uppercase;
+  font-size: clamp(2.2rem, 4.6vw, 4.4rem); line-height: 0.9; letter-spacing: -0.015em;
+  color: #fff; margin: 0 0 14px; max-width: 16ch;
+}
+.cover-feature .feat-deck {
+  font-family: var(--font-body); font-weight: 300; font-size: 15px; line-height: 1.55;
+  color: rgba(255,255,255,0.78); max-width: 52ch;
+}
+
+.cover-lines { display: flex; flex-direction: column; }
+.coverline {
+  display: block; padding: 24px var(--s-7); border-bottom: 1px solid var(--rule);
+  text-align: left; background: transparent; border-left: 0; border-right: 0; border-top: 0;
+  width: 100%; transition: background var(--dur-base) var(--ease-in);
+}
+.coverline:last-child { border-bottom: 0; }
+.coverline:hover { background: rgba(255,255,255,0.04); }
+body.light .coverline:hover { background: rgba(100,80,55,0.06); }
+.coverline .cl-kicker {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fg-4);
+}
+.coverline .cl-dot { width: 7px; height: 7px; border-radius: 50%; }
+.coverline .cl-title {
+  font-family: var(--font-condensed); font-weight: 700; text-transform: uppercase;
+  font-size: clamp(1.4rem, 2.3vw, 2rem); line-height: 0.95; letter-spacing: -0.01em;
+  color: var(--fg-1); margin: 0 0 8px;
+}
+.coverline .cl-sub { font-family: var(--font-body); font-weight: 300; font-size: 13px; line-height: 1.5; color: var(--fg-3); }
+
+/* Cover footer ticker / contents row */
+.cover-contents {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-bottom: 2px solid var(--fg-1);
+}
+.cc-cell { padding: 22px var(--s-5); border-right: 1px solid var(--rule); }
+.cc-cell:last-child { border-right: 0; }
+.cc-cell .cc-num { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.25em; color: var(--accent, var(--apr-orange)); }
+.cc-cell .cc-label { font-family: var(--font-body); font-weight: 600; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-1); margin: 10px 0 6px; }
+.cc-cell .cc-desc { font-family: var(--font-body); font-weight: 300; font-size: 12px; line-height: 1.5; color: var(--fg-3); }
+
+@media (max-width: 880px) {
+  .cover-body { grid-template-columns: 1fr; }
+  .cover-feature { border-right: 0; border-bottom: 2px solid var(--fg-1); }
+  .cover-feature image-slot { min-height: 380px; }
+  .cover-contents { grid-template-columns: 1fr 1fr; }
+}
+
+/* ============================================================
+   DIVISION ROWS  (carried from v1, magazine-tuned)
+   ============================================================ */
+.division-row { position: relative; padding: 72px var(--pad-x); overflow: hidden; min-height: 380px; display: flex; transition: filter var(--dur-slow); }
+.division-row:hover { filter: brightness(1.07); }
+.division-ghost {
+  position: absolute; right: -3vw; bottom: -7vw;
+  font-family: var(--font-condensed); font-weight: 900; font-size: clamp(18rem, 34vw, 40rem);
+  line-height: 0.8; letter-spacing: -0.06em; pointer-events: none; user-select: none;
+}
+.division-inner { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: space-between; max-width: var(--max-content); width: 100%; margin: 0 auto; gap: 40px; }
+.division-top { display: flex; align-items: baseline; gap: 18px; }
+.division-num { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.3em; opacity: 0.7; }
+.division-kicker { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; opacity: 0.6; }
+.division-title { font-family: var(--font-condensed); font-weight: 900; font-size: clamp(2.6rem, 6.5vw, 5.5rem); line-height: 0.92; letter-spacing: -0.02em; text-transform: uppercase; margin: 0 0 14px; }
+.division-sub { font-family: var(--font-body); font-weight: 300; font-size: clamp(1rem, 1.4vw, 1.2rem); line-height: 1.6; max-width: 560px; opacity: 0.88; }
+.division-bottom { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.25); flex-wrap: wrap; }
+.division-projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 6px 32px; }
+.division-project { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 5px 0; border-bottom: 1px dashed rgba(255,255,255,0.18); }
+.division-project-meta { opacity: 0.6; }
+.division-cta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; white-space: nowrap; }
+@media (max-width: 720px) { .division-bottom { flex-direction: column; align-items: flex-start; } }
+
+/* ============================================================
+   SLATE GRID
+   ============================================================ */
+.slate-filters { display: flex; gap: 18px; flex-wrap: wrap; margin: 36px 0 48px; padding-top: 22px; border-top: 1px solid var(--rule); }
+.slate-filter { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fg-4); background: transparent; border: 0; padding: 6px 0; border-bottom: 1px solid transparent; transition: color var(--dur-base), border-color var(--dur-base); }
+.slate-filter:hover { color: var(--fg-2); }
+.slate-filter.is-active { color: var(--fg-1); border-bottom-color: var(--accent, var(--apr-orange)); }
+.slate-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 28px; padding-bottom: 80px; }
+
+.project-card { display: flex; flex-direction: column; background: var(--bg-1); border: 1px solid var(--rule); padding: 18px; transition: border-color var(--dur-base); }
+.project-card:hover { border-color: var(--rule-strong); }
+.project-card-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
+.project-card-div { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.3em; }
+.project-card-idx { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em; color: var(--fg-4); }
+.project-card image-slot { width: 100%; aspect-ratio: 16/10; margin-bottom: 18px; }
+.project-card-title { font-family: var(--font-condensed); font-weight: 900; font-size: 26px; line-height: 0.92; letter-spacing: -0.01em; text-transform: uppercase; margin: 0 0 12px; color: var(--fg-1); }
+.project-card-desc { font-family: var(--font-body); font-weight: 300; font-size: 13px; line-height: 1.6; color: var(--fg-3); margin: 0 0 18px; flex: 1; }
+.project-card-foot { display: flex; justify-content: space-between; align-items: baseline; padding-top: 14px; border-top: 1px solid var(--rule); }
+.project-card-meta { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.3em; color: var(--fg-4); text-transform: uppercase; }
+.project-card-link { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.3em; color: var(--fg-2); border-bottom: 1px solid var(--rule-strong); padding-bottom: 2px; }
+
+/* ============================================================
+   NEWS  (the heart of the magazine)
+   ============================================================ */
+.news-lead { display: grid; grid-template-columns: 1.4fr 1fr; gap: 0; border-bottom: 2px solid var(--fg-1); margin-bottom: 0; }
+.news-lead-art { position: relative; border-right: 2px solid var(--fg-1); }
+.news-lead-art image-slot { width: 100%; height: 100%; min-height: 460px; }
+.news-lead-art .tag { position: absolute; top: 0; left: 0; background: var(--accent, var(--apr-orange)); color: #fff; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; padding: 8px 16px; }
+.news-lead-body { padding: 40px var(--s-7); display: flex; flex-direction: column; justify-content: center; }
+.news-lead-body .nl-kicker { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--accent, var(--apr-orange)); margin-bottom: 18px; }
+.news-lead-body h2 { font-family: var(--font-condensed); font-weight: 900; font-size: clamp(2.2rem, 4vw, 3.6rem); line-height: 0.9; letter-spacing: -0.015em; text-transform: uppercase; margin: 0 0 18px; }
+.news-lead-body .nl-deck { font-family: var(--font-body); font-weight: 300; font-size: 16px; line-height: 1.6; color: var(--fg-2); margin: 0 0 22px; }
+.news-lead-body .nl-foot { display: flex; gap: 18px; align-items: baseline; }
+
+.news-bar { display: flex; align-items: baseline; justify-content: space-between; padding: 18px 0; border-bottom: 1px solid var(--rule); margin-top: 56px; }
+.news-bar .nb-title { font-family: var(--font-body); font-weight: 600; font-size: 12px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--fg-1); }
+.news-bar .nb-meta { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.25em; color: var(--fg-4); text-transform: uppercase; }
+
+.news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-bottom: 1px solid var(--rule); }
+.news-card { padding: 28px 28px 32px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); transition: background var(--dur-base) var(--ease-in); }
+.news-card:hover { background: rgba(255,255,255,0.03); }
+body.light .news-card:hover { background: rgba(100,80,55,0.05); }
+.news-card .nc-top { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.news-card .nc-dot { width: 7px; height: 7px; border-radius: 50%; }
+.news-card .nc-cat { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--fg-4); }
+.news-card .nc-date { margin-left: auto; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.2em; color: var(--fg-5); }
+.news-card h3 { font-family: var(--font-condensed); font-weight: 700; font-size: 22px; line-height: 0.96; letter-spacing: -0.005em; text-transform: uppercase; margin: 0 0 12px; color: var(--fg-1); }
+.news-card p { font-family: var(--font-body); font-weight: 300; font-size: 13px; line-height: 1.6; color: var(--fg-3); margin: 0; }
+.news-card .nc-read { display: inline-block; margin-top: 16px; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fg-2); border-bottom: 1px solid var(--rule-strong); padding-bottom: 2px; }
+@media (max-width: 980px) { .news-grid { grid-template-columns: 1fr 1fr; } .news-lead { grid-template-columns: 1fr; } .news-lead-art { border-right: 0; border-bottom: 2px solid var(--fg-1); } .news-lead-art image-slot { min-height: 320px; } }
+@media (max-width: 640px) { .news-grid { grid-template-columns: 1fr; } }
+
+/* Column-style founder note */
+.column-note { display: grid; grid-template-columns: 220px 1fr; gap: 48px; padding: 56px 0; border-top: 2px solid var(--fg-1); }
+.column-note .cn-side { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fg-4); line-height: 1.9; }
+@media (max-width: 880px) { .column-note { grid-template-columns: 1fr; gap: 24px; } }
+
+/* ============================================================
+   DOCUMENT PANELS  (Investors)
+   ============================================================ */
+.doc-panel { border: 1px solid var(--rule); background: var(--bg-1); padding: 40px; }
+.doc-table { width: 100%; border-collapse: collapse; }
+.doc-table th { text-align: left; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fg-4); padding: 12px 16px; border-bottom: 1px solid var(--rule-strong); }
+.doc-table td { font-family: var(--font-body); font-weight: 300; font-size: 14px; color: var(--fg-2); padding: 16px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.doc-table .dt-proj { font-family: var(--font-condensed); font-weight: 700; text-transform: uppercase; font-size: 17px; letter-spacing: 0; color: var(--fg-1); }
+.doc-table .dt-budget { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.05em; color: var(--accent, var(--apr-orange)); white-space: nowrap; }
+.doc-table tr:hover td { background: rgba(255,255,255,0.02); }
+body.light .doc-table tr:hover td { background: rgba(100,80,55,0.04); }
+
+.stat-row { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 2px solid var(--fg-1); border-bottom: 1px solid var(--rule); }
+.stat-cell { padding: 28px var(--s-5); border-right: 1px solid var(--rule); }
+.stat-cell:last-child { border-right: 0; }
+.stat-cell .sv { font-family: var(--font-condensed); font-weight: 900; font-size: clamp(2.2rem, 4vw, 3.4rem); line-height: 0.9; letter-spacing: -0.01em; color: var(--fg-1); }
+.stat-cell .sl { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--fg-4); margin-top: 10px; }
+@media (max-width: 880px) { .stat-row { grid-template-columns: 1fr 1fr; } .stat-cell:nth-child(2) { border-right: 0; } }
+
+.timeline-row { display: flex; align-items: baseline; gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--rule); }
+.timeline-row .tl-date { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.2em; color: var(--accent, var(--apr-orange)); min-width: 130px; text-transform: uppercase; }
+.timeline-row .tl-event { font-family: var(--font-body); font-weight: 300; font-size: 15px; color: var(--fg-2); }
+.timeline-row .tl-event strong { font-weight: 600; color: var(--fg-1); }
+
+/* ============================================================
+   CAREERS  (classified-ad density)
+   ============================================================ */
+.ad-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 2px solid var(--fg-1); border-left: 1px solid var(--rule); }
+.ad-cell { padding: 26px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); background: transparent; display: flex; flex-direction: column; transition: background var(--dur-base) var(--ease-in); }
+.ad-cell:hover { background: rgba(255,255,255,0.03); }
+body.light .ad-cell:hover { background: rgba(100,80,55,0.05); }
+.ad-cell .ad-no { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.3em; color: var(--fg-5); margin-bottom: 14px; }
+.ad-cell .ad-title { font-family: var(--font-condensed); font-weight: 700; font-size: 20px; line-height: 0.96; text-transform: uppercase; color: var(--fg-1); margin: 0 0 8px; }
+.ad-cell .ad-meta { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent, var(--apr-orange)); margin-bottom: 14px; }
+.ad-cell .ad-body { font-family: var(--font-body); font-weight: 300; font-size: 13px; line-height: 1.6; color: var(--fg-3); flex: 1; margin: 0 0 16px; }
+.ad-cell .ad-apply { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--fg-2); border-bottom: 1px solid var(--rule-strong); padding-bottom: 2px; align-self: flex-start; }
+@media (max-width: 980px) { .ad-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .ad-grid { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; border-top: 2px solid var(--fg-1); }
+.contact-tile { padding: 44px; position: relative; display: flex; flex-direction: column; justify-content: space-between; min-height: 280px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); transition: filter var(--dur-base); }
+.contact-tile.has-fill:hover { filter: brightness(1.1); }
+.contact-tile .ct-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; opacity: 0.7; }
+.contact-tile .ct-title { font-family: var(--font-condensed); font-weight: 900; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 0.92; text-transform: uppercase; margin-top: auto; }
+.contact-tile .ct-body { font-family: var(--font-body); font-weight: 300; font-size: 14px; line-height: 1.7; white-space: pre-line; margin-top: 16px; opacity: 0.9; }
+.contact-tile .ct-corner { position: absolute; top: 18px; right: 22px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.3em; opacity: 0.6; }
+@media (max-width: 720px) { .contact-grid { grid-template-columns: 1fr; } }
+
+/* Contact form */
+.cform { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; }
+.cfield { display: flex; flex-direction: column; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.cfield.full { grid-column: 1 / -1; }
+.cfield label { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fg-4); margin-bottom: 10px; }
+.cfield input, .cfield textarea, .cfield select {
+  background: transparent; border: 0; color: var(--fg-1);
+  font-family: var(--font-body); font-weight: 300; font-size: 16px; padding: 4px 0; outline: none; resize: vertical;
+}
+.cfield input::placeholder, .cfield textarea::placeholder { color: var(--fg-5); }
+.cfield input:focus, .cfield textarea:focus, .cfield select:focus { color: var(--fg-1); }
+.cfield.focused { border-bottom-color: var(--accent, var(--apr-orange)); }
+@media (max-width: 720px) { .cform { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   TAGLINE BAND
+   ============================================================ */
+.tagline-band { padding: 80px var(--pad-x); text-align: center; max-width: 1000px; margin: 0 auto; }
+.tagline-rule { height: 1px; background: linear-gradient(to right, transparent, var(--rule-strong), transparent); }
+.tagline-h { font-family: var(--font-condensed); font-weight: 900; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 0.92; letter-spacing: -0.02em; text-transform: uppercase; color: var(--fg-1); margin: 40px 0 16px; }
+.tagline-p { font-family: var(--font-body); font-weight: 300; font-size: 14px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--fg-3); margin: 0 0 36px; }
+.tagline-ctas { display: flex; gap: 16px; justify-content: center; margin-bottom: 56px; flex-wrap: wrap; }
+
+/* ============================================================
+   FOOTER / COLOPHON
+   ============================================================ */
+.site-footer { padding: 72px var(--pad-x) 40px; border-top: 1px solid var(--rule); background: var(--bg-0); }
+body.light .site-footer { background: var(--apr-parchment); }
+.footer-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; max-width: var(--max-content); margin: 0 auto; }
+.footer-col { display: flex; flex-direction: column; gap: 9px; }
+.footer-title { font-family: var(--font-body); font-weight: 600; font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--fg-1); margin-bottom: 12px; }
+.footer-meta { font-family: var(--font-body); font-weight: 300; font-size: 12px; letter-spacing: 0.04em; color: var(--fg-3); }
+.footer-meta.mono { font-family: var(--font-mono); letter-spacing: 0.22em; font-size: 10px; }
+.footer-link { font-family: var(--font-body); font-weight: 400; font-size: 12px; letter-spacing: 0.08em; color: var(--fg-2); background: none; border: 0; text-align: left; padding: 0; }
+.footer-link:hover { color: var(--fg-1); }
+.footer-rule { max-width: var(--max-content); margin: 40px auto 20px; height: 1px; background: var(--rule); }
+.footer-baseline { display: flex; justify-content: space-between; max-width: var(--max-content); margin: 0 auto; flex-wrap: wrap; gap: 12px; }
+.footer-small { font-size: 10px; letter-spacing: 0.3em; color: var(--fg-5); text-transform: uppercase; }
+.footer-small.mono { font-family: var(--font-mono); color: var(--fg-4); }
+@media (max-width: 880px) { .footer-row { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .footer-row { grid-template-columns: 1fr; } }
+
+/* Corner accent */
+.corner-accent { position: fixed; bottom: 0; right: 0; width: 200px; height: 3px; background: linear-gradient(to left, var(--apr-teal), transparent); opacity: 0.4; pointer-events: none; z-index: 50; }
+
+/* Palette toggle button */
+.mode-toggle { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1px solid var(--rule-strong); color: var(--fg-3); font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; padding: 7px 12px; transition: color var(--dur-base), border-color var(--dur-base); }
+.mode-toggle:hover { color: var(--fg-1); border-color: var(--fg-2); }
+.mode-toggle .md-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--fg-2); }
+
+/* Entrance reveal — base state is VISIBLE; animate from hidden when armed */
+@media (prefers-reduced-motion: no-preference) {
+  .page[data-ready="1"] .fadeup { animation: aprFadeUp var(--dur-reel) var(--ease-out) both; }
+  .page[data-ready="1"] .fadeup.d1 { animation-delay: 0.07s; }
+  .page[data-ready="1"] .fadeup.d2 { animation-delay: 0.14s; }
+  .page[data-ready="1"] .fadeup.d3 { animation-delay: 0.21s; }
+  .page[data-ready="1"] .fadeup.d4 { animation-delay: 0.28s; }
+}
+@keyframes aprFadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script>
+// @ds-adherence-ignore -- omelette starter scaffold (raw elements/hex/px by design)
+/* BEGIN USAGE */
+/**
+ * <image-slot> — user-fillable image placeholder.
+ *
+ * Drop this into a deck, mockup, or page wherever you want the user to
+ * supply an image. You control the slot's shape and size; the user fills it
+ * by dragging an image file onto it (or clicking to browse). The dropped
+ * image persists across reloads via a .image-slots.state.json sidecar —
+ * same read-via-fetch / write-via-window.omelette pattern as
+ * design_canvas.jsx, so the filled slot shows on share links, downloaded
+ * zips, and PPTX export. Outside the omelette runtime the slot is read-only.
+ *
+ * The host bridge only allows sidecar writes at the project root, so the
+ * HTML that uses this component is assumed to live at the project root too
+ * (same constraint as design_canvas.jsx).
+ *
+ * Attributes:
+ *   id           Persistence key. REQUIRED for the drop to survive reload —
+ *                every slot on the page needs a distinct id.
+ *   shape        'rect' | 'rounded' | 'circle' | 'pill'   (default 'rounded')
+ *                'circle' applies 50% border-radius; on a non-square slot
+ *                that's an ellipse — set equal width and height for a true
+ *                circle.
+ *   radius       Corner radius in px for 'rounded'.       (default 12)
+ *   mask         Any CSS clip-path value. Overrides `shape` — use this for
+ *                hexagons, blobs, arbitrary polygons.
+ *   fit          object-fit: cover | contain | fill.       (default 'cover')
+ *                With cover (the default) double-clicking the filled slot
+ *                enters a reframe mode: the whole image spills past the mask
+ *                (translucent outside, opaque inside), drag to reposition,
+ *                corner-drag to scale. The crop persists alongside the image
+ *                in the sidecar. contain/fill stay static.
+ *   position     object-position for fit=contain|fill.     (default '50% 50%')
+ *   placeholder  Empty-state caption.                      (default 'Drop an image')
+ *   src          Optional initial/fallback image URL. A user drop overrides
+ *                it; clearing the drop reveals src again.
+ *
+ * Size and layout come from ordinary CSS on the element — width/height
+ * inline or from a parent grid — so it composes with any layout.
+ *
+ * Usage:
+ *   <image-slot id="hero"   style="width:800px;height:450px" shape="rounded" radius="20"
+ *               placeholder="Drop a hero image"></image-slot>
+ *   <image-slot id="avatar" style="width:120px;height:120px" shape="circle"></image-slot>
+ *   <image-slot id="kite"   style="width:300px;height:300px"
+ *               mask="polygon(50% 0, 100% 50%, 50% 100%, 0 50%)"></image-slot>
+ */
+/* END USAGE */
+
+(() => {
+  const STATE_FILE = '.image-slots.state.json';
+  // 2× a ~600px slot in a 1920-wide deck — retina-sharp without making the
+  // sidecar enormous. A 1200px WebP at q=0.85 is ~150-300KB.
+  const MAX_DIM = 1200;
+  // Raster formats only. SVG is excluded (can carry script; createImageBitmap
+  // on SVG blobs is inconsistent). GIF is excluded because the canvas
+  // re-encode keeps only the first frame, so an animated GIF would silently
+  // go still — better to reject than surprise.
+  const ACCEPT = ['image/png', 'image/jpeg', 'image/webp', 'image/avif'];
+
+  // ── Shared sidecar store ────────────────────────────────────────────────
+  // One fetch + immediate write-on-change for every <image-slot> on the
+  // page. Reads via fetch() so viewing works anywhere the HTML and sidecar
+  // are served together; writes go through window.omelette.writeFile, which
+  // the host allowlists to *.state.json basenames only.
+  const subs = new Set();
+  let slots = {};
+  // ids explicitly cleared before the sidecar fetch resolved — otherwise
+  // the merge below can't tell "never set" from "just deleted" and would
+  // resurrect the sidecar's stale value.
+  const tombstones = new Set();
+  let loaded = false;
+  let loadP = null;
+
+  function load() {
+    if (loadP) return loadP;
+    loadP = fetch(STATE_FILE)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => {
+        // Merge: sidecar loses to any in-memory change that raced ahead of
+        // the fetch (drop or clear) so neither is clobbered by hydration.
+        if (j && typeof j === 'object') {
+          const merged = Object.assign({}, j, slots);
+          // A framing-only write that raced ahead of hydration must not
+          // drop a user image that's only on disk — inherit u from the
+          // sidecar for any in-memory entry that lacks one.
+          for (const k in slots) {
+            if (merged[k] && !merged[k].u && j[k]) {
+              merged[k].u = typeof j[k] === 'string' ? j[k] : j[k].u;
+            }
+          }
+          for (const id of tombstones) delete merged[id];
+          slots = merged;
+        }
+        tombstones.clear();
+      })
+      .catch(() => {})
+      .then(() => { loaded = true; subs.forEach((fn) => fn()); });
+    return loadP;
+  }
+
+  // Serialize writes so two near-simultaneous drops on different slots
+  // can't reorder at the backend and leave the sidecar with only the
+  // first. A save requested mid-flight just marks dirty and re-fires on
+  // completion with the then-current slots.
+  let saving = false;
+  let saveDirty = false;
+  function save() {
+    if (saving) { saveDirty = true; return; }
+    const w = window.omelette && window.omelette.writeFile;
+    if (!w) return;
+    saving = true;
+    Promise.resolve(w(STATE_FILE, JSON.stringify(slots)))
+      .catch(() => {})
+      .then(() => { saving = false; if (saveDirty) { saveDirty = false; save(); } });
+  }
+
+  const S_MAX = 5;
+  const clampS = (s) => Math.max(1, Math.min(S_MAX, s));
+
+  // Normalize a stored slot value. Pre-reframe sidecars stored a bare
+  // data-URL string; newer ones store {u, s, x, y}. Either shape is valid.
+  function getSlot(id) {
+    const v = slots[id];
+    if (!v) return null;
+    return typeof v === 'string' ? { u: v, s: 1, x: 0, y: 0 } : v;
+  }
+
+  function setSlot(id, val) {
+    if (!id) return;
+    if (val) { slots[id] = val; tombstones.delete(id); }
+    else { delete slots[id]; if (!loaded) tombstones.add(id); }
+    subs.forEach((fn) => fn());
+    // A drop is rare + high-value — write immediately so nav-away can't lose
+    // it. Gate on the initial read so we don't overwrite a sidecar we haven't
+    // merged yet; the merge in load() keeps this change once the read lands.
+    if (loaded) save(); else load().then(save);
+  }
+
+  // ── Image downscale ─────────────────────────────────────────────────────
+  // Encode through a canvas so the sidecar carries resized bytes, not the
+  // raw upload. Longest side is capped at 2× the slot's rendered width
+  // (retina) and at MAX_DIM. WebP keeps alpha and is ~10× smaller than PNG
+  // for photos, so there's no need for per-image format picking.
+  async function toDataUrl(file, targetW) {
+    const bitmap = await createImageBitmap(file);
+    try {
+      const cap = Math.min(MAX_DIM, Math.max(1, Math.round(targetW * 2)) || MAX_DIM);
+      const scale = Math.min(1, cap / Math.max(bitmap.width, bitmap.height));
+      const w = Math.max(1, Math.round(bitmap.width * scale));
+      const h = Math.max(1, Math.round(bitmap.height * scale));
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(bitmap, 0, 0, w, h);
+      return canvas.toDataURL('image/webp', 0.85);
+    } finally {
+      bitmap.close && bitmap.close();
+    }
+  }
+
+  // ── Custom element ──────────────────────────────────────────────────────
+  const stylesheet =
+    ':host{display:inline-block;position:relative;vertical-align:top;' +
+    '  font:13px/1.3 system-ui,-apple-system,sans-serif;color:rgba(0,0,0,.55);width:240px;height:160px}' +
+    '.frame{position:absolute;inset:0;overflow:hidden;background:rgba(0,0,0,.04)}' +
+    // .frame img (clipped) and .spill (unclipped ghost + handles) share the
+    // same left/top/width/height in frame-%, computed by _applyView(), so the
+    // inside-mask crop and the outside-mask spill stay pixel-aligned.
+    '.frame img{position:absolute;max-width:none;transform:translate(-50%,-50%);' +
+    '  -webkit-user-drag:none;user-select:none;touch-action:none}' +
+    // Reframe mode (double-click): the full image spills past the mask. The
+    // spill layer is sized to the IMAGE bounds so its corners are where the
+    // resize handles belong. The ghost <img> inside is translucent; the real
+    // clipped <img> underneath shows the opaque in-mask crop.
+    '.spill{position:absolute;transform:translate(-50%,-50%);display:none;z-index:1;' +
+    '  cursor:grab;touch-action:none}' +
+    ':host([data-panning]) .spill{cursor:grabbing}' +
+    '.spill .ghost{position:absolute;inset:0;width:100%;height:100%;opacity:.35;' +
+    '  pointer-events:none;-webkit-user-drag:none;user-select:none;' +
+    '  box-shadow:0 0 0 1px rgba(0,0,0,.2),0 12px 32px rgba(0,0,0,.2)}' +
+    '.spill .handle{position:absolute;width:12px;height:12px;border-radius:50%;' +
+    '  background:#fff;box-shadow:0 0 0 1.5px #c96442,0 1px 3px rgba(0,0,0,.3);' +
+    '  transform:translate(-50%,-50%)}' +
+    '.spill .handle[data-c=nw]{left:0;top:0;cursor:nwse-resize}' +
+    '.spill .handle[data-c=ne]{left:100%;top:0;cursor:nesw-resize}' +
+    '.spill .handle[data-c=sw]{left:0;top:100%;cursor:nesw-resize}' +
+    '.spill .handle[data-c=se]{left:100%;top:100%;cursor:nwse-resize}' +
+    ':host([data-reframe]){z-index:10}' +
+    ':host([data-reframe]) .spill{display:block}' +
+    ':host([data-reframe]) .frame{box-shadow:0 0 0 2px #c96442}' +
+    '.empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;' +
+    '  justify-content:center;gap:6px;text-align:center;padding:12px;box-sizing:border-box;' +
+    '  cursor:pointer;user-select:none}' +
+    '.empty svg{opacity:.45}' +
+    '.empty .cap{max-width:90%;font-weight:500;letter-spacing:.01em}' +
+    '.empty .sub{font-size:11px}' +
+    '.empty .sub u{text-underline-offset:2px;text-decoration-color:rgba(0,0,0,.25)}' +
+    '.empty:hover .sub u{color:rgba(0,0,0,.75);text-decoration-color:currentColor}' +
+    ':host([data-over]) .frame{outline:2px solid #c96442;outline-offset:-2px;' +
+    '  background:rgba(201,100,66,.10)}' +
+    '.ring{position:absolute;inset:0;pointer-events:none;border:1.5px dashed rgba(0,0,0,.25);' +
+    '  transition:border-color .12s}' +
+    ':host([data-over]) .ring{border-color:#c96442}' +
+    ':host([data-filled]) .ring{display:none}' +
+    // Controls sit BELOW the mask (top:100%), absolutely positioned so the
+    // author-declared slot height is unaffected. The gap is padding, not a
+    // top offset, so the hover target stays contiguous with the frame.
+    '.ctl{position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:8px;' +
+    '  display:flex;gap:6px;opacity:0;pointer-events:none;transition:opacity .12s;z-index:2;' +
+    '  white-space:nowrap}' +
+    ':host([data-filled][data-editable]:hover) .ctl,:host([data-reframe]) .ctl' +
+    '  {opacity:1;pointer-events:auto}' +
+    '.ctl button{appearance:none;border:0;border-radius:6px;padding:5px 10px;cursor:pointer;' +
+    '  background:rgba(0,0,0,.65);color:#fff;font:11px/1 system-ui,-apple-system,sans-serif;' +
+    '  backdrop-filter:blur(6px)}' +
+    '.ctl button:hover{background:rgba(0,0,0,.8)}' +
+    '.err{position:absolute;left:8px;bottom:8px;right:8px;color:#b3261e;font-size:11px;' +
+    '  background:rgba(255,255,255,.85);padding:4px 6px;border-radius:5px;pointer-events:none}';
+
+  const icon =
+    '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+    'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' +
+    '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>' +
+    '<path d="m21 15-5-5L5 21"/></svg>';
+
+  class ImageSlot extends HTMLElement {
+    static get observedAttributes() {
+      return ['shape', 'radius', 'mask', 'fit', 'position', 'placeholder', 'src', 'id'];
+    }
+
+    constructor() {
+      super();
+      const root = this.attachShadow({ mode: 'open' });
+      // .spill and .ctl sit OUTSIDE .frame so overflow:hidden + border-radius
+      // on the frame (circle, pill, rounded) can't clip them.
+      root.innerHTML =
+        '<style>' + stylesheet + '</style>' +
+        '<div class="frame" part="frame">' +
+        '  <img part="image" alt="" draggable="false" style="display:none">' +
+        '  <div class="empty" part="empty">' + icon +
+        '    <div class="cap"></div>' +
+        '    <div class="sub">or <u>browse files</u></div></div>' +
+        '  <div class="ring" part="ring"></div>' +
+        '</div>' +
+        '<div class="spill">' +
+        '  <img class="ghost" alt="" draggable="false">' +
+        '  <div class="handle" data-c="nw"></div><div class="handle" data-c="ne"></div>' +
+        '  <div class="handle" data-c="sw"></div><div class="handle" data-c="se"></div>' +
+        '</div>' +
+        '<div class="ctl"><button data-act="replace" title="Replace image">Replace</button>' +
+        '  <button data-act="clear" title="Remove image">Remove</button></div>' +
+        '<input type="file" accept="' + ACCEPT.join(',') + '" hidden>';
+      this._frame = root.querySelector('.frame');
+      this._ring = root.querySelector('.ring');
+      this._img = root.querySelector('.frame img');
+      this._empty = root.querySelector('.empty');
+      this._cap = root.querySelector('.cap');
+      this._sub = root.querySelector('.sub');
+      this._spill = root.querySelector('.spill');
+      this._ghost = root.querySelector('.ghost');
+      this._err = null;
+      this._input = root.querySelector('input');
+      this._depth = 0;
+      this._gen = 0;
+      this._view = { s: 1, x: 0, y: 0 };
+      this._subFn = () => this._render();
+      // Shadow-DOM listeners live with the shadow DOM — bound once here so
+      // disconnect/reconnect (e.g. React remount) doesn't stack handlers.
+      this._empty.addEventListener('click', () => this._input.click());
+      root.addEventListener('click', (e) => {
+        const act = e.target && e.target.getAttribute && e.target.getAttribute('data-act');
+        if (act === 'replace') { this._exitReframe(true); this._input.click(); }
+        if (act === 'clear') {
+          this._exitReframe(false);
+          this._gen++;
+          this._local = null;
+          if (this.id) setSlot(this.id, null); else this._render();
+        }
+      });
+      this._input.addEventListener('change', () => {
+        const f = this._input.files && this._input.files[0];
+        if (f) this._ingest(f);
+        this._input.value = '';
+      });
+      // naturalWidth/Height aren't known until load — re-apply so the cover
+      // baseline is computed from real dimensions, not the 100%×100% fallback.
+      this._img.addEventListener('load', () => this._applyView());
+      // Gated on editable + fit=cover so share links and contain/fill slots
+      // stay static.
+      this.addEventListener('dblclick', (e) => {
+        if (!this.hasAttribute('data-editable') || !this._reframes()) return;
+        e.preventDefault();
+        if (this.hasAttribute('data-reframe')) this._exitReframe(true);
+        else this._enterReframe();
+      });
+      // Pan + resize both originate on the spill layer. A handle pointerdown
+      // drives an aspect-locked resize anchored at the opposite corner; any
+      // other pointerdown on the spill pans. Offsets are frame-% so a
+      // reframed slot survives responsive resize / PPTX export.
+      this._spill.addEventListener('pointerdown', (e) => {
+        if (e.button !== 0 || !this.hasAttribute('data-reframe')) return;
+        e.preventDefault();
+        e.stopPropagation();
+        this._spill.setPointerCapture(e.pointerId);
+        const rect = this.getBoundingClientRect();
+        const fw = rect.width || 1, fh = rect.height || 1;
+        const corner = e.target.getAttribute && e.target.getAttribute('data-c');
+        let move;
+        if (corner) {
+          // Resize about the OPPOSITE corner. Viewport-px throughout (rect
+          // fw/fh, not clientWidth) so the math survives a transform:scale()
+          // ancestor — deck_stage renders slides scaled-to-fit.
+          const iw = this._img.naturalWidth || 1, ih = this._img.naturalHeight || 1;
+          const base = Math.max(fw / iw, fh / ih);
+          const sx = corner.includes('e') ? 1 : -1;
+          const sy = corner.includes('s') ? 1 : -1;
+          const s0 = this._view.s;
+          const w0 = iw * base * s0, h0 = ih * base * s0;
+          const cx0 = (50 + this._view.x) / 100 * fw;
+          const cy0 = (50 + this._view.y) / 100 * fh;
+          const ox = cx0 - sx * w0 / 2, oy = cy0 - sy * h0 / 2;
+          const diag0 = Math.hypot(w0, h0);
+          const ux = sx * w0 / diag0, uy = sy * h0 / diag0;
+          move = (ev) => {
+            const proj = (ev.clientX - rect.left - ox) * ux +
+                         (ev.clientY - rect.top - oy) * uy;
+            const s = clampS(s0 * proj / diag0);
+            const d = diag0 * s / s0;
+            this._view.s = s;
+            this._view.x = (ox + ux * d / 2) / fw * 100 - 50;
+            this._view.y = (oy + uy * d / 2) / fh * 100 - 50;
+            this._clampView();
+            this._applyView();
+          };
+        } else {
+          this.setAttribute('data-panning', '');
+          const start = { px: e.clientX, py: e.clientY, x: this._view.x, y: this._view.y };
+          move = (ev) => {
+            this._view.x = start.x + (ev.clientX - start.px) / fw * 100;
+            this._view.y = start.y + (ev.clientY - start.py) / fh * 100;
+            this._clampView();
+            this._applyView();
+          };
+        }
+        const up = () => {
+          try { this._spill.releasePointerCapture(e.pointerId); } catch {}
+          this._spill.removeEventListener('pointermove', move);
+          this._spill.removeEventListener('pointerup', up);
+          this._spill.removeEventListener('pointercancel', up);
+          this.removeAttribute('data-panning');
+          this._dragUp = null;
+        };
+        // Stashed so _exitReframe (Escape / outside-click mid-drag) can
+        // tear the capture + listeners down synchronously.
+        this._dragUp = up;
+        this._spill.addEventListener('pointermove', move);
+        this._spill.addEventListener('pointerup', up);
+        this._spill.addEventListener('pointercancel', up);
+      });
+      // Wheel zoom stays available inside reframe mode as a trackpad nicety —
+      // zooms toward the cursor (offset' = cursor·(1-k) + offset·k).
+      this.addEventListener('wheel', (e) => {
+        if (!this.hasAttribute('data-reframe')) return;
+        e.preventDefault();
+        const r = this.getBoundingClientRect();
+        const cx = (e.clientX - r.left) / r.width * 100 - 50;
+        const cy = (e.clientY - r.top) / r.height * 100 - 50;
+        const prev = this._view.s;
+        const next = clampS(prev * Math.pow(1.0015, -e.deltaY));
+        if (next === prev) return;
+        const k = next / prev;
+        this._view.s = next;
+        this._view.x = cx * (1 - k) + this._view.x * k;
+        this._view.y = cy * (1 - k) + this._view.y * k;
+        this._clampView();
+        this._applyView();
+      }, { passive: false });
+    }
+
+    connectedCallback() {
+      // Warn once per page — an id-less slot works for the session but
+      // cannot persist, and two id-less slots would share nothing.
+      if (!this.id && !ImageSlot._warned) {
+        ImageSlot._warned = true;
+        console.warn('<image-slot> without an id will not persist its dropped image.');
+      }
+      this.addEventListener('dragenter', this);
+      this.addEventListener('dragover', this);
+      this.addEventListener('dragleave', this);
+      this.addEventListener('drop', this);
+      subs.add(this._subFn);
+      // width%/height% in _applyView encode the frame aspect at call time —
+      // a host resize (responsive grid, pane divider) would stretch the
+      // image until the next _render. Re-render on size change: _render()
+      // re-seeds _view from stored before clamp/apply, so a shrink→grow
+      // cycle round-trips instead of ratcheting x/y toward the narrower
+      // frame's clamp range.
+      this._ro = new ResizeObserver(() => this._render());
+      this._ro.observe(this);
+      load();
+      this._render();
+    }
+
+    disconnectedCallback() {
+      subs.delete(this._subFn);
+      this.removeEventListener('dragenter', this);
+      this.removeEventListener('dragover', this);
+      this.removeEventListener('dragleave', this);
+      this.removeEventListener('drop', this);
+      if (this._ro) { this._ro.disconnect(); this._ro = null; }
+      this._exitReframe(false);
+    }
+
+    _enterReframe() {
+      if (this.hasAttribute('data-reframe')) return;
+      this.setAttribute('data-reframe', '');
+      this._applyView();
+      // Close on click outside (the spill handler stopPropagation()s so
+      // in-image drags don't reach this) and on Escape. Listeners are held
+      // on the instance so _exitReframe / disconnectedCallback can detach
+      // exactly what was attached.
+      this._outside = (e) => {
+        if (e.composedPath && e.composedPath().includes(this)) return;
+        this._exitReframe(true);
+      };
+      this._esc = (e) => { if (e.key === 'Escape') this._exitReframe(true); };
+      document.addEventListener('pointerdown', this._outside, true);
+      document.addEventListener('keydown', this._esc, true);
+    }
+
+    _exitReframe(commit) {
+      if (!this.hasAttribute('data-reframe')) return;
+      if (this._dragUp) this._dragUp();
+      this.removeAttribute('data-reframe');
+      this.removeAttribute('data-panning');
+      if (this._outside) document.removeEventListener('pointerdown', this._outside, true);
+      if (this._esc) document.removeEventListener('keydown', this._esc, true);
+      this._outside = this._esc = null;
+      if (commit) this._commitView();
+    }
+
+    attributeChangedCallback() { if (this.shadowRoot) this._render(); }
+
+    // handleEvent — one listener object for all four drag events keeps the
+    // add/remove symmetric and the depth counter correct.
+    handleEvent(e) {
+      if (e.type === 'dragenter' || e.type === 'dragover') {
+        // Without preventDefault the browser never fires 'drop'.
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy';
+        if (e.type === 'dragenter') this._depth++;
+        this.setAttribute('data-over', '');
+      } else if (e.type === 'dragleave') {
+        // dragenter/leave fire for every descendant crossing — count depth
+        // so hovering the icon inside the empty state doesn't flicker.
+        if (--this._depth <= 0) { this._depth = 0; this.removeAttribute('data-over'); }
+      } else if (e.type === 'drop') {
+        e.preventDefault();
+        e.stopPropagation();
+        this._depth = 0;
+        this.removeAttribute('data-over');
+        const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+        if (f) this._ingest(f);
+      }
+    }
+
+    async _ingest(file) {
+      this._setError(null);
+      if (!file || ACCEPT.indexOf(file.type) < 0) {
+        this._setError('Drop a PNG, JPEG, WebP, or AVIF image.');
+        return;
+      }
+      // toDataUrl can take hundreds of ms on a large photo. A Clear or a
+      // newer drop during that window would be clobbered when this await
+      // resumes — bump + capture a generation so stale encodes bail.
+      const gen = ++this._gen;
+      try {
+        const w = this.clientWidth || this.offsetWidth || MAX_DIM;
+        const url = await toDataUrl(file, w);
+        if (gen !== this._gen) return;
+        // Only exit reframe once the new image is in hand — a rejected type
+        // or decode failure leaves the in-progress crop untouched.
+        this._exitReframe(false);
+        const val = { u: url, s: 1, x: 0, y: 0 };
+        setSlot(this.id || '', val);
+        // Keep a session-local copy for id-less slots so the drop still
+        // shows, even though it cannot persist.
+        if (!this.id) { this._local = val; this._render(); }
+      } catch (err) {
+        if (gen !== this._gen) return;
+        this._setError('Could not read that image.');
+        console.warn('<image-slot> ingest failed:', err);
+      }
+    }
+
+    _setError(msg) {
+      if (this._err) { this._err.remove(); this._err = null; }
+      if (!msg) return;
+      const d = document.createElement('div');
+      d.className = 'err'; d.textContent = msg;
+      this.shadowRoot.appendChild(d);
+      this._err = d;
+      setTimeout(() => { if (this._err === d) { d.remove(); this._err = null; } }, 3000);
+    }
+
+    // Reframing (pan/resize) is only meaningful for fit=cover — contain/fill
+    // keep the old object-fit path and double-click is a no-op.
+    _reframes() {
+      return this.hasAttribute('data-filled') &&
+        (this.getAttribute('fit') || 'cover') === 'cover';
+    }
+
+    // Cover-baseline geometry, shared by clamp/apply/resize. Null until the
+    // img has loaded (naturalWidth is 0 before that) or when the slot has no
+    // layout box — ResizeObserver fires with a 0×0 rect under display:none,
+    // and clamping against a degenerate 1×1 frame would silently pull the
+    // stored pan toward zero.
+    _geom() {
+      const iw = this._img.naturalWidth, ih = this._img.naturalHeight;
+      const fw = this.clientWidth, fh = this.clientHeight;
+      if (!iw || !ih || !fw || !fh) return null;
+      return { iw, ih, fw, fh, base: Math.max(fw / iw, fh / ih) };
+    }
+
+    _clampView() {
+      // Pan range on each axis is half the overflow past the frame edge.
+      const g = this._geom();
+      if (!g) return;
+      const mx = Math.max(0, (g.iw * g.base * this._view.s / g.fw - 1) * 50);
+      const my = Math.max(0, (g.ih * g.base * this._view.s / g.fh - 1) * 50);
+      this._view.x = Math.max(-mx, Math.min(mx, this._view.x));
+      this._view.y = Math.max(-my, Math.min(my, this._view.y));
+    }
+
+    _applyView() {
+      const g = this._geom();
+      const fit = this.getAttribute('fit') || 'cover';
+      if (fit !== 'cover' || !g) {
+        // Non-cover, or dimensions not known yet (before img load).
+        this._img.style.width = '100%';
+        this._img.style.height = '100%';
+        this._img.style.left = '50%';
+        this._img.style.top = '50%';
+        this._img.style.objectFit = fit;
+        this._img.style.objectPosition = this.getAttribute('position') || '50% 50%';
+        return;
+      }
+      // Cover baseline: img fills the frame on its tighter axis at s=1, so
+      // pan works immediately on the overflowing axis without zooming first.
+      // Width/height and left/top are all frame-% — depends only on the
+      // frame aspect ratio, so a responsive resize keeps the same crop. The
+      // spill layer mirrors the same box so its corners = image corners.
+      const k = g.base * this._view.s;
+      const w = (g.iw * k / g.fw * 100) + '%';
+      const h = (g.ih * k / g.fh * 100) + '%';
+      const l = (50 + this._view.x) + '%';
+      const t = (50 + this._view.y) + '%';
+      this._img.style.width = w; this._img.style.height = h;
+      this._img.style.left = l; this._img.style.top = t;
+      this._img.style.objectFit = '';
+      this._spill.style.width = w; this._spill.style.height = h;
+      this._spill.style.left = l; this._spill.style.top = t;
+    }
+
+    _commitView() {
+      const v = { s: this._view.s, x: this._view.x, y: this._view.y };
+      if (this._userUrl) v.u = this._userUrl;
+      // Framing-only (no u) persists too so an author-src slot remembers its
+      // crop; clearing the sidecar still falls through to src=.
+      if (this.id) setSlot(this.id, v);
+      else { this._local = v; }
+    }
+
+    _render() {
+      // Shape / mask. Presets use border-radius so the dashed ring can
+      // follow the rounded outline; clip-path is only applied for an
+      // explicit `mask` (the ring is hidden there since a rectangle
+      // dashed border chopped by an arbitrary polygon looks broken).
+      const mask = this.getAttribute('mask');
+      const shape = (this.getAttribute('shape') || 'rounded').toLowerCase();
+      let radius = '';
+      if (shape === 'circle') radius = '50%';
+      else if (shape === 'pill') radius = '9999px';
+      else if (shape === 'rounded') {
+        const n = parseFloat(this.getAttribute('radius'));
+        radius = (Number.isFinite(n) ? n : 12) + 'px';
+      }
+      this._frame.style.borderRadius = mask ? '' : radius;
+      this._frame.style.clipPath = mask || '';
+      this._ring.style.borderRadius = mask ? '' : radius;
+      this._ring.style.display = mask ? 'none' : '';
+
+      // Controls and reframe entry gate on this so share links stay read-only.
+      const editable = !!(window.omelette && window.omelette.writeFile);
+      this.toggleAttribute('data-editable', editable);
+      this._sub.style.display = editable ? '' : 'none';
+
+      // Content. The sidecar is also writable by the agent's write_file
+      // tool, so its value isn't guaranteed canvas-originated — only accept
+      // data:image/ URLs from it. The `src` attribute is author-controlled
+      // (Claude wrote it into the HTML) so it passes through unchanged.
+      let stored = this.id ? getSlot(this.id) : this._local;
+      if (stored && stored.u && !/^data:image\//i.test(stored.u)) stored = null;
+      const srcAttr = this.getAttribute('src') || '';
+      this._userUrl = (stored && stored.u) || null;
+      const url = this._userUrl || srcAttr;
+      // Don't clobber an in-flight reframe with a store-triggered re-render.
+      if (!this.hasAttribute('data-reframe')) {
+        this._view = {
+          s: stored && Number.isFinite(stored.s) ? clampS(stored.s) : 1,
+          x: stored && Number.isFinite(stored.x) ? stored.x : 0,
+          y: stored && Number.isFinite(stored.y) ? stored.y : 0,
+        };
+      }
+      this._cap.textContent = this.getAttribute('placeholder') || 'Drop an image';
+      // Toggle via style.display — the [hidden] attribute alone loses to
+      // the display:flex / display:block rules in the stylesheet above.
+      if (url) {
+        if (this._img.getAttribute('src') !== url) {
+          this._img.src = url;
+          this._ghost.src = url;
+        }
+        this._img.style.display = 'block';
+        this._empty.style.display = 'none';
+        this.setAttribute('data-filled', '');
+        this._clampView();
+        this._applyView();
+      } else {
+        this._img.style.display = 'none';
+        this._img.removeAttribute('src');
+        this._ghost.removeAttribute('src');
+        this._empty.style.display = 'flex';
+        this.removeAttribute('data-filled');
+      }
+    }
+  }
+
+  if (!customElements.get('image-slot')) {
+    customElements.define('image-slot', ImageSlot);
+  }
+})();
+
+</script>
+<script>
+// data.js — APR 70 v2 shared content (grounded in the real slate)
+window.APR = (function () {
+  const C212 = '#824B07', C310 = '#077082', CNRC = '#c8c8c8';
+
+  const PROJECTS = [
+    { project: 'A Need Grows in Brooklyn', div: '(212) PICTURES', color: C212, tag: 'TV · 10 EPS', cat: 'TV', year: '2026', status: 'DEVELOPMENT', desc: 'Coming-of-age crime drama. Ten episodes. Set in the Brooklyn of the mid-1990s.' },
+    { project: 'The Mayors', div: '(212) PICTURES', color: C212, tag: 'DOC · 11 EPS', cat: 'DOC', year: '2026', status: 'DEVELOPMENT', desc: 'Eleven-episode documentary spanning seventy-five years of New York City leadership.' },
+    { project: 'The Maltese Falcon', div: '(212) PICTURES', color: C212, tag: 'STAGE / MUSICAL', cat: 'STAGE', year: '2027', status: 'OPTIONED', desc: 'Theater-musical adaptation. All-Italian-American cast. San Francisco noir transposed to 1940s Brooklyn.' },
+    { project: 'Alpha YY', div: '(212) PICTURES', color: C212, tag: 'TV', cat: 'TV', year: '2027', status: 'DEVELOPMENT', desc: 'Written by Mike Diaz. A feature version is developed in parallel through New Renaissance Cinema.' },
+    { project: 'The Movement', div: '(212) PICTURES', color: C212, tag: 'TV', cat: 'TV', year: '2027', status: 'DEVELOPMENT', desc: 'Series in development. New York, present day.' },
+    { project: 'L.A. Dolce Vita', div: '(310) PICTURES', color: C310, tag: 'TV · 10 EPS', cat: 'TV', year: '2027', status: 'BIBLE COMPLETE', desc: 'Political thriller / neo-noir. Ten episodes. Budgeted $30M–$50M. Universe Bible complete.' },
+    { project: "L'Odissea di Cleopatra", div: '(310) PICTURES', color: C310, tag: 'TV · 10 EPS', cat: 'TV', year: '2028', status: 'DEVELOPMENT', desc: 'Science fiction / psychological thriller. Ten episodes. Budgeted $40M–$80M.' },
+    { project: 'Shadowmaster', div: '(310) PICTURES', color: C310, tag: 'HYBRID', cat: 'HYBRID', year: '2028', status: 'DEVELOPMENT', desc: 'Series / reality hybrid format. Format Bible in progress.' },
+    { project: 'U Brucculinu', div: 'NEW RENAISSANCE CINEMA', color: CNRC, tag: 'FEATURE', cat: 'FEATURE', year: '2027', status: 'DEVELOPMENT', desc: 'Feature film. A Sicilian-American story told on the Caruso sensibility.' },
+  ];
+
+  // Trade-press style announcements — placeholder copy, grounded in the slate.
+  const NEWS = [
+    { cat: '(212) PICTURES', color: C212, date: 'APR 16 2026', title: 'APR 70 Pictures Opens in Long Island City', deck: 'Founder Marc Andrew Caruso establishes a New York production company organized under three specialized divisions for television and feature film.', read: 'THE FULL FILING' },
+    { cat: '(212) PICTURES', color: C212, date: 'APR 2026', title: '"A Need Grows in Brooklyn" Enters the Room', deck: 'The ten-episode coming-of-age crime drama begins its writers’ room. Mid-1990s Brooklyn, told block by block.' },
+    { cat: '(310) PICTURES', color: C310, date: 'APR 2026', title: 'Universe Bible Locked on "L.A. Dolce Vita"', deck: 'The political neo-noir completes its series bible ahead of a financing conversation. Budgeted between $30M and $50M.' },
+    { cat: '(212) PICTURES', color: C212, date: 'MAR 2026', title: '"The Mayors" Sets Eleven-Episode Arc', deck: 'Seventy-five years of New York City leadership, structured across eleven documentary episodes.' },
+    { cat: 'NRC', color: CNRC, date: 'MAR 2026', title: 'New Renaissance Cinema Names Its First Feature', deck: '"U Brucculinu" leads the feature division — a Sicilian-American story in the Capra-Fellini lineage.' },
+    { cat: 'COMPANY', color: '#E85D04', date: 'FEB 2026', title: 'Three Divisions. One Vision.', deck: '(212) Pictures, (310) Pictures, and New Renaissance Cinema formalize their mandates. More divisions forthcoming for theater, radio, and books.' },
+    { cat: '(310) PICTURES', color: C310, date: 'FEB 2026', title: '"L’Odissea di Cleopatra" Scoped at $40–80M', deck: 'A ten-episode science-fiction psychological thriller joins the (310) slate, targeting the top of the prestige market.' },
+  ];
+
+  return { PROJECTS, NEWS, C212, C310, CNRC };
+})();
+
+</script>
+<script type="text/babel">
+// @ds-adherence-ignore -- omelette starter scaffold (raw elements/hex/px by design)
+
+/* BEGIN USAGE */
+// tweaks-panel.jsx
+// Reusable Tweaks shell + form-control helpers.
+// Exports (to window): useTweaks, TweaksPanel, TweakSection, TweakRow, TweakSlider,
+//   TweakToggle, TweakRadio, TweakSelect, TweakText, TweakNumber, TweakColor, TweakButton.
+//
+// Owns the host protocol (listens for __activate_edit_mode / __deactivate_edit_mode,
+// posts __edit_mode_available / __edit_mode_set_keys / __edit_mode_dismissed) so
+// individual prototypes don't re-roll it. Ships a consistent set of controls so you
+// don't hand-draw <input type="range">, segmented radios, steppers, etc.
+//
+// Usage (in an HTML file that loads React + Babel):
+//
+//   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+//     "primaryColor": "#D97757",
+//     "palette": ["#D97757", "#29261b", "#f6f4ef"],
+//     "fontSize": 16,
+//     "density": "regular",
+//     "dark": false
+//   }/*EDITMODE-END*/;
+//
+//   function App() {
+//     const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+//     return (
+//       <div style={{ fontSize: t.fontSize, color: t.primaryColor }}>
+//         Hello
+//         <TweaksPanel>
+//           <TweakSection label="Typography" />
+//           <TweakSlider label="Font size" value={t.fontSize} min={10} max={32} unit="px"
+//                        onChange={(v) => setTweak('fontSize', v)} />
+//           <TweakRadio  label="Density" value={t.density}
+//                        options={['compact', 'regular', 'comfy']}
+//                        onChange={(v) => setTweak('density', v)} />
+//           <TweakSection label="Theme" />
+//           <TweakColor  label="Primary" value={t.primaryColor}
+//                        options={['#D97757', '#2A6FDB', '#1F8A5B', '#7A5AE0']}
+//                        onChange={(v) => setTweak('primaryColor', v)} />
+//           <TweakColor  label="Palette" value={t.palette}
+//                        options={[['#D97757', '#29261b', '#f6f4ef'],
+//                                  ['#475569', '#0f172a', '#f1f5f9']]}
+//                        onChange={(v) => setTweak('palette', v)} />
+//           <TweakToggle label="Dark mode" value={t.dark}
+//                        onChange={(v) => setTweak('dark', v)} />
+//         </TweaksPanel>
+//       </div>
+//     );
+//   }
+//
+// TweakRadio is the segmented control for 2–3 short options (auto-falls-back to
+// TweakSelect past ~16/~10 chars per label); reach for TweakSelect directly when
+// options are many or long. For color tweaks always curate 3-4 options rather than
+// a free picker; an option can also be a whole 2–5 color palette (the stored value
+// is the array). The Tweak* controls are a floor, not a ceiling — build custom
+// controls inside the panel if a tweak calls for UI they don't cover.
+/* END USAGE */
+// ─────────────────────────────────────────────────────────────────────────────
+
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    transform:scale(var(--dc-inv-zoom,1));transform-origin:bottom right;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-body::-webkit-scrollbar{width:8px}
+  .twk-body::-webkit-scrollbar-track{background:transparent;margin:2px}
+  .twk-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;
+    border:2px solid transparent;background-clip:content-box}
+  .twk-body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);
+    border:2px solid transparent;background-clip:content-box}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
+    color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+
+  .twk-field{appearance:none;box-sizing:border-box;width:100%;min-width:0;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
+    background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg.dragging .twk-seg-thumb{transition:none}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;
+    border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2;
+    overflow-wrap:anywhere}
+
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+
+  .twk-num{display:flex;align-items:center;box-sizing:border-box;min-width:0;height:26px;padding:0 0 0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6)}
+  .twk-num-lbl{font-weight:500;color:rgba(41,38,27,.6);cursor:ew-resize;
+    user-select:none;padding-right:8px}
+  .twk-num input{flex:1;min-width:0;height:100%;border:0;background:transparent;
+    font:inherit;font-variant-numeric:tabular-nums;text-align:right;padding:0 8px 0 0;
+    outline:none;color:inherit;-moz-appearance:textfield}
+  .twk-num input::-webkit-inner-spin-button,.twk-num input::-webkit-outer-spin-button{
+    -webkit-appearance:none;margin:0}
+  .twk-num-unit{padding-right:8px;color:rgba(41,38,27,.45)}
+
+  .twk-btn{appearance:none;height:26px;padding:0 12px;border:0;border-radius:7px;
+    background:rgba(0,0,0,.78);color:#fff;font:inherit;font-weight:500;cursor:default}
+  .twk-btn:hover{background:rgba(0,0,0,.88)}
+  .twk-btn.secondary{background:rgba(0,0,0,.06);color:inherit}
+  .twk-btn.secondary:hover{background:rgba(0,0,0,.1)}
+
+  .twk-swatch{appearance:none;-webkit-appearance:none;width:56px;height:22px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:6px;padding:0;cursor:default;
+    background:transparent;flex-shrink:0}
+  .twk-swatch::-webkit-color-swatch-wrapper{padding:0}
+  .twk-swatch::-webkit-color-swatch{border:0;border-radius:5.5px}
+  .twk-swatch::-moz-color-swatch{border:0;border-radius:5.5px}
+
+  .twk-chips{display:flex;gap:6px}
+  .twk-chip{position:relative;appearance:none;flex:1;min-width:0;height:46px;
+    padding:0;border:0;border-radius:6px;overflow:hidden;cursor:default;
+    box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.06);
+    transition:transform .12s cubic-bezier(.3,.7,.4,1),box-shadow .12s}
+  .twk-chip:hover{transform:translateY(-1px);
+    box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 4px 10px rgba(0,0,0,.12)}
+  .twk-chip[data-on="1"]{box-shadow:0 0 0 1.5px rgba(0,0,0,.85),
+    0 2px 6px rgba(0,0,0,.15)}
+  .twk-chip>span{position:absolute;top:0;bottom:0;right:0;width:34%;
+    display:flex;flex-direction:column;box-shadow:-1px 0 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i{flex:1;box-shadow:0 -1px 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i:first-child{box-shadow:none}
+  .twk-chip svg{position:absolute;top:6px;left:6px;width:13px;height:13px;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+`;
+
+// ── useTweaks ───────────────────────────────────────────────────────────────
+// Single source of truth for tweak values. setTweak persists via the host
+// (__edit_mode_set_keys → host rewrites the EDITMODE block on disk).
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  // Accepts either setTweak('key', value) or setTweak({ key: value, ... }) so a
+  // useState-style call doesn't write a "[object Object]" key into the persisted
+  // JSON block.
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null
+      ? keyOrEdits : { [keyOrEdits]: val };
+    setValues((prev) => ({ ...prev, ...edits }));
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
+    // Same-window signal so in-page listeners (deck-stage rail thumbnails)
+    // can react — the parent message only reaches the host, not peers.
+    window.dispatchEvent(new CustomEvent('tweakchange', { detail: edits }));
+  }, []);
+  return [values, setTweak];
+}
+
+// ── TweaksPanel ─────────────────────────────────────────────────────────────
+// Floating shell. Registers the protocol listener BEFORE announcing
+// availability — if the announce ran first, the host's activate could land
+// before our handler exists and the toolbar toggle would silently no-op.
+// The close button posts __edit_mode_dismissed so the host's toolbar toggle
+// flips off in lockstep; the host echoes __deactivate_edit_mode back which
+// is what actually hides the panel.
+function TweaksPanel({ title = 'Tweaks', children }) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  const offsetRef = React.useRef({ x: 16, y: 16 });
+  const PAD = 16;
+
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = {
+      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
+    };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', clampToViewport);
+      return () => window.removeEventListener('resize', clampToViewport);
+    }
+    const ro = new ResizeObserver(clampToViewport);
+    ro.observe(document.documentElement);
+    return () => ro.disconnect();
+  }, [open, clampToViewport]);
+
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);
+      else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const dismiss = () => {
+    setOpen(false);
+    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+  };
+
+  const onDragStart = (e) => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => {
+      offsetRef.current = {
+        x: startRight - (ev.clientX - sx),
+        y: startBottom - (ev.clientY - sy),
+      };
+      clampToViewport();
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel" data-omelette-chrome=""
+           style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" aria-label="Close tweaks"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onClick={dismiss}>✕</button>
+        </div>
+        <div className="twk-body">
+          {children}
+        </div>
+      </div>
+    </>
+  );
+}
+
+// ── Layout helpers ──────────────────────────────────────────────────────────
+
+function TweakSection({ label, children }) {
+  return (
+    <>
+      <div className="twk-sect">{label}</div>
+      {children}
+    </>
+  );
+}
+
+function TweakRow({ label, value, children, inline = false }) {
+  return (
+    <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}>
+      <div className="twk-lbl">
+        <span>{label}</span>
+        {value != null && <span className="twk-val">{value}</span>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+// ── Controls ────────────────────────────────────────────────────────────────
+
+function TweakSlider({ label, value, min = 0, max = 100, step = 1, unit = '', onChange }) {
+  return (
+    <TweakRow label={label} value={`${value}${unit}`}>
+      <input type="range" className="twk-slider" min={min} max={max} step={step}
+             value={value} onChange={(e) => onChange(Number(e.target.value))} />
+    </TweakRow>
+  );
+}
+
+function TweakToggle({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'}
+              role="switch" aria-checked={!!value}
+              onClick={() => onChange(!value)}><i /></button>
+    </div>
+  );
+}
+
+function TweakRadio({ label, value, options, onChange }) {
+  const trackRef = React.useRef(null);
+  const [dragging, setDragging] = React.useState(false);
+  // The active value is read by pointer-move handlers attached for the lifetime
+  // of a drag — ref it so a stale closure doesn't fire onChange for every move.
+  const valueRef = React.useRef(value);
+  valueRef.current = value;
+
+  // Segments wrap mid-word once per-segment width runs out. The track is
+  // ~248px (280 panel − 28 body pad − 4 seg pad), each button loses 12px
+  // to its own padding, and 11.5px system-ui averages ~6.3px/char — so 2
+  // options fit ~16 chars each, 3 fit ~10. Past that (or >3 options), fall
+  // back to a dropdown rather than wrap.
+  const labelLen = (o) => String(typeof o === 'object' ? o.label : o).length;
+  const maxLen = options.reduce((m, o) => Math.max(m, labelLen(o)), 0);
+  const fitsAsSegments = maxLen <= ({ 2: 16, 3: 10 }[options.length] ?? 0);
+  if (!fitsAsSegments) {
+    // <select> emits strings — map back to the original option value so the
+    // fallback stays type-preserving (numbers, booleans) like the segment path.
+    const resolve = (s) => {
+      const m = options.find((o) => String(typeof o === 'object' ? o.value : o) === s);
+      return m === undefined ? s : typeof m === 'object' ? m.value : m;
+    };
+    return <TweakSelect label={label} value={value} options={options}
+                        onChange={(s) => onChange(resolve(s))} />;
+  }
+  const opts = options.map((o) => (typeof o === 'object' ? o : { value: o, label: o }));
+  const idx = Math.max(0, opts.findIndex((o) => o.value === value));
+  const n = opts.length;
+
+  const segAt = (clientX) => {
+    const r = trackRef.current.getBoundingClientRect();
+    const inner = r.width - 4;
+    const i = Math.floor(((clientX - r.left - 2) / inner) * n);
+    return opts[Math.max(0, Math.min(n - 1, i))].value;
+  };
+
+  const onPointerDown = (e) => {
+    setDragging(true);
+    const v0 = segAt(e.clientX);
+    if (v0 !== valueRef.current) onChange(v0);
+    const move = (ev) => {
+      if (!trackRef.current) return;
+      const v = segAt(ev.clientX);
+      if (v !== valueRef.current) onChange(v);
+    };
+    const up = () => {
+      setDragging(false);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+
+  return (
+    <TweakRow label={label}>
+      <div ref={trackRef} role="radiogroup" onPointerDown={onPointerDown}
+           className={dragging ? 'twk-seg dragging' : 'twk-seg'}>
+        <div className="twk-seg-thumb"
+             style={{ left: `calc(2px + ${idx} * (100% - 4px) / ${n})`,
+                      width: `calc((100% - 4px) / ${n})` }} />
+        {opts.map((o) => (
+          <button key={o.value} type="button" role="radio" aria-checked={o.value === value}>
+            {o.label}
+          </button>
+        ))}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakSelect({ label, value, options, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <select className="twk-field" value={value} onChange={(e) => onChange(e.target.value)}>
+        {options.map((o) => {
+          const v = typeof o === 'object' ? o.value : o;
+          const l = typeof o === 'object' ? o.label : o;
+          return <option key={v} value={v}>{l}</option>;
+        })}
+      </select>
+    </TweakRow>
+  );
+}
+
+function TweakText({ label, value, placeholder, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <input className="twk-field" type="text" value={value} placeholder={placeholder}
+             onChange={(e) => onChange(e.target.value)} />
+    </TweakRow>
+  );
+}
+
+function TweakNumber({ label, value, min, max, step = 1, unit = '', onChange }) {
+  const clamp = (n) => {
+    if (min != null && n < min) return min;
+    if (max != null && n > max) return max;
+    return n;
+  };
+  const startRef = React.useRef({ x: 0, val: 0 });
+  const onScrubStart = (e) => {
+    e.preventDefault();
+    startRef.current = { x: e.clientX, val: value };
+    const decimals = (String(step).split('.')[1] || '').length;
+    const move = (ev) => {
+      const dx = ev.clientX - startRef.current.x;
+      const raw = startRef.current.val + dx * step;
+      const snapped = Math.round(raw / step) * step;
+      onChange(clamp(Number(snapped.toFixed(decimals))));
+    };
+    const up = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+  return (
+    <div className="twk-num">
+      <span className="twk-num-lbl" onPointerDown={onScrubStart}>{label}</span>
+      <input type="number" value={value} min={min} max={max} step={step}
+             onChange={(e) => onChange(clamp(Number(e.target.value)))} />
+      {unit && <span className="twk-num-unit">{unit}</span>}
+    </div>
+  );
+}
+
+// Relative-luminance contrast pick — checkmarks drawn over a swatch need to
+// read on both #111 and #fafafa without per-option configuration. Hex input
+// only (#rgb / #rrggbb); named or rgb()/hsl() colors fall through to "light".
+function __twkIsLight(hex) {
+  const h = String(hex).replace('#', '');
+  const x = h.length === 3 ? h.replace(/./g, (c) => c + c) : h.padEnd(6, '0');
+  const n = parseInt(x.slice(0, 6), 16);
+  if (Number.isNaN(n)) return true;
+  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  return r * 299 + g * 587 + b * 114 > 148000;
+}
+
+const __TwkCheck = ({ light }) => (
+  <svg viewBox="0 0 14 14" aria-hidden="true">
+    <path d="M3 7.2 5.8 10 11 4.2" fill="none" strokeWidth="2.2"
+          strokeLinecap="round" strokeLinejoin="round"
+          stroke={light ? 'rgba(0,0,0,.78)' : '#fff'} />
+  </svg>
+);
+
+// TweakColor — curated color/palette picker. Each option is either a single
+// hex string or an array of 1-5 hex strings; the card adapts — a lone color
+// renders solid, a palette renders colors[0] as the hero (left ~2/3) with the
+// rest stacked in a sharp column on the right. onChange emits the
+// option in the shape it was passed (string stays string, array stays array).
+// Without options it falls back to the native color input for back-compat.
+function TweakColor({ label, value, options, onChange }) {
+  if (!options || !options.length) {
+    return (
+      <div className="twk-row twk-row-h">
+        <div className="twk-lbl"><span>{label}</span></div>
+        <input type="color" className="twk-swatch" value={value}
+               onChange={(e) => onChange(e.target.value)} />
+      </div>
+    );
+  }
+  // Native <input type=color> emits lowercase hex per the HTML spec, so
+  // compare case-insensitively. String() guards JSON.stringify(undefined),
+  // which returns the primitive undefined (no .toLowerCase).
+  const key = (o) => String(JSON.stringify(o)).toLowerCase();
+  const cur = key(value);
+  return (
+    <TweakRow label={label}>
+      <div className="twk-chips" role="radiogroup">
+        {options.map((o, i) => {
+          const colors = Array.isArray(o) ? o : [o];
+          const [hero, ...rest] = colors;
+          const sup = rest.slice(0, 4);
+          const on = key(o) === cur;
+          return (
+            <button key={i} type="button" className="twk-chip" role="radio"
+                    aria-checked={on} data-on={on ? '1' : '0'}
+                    aria-label={colors.join(', ')} title={colors.join(' · ')}
+                    style={{ background: hero }}
+                    onClick={() => onChange(o)}>
+              {sup.length > 0 && (
+                <span>
+                  {sup.map((c, j) => <i key={j} style={{ background: c }} />)}
+                </span>
+              )}
+              {on && <__TwkCheck light={__twkIsLight(hero)} />}
+            </button>
+          );
+        })}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakButton({ label, onClick, secondary = false }) {
+  return (
+    <button type="button" className={secondary ? 'twk-btn secondary' : 'twk-btn'}
+            onClick={onClick}>{label}</button>
+  );
+}
+
+Object.assign(window, {
+  useTweaks, TweaksPanel, TweakSection, TweakRow,
+  TweakSlider, TweakToggle, TweakRadio, TweakSelect,
+  TweakText, TweakNumber, TweakColor, TweakButton,
+});
+
+</script>
+<script type="text/babel">
+// chrome.jsx — persistent publication chrome: filmstrip, nameplate + TOC, footer, mode toggle
+const { useEffect, useRef, useState } = React;
+
+const NAV_ITEMS = [
+  { n: '01', label: 'About',     key: 'about' },
+  { n: '02', label: 'Divisions', key: 'divisions' },
+  { n: '03', label: 'Slate',     key: 'slate' },
+  { n: '04', label: 'Investors', key: 'investors' },
+  { n: '05', label: 'Careers',   key: 'careers' },
+  { n: '06', label: 'News',      key: 'news' },
+  { n: '07', label: 'Contact',   key: 'contact' },
+];
+
+function FilmstripRail({ accent = '#E85D04', keycode = 'APR 70 PICTURES // VOL I NO 1 // REEL 086' }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    el.innerHTML = '';
+    const count = Math.ceil(window.innerWidth / 30) + 6;
+    for (let i = 0; i < count; i++) {
+      const h = document.createElement('div');
+      h.className = 'sprocket-hole';
+      el.appendChild(h);
+    }
+  }, []);
+  return (
+    <div className="filmstrip">
+      <div className="filmstrip-accent" style={{ background: accent }} />
+      <div className="filmstrip-holes" ref={ref} />
+      <div className="filmstrip-keycode">{keycode}</div>
+    </div>
+  );
+}
+
+function ModeToggle({ light, onToggle }) {
+  return (
+    <button className="mode-toggle" onClick={onToggle} title="Toggle reading mode">
+      <span className="md-dot" />
+      {light ? 'Document' : 'Cinema'}
+    </button>
+  );
+}
+
+function Nameplate({ current, onNav, light, onToggleMode }) {
+  const [open, setOpen] = useState(false);
+  const isNrc = current === 'divisions';
+  return (
+    <>
+      <header className="nameplate">
+        <div className="nameplate-bar">
+          <a className="nameplate-logo" onClick={() => onNav('cover')}>
+            <img className="dark-only" src="assets/apr70_logo_full_whitetext_tt.svg" alt="APR 70 Pictures" />
+            <img className="light-only" src="assets/apr70_logo_full_blacktext_tt.svg" alt="APR 70 Pictures" />
+          </a>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
+            <div className="nameplate-issue">VOL. I · NO. 1<br/>APRIL 2026 · NEW YORK</div>
+            <ModeToggle light={light} onToggle={onToggleMode} />
+            <button className="toc-toggle" onClick={() => setOpen(o => !o)}>{open ? 'Close' : 'Index'}</button>
+          </div>
+        </div>
+      </header>
+      <nav className={`toc-strip ${open ? 'is-open' : ''}`} style={{ top: 'calc(var(--filmstrip-h) + var(--nav-h))', position: 'fixed', left: 0, right: 0, zIndex: 190 }}>
+        <div className="toc-inner">
+          {NAV_ITEMS.map(it => (
+            <a
+              key={it.key}
+              className={`toc-item ${current === it.key ? 'is-active' : ''} ${it.key === 'divisions' ? 'acc-nrc-none' : ''}`}
+              onClick={() => { onNav(it.key); setOpen(false); }}
+            >
+              <span className="toc-num">{it.n}</span>
+              <span className="toc-label">{it.label}</span>
+            </a>
+          ))}
+        </div>
+      </nav>
+    </>
+  );
+}
+
+function CornerAccent() { return <div className="corner-accent" />; }
+
+function SiteFooter({ onNav }) {
+  return (
+    <footer className="site-footer">
+      <div className="footer-row">
+        <div className="footer-col">
+          <div className="footer-title">APR 70 PICTURES</div>
+          <div className="footer-meta">A New York film and television production company.</div>
+          <div className="footer-meta">Established 2026.</div>
+          <div className="footer-meta" style={{ marginTop: 8 }}>1063 Jackson Avenue, PH G</div>
+          <div className="footer-meta">Long Island City, NY 11101</div>
+        </div>
+        <div className="footer-col">
+          <div className="footer-title">SECTIONS</div>
+          <button className="footer-link" onClick={() => onNav('about')}>About</button>
+          <button className="footer-link" onClick={() => onNav('divisions')}>Divisions</button>
+          <button className="footer-link" onClick={() => onNav('slate')}>Slate</button>
+          <button className="footer-link" onClick={() => onNav('news')}>News</button>
+        </div>
+        <div className="footer-col">
+          <div className="footer-title">BUSINESS</div>
+          <button className="footer-link" onClick={() => onNav('investors')}>Investors</button>
+          <button className="footer-link" onClick={() => onNav('careers')}>Careers</button>
+          <button className="footer-link" onClick={() => onNav('contact')}>Contact</button>
+        </div>
+        <div className="footer-col">
+          <div className="footer-title">LEGAL</div>
+          <div className="footer-meta mono">EIN 41-4120354</div>
+          <div className="footer-meta mono">NY DOS ID 7827718</div>
+          <div className="footer-meta mono">LLC FILE 260206003062</div>
+        </div>
+      </div>
+      <div className="footer-rule" />
+      <div className="footer-baseline">
+        <span className="footer-small">© 2026 APR 70 LLC. All rights reserved.</span>
+        <span className="footer-small mono">PRECISE. PURPOSEFUL. BUILT TO LAST.</span>
+      </div>
+    </footer>
+  );
+}
+
+Object.assign(window, { FilmstripRail, Nameplate, CornerAccent, SiteFooter, NAV_ITEMS });
+
+</script>
+<script type="text/babel">
+// cover.jsx — the magazine cover (landing)
+function Cover({ go }) {
+  const { C212, C310, CNRC } = window.APR;
+  const lines = [
+    { color: '#E85D04', kicker: 'THE FEATURE', title: 'Three Divisions. One Vision.', sub: 'How a one-member company organizes television and feature film under a single sensibility.', to: 'about' },
+    { color: C212, kicker: '(212) Pictures', title: 'A Need Grows in Brooklyn', sub: 'Ten episodes. Mid-1990s. The crime drama enters the writers’ room.', to: 'slate' },
+    { color: C310, kicker: '(310) Pictures', title: 'L.A. Dolce Vita — Bible Locked', sub: 'Political neo-noir, ten episodes, $30M–$50M. Now in financing conversation.', to: 'slate' },
+    { color: CNRC, kicker: 'The Slate', title: 'Nine Projects In Development', sub: 'Across television, feature, stage, and hybrid. Read the full slate.', to: 'slate' },
+  ];
+
+  return (
+    <div className="cover wrap-wide">
+      <div className="cover-top fadeup">
+        <span className="ct-meta">VOL. I · NO. 1 · APRIL 2026</span>
+        <span className="ct-meta">A NEW YORK PRODUCTION COMPANY</span>
+        <span className="ct-price">EST. APR 1970 · FOUNDED 2026</span>
+      </div>
+
+      <div className="cover-masthead fadeup d1">
+        <h1 className="mh-line">APR 70</h1>
+        <div className="mh-sub">
+          <span>PICTURES</span>
+          <span className="dot">/</span>
+          <span>THE TRADE REVIEW</span>
+          <span className="dot">/</span>
+          <span>NEW YORK &middot; LOS ANGELES</span>
+        </div>
+      </div>
+
+      <div className="cover-body fadeup d2">
+        <div className="cover-feature">
+          <image-slot id="cover-feature" placeholder="Drop the cover still — a project frame, dimmed" fit="cover"></image-slot>
+          <div className="feat-overlay">
+            <div className="feat-kicker">COVER &middot; THE 2026 SLATE</div>
+            <h2 className="feat-title">The classics never go out of style.</h2>
+            <p className="feat-deck">APR 70 develops and produces original content across three specialized divisions — New York television, Los Angeles / global television, and auteur-driven features. Precise, purposeful, and built to last.</p>
+          </div>
+        </div>
+        <div className="cover-lines">
+          {lines.map((l, i) => (
+            <button key={i} className="coverline" onClick={() => go(l.to)}>
+              <div className="cl-kicker"><span className="cl-dot" style={{ background: l.color }} />{l.kicker}</div>
+              <h3 className="cl-title">{l.title}</h3>
+              <p className="cl-sub">{l.sub}</p>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="cover-contents fadeup d3">
+        {[
+          { n: 'P. 02', label: 'About', desc: 'The company, the founder, and the mark.', to: 'about' },
+          { n: 'P. 03', label: 'Divisions', desc: 'Three mandates. (212), (310), and NRC.', to: 'divisions' },
+          { n: 'P. 06', label: 'News', desc: 'Greenlights, deals, and development.', to: 'news' },
+          { n: 'P. 04', label: 'Investors', desc: 'The 2026 package and deployment plan.', to: 'investors' },
+        ].map((c, i) => (
+          <button key={i} className="cc-cell" style={{ textAlign: 'left' }} onClick={() => go(c.to)}>
+            <div className="cc-num">{c.n}</div>
+            <div className="cc-label">{c.label}</div>
+            <div className="cc-desc">{c.desc}</div>
+          </button>
+        ))}
+      </div>
+
+      <div style={{ padding: '12px 0 80px' }} className="fadeup d4">
+        <div className="folio">
+          <span>APR 70 LLC</span>
+          <span className="folio-line" />
+          <span>CONTINUED INSIDE</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+window.Cover = Cover;
+
+</script>
+<script type="text/babel">
+// pages-about-divisions.jsx — About + Divisions, plus shared PageMasthead / DivisionRow / TaglineBand
+
+function PageMasthead({ kicker, title, standfirst }) {
+  return (
+    <div className="page-masthead fadeup">
+      {kicker && <div className="kicker">{kicker}</div>}
+      <h1>{title}</h1>
+      {standfirst && <p className="standfirst">{standfirst}</p>}
+    </div>
+  );
+}
+
+function TaglineBand({ go }) {
+  return (
+    <div className="tagline-band">
+      <div className="tagline-rule" />
+      <h2 className="tagline-h">Auteur. Driven.<br/>Development.</h2>
+      <p className="tagline-p">Three divisions &middot; One vision</p>
+      <div className="tagline-ctas">
+        <button className="btn-solid" onClick={() => go('slate')}>VIEW THE SLATE</button>
+        <button className="btn-ghost" onClick={() => go('divisions')}>OUR DIVISIONS</button>
+      </div>
+    </div>
+  );
+}
+
+function DivisionRow({ num, ghost, title, kicker, sub, color, textColor, projects, onEnter }) {
+  const fg = textColor || '#fff';
+  return (
+    <div className="division-row" style={{ background: color, color: fg }} onClick={onEnter}>
+      <div className="division-ghost" style={{ color: textColor ? 'rgba(28,18,8,0.08)' : 'rgba(255,255,255,0.08)' }}>{ghost}</div>
+      <div className="division-inner">
+        <div>
+          <div className="division-top">
+            <span className="division-num">{num}</span>
+            <span className="division-kicker">{kicker}</span>
+          </div>
+          <h2 className="division-title" style={{ color: fg }}>{title}</h2>
+          <p className="division-sub" style={{ color: fg }}>{sub}</p>
+        </div>
+        <div className="division-bottom" style={{ borderColor: textColor ? 'rgba(28,18,8,0.25)' : 'rgba(255,255,255,0.25)' }}>
+          <div className="division-projects">
+            {projects.map((p, i) => (
+              <div key={i} className="division-project" style={{ borderColor: textColor ? 'rgba(28,18,8,0.2)' : 'rgba(255,255,255,0.18)' }}>
+                <span>{p.name}</span>
+                <span className="division-project-meta">{p.meta}</span>
+              </div>
+            ))}
+          </div>
+          <div className="division-cta">ENTER &rarr;</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AboutPage({ go }) {
+  return (
+    <div>
+      <div className="wrap">
+        <PageMasthead
+          kicker="P. 02 — ABOUT THE COMPANY"
+          title={<>The House<br/>Style.</>}
+          standfirst="APR 70 is a New York film and television production company, organized under three specialized divisions and built on a single sensibility: precise, purposeful, and built to last."
+        />
+
+        <div className="editorial cols-2 justify fadeup d1" style={{ padding: '48px 0' }}>
+          <p className="dropcap"><span className="dateline">NEW YORK — APR 2026 — </span>APR 70 develops and produces original content across two primary categories — television and feature film — through three divisions, each with a defined mandate and aesthetic identity. The company writes in the third person, slates its projects like a union crew, and states its budgets as ranges. There is no marketing department. There is a founder, a slate, and a method.</p>
+          <p>The name is not an acronym. It is a mark. "APR 70" references April 1970 — a date of personal significance rooted in Sicilian heritage. The numeric form was chosen for international clarity; the cadence was chosen for cinematic weight. It reads the same in every territory, and it reads like a slate.</p>
+          <p>More divisions are forthcoming — for theater, radio, and books — but the discipline holds across all of them. Character first. Production precision. Stories built to outlast their release window. The classics never go out of style.</p>
+          <p>What follows in these pages is the working record of the company: its divisions, its slate, its terms for investors and collaborators, and its news. It is maintained the way a production maintains its continuity book — current, exact, and signed.</p>
+        </div>
+
+        <div className="pullquote fadeup">There is no marketing department. There is a founder, a slate, and a method.</div>
+
+        <div className="column-note">
+          <div className="cn-side">
+            FROM THE FOUNDER<br/>
+            MARC ANDREW CARUSO<br/>
+            <span style={{ color: 'var(--apr-orange)' }}>SOLE MEMBER</span><br/>
+            APR 70 LLC
+          </div>
+          <div className="editorial">
+            <p style={{ fontSize: 17, color: 'var(--fg-1)' }}>I studied cinema at NYU's Tisch School of the Arts, and I started this company to make the kind of work I grew up believing in — stories with moral clarity, built on craft, told without apology.</p>
+            <p>I write in the plural only when the context demands it; for now, "we" is a plural of one. That is not a limitation. It is a method. Every project on this slate is developed to a standard I can stand behind personally, from the first page of the bible to the last frame of the cut. When the company grows, the standard does not move.</p>
+            <p>APR 70 is named for April 1970 — a private date, referenced once, never performed. It is the reason the work is precise. It is the reason it is meant to last.</p>
+          </div>
+        </div>
+      </div>
+
+      <TaglineBand go={go} />
+    </div>
+  );
+}
+
+function DivisionsPage({ go }) {
+  const { C212, C310, CNRC } = window.APR;
+  return (
+    <div>
+      <div className="wrap">
+        <PageMasthead
+          kicker="P. 03 — THE DIVISIONS"
+          title={<>Three divisions.<br/>One vision.</>}
+          standfirst="APR 70 operates across television and feature film through three divisions, each with a defined mandate and aesthetic identity. More divisions forthcoming for theater, radio, and books."
+        />
+      </div>
+      <div style={{ marginTop: 40 }} className="fadeup d1">
+        <DivisionRow
+          num="01 / DIVISION" ghost="212" kicker="(212) PICTURES · NEW YORK TV LABEL"
+          title={<>New York.<br/>Television.</>} color={C212}
+          sub="Character-driven drama, crime, and documentary rooted in the American Northeast. Named for the original Manhattan area code — a signal of borough identity and urban specificity."
+          projects={[{ name: 'A NEED GROWS IN BROOKLYN', meta: '10 EPS' }, { name: 'THE MAYORS', meta: 'DOC · 11 EPS' }, { name: 'THE MALTESE FALCON', meta: 'STAGE' }, { name: 'ALPHA YY', meta: 'TV' }]}
+          onEnter={() => go('slate')}
+        />
+        <DivisionRow
+          num="02 / DIVISION" ghost="310" kicker="(310) PICTURES · LA / GLOBAL TV LABEL"
+          title={<>Los Angeles.<br/>Global.</>} color={C310}
+          sub="Elevated genre work — political thrillers, science fiction, and hybrid formats that can travel internationally and compete at the top of the prestige television market."
+          projects={[{ name: 'L.A. DOLCE VITA', meta: '$30–50M' }, { name: "L'ODISSEA DI CLEOPATRA", meta: '$40–80M' }, { name: 'SHADOWMASTER', meta: 'HYBRID' }]}
+          onEnter={() => go('slate')}
+        />
+        <DivisionRow
+          num="03 / DIVISION" ghost="NRC" kicker="NEW RENAISSANCE CINEMA · FEATURE DIVISION"
+          title={<>Features.<br/>Auteur.</>} color={CNRC} textColor="#1c1208"
+          sub="Auteur-driven cinema built on timeless themes, moral clarity, and production precision. Classic stories for modern audiences — Capra, Fellini, Hitchcock lineage."
+          projects={[{ name: 'U BRUCCULINU', meta: 'FEATURE' }, { name: 'A NEED GROWS IN BROOKLYN', meta: 'FEATURE' }, { name: 'ALPHA YY', meta: 'FEATURE' }]}
+          onEnter={() => go('slate')}
+        />
+      </div>
+      <TaglineBand go={go} />
+    </div>
+  );
+}
+
+Object.assign(window, { PageMasthead, TaglineBand, DivisionRow, AboutPage, DivisionsPage });
+
+</script>
+<script type="text/babel">
+// pages-slate-news.jsx — Slate grid + News (the editorial heart)
+const { useState: useStateSN } = React;
+
+function ProjectCard({ idx, project, div, color, tag, year, status, desc }) {
+  return (
+    <div className="project-card">
+      <div className="project-card-head">
+        <span className="project-card-div" style={{ color }}>{div}</span>
+        <span className="project-card-idx">{String(idx).padStart(2, '0')}</span>
+      </div>
+      <image-slot id={`slate-${idx}`} placeholder="Drop still" fit="cover"></image-slot>
+      <h3 className="project-card-title">{project}</h3>
+      <p className="project-card-desc">{desc}</p>
+      <div className="project-card-foot">
+        <span className="project-card-meta">{tag} · {year}</span>
+        <span className="project-card-link">{status}</span>
+      </div>
+    </div>
+  );
+}
+
+function SlatePage({ go }) {
+  const { PROJECTS } = window.APR;
+  const [filter, setFilter] = useStateSN('ALL');
+  const filters = ['ALL', 'TV', 'FEATURE', 'STAGE', 'HYBRID', 'DOC'];
+  const visible = PROJECTS.filter(p => filter === 'ALL' ? true : p.cat === filter);
+  return (
+    <div className="wrap-wide">
+      <PageMasthead
+        kicker={`P. 03 — THE SLATE · ${visible.length} OF ${PROJECTS.length}`}
+        title="Slate."
+        standfirst="Development, preproduction, and production across three divisions. Updated as the continuity book is signed."
+      />
+      <div className="slate-filters fadeup d1">
+        {filters.map(f => (
+          <button key={f} className={`slate-filter ${filter === f ? 'is-active' : ''}`} onClick={() => setFilter(f)}>{f}</button>
+        ))}
+      </div>
+      <div className="slate-grid fadeup d2">
+        {visible.map((p, i) => <ProjectCard key={p.project} idx={i + 1} {...p} />)}
+      </div>
+    </div>
+  );
+}
+
+function NewsPage({ go }) {
+  const { NEWS } = window.APR;
+  const lead = NEWS[0];
+  const rest = NEWS.slice(1);
+  return (
+    <div>
+      <div className="wrap">
+        <PageMasthead
+          kicker="P. 06 — NEWS & DEVELOPMENT"
+          title="The Desk."
+          standfirst="Greenlights, deals, castings, and development from across the three divisions. Filed by the APR 70 desk."
+        />
+      </div>
+
+      <div className="wrap-wide" style={{ marginTop: 40 }}>
+        <div className="news-lead fadeup d1">
+          <div className="news-lead-art">
+            <span className="tag">LEAD STORY</span>
+            <image-slot id="news-lead" placeholder="Drop the lead image" fit="cover"></image-slot>
+          </div>
+          <div className="news-lead-body">
+            <div className="nl-kicker">{lead.cat} &middot; {lead.date}</div>
+            <h2>{lead.title}</h2>
+            <p className="nl-deck">{lead.deck}</p>
+            <div className="nl-foot">
+              <span className="byline">BY THE APR 70 DESK</span>
+              <span className="dateline">LONG ISLAND CITY, NY</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="news-bar">
+          <span className="nb-title">FROM THE WIRE</span>
+          <span className="nb-meta">{rest.length} DISPATCHES · APR 70 DESK</span>
+        </div>
+
+        <div className="news-grid fadeup d2">
+          {rest.map((n, i) => (
+            <article key={i} className="news-card">
+              <div className="nc-top">
+                <span className="nc-dot" style={{ background: n.color }} />
+                <span className="nc-cat">{n.cat}</span>
+                <span className="nc-date">{n.date}</span>
+              </div>
+              <h3>{n.title}</h3>
+              <p>{n.deck}</p>
+              <span className="nc-read">{n.read || 'CONTINUED →'}</span>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div className="wrap">
+        <div className="column-note">
+          <div className="cn-side">
+            THE COLUMN<br/>
+            <span style={{ color: 'var(--apr-orange)' }}>EDITOR'S NOTE</span><br/>
+            APRIL 2026<br/>
+            VOL. I · NO. 1
+          </div>
+          <div className="editorial">
+            <p style={{ fontSize: 17, color: 'var(--fg-1)' }}>This is the first issue. The company is young, the slate is real, and the standard is set.</p>
+            <p>Everything filed here is current as of press. Budgets are stated as ranges because that is the honest way to state them before a deal closes. Dates are stated precisely because a production lives and dies on them. When something changes, the next issue will say so — plainly, in the third person, without an exclamation point in sight.</p>
+            <p>Currently accepting select projects for 2026.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+Object.assign(window, { ProjectCard, SlatePage, NewsPage });
+
+</script>
+<script type="text/babel">
+// pages-business.jsx — Investors + Careers + Contact
+const { useState: useStateB } = React;
+
+function InvestorsPage({ go }) {
+  const { C212, C310, CNRC } = window.APR;
+  const rows = [
+    { proj: 'L.A. Dolce Vita', div: '(310)', color: C310, type: 'TV · 10 EPS', budget: '$30M–$50M', status: 'Bible complete' },
+    { proj: "L'Odissea di Cleopatra", div: '(310)', color: C310, type: 'TV · 10 EPS', budget: '$40M–$80M', status: 'Development' },
+    { proj: 'A Need Grows in Brooklyn', div: '(212)', color: C212, type: 'TV · 10 EPS', budget: 'On request', status: 'Writers’ room' },
+    { proj: 'The Mayors', div: '(212)', color: C212, type: 'DOC · 11 EPS', budget: 'On request', status: 'Development' },
+    { proj: 'U Brucculinu', div: 'NRC', color: CNRC, type: 'FEATURE', budget: 'On request', status: 'Development' },
+  ];
+  const timeline = [
+    { date: '2026', event: <>Company formation, slate development, and <strong>writers’ rooms</strong> across (212).</> },
+    { date: '2026–27', event: <>Financing conversations on <strong>(310) prestige television</strong> — Dolce Vita first.</> },
+    { date: '2027', event: <>First feature into preproduction through <strong>New Renaissance Cinema</strong>.</> },
+    { date: '2027–28', event: <>Staggered production deployment across divisions; theater and documentary parallel.</> },
+  ];
+  return (
+    <div className="wrap">
+      <PageMasthead
+        kicker="P. 04 — INVESTORS & PARTNERS"
+        title={<>The 2026<br/>Package.</>}
+        standfirst="APR 70 is actively engaging investors, distributors, and co-production partners for its 2026–2028 slate. Inquiries are handled directly by the founder."
+      />
+
+      <div className="stat-row fadeup d1" style={{ marginTop: 40 }}>
+        {[
+          { v: '9', l: 'PROJECTS IN DEVELOPMENT' },
+          { v: '3', l: 'SPECIALIZED DIVISIONS' },
+          { v: '$30–80M', l: 'PER-SERIES RANGE · (310)' },
+          { v: '2026–28', l: 'DEPLOYMENT WINDOW' },
+        ].map((s, i) => (
+          <div key={i} className="stat-cell">
+            <div className="sv">{s.v}</div>
+            <div className="sl">{s.l}</div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ padding: '56px 0 0' }} className="fadeup d2">
+        <div className="folio" style={{ marginBottom: 24 }}>
+          <span>EXHIBIT A</span><span className="folio-line" /><span>SLATE BY BUDGET</span>
+        </div>
+        <table className="doc-table">
+          <thead>
+            <tr><th>Project</th><th>Division</th><th>Format</th><th>Budget</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            {rows.map((r, i) => (
+              <tr key={i}>
+                <td className="dt-proj">{r.proj}</td>
+                <td><span style={{ color: r.color, fontFamily: 'var(--font-mono)', fontSize: 12, letterSpacing: '0.2em' }}>{r.div}</span></td>
+                <td>{r.type}</td>
+                <td className="dt-budget">{r.budget}</td>
+                <td>{r.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div style={{ padding: '56px 0 0' }} className="fadeup">
+        <div className="folio" style={{ marginBottom: 16 }}>
+          <span>EXHIBIT B</span><span className="folio-line" /><span>DEPLOYMENT TIMELINE</span>
+        </div>
+        {timeline.map((t, i) => (
+          <div key={i} className="timeline-row">
+            <span className="tl-date">{t.date}</span>
+            <span className="tl-event">{t.event}</span>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ padding: '64px 0 96px' }}>
+        <div className="doc-panel fadeup">
+          <div className="dateline" style={{ marginBottom: 16 }}>PROSPECTUS · BY REQUEST</div>
+          <div style={{ fontFamily: 'var(--font-condensed)', fontWeight: 900, fontSize: 'clamp(1.8rem,4vw,3rem)', letterSpacing: '-0.01em', textTransform: 'uppercase', lineHeight: 0.92, marginBottom: 20 }}>APR 70 LLC — 2026 Investor Package</div>
+          <p style={{ color: 'var(--fg-2)', lineHeight: 1.7, maxWidth: 640, marginBottom: 28 }}>The complete package includes the company overview, founder bio, active slate dossiers, financial structure, and anticipated deployment timelines. Released under NDA to qualified parties.</p>
+          <button className="btn-solid" onClick={() => go('contact')}>REQUEST THE DOSSIER &rarr;</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CareersPage({ go }) {
+  const roles = [
+    { title: 'Development Reader', meta: 'FREELANCE · REMOTE', body: 'Coverage and notes on incoming material across all three divisions. Trade-literate, fast, and exact.' },
+    { title: 'Line Producer', meta: 'PER-PROJECT · NY / LA', body: 'Budgeting and scheduling for series and feature builds as projects reach preproduction. Day-rate.' },
+    { title: 'Story Editor', meta: 'CONTRACT · (212)', body: 'Room support on the New York television slate. Crime and character drama. NYC-based preferred.' },
+    { title: 'Archival Researcher', meta: 'CONTRACT · "THE MAYORS"', body: 'Documentary research across seventy-five years of New York City civic history. Library and field.' },
+    { title: 'Caruso Fellowship', meta: 'ANNUAL · ONE SEAT', body: 'A year inside the company for one early-career filmmaker. Mentorship, a credit, and a method.' },
+    { title: 'Open Submission', meta: 'ROLLING · BY REFERRAL', body: 'Writers and directors with finished work in the APR 70 lineage. Send a logline and a sample.' },
+  ];
+  return (
+    <div className="wrap">
+      <PageMasthead
+        kicker="P. 05 — CAREERS & CALLS"
+        title={<>The Call<br/>Sheet.</>}
+        standfirst="APR 70 is a one-member company that staffs by project. Most roles are freelance, per-project, or by referral. The standard does not move with the headcount."
+      />
+
+      <div className="editorial cols-2 fadeup d1" style={{ padding: '40px 0 8px' }}>
+        <p className="dropcap"><span className="dateline">HOW WE HIRE — </span>The company keeps a small permanent footprint and builds full crews as projects reach production. If your work is precise and you read the trade, there is a place to start a conversation. Credits are real, day-rates are fair, and the bar is set at the first meeting.</p>
+        <p>What follows reads like a classified page because that is what it is. Each listing is a current or recurring need. Apply against the one that fits — or send an open submission and make the case. No cover-letter theater. A logline, a sample, and a reason.</p>
+      </div>
+
+      <div style={{ padding: '24px 0 0' }}>
+        <div className="folio" style={{ marginBottom: 0 }}>
+          <span>CLASSIFIED</span><span className="folio-line" /><span>{roles.length} LISTINGS · APR 2026</span>
+        </div>
+      </div>
+      <div className="ad-grid fadeup d2" style={{ marginTop: 18, marginBottom: 96 }}>
+        {roles.map((r, i) => (
+          <div key={i} className="ad-cell">
+            <div className="ad-no">NO. {String(i + 1).padStart(2, '0')}</div>
+            <h3 className="ad-title">{r.title}</h3>
+            <div className="ad-meta">{r.meta}</div>
+            <p className="ad-body">{r.body}</p>
+            <button className="ad-apply" onClick={() => go('contact')}>APPLY / INQUIRE &rarr;</button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ContactField({ label, type = 'text', placeholder, area, value, onChange }) {
+  const [focused, setFocused] = useStateB(false);
+  return (
+    <div className={`cfield ${area ? 'full' : ''} ${focused ? 'focused' : ''}`}>
+      <label>{label}</label>
+      {area
+        ? <textarea rows={4} placeholder={placeholder} value={value} onChange={onChange} onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} />
+        : <input type={type} placeholder={placeholder} value={value} onChange={onChange} onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} />}
+    </div>
+  );
+}
+
+function ContactPage({ go }) {
+  const { C212, C310 } = window.APR;
+  const [form, setForm] = useStateB({ name: '', org: '', email: '', subject: 'GENERAL', msg: '' });
+  const [sent, setSent] = useStateB(false);
+  const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }));
+  const submit = (e) => { e.preventDefault(); setSent(true); };
+
+  const tiles = [
+    { label: 'INVESTORS', color: C310, corner: '01', title: 'Capital.', body: 'For the 2026 investor package and slate dossiers.\ninvest@apr70.com' },
+    { label: 'DISTRIBUTION', color: C212, corner: '02', title: 'Sales.', body: 'Territories, co-production, and output.\nsales@apr70.com' },
+    { label: 'SUBMISSIONS', color: '#1a1a1a', corner: '03', title: 'Material.', body: 'Loglines and samples by referral only.\ndesk@apr70.com', plain: true },
+    { label: 'GENERAL', color: '#1a1a1a', corner: '04', title: 'Front Desk.', body: '1063 Jackson Avenue, PH G\nLong Island City, NY 11101', plain: true },
+  ];
+
+  return (
+    <div className="wrap">
+      <PageMasthead
+        kicker="P. 07 — CONTACT"
+        title="Direct."
+        standfirst="Currently accepting select projects for 2026. Inquiries are handled directly by the founder."
+      />
+
+      <div style={{ padding: '48px 0 0' }} className="fadeup d1">
+        <div className="folio" style={{ marginBottom: 24 }}>
+          <span>INQUIRY</span><span className="folio-line" /><span>RESPONSE WITHIN FIVE BUSINESS DAYS</span>
+        </div>
+
+        {sent ? (
+          <div className="doc-panel" style={{ textAlign: 'center', padding: '72px 40px' }}>
+            <div className="dateline" style={{ marginBottom: 16 }}>FILED · {new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }).toUpperCase()}</div>
+            <div style={{ fontFamily: 'var(--font-condensed)', fontWeight: 900, fontSize: 'clamp(2rem,5vw,3.4rem)', textTransform: 'uppercase', lineHeight: 0.92, marginBottom: 16 }}>Received.</div>
+            <p style={{ color: 'var(--fg-2)', maxWidth: 460, margin: '0 auto 28px' }}>Your inquiry has been logged to the APR 70 desk. A reply will follow directly.</p>
+            <button className="btn-ghost" onClick={() => { setSent(false); setForm({ name: '', org: '', email: '', subject: 'GENERAL', msg: '' }); }}>FILE ANOTHER</button>
+          </div>
+        ) : (
+          <form className="cform" onSubmit={submit}>
+            <ContactField label="Name" placeholder="Full name" value={form.name} onChange={set('name')} />
+            <ContactField label="Company / Org" placeholder="Optional" value={form.org} onChange={set('org')} />
+            <ContactField label="Email" type="email" placeholder="you@company.com" value={form.email} onChange={set('email')} />
+            <div className="cfield">
+              <label>Regarding</label>
+              <select value={form.subject} onChange={set('subject')}>
+                <option>GENERAL</option>
+                <option>INVESTMENT</option>
+                <option>DISTRIBUTION</option>
+                <option>SUBMISSION</option>
+                <option>PRESS</option>
+              </select>
+            </div>
+            <ContactField label="Message" area placeholder="State your business. Plainly." value={form.msg} onChange={set('msg')} />
+            <div className="cfield full" style={{ borderBottom: 0, paddingTop: 28 }}>
+              <button className="btn-solid" type="submit" style={{ justifySelf: 'start' }}>SEND TO THE DESK &rarr;</button>
+            </div>
+          </form>
+        )}
+      </div>
+
+      <div style={{ padding: '56px 0 96px' }} className="fadeup d2">
+        <div className="folio" style={{ marginBottom: 0 }}>
+          <span>DIRECTORY</span><span className="folio-line" /><span>FOUR LINES</span>
+        </div>
+        <div className="contact-grid" style={{ marginTop: 18 }}>
+          {tiles.map((t, i) => (
+            <div key={i} className={`contact-tile ${t.plain ? '' : 'has-fill'}`} style={{ background: t.plain ? 'transparent' : t.color, color: t.plain ? 'var(--fg-1)' : '#fff' }}>
+              <span className="ct-label">{t.label}</span>
+              <span className="ct-corner">{t.corner}</span>
+              <span className="ct-title">{t.title}</span>
+              <span className="ct-body">{t.body}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+Object.assign(window, { InvestorsPage, CareersPage, ContactPage });
+
+</script>
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "palette": "cinema",
+  "accent": "#E85D04",
+  "masthead": "APR 70",
+  "justifyColumns": true
+}/*EDITMODE-END*/;
+
+const ACCENTS = ['#E85D04', '#824B07', '#077082', '#0077B6'];
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const [page, setPage] = useState(() => localStorage.getItem('apr70v2-page') || 'cover');
+  const pageRef = useRef(null);
+  const light = t.palette === 'document';
+  const go = (p) => { setPage(p); localStorage.setItem('apr70v2-page', p); window.scrollTo(0, 0); };
+  useEffect(() => { document.body.classList.toggle('light', light); }, [light]);
+  useEffect(() => { document.documentElement.style.setProperty('--accent', t.accent); }, [t.accent]);
+  useEffect(() => {
+    const el = pageRef.current; if (!el) return;
+    el.removeAttribute('data-ready');
+    const id = requestAnimationFrame(() => requestAnimationFrame(() => el.setAttribute('data-ready', '1')));
+    return () => cancelAnimationFrame(id);
+  }, [page]);
+  useEffect(() => {
+    document.querySelectorAll('.mh-line').forEach(n => { n.textContent = t.masthead || 'APR 70'; });
+  }, [t.masthead, page]);
+  useEffect(() => {
+    document.querySelectorAll('.editorial.cols-2, .editorial.cols-3').forEach(n => { n.classList.toggle('justify', !!t.justifyColumns); });
+  }, [t.justifyColumns, page]);
+  const keycode = `APR 70 PICTURES // ${page.toUpperCase()} // VOL I NO 1`;
+  return (
+    <>
+      <FilmstripRail accent={t.accent} keycode={keycode} />
+      <Nameplate current={page} onNav={go} light={light} onToggleMode={() => setTweak('palette', light ? 'cinema' : 'document')} />
+      <div className="page" ref={pageRef} key={page}>
+        {page === 'cover' && <Cover go={go} />}
+        {page === 'about' && <AboutPage go={go} />}
+        {page === 'divisions' && <DivisionsPage go={go} />}
+        {page === 'slate' && <SlatePage go={go} />}
+        {page === 'investors' && <InvestorsPage go={go} />}
+        {page === 'careers' && <CareersPage go={go} />}
+        {page === 'news' && <NewsPage go={go} />}
+        {page === 'contact' && <ContactPage go={go} />}
+      </div>
+      <SiteFooter onNav={go} />
+      <CornerAccent />
+      <TweaksPanel>
+        <TweakSection label="Reading mode" />
+        <TweakRadio label="World" value={t.palette} options={['cinema', 'document']} onChange={(v) => setTweak('palette', v)} />
+        <TweakSection label="Accent" />
+        <TweakColor label="Signal color" value={t.accent} options={ACCENTS} onChange={(v) => setTweak('accent', v)} />
+        <TweakSection label="Cover masthead" />
+        <TweakText label="Wordmark" value={t.masthead} onChange={(v) => setTweak('masthead', v)} />
+        <TweakSection label="Editorial" />
+        <TweakToggle label="Justify columns" value={t.justifyColumns} onChange={(v) => setTweak('justifyColumns', v)} />
+      </TweaksPanel>
+    </>
+  );
+}
+setTimeout(() => { ReactDOM.createRoot(document.getElementById("root")).render(<App />); }, 60);
+</script>
+</body>
+</html>

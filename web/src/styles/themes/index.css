@@ -1,0 +1,16 @@
+/* ============================================================
+   apr70 — THEME DEPLOYMENTS (V4 five-theme slate)
+   Loaded globally by Layout.astro. Each theme is a full DESIGN,
+   scoped entirely under [data-design="<slug>"] so nothing leaks
+   across themes. Shared tokens live in tokens.css. Every theme
+   binds BOTH [data-theme="light"] and [data-theme="dark"].
+
+   T1 Screening Room = full deployment (Wave A).
+   T2–T5 = scaffolds: both-mode token bindings + personality
+   contract; Wave C completes the real type/layout/motion.
+   ============================================================ */
+@import './screening-room.css';
+@import './photoplay.css';
+@import './trade-paper.css';
+@import './cutting-room.css';
+@import './picture-palace.css';

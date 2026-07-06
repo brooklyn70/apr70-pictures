@@ -1,12 +1,11 @@
 ---
 import '../styles/global.css'
-import '../styles/designs.css'
+import '../styles/themes/index.css'
 import Footer from '../components/Footer.astro'
-import MagneticNavIsland from '../components/islands/MagneticNavIsland'
+import SiteNav from '../components/SiteNav.astro'
 import ThemeControlIsland from '../components/islands/ThemeControlIsland'
 import { fetchSiteSettings, fetchFooterLinks, resolveMediaUrl } from '../lib/payload'
-import type { FooterLink } from '../lib/payload'
-import { DESIGNS, resolveDesign, designThemeMode } from '../designs/manifest'
+import { DESIGNS, resolveDesign, designThemeMode, LOGO_SIZE } from '../designs/manifest'
 import { DEFAULT_LOGO, logoFileMap, logoSrc } from '../designs/logos'
 
 interface Props {
@@ -23,28 +22,20 @@ interface Props {
   design?: string
 }
 
+/* Chrome meta description — SPEC §0 ruling: APR 70 is an ENTERTAINMENT company
+   (film, television, theater, radio, books). Pages may override via `description`. */
+const CHROME_DESCRIPTION =
+  'APR 70 Pictures — an entertainment company. Film, television, theater, radio, and books. Long Island City, New York.'
+
 const [{ settings }, { footerLinks }] = await Promise.all([
   fetchSiteSettings(),
   fetchFooterLinks(),
 ])
 
 const siteName    = settings?.brandLabel ?? 'APR 70 Pictures'
-const { title = siteName, description = settings?.tagline ?? '' } = Astro.props
+const { title = siteName, description = CHROME_DESCRIPTION } = Astro.props
 const pageTitle   = title === siteName ? siteName : `${title} — ${siteName}`
 const showRails   = settings?.showFilmstripRails !== false
-
-const primaryFromPayload = (footerLinks?.primaryNav ?? []).filter(
-  (l): l is FooterLink => Boolean(l?.href && l?.label),
-)
-const primaryNav: FooterLink[] =
-  primaryFromPayload.length > 0
-    ? primaryFromPayload
-    : [
-        { label: 'Work', href: '/work' },
-        { label: 'About', href: '/about' },
-        { label: 'Investors', href: '/investors' },
-        { label: 'Contact', href: '/contact' },
-      ]
 
 const faviconMedia = Astro.props.faviconOverride ?? settings?.favicon
 const faviconSrc = resolveMediaUrl(
@@ -55,10 +46,10 @@ const navLogoOverrideMedia = Astro.props.navLogoOverride
 const navLogoOverrideSrc = resolveMediaUrl(
   typeof navLogoOverrideMedia === 'object' && navLogoOverrideMedia ? navLogoOverrideMedia as any : undefined,
 )
-/* Global brand mark is visitor-picked (ThemeControlIsland). A division page
-   still shows its own division logo via navLogoOverride — that one is never
-   swapped by the picker. SSR falls back to the default mark for the SSR
-   design; the pre-paint script + body sync correct it before first paint. */
+/* Global brand mark is visitor-picked (control panel). A division page still
+   shows its own division logo via navLogoOverride — that one is never swapped
+   by the picker. SSR falls back to the default mark for the SSR design/mode;
+   the pre-paint script + body sync correct it before first paint. */
 const brandSwappable = !navLogoOverrideSrc
 const navLogoAlt = Astro.props.navLogoAltOverride ?? siteName
 
@@ -76,6 +67,7 @@ const navLogoSrc = navLogoOverrideSrc ?? logoSrc(DEFAULT_LOGO, themeMode)
 const designModes = Object.fromEntries(DESIGNS.map((d) => [d.slug, d.base]))
 const logoFiles = logoFileMap()
 const defaultLogo = DEFAULT_LOGO
+const logoDefaults = { min: LOGO_SIZE.min, max: LOGO_SIZE.max, def: LOGO_SIZE.default }
 ---
 
 <!doctype html>
@@ -83,29 +75,40 @@ const defaultLogo = DEFAULT_LOGO
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script is:inline define:vars={{ designModes, logoFiles, defaultLogo }}>
+    <script is:inline define:vars={{ designModes, logoFiles, defaultLogo, logoDefaults }}>
       /* Pre-paint stamp — global visitor-selected theme state. Runs before
-         first paint so there is no FOUC. Keys: apr70:design, apr70:logo,
-         apr70:font-scale. Live updates come from ThemeControlIsland. */
+         first paint so there is no FOUC. Precedence for mode: a stored
+         explicit mode (apr70:mode) wins; otherwise the active theme's default.
+         Legacy/invalid design values fall back cleanly to screening-room.
+         Keys: apr70:design, apr70:mode, apr70:logo, apr70:logo-size,
+         apr70:font-scale. Live updates come from the control panel. */
       ;(function () {
         var doc = document.documentElement
         function read(key) {
-          try {
-            return localStorage.getItem(key)
-          } catch (e) {
-            return null
-          }
+          try { return localStorage.getItem(key) } catch (e) { return null }
         }
+
         var design = read('apr70:design')
-        if (!design || !designModes[design]) design = doc.getAttribute('data-design') || 'signature'
+        if (!design || !designModes[design]) design = 'screening-room'
         doc.setAttribute('data-design', design)
-        var mode = designModes[design] === 'light' ? 'light' : 'dark'
+
+        var stored = read('apr70:mode')
+        var userMode = stored === 'light' || stored === 'dark'
+        var mode = userMode ? stored : (designModes[design] === 'light' ? 'light' : 'dark')
         doc.setAttribute('data-theme', mode)
+        doc.setAttribute('data-mode-source', userMode ? 'user' : 'theme')
 
         var logo = read('apr70:logo')
         if (!logo || !logoFiles[logo]) logo = defaultLogo
         doc.setAttribute('data-logo', logo)
         doc.setAttribute('data-logo-src', logoFiles[logo][mode])
+
+        var size = parseInt(read('apr70:logo-size'), 10)
+        if (!isFinite(size)) size = logoDefaults.def
+        if (size < logoDefaults.min) size = logoDefaults.min
+        if (size > logoDefaults.max) size = logoDefaults.max
+        doc.setAttribute('data-logo-size', String(size))
+        doc.style.setProperty('--logo-h', size + 'px')
 
         var scales = { s: '0.9', m: '1', l: '1.1', xl: '1.2' }
         var scale = read('apr70:font-scale')
@@ -130,28 +133,20 @@ const defaultLogo = DEFAULT_LOGO
   </head>
   <body>
     <div class="site-chrome-top">
-      <!-- Top filmstrip rail (feature-flagged) -->
       {showRails && (
-        <div class="strip-rail strip-rail--top" aria-hidden="true">
+        <div class="strip-rail strip-rail--top strip-rail--leader" aria-hidden="true">
           {Array.from({ length: 32 }).map(() => (
             <span class="sprocket" />
           ))}
+          <span class="strip-rail__keycode">APR 70 PICTURES // LONG ISLAND CITY NY // REEL 086</span>
         </div>
       )}
 
       <header class="site-header">
-        <div class="container site-header__inner">
-          <MagneticNavIsland
-            client:idle
-            items={primaryNav}
-            logoSrc={navLogoSrc}
-            logoAlt={navLogoAlt}
-            brandSwappable={brandSwappable}
-          />
-        </div>
+        <SiteNav logoSrc={navLogoSrc} logoAlt={navLogoAlt} brandSwappable={brandSwappable} />
       </header>
       <script is:inline>
-        /* Sync the SSR brand mark to the pre-paint pick before the nav hydrates. */
+        /* Sync the SSR brand mark to the pre-paint pick before anything else. */
         ;(function () {
           var src = document.documentElement.getAttribute('data-logo-src')
           var img = document.querySelector('img[data-brand-wordmark]')
@@ -165,6 +160,15 @@ const defaultLogo = DEFAULT_LOGO
     <Footer settings={settings} footerLinks={footerLinks} footerLogoSrc={footerLogoSrc} footerLogoAlt={footerLogoAlt} />
 
     <ThemeControlIsland client:load />
+
+    <script>
+      /* Boot the site motion layer (dispatcher + cursor + one-time splash).
+         Bundled module — runs after parse; SSR content is fully static without
+         it. All gating (reduced-motion, touch, front-door-only, once-per-
+         session) lives in the motion modules. */
+      import { bootMotion } from '../lib/motion'
+      bootMotion()
+    </script>
   </body>
 </html>
 
@@ -190,13 +194,6 @@ const defaultLogo = DEFAULT_LOGO
   .site-header {
     background: color-mix(in srgb, var(--bg-1) 88%, transparent);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--bg-3);
-  }
-
-  .site-header__inner {
-    display: flex;
-    justify-content: center;
-    padding-top: 0.35rem;
-    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--rule);
   }
 </style>

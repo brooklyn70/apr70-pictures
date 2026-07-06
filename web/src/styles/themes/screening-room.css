@@ -1,0 +1,129 @@
+/* ============================================================
+   T1 · SCREENING ROOM — house design, default theme (FULL).
+   Dark poster modernism (Direction A): Futura Heavy at reel
+   scale, crushed leading, orange leader tab, sprocket chrome —
+   pure ink on black. Light mode = "work lights on": near-white
+   #f2f2f0 with black type, orange holds.
+   Reference: design-source/directions/direction-a-screening-room.html.
+   Everything scoped under [data-design="screening-room"].
+   ============================================================ */
+
+/* Accent (leader tab / nav active / cursor / splash) = Sicilian orange. */
+[data-design='screening-room'] {
+  --accent: var(--apr-orange);
+}
+
+/* ---- DARK (default mode): pure ink on black ---- */
+[data-design='screening-room'][data-theme='dark'] {
+  --bg-0: #000000;
+  --bg-1: #0a0a0a;
+  --bg-2: #111111;
+  --bg-3: #1a1a1a;
+  --fg-1: #ffffff;
+  --fg-2: rgba(255, 255, 255, 0.80);
+  --fg-3: rgba(255, 255, 255, 0.55);
+  --fg-4: rgba(255, 255, 255, 0.35);
+  --fg-5: rgba(255, 255, 255, 0.20);
+  --fg-6: rgba(255, 255, 255, 0.10);
+  --rule: rgba(255, 255, 255, 0.10);
+  --rule-strong: rgba(255, 255, 255, 0.24);
+  --cursor-color: rgba(255, 255, 255, 0.9);
+}
+
+/* ---- LIGHT ("work lights on"): near-white, black type, orange holds ---- */
+[data-design='screening-room'][data-theme='light'] {
+  --bg-0: #f2f2f0;
+  --bg-1: #ececea;
+  --bg-2: #e2e2df;
+  --bg-3: #d6d6d2;
+  --fg-1: #0a0a0a;
+  --fg-2: rgba(10, 10, 10, 0.82);
+  --fg-3: rgba(10, 10, 10, 0.58);
+  --fg-4: rgba(10, 10, 10, 0.40);
+  --fg-5: rgba(10, 10, 10, 0.26);
+  --fg-6: rgba(10, 10, 10, 0.12);
+  --rule: rgba(10, 10, 10, 0.12);
+  --rule-strong: rgba(10, 10, 10, 0.26);
+  --muted: #555555;
+  --cursor-color: rgba(0, 0, 0, 0.85);
+}
+[data-design='screening-room'][data-theme='light'] body {
+  background: var(--bg-0);
+  color: var(--fg-1);
+}
+/* The filmstrip rail keeps its black film-stock bench even under work-lights. */
+[data-design='screening-room'][data-theme='light'] .strip-rail,
+[data-design='screening-room'][data-theme='light'] .strip-rail__keycode {
+  background: #050505;
+}
+[data-design='screening-room'][data-theme='light'] .strip-rail__keycode {
+  color: rgba(255, 255, 255, 0.35);
+}
+[data-design='screening-room'][data-theme='light'] .btn-solid {
+  color: var(--bg-0);
+  background: var(--fg-1);
+  border-color: var(--fg-1);
+}
+[data-design='screening-room'][data-theme='light'] .btn-solid:hover {
+  background: transparent;
+  color: var(--fg-1);
+}
+
+/* ---- Selection + focus: orange, both modes ---- */
+[data-design='screening-room'] ::selection {
+  background: var(--apr-orange);
+  color: #000000;
+}
+[data-design='screening-room'] :focus-visible {
+  outline: 2px solid var(--apr-orange);
+  outline-offset: 3px;
+}
+
+/* ---- T1 display: Futura Heavy at poster scale, crushed leading ---- */
+[data-design='screening-room'] h1,
+[data-design='screening-room'] h2,
+[data-design='screening-room'] .display-mega,
+[data-design='screening-room'] [data-display='mega'] {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+[data-design='screening-room'] .display-mega,
+[data-design='screening-room'] [data-display='mega'] {
+  line-height: var(--leading-crush);
+}
+
+/* ---- T1 shared treatments (used by chrome + front-door blocks) ----
+   Provided by the theme layer so Wave B blocks can opt in by class. */
+
+/* Orange opening words of an identity read. */
+[data-design='screening-room'] .first-words {
+  color: var(--apr-orange);
+  font-weight: 500;
+}
+
+/* Outlined "ghost" display line (cover story). */
+[data-design='screening-room'] .ghost {
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--fg-1) 65%, transparent);
+  font-style: italic;
+  font-weight: 700;
+}
+
+/* Eyebrow leader — orange rule + caps micro-label. */
+[data-design='screening-room'] .leader-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-size: var(--type-micro);
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--apr-orange);
+  font-weight: 500;
+}
+[data-design='screening-room'] .leader-eyebrow::before {
+  content: '';
+  width: 44px;
+  height: 2px;
+  background: var(--apr-orange);
+}

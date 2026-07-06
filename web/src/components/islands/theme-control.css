@@ -1,6 +1,7 @@
-/* ThemeControlIsland — global chrome (not a Payload block).
-   Tokens only: bg/fg ramp, rules, type + motion tokens from tokens.css.
-   Animates opacity/transform/named properties only (no transition: all). */
+/* ThemeControlIsland (v2) — global chrome (not a Payload block).
+   Tokens only: bg/fg ramp, rules, type + motion tokens + --accent from
+   tokens.css, so it holds up on all five themes. Animates opacity/transform/
+   named properties only (no transition: all). */
 
 .theme-control {
   position: fixed;
@@ -41,6 +42,10 @@
 .tc-pill:active {
   cursor: grabbing;
 }
+.tc-pill:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
 
 .tc-pill__chips {
   display: inline-flex;
@@ -50,8 +55,8 @@
 /* ---- expanded panel ---- */
 
 .tc-panel {
-  width: min(320px, calc(100vw - 16px));
-  max-height: min(70vh, 560px);
+  width: min(340px, calc(100vw - 16px));
+  max-height: min(78vh, 640px);
   display: flex;
   flex-direction: column;
   background: color-mix(in srgb, var(--bg-1) 96%, transparent);
@@ -114,6 +119,10 @@
 .tc-panel__close:hover {
   color: var(--fg-1);
 }
+.tc-panel__close:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
 
 .tc-panel__body {
   overflow-y: auto;
@@ -123,8 +132,13 @@
   gap: var(--s-5);
 }
 
+/* ---- sections ---- */
+
 .tc-section__label {
-  display: block;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-3);
   margin-bottom: var(--s-2);
   font-weight: 500;
   font-size: var(--type-micro);
@@ -132,11 +146,33 @@
   text-transform: uppercase;
   color: var(--fg-4);
 }
+.tc-section__value {
+  font-family: var(--font-mono);
+  letter-spacing: 0.1em;
+  color: var(--fg-3);
+}
 
-/* shared option button base */
-.tc-design,
-.tc-logo,
-.tc-scale {
+.tc-hint {
+  display: block;
+  margin-top: var(--s-2);
+  font-size: var(--type-micro);
+  letter-spacing: var(--track-wide);
+  text-transform: uppercase;
+  color: var(--fg-5);
+}
+
+/* shared swatch chip */
+.tc-chip {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid var(--rule-strong);
+}
+
+/* shared interactive-option base */
+.tc-theme,
+.tc-seg,
+.tc-logo {
   font-family: var(--font-body);
   color: var(--fg-2);
   background: transparent;
@@ -146,53 +182,87 @@
   transition: color var(--dur-quick) var(--ease-in), border-color var(--dur-quick) var(--ease-in),
     background-color var(--dur-quick) var(--ease-in);
 }
-.tc-design:hover,
-.tc-logo:hover,
-.tc-scale:hover {
+.tc-theme:hover,
+.tc-seg:hover,
+.tc-logo:hover {
   color: var(--fg-1);
   border-color: var(--rule-strong);
 }
-.tc-design[aria-pressed='true'],
-.tc-logo[aria-pressed='true'],
-.tc-scale[aria-pressed='true'] {
+.tc-theme[aria-pressed='true'],
+.tc-seg[aria-pressed='true'],
+.tc-logo[aria-pressed='true'] {
   color: var(--fg-1);
   border-color: var(--fg-2);
   background: var(--bg-2);
 }
+.tc-theme:focus-visible,
+.tc-seg:focus-visible,
+.tc-logo:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 
-/* design rows */
-.tc-designs {
+/* ---- theme chips (with personality microcopy) ---- */
+.tc-themes {
   display: flex;
   flex-direction: column;
   gap: var(--s-2);
 }
-.tc-design {
+.tc-theme {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--s-3);
-  min-height: 44px;
-  padding: 0 var(--s-3);
-  font-size: var(--type-small);
+  padding: var(--s-3);
   text-align: left;
 }
-.tc-design__chips {
+.tc-theme__chips {
   display: inline-flex;
   gap: 3px;
   flex-shrink: 0;
+  padding-top: 2px;
 }
-.tc-design__chip {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: 1px solid var(--rule-strong);
+.tc-theme__text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
 }
-.tc-design__name {
+.tc-theme__name {
+  font-size: var(--type-caption);
   letter-spacing: var(--track-wide);
   text-transform: uppercase;
-  font-size: var(--type-caption);
+  color: inherit;
+}
+.tc-theme__blurb {
+  font-size: var(--type-micro);
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--fg-4);
+}
+.tc-theme[aria-pressed='true'] .tc-theme__blurb {
+  color: var(--fg-3);
 }
 
-/* logo grid */
+/* ---- segmented controls (Mode, Type size) ---- */
+.tc-segment {
+  display: grid;
+  gap: var(--s-2);
+}
+.tc-segment--2 {
+  grid-template-columns: 1fr 1fr;
+}
+.tc-segment--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+.tc-seg {
+  min-height: 44px;
+  font-size: var(--type-caption);
+  letter-spacing: var(--track-wide);
+  text-transform: uppercase;
+}
+
+/* ---- logo grid ---- */
 .tc-logos {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -220,25 +290,56 @@
   color: inherit;
 }
 
-/* type-size segmented row */
-.tc-scales {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--s-2);
+/* ---- logo-size slider ---- */
+.tc-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 28px;
+  background: transparent;
+  cursor: pointer;
 }
-.tc-scale {
-  min-height: 44px;
-  font-size: var(--type-caption);
-  letter-spacing: var(--track-wide);
-  text-transform: uppercase;
+.tc-range:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: var(--r-xs);
+}
+.tc-range::-webkit-slider-runnable-track {
+  height: 2px;
+  background: var(--rule-strong);
+  border-radius: 2px;
+}
+.tc-range::-moz-range-track {
+  height: 2px;
+  background: var(--rule-strong);
+  border-radius: 2px;
+}
+.tc-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -7px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg-1);
+  box-shadow: 0 0 0 1px var(--rule-strong);
+}
+.tc-range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg-1);
+  box-shadow: 0 0 0 1px var(--rule-strong);
 }
 
-/* Coarse pointers: no hover styling surprises; targets already 44px. */
+/* Coarse pointers: no hover styling surprises; targets already ≥44px. */
 @media (hover: none) {
   .tc-pill:hover,
-  .tc-design:hover,
+  .tc-theme:hover,
+  .tc-seg:hover,
   .tc-logo:hover,
-  .tc-scale:hover,
   .tc-panel__close:hover {
     color: inherit;
     border-color: var(--rule);

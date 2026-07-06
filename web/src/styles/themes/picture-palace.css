@@ -1,0 +1,72 @@
+/* ============================================================
+   T5 · PICTURE PALACE — SCAFFOLD (Wave C completes the deployment).
+
+   PERSONALITY CONTRACT
+   Night-marquee deco. Black-blue NIGHT (#050810) with brand blue
+   #0077B6 + white. Futura Condensed stacked in VERTICAL letter
+   towers (marquee columns); footlight GLOW (radial gradients from
+   below); brass hairlines. Nav = marquee cells that light on
+   hover. Motion = letters illuminate in sequence (staggered
+   brightness, tiny flicker on arrival ≤2 per page); glow blooms
+   on scroll arrival. NO auto-motion, NO tickers. DEFAULT MODE:
+   DARK. Light = daytime palace: cool plaster white, navy type.
+
+   This scaffold binds BOTH modes so the theme is legible today.
+   Wave C replaces/extends below with the real marquee + glow.
+   ============================================================ */
+
+[data-design='picture-palace'] {
+  --accent: var(--apr-blue);
+  --font-display: 'Futura Std Condensed', 'Futura Std', 'Arial Narrow', sans-serif;
+  /* Brass hairline (Wave C uses for rules). */
+  --brass: #b9922e;
+}
+
+/* ---- DARK (default) — deco night, blue + white ---- */
+[data-design='picture-palace'][data-theme='dark'] {
+  --bg-0: #050810;
+  --bg-1: #080c1a;
+  --bg-2: #0c1226;
+  --bg-3: #121a36;
+  --fg-1: #ffffff;
+  --fg-2: rgba(255, 255, 255, 0.82);
+  --fg-3: rgba(255, 255, 255, 0.56);
+  --fg-4: rgba(255, 255, 255, 0.38);
+  --fg-5: rgba(255, 255, 255, 0.22);
+  --fg-6: rgba(255, 255, 255, 0.10);
+  --rule: rgba(255, 255, 255, 0.12);
+  --rule-strong: rgba(0, 119, 182, 0.50);
+  --muted: #7f93ad;
+  --cursor-color: rgba(0, 119, 182, 0.95);
+}
+
+/* ---- LIGHT — daytime palace: cool plaster, navy type ---- */
+[data-design='picture-palace'][data-theme='light'] {
+  --bg-0: #eef1f4;
+  --bg-1: #e6eaef;
+  --bg-2: #dae0e7;
+  --bg-3: #c8d1db;
+  --fg-1: #001f3f;
+  --fg-2: rgba(0, 31, 63, 0.82);
+  --fg-3: rgba(0, 31, 63, 0.58);
+  --fg-4: rgba(0, 31, 63, 0.42);
+  --fg-5: rgba(0, 31, 63, 0.28);
+  --fg-6: rgba(0, 31, 63, 0.12);
+  --rule: rgba(0, 31, 63, 0.14);
+  --rule-strong: rgba(0, 119, 182, 0.40);
+  --muted: #4a5f78;
+  --cursor-color: rgba(0, 31, 63, 0.85);
+}
+[data-design='picture-palace'][data-theme='light'] body {
+  background: var(--bg-0);
+  color: var(--fg-1);
+}
+
+[data-design='picture-palace'] ::selection {
+  background: var(--apr-blue);
+  color: #ffffff;
+}
+[data-design='picture-palace'] :focus-visible {
+  outline: 2px solid var(--apr-blue);
+  outline-offset: 3px;
+}

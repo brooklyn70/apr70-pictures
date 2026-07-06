@@ -1,0 +1,181 @@
+---
+/**
+ * SiteNav.astro — global chrome navigation (T1 house treatment).
+ *
+ * Numbered links, mono numerals, underline-draw hover, orange (accent) active.
+ * The brand mark renders at var(--logo-h) (visitor "Logo size" dial) and is the
+ * swappable global wordmark (data-brand-wordmark) — the pre-paint stamp + the
+ * control panel keep its src in sync with the picked mark + effective mode.
+ *
+ * Styles are `is:global` on purpose: Wave C themes restyle the nav via
+ * `[data-design="<slug>"] .site-nav*` overrides (higher specificity than the
+ * base class) without touching this structure. Zero JS — the one-time nav
+ * settle is added by src/lib/motion/screening-room.ts; hover/active are CSS.
+ */
+interface Props {
+  logoSrc: string
+  logoAlt?: string
+  brandSwappable?: boolean
+}
+
+const { logoSrc, logoAlt = 'APR 70 Pictures', brandSwappable = true } = Astro.props
+
+const pathname = Astro.url.pathname
+
+type NavItem = { num: string; label: string; href: string; active: boolean }
+
+const raw: Array<Omit<NavItem, 'active'> & { match: (p: string) => boolean }> = [
+  { num: '01', label: 'Front Door', href: '/', match: (p) => p === '/' },
+  { num: '02', label: 'Divisions', href: '/#divisions', match: (p) => ['/212', '/310', '/nrc'].includes(p) },
+  { num: '03', label: 'Slate', href: '/work', match: (p) => p === '/work' || p.startsWith('/work/') },
+  { num: '04', label: 'Troupe', href: '/troupe', match: (p) => p.startsWith('/troupe') },
+  { num: '05', label: 'Dispatch', href: '/news', match: (p) => p.startsWith('/news') },
+  { num: '06', label: 'Contact', href: '/contact', match: (p) => p.startsWith('/contact') },
+]
+
+const items: NavItem[] = raw.map(({ match, ...rest }) => ({ ...rest, active: match(pathname) }))
+---
+
+<nav class="site-nav" aria-label="Primary">
+  <a class="site-nav__brand" href="/" aria-label={logoAlt}>
+    <img
+      class="site-nav__mark"
+      src={logoSrc}
+      alt={logoAlt}
+      {...(brandSwappable ? { 'data-brand-wordmark': 'true' } : {})}
+    />
+  </a>
+
+  <ul class="site-nav__links" role="list">
+    {items.map((item) => (
+      <li class="site-nav__item">
+        <a
+          class="site-nav__link"
+          href={item.href}
+          {...(item.active ? { 'aria-current': 'page' } : {})}
+        >
+          <span class="site-nav__num">{item.num}</span>
+          <span class="site-nav__label">{item.label}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <span class="site-nav__folio" aria-hidden="true">LIC <b>·</b> NY</span>
+</nav>
+
+<style is:global>
+  .site-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(0.75rem, 2vw, 2rem);
+    min-height: var(--nav-h);
+    padding: 0.35rem var(--pad-x);
+  }
+
+  .site-nav__brand {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .site-nav__mark {
+    height: var(--logo-h);
+    width: auto;
+    display: block;
+  }
+
+  .site-nav__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: baseline;
+    gap: clamp(14px, 2.5vw, 34px);
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .site-nav__links::-webkit-scrollbar { display: none; }
+
+  .site-nav__item { flex-shrink: 0; }
+
+  .site-nav__link {
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    gap: 9px;
+    padding: 6px 2px;
+    text-decoration: none;
+  }
+  .site-nav__num {
+    font-family: var(--font-mono);
+    font-size: var(--type-tiny);
+    color: var(--fg-5);
+    letter-spacing: 0.15em;
+    transition: color var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+  }
+  .site-nav__label {
+    font-family: var(--font-body);
+    font-size: var(--type-micro);
+    font-weight: 500;
+    letter-spacing: var(--track-eyebrow);
+    text-transform: uppercase;
+    color: var(--fg-3);
+    white-space: nowrap;
+    transition: color var(--dur-base) var(--ease-out);
+  }
+  /* underline draw */
+  .site-nav__link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+  .site-nav__link:hover .site-nav__num,
+  .site-nav__link:focus-visible .site-nav__num,
+  .site-nav__link:hover .site-nav__label,
+  .site-nav__link:focus-visible .site-nav__label {
+    color: var(--fg-1);
+  }
+  .site-nav__link:hover .site-nav__num,
+  .site-nav__link:focus-visible .site-nav__num {
+    transform: translateY(-2px);
+  }
+  .site-nav__link:hover::after,
+  .site-nav__link:focus-visible::after {
+    transform: scaleX(1);
+  }
+  .site-nav__link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+  /* active — orange (accent) numeral, drawn underline */
+  .site-nav__link[aria-current='page'] .site-nav__num { color: var(--accent); }
+  .site-nav__link[aria-current='page'] .site-nav__label { color: var(--fg-1); }
+  .site-nav__link[aria-current='page']::after { transform: scaleX(1); }
+
+  .site-nav__folio {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: var(--type-micro);
+    letter-spacing: 0.2em;
+    color: var(--fg-4);
+  }
+  .site-nav__folio b { color: var(--accent); font-weight: 400; }
+
+  @media (max-width: 720px) {
+    .site-nav__folio { display: none; }
+  }
+
+  /* Coarse pointers: no hover surprises (targets stay reachable). */
+  @media (hover: none) {
+    .site-nav__link:hover .site-nav__num { transform: none; }
+  }
+</style>

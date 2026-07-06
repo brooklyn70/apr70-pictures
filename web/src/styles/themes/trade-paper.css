@@ -1,0 +1,74 @@
+/* ============================================================
+   T3 · TRADE PAPER — SCAFFOLD (Wave C completes the deployment).
+
+   PERSONALITY CONTRACT
+   Broadsheet document (Direction B). Parchment cooled toward
+   #eae6dd (cooler than the mockup — SPEC §0 "less cream"). Futura
+   Condensed headlines at print scale; Barlow JUSTIFIED columns;
+   drop caps; double rules; dotted leaders; ears + folio nav with
+   ink-stamp hover. Texture = light paper noise. Motion = the
+   anti-spectacle theme: rules DRAW themselves, columns settle,
+   NOTHING flies. DEFAULT MODE: LIGHT.
+   Dark mode = "night desk": #12100c paper, bone ink.
+
+   This scaffold binds BOTH modes so the theme is legible today.
+   Wave C replaces/extends below with the real type + columns.
+   ============================================================ */
+
+[data-design='trade-paper'] {
+  --accent: var(--apr-amber);
+  --font-display: 'Futura Std Condensed', 'Futura Std', 'Arial Narrow', sans-serif;
+}
+
+/* ---- LIGHT (default) — parchment, ink ---- */
+[data-design='trade-paper'][data-theme='light'] {
+  --bg-0: #eae6dd;
+  --bg-1: #e3ded3;
+  --bg-2: #d9d3c5;
+  --bg-3: #cbc3b1;
+  --fg-1: #1c1208;
+  --fg-2: rgba(28, 18, 8, 0.84);
+  --fg-3: rgba(28, 18, 8, 0.60);
+  --fg-4: rgba(28, 18, 8, 0.44);
+  --fg-5: rgba(28, 18, 8, 0.30);
+  --fg-6: rgba(28, 18, 8, 0.14);
+  --rule: rgba(28, 18, 8, 0.16);
+  --rule-strong: rgba(28, 18, 8, 0.32);
+  --muted: #6a5c47;
+  --cursor-color: rgba(28, 18, 8, 0.80);
+}
+[data-design='trade-paper'][data-theme='light'] body {
+  background: var(--bg-0);
+  color: var(--fg-1);
+}
+
+/* ---- DARK — "night desk": near-black paper, bone ink ---- */
+[data-design='trade-paper'][data-theme='dark'] {
+  --bg-0: #12100c;
+  --bg-1: #17140f;
+  --bg-2: #1f1b14;
+  --bg-3: #2a251b;
+  --fg-1: #e7e2d6;
+  --fg-2: rgba(231, 226, 214, 0.82);
+  --fg-3: rgba(231, 226, 214, 0.56);
+  --fg-4: rgba(231, 226, 214, 0.38);
+  --fg-5: rgba(231, 226, 214, 0.22);
+  --fg-6: rgba(231, 226, 214, 0.10);
+  --rule: rgba(231, 226, 214, 0.12);
+  --rule-strong: rgba(231, 226, 214, 0.28);
+  --muted: #9c9484;
+  --cursor-color: rgba(231, 226, 214, 0.90);
+}
+[data-design='trade-paper'][data-theme='dark'] body {
+  background: var(--bg-0);
+  color: var(--fg-1);
+}
+
+[data-design='trade-paper'] ::selection {
+  background: var(--apr-amber);
+  color: #eae6dd;
+}
+[data-design='trade-paper'] :focus-visible {
+  outline: 2px solid var(--apr-amber);
+  outline-offset: 3px;
+}

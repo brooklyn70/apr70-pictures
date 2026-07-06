@@ -1,16 +1,14 @@
 ---
 /**
- * Footer.astro — 4-column site footer.
+ * Footer.astro — site footer + V4 colophon.
  *
- * Col 1: Brand logotype + tagline + copyright
- * Col 2: Primary nav  (from FooterLinks.primaryNav)
- * Col 3: Divisions    (from FooterLinks.divisionNav)
- * Col 4: More links   (from FooterLinks.moreNav)
- *
- * Data is fetched at build/request time from the Payload globals.
- * Falls back gracefully if Payload is unreachable.
+ * Top: 4-column nav (brand / primary / divisions / more) from Payload globals
+ * (graceful fallback if Payload is unreachable).
+ * Colophon: the six marks of the house at real scale (--logo-h driven), the
+ * quiet investor line, the Draft-3 boilerplate VERBATIM, the division wordlist,
+ * and the Long Island City address line.
  */
-import type { SiteSettingsData, FooterLinksData, FooterLink } from '../lib/payload'
+import type { SiteSettingsData, FooterLinksData } from '../lib/payload'
 import { V4_FOOTER } from '../content/v4'
 
 interface Props {
@@ -24,20 +22,23 @@ const { settings, footerLinks, footerLogoSrc, footerLogoAlt } = Astro.props
 
 const brand      = settings?.brandLabel  ?? 'APR 70 Pictures'
 const legal      = settings?.legalEntity ?? 'APR 70 Pictures LLC'
-/* V4 boilerplate (copy bundle): studio one-liner is the standing tagline.
-   Payload site-settings.tagline wins once apply-v4-content.ts has run. */
-const tagline    = settings?.tagline     ?? V4_FOOTER.studioLine
 const year       = new Date().getFullYear()
 
 const primaryNav  = footerLinks?.primaryNav  ?? []
 const divisionNav = footerLinks?.divisionNav ?? []
 const moreNav     = footerLinks?.moreNav     ?? []
 
-function linkAttrs(link: FooterLink) {
-  return link.openInNewTab
-    ? 'target="_blank" rel="noopener noreferrer"'
-    : ''
-}
+/* Six marks of the house — real committed assets. Monochrome marks (wordmark +
+   sprocket) render both inks; the [data-theme] toggle (global CSS below) shows
+   the correct one with no flash (data-theme is stamped pre-paint). */
+const marks = [
+  { kind: 'mono', dark: '/logos/apr70_logo_full_white.svg', light: '/logos/apr70_logo_full_black.svg', alt: 'APR 70 Pictures wordmark' },
+  { kind: 'color', src: '/brand/apr70-logos/apr70-apr70pictures/monogram/apr70_monogram_orange_v5.svg', alt: 'APR 70 monogram' },
+  { kind: 'color', src: '/brand/apr70-logos/212-pictures/212_footer.svg', alt: '(212) Pictures' },
+  { kind: 'color', src: '/brand/apr70-logos/310-pictures/310_footer.svg', alt: '(310) Pictures' },
+  { kind: 'color', src: '/brand/apr70-logos/new-renaissance-cinema/nrc_footer.svg', alt: 'New Renaissance Cinema' },
+  { kind: 'mono', dark: '/brand/apr70-logos/apr70-apr70pictures/monogram/apr70_monogram_white_orange_sprockets_v5.svg', light: '/brand/apr70-logos/apr70-apr70pictures/monogram/apr70_monogram_black_orange_sprockets_v5.svg', alt: 'APR 70 sprocket monogram' },
+] as const
 ---
 
 <footer class="site-footer" role="contentinfo" aria-label="Site footer">
@@ -58,7 +59,6 @@ function linkAttrs(link: FooterLink) {
       ) : (
         <p class="footer__logotype">{brand}</p>
       )}
-      <p class="footer__tagline">{tagline}</p>
       <p class="footer__copy">
         &copy; {year} {legal}<br />All rights reserved.
       </p>
@@ -71,18 +71,18 @@ function linkAttrs(link: FooterLink) {
         <ul class="footer__links" role="list">
           {primaryNav.map((link) => (
             <li>
-              <a class="footer__link" href={link.href} set:html={`<span>${link.label}</span>`}
+              <a class="footer__link" href={link.href}
                 target={link.openInNewTab ? '_blank' : undefined}
                 rel={link.openInNewTab ? 'noopener noreferrer' : undefined}
-              />
+              >{link.label}</a>
             </li>
           ))}
         </ul>
       ) : (
         <ul class="footer__links" role="list">
-          <li><a class="footer__link" href="/work">Work</a></li>
+          <li><a class="footer__link" href="/work">Slate</a></li>
+          <li><a class="footer__link" href="/troupe">Troupe</a></li>
           <li><a class="footer__link" href="/about">About</a></li>
-          <li><a class="footer__link" href="/investors">Investors</a></li>
           <li><a class="footer__link" href="/contact">Contact</a></li>
         </ul>
       )}
@@ -128,7 +128,7 @@ function linkAttrs(link: FooterLink) {
           </ul>
         ) : (
           <ul class="footer__links" role="list">
-            <li><a class="footer__link" href="/news">News</a></li>
+            <li><a class="footer__link" href="/news">Dispatch</a></li>
             <li><a class="footer__link" href="/pitch">Pitch</a></li>
             <li><a class="footer__link" href="/jobs">Careers</a></li>
           </ul>
@@ -144,14 +144,35 @@ function linkAttrs(link: FooterLink) {
     </div>
   </div>
 
-  <!-- V4 boilerplate strip (copy bundle: FOOTER / BOILERPLATE) -->
+  <!-- Colophon: the marks of the house, at real scale -->
+  <section class="footer__colophon container" aria-label="The marks of the house">
+    <p class="footer__colophon-head">The marks of the house</p>
+    <div class="footer__marks">
+      {marks.map((m) => (
+        m.kind === 'mono' ? (
+          <Fragment>
+            <img class="footer__mark footer-mark--dark" src={m.dark} alt={m.alt} loading="lazy" />
+            <img class="footer__mark footer-mark--light" src={m.light} alt={m.alt} loading="lazy" />
+          </Fragment>
+        ) : (
+          <img class="footer__mark" src={m.src} alt={m.alt} loading="lazy" />
+        )
+      ))}
+    </div>
+  </section>
+
+  <!-- Quiet investor line (SPEC + Draft 3) -->
+  <p class="footer__investor container">Investor conversations happen in person. Write to the offices.</p>
+
+  <!-- V4 boilerplate (VERBATIM) + division wordlist + address -->
   <div class="footer__boilerplate container">
+    <p class="footer__boiler">{V4_FOOTER.studioLine}</p>
     <p class="footer__wordlist">
       {V4_FOOTER.divisions.map((d, i) => (
-        <>
+        <Fragment>
           {i > 0 && <span class="footer__wordlist-sep" aria-hidden="true"> | </span>}
-          <span>{d.label} — {d.meta}</span>
-        </>
+          <span>{d.label} &middot; {d.meta}</span>
+        </Fragment>
       ))}
     </p>
     <p class="footer__address">{V4_FOOTER.addressLine}</p>
@@ -164,6 +185,12 @@ function linkAttrs(link: FooterLink) {
     ))}
   </div>
 </footer>
+
+<!-- Mode-aware monochrome marks (global: data-theme lives on <html>). -->
+<style is:global>
+  [data-theme='dark'] .footer-mark--light { display: none; }
+  [data-theme='light'] .footer-mark--dark { display: none; }
+</style>
 
 <style>
   /* ── Shell ──────────────────────────────────────────────────────────────── */
@@ -229,15 +256,6 @@ function linkAttrs(link: FooterLink) {
     width: auto;
   }
 
-  .footer__tagline {
-    font-family: var(--font-body);
-    font-size: var(--type-small);
-    letter-spacing: var(--track-wide);
-    text-transform: uppercase;
-    color: var(--fg-4);
-    margin: 0 0 var(--s-7);
-  }
-
   .footer__copy {
     font-family: var(--font-body);
     font-size: var(--type-caption);
@@ -279,6 +297,10 @@ function linkAttrs(link: FooterLink) {
   .footer__link:hover {
     color: var(--fg-1);
   }
+  .footer__link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
 
   /* ── Legal row ──────────────────────────────────────────────────────────── */
   .footer__legal {
@@ -302,29 +324,93 @@ function linkAttrs(link: FooterLink) {
     font-size: var(--type-caption);
   }
 
-  /* ── V4 boilerplate strip ───────────────────────────────────────────────── */
-  .footer__boilerplate {
+  /* ── Colophon marks ─────────────────────────────────────────────────────── */
+  .footer__colophon {
     border-top: 1px solid var(--rule);
-    padding-top: var(--s-5);
-    padding-bottom: var(--s-5);
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s-2) var(--s-6);
-    justify-content: space-between;
+    padding-top: var(--s-8);
+    padding-bottom: var(--s-8);
+    text-align: center;
   }
-
-  .footer__wordlist,
-  .footer__address {
+  .footer__colophon-head {
     font-family: var(--font-mono);
     font-size: var(--type-tiny);
-    letter-spacing: var(--track-wide);
+    letter-spacing: var(--track-strip);
     text-transform: uppercase;
+    color: var(--fg-5);
+    margin: 0 0 var(--s-7);
+  }
+  .footer__marks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(1.5rem, 5vw, 4rem);
+    flex-wrap: wrap;
+  }
+  .footer__mark {
+    /* Real scale — driven by the "Logo size" dial (--logo-h). Wide lockups
+       (NRC) cap to keep the row balanced; aspect is preserved. */
+    height: var(--logo-h);
+    width: auto;
+    max-width: clamp(90px, 16vw, 170px);
+    object-fit: contain;
+    opacity: 0.9;
+    transition: opacity var(--dur-base) var(--ease-in), transform var(--dur-base) var(--ease-out);
+  }
+  .footer__mark:hover {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+
+  /* ── Quiet investor line ────────────────────────────────────────────────── */
+  .footer__investor {
+    text-align: center;
+    padding-top: 0;
+    padding-bottom: var(--s-7);
+    font-family: var(--font-body);
+    font-size: var(--type-caption);
+    letter-spacing: 0.08em;
     color: var(--fg-4);
     margin: 0;
   }
 
+  /* ── Boilerplate ────────────────────────────────────────────────────────── */
+  .footer__boilerplate {
+    border-top: 1px solid var(--rule);
+    padding-top: var(--s-7);
+    padding-bottom: var(--s-5);
+    text-align: center;
+  }
+  .footer__boiler {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: clamp(1rem, 2.2vw, 1.4rem);
+    letter-spacing: 0.02em;
+    color: var(--fg-1);
+    margin: 0;
+  }
+  .footer__wordlist {
+    margin: var(--s-5) 0 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--s-1) var(--s-3);
+    font-family: var(--font-mono);
+    font-size: var(--type-tiny);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--fg-4);
+  }
   .footer__wordlist-sep {
     color: var(--fg-6);
-    padding: 0 var(--s-2);
+    padding: 0 var(--s-1);
+  }
+  .footer__address {
+    margin: var(--s-4) 0 0;
+    font-family: var(--font-mono);
+    font-size: var(--type-micro);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fg-5);
   }
 </style>

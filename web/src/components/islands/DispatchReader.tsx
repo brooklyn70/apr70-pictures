@@ -73,14 +73,14 @@ export default function DispatchReader() {
         title,
         deck,
         by,
-        date: 'APR 2026',
+        date: 'DISPATCH No. 1',
         length: '8 MIN READ',
         body: [
           {
             variant: 'first',
             text:
               deck +
-              ' This piece is filed for the inaugural issue of DISPATCH; the long version sits in the print folio at the page noted in the contents.',
+              ' This piece is filed for DISPATCH No. 1; the long version sits in the print folio at the page noted in the contents.',
           },
           {
             variant: 'text',
@@ -146,7 +146,7 @@ export default function DispatchReader() {
         <span className="reader-bar-label">
           DISPATCH · {article.section || 'FEATURE'} · {article.folio}
         </span>
-        <span className="reader-bar-center">VOL. 01 · NO. 01</span>
+        <span className="reader-bar-center">DISPATCH · No. 1</span>
         <button className="reader-bar-close" onClick={() => setArticle(null)}>
           CLOSE — ESC
         </button>
@@ -157,7 +157,7 @@ export default function DispatchReader() {
         <p className="reader-hero-deck">{article.deck}</p>
         <div className="reader-hero-meta">
           <span><b>BY</b> {article.by || 'M.A. CARUSO'}</span>
-          <span><b>FILED</b> {article.date || 'APR 14, 2026'}</span>
+          <span><b>ISSUE</b> {article.date || 'DISPATCH No. 1'}</span>
           <span><b>FOLIO</b> {article.folio || '012'}</span>
           <span><b>LENGTH</b> {article.length || '11 MIN READ'}</span>
         </div>

@@ -556,16 +556,27 @@ export const V4_FOOTER = {
   addressLine: 'Long Island City, New York.',
 }
 
-// ── DISPATCH indicia — numbered, never dated (bundle: HOME / MASTHEAD +
-//    CANON FLAGS item 10) ────────────────────────────────────────────────────
+// ── DISPATCH indicia — numbered, never dated (Draft 3 HOME / MASTHEAD:
+//    "DISPATCH No. 1. Issues are numbered, never dated. No season, no month,
+//    no year on the front door. The number is the only clock." + CANON FLAGS
+//    item 10) ──────────────────────────────────────────────────────────────
+// Every dated string is purged: no Vol., no season, no month/year. The field
+// KEYS (displayTitle/volume/number/season/coverKicker) are kept so
+// cms/scripts/apply-v4-content.ts still compiles; their VALUES are numbered
+// only. `volume`/`season` are never rendered as a date on the dispatch surface.
 
 export const V4_DISPATCH_INDICIA = {
-  displayTitle: 'Vol. 01 No. 01',
-  volume: 'VOL. 01',
-  number: 'NO. 01',
-  /** Required field in the schema; never rendered as a date. */
-  season: 'NUMBERED, NEVER DATED',
-  coverKicker: 'INAUGURAL ISSUE',
+  displayTitle: 'DISPATCH No. 1',
+  /** Repurposed: the nameplate word, not a "Vol." — never a date. */
+  volume: 'DISPATCH',
+  number: 'No. 1',
+  /** Required by the schema; carries the convention, never a season/date. */
+  season: 'ISSUES ARE NUMBERED, NEVER DATED',
+  coverKicker: 'DISPATCH No. 1',
   /** Masthead indicia line stating the convention. */
   numberedLine: 'ISSUES ARE NUMBERED, NEVER DATED',
+  /** Draft 3: "The number is the only clock." */
+  clockLine: 'THE NUMBER IS THE ONLY CLOCK',
+  offices: 'LONG ISLAND CITY NY',
+  reel: 'REEL 086',
 }

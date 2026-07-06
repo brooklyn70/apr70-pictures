@@ -17,7 +17,10 @@ import '../../styles/dispatch.css'
 
 import Layout from '../../layouts/Layout.astro'
 import { fetchCurrentDispatchIssue } from '../../lib/payload'
-import { V4_MASTHEAD } from '../../content/v4'
+import {
+  DISPATCH_FALLBACK_ISSUE,
+  DISPATCH_FALLBACK_COVER_CREDIT,
+} from '../../content/dispatch-fallback'
 
 import Masthead from '../../components/dispatch/Masthead.astro'
 import Cover from '../../components/dispatch/Cover.astro'
@@ -32,94 +35,60 @@ import Archive from '../../components/dispatch/Archive.astro'
 import Colophon from '../../components/dispatch/Colophon.astro'
 import CornerAccent from '../../components/dispatch/CornerAccent.astro'
 import DispatchReader from '../../components/islands/DispatchReader'
-import ZineMastheadBlock from '../../components/blocks/ZineMastheadBlock.astro'
 
-const { issue, error } = await fetchCurrentDispatchIssue()
+// DB path stays primary; the static fallback renders the FULL magazine so
+// /news is never an empty shell. Numbered, never dated (see dispatch-fallback).
+const { issue: dbIssue } = await fetchCurrentDispatchIssue()
+const issue = dbIssue ?? DISPATCH_FALLBACK_ISSUE
+const coverCredit = dbIssue ? undefined : DISPATCH_FALLBACK_COVER_CREDIT
 ---
 
 <Layout title="Dispatch">
-  {!issue && (
-    <main>
-      <ZineMastheadBlock block={V4_MASTHEAD} />
-      <div class="dispatch-pending">
-        <p>
-          No current DISPATCH issue has been published yet. Seed the inaugural
-          issue via the migration apply pipeline or publish one in
-          <code>/admin/collections/dispatch-issues</code>.
-        </p>
-        {error && <p class="dispatch-pending__error">Fetch error: {error}</p>}
-      </div>
-    </main>
-  )}
+  <main>
+    <div class="page-shell page-shell--flush">
+      <Masthead indicia={issue.indicia} title="DIS·PATCH" />
+      <Cover cover={issue.cover} indicia={issue.indicia} credit={coverCredit} />
 
-  {issue && (
-    <main>
-      <div class="page-shell page-shell--flush">
-        <Masthead indicia={issue.indicia} title="DIS·PATCH" />
-        <Cover cover={issue.cover} indicia={issue.indicia} />
+      <SectionRail
+        num="§ 01"
+        title="Contents"
+        meta={`DISPATCH · ${issue.indicia.number}`}
+      />
+      <Contents groups={issue.contents} indicia={issue.indicia} />
 
-        <SectionRail
-          num="§ 01"
-          title="Contents"
-          meta={`${issue.indicia.volume} · ${issue.indicia.number}`}
-        />
-        <Contents groups={issue.contents} indicia={issue.indicia} />
+      <SectionRail num="§ 02" title="From the Editor" meta="P. 008 · LETTER" />
+      <Editorial data={issue.editorial} />
 
-        <SectionRail num="§ 02" title="From the Editor" meta="P. 008 — LETTER" />
-        <Editorial data={issue.editorial} />
+      <SectionRail num="§ 03" title="Cover Story" meta="P. 012 · FEATURE" />
+      <Feature data={issue.feature} />
 
-        <SectionRail num="§ 03" title="Cover Story" meta="P. 012 — FEATURE" />
-        <Feature data={issue.feature} />
+      <SectionRail
+        num="§ 04"
+        title="Slate Dispatches"
+        meta={`PP. 022 — 030 · ${(issue.dispatches ?? []).length} ON RECORD`}
+      />
+      <Dispatches items={issue.dispatches} />
 
-        <SectionRail
-          num="§ 04"
-          title="Slate Dispatches"
-          meta={`PP. 048 — 056 · ${(issue.dispatches ?? []).length} ITEMS`}
-        />
-        <Dispatches items={issue.dispatches} />
+      <SectionRail
+        num="§ 05"
+        title="The Desks & The Programs"
+        meta="PP. 032 — 034 · ON THE RECORD"
+      />
+      <Trades trades={issue.trades} calendar={issue.calendar} />
 
-        <SectionRail
-          num="§ 05"
-          title="The Trades & The Calendar"
-          meta="PP. 058 — 066 · INDUSTRY ROUNDUP"
-        />
-        <Trades trades={issue.trades} calendar={issue.calendar} />
+      <SectionRail
+        num="§ 06"
+        title="Open Calls & Notices"
+        meta="PP. 036 — 038 · BACK OF BOOK"
+      />
+      <Classifieds items={issue.classifieds} />
 
-        <SectionRail
-          num="§ 06"
-          title="Open Calls & Notices"
-          meta="PP. 068 — 070 · BACK OF BOOK"
-        />
-        <Classifieds items={issue.classifieds} />
+      <SectionRail num="§ 07" title="Archive — Numbered Folios" meta="NUMBERED, NEVER DATED" />
+      <Archive issues={issue.archive} />
 
-        <SectionRail num="§ 07" title="Archive — Past Folios" meta="ISSUES 0 — 1" />
-        <Archive issues={issue.archive} />
-
-        <Colophon data={issue.colophon} indicia={issue.indicia} />
-      </div>
-      <CornerAccent />
-      <DispatchReader client:idle />
-    </main>
-  )}
+      <Colophon data={issue.colophon} indicia={issue.indicia} />
+    </div>
+    <CornerAccent />
+    <DispatchReader client:idle />
+  </main>
 </Layout>
-
-<style>
-  .dispatch-pending {
-    padding: var(--s-8) 0 var(--s-10);
-    max-width: var(--max-content);
-    margin: 0 auto;
-    padding-left: var(--pad-x);
-    padding-right: var(--pad-x);
-    font-family: var(--font-mono);
-    color: var(--fg-3);
-  }
-
-  .dispatch-pending p {
-    max-width: 60ch;
-    margin: var(--s-4) 0 0;
-  }
-
-  .dispatch-pending__error {
-    color: var(--fg-4);
-  }
-</style>

@@ -6,9 +6,11 @@ import type { Media } from 'payload-types'
 interface Props {
   cover: DispatchIssueDoc['cover']
   indicia: DispatchIssueDoc['indicia']
+  /** Quiet period credit for the PD cover plate (SPEC §5). */
+  credit?: string
 }
 
-const { cover, indicia } = Astro.props
+const { cover, indicia, credit } = Astro.props
 const lines = cover.lines ?? []
 const coverlines = cover.coverlines ?? []
 
@@ -32,7 +34,7 @@ const issueDigits = (indicia.number ?? '').replace(/[^0-9]/g, '') || '01'
       <div class="cover-eyebrow">{cover.kicker}</div>
     </div>
     <div class="cover-title-stack">
-      <span class="cover-kicker">THE INAUGURAL ISSUE</span>
+      <span class="cover-kicker">ISSUES ARE NUMBERED, NEVER DATED</span>
       <h1 id="cover-title" class="cover-line">
         {lines.map((l) => (
           <>
@@ -65,9 +67,10 @@ const issueDigits = (indicia.number ?? '').replace(/[^0-9]/g, '') || '01'
           </div>
         ))}
       </div>
+      {credit && <div class="cover-credit">{credit}</div>}
     </div>
     <div class="cover-seal" aria-hidden="true">
-      <div class="cover-seal-top">{indicia.volume}</div>
+      <div class="cover-seal-top">No.</div>
       <div class="cover-seal-big">{issueDigits}</div>
       <div class="cover-seal-sub">DISPATCH</div>
     </div>

@@ -1,7 +1,8 @@
 /* ==============================================================
-   DISPATCH — APR 70 Pictures Quarterly
-   News page styled as a magazine. Inspired by Movie Classic, 1935.
-   Built strictly within the APR 70 token system.
+   DISPATCH — the APR 70 Pictures magazine. Numbered, never dated.
+   /news styled as a magazine, built strictly within the APR 70
+   token system so all five [data-design] skins + both modes
+   re-tint it automatically (it inherits the shared token ramp).
    ============================================================== */
 
 /* Bridge tokens — dispatch.css uses a few aliases that the project's
@@ -306,6 +307,19 @@ body.theme-parchment .cover-image-vignette {
   margin-left: auto; text-align: right;
 }
 
+/* Quiet period credit for the PD cover plate (SPEC §5). Sits top-right over
+   the image; text-shadow keeps it legible on light frames. */
+.cover-credit {
+  position: absolute;
+  top: 12px; right: 14px; left: 14px;
+  text-align: right;
+  font-family: var(--font-mono); font-size: 8px;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(255,255,255,0.72);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  pointer-events: none;
+}
+
 /* Price seal (bottom-left of right pane) */
 .cover-seal {
   position: absolute;
@@ -434,11 +448,14 @@ body.theme-parchment .cover-image-vignette {
   gap: 24px;
   padding: 14px 0;
   border-bottom: 1px dashed var(--rule);
-  transition: background 0.25s var(--ease-in), padding 0.25s var(--ease-in);
+  /* Animate paint + transform only — never layout props (hard rule). The
+     hover "indent" is a transform, not a padding change, so it doesn't
+     trigger reflow. */
+  transition: background 0.25s var(--ease-in), transform 0.25s var(--ease-in);
 }
 .contents-entry:hover {
   background: linear-gradient(to right, var(--rule), transparent 50%);
-  padding-left: 8px;
+  transform: translateX(8px);
 }
 .contents-entry-folio {
   font-family: var(--font-mono); font-size: 11px;

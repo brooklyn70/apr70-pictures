@@ -13,9 +13,10 @@ const list = issues ?? []
   <div class="archive-strip">
     {list.map((it) => (
       <a class={`archive-card ${it.isCurrent ? 'is-current' : ''}`}>
-        {/* Numbered, never dated: archive cards render Vol/No only. */}
+        {/* Numbered, never dated: archive cards render the issue NUMBER only —
+            no Vol., no season. */}
         <div class="archive-card-head">
-          <span>{it.vol} · {it.no}</span>
+          <span>{it.no}</span>
         </div>
         <div>
           <div class="archive-card-mast">{it.mast}</div>

@@ -9,13 +9,14 @@ interface Props {
 
 const { indicia, title = 'DIS·PATCH' } = Astro.props
 const parts = String(title).split('·')
-/* Numbered, never dated: the masthead renders Vol/No (+ reel keycode) only —
-   no season, no month, no year, regardless of what the data still carries. */
+/* Numbered, never dated: the masthead renders the issue NUMBER (+ reel keycode)
+   only — no Vol., no season, no month, no year, regardless of what the data
+   still carries. The number is the only clock. */
 ---
 
 <div class="masthead">
   <div class="masthead-row">
-    <div class="masthead-left">{indicia.volume} · {indicia.number}</div>
+    <div class="masthead-left">{indicia.number}</div>
     <div class="masthead-wordmark">
       {parts.map((p, i) => (
         <>
@@ -29,7 +30,7 @@ const parts = String(title).split('·')
   <div class="masthead-indicia">
     <span><b>APR 70 PICTURES</b></span>
     <span>{V4_DISPATCH_INDICIA.numberedLine}</span>
+    <span>{V4_DISPATCH_INDICIA.clockLine}</span>
     <span>{indicia.offices}</span>
-    <span>{indicia.printRun}</span>
   </div>
 </div>

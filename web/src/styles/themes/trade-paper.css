@@ -1,23 +1,36 @@
 /* ============================================================
-   T3 · TRADE PAPER — SCAFFOLD (Wave C completes the deployment).
+   T3 · TRADE PAPER — FULL DEPLOYMENT (Wave C1).
 
-   PERSONALITY CONTRACT
-   Broadsheet document (Direction B). Parchment cooled toward
-   #eae6dd (cooler than the mockup — SPEC §0 "less cream"). Futura
-   Condensed headlines at print scale; Barlow JUSTIFIED columns;
-   drop caps; double rules; dotted leaders; ears + folio nav with
-   ink-stamp hover. Texture = light paper noise. Motion = the
-   anti-spectacle theme: rules DRAW themselves, columns settle,
-   NOTHING flies. DEFAULT MODE: LIGHT.
-   Dark mode = "night desk": #12100c paper, bone ink.
+   Broadsheet document (Direction B). The front door is restyled into a
+   printed trade paper WITHOUT touching the fixed block DOM — every rule
+   below is scoped under [data-design="trade-paper"] and drives the design
+   through token rebinds + higher-specificity overrides of the shared
+   block/chrome classes.
 
-   This scaffold binds BOTH modes so the theme is legible today.
-   Wave C replaces/extends below with the real type + columns.
+   Structural signatures (what makes this NOT a palette swap):
+     · TYPE   — a Futura flag masthead over Futura CONDENSED heads and
+                BARLOW justified body; drop caps open the reading passages.
+     · RULES  — double rules + hairline column rules everywhere; the film
+                rail becomes a folio/dateline strip, not a sprocket band.
+     · LEADERS— dotted rules file the slate; amber ink-stamp kickers.
+     · CHROME — nav = folio entries (LABEL P.0x) with an INK-STAMP hover
+                (bg ink, paper text) and an amber active underbar.
+     · TONE   — the anti-spectacle theme: amber + ink on parchment, nothing
+                fills, everything is filed. (orange survives only as the
+                brand full stop on the nameplate.)
+
+   Parchment cooled toward #eae6dd (SPEC §0 "less cream"). DEFAULT: LIGHT.
+   Dark = "night desk": #12100c paper, bone ink. Both modes bound.
    ============================================================ */
 
+/* ---------------------------------------------------------------
+   1 · FACES + ACCENT
+   Flag masthead stays Futura (tokens default); heads go CONDENSED;
+   body is Barlow, justified. Accent = amber (the paper's ink of record).
+   --------------------------------------------------------------- */
 [data-design='trade-paper'] {
   --accent: var(--apr-amber);
-  --font-display: 'Futura Std Condensed', 'Futura Std', 'Arial Narrow', sans-serif;
+  --font-cond: 'Futura Std Condensed', 'Futura Std', 'Arial Narrow', sans-serif;
 }
 
 /* ---- LIGHT (default) — parchment, ink ---- */
@@ -32,16 +45,13 @@
   --fg-4: rgba(28, 18, 8, 0.44);
   --fg-5: rgba(28, 18, 8, 0.30);
   --fg-6: rgba(28, 18, 8, 0.14);
-  --rule: rgba(28, 18, 8, 0.16);
-  --rule-strong: rgba(28, 18, 8, 0.32);
+  --rule: rgba(28, 18, 8, 0.18);
+  --rule-strong: rgba(28, 18, 8, 0.34);
   --muted: #6a5c47;
   --cursor-color: rgba(28, 18, 8, 0.80);
+  --tp-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.27 0 0 0 0 0.16 0 0 0 0.045 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  --tp-top: rgba(255, 252, 244, 0.7);
 }
-[data-design='trade-paper'][data-theme='light'] body {
-  background: var(--bg-0);
-  color: var(--fg-1);
-}
-
 /* ---- DARK — "night desk": near-black paper, bone ink ---- */
 [data-design='trade-paper'][data-theme='dark'] {
   --bg-0: #12100c;
@@ -49,26 +59,455 @@
   --bg-2: #1f1b14;
   --bg-3: #2a251b;
   --fg-1: #e7e2d6;
-  --fg-2: rgba(231, 226, 214, 0.82);
-  --fg-3: rgba(231, 226, 214, 0.56);
-  --fg-4: rgba(231, 226, 214, 0.38);
-  --fg-5: rgba(231, 226, 214, 0.22);
-  --fg-6: rgba(231, 226, 214, 0.10);
-  --rule: rgba(231, 226, 214, 0.12);
-  --rule-strong: rgba(231, 226, 214, 0.28);
+  --fg-2: rgba(231, 226, 214, 0.84);
+  --fg-3: rgba(231, 226, 214, 0.58);
+  --fg-4: rgba(231, 226, 214, 0.40);
+  --fg-5: rgba(231, 226, 214, 0.24);
+  --fg-6: rgba(231, 226, 214, 0.12);
+  --rule: rgba(231, 226, 214, 0.16);
+  --rule-strong: rgba(231, 226, 214, 0.32);
   --muted: #9c9484;
   --cursor-color: rgba(231, 226, 214, 0.90);
+  --tp-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.9 0 0 0 0 0.86 0 0 0 0 0.78 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  --tp-top: rgba(60, 54, 40, 0.35);
 }
-[data-design='trade-paper'][data-theme='dark'] body {
-  background: var(--bg-0);
+
+/* Paper stock: parchment ground + a fine noise + a soft light from the top. */
+[data-design='trade-paper'][data-theme] body {
+  background-color: var(--bg-0);
+  background-image:
+    radial-gradient(ellipse 1200px 620px at 50% -160px, var(--tp-top), transparent 62%),
+    var(--tp-grain);
   color: var(--fg-1);
 }
 
 [data-design='trade-paper'] ::selection {
   background: var(--apr-amber);
-  color: #eae6dd;
+  color: var(--bg-0);
 }
 [data-design='trade-paper'] :focus-visible {
   outline: 2px solid var(--apr-amber);
   outline-offset: 3px;
+}
+
+/* Condensed section heads (kept off the Futura flag masthead). */
+[data-design='trade-paper'][data-theme] .front-doors__heading,
+[data-design='trade-paper'][data-theme] .front-slate__heading,
+[data-design='trade-paper'][data-theme] .front-cover__display,
+[data-design='trade-paper'][data-theme] .front-cover__coverline-title,
+[data-design='trade-paper'][data-theme] .front-slate__title {
+  font-family: var(--font-cond);
+  font-weight: 900;
+  letter-spacing: 0.005em;
+}
+
+/* ---------------------------------------------------------------
+   2 · CHROME — folio rail, header, folio-entry nav
+   --------------------------------------------------------------- */
+
+/* Top film rail → a folio/dateline strip: no sprockets, a double rule. */
+[data-design='trade-paper'][data-theme] .strip-rail,
+[data-design='trade-paper'][data-theme] .strip-rail--top {
+  background: var(--bg-0);
+  border-bottom: 3px double var(--rule-strong);
+}
+[data-design='trade-paper'][data-theme] .strip-rail .sprocket {
+  display: none;
+}
+[data-design='trade-paper'][data-theme] .strip-rail__keycode {
+  position: static;
+  margin: 0 auto;
+  background: transparent;
+  color: var(--fg-3);
+  letter-spacing: 0.3em;
+}
+
+/* Header solid parchment with a double-rule bottom (no frosted glass). */
+[data-design='trade-paper'][data-theme] .site-header {
+  background: var(--bg-0);
+  backdrop-filter: none;
+  border-bottom: 3px double var(--rule-strong);
+}
+
+/* Nav = folio entries: LABEL P.0x, ink-stamp hover, amber active underbar. */
+[data-design='trade-paper'] .site-nav__link {
+  flex-direction: row-reverse;
+  gap: 8px;
+  padding: 8px 14px;
+}
+[data-design='trade-paper'] .site-nav__link::after {
+  display: none; /* folios stamp; they do not draw an underline */
+}
+[data-design='trade-paper'] .site-nav__label {
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--fg-2);
+}
+[data-design='trade-paper'] .site-nav__num {
+  color: var(--fg-4);
+}
+[data-design='trade-paper'] .site-nav__num::before {
+  content: 'P.';
+}
+[data-design='trade-paper'] .site-nav__link:hover,
+[data-design='trade-paper'] .site-nav__link:focus-visible {
+  background: var(--fg-1);
+}
+[data-design='trade-paper'] .site-nav__link:hover .site-nav__label,
+[data-design='trade-paper'] .site-nav__link:focus-visible .site-nav__label,
+[data-design='trade-paper'] .site-nav__link:hover .site-nav__num,
+[data-design='trade-paper'] .site-nav__link:focus-visible .site-nav__num {
+  color: var(--bg-0);
+}
+[data-design='trade-paper'] .site-nav__link[aria-current='page'] {
+  box-shadow: inset 0 -3px 0 var(--apr-amber);
+}
+[data-design='trade-paper'] .site-nav__link[aria-current='page'] .site-nav__label {
+  color: var(--fg-1);
+}
+[data-design='trade-paper'] .site-nav__link[aria-current='page'] .site-nav__num {
+  color: var(--apr-amber);
+}
+[data-design='trade-paper'] .site-nav__folio b {
+  color: var(--apr-amber);
+}
+
+/* ---------------------------------------------------------------
+   3 · NAMEPLATE — the flag masthead
+   --------------------------------------------------------------- */
+[data-design='trade-paper'][data-theme] .front-nameplate {
+  position: relative;
+  border-bottom: 0;
+  padding-bottom: clamp(1rem, 2.5vw, 1.75rem);
+}
+[data-design='trade-paper'][data-theme] .front-nameplate__wordmark {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.01em;
+  line-height: 0.9;
+}
+/* the brand full stop stays orange in every theme (SPEC §0) */
+[data-design='trade-paper'][data-theme] .front-nameplate__dot {
+  color: var(--apr-orange);
+}
+[data-design='trade-paper'][data-theme] .front-nameplate__subline,
+[data-design='trade-paper'][data-theme] .front-nameplate__location {
+  font-family: var(--font-mono);
+}
+/* the indicia strip reads as a dateline: double rule top, hairline base */
+[data-design='trade-paper'][data-theme] .front-nameplate__indicia {
+  border-top: 3px double var(--fg-1);
+  border-bottom: 1px solid var(--fg-1);
+  padding-top: var(--s-3);
+  padding-bottom: var(--s-3);
+  color: var(--fg-3);
+}
+[data-design='trade-paper'][data-theme] .front-nameplate__indicium b {
+  color: var(--fg-1);
+}
+/* a full-width rule below the flag that DRAWS itself in on arrival */
+[data-design='trade-paper'][data-theme] .front-nameplate::after {
+  content: '';
+  position: absolute;
+  left: var(--pad-x);
+  right: var(--pad-x);
+  bottom: 0;
+  height: 2px;
+  background: var(--fg-1);
+  transform: scaleX(var(--rule-x, 1));
+  transform-origin: left center;
+}
+
+/* ---------------------------------------------------------------
+   4 · IDENTITY — a justified broadsheet lede with a drop cap
+   --------------------------------------------------------------- */
+[data-design='trade-paper'][data-theme] .front-identity {
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+[data-design='trade-paper'][data-theme] .front-identity__read {
+  text-align: justify;
+  hyphens: auto;
+  max-width: none;
+  columns: 2;
+  column-gap: 2.5rem;
+  column-rule: 1px solid var(--rule);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--fg-2);
+}
+/* uniform ink — the mark is the drop cap, not a coloured first sentence.
+   Extra .front-identity qualifier clears the block's own two-class fallback
+   (Astro scopes it to (0,4,0); this is (0,5,0) so the theme wins the tie). */
+[data-design='trade-paper'][data-theme] .front-identity .front-identity__read .first-words {
+  color: inherit;
+  font-weight: 400;
+}
+[data-design='trade-paper'][data-theme] .front-identity__read::first-letter {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-style: normal;
+  float: left;
+  font-size: 3.4em;
+  line-height: 0.78;
+  padding: 0.06em 0.12em 0 0;
+  color: var(--fg-1);
+}
+@media (max-width: 720px) {
+  [data-design='trade-paper'][data-theme] .front-identity__read {
+    columns: 1;
+    text-align: left;
+  }
+}
+
+/* ---------------------------------------------------------------
+   5 · DISPATCH BAND — the running-head, double ruled, amber stamp
+   --------------------------------------------------------------- */
+[data-design='trade-paper'][data-theme] .front-dispatch__band {
+  border-top: 3px double var(--fg-1);
+  border-bottom: 1px solid var(--fg-1);
+  background: transparent;
+}
+[data-design='trade-paper'][data-theme] .front-dispatch__band::before {
+  background: var(--apr-amber);
+}
+[data-design='trade-paper'][data-theme] .front-dispatch__name {
+  font-family: var(--font-cond);
+  font-weight: 900;
+}
+[data-design='trade-paper'][data-theme] .front-dispatch__name b {
+  color: var(--apr-amber);
+}
+[data-design='trade-paper'][data-theme] .front-dispatch__cta:hover,
+[data-design='trade-paper'][data-theme] .front-dispatch__cta:focus-visible {
+  background: var(--apr-amber);
+  border-color: var(--apr-amber);
+  color: var(--bg-0);
+}
+
+/* ---------------------------------------------------------------
+   6 · COVER — the lead story: amber kicker stamp, condensed head
+   --------------------------------------------------------------- */
+/* kicker = an amber ink-stamp tag (bg ink of record, paper text) */
+[data-design='trade-paper'][data-theme] .front-cover__eyebrow {
+  display: inline-block;
+  background: var(--apr-amber);
+  color: var(--bg-0);
+  padding: 5px 12px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--type-micro);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+[data-design='trade-paper'][data-theme] .front-cover__display {
+  line-height: 0.94;
+}
+/* the emphasis line prints as solid ink (no poster outline).
+   Extra .front-cover qualifier beats the block's own scoped ghost fallback. */
+[data-design='trade-paper'][data-theme] .front-cover .front-cover__display .ghost {
+  color: var(--fg-1);
+  -webkit-text-stroke: 0;
+  font-style: normal;
+  font-weight: 900;
+}
+[data-design='trade-paper'][data-theme] .front-cover__deck {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--fg-2);
+}
+[data-design='trade-paper'][data-theme] .front-cover__cta {
+  font-weight: 600;
+  border-width: 0 0 2px 0;
+  border-bottom: 2px solid var(--apr-amber);
+  padding: 4px 0;
+}
+[data-design='trade-paper'][data-theme] .front-cover__cta:hover,
+[data-design='trade-paper'][data-theme] .front-cover__cta:focus-visible {
+  background: transparent;
+  color: var(--apr-amber);
+}
+/* the plate: a thin-ruled newspaper cut on a slightly darker stock */
+[data-design='trade-paper'][data-theme] .front-cover__img {
+  border: 1px solid var(--rule-strong);
+  padding: 10px;
+  background: var(--bg-2);
+  filter: sepia(0.22) contrast(0.99);
+}
+[data-design='trade-paper'][data-theme='dark'] .front-cover__img {
+  filter: sepia(0.3) contrast(0.96) brightness(0.94);
+}
+[data-design='trade-paper'][data-theme] .front-cover__credit {
+  color: var(--fg-4);
+}
+[data-design='trade-paper'][data-theme] .front-cover__coverlines {
+  border-top: 3px double var(--fg-1);
+}
+[data-design='trade-paper'][data-theme] .front-cover__coverline {
+  border-bottom: 1px dotted var(--rule-strong);
+}
+[data-design='trade-paper'][data-theme] .front-cover__coverline-num {
+  color: var(--apr-amber);
+}
+
+/* ---------------------------------------------------------------
+   7 · THREE DOORS — a ruled division column, no fills
+   --------------------------------------------------------------- */
+[data-design='trade-paper'][data-theme] .front-doors__head {
+  position: relative;
+  border-top: 3px double var(--fg-1);
+}
+/* head underbar draws itself */
+[data-design='trade-paper'][data-theme] .front-doors__head::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--apr-amber);
+  transform: scaleX(var(--rule-x, 1));
+  transform-origin: left center;
+}
+/* drop the poster's hairline-joined grey grid for open ruled columns */
+[data-design='trade-paper'][data-theme] .front-doors__grid {
+  background: transparent;
+  border: 0;
+  gap: 0;
+}
+[data-design='trade-paper'][data-theme] .front-door {
+  background: transparent;
+  border-top: 1px solid var(--rule);
+}
+@media (min-width: 900px) {
+  [data-design='trade-paper'][data-theme] .front-door + .front-door {
+    border-left: 1px solid var(--rule);
+  }
+}
+[data-design='trade-paper'][data-theme] .front-door::before {
+  display: none; /* no colour sweep in the paper of record */
+}
+[data-design='trade-paper'][data-theme] .front-door__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+[data-design='trade-paper'][data-theme] .front-door__tagline {
+  color: var(--fg-2);
+}
+[data-design='trade-paper'][data-theme] .front-door__num {
+  color: var(--fg-4);
+}
+
+/* ---------------------------------------------------------------
+   8 · THE SLATE — a broadsheet index: dotted leaders, amber numbers
+   --------------------------------------------------------------- */
+[data-design='trade-paper'][data-theme] .front-slate {
+  background: transparent;
+  border-top: 1px solid var(--fg-1);
+  border-bottom: 1px solid var(--fg-1);
+}
+[data-design='trade-paper'][data-theme] .front-slate__head {
+  position: relative;
+  border-bottom: 3px double var(--fg-1);
+  padding-bottom: var(--s-4);
+}
+[data-design='trade-paper'][data-theme] .front-slate__head::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--apr-amber);
+  transform: scaleX(var(--rule-x, 1));
+  transform-origin: left center;
+}
+[data-design='trade-paper'][data-theme] .front-slate__list {
+  border-top: 0;
+}
+[data-design='trade-paper'][data-theme] .front-slate__row {
+  border-bottom: 1px dotted var(--rule-strong);
+}
+[data-design='trade-paper'][data-theme] .front-slate__row:hover,
+[data-design='trade-paper'][data-theme] .front-slate__row:focus-visible {
+  background: transparent;
+  padding-left: 8px;
+}
+[data-design='trade-paper'][data-theme] .front-slate__idx {
+  color: var(--apr-amber);
+}
+
+/* ---------------------------------------------------------------
+   9 · ABOUT — the leader column: parchment band, drop cap, ruled box
+   --------------------------------------------------------------- */
+[data-design='trade-paper'][data-theme] .front-about {
+  background: var(--bg-1);
+  border-top: 1px solid var(--fg-1);
+  border-bottom: 1px solid var(--fg-1);
+}
+[data-design='trade-paper'][data-theme] .front-about::before {
+  background: none; /* drop the poster's radial glow — the paper does not bloom */
+}
+[data-design='trade-paper'][data-theme] .front-about__inner {
+  text-align: left;
+}
+[data-design='trade-paper'][data-theme] .front-about__window {
+  font-family: var(--font-display);
+  font-weight: 500;
+  text-transform: none;
+  line-height: 1.35;
+  max-width: 26ch;
+  color: var(--fg-1);
+}
+[data-design='trade-paper'][data-theme] .front-about__body {
+  color: var(--fg-2);
+  text-align: justify;
+  hyphens: auto;
+}
+[data-design='trade-paper'][data-theme] .front-about__body::first-letter {
+  font-family: var(--font-display);
+  font-weight: 900;
+  float: left;
+  font-size: 3em;
+  line-height: 0.8;
+  padding: 0.06em 0.12em 0 0;
+  color: var(--fg-1);
+}
+/* the standing rule, set as a bordered "The Rule" box */
+[data-design='trade-paper'][data-theme] .front-about__rule {
+  display: inline-block;
+  border: 1.5px solid var(--fg-1);
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+  box-shadow: 4px 4px 0 var(--bg-3);
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  color: var(--apr-amber);
+}
+
+/* ---------------------------------------------------------------
+   10 · FOOTER — folio colophon; rails demoted to rules
+   --------------------------------------------------------------- */
+[data-design='trade-paper'][data-theme] .footer__rail {
+  background: var(--bg-0);
+  height: auto;
+  padding: 0;
+  border-bottom: 3px double var(--rule-strong);
+}
+[data-design='trade-paper'][data-theme] .footer__rail .sprocket {
+  display: none;
+}
+[data-design='trade-paper'][data-theme] .footer__rail--bottom {
+  border-bottom: 0;
+  border-top: 1px solid var(--rule);
+}
+[data-design='trade-paper'][data-theme] .footer__boiler {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+[data-design='trade-paper'][data-theme] .footer__colophon-head,
+[data-design='trade-paper'][data-theme] .footer__wordlist,
+[data-design='trade-paper'][data-theme] .footer__address {
+  color: var(--fg-4);
 }

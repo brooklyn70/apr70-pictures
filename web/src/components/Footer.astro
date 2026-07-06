@@ -360,8 +360,24 @@ const marks = [
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: clamp(1.5rem, 5vw, 4rem);
+    /* Tight enough that all six marks hold a single row at 1440 (mark height
+       is fixed via --colophon-mark-h and never shrinks). */
+    gap: clamp(1rem, 2.25vw, 2.25rem);
     flex-wrap: wrap;
+  }
+
+  /* Below ~900px, a flex-wrap of six unevenly-sized marks can orphan a single
+     mark onto its own row (5+1). Force a deliberate 3+3 grid instead — always
+     two even rows, never an orphan, at any width down to mobile. */
+  @media (max-width: 900px) {
+    .footer__marks {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, auto));
+      justify-content: center;
+      align-items: center;
+      column-gap: clamp(0.85rem, 4vw, 2rem);
+      row-gap: clamp(1.25rem, 4vw, 2rem);
+    }
   }
   .footer__mark {
     /* Real scale, fixed — INDEPENDENT of the "Logo size" dial (--logo-h),

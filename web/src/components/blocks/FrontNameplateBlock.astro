@@ -19,12 +19,12 @@ const { block } = Astro.props
 
 <header class="front-nameplate">
   <div class="container front-nameplate__inner">
-    <h1 class="front-nameplate__wordmark" aria-label={`${block.lineOne} ${block.lineTwo}.`}>
-      <span class="front-nameplate__line" data-motion="nameplate-line">{block.lineOne}</span>
-      <span class="front-nameplate__line" data-motion="nameplate-line"
+    <h1 class="front-nameplate__wordmark" aria-label={`${block.lineOne} ${block.lineTwo}.`}
+      ><span class="front-nameplate__line" data-motion="nameplate-line">{block.lineOne}</span
+      ><span class="front-nameplate__line" data-motion="nameplate-line"
         >{block.lineTwo}<span class="front-nameplate__dot" aria-hidden="true">.</span></span
-      >
-    </h1>
+      ></h1
+    >
 
     <div class="front-nameplate__meta" data-motion="nameplate-meta">
       <p class="front-nameplate__subline">{block.subLine}</p>
@@ -68,6 +68,10 @@ const { block } = Astro.props
 
   .front-nameplate__line {
     display: block;
+    /* Masks the SplitText chars' entrance (yPercent 110 -> 0): without the
+       clip, chars sliding up from below would peek past the crushed line
+       box before settling. Matches the reference's .mast-line exactly. */
+    overflow: hidden;
   }
 
   .front-nameplate__dot {

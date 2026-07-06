@@ -25,7 +25,7 @@ interface Props {
 /* Chrome meta description — SPEC §0 ruling: APR 70 is an ENTERTAINMENT company
    (film, television, theater, radio, books). Pages may override via `description`. */
 const CHROME_DESCRIPTION =
-  'APR 70 Pictures — an entertainment company. Film, television, theater, radio, and books. Long Island City, New York.'
+  'APR 70 Pictures. An entertainment company: film, television, theater, radio, books. Long Island City, New York.'
 
 const [{ settings }, { footerLinks }] = await Promise.all([
   fetchSiteSettings(),
@@ -34,7 +34,7 @@ const [{ settings }, { footerLinks }] = await Promise.all([
 
 const siteName    = settings?.brandLabel ?? 'APR 70 Pictures'
 const { title = siteName, description = CHROME_DESCRIPTION } = Astro.props
-const pageTitle   = title === siteName ? siteName : `${title} — ${siteName}`
+const pageTitle   = title === siteName ? siteName : `${title} · ${siteName}`
 const showRails   = settings?.showFilmstripRails !== false
 
 const faviconMedia = Astro.props.faviconOverride ?? settings?.favicon

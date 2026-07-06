@@ -557,10 +557,41 @@
   transition: none;
 }
 
-/* Belt-and-braces: the flatbed ruler + mono metrics can leave a sub-pixel
-   sliver of document scroll-width at 390. Clip the horizontal axis at the
-   root (data-design lives on <html>); `overflow-x: clip` leaves vertical
-   scrolling and the sticky chrome untouched. */
+/* ============================================================
+   MOBILE FIX · registration-crosshair corners (nameplate specimen
+   frame + cover plate frame) bleed 7-8px past their own box by
+   design — .front-nameplate__inner / .front-cover__plate use
+   .container, which is only inset from the viewport once the
+   window exceeds --max-content (1200px); below that the box's own
+   border sits flush with the viewport edge, so the crosshair's
+   negative inset becomes REAL page overflow (scrollWidth grows
+   past clientWidth — measured 390 -> 396 at a 390px viewport).
+   Below the theme's own 720px chrome breakpoint, flush every
+   corner mark to its frame's own edge instead of overhanging it:
+   same corner-registration language, zero bleed, zero overflow. */
+@media (max-width: 719px) {
+  [data-design='cutting-room'] .front-nameplate .front-nameplate__inner::before {
+    top: 0;
+    left: 0;
+  }
+  [data-design='cutting-room'] .front-nameplate .front-nameplate__inner::after {
+    bottom: 0;
+    right: 0;
+  }
+  [data-design='cutting-room'] .front-cover .front-cover__plate::before {
+    top: 0;
+    left: 0;
+  }
+  [data-design='cutting-room'] .front-cover .front-cover__plate::after {
+    top: 0;
+    right: 0;
+  }
+}
+
+/* Belt-and-braces: any remaining sub-pixel sliver of document scroll-width
+   is still clipped at the root (data-design lives on <html>); `overflow-x:
+   clip` leaves vertical scrolling and the sticky chrome untouched. The
+   mobile fix above is the real geometry fix — this is just a backstop. */
 [data-design='cutting-room'] {
   overflow-x: clip;
 }

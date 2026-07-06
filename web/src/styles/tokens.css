@@ -185,8 +185,16 @@
 
   /* BRAND MARK HEIGHT — visitor "Logo size" dial (24–72px). Set inline on
      <html> by the pre-paint script / control panel (apr70:logo-size).
-     Consumed by the nav mark and the footer colophon marks. */
+     Consumed ONLY by the nav brand mark — never the footer colophon (the
+     colophon has its own fixed real-scale token below so the "microscopic
+     logos" failure can never recur via the size dial). */
   --logo-h: 34px;
+
+  /* FOOTER COLOPHON MARK HEIGHT — "the marks of the house" band. Fixed, real
+     scale, independent of --logo-h/the control-panel slider on purpose (SPEC
+     §4: "Logos at REAL scale everywhere ... the six-mark colophon band on the
+     front door"). */
+  --colophon-mark-h: clamp(48px, 6vw, 76px);
 }
 
 /* ---------- DIVISION TOKENS ---------- */
@@ -491,8 +499,10 @@ a:hover { color: var(--fg-1); }
    LOGO SPLASH — one-time entrance (front door, once per session)
    Injected + driven by src/lib/motion/splash.ts. SSR markup never
    contains this element, so no-JS visitors are never blocked.
-   Paints on the theme surface (--bg-0); sprocket holes climb in
-   the theme accent (--accent).
+   Paints on the theme surface (--bg-0). The color-climb lights the
+   picked mark's OWN inlined sprocket-hole rects (--accent) — there is
+   no separate synthetic hole column; .apr-splash__logo is shared by
+   the inlined <svg> (normal path) and the <img> fallback.
    ============================================================ */
 .apr-splash {
   position: fixed;
@@ -505,24 +515,12 @@ a:hover { color: var(--fg-1); }
 .apr-splash__inner {
   display: flex;
   align-items: center;
-  gap: clamp(18px, 4vw, 40px);
+  justify-content: center;
 }
 .apr-splash__logo {
   height: clamp(72px, 12vw, 132px);
   width: auto;
   display: block;
-}
-.apr-splash__holes {
-  display: flex;
-  flex-direction: column-reverse;
-  gap: 8px;
-}
-.apr-splash__hole {
-  width: 15px;
-  height: 11px;
-  border-radius: var(--r-hole);
-  border: 1.5px solid var(--rule-strong);
-  background: transparent;
 }
 
 /* ============================================================

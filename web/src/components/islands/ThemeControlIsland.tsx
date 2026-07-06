@@ -120,6 +120,12 @@ export default function ThemeControlIsland() {
     originY: number
     moved: boolean
   } | null>(null)
+  /** Set true when a pointer gesture just ended as a real drag (moved past
+   *  the threshold) so the click that the browser fires right after pointerup
+   *  regardless of movement doesn't also re-trigger tap activation. Keyboard
+   *  activation (Enter/Space on the pill) never touches pointer events at
+   *  all, so it always reaches onClick unaffected. */
+  const justDraggedRef = useRef(false)
 
   const clampPos = useCallback((p: Pos): Pos => {
     const el = rootRef.current
@@ -185,13 +191,22 @@ export default function ThemeControlIsland() {
     storageSet(STORAGE_KEYS.logo, id)
   }
 
+  /** Trailing debounce for the logo-size persisted write — the range input
+   *  fires onChange on every pixel of drag; only the resting value needs to
+   *  hit localStorage. The CSS var + attribute update stays synchronous
+   *  (cheap, needed for live visual feedback while dragging). */
+  const logoSizeWriteTimer = useRef<number | null>(null)
+
   const selectLogoSize = (px: number) => {
     const size = resolveLogoSize(px)
     setLogoSize(size)
     const doc = document.documentElement
     doc.style.setProperty('--logo-h', `${size}px`)
     doc.setAttribute('data-logo-size', String(size))
-    storageSet(STORAGE_KEYS.logoSize, String(size))
+    if (logoSizeWriteTimer.current) window.clearTimeout(logoSizeWriteTimer.current)
+    logoSizeWriteTimer.current = window.setTimeout(() => {
+      storageSet(STORAGE_KEYS.logoSize, String(size))
+    }, 200)
   }
 
   const selectScale = (id: FontScaleId) => {
@@ -236,6 +251,7 @@ export default function ThemeControlIsland() {
     if (!d || d.pointerId !== e.pointerId) return
     drag.current = null
     if (d.moved) {
+      justDraggedRef.current = true
       const el = rootRef.current
       if (el) {
         const rect = el.getBoundingClientRect()
@@ -248,6 +264,30 @@ export default function ThemeControlIsland() {
       tapAction()
     }
   }
+
+  /** Authoritative "open the panel" activation — fires for mouse click,
+   *  touch tap, AND keyboard Enter/Space on the pill (native button
+   *  behavior), unlike the pointer handlers above which only see real
+   *  pointer input. Suppressed once, right after a real drag, because the
+   *  browser still fires a click following pointerup regardless of movement. */
+  const activatePill = () => {
+    if (justDraggedRef.current) {
+      justDraggedRef.current = false
+      return
+    }
+    setOpen(true)
+  }
+
+  /* Escape closes the panel from anywhere inside it (keyboard parity with
+     the close button). */
+  useEffect(() => {
+    if (!open) return
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [open])
 
   const posStyle = pos
     ? { left: `${pos.x}px`, top: `${pos.y}px`, right: 'auto', bottom: 'auto' }
@@ -405,8 +445,9 @@ export default function ThemeControlIsland() {
           aria-expanded={false}
           onPointerDown={onDragStart}
           onPointerMove={onDragMove}
-          onPointerUp={(e) => onDragEnd(e, () => setOpen(true))}
+          onPointerUp={(e) => onDragEnd(e)}
           onPointerCancel={(e) => onDragEnd(e)}
+          onClick={activatePill}
         >
           <span className="tc-pill__chips" aria-hidden="true">
             {activeDesign.swatch.map((hex, i) => (

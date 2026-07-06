@@ -64,6 +64,34 @@ const items: NavItem[] = raw.map(({ match, ...rest }) => ({ ...rest, active: mat
   <span class="site-nav__folio" aria-hidden="true">LIC <b>·</b> NY</span>
 </nav>
 
+<script>
+  /* Settle-safety net (defect fix, 2026-07-06): the per-theme "nav settle"
+   * entrance tween (owned by src/lib/motion/<slug>.ts, run via the shared
+   * dispatcher) was observed — reproducibly, across fresh builds, with and
+   * without the splash overlay, over long-poll waits well past its ~0.8s
+   * designed duration — to sometimes stall partway through its GSAP stagger,
+   * leaving inline opacity permanently fractional (e.g. link 06 at ~0.001)
+   * instead of settling to fully legible. Root cause lives outside this
+   * component (the theme motion module / shared dispatcher); this is a
+   * narrowly-scoped, harmless-if-unneeded safety net owned entirely by the
+   * nav itself: after a ceiling comfortably past any legitimate settle
+   * duration, force-clear any leftover inline opacity/transform so the nav
+   * can never render stuck dim "at rest". No-op (and invisible) if the
+   * settle already completed cleanly — clearing already-correct inline
+   * styles changes nothing on screen.
+   */
+  window.setTimeout(() => {
+    const nav = document.querySelector<HTMLElement>('.site-nav')
+    if (!nav) return
+    const clear = (el: HTMLElement) => {
+      el.style.removeProperty('opacity')
+      el.style.removeProperty('transform')
+    }
+    clear(nav)
+    nav.querySelectorAll<HTMLElement>('.site-nav__link').forEach(clear)
+  }, 2000)
+</script>
+
 <style is:global>
   .site-nav {
     display: flex;

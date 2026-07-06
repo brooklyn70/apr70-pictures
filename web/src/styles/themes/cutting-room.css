@@ -1,61 +1,70 @@
 /* ============================================================
-   T4 · CUTTING ROOM — SCAFFOLD (Wave C completes the deployment).
+   T4 · CUTTING ROOM — the editing bench (FULL DEPLOYMENT, Wave C2).
 
-   PERSONALITY CONTRACT
-   Black-and-white ONLY. No chromatic accent except a SINGLE
-   #E85D04 frame-marker allowed at ONE place per page — the chrome
-   nav-active / leader picks up --accent; that is the one allowed
-   marker, so Wave C must keep chromatic use to a single spot.
-   Share Tech Mono LEADS; Futura appears only as specimen blocks.
-   Layout = cut list / EDL: timecode gutters, frame counters,
-   hairline grids. Nav = timecode entries (00:01 FRONT DOOR).
-   Motion = HARD CUTS: frame-step reveals with steps() easing, no
-   smoothing, NO dissolves (the anti-smooth theme). DEFAULT MODE:
-   DARK (matte black bench). Light = paper-white lab sheet.
+   DESIGN, not palette. The whole front door is re-read as an EDL
+   (edit decision list) printed off a flatbed bench: Share Tech Mono
+   LEADS every voice; Futura survives only as framed type SPECIMENS
+   (the nameplate + the cover display). Layout language = cut list:
+   timecode gutters (CSS-counter SMPTE), event numbers, hairline
+   grids, registration crosshairs. Motion (cutting-room.ts) HARD
+   CUTS with steps() — no smoothing, no dissolves.
 
-   This scaffold binds BOTH modes so the theme is legible today.
-   Wave C replaces/extends below with the real EDL layout + motion.
+   BLACK-AND-WHITE ONLY. --accent is rebound to INK so nothing in the
+   chrome or blocks turns chromatic; the SINGLE #E85D04 allowed per
+   page is spent deliberately on ONE object — the orange grease-pencil
+   cue playhead at the head of the top-rail timecode ruler. Every
+   other former-orange spot (nameplate dot, dispatch tab, coverline
+   numerals, division sweeps, about rule) is neutralised to ink.
+
+   DEFAULT MODE: dark (matte black bench). Light = paper-white lab sheet.
+   Everything scoped under [data-design='cutting-room'].
    ============================================================ */
 
 [data-design='cutting-room'] {
-  --accent: #e85d04; /* the single allowed frame-marker */
+  /* Accent → INK. The B&W discipline: no chromatic leakage anywhere. */
+  --accent: var(--fg-1);
+  /* The single allowed chromatic mark, spent once (top-rail cue). */
+  --frame-marker: #e85d04;
   --font-display: 'Futura Std', Futura, 'Arial Black', sans-serif;
   --font-mono: 'Share Tech Mono', 'Courier New', ui-monospace, monospace;
+  /* EDL metrics */
+  --edl-tc: 5.4rem;   /* timecode gutter width */
+  --hair: 1px;
 }
 
 /* ---- DARK (default) — matte black bench ---- */
 [data-design='cutting-room'][data-theme='dark'] {
   --bg-0: #0a0a0a;
-  --bg-1: #101010;
-  --bg-2: #161616;
-  --bg-3: #1e1e1e;
+  --bg-1: #0f0f0f;
+  --bg-2: #151515;
+  --bg-3: #1d1d1d;
   --fg-1: #f4f4f2;
   --fg-2: rgba(244, 244, 242, 0.82);
-  --fg-3: rgba(244, 244, 242, 0.56);
-  --fg-4: rgba(244, 244, 242, 0.38);
-  --fg-5: rgba(244, 244, 242, 0.22);
-  --fg-6: rgba(244, 244, 242, 0.10);
-  --rule: rgba(255, 255, 255, 0.12);
-  --rule-strong: rgba(255, 255, 255, 0.28);
+  --fg-3: rgba(244, 244, 242, 0.58);
+  --fg-4: rgba(244, 244, 242, 0.40);
+  --fg-5: rgba(244, 244, 242, 0.24);
+  --fg-6: rgba(244, 244, 242, 0.11);
+  --rule: rgba(255, 255, 255, 0.13);
+  --rule-strong: rgba(255, 255, 255, 0.32);
   --muted: #8a8a8a;
-  --cursor-color: rgba(255, 255, 255, 0.90);
+  --cursor-color: rgba(255, 255, 255, 0.9);
 }
 
 /* ---- LIGHT — paper-white lab sheet ---- */
 [data-design='cutting-room'][data-theme='light'] {
-  --bg-0: #f4f4f2;
-  --bg-1: #ececea;
-  --bg-2: #e2e2e0;
-  --bg-3: #d6d6d4;
-  --fg-1: #0a0a0a;
-  --fg-2: rgba(10, 10, 10, 0.82);
-  --fg-3: rgba(10, 10, 10, 0.56);
-  --fg-4: rgba(10, 10, 10, 0.40);
-  --fg-5: rgba(10, 10, 10, 0.26);
-  --fg-6: rgba(10, 10, 10, 0.12);
-  --rule: rgba(10, 10, 10, 0.14);
-  --rule-strong: rgba(10, 10, 10, 0.30);
-  --muted: #555555;
+  --bg-0: #f5f5f2;
+  --bg-1: #eeeeea;
+  --bg-2: #e4e4df;
+  --bg-3: #d7d7d1;
+  --fg-1: #0b0b0b;
+  --fg-2: rgba(11, 11, 11, 0.84);
+  --fg-3: rgba(11, 11, 11, 0.58);
+  --fg-4: rgba(11, 11, 11, 0.42);
+  --fg-5: rgba(11, 11, 11, 0.28);
+  --fg-6: rgba(11, 11, 11, 0.13);
+  --rule: rgba(11, 11, 11, 0.16);
+  --rule-strong: rgba(11, 11, 11, 0.34);
+  --muted: #565656;
   --cursor-color: rgba(0, 0, 0, 0.85);
 }
 [data-design='cutting-room'][data-theme='light'] body {
@@ -63,12 +72,495 @@
   color: var(--fg-1);
 }
 
-/* B&W discipline: selection is neutral ink, never chromatic. */
+/* Selection + focus stay neutral ink — never chromatic (B&W discipline). */
 [data-design='cutting-room'] ::selection {
   background: var(--fg-1);
   color: var(--bg-0);
 }
 [data-design='cutting-room'] :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--fg-1);
   outline-offset: 2px;
+}
+
+/* ============================================================
+   VOICE — Share Tech Mono leads everything.
+   ============================================================ */
+[data-design='cutting-room'] body {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+[data-design='cutting-room'] p,
+[data-design='cutting-room'] .body,
+[data-design='cutting-room'] li,
+[data-design='cutting-room'] a,
+[data-design='cutting-room'] span {
+  font-family: var(--font-mono);
+}
+/* Mono paragraphs breathe a little wider so long reads stay legible. */
+[data-design='cutting-room'] p {
+  line-height: 1.65;
+  letter-spacing: 0.005em;
+}
+
+/* ============================================================
+   CHROME 1 · TOP RAIL → a flatbed timecode ruler.
+   The 32 sprockets become ruler ticks; the keycode becomes a
+   mono timecode readout; the leader tab becomes the ONE orange
+   grease-pencil cue playhead (the single allowed frame-marker).
+   ============================================================ */
+[data-design='cutting-room'] .strip-rail {
+  background: var(--bg-1);
+  border-bottom: 1px solid var(--rule-strong);
+  gap: 22px;
+}
+[data-design='cutting-room'] .strip-rail .sprocket {
+  width: 1px;
+  height: 7px;
+  border: 0;
+  border-radius: 0;
+  background: var(--fg-5);
+}
+/* every 4th tick is taller — a real ruler cadence */
+[data-design='cutting-room'] .strip-rail .sprocket:nth-child(4n + 1) {
+  height: 12px;
+  background: var(--fg-4);
+}
+[data-design='cutting-room'] .strip-rail__keycode {
+  background: var(--bg-1);
+  color: var(--fg-4);
+  letter-spacing: 0.42em;
+}
+/* THE single orange frame-marker: the cue playhead at the reel head. */
+[data-design='cutting-room'] .strip-rail--leader::before {
+  background: var(--frame-marker);
+  width: 3px;
+}
+[data-design='cutting-room'] .strip-rail--leader::after {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 7px solid var(--frame-marker);
+}
+
+/* ============================================================
+   CHROME 2 · NAV → EDL event entries. Numbers read as timecodes
+   (00:01 FRONT DOOR); the underline snaps as a hard cut; the
+   active row is inverted ink, never orange.
+   ============================================================ */
+[data-design='cutting-room'] .site-nav__link {
+  gap: 8px;
+  transition: none;
+}
+[data-design='cutting-room'] .site-nav__num {
+  color: var(--fg-4);
+  letter-spacing: 0.08em;
+  transition: none;
+}
+[data-design='cutting-room'] .site-nav__num::before {
+  content: '00:';
+  color: var(--fg-5);
+}
+[data-design='cutting-room'] .site-nav__label {
+  font-family: var(--font-mono);
+  letter-spacing: 0.22em;
+  transition: none;
+}
+/* hard-cut underline (no smooth draw) — an instant splice */
+[data-design='cutting-room'] .site-nav__link::after {
+  height: var(--hair);
+  background: var(--fg-1);
+  transition: transform 0.01s steps(1);
+}
+[data-design='cutting-room'] .site-nav__link:hover .site-nav__num,
+[data-design='cutting-room'] .site-nav__link:focus-visible .site-nav__num {
+  transform: none;
+  color: var(--fg-1);
+}
+/* active = inverted ink chip (the "current frame" in the cut) */
+[data-design='cutting-room'] .site-nav__link[aria-current='page'] .site-nav__num,
+[data-design='cutting-room'] .site-nav__link[aria-current='page'] .site-nav__label {
+  color: var(--fg-1);
+}
+[data-design='cutting-room'] .site-nav__link[aria-current='page']::after {
+  transform: scaleX(1);
+  background: var(--fg-1);
+}
+[data-design='cutting-room'] .site-nav__folio {
+  font-family: var(--font-mono);
+  color: var(--fg-4);
+}
+[data-design='cutting-room'] .site-nav__folio b {
+  color: var(--fg-1);
+}
+/* the sticky header reads as a bench edge — a firm hairline, no blur haze */
+[data-design='cutting-room'] .site-header {
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+/* ============================================================
+   BLOCK 1 · NAMEPLATE → a framed Futura type SPECIMEN.
+   Futura is allowed here (specimen). It sits inside a hairline
+   registration frame with corner crosshairs and a mono caption
+   rail; the full stop is inked (no orange).
+   ============================================================ */
+[data-design='cutting-room'][data-theme='dark'] .front-nameplate,
+[data-design='cutting-room'][data-theme='light'] .front-nameplate {
+  border-bottom: 1px solid var(--rule-strong);
+  padding-bottom: clamp(1.5rem, 4vw, 3rem);
+}
+[data-design='cutting-room'] .front-nameplate .front-nameplate__inner {
+  position: relative;
+  border: 1px solid var(--rule);
+  padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 3vw, 2.5rem);
+}
+/* registration crosshairs at the four corners of the specimen frame */
+[data-design='cutting-room'] .front-nameplate .front-nameplate__inner::before,
+[data-design='cutting-room'] .front-nameplate .front-nameplate__inner::after {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background:
+    linear-gradient(var(--fg-4), var(--fg-4)) center / 1px 100% no-repeat,
+    linear-gradient(var(--fg-4), var(--fg-4)) center / 100% 1px no-repeat;
+}
+[data-design='cutting-room'] .front-nameplate .front-nameplate__inner::before {
+  top: -8px;
+  left: -8px;
+}
+[data-design='cutting-room'] .front-nameplate .front-nameplate__inner::after {
+  bottom: -8px;
+  right: -8px;
+}
+[data-design='cutting-room'] .front-nameplate .front-nameplate__wordmark {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+/* the dot is inked here — the orange is spent on the cue playhead */
+[data-design='cutting-room'] .front-nameplate .front-nameplate__dot {
+  color: var(--fg-4);
+}
+[data-design='cutting-room'] .front-nameplate .front-nameplate__subline,
+[data-design='cutting-room'] .front-nameplate .front-nameplate__location {
+  font-family: var(--font-mono);
+  color: var(--fg-3);
+}
+[data-design='cutting-room'] .front-nameplate .front-nameplate__indicia {
+  border-top: 1px solid var(--rule);
+  font-family: var(--font-mono);
+}
+
+/* ============================================================
+   BLOCK 2 · IDENTITY STRIP → a lab-report read. Mono, ruled top
+   and bottom, opening sentence inked-bold (not orange).
+   ============================================================ */
+[data-design='cutting-room'] .front-identity .front-identity__read {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  line-height: 1.75;
+  letter-spacing: 0.005em;
+  color: var(--fg-2);
+  max-width: 72ch;
+}
+[data-design='cutting-room'] .front-identity .front-identity__read .first-words {
+  color: var(--fg-1);
+  font-weight: 400;
+  border-bottom: 2px solid var(--fg-1);
+  padding-bottom: 1px;
+}
+
+/* ============================================================
+   BLOCK 3 · DISPATCH BAND → an EDL header row. The leader tab is
+   inked (no orange); "No. 1" is inked; hover inverts to a hard
+   ink chip, not an orange fill.
+   ============================================================ */
+[data-design='cutting-room'] .front-dispatch .front-dispatch__band {
+  border-top: 1px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule-strong);
+}
+[data-design='cutting-room'] .front-dispatch .front-dispatch__band::before {
+  background: var(--fg-1);
+  width: 3px;
+}
+[data-design='cutting-room'] .front-dispatch .front-dispatch__name {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  font-size: clamp(0.95rem, 2vw, 1.25rem);
+}
+[data-design='cutting-room'] .front-dispatch .front-dispatch__name b {
+  color: var(--fg-1);
+}
+[data-design='cutting-room'] .front-dispatch .front-dispatch__cta {
+  border: 1px solid var(--rule-strong);
+  transition: none;
+}
+[data-design='cutting-room'] .front-dispatch .front-dispatch__cta:hover,
+[data-design='cutting-room'] .front-dispatch .front-dispatch__cta:focus-visible {
+  background: var(--fg-1);
+  border-color: var(--fg-1);
+  color: var(--bg-0);
+}
+
+/* ============================================================
+   BLOCK 4 · COVER STORY → a splice bench. Left: a framed Futura
+   SPECIMEN (L.A. DOLCE VITA) with a ghost line stroked in ink.
+   Right: the plate graded to black-and-white film stock inside a
+   frame with registration corners + a mono slate caption. Cover-
+   line numerals inked. Everything gets a timecode gutter.
+   ============================================================ */
+[data-design='cutting-room'] .front-cover .front-cover__eyebrow {
+  color: var(--fg-3);
+}
+[data-design='cutting-room'] .front-cover .front-cover__eyebrow::before {
+  background: var(--fg-3);
+}
+[data-design='cutting-room'] .front-cover .front-cover__display {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+[data-design='cutting-room'] .front-cover .front-cover__display .ghost {
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--fg-1) 62%, transparent);
+}
+[data-design='cutting-room'] .front-cover .front-cover__deck {
+  font-family: var(--font-mono);
+  line-height: 1.7;
+}
+[data-design='cutting-room'] .front-cover .front-cover__cta {
+  border: 1px solid var(--rule-strong);
+  transition: none;
+}
+[data-design='cutting-room'] .front-cover .front-cover__cta:hover,
+[data-design='cutting-room'] .front-cover .front-cover__cta:focus-visible {
+  background: var(--fg-1);
+  border-color: var(--fg-1);
+  color: var(--bg-0);
+}
+/* the plate: black-and-white film stock, framed like a viewer gate */
+[data-design='cutting-room'] .front-cover .front-cover__plate {
+  padding: 10px;
+  border: 1px solid var(--rule-strong);
+}
+[data-design='cutting-room'] .front-cover .front-cover__img {
+  filter: grayscale(1) contrast(1.06) brightness(1.02);
+  border: 1px solid var(--rule);
+}
+/* registration crosshairs on the plate frame */
+[data-design='cutting-room'] .front-cover .front-cover__plate::before,
+[data-design='cutting-room'] .front-cover .front-cover__plate::after {
+  content: '';
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  background:
+    linear-gradient(var(--fg-4), var(--fg-4)) center / 1px 100% no-repeat,
+    linear-gradient(var(--fg-4), var(--fg-4)) center / 100% 1px no-repeat;
+  pointer-events: none;
+  z-index: 1;
+}
+[data-design='cutting-room'] .front-cover .front-cover__plate::before {
+  top: -7px;
+  left: -7px;
+}
+[data-design='cutting-room'] .front-cover .front-cover__plate::after {
+  top: -7px;
+  right: -7px;
+}
+[data-design='cutting-room'] .front-cover .front-cover__credit {
+  font-family: var(--font-mono);
+  color: var(--fg-4);
+}
+[data-design='cutting-room'] .front-cover .front-cover__coverline-num {
+  color: var(--fg-1);
+  font-family: var(--font-mono);
+}
+[data-design='cutting-room'] .front-cover .front-cover__coverline-title {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+}
+
+/* ============================================================
+   BLOCK 5 · THREE DOORS → clip bins on the bench. Division colour
+   sweeps are neutralised to ink (B&W); logos graded to grayscale;
+   panels ruled as a hairline grid; each door carries its event
+   number. Hover pulls a hard ink wash up, not a coloured sweep.
+   ============================================================ */
+[data-design='cutting-room'] .front-doors .front-doors__head {
+  border-top: 1px solid var(--rule-strong);
+}
+[data-design='cutting-room'] .front-doors .front-doors__heading {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+  letter-spacing: 0.16em;
+}
+[data-design='cutting-room'] .front-doors .front-doors__grid {
+  background: var(--rule-strong);
+  border: 1px solid var(--rule-strong);
+}
+/* neutralise every division tone to ink */
+[data-design='cutting-room'] .front-door--212,
+[data-design='cutting-room'] .front-door--310,
+[data-design='cutting-room'] .front-door--nrc {
+  --door-c: var(--fg-1);
+  --door-c-text: var(--fg-2);
+}
+[data-design='cutting-room'] .front-door .front-door__logo img {
+  filter: grayscale(1) contrast(1.05);
+}
+[data-design='cutting-room'] .front-door .front-door__name {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  font-size: 1.25rem;
+}
+[data-design='cutting-room'] .front-door .front-door__tagline {
+  font-family: var(--font-mono);
+  font-style: normal;
+  color: var(--fg-2);
+}
+[data-design='cutting-room'] .front-door::before {
+  opacity: 0.07;
+}
+
+/* ============================================================
+   BLOCK 6 · THE SLATE → the EDL proper. A CSS-counter SMPTE
+   timecode gutter is generated at the head of every row; index,
+   title, division, format read as spec columns; hover snaps the
+   row (hard, instant) with an ink cue bar. Division tags inked.
+   ============================================================ */
+[data-design='cutting-room'] .front-slate {
+  background: var(--bg-1);
+  border-top: 1px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule-strong);
+}
+[data-design='cutting-room'] .front-slate .front-slate__heading {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+  letter-spacing: 0.16em;
+}
+[data-design='cutting-room'] .front-slate .front-slate__lede {
+  font-family: var(--font-mono);
+}
+[data-design='cutting-room'] .front-slate .front-slate__list {
+  counter-reset: edl;
+  border-top: 1px solid var(--rule-strong);
+}
+[data-design='cutting-room'] .front-slate .front-slate__row {
+  counter-increment: edl;
+  grid-template-columns: auto 3rem minmax(0, 1fr);
+  transition: none;
+}
+@media (min-width: 720px) {
+  [data-design='cutting-room'] .front-slate .front-slate__row {
+    grid-template-columns: auto 3.4rem minmax(0, 1fr) auto auto;
+  }
+}
+/* the generated timecode gutter — a real SMPTE stamp per event */
+[data-design='cutting-room'] .front-slate .front-slate__row::before {
+  content: '01:00:0' counter(edl) ':00';
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  letter-spacing: 0.08em;
+  color: var(--fg-4);
+  align-self: center;
+  white-space: nowrap;
+}
+[data-design='cutting-room'] .front-slate .front-slate__row:hover::before,
+[data-design='cutting-room'] .front-slate .front-slate__row:focus-visible::before {
+  color: var(--fg-1);
+}
+[data-design='cutting-room'] .front-slate .front-slate__row:hover,
+[data-design='cutting-room'] .front-slate .front-slate__row:focus-visible {
+  padding-left: 10px;
+  background: color-mix(in srgb, var(--fg-1) 6%, transparent);
+  box-shadow: inset 3px 0 0 var(--fg-1);
+}
+[data-design='cutting-room'] .front-slate .front-slate__idx {
+  color: var(--fg-3);
+}
+[data-design='cutting-room'] .front-slate .front-slate__title {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+[data-design='cutting-room'] .front-slate .front-slate__row--212 .front-slate__div,
+[data-design='cutting-room'] .front-slate .front-slate__row--310 .front-slate__div,
+[data-design='cutting-room'] .front-slate .front-slate__row--nrc .front-slate__div {
+  --slate-c: var(--fg-3);
+  color: var(--fg-3);
+}
+
+/* ============================================================
+   BLOCK 7 · ABOUT WINDOW → the 2 a.m. bench. The chromatic radial
+   glow is removed (B&W); the closing rule is inked; the window
+   line reads in mono inside a hairline gate.
+   ============================================================ */
+[data-design='cutting-room'] .front-about .front-about__window {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  line-height: 1.6;
+}
+[data-design='cutting-room'] .front-about .front-about__body {
+  font-family: var(--font-mono);
+}
+[data-design='cutting-room'] .front-about .front-about__rule {
+  font-family: var(--font-mono);
+  color: var(--fg-3);
+}
+
+/* ============================================================
+   FOOTER · colophon marks under B&W. The house marks are graded
+   to grayscale so the bench stays monochrome (the orange is spent
+   on the cue playhead); NRC keeps a per-mode brightness lift so
+   its navy/grey still reads (scoped filter override — Footer.astro
+   is never touched). Footer voice → mono.
+   ============================================================ */
+[data-design='cutting-room'] .footer__mark {
+  filter: grayscale(1);
+}
+[data-design='cutting-room'][data-theme='dark'] .footer__mark--nrc {
+  filter: grayscale(1) brightness(2.3);
+}
+[data-design='cutting-room'][data-theme='light'] .footer__mark--nrc {
+  filter: grayscale(1) brightness(0.55);
+}
+[data-design='cutting-room'] .footer__boiler {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+[data-design='cutting-room'] .footer__logotype {
+  font-family: var(--font-mono);
+  font-weight: 400;
+}
+[data-design='cutting-room'] .footer__link {
+  font-family: var(--font-mono);
+}
+
+/* ============================================================
+   MOTION SUPPORT · the module hard-cuts opacity with steps(); the
+   global a{transition:opacity} would smear those cuts, so every
+   animated hook opts out of transitions. SSR default stays fully
+   visible — no pre-hide here (JS applies hidden starts).
+   ============================================================ */
+[data-design='cutting-room'] [data-motion] {
+  transition: none;
+}
+
+/* Belt-and-braces: the flatbed ruler + mono metrics can leave a sub-pixel
+   sliver of document scroll-width at 390. Clip the horizontal axis at the
+   root (data-design lives on <html>); `overflow-x: clip` leaves vertical
+   scrolling and the sticky chrome untouched. */
+[data-design='cutting-room'] {
+  overflow-x: clip;
 }

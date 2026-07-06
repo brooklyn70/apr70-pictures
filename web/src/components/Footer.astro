@@ -37,7 +37,11 @@ const marks = [
   { kind: 'color', src: '/brand/apr70-logos/apr70-apr70pictures/monogram/apr70_monogram_orange_v5.svg', alt: 'APR 70 monogram' },
   { kind: 'color', src: '/brand/apr70-logos/212-pictures/212_footer.svg', alt: '(212) Pictures' },
   { kind: 'color', src: '/brand/apr70-logos/310-pictures/310_footer.svg', alt: '(310) Pictures' },
-  { kind: 'color', src: '/brand/apr70-logos/new-renaissance-cinema/nrc_footer.svg', alt: 'New Renaissance Cinema' },
+  /* NRC's only lockup mixes navy #001F3F (sinks into a black ground) and
+     grey #C8C8C8 (sinks into the light ground); no alternate-ink NRC variant
+     exists in the brand folders, so this one mark gets a scoped, hue-
+     preserving brightness compensation per mode (CSS below). */
+  { kind: 'color', src: '/brand/apr70-logos/new-renaissance-cinema/nrc_footer.svg', alt: 'New Renaissance Cinema', modifier: 'footer__mark--nrc' },
   { kind: 'mono', dark: '/brand/apr70-logos/apr70-apr70pictures/monogram/apr70_monogram_white_orange_sprockets_v5.svg', light: '/brand/apr70-logos/apr70-apr70pictures/monogram/apr70_monogram_black_orange_sprockets_v5.svg', alt: 'APR 70 sprocket monogram' },
 ] as const
 ---
@@ -148,15 +152,19 @@ const marks = [
   <!-- Colophon: the marks of the house, at real scale -->
   <section class="footer__colophon container" aria-label="The marks of the house">
     <p class="footer__colophon-head">The marks of the house</p>
+    <!-- Marks load EAGERLY on purpose: they are the house signature, six tiny
+         SVGs — lazy loading made them pop in late on scroll and never render
+         at all in full-page screenshot captures (loading="lazy" below the
+         fold is skipped by headless full-page capture). -->
     <div class="footer__marks">
       {marks.map((m) => (
         m.kind === 'mono' ? (
           <Fragment>
-            <img class="footer__mark footer-mark--dark" src={m.dark} alt={m.alt} loading="lazy" />
-            <img class="footer__mark footer-mark--light" src={m.light} alt={m.alt} loading="lazy" />
+            <img class="footer__mark footer-mark--dark" src={m.dark} alt={m.alt} />
+            <img class="footer__mark footer-mark--light" src={m.light} alt={m.alt} />
           </Fragment>
         ) : (
-          <img class="footer__mark" src={m.src} alt={m.alt} loading="lazy" />
+          <img class={`footer__mark${'modifier' in m && m.modifier ? ` ${m.modifier}` : ''}`} src={m.src} alt={m.alt} />
         )
       ))}
     </div>
@@ -191,6 +199,14 @@ const marks = [
 <style is:global>
   [data-theme='dark'] .footer-mark--light { display: none; }
   [data-theme='light'] .footer-mark--dark { display: none; }
+
+  /* NRC legibility compensation — this mark ONLY (see marks[] note): its navy
+     ink sinks into the dark ground and its grey ink sinks into the light
+     ground, and the brand folders ship no alternate-ink NRC lockup.
+     brightness() is hue-preserving (unlike invert), so the mark stays NRC
+     navy-and-grey — just lifted on black, inked-down on paper. */
+  [data-theme='dark'] .footer__mark--nrc { filter: brightness(2.1); }
+  [data-theme='light'] .footer__mark--nrc { filter: brightness(0.5); }
 </style>
 
 <style>

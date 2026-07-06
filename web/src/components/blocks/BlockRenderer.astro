@@ -16,13 +16,20 @@ import PlaybillBlock from './PlaybillBlock.astro'
 import ZineMastheadBlock from './ZineMastheadBlock.astro'
 import ZinePassageBlock from './ZinePassageBlock.astro'
 import ZineSynopsisBlock from './ZineSynopsisBlock.astro'
-import type { ZineBlockData } from '../../content/v4'
+import FrontNameplateBlock from './FrontNameplateBlock.astro'
+import FrontIdentityBlock from './FrontIdentityBlock.astro'
+import FrontDispatchBlock from './FrontDispatchBlock.astro'
+import FrontCoverBlock from './FrontCoverBlock.astro'
+import FrontDoorsBlock from './FrontDoorsBlock.astro'
+import FrontSlateBlock from './FrontSlateBlock.astro'
+import FrontAboutBlock from './FrontAboutBlock.astro'
+import type { ZineBlockData, FrontDoorBlockData } from '../../content/v4'
 
 // TroupeLayoutBlock = generated Home layout union + the playbill block
 // (playbill enters the generated types after `payload generate:types` post-merge).
 /* Zine block types are structural (see content/v4.ts) until payload type
    generation is unblocked; the union keeps the switch type-safe. */
-type LayoutBlock = TroupeLayoutBlock | ZineBlockData
+type LayoutBlock = TroupeLayoutBlock | ZineBlockData | FrontDoorBlockData
 
 interface Props {
   blocks: Home['layout'] | LayoutBlock[] | null | undefined
@@ -62,6 +69,20 @@ const { blocks } = Astro.props
         return <ZinePassageBlock block={block} />
       case 'zineSynopsis':
         return <ZineSynopsisBlock block={block} />
+      case 'frontNameplate':
+        return <FrontNameplateBlock block={block} />
+      case 'frontIdentity':
+        return <FrontIdentityBlock block={block} />
+      case 'frontDispatch':
+        return <FrontDispatchBlock block={block} />
+      case 'frontCover':
+        return <FrontCoverBlock block={block} />
+      case 'frontDoors':
+        return <FrontDoorsBlock block={block} />
+      case 'frontSlate':
+        return <FrontSlateBlock block={block} />
+      case 'frontAbout':
+        return <FrontAboutBlock block={block} />
       default:
         return null
     }

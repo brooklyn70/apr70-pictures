@@ -1,15 +1,17 @@
 ---
 /**
- * / — the zine front door (v4).
+ * / — the Screening Room front door (v4, Wave B).
  *
- * DISPATCH-masthead identity front door: nameplate + identity strip +
- * numbered-issue convention + text-forward teaser stack (Troupe radio play
- * leads, divisions, the slate). Rendered through Layout.astro so the global
- * visitor-selected theme system (pre-paint stamp + ThemeControlIsland) applies.
+ * The approved poster front door: APR 70 PICTURES. nameplate + standing identity
+ * strip + numbered dispatch band + Troupe cover story + three division doors
+ * (#divisions) + the slate + the 2 a.m. about window. Rendered through
+ * Layout.astro so the global visitor-selected theme system (pre-paint stamp +
+ * ThemeControlIsland) and chrome (nav, footer, filmstrip) apply.
  *
  * Content truth is the Payload Home global. Until its layout carries the v4
- * zine blocks (see cms/scripts/apply-v4-content.ts), the complete front door
- * is compiled in from the V4 copy bundle (web/src/content/v4.ts).
+ * front-door blocks (see cms/scripts/apply-v4-content.ts), the complete front
+ * door is compiled in from web/src/content/v4.ts — so staging never shows an
+ * empty shell even when the CMS is down.
  */
 import Layout from '../layouts/Layout.astro'
 import BlockRenderer from '../components/blocks/BlockRenderer.astro'
@@ -18,8 +20,11 @@ import { V4_FRONT_DOOR_BLOCKS } from '../content/v4'
 
 const { home } = await fetchHomeGlobal()
 const dbBlocks = home?.layout ?? []
+/* A v4 front door from the DB is identified by the nameplate block; else the
+   compiled-in fallback wins (preserves the zineMasthead-detection pattern,
+   updated for the new front-door block types). */
 const isV4 = dbBlocks.some(
-  (b) => (b as { blockType?: string }).blockType === 'zineMasthead',
+  (b) => (b as { blockType?: string }).blockType === 'frontNameplate',
 )
 const blocks = isV4 ? dbBlocks : V4_FRONT_DOOR_BLOCKS
 ---

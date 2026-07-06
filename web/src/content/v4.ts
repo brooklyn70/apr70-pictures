@@ -65,6 +65,128 @@ export type ZineSynopsisData = {
 
 export type ZineBlockData = ZineMastheadData | ZinePassageData | ZineSynopsisData
 
+// ── V4 FRONT-DOOR block shapes (Wave B) ──────────────────────────────────────
+// Bespoke, text-forward front-door blocks matching the approved Screening Room
+// mockup (design-source/directions/direction-a-screening-room.html). Each maps
+// to one section of the front door; all render as zero-JS Astro components and
+// carry stable `data-motion` hooks the T1 motion module (screening-room.ts)
+// selects. Copy is Draft 3 VERBATIM. No em dashes in running copy; issues
+// numbered, never dated.
+
+export type FrontNameplateData = {
+  blockType: 'frontNameplate'
+  id?: string | null
+  blockName?: string | null
+  /** Stacked wordmark, two lines. The full stop after lineTwo is the orange accent. */
+  lineOne: string
+  lineTwo: string
+  /** Chrome sub-line (SPEC §0: an ENTERTAINMENT company). */
+  subLine: string
+  location: string
+  /** THREE DIVISIONS / ONE PARENT COMPANY / ONE STANDARD (mono, tracked). */
+  indicia: string[]
+}
+
+export type FrontIdentityData = {
+  blockType: 'frontIdentity'
+  id?: string | null
+  blockName?: string | null
+  /** Rendered in the accent (orange). */
+  firstSentence: string
+  rest: string
+}
+
+export type FrontDispatchData = {
+  blockType: 'frontDispatch'
+  id?: string | null
+  blockName?: string | null
+  label: string
+  number: string
+  from: string
+  note: string
+  cta: ZineLinkData
+}
+
+export type FrontCoverLine = { text: string; ghost?: boolean }
+export type FrontCoverline = { num: string; title: string; text: string }
+
+export type FrontCoverData = {
+  blockType: 'frontCover'
+  id?: string | null
+  blockName?: string | null
+  eyebrow: string
+  display: FrontCoverLine[]
+  deck: string
+  cta: ZineLinkData
+  plate: {
+    src: string
+    srcset: string
+    width: number
+    height: number
+    alt: string
+    /** Quiet period caption (PD credit line). */
+    credit: string
+  }
+  coverlines: FrontCoverline[]
+}
+
+export type FrontDoor = {
+  tone: '212' | '310' | 'nrc'
+  num: string
+  logo: string
+  logoAlt: string
+  name: string
+  tagline: string
+  mandate: string
+  foot: string
+  href: string
+}
+
+export type FrontDoorsData = {
+  blockType: 'frontDoors'
+  id?: string | null
+  blockName?: string | null
+  heading: string
+  keycode: string
+  doors: FrontDoor[]
+}
+
+export type FrontSlateRow = {
+  idx: string
+  title: string
+  division: string
+  format: string
+  href: string
+  tone: '212' | '310' | 'nrc'
+}
+
+export type FrontSlateData = {
+  blockType: 'frontSlate'
+  id?: string | null
+  blockName?: string | null
+  heading: string
+  lede: string
+  rows: FrontSlateRow[]
+}
+
+export type FrontAboutData = {
+  blockType: 'frontAbout'
+  id?: string | null
+  blockName?: string | null
+  window: string
+  body: string
+  rule: string
+}
+
+export type FrontDoorBlockData =
+  | FrontNameplateData
+  | FrontIdentityData
+  | FrontDispatchData
+  | FrontCoverData
+  | FrontDoorsData
+  | FrontSlateData
+  | FrontAboutData
+
 /** Split a plain-text body into paragraphs (blank-line separated). */
 export function toParagraphs(body: string | null | undefined): string[] {
   return (body ?? '')
@@ -73,52 +195,156 @@ export function toParagraphs(body: string | null | undefined): string[] {
     .filter(Boolean)
 }
 
-// ── HOME / MASTHEAD (bundle: HOME / MASTHEAD) ────────────────────────────────
+// ── DISPATCH masthead (bundle: HOME / MASTHEAD) ──────────────────────────────
+// NOTE: the FRONT DOOR nameplate is APR 70 PICTURES. (see V4_FRONT_DOOR_BLOCKS);
+// this DISPATCH masthead is the numbered-issue destination, rendered on /news
+// (web/src/pages/news/index.astro). Dek carries the current standing identity
+// line (stale "We don't make work for rooms…" copy purged, 2026-07-06 Wave B).
 
 export const V4_MASTHEAD: ZineMastheadData = {
   blockType: 'zineMasthead',
   title: 'DISPATCH',
   officesLine: 'From the offices of APR 70 Pictures, Long Island City, New York.',
   issueLabel: 'No. 1',
-  dek: "We don't make work for rooms that need convincing. We make it for audiences who've been waiting. Three divisions, one parent company, one standard: crime and documentary built out of the five boroughs, elevated genre for global television, auteur features that trade formula for conviction.",
+  dek: "Seven actors around real microphones. Index cards on a wall in Long Island City. We make pictures for audiences who've been waiting: crime and documentary built out of the five boroughs, elevated genre for global television, auteur features that trade formula for conviction.",
 }
 
-export const V4_FRONT_DOOR_TEASERS: ZinePassageData[] = [
-  {
-    blockType: 'zinePassage',
-    kicker: 'The APR 70 Troupe Presents',
-    heading: 'No. 1: L.A. Dolce Vita',
-    body: "A radio drama for seven voices and a clock. Human actors, one story, three places at once. The Troupe's first program.",
-    links: [{ label: 'Troupe Presents No. 1', href: '/troupe' }],
-  },
-  {
-    blockType: 'zinePassage',
-    heading: 'The Third Way',
-    body: 'Three divisions, separate and connected to the craft of constraint. (212) East Coast. (310) West Coast and global. New Renaissance Cinema — features, by mandate.',
-    links: [
-      { label: '(212) Pictures', href: '/212' },
-      { label: '(310) Pictures', href: '/310' },
-      { label: 'New Renaissance Cinema', href: '/nrc' },
-    ],
-  },
-  {
-    blockType: 'zinePassage',
-    heading: 'The Slate, On Record',
-    body: "Draft synopses from every desk — the boroughs, the coasts, the feature slate. The work earns its position or it doesn't get made.",
-    links: [
-      { label: 'The Mayors', href: '/work/mayors' },
-      { label: 'Movement', href: '/work/movement' },
-      { label: 'Sea Gate', href: '/work/sea-gate' },
-      { label: 'Da Hook', href: '/work/falcon' },
-      { label: 'A Need Grows in Brooklyn', href: '/work/brooklyn' },
-      { label: 'Shadowmaster', href: '/work/shadowmaster' },
-      { label: 'U Bruculinu', href: '/work/ubrucculinu' },
-    ],
-  },
-]
+// ── V4 FRONT DOOR (Draft 3 verbatim) ─────────────────────────────────────────
+// The approved Screening Room front door: nameplate + identity strip + dispatch
+// band + cover story + three doors + the slate + about window. Footer chrome
+// (colophon marks, investor line, boilerplate) lives in Footer.astro and is NOT
+// duplicated here.
 
-/** Complete front door, compiled in — used when the Home global is absent or pre-v4. */
-export const V4_FRONT_DOOR_BLOCKS: ZineBlockData[] = [V4_MASTHEAD, ...V4_FRONT_DOOR_TEASERS]
+const V4_NAMEPLATE: FrontNameplateData = {
+  blockType: 'frontNameplate',
+  lineOne: 'APR 70',
+  lineTwo: 'PICTURES',
+  subLine: 'AN ENTERTAINMENT COMPANY · FILM · TELEVISION · THEATER · RADIO · BOOKS',
+  location: 'Long Island City, New York.',
+  indicia: ['Three Divisions', 'One Parent Company', 'One Standard'],
+}
+
+const V4_IDENTITY: FrontIdentityData = {
+  blockType: 'frontIdentity',
+  firstSentence: 'Seven actors around real microphones.',
+  rest: "Index cards on a wall in Long Island City. We make pictures for audiences who've been waiting: crime and documentary built out of the five boroughs, elevated genre for global television, auteur features that trade formula for conviction.",
+}
+
+const V4_DISPATCH_BAND: FrontDispatchData = {
+  blockType: 'frontDispatch',
+  label: 'Dispatch',
+  number: 'No. 1',
+  from: 'From the offices of APR 70 Pictures, Long Island City, New York.',
+  note: 'Issues numbered, never dated',
+  cta: { label: 'Read the issue', href: '/news' },
+}
+
+const V4_COVER: FrontCoverData = {
+  blockType: 'frontCover',
+  eyebrow: 'The APR 70 Troupe Presents No. 1',
+  display: [{ text: 'L.A.' }, { text: 'Dolce' }, { text: 'Vita', ghost: true }],
+  deck: 'A radio drama for seven voices and a clock. When we cut, the clock will tell you where you stand. Listen for it.',
+  cta: { label: 'Program No. 1 plays here', href: '/troupe' },
+  plate: {
+    src: '/pd/script-owi-rehearsal-1942/script-owi-rehearsal-1942-crop-1000.jpg',
+    srcset:
+      '/pd/script-owi-rehearsal-1942/script-owi-rehearsal-1942-crop-480.jpg 480w, ' +
+      '/pd/script-owi-rehearsal-1942/script-owi-rehearsal-1942-crop-1000.jpg 1000w, ' +
+      '/pd/script-owi-rehearsal-1942/script-owi-rehearsal-1942-crop-2000.jpg 2000w',
+    width: 2000,
+    height: 1496,
+    alt: 'Actors reading script pages at a radio microphone during an Office of War Information rehearsal, 1942.',
+    credit: 'Office of War Information, 1942 · Library of Congress',
+  },
+  coverlines: [
+    {
+      num: '02',
+      title: 'Three Doors',
+      text: '(212): the five boroughs at street level. (310): Los Angeles, and every market a signal reaches. New Renaissance Cinema: feature films built for permanence.',
+    },
+    {
+      num: '03',
+      title: 'The Slate, On Record',
+      text: "Draft synopses from every desk. The boroughs, the coasts, the feature slate. On the record before it's on the screen.",
+    },
+  ],
+}
+
+const V4_DOORS: FrontDoorsData = {
+  blockType: 'frontDoors',
+  heading: 'Three Doors',
+  keycode: 'DIVISIONS // 212 · 310 · NRC',
+  doors: [
+    {
+      tone: '212',
+      num: 'DOOR 01',
+      logo: '/brand/apr70-logos/212-pictures/212_hero.svg',
+      logoAlt: '(212) Pictures',
+      name: '(212) Pictures',
+      tagline: "Everything you want. Everything you don't want.",
+      mandate: 'East Coast. New York first. Every format the city touches.',
+      foot: 'New York · East Coast',
+      href: '/212',
+    },
+    {
+      tone: '310',
+      num: 'DOOR 02',
+      logo: '/brand/apr70-logos/310-pictures/310_hero.svg',
+      logoAlt: '(310) Pictures',
+      name: '(310) Pictures',
+      tagline: 'Los Angeles, and every market a signal reaches.',
+      mandate: 'West Coast and global television.',
+      foot: 'Los Angeles · Global',
+      href: '/310',
+    },
+    {
+      tone: 'nrc',
+      num: 'DOOR 03',
+      logo: '/brand/apr70-logos/new-renaissance-cinema/nrc_v3.svg',
+      logoAlt: 'New Renaissance Cinema',
+      name: 'New Renaissance Cinema',
+      tagline: 'Feature films, by mandate.',
+      mandate: 'Auteur-driven, morally clear, built for permanence rather than a release window.',
+      foot: 'Feature Films',
+      href: '/nrc',
+    },
+  ],
+}
+
+const V4_SLATE: FrontSlateData = {
+  blockType: 'frontSlate',
+  heading: 'The Slate, On Record',
+  lede: "On the record before it's on the screen.",
+  rows: [
+    { idx: 'S.01', title: 'The Mayors', division: '(212)', format: 'Documentary · 11 Episodes', href: '/work/mayors', tone: '212' },
+    { idx: 'S.02', title: 'Movement', division: '(212)', format: 'Series', href: '/work/movement', tone: '212' },
+    { idx: 'S.03', title: 'Sea Gate', division: '(212)', format: 'Episodic', href: '/work/sea-gate', tone: '212' },
+    { idx: 'S.04', title: 'Da Hook', division: '(212)', format: 'Episodic · Radio Parallel', href: '/work/falcon', tone: '212' },
+    { idx: 'S.05', title: 'A Need Grows in Brooklyn', division: 'NRC · (212) Co-Prod', format: 'Feature', href: '/work/brooklyn', tone: 'nrc' },
+    { idx: 'S.06', title: 'Shadowmaster', division: 'NRC · Series to (310)', format: 'Feature First', href: '/work/shadowmaster', tone: 'nrc' },
+    { idx: 'S.07', title: 'U Bruculinu', division: 'NRC', format: 'Feature, Probable', href: '/work/ubrucculinu', tone: 'nrc' },
+  ],
+}
+
+const V4_ABOUT: FrontAboutData = {
+  blockType: 'frontAbout',
+  window: 'A window lit at two in the morning in Long Island City. Somebody is still reading.',
+  body: "APR 70 Pictures is a film and television production company. Three divisions, one parent company, one standard. The work earns its position or it doesn't get made.",
+  rule: 'The audience first, always. Not our slate... their evening.',
+}
+
+/** Complete front door, compiled in — used when the Home global is absent or
+ *  its layout does not yet carry the v4 front-door blocks. Also the upsert
+ *  payload for the Home global (cms/scripts/apply-v4-content.ts). */
+export const V4_FRONT_DOOR_BLOCKS: FrontDoorBlockData[] = [
+  V4_NAMEPLATE,
+  V4_IDENTITY,
+  V4_DISPATCH_BAND,
+  V4_COVER,
+  V4_DOORS,
+  V4_SLATE,
+  V4_ABOUT,
+]
 
 // ── DIVISIONS (bundle: DIVISIONS; primary canon copy, not the ALT variants) ──
 

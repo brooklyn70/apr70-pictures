@@ -361,7 +361,7 @@ export default function ThemeControlIsland() {
   const activeDesign = DESIGNS.find((d) => d.slug === design) ?? DESIGNS[0]
   const activeAccentLabel =
     accent === 'auto'
-      ? 'Auto — follows theme'
+      ? 'Auto · follows theme'
       : ACCENT_OPTIONS.find((a) => a.id === accent)?.label ?? 'Auto'
 
   return (

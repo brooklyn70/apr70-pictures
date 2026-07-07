@@ -52,6 +52,22 @@
   --accent: var(--fg-1);
 }
 
+/* Picker-veto counter-rule (orchestrator, post-review). The Display
+   panel's global font/accent pickers write html[data-font='...'] and
+   html[data-accent='...'] rules at (0,1,1), which outrank this theme's
+   base scope (0,1,0) and would let Share Tech Mono back into body
+   voice or colour back into the chrome. Marco's rulings say Futura
+   stays this theme's lead face and the bench admits no chromatic
+   accent beyond the single --frame-marker, so the bench vetoes both
+   pickers on EVERY page: (0,2,0) beats (0,1,1) on attribute count,
+   independent of stylesheet order. --font-mono stays available for
+   timecode gutters and keycodes only. */
+[data-design='cutting-room'][data-theme] {
+  --accent: var(--fg-1);
+  --font-display: 'Futura Std', Futura, 'Arial Black', sans-serif;
+  --font-body: 'Barlow', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
 /* ---- DARK (default) — matte black bench ---- */
 [data-design='cutting-room'][data-theme='dark'] {
   --bg-0: #0a0a0a;
@@ -544,24 +560,13 @@
 }
 
 /* ============================================================
-   FOOTER · colophon marks under B&W. The house marks are graded
-   to grayscale so the bench stays monochrome (the orange is spent
-   on the cue playhead); NRC keeps a per-mode brightness lift so
-   its navy/grey still reads (scoped filter override — Footer.astro
-   is never touched). Voice: boiler + logotype are display statements
-   (Futura, matching the base component); links stay the small-label
-   voice — but that's Barlow here (footer nav text is body-adjacent,
+   FOOTER under B&W. (The colophon marks block was removed from
+   Footer.astro by Marco's ruling; its grayscale grades left with
+   it.) Voice: boiler + logotype are display statements (Futura,
+   matching the base component); links stay the small-label
+   voice... that's Barlow here (footer nav text is body-adjacent,
    not a stamped keycode), matching Footer.astro's own base.
    ============================================================ */
-[data-design='cutting-room'] .footer__mark {
-  filter: grayscale(1);
-}
-[data-design='cutting-room'][data-theme='dark'] .footer__mark--nrc {
-  filter: grayscale(1) brightness(2.3);
-}
-[data-design='cutting-room'][data-theme='light'] .footer__mark--nrc {
-  filter: grayscale(1) brightness(0.55);
-}
 [data-design='cutting-room'] .footer__boiler {
   letter-spacing: 0.02em;
 }

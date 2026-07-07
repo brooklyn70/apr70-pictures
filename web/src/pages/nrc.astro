@@ -31,6 +31,9 @@ const faviconOverride = pickLogo(divisionNRC?.faviconOverride, '/brand/apr70-log
 ---
 
 <Layout title="NRC Division" faviconOverride={faviconOverride} navLogoOverride={navLogoOverride} navLogoAltOverride="New Renaissance Cinema" footerLogoOverride={footerLogoOverride} footerLogoAltOverride="New Renaissance Cinema">
+  {/* Division accent law (Wave G3, tokens.css) — see 212.astro for the
+      rationale. NRC's data-division drives the grey/navy top-rail chip. */}
+  <script is:inline>document.documentElement.setAttribute('data-division', 'nrc')</script>
   <main>
     {import.meta.env.DEV && error && (
       <div style="padding: 1rem; margin: 2rem auto; max-width: 600px; background: rgba(255,0,0,0.1); border: 1px solid red; border-radius: 4px; font-family: var(--font-body); color: #cc0000;">

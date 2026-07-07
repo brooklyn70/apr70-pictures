@@ -68,10 +68,16 @@ const { block } = Astro.props
 
   .front-nameplate__line {
     display: block;
-    /* Masks the SplitText chars' entrance (yPercent 110 -> 0): without the
-       clip, chars sliding up from below would peek past the crushed line
-       box before settling. Matches the reference's .mast-line exactly. */
-    overflow: hidden;
+    /* NO overflow:hidden here at rest — the crushed leading (--leading-crush
+       0.85) makes the line box shorter than Futura's cap-height, so a
+       permanent clip here crops the TOPS of "APR 70" / "PICTURES." on every
+       theme, every mode, even with JS off. The entrance mask (screening-
+       room's SplitText chars sliding up from yPercent 110) needs a clip for
+       its ~1s duration only; motion/screening-room.ts applies `overflow:
+       hidden` via gsap.set() right before that tween and clears it with
+       clearProps on complete/interrupt. No-JS visitors, reduced-motion
+       visitors (this module never runs under the matchMedia gate), and the
+       resting state after compose all render with zero clipping. */
   }
 
   .front-nameplate__dot {

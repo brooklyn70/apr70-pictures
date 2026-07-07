@@ -38,9 +38,26 @@ import DispatchReader from '../../components/islands/DispatchReader'
 
 // DB path stays primary; the static fallback renders the FULL magazine so
 // /news is never an empty shell. Numbered, never dated (see dispatch-fallback).
+//
+// MOUNT FIX (SPEC §6b — "Display panel disappears on /news"): Masthead, Cover,
+// Editorial, Feature, and Colophon all destructure their required `indicia` /
+// `cover` / `editorial` / `feature` / `colophon` group straight off the issue
+// with no `?? {}` guard (unlike the array fields, which every dispatch
+// component already defaults to `[]`). A `current` issue saved in Payload
+// before an editor finishes populating one of those groups renders as
+// `null`/`undefined` there, so a bare property read mid-render (e.g.
+// `indicia.number`) throws — aborting the whole SSR stream partway through
+// `<main>`, before Layout ever reaches `<Footer>` / `<ThemeControlIsland>`
+// after the `<slot />`. That is the disappearing-panel bug: it is not CSS, it
+// is an uncaught render error taking the trailing chrome down with it. Only
+// trust the DB issue when every required group actually came back; a
+// partially-seeded row now falls back to the always-complete static issue,
+// exactly like the "no row yet" case.
 const { issue: dbIssue } = await fetchCurrentDispatchIssue()
-const issue = dbIssue ?? DISPATCH_FALLBACK_ISSUE
-const coverCredit = dbIssue ? undefined : DISPATCH_FALLBACK_COVER_CREDIT
+const dbIssueUsable =
+  !!dbIssue && !!dbIssue.indicia && !!dbIssue.cover && !!dbIssue.editorial && !!dbIssue.feature && !!dbIssue.colophon
+const issue = dbIssueUsable ? (dbIssue as NonNullable<typeof dbIssue>) : DISPATCH_FALLBACK_ISSUE
+const coverCredit = dbIssueUsable ? undefined : DISPATCH_FALLBACK_COVER_CREDIT
 ---
 
 <Layout title="Dispatch">

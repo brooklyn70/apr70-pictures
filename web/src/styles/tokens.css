@@ -185,16 +185,10 @@
 
   /* BRAND MARK HEIGHT — visitor "Logo size" dial (24–72px). Set inline on
      <html> by the pre-paint script / control panel (apr70:logo-size).
-     Consumed ONLY by the nav brand mark — never the footer colophon (the
-     colophon has its own fixed real-scale token below so the "microscopic
-     logos" failure can never recur via the size dial). */
+     Consumed ONLY by the nav brand mark. (The footer colophon band this
+     token once distinguished itself from — "the marks of the house" — was
+     removed per SPEC §6b, Marco 2026-07-06; --colophon-mark-h retired with it.) */
   --logo-h: 34px;
-
-  /* FOOTER COLOPHON MARK HEIGHT — "the marks of the house" band. Fixed, real
-     scale, independent of --logo-h/the control-panel slider on purpose (SPEC
-     §4: "Logos at REAL scale everywhere ... the six-mark colophon band on the
-     front door"). */
-  --colophon-mark-h: clamp(48px, 6vw, 76px);
 }
 
 /* ---------- DIVISION TOKENS ---------- */
@@ -577,3 +571,93 @@ a:hover { color: var(--fg-1); }
 .bg-310 { background: var(--apr-imax); }
 .bg-orange { background: var(--apr-orange); }
 .bg-navy { background: var(--apr-navy); }
+
+/* ============================================================
+   DIVISION ACCENT LAW (Wave G3 — SPEC §6b + DESIGN.md canon)
+   Each division page stamps `data-division` on <html> itself via a
+   small inline script in 212.astro / 310.astro / nrc.astro (Layout.astro
+   is Wave G1's file and is never touched for this — the page component
+   is the one place a division wave CAN reach <html>). That stamp forces
+   the sitewide --accent that the top-rail leader chip (.strip-rail--
+   leader, tokens.css above) and the scrollbar law below both read.
+
+   Precedence: division force > theme default. `html[data-division]`
+   carries one more specificity point (an element + an attribute) than
+   a theme's bare `[data-design='…']` rule, so the division colour
+   survives a theme swap without needing !important or import-order
+   games. A theme is still allowed to veto it — but only from ITS OWN
+   file, at higher specificity, as a deliberate law (see cutting-room.css's
+   `[data-design='cutting-room'][data-theme][data-division]` counter-rule,
+   which re-asserts ink so the B&W bench law holds even on a division page).
+
+   Colours: 212 = sicilian-orange (already the house accent — no visible
+   change, but now driven by the law rather than coincidence). 310 = the
+   BLUE chip Marco ruled for ("either the navy or the Sicilian blue" — the
+   sicilian-blue reads better as a thin rail stroke); the teal division-
+   primary used throughout /310's masthead/section/slate/cross-door blocks
+   is untouched, this law only reaches the top-rail chip + the scrollbar.
+   NRC = grey on dark canvases (reads clean on the rail's near-black
+   bench); navy on light ones, because grey-on-near-white has no contrast.
+   ============================================================ */
+html[data-division='212'] {
+  --accent: var(--apr-orange);
+}
+html[data-division='310'] {
+  --accent: var(--apr-blue);
+}
+html[data-division='nrc'] {
+  --accent: var(--apr-grey);
+}
+html[data-division='nrc'][data-theme='light'] {
+  --accent: var(--apr-navy);
+}
+
+/* ============================================================
+   CUSTOM SCROLLBAR — sitewide (Wave G3)
+   Thin, minimal, reads --accent so division pages (law above) and every
+   theme cascade through automatically — no per-theme/per-division
+   scrollbar rules needed anywhere else. In dark mode a saturated accent
+   thumb glares against the near-black canvas, so dark mode swaps to a
+   muted grey thumb instead (Marco: "either the colour of the division,
+   a stroke of blue orange, or grey when it's dark mode" — light mode
+   takes the first two readings, dark mode takes the third). Firefox
+   gets scrollbar-color; WebKit gets the pseudo-element trio. Track
+   stays transparent so the rail reads as a hairline, not a slab; the
+   thumb keeps a visible floor in both modes. Components that already
+   hide their own scrollbar (e.g. the filmstrip's .scroll-window) carry
+   a more specific selector and are unaffected.
+   ============================================================ */
+:root {
+  --scrollbar-w: 11px;
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: var(--accent);
+  --scrollbar-thumb-hover: var(--accent);
+}
+[data-theme='dark'] {
+  --scrollbar-thumb: var(--fg-4);
+  --scrollbar-thumb-hover: var(--fg-3);
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+*::-webkit-scrollbar {
+  width: var(--scrollbar-w);
+  height: var(--scrollbar-w);
+}
+*::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+*::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  background-clip: padding-box;
+  border: 2px solid transparent;
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
+}
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}

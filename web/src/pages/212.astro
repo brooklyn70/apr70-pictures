@@ -38,6 +38,13 @@ const faviconOverride = pickLogo(division212?.faviconOverride, '/brand/apr70-log
 ---
 
 <Layout title="212 Division" faviconOverride={faviconOverride} navLogoOverride={navLogoOverride} navLogoAltOverride="212 Pictures" footerLogoOverride={footerLogoOverride} footerLogoAltOverride="212 Pictures">
+  {/* Division accent law (Wave G3, tokens.css) — stamps <html data-division>
+      so the sitewide --accent (top-rail leader chip + scrollbar) reads this
+      division's colour. Layout.astro (Wave G1's file) has no `division` prop,
+      so the page component reaches <html> itself via a synchronous inline
+      script, same technique as Layout's own pre-paint theme stamp. Runs as
+      the first thing in the slot, before <main>, to settle before paint. */}
+  <script is:inline>document.documentElement.setAttribute('data-division', '212')</script>
   <main>
     {import.meta.env.DEV && error && (
       <div style="padding: 1rem; margin: 2rem auto; max-width: 600px; background: rgba(255,0,0,0.1); border: 1px solid red; border-radius: 4px; font-family: var(--font-body); color: #cc0000;">

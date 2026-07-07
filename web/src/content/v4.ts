@@ -632,7 +632,8 @@ const V4_DIVISION_SLATES: Record<DivisionTone, DivisionSlateData> = {
     lede: "On the record before it's on the screen.",
     rows: [
       { idx: 'S.01', title: 'L.A. Dolce Vita', division: '(310)', format: 'Troupe Presents No. 1', href: '/work/ladolcevita', tone: '310' },
-      { idx: 'S.02', title: 'Shadowmaster', division: 'NRC · Series Spawn to (310)', format: 'Feature First', href: '/work/shadowmaster', tone: 'nrc' },
+      { idx: 'S.02', title: "L'Odissea di Cleopatra", division: '(310)', format: 'Limited Series · 10 Episodes', href: '/work/cleo', tone: '310' },
+      { idx: 'S.03', title: 'Shadowmaster', division: 'NRC · Series Spawn to (310)', format: 'Feature First', href: '/work/shadowmaster', tone: 'nrc' },
     ],
   },
   nrc: {

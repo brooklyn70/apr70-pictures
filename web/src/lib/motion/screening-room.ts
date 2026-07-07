@@ -139,6 +139,12 @@ const screeningRoomMotion: ThemeMotion = ({ gsap, SplitText }: MotionApi) => {
           if (lines.length) {
             const split = new SplitText(lines, { type: 'chars' })
             splits.push(split)
+            // Mask the chars' rise (yPercent 110 -> 0) for the tween's duration
+            // ONLY — a permanent clip here crops the caps' ascenders against the
+            // crushed line-height at rest (see FrontNameplateBlock.astro). Drop
+            // the mask the instant the compose settles or is interrupted.
+            gsap.set(lines, { overflow: 'hidden' })
+            const dropMask = () => gsap.set(lines, { clearProps: 'overflow' })
             gsap.fromTo(
               split.chars,
               { yPercent: 110, opacity: 0 },
@@ -148,8 +154,12 @@ const screeningRoomMotion: ThemeMotion = ({ gsap, SplitText }: MotionApi) => {
                 duration: 1.0,
                 ease: 'power4.out',
                 stagger: { each: 0.04, from: 'start' },
-                // If killed mid-compose (dispatcher re-init), snap the letters visible.
-                onInterrupt: () => gsap.set(split.chars, { yPercent: 0, opacity: 1 }),
+                onComplete: dropMask,
+                // If killed mid-compose (dispatcher re-init), snap the letters visible AND drop the mask.
+                onInterrupt: () => {
+                  gsap.set(split.chars, { yPercent: 0, opacity: 1 })
+                  dropMask()
+                },
               },
             )
           }

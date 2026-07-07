@@ -1,13 +1,12 @@
 ---
 /**
- * Footer.astro — site footer + V4 colophon.
+ * Footer.astro — site footer.
  *
  * Top: 4-column nav (brand / primary / divisions / more) from Payload globals
  * (graceful fallback if Payload is unreachable).
- * Colophon: the six marks of the house at real, fixed scale (--colophon-mark-h
- * — deliberately independent of --logo-h/the control-panel size dial), the
- * quiet investor line, the Draft-3 boilerplate VERBATIM, the division wordlist,
- * and the Long Island City address line.
+ * Below: the quiet investor line, the Draft-3 boilerplate VERBATIM, the
+ * division wordlist, and the Long Island City address line. (The "Marks of
+ * the House" colophon band was removed per SPEC §6b ruling — Marco, 2026-07-06.)
  */
 import type { SiteSettingsData, FooterLinksData } from '../lib/payload'
 import { V4_FOOTER } from '../content/v4'
@@ -28,22 +27,6 @@ const year       = new Date().getFullYear()
 const primaryNav  = footerLinks?.primaryNav  ?? []
 const divisionNav = footerLinks?.divisionNav ?? []
 const moreNav     = footerLinks?.moreNav     ?? []
-
-/* Six marks of the house — real committed assets. Monochrome marks (wordmark +
-   sprocket) render both inks; the [data-theme] toggle (global CSS below) shows
-   the correct one with no flash (data-theme is stamped pre-paint). */
-const marks = [
-  { kind: 'mono', dark: '/logos/apr70_logo_full_white.svg', light: '/logos/apr70_logo_full_black.svg', alt: 'APR 70 Pictures wordmark' },
-  { kind: 'color', src: '/brand/apr70-logos/apr70-apr70pictures/monogram/apr70_monogram_orange_v5.svg', alt: 'APR 70 monogram' },
-  { kind: 'color', src: '/brand/apr70-logos/212-pictures/212_footer.svg', alt: '(212) Pictures' },
-  { kind: 'color', src: '/brand/apr70-logos/310-pictures/310_footer.svg', alt: '(310) Pictures' },
-  /* NRC's only lockup mixes navy #001F3F (sinks into a black ground) and
-     grey #C8C8C8 (sinks into the light ground); no alternate-ink NRC variant
-     exists in the brand folders, so this one mark gets a scoped, hue-
-     preserving brightness compensation per mode (CSS below). */
-  { kind: 'color', src: '/brand/apr70-logos/new-renaissance-cinema/nrc_footer.svg', alt: 'New Renaissance Cinema', modifier: 'footer__mark--nrc' },
-  { kind: 'mono', dark: '/brand/apr70-logos/apr70-apr70pictures/monogram/apr70_monogram_white_orange_sprockets_v5.svg', light: '/brand/apr70-logos/apr70-apr70pictures/monogram/apr70_monogram_black_orange_sprockets_v5.svg', alt: 'APR 70 sprocket monogram' },
-] as const
 ---
 
 <footer class="site-footer" role="contentinfo" aria-label="Site footer">
@@ -149,27 +132,6 @@ const marks = [
     </div>
   </div>
 
-  <!-- Colophon: the marks of the house, at real scale -->
-  <section class="footer__colophon container" aria-label="The marks of the house">
-    <p class="footer__colophon-head">The marks of the house</p>
-    <!-- Marks load EAGERLY on purpose: they are the house signature, six tiny
-         SVGs — lazy loading made them pop in late on scroll and never render
-         at all in full-page screenshot captures (loading="lazy" below the
-         fold is skipped by headless full-page capture). -->
-    <div class="footer__marks">
-      {marks.map((m) => (
-        m.kind === 'mono' ? (
-          <Fragment>
-            <img class="footer__mark footer-mark--dark" src={m.dark} alt={m.alt} />
-            <img class="footer__mark footer-mark--light" src={m.light} alt={m.alt} />
-          </Fragment>
-        ) : (
-          <img class={`footer__mark${'modifier' in m && m.modifier ? ` ${m.modifier}` : ''}`} src={m.src} alt={m.alt} />
-        )
-      ))}
-    </div>
-  </section>
-
   <!-- Quiet investor line (SPEC + Draft 3) -->
   <p class="footer__investor container">Investor conversations happen in person. Write to the offices.</p>
 
@@ -194,20 +156,6 @@ const marks = [
     ))}
   </div>
 </footer>
-
-<!-- Mode-aware monochrome marks (global: data-theme lives on <html>). -->
-<style is:global>
-  [data-theme='dark'] .footer-mark--light { display: none; }
-  [data-theme='light'] .footer-mark--dark { display: none; }
-
-  /* NRC legibility compensation — this mark ONLY (see marks[] note): its navy
-     ink sinks into the dark ground and its grey ink sinks into the light
-     ground, and the brand folders ship no alternate-ink NRC lockup.
-     brightness() is hue-preserving (unlike invert), so the mark stays NRC
-     navy-and-grey — just lifted on black, inked-down on paper. */
-  [data-theme='dark'] .footer__mark--nrc { filter: brightness(2.1); }
-  [data-theme='light'] .footer__mark--nrc { filter: brightness(0.5); }
-</style>
 
 <style>
   /* ── Shell ──────────────────────────────────────────────────────────────── */
@@ -339,61 +287,6 @@ const marks = [
   .footer__legal-sep {
     color: var(--fg-6);
     font-size: var(--type-caption);
-  }
-
-  /* ── Colophon marks ─────────────────────────────────────────────────────── */
-  .footer__colophon {
-    border-top: 1px solid var(--rule);
-    padding-top: var(--s-8);
-    padding-bottom: var(--s-8);
-    text-align: center;
-  }
-  .footer__colophon-head {
-    font-family: var(--font-mono);
-    font-size: var(--type-tiny);
-    letter-spacing: var(--track-strip);
-    text-transform: uppercase;
-    color: var(--fg-5);
-    margin: 0 0 var(--s-7);
-  }
-  .footer__marks {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* Tight enough that all six marks hold a single row at 1440 (mark height
-       is fixed via --colophon-mark-h and never shrinks). */
-    gap: clamp(1rem, 2.25vw, 2.25rem);
-    flex-wrap: wrap;
-  }
-
-  /* Below ~900px, a flex-wrap of six unevenly-sized marks can orphan a single
-     mark onto its own row (5+1). Force a deliberate 3+3 grid instead — always
-     two even rows, never an orphan, at any width down to mobile. */
-  @media (max-width: 900px) {
-    .footer__marks {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, auto));
-      justify-content: center;
-      align-items: center;
-      column-gap: clamp(0.85rem, 4vw, 2rem);
-      row-gap: clamp(1.25rem, 4vw, 2rem);
-    }
-  }
-  .footer__mark {
-    /* Real scale, fixed — INDEPENDENT of the "Logo size" dial (--logo-h),
-       which governs the nav/brand mark only. The colophon is the house
-       signature and must never read as a chip. Wide lockups (NRC, divisions)
-       cap on width to keep the row balanced; aspect is preserved. */
-    height: var(--colophon-mark-h);
-    width: auto;
-    max-width: clamp(120px, 22vw, 260px);
-    object-fit: contain;
-    opacity: 0.9;
-    transition: opacity var(--dur-base) var(--ease-in), transform var(--dur-base) var(--ease-out);
-  }
-  .footer__mark:hover {
-    opacity: 1;
-    transform: translateY(-4px);
   }
 
   /* ── Quiet investor line ────────────────────────────────────────────────── */

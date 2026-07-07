@@ -5,8 +5,10 @@
  * roster, scene count, status. Zero JS. Token-locked, both color modes.
  *
  * Poster media comes from the Payload Media relationship when set; until a
- * PD-verified image is uploaded it falls back to the local placeholder line
- * art in web/public/troupe/.
+ * CMS image is uploaded it falls back to a verified public-domain period
+ * photograph (SPEC §5 imagery law) with a quiet credit line. A "backstage"
+ * strip below the roster can show additional PD photos and any ComfyUI
+ * gap-filler with its required visible credit.
  */
 import { resolveMediaUrl } from '../../lib/payload'
 import type { PlaybillBlockData } from '../../lib/troupe'
@@ -20,14 +22,30 @@ const { block } = Astro.props
 const posterMedia = typeof block.posterImage === 'object' && block.posterImage ? block.posterImage : null
 const posterUrl = resolveMediaUrl(posterMedia ?? undefined)
 
+/** Verified PD substitutes for the three former hand-drawn SVG placeholders (see pd-image-ledger-troupe.md). */
 const artworkFiles: Record<string, string> = {
-  'on-air': '/troupe/on-air.svg',
-  microphone: '/troupe/microphone.svg',
-  script: '/troupe/bradded-script.svg',
+  'on-air': '/pd/gottlieb-winx-1940/gottlieb-winx-1940-1000.jpg',
+  microphone: '/pd/mic-tomato-can-1938/mic-tomato-can-1938-crop-1000.jpg',
+  script: '/pd/script-owi-rehearsal-1942/script-owi-rehearsal-1942-crop-1000.jpg',
 }
-const fallbackArt = artworkFiles[block.artwork ?? 'on-air'] ?? artworkFiles['on-air']
+const artworkCredits: Record<string, string> = {
+  'on-air': 'William P. Gottlieb, circa 1940 · Wikimedia Commons',
+  microphone: 'Harris & Ewing, 1938 · Library of Congress',
+  script: 'Office of War Information, 1942 · Library of Congress',
+}
+const artworkAlts: Record<string, string> = {
+  'on-air': 'William P. Gottlieb at radio station WINX, circa 1940',
+  microphone: "The 'Tomato Can' KDKA radio microphone, Harris & Ewing photograph, 1938",
+  script: "OWI radio rehearsal for \"You Can't Do Business With Hitler,\" 1942",
+}
+const artKey = block.artwork ?? 'on-air'
+const fallbackArt = artworkFiles[artKey] ?? artworkFiles['on-air']
 const artSrc = posterUrl ?? fallbackArt
-const artAlt = posterMedia?.alt || `${block.title} program artwork`
+const artAlt = posterMedia?.alt || (!posterUrl ? artworkAlts[artKey] : `${block.title} program artwork`)
+// Quiet PD credit only applies to our own fallback photo, never to a CMS-set image (unknown provenance here).
+const artCredit = !posterUrl ? (block.artworkCredit ?? artworkCredits[artKey] ?? null) : null
+
+const backstage = block.backstage ?? []
 
 const statusLabels: Record<string, string> = {
   'in-production': 'In production',
@@ -41,9 +59,10 @@ const voices = block.voices ?? []
 
 <section class="playbill-block" aria-label={`Playbill: ${block.title}`}>
   <div class="playbill-card">
-    <div class="playbill-art">
+    <figure class="playbill-art">
       <img src={artSrc} alt={artAlt} width="600" height="750" loading="lazy" />
-    </div>
+      {artCredit && <figcaption class="playbill-art__credit">{artCredit}</figcaption>}
+    </figure>
 
     <div class="playbill-body">
       <p class="playbill-eyebrow">
@@ -92,6 +111,24 @@ const voices = block.voices ?? []
       )}
 
       {block.notes && <p class="playbill-notes">{block.notes}</p>}
+
+      {backstage.length > 0 && (
+        <div class="playbill-backstage">
+          <h3 class="roster-heading">From the archive</h3>
+          <ul class="backstage-list">
+            {backstage.map((item) => (
+              <li class="backstage-item">
+                <figure>
+                  <img src={item.src} alt={item.alt} loading="lazy" />
+                  <figcaption class:list={['backstage-credit', { interim: item.interim }]}>
+                    {item.credit}
+                  </figcaption>
+                </figure>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   </div>
 </section>
@@ -139,6 +176,15 @@ const voices = block.voices ?? []
     width: 100%;
     height: auto;
     border: 1px solid var(--rule);
+  }
+
+  .playbill-art__credit {
+    margin-top: var(--s-2);
+    font-family: var(--font-mono);
+    font-size: var(--type-tiny);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg-4);
   }
 
   .playbill-eyebrow {
@@ -274,5 +320,51 @@ const voices = block.voices ?? []
     color: var(--fg-3);
     line-height: var(--leading-body);
     margin: var(--s-5) 0 0;
+  }
+
+  .playbill-backstage {
+    margin-top: var(--s-6);
+    padding-top: var(--s-5);
+    border-top: 1px solid var(--rule);
+  }
+
+  .backstage-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: var(--s-4);
+  }
+
+  .backstage-item figure {
+    margin: 0;
+  }
+
+  .backstage-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--rule);
+  }
+
+  .backstage-credit {
+    margin-top: var(--s-1);
+    font-family: var(--font-mono);
+    font-size: var(--type-tiny);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg-4);
+    line-height: var(--leading-snug);
+  }
+
+  /* ComfyUI gap-fillers get a VISIBLE credit (SPEC §5), rendered exactly as
+     "Image: ComfyUI (interim)": text-transform: none overrides the quiet
+     PD caption's uppercase so the literal wording reads on the page. */
+  .backstage-credit.interim {
+    color: var(--accent);
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: normal;
   }
 </style>

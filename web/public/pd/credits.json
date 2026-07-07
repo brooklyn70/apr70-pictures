@@ -343,5 +343,179 @@
       "NYPL's modern item page is behind Incapsula bot-protection (blocks direct HTTP fetch); recovered via the legacy images.nypl.org derivative service. Largest derivative available was 758x384 (full stereo card scan; modest per-frame resolution as noted in the ledger).",
       "Cropped one frame of the stereo pair per the ledger's instruction ('Crop one frame of the stereo pair'); master file retains the full stereo-card scan (both frames + card borders/captions), web tiers (280x384, native — not upscaled) are the single-frame crop."
     ]
+  },
+  {
+    "slug": "cityhall-nyc-1900",
+    "title": "The City Hall, New York City, elevated view, Detroit Photographic Co. photochrom, ca. 1900",
+    "source": "Library of Congress",
+    "sourceUrl": "https://www.loc.gov/pictures/item/2016794176/",
+    "collection": "Detroit Publishing Company Photochrom Print Collection, Prints & Photographs Division",
+    "date": "ca. 1900",
+    "rightsText": "No known restrictions on publication.",
+    "downloadDate": "2026-07-06",
+    "masterFile": "design-source/pd-masters/cityhall-nyc-1900.tif",
+    "tiers": [
+      "/pd/cityhall-nyc-1900/cityhall-nyc-1900-2000.jpg",
+      "/pd/cityhall-nyc-1900/cityhall-nyc-1900-1000.jpg",
+      "/pd/cityhall-nyc-1900/cityhall-nyc-1900-480.jpg"
+    ],
+    "cropTiers": [
+      "/pd/cityhall-nyc-1900/cityhall-nyc-1900-crop-2000.jpg",
+      "/pd/cityhall-nyc-1900/cityhall-nyc-1900-crop-1000.jpg",
+      "/pd/cityhall-nyc-1900/cityhall-nyc-1900-crop-480.jpg"
+    ],
+    "cropNote": "cropped: removed the plain gray photochrom-card mount margin on all four sides (~1.5-2.5% per side); original printed caption \"THE CITY HALL, NEW YORK CITY / Copyright, 1900, by Detroit Photographic Co.\" sits inside the photo area and was retained",
+    "flags": []
+  },
+  {
+    "slug": "cityhall-nyc-1904",
+    "title": "City Hall, New York, elevated view, Detroit Publishing Co., c. 1904",
+    "source": "Library of Congress",
+    "sourceUrl": "https://www.loc.gov/pictures/item/2016803613/",
+    "collection": "Detroit Publishing Company Photograph Collection, Prints & Photographs Division",
+    "date": "c. 1904",
+    "rightsText": "No known restrictions on publication.",
+    "downloadDate": "2026-07-06",
+    "masterFile": "design-source/pd-masters/cityhall-nyc-1904.tif",
+    "tiers": [
+      "/pd/cityhall-nyc-1904/cityhall-nyc-1904-2000.jpg",
+      "/pd/cityhall-nyc-1904/cityhall-nyc-1904-1000.jpg",
+      "/pd/cityhall-nyc-1904/cityhall-nyc-1904-480.jpg"
+    ],
+    "cropTiers": [
+      "/pd/cityhall-nyc-1904/cityhall-nyc-1904-crop-2000.jpg",
+      "/pd/cityhall-nyc-1904/cityhall-nyc-1904-crop-1000.jpg",
+      "/pd/cityhall-nyc-1904/cityhall-nyc-1904-crop-480.jpg"
+    ],
+    "cropNote": "cropped: removed white scanner rim and black glass-negative mount border (uneven width, thicker on left/right than top/bottom); original negative-plate caption \"017237. CITY HALL. NEW YORK.\" (bottom left) and photographer credit (bottom right) retained as image content",
+    "flags": []
+  },
+  {
+    "slug": "sicily-village-taormina-fountain-1906",
+    "title": "\"Work and gossip at a fountain by the Cappuccini gate in Taormina's old city wall, N. Sicily,\" Underwood & Underwood stereograph, 1906",
+    "source": "Library of Congress",
+    "sourceUrl": "https://www.loc.gov/pictures/item/2003670996/",
+    "collection": "Stereograph Cards, Prints & Photographs Division",
+    "date": "1906",
+    "rightsText": "No known restrictions on publication.",
+    "downloadDate": "2026-07-06",
+    "masterFile": "design-source/pd-masters/sicily-village-taormina-fountain-1906.tif",
+    "tiers": [
+      "/pd/sicily-village-taormina-fountain-1906/sicily-village-taormina-fountain-1906-2000.jpg",
+      "/pd/sicily-village-taormina-fountain-1906/sicily-village-taormina-fountain-1906-1000.jpg",
+      "/pd/sicily-village-taormina-fountain-1906/sicily-village-taormina-fountain-1906-480.jpg"
+    ],
+    "cropTiers": [
+      "/pd/sicily-village-taormina-fountain-1906/sicily-village-taormina-fountain-1906-crop-2000.jpg",
+      "/pd/sicily-village-taormina-fountain-1906/sicily-village-taormina-fountain-1906-crop-1000.jpg",
+      "/pd/sicily-village-taormina-fountain-1906/sicily-village-taormina-fountain-1906-crop-480.jpg"
+    ],
+    "cropNote": "cropped to a single stereo-pair frame: removed gray card mount, rounded-corner photo mask, center gutter/second stereo image, and bottom publisher caption band ('(49)-8602 Work and gossip...Copyright 1906 by Underwood & Underwood')",
+    "flags": [
+      "PRE-1930 ATMOSPHERIC SUBSTITUTE: story is nominally set in the 1970s; no genuinely public-domain 1970s Sicilian photography exists (too recent, still in copyright). This 1906 image stands in for the timeless 'old customs, old power' village world the story evokes; not a literal 1970s documentary claim.",
+      "stereograph: master is the full uncropped stereo card (two near-identical frames); cropTiers isolate one frame for web use",
+      "subjects are identifiable individuals (village women, children) who are certainly deceased; editorial/atmospheric use only, no implication of endorsement"
+    ]
+  },
+  {
+    "slug": "sicily-village-rocca-1906",
+    "title": "\"Village life at Rocca, between Palermo and Monreale (looking north), Sicily,\" Underwood & Underwood stereograph, 1906",
+    "source": "Library of Congress",
+    "sourceUrl": "https://www.loc.gov/pictures/item/2003670042/",
+    "collection": "Stereograph Cards, Prints & Photographs Division",
+    "date": "1906",
+    "rightsText": "No known restrictions on publication.",
+    "downloadDate": "2026-07-06",
+    "masterFile": "design-source/pd-masters/sicily-village-rocca-1906.tif",
+    "tiers": [
+      "/pd/sicily-village-rocca-1906/sicily-village-rocca-1906-2000.jpg",
+      "/pd/sicily-village-rocca-1906/sicily-village-rocca-1906-1000.jpg",
+      "/pd/sicily-village-rocca-1906/sicily-village-rocca-1906-480.jpg"
+    ],
+    "cropTiers": [
+      "/pd/sicily-village-rocca-1906/sicily-village-rocca-1906-crop-2000.jpg",
+      "/pd/sicily-village-rocca-1906/sicily-village-rocca-1906-crop-1000.jpg",
+      "/pd/sicily-village-rocca-1906/sicily-village-rocca-1906-crop-480.jpg"
+    ],
+    "cropNote": "cropped to a single stereo-pair frame: removed gray card mount, rounded-corner photo mask, center gutter/second stereo image, and bottom publisher caption band ('(8)-8561 Village life at Rocca...Copyright 1906 by Underwood & Underwood')",
+    "flags": [
+      "PRE-1930 ATMOSPHERIC SUBSTITUTE: story is nominally set in the 1970s; no genuinely public-domain 1970s Sicilian photography exists (too recent, still in copyright). This 1906 image stands in for the timeless 'old customs, old power' village world the story evokes; not a literal 1970s documentary claim.",
+      "stereograph: master is the full uncropped stereo card (two near-identical frames); cropTiers isolate one frame for web use",
+      "subjects are identifiable individuals (village women, children) who are certainly deceased; editorial/atmospheric use only, no implication of endorsement"
+    ]
+  },
+  {
+    "slug": "seagate-aerial-1920",
+    "title": "Aerial view of Coney Island showing Sea Gate at the western tip, \"Airscapes, New York City (Book III)\", mount-captioned \"Coney Island, N.Y. (1895-1920)\"",
+    "source": "Wikimedia Commons (National Archives and Records Administration)",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:New_York_-_Coney_Island_-_NARA_-_68145919.jpg",
+    "collection": "NARA \"Airscapes\" of American and Foreign Areas series; NARA Identifier 68145919 (catalog.archives.gov/id/68145919)",
+    "date": "circa 1895-1920 (per the archival mount's own typed/handwritten caption; NARA/Commons structured metadata gives a broader 1917-1964 date range and attributes the compiling unit as War Department, Army Air Forces, 1941-1947; the negative itself is noted on the mount as \"Date & Source Unknown\", recopied 27 April 1954)",
+    "rightsText": "Commons license template {{PD-USGov-Military-Air}}: \"This image or file is a work of a U.S. Air Force Airman or employee, taken or made as part of that person's official duties... the image or file is in the public domain in the United States.\" File categorized on Commons under both \"Images from the National Archives and Records Administration\" and \"Sea Gate, Brooklyn\".",
+    "downloadDate": "2026-07-06",
+    "masterFile": "design-source/pd-masters/seagate-aerial-1920.jpg",
+    "tiers": [
+      "/pd/seagate-aerial-1920/seagate-aerial-1920-2000.jpg",
+      "/pd/seagate-aerial-1920/seagate-aerial-1920-1000.jpg",
+      "/pd/seagate-aerial-1920/seagate-aerial-1920-480.jpg"
+    ],
+    "cropTiers": [
+      "/pd/seagate-aerial-1920/seagate-aerial-1920-crop-2000.jpg",
+      "/pd/seagate-aerial-1920/seagate-aerial-1920-crop-1000.jpg",
+      "/pd/seagate-aerial-1920/seagate-aerial-1920-crop-480.jpg"
+    ],
+    "cropNote": "cropped: removed the beige archive mount board, punch holes, typed \"AIRSCAPES\" header, handwritten negative number, and printed caption strip below the photograph; crop box 5620x3925+745+965 measured off the 7036x5467 master via grayscale boundary analysis",
+    "flags": [
+      "date uncertain: see date field for full explanation; treat as an estimate, not a confirmed year",
+      "aerial view: Sea Gate's distinct street grid is visible at the western tip (bottom-left of frame), separated from the denser boardwalk/amusement district to the east; good establishing/hero candidate for the gated-town framing"
+    ]
+  },
+  {
+    "slug": "seagate-gate-2008",
+    "title": "The Sea Gate boom gate at Neptune Avenue, iron gate lettered \"SEA GATE\", barbed wire, guard booth, and \"Entering Private Community / No Trespassing\" signage",
+    "source": "Wikimedia Commons",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sea_Gate_gate_jeh.JPG",
+    "collection": "Own work, photographer Jim Henderson (Commons user Jim.henderson)",
+    "date": "2008-06-29 (per file EXIF; uploader-stated date June 15 2008 on the file page is a minor discrepancy; EXIF is authoritative)",
+    "rightsText": "\"I, the copyright holder of this work, release this work into the public domain.\" (self-dedication by the photographer, Commons {{PD-self}}-style tag)",
+    "downloadDate": "2026-07-06",
+    "masterFile": "design-source/pd-masters/seagate-gate-2008.jpg",
+    "tiers": [
+      "/pd/seagate-gate-2008/seagate-gate-2008-2000.jpg",
+      "/pd/seagate-gate-2008/seagate-gate-2008-1000.jpg",
+      "/pd/seagate-gate-2008/seagate-gate-2008-480.jpg"
+    ],
+    "cropTiers": null,
+    "cropNote": "no cropping needed: clean digital photograph, no scanner furniture, mount, or border to remove",
+    "flags": [
+      "modern photograph (2008), not period/archival: breaks from the site's otherwise-historical PD imagery; included because it is the only verified PD image found that shows the literal boom gate/fence described in the brief",
+      "bystanders (cyclists waiting at the gate) are visible but small, backs mostly turned, not clearly identifiable; low risk, noted per house convention on identifiable-people flags"
+    ]
+  },
+  {
+    "slug": "brooklyn-shipping-piers-1974",
+    "title": "\"Shipping piers of Brooklyn, New York, with Manhattan in the background\"; cargo ship at pier, Brooklyn Bridge and World Trade Center towers (under construction cladding visible on south tower) in skyline, April 1974",
+    "source": "National Archives and Records Administration (NARA)",
+    "sourceUrl": "https://catalog.archives.gov/id/555726",
+    "collection": "Records of the Environmental Protection Agency (Record Group 412); DOCUMERICA Project, Local Identifier 412-DA-13274; photographer Hope Alexander",
+    "date": "April 1974",
+    "rightsText": "Catalog record fields read directly: useRestriction status \"Unrestricted\"; accessRestriction status \"Unrestricted\". (Flickr mirror at flickr.com/photos/usnationalarchives also tags this series \"No known copyright restrictions\"; this entry is verified against the NARA catalog record itself, not the Flickr mirror.)",
+    "downloadDate": "2026-07-06",
+    "masterFile": "design-source/pd-masters/brooklyn-shipping-piers-1974.tif",
+    "tiers": [
+      "/pd/brooklyn-shipping-piers-1974/brooklyn-shipping-piers-1974-2000.jpg",
+      "/pd/brooklyn-shipping-piers-1974/brooklyn-shipping-piers-1974-1000.jpg",
+      "/pd/brooklyn-shipping-piers-1974/brooklyn-shipping-piers-1974-480.jpg"
+    ],
+    "cropTiers": [
+      "/pd/brooklyn-shipping-piers-1974/brooklyn-shipping-piers-1974-crop-2000.jpg",
+      "/pd/brooklyn-shipping-piers-1974/brooklyn-shipping-piers-1974-crop-1000.jpg",
+      "/pd/brooklyn-shipping-piers-1974/brooklyn-shipping-piers-1974-crop-480.jpg"
+    ],
+    "cropNote": "cropped; removed thin black slide-mount border with rounded corners (35mm Documerica color-slide scan); crop rect 2900x1931+50+50 from the 3000x2031 master, verified pixel-sampled to clear all four rounded corners",
+    "flags": [
+      "Original 1974 DOCUMERICA color slide, not monochrome; will need desaturation/grade to match the noir monochrome register; not verified as literally 'Red Hook' by neighborhood name (catalog title says only 'Brooklyn' generically); visual evidence (camera angle toward Manhattan/Brooklyn Bridge/WTC) suggests Brooklyn Heights/DUMBO/Fulton Ferry waterfront rather than Red Hook proper, which sits further south along the Erie Basin/Atlantic Basin piers out of frame here; still a genuine, on-register 1970s NYC shipping-pier photograph and the strongest PD candidate found",
+      "Second Red-Hook-specific or literal 1973-dated candidate not found/verified this pass; NARA catalog API rate-limited further DOCUMERICA queries after this and the Part-B item were confirmed; documented as a gap rather than invented"
+    ]
   }
 ]

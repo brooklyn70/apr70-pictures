@@ -22,6 +22,19 @@ export type PlaybillVoice = {
   id?: string | null
 }
 
+/**
+ * A single "backstage" artwork item under the playbill card: a small
+ * captioned photo. `interim: true` marks a ComfyUI gap-filler, which must
+ * render the visible credit "Image: ComfyUI (interim)" per SPEC §5; PD
+ * photos render a quiet period credit line instead.
+ */
+export type PlaybillArtworkItem = {
+  src: string
+  alt: string
+  credit: string
+  interim?: boolean
+}
+
 /** Playbill block shape (types regenerate after `payload generate:types` post-merge). */
 export type PlaybillBlockData = {
   programNumber?: string | null
@@ -32,6 +45,10 @@ export type PlaybillBlockData = {
   status: 'in-production' | 'coming-soon' | 'released'
   posterImage?: (number | null) | Media
   artwork?: ('on-air' | 'microphone' | 'script') | null
+  /** Quiet PD credit line for the poster art (SPEC §5); omitted when posterImage is CMS-set. */
+  artworkCredit?: string | null
+  /** Small captioned strip below the roster: verified PD photos plus any ComfyUI interim gap-fillers. */
+  backstage?: PlaybillArtworkItem[] | null
   voices?: PlaybillVoice[] | null
   notes?: string | null
   id?: string | null
@@ -93,6 +110,24 @@ export const TROUPE_FALLBACK_BLOCKS: TroupeLayoutBlock[] = [
     sceneCount: 16,
     status: 'in-production',
     artwork: 'on-air',
+    backstage: [
+      {
+        src: '/pd/mic-tomato-can-1938/mic-tomato-can-1938-crop-1000.jpg',
+        alt: "The 'Tomato Can' KDKA radio microphone, Harris & Ewing photograph, 1938",
+        credit: 'Harris & Ewing, 1938 · Library of Congress',
+      },
+      {
+        src: '/pd/script-owi-rehearsal-1942/script-owi-rehearsal-1942-crop-1000.jpg',
+        alt: "OWI radio rehearsal for \"You Can't Do Business With Hitler,\" 1942",
+        credit: 'Office of War Information, 1942 · Library of Congress',
+      },
+      {
+        src: '/comfy-interim/onair-sign-candidate-4.jpg',
+        alt: 'AI-generated illuminated ON AIR sign, interim placeholder',
+        credit: 'Image: ComfyUI (interim)',
+        interim: true,
+      },
+    ],
     voices: [
       { voice: 'Voice One', descriptor: 'M, 45-60', roles: 'The Host · Newsreader · Inspector Lucchese' },
       { voice: 'Voice Two', descriptor: 'M, 40s', roles: 'Marcello di Bari', note: 'Lead. No doubling.' },

@@ -10,31 +10,45 @@ import {
   isThemeMode,
   resolveLogoSize,
   LOGO_SIZE,
+  FONT_OPTIONS,
+  DEFAULT_FONT,
+  resolveFont,
+  ACCENT_OPTIONS,
+  DEFAULT_ACCENT,
+  resolveAccent,
   STORAGE_KEYS,
   type DesignSlug,
   type ThemeMode,
+  type FontDeployment,
+  type AccentChoice,
 } from '../../designs/manifest'
 import {
   LOGO_OPTIONS,
   DEFAULT_LOGO,
   resolveLogo,
   logoSrc,
+  logosByGroup,
   type LogoChoiceId,
 } from '../../designs/logos'
 
 /**
- * ThemeControlIsland (v2) — the single moveable "Display" panel.
+ * ThemeControlIsland (v3, Wave G2) — the single moveable "Display" panel.
  * Global chrome (mounted from Layout.astro, client:load — NOT a Payload block).
  *
- * Sections: Theme (5 chips + microcopy) · Mode (light/dark) · Type size
- * (S/M/L/XL) · Logo (picker) · Logo size (slider 24–72px → --logo-h).
+ * Sections: Theme (2 live chips) · Type size (S/M/L/XL) · Logo (the FULL mark
+ * library, grouped + scrollable) · Font (4 deployments) · Accent (division
+ * swatch row). The light/dark MODE toggle moved OUT of the panel and into the
+ * menu bar (SiteNav) per the VMS pattern — the panel only observes mode now, to
+ * keep logo previews + the brand-mark ink in sync.
+ *
  * Draggable (pointer capture, clamped), collapsible to a pill, keyboard
- * accessible (slider is a real <input type=range>), focus-visible rings, styled
- * from tokens so it holds up on all five themes.
+ * accessible (Type size + panel-open reachable by keyboard), focus-visible
+ * rings, styled from tokens so it holds up on both live themes.
  *
  * localStorage: apr70:design | apr70:mode | apr70:logo | apr70:logo-size |
- * apr70:font-scale | apr70:picker-pos. The matching pre-paint stamp lives in
- * Layout.astro <head> (no-FOUC).
+ * apr70:font-scale | apr70:font | apr70:accent | apr70:picker-pos. The pre-paint
+ * stamp lives in Layout.astro <head>; font/accent are ALSO restored here from
+ * localStorage so persistence holds even before/without that stamp.
  */
 
 const FONT_SCALES = [
@@ -78,6 +92,19 @@ function syncBrandMark(logo: LogoChoiceId, mode: ThemeMode) {
   })
 }
 
+/** Stamp the font deployment on <html> (token rebinds are CSS in theme-control.css). */
+function applyFont(id: FontDeployment) {
+  document.documentElement.setAttribute('data-font', id)
+}
+
+/** Stamp the accent preference on <html>. 'auto' removes the attribute so the
+ *  theme/base --accent flows untouched (see precedence note in theme-control.css). */
+function applyAccent(id: AccentChoice) {
+  const doc = document.documentElement
+  if (id === 'auto') doc.removeAttribute('data-accent')
+  else doc.setAttribute('data-accent', id)
+}
+
 type Pos = { x: number; y: number }
 
 export default function ThemeControlIsland() {
@@ -87,12 +114,14 @@ export default function ThemeControlIsland() {
      syncs state to the pre-paint stamp. */
   const [design, setDesign] = useState<DesignSlug>(DEFAULT_DESIGN)
   const [mode, setMode] = useState<ThemeMode>(designThemeMode(DEFAULT_DESIGN))
-  /** Whether the visitor pinned a mode (apr70:mode). If false, mode follows
-      the active theme's default and switches with the theme. */
+  /** Whether the visitor pinned a mode (apr70:mode). Set by the nav mode toggle
+      now; the panel only reads it (for the logo-preview ink). */
   const [userMode, setUserMode] = useState(false)
   const [logo, setLogo] = useState<LogoChoiceId>(DEFAULT_LOGO)
   const [logoSize, setLogoSize] = useState<number>(LOGO_SIZE.default)
   const [scale, setScale] = useState<FontScaleId>('m')
+  const [font, setFont] = useState<FontDeployment>(DEFAULT_FONT)
+  const [accent, setAccent] = useState<AccentChoice>(DEFAULT_ACCENT)
   /** null = default CSS anchor (bottom-right). Set once dragged / restored. */
   const [pos, setPos] = useState<Pos | null>(null)
 
@@ -105,10 +134,44 @@ export default function ThemeControlIsland() {
     const pinned = source === 'user'
     setUserMode(pinned)
     const attrMode = doc.getAttribute('data-theme')
-    setMode(pinned && isThemeMode(attrMode) ? attrMode : resolveMode(pinned ? attrMode : null, d))
-    setLogo(resolveLogo(doc.getAttribute('data-logo')))
+    const effMode = pinned && isThemeMode(attrMode) ? attrMode : resolveMode(pinned ? attrMode : null, d)
+    setMode(effMode)
+    const activeLogo = resolveLogo(doc.getAttribute('data-logo'))
+    setLogo(activeLogo)
     setLogoSize(resolveLogoSize(doc.getAttribute('data-logo-size')))
     setScale(resolveScale(doc.getAttribute('data-font-scale')))
+
+    /* Font + accent: prefer the pre-paint stamp, else localStorage, else
+       default. Applying here guarantees restore even if the Layout pre-paint
+       patch is deferred to the orchestrator. */
+    const f = resolveFont(doc.getAttribute('data-font') ?? storageGet(STORAGE_KEYS.font))
+    setFont(f)
+    applyFont(f)
+    const a = resolveAccent(doc.getAttribute('data-accent') ?? storageGet(STORAGE_KEYS.accent))
+    setAccent(a)
+    applyAccent(a)
+
+    /* Make sure the SSR/pre-paint brand mark matches the current logo + mode. */
+    syncBrandMark(activeLogo, effMode)
+  }, [])
+
+  /* Mode now lives in the nav. Observe <html> so the panel's logo-preview ink +
+     the brand mark stay correct when the nav toggle (or a theme change) flips
+     the mode. Filtered to mode attrs, so our own data-logo writes never loop. */
+  useEffect(() => {
+    const doc = document.documentElement
+    const obs = new MutationObserver(() => {
+      const pinned = doc.getAttribute('data-mode-source') === 'user'
+      setUserMode(pinned)
+      const attrMode = doc.getAttribute('data-theme')
+      const m: ThemeMode = isThemeMode(attrMode)
+        ? attrMode
+        : designThemeMode(resolveDesign(doc.getAttribute('data-design')))
+      setMode((prev) => (prev === m ? prev : m))
+      syncBrandMark(resolveLogo(doc.getAttribute('data-logo')), m)
+    })
+    obs.observe(doc, { attributes: true, attributeFilter: ['data-theme', 'data-mode-source'] })
+    return () => obs.disconnect()
   }, [])
 
   const rootRef = useRef<HTMLDivElement>(null)
@@ -175,16 +238,6 @@ export default function ThemeControlIsland() {
     storageSet(STORAGE_KEYS.design, slug)
   }
 
-  const selectMode = (next: ThemeMode) => {
-    setUserMode(true)
-    setMode(next)
-    const doc = document.documentElement
-    doc.setAttribute('data-theme', next)
-    doc.setAttribute('data-mode-source', 'user')
-    syncBrandMark(logo, next)
-    storageSet(STORAGE_KEYS.mode, next)
-  }
-
   const selectLogo = (id: LogoChoiceId) => {
     setLogo(id)
     syncBrandMark(id, mode)
@@ -216,6 +269,18 @@ export default function ThemeControlIsland() {
     doc.style.setProperty('--font-scale', value)
     doc.setAttribute('data-font-scale', id)
     storageSet(STORAGE_KEYS.fontScale, id)
+  }
+
+  const selectFont = (id: FontDeployment) => {
+    setFont(id)
+    applyFont(id)
+    storageSet(STORAGE_KEYS.font, id)
+  }
+
+  const selectAccent = (id: AccentChoice) => {
+    setAccent(id)
+    applyAccent(id)
+    storageSet(STORAGE_KEYS.accent, id)
   }
 
   /* ---- drag (pointer events + capture, clamped, persisted) ---- */
@@ -294,6 +359,10 @@ export default function ThemeControlIsland() {
     : undefined
 
   const activeDesign = DESIGNS.find((d) => d.slug === design) ?? DESIGNS[0]
+  const activeAccentLabel =
+    accent === 'auto'
+      ? 'Auto — follows theme'
+      : ACCENT_OPTIONS.find((a) => a.id === accent)?.label ?? 'Auto'
 
   return (
     <div
@@ -354,32 +423,6 @@ export default function ThemeControlIsland() {
               </div>
             </div>
 
-            {/* Mode */}
-            <div className="tc-section" role="group" aria-label="Mode">
-              <span className="tc-section__label">Mode</span>
-              <div className="tc-segment tc-segment--2">
-                <button
-                  type="button"
-                  className="tc-seg"
-                  aria-pressed={mode === 'light'}
-                  onClick={() => selectMode('light')}
-                >
-                  Light
-                </button>
-                <button
-                  type="button"
-                  className="tc-seg"
-                  aria-pressed={mode === 'dark'}
-                  onClick={() => selectMode('dark')}
-                >
-                  Dark
-                </button>
-              </div>
-              {!userMode && (
-                <span className="tc-hint">Following {activeDesign.name}&rsquo;s default</span>
-              )}
-            </div>
-
             {/* Type size */}
             <div className="tc-section" role="group" aria-label="Type size">
               <span className="tc-section__label">Type size</span>
@@ -398,42 +441,91 @@ export default function ThemeControlIsland() {
               </div>
             </div>
 
-            {/* Logo */}
+            {/* Logo — the FULL mark library, grouped + scrollable */}
             <div className="tc-section" role="group" aria-label="Logo">
-              <span className="tc-section__label">Logo</span>
-              <div className="tc-logos">
-                {LOGO_OPTIONS.map((o) => (
+              <span className="tc-section__label">
+                Logo
+                <span className="tc-section__value">{LOGO_OPTIONS.length} marks</span>
+              </span>
+              <div className="tc-logos-scroll" tabIndex={0} aria-label="Logo library">
+                {logosByGroup().map(({ group, options }) => (
+                  <div key={group} className="tc-logo-group">
+                    <span className="tc-logo-group__label">{group}</span>
+                    <div className="tc-logos">
+                      {options.map((o) => (
+                        <button
+                          key={o.id}
+                          type="button"
+                          className="tc-logo"
+                          aria-pressed={logo === o.id}
+                          title={o.label}
+                          onClick={() => selectLogo(o.id)}
+                        >
+                          <img
+                            className="tc-logo__img"
+                            src={logoSrc(o.id, mode)}
+                            alt=""
+                            loading="lazy"
+                          />
+                          <span className="tc-logo__name">{o.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Font */}
+            <div className="tc-section" role="group" aria-label="Font">
+              <span className="tc-section__label">Font</span>
+              <div className="tc-fonts">
+                {FONT_OPTIONS.map((f) => (
                   <button
-                    key={o.id}
+                    key={f.id}
                     type="button"
-                    className="tc-logo"
-                    aria-pressed={logo === o.id}
-                    onClick={() => selectLogo(o.id)}
+                    className="tc-font"
+                    data-font-id={f.id}
+                    aria-pressed={font === f.id}
+                    onClick={() => selectFont(f.id)}
                   >
-                    <img className="tc-logo__img" src={logoSrc(o.id, mode)} alt="" loading="lazy" />
-                    <span className="tc-logo__name">{o.label}</span>
+                    <span className="tc-font__specimen" aria-hidden="true">
+                      {f.specimen}
+                    </span>
+                    <span className="tc-font__text">
+                      <span className="tc-font__name">{f.label}</span>
+                      <span className="tc-font__note">{f.note}</span>
+                    </span>
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Logo size */}
-            <div className="tc-section">
-              <label className="tc-section__label" htmlFor="tc-logo-size">
-                Logo size
-                <span className="tc-section__value">{logoSize}px</span>
-              </label>
-              <input
-                id="tc-logo-size"
-                type="range"
-                className="tc-range"
-                min={LOGO_SIZE.min}
-                max={LOGO_SIZE.max}
-                step={1}
-                value={logoSize}
-                aria-valuetext={`${logoSize} pixels`}
-                onChange={(e) => selectLogoSize(Number(e.target.value))}
-              />
+            {/* Division accent */}
+            <div className="tc-section" role="group" aria-label="Division accent">
+              <span className="tc-section__label">
+                Accent
+                <span className="tc-section__value">{activeAccentLabel}</span>
+              </span>
+              <div className="tc-accents">
+                {ACCENT_OPTIONS.map((a) => (
+                  <button
+                    key={a.id}
+                    type="button"
+                    className="tc-accent"
+                    aria-pressed={accent === a.id}
+                    aria-label={a.label}
+                    title={a.label}
+                    onClick={() => selectAccent(a.id)}
+                  >
+                    <span
+                      className="tc-accent__chip"
+                      data-auto={a.hex === null ? 'true' : undefined}
+                      style={a.hex ? { background: a.hex } : undefined}
+                    />
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </section>

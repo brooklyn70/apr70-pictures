@@ -61,7 +61,31 @@ const items: NavItem[] = raw.map(({ match, ...rest }) => ({ ...rest, active: mat
     ))}
   </ul>
 
-  <span class="site-nav__folio" aria-hidden="true">LIC <b>·</b> NY</span>
+  <div class="site-nav__end">
+    <button
+      id="site-mode-toggle"
+      type="button"
+      class="site-nav__mode"
+      aria-label="Toggle light or dark mode"
+      aria-pressed="false"
+    >
+      <span class="site-nav__mode-icon" aria-hidden="true">
+        <svg class="site-nav__mode-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4.2" />
+          <path d="M12 2.2v2.4M12 19.4v2.4M2.2 12h2.4M19.4 12h2.4M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7" />
+        </svg>
+        <svg class="site-nav__mode-moon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.5 14.3a8.2 8.2 0 0 1-10.8-10 .7.7 0 0 0-.9-.9 9.6 9.6 0 1 0 12.6 12.6.7.7 0 0 0-.9-.9 8.2 8.2 0 0 1-.0.2z" />
+        </svg>
+      </span>
+      <span class="site-nav__mode-label" aria-hidden="true">
+        <span class="site-nav__mode-label--light">Light</span>
+        <span class="site-nav__mode-label--dark">Dark</span>
+      </span>
+    </button>
+
+    <span class="site-nav__folio" aria-hidden="true">LIC <b>·</b> NY</span>
+  </div>
 </nav>
 
 <script>
@@ -90,6 +114,44 @@ const items: NavItem[] = raw.map(({ match, ...rest }) => ({ ...rest, active: mat
     clear(nav)
     nav.querySelectorAll<HTMLElement>('.site-nav__link').forEach(clear)
   }, 2000)
+</script>
+
+<script>
+  /* Light/dark MODE toggle (VMS pattern, moved here from the Display panel).
+   * Independent of the theme: flips data-theme on <html>, pins it as a user
+   * choice (data-mode-source="user"), persists apr70:mode — the exact same
+   * contract the panel used, so the pre-paint stamp + resolveMode logic all
+   * still apply. The sun/moon glyph + LIGHT/DARK word swap purely in CSS off
+   * html[data-theme], so they stay correct even before this script runs and
+   * whenever the theme changes elsewhere. The brand-mark ink re-sync (which
+   * needs the full logo map) is handled by the Display panel island's
+   * MutationObserver on data-theme — kept in one place, not duplicated here. */
+  ;(function () {
+    const doc = document.documentElement
+    const btn = document.getElementById('site-mode-toggle')
+    if (!btn) return
+    const sync = () => {
+      const dark = doc.getAttribute('data-theme') === 'dark'
+      btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode')
+      btn.setAttribute('aria-pressed', dark ? 'true' : 'false')
+    }
+    sync()
+    btn.addEventListener('click', () => {
+      const next = doc.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+      doc.setAttribute('data-theme', next)
+      doc.setAttribute('data-mode-source', 'user')
+      try {
+        localStorage.setItem('apr70:mode', next)
+      } catch {
+        /* private mode — selection still applies for this page view */
+      }
+      sync()
+    })
+    /* Keep the button's a11y state correct when a theme switch changes the
+       mode elsewhere (e.g. following a theme's default). */
+    const obs = new MutationObserver(sync)
+    obs.observe(doc, { attributes: true, attributeFilter: ['data-theme'] })
+  })()
 </script>
 
 <style is:global>
@@ -189,6 +251,73 @@ const items: NavItem[] = raw.map(({ match, ...rest }) => ({ ...rest, active: mat
   .site-nav__link[aria-current='page'] .site-nav__label { color: var(--fg-1); }
   .site-nav__link[aria-current='page']::after { transform: scaleX(1); }
 
+  /* right cluster: mode toggle + folio (folio drops on mobile, toggle stays) */
+  .site-nav__end {
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 1.6vw, 18px);
+    flex-shrink: 0;
+  }
+
+  /* light/dark mode toggle — crafted for the numbered-nav aesthetic:
+     mono word + sun/moon glyph, holds up in both themes/modes. */
+  .site-nav__mode {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 34px;
+    padding: 5px 10px;
+    background: transparent;
+    border: 1px solid var(--rule-strong);
+    border-radius: var(--r-xs);
+    color: var(--fg-3);
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+  }
+  .site-nav__mode:hover {
+    color: var(--fg-1);
+    border-color: var(--fg-4);
+  }
+  .site-nav__mode:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+  .site-nav__mode-icon {
+    display: inline-flex;
+    width: 15px;
+    height: 15px;
+    color: var(--accent);
+  }
+  .site-nav__mode-icon svg {
+    width: 15px;
+    height: 15px;
+    display: block;
+  }
+  .site-nav__mode-label {
+    font-family: var(--font-mono);
+    font-size: var(--type-tiny);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  /* Glyph + word swap purely off html[data-theme] — no JS needed, correct
+     even before the toggle script runs. Show the CURRENT mode. */
+  .site-nav__mode-sun,
+  .site-nav__mode-moon,
+  .site-nav__mode-label--light,
+  .site-nav__mode-label--dark {
+    display: none;
+  }
+  :root[data-theme='light'] .site-nav__mode-sun,
+  :root[data-theme='light'] .site-nav__mode-label--light {
+    display: block;
+  }
+  :root[data-theme='dark'] .site-nav__mode-moon,
+  :root[data-theme='dark'] .site-nav__mode-label--dark {
+    display: block;
+  }
+
   .site-nav__folio {
     flex-shrink: 0;
     font-family: var(--font-mono);
@@ -200,6 +329,11 @@ const items: NavItem[] = raw.map(({ match, ...rest }) => ({ ...rest, active: mat
 
   @media (max-width: 720px) {
     .site-nav__folio { display: none; }
+  }
+  /* Very tight bars: keep the toggle icon, shed its word to save room. */
+  @media (max-width: 460px) {
+    .site-nav__mode-label { display: none; }
+    .site-nav__mode { padding: 5px 8px; }
   }
 
   /* Coarse pointers: no hover surprises (targets stay reachable). */

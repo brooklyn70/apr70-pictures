@@ -1,7 +1,60 @@
-/* ThemeControlIsland (v2) — global chrome (not a Payload block).
+/* ThemeControlIsland (v3, Wave G2) — global chrome (not a Payload block).
    Tokens only: bg/fg ramp, rules, type + motion tokens + --accent from
-   tokens.css, so it holds up on all five themes. Animates opacity/transform/
-   named properties only (no transition: all). */
+   tokens.css, so it holds up on both live themes. Animates opacity/transform/
+   named properties only (no transition: all).
+
+   This stylesheet loads on every page (the island mounts in Layout), so the
+   GLOBAL token rebinds below (font deployment + accent preference) apply
+   site-wide, not just inside the panel. */
+
+/* ============================================================
+   GLOBAL TOKEN REBINDS — visitor font deployment + accent preference.
+   Stamped as data-font / data-accent on <html> (pre-paint in Layout,
+   live by the panel). These are GLOBAL PREFERENCES.
+
+   FONT deployments (curated; existing faces only — no new webfont deps):
+     house      Futura display · Barlow body (the default; also the reset)
+     condensed  Futura Std Condensed-led display
+     serif      Futura display · Georgia body text
+     mono       Share Tech Mono-led labels + body accents
+   html[data-font="…"] (0,1,1) beats a theme's [data-design] type
+   deployment (0,1,0) — the picker is a deliberate global override.
+
+   ACCENT precedence — page-forced > user-picked > theme default:
+     theme default : [data-design="…"] { --accent }     (0,1,0)
+     user picked   : html[data-accent="…"] { --accent }  (0,1,1)  ← beats theme
+     page forced   : a division page forces its own colour by overriding
+                     --accent at specificity >= (0,1,1) placed after this
+                     file, OR on a descendant page-root wrapper (which
+                     re-scopes --accent for its subtree) — either beats the
+                     user pick. 'auto' emits NO data-accent attribute, so the
+                     theme/base --accent flows untouched.
+   --accent drives the nav active state, the filmstrip leader-tab chip,
+   and this panel's own focus rings / slider thumb (live feedback).
+   ============================================================ */
+html[data-font='house'] {
+  --font-display: 'Futura Std', Futura, 'Trebuchet MS', Impact, 'Arial Black', sans-serif;
+  --font-body: 'Barlow', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-mono: 'Share Tech Mono', 'Courier New', ui-monospace, monospace;
+}
+html[data-font='condensed'] {
+  --font-display: 'Futura Std Condensed', 'Futura Std', 'Arial Narrow', sans-serif;
+  --font-body: 'Barlow', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+html[data-font='serif'] {
+  --font-display: 'Futura Std', Futura, 'Trebuchet MS', Impact, 'Arial Black', sans-serif;
+  --font-body: Georgia, 'Iowan Old Style', 'Times New Roman', Times, serif;
+}
+html[data-font='mono'] {
+  --font-display: 'Futura Std', Futura, 'Arial Black', sans-serif;
+  --font-body: 'Share Tech Mono', 'Courier New', ui-monospace, monospace;
+}
+
+html[data-accent='orange'] { --accent: var(--apr-orange); }
+html[data-accent='amber'] { --accent: var(--apr-amber); }
+html[data-accent='blue'] { --accent: var(--apr-blue); }
+html[data-accent='navy'] { --accent: var(--apr-navy); }
+html[data-accent='teal'] { --accent: var(--apr-imax); }
 
 .theme-control {
   position: fixed;
@@ -172,7 +225,8 @@
 /* shared interactive-option base */
 .tc-theme,
 .tc-seg,
-.tc-logo {
+.tc-logo,
+.tc-font {
   font-family: var(--font-body);
   color: var(--fg-2);
   background: transparent;
@@ -184,20 +238,23 @@
 }
 .tc-theme:hover,
 .tc-seg:hover,
-.tc-logo:hover {
+.tc-logo:hover,
+.tc-font:hover {
   color: var(--fg-1);
   border-color: var(--rule-strong);
 }
 .tc-theme[aria-pressed='true'],
 .tc-seg[aria-pressed='true'],
-.tc-logo[aria-pressed='true'] {
+.tc-logo[aria-pressed='true'],
+.tc-font[aria-pressed='true'] {
   color: var(--fg-1);
   border-color: var(--fg-2);
   background: var(--bg-2);
 }
 .tc-theme:focus-visible,
 .tc-seg:focus-visible,
-.tc-logo:focus-visible {
+.tc-logo:focus-visible,
+.tc-font:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
@@ -244,13 +301,10 @@
   color: var(--fg-3);
 }
 
-/* ---- segmented controls (Mode, Type size) ---- */
+/* ---- segmented control (Type size) ---- */
 .tc-segment {
   display: grid;
   gap: var(--s-2);
-}
-.tc-segment--2 {
-  grid-template-columns: 1fr 1fr;
 }
 .tc-segment--4 {
   grid-template-columns: repeat(4, 1fr);
@@ -262,7 +316,46 @@
   text-transform: uppercase;
 }
 
-/* ---- logo grid ---- */
+/* ---- logo library: grouped, self-scrolling browser ---- */
+.tc-logos-scroll {
+  max-height: 260px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: 2px;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-xs);
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule-strong) transparent;
+}
+.tc-logos-scroll:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.tc-logos-scroll::-webkit-scrollbar { width: 8px; }
+.tc-logos-scroll::-webkit-scrollbar-thumb {
+  background: var(--rule-strong);
+  border-radius: 8px;
+}
+.tc-logo-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+.tc-logo-group__label {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 4px 2px;
+  font-size: var(--type-tiny);
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--fg-4);
+  background: color-mix(in srgb, var(--bg-1) 94%, transparent);
+  backdrop-filter: blur(4px);
+}
 .tc-logos {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -274,19 +367,21 @@
   align-items: center;
   justify-content: center;
   gap: var(--s-2);
-  min-height: 60px;
+  min-height: 58px;
   padding: var(--s-2);
 }
 .tc-logo__img {
-  height: 18px;
+  height: 20px;
   width: auto;
   max-width: 100%;
   display: block;
 }
 .tc-logo__name {
-  font-size: var(--type-micro);
-  letter-spacing: var(--track-wide);
+  font-size: 0.5rem;
+  line-height: 1.3;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+  text-align: center;
   color: inherit;
 }
 
@@ -334,12 +429,104 @@
   box-shadow: 0 0 0 1px var(--rule-strong);
 }
 
-/* Coarse pointers: no hover styling surprises; targets already ≥44px. */
+/* ---- font deployments (2x2, specimen + spec) ---- */
+.tc-fonts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-2);
+}
+.tc-font {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3);
+  text-align: left;
+  min-height: 52px;
+}
+.tc-font__specimen {
+  flex-shrink: 0;
+  width: 1.5em;
+  font-size: 1.375rem;
+  line-height: 1;
+  text-align: center;
+  color: var(--fg-1);
+}
+.tc-font[data-font-id='house'] .tc-font__specimen { font-family: var(--font-display); font-weight: 700; }
+.tc-font[data-font-id='condensed'] .tc-font__specimen {
+  font-family: 'Futura Std Condensed', 'Futura Std', 'Arial Narrow', sans-serif;
+  font-weight: 700;
+}
+.tc-font[data-font-id='serif'] .tc-font__specimen {
+  font-family: Georgia, 'Iowan Old Style', 'Times New Roman', Times, serif;
+}
+.tc-font[data-font-id='mono'] .tc-font__specimen {
+  font-family: 'Share Tech Mono', 'Courier New', ui-monospace, monospace;
+}
+.tc-font__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.tc-font__name {
+  font-size: var(--type-caption);
+  letter-spacing: var(--track-wide);
+  text-transform: uppercase;
+  color: inherit;
+}
+.tc-font__note {
+  font-size: var(--type-micro);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--fg-4);
+}
+.tc-font[aria-pressed='true'] .tc-font__note { color: var(--fg-3); }
+
+/* ---- division accent swatch row ---- */
+.tc-accents {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+.tc-accent {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: border-color var(--dur-quick) var(--ease-in), transform var(--dur-quick) var(--ease-in);
+}
+.tc-accent:hover { border-color: var(--rule-strong); }
+.tc-accent[aria-pressed='true'] { border-color: var(--fg-1); }
+.tc-accent:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.tc-accent__chip {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--rule-strong);
+}
+/* 'auto' reads as "follows theme / varies" via the full-palette wheel. */
+.tc-accent__chip[data-auto='true'] {
+  background: conic-gradient(#e85d04, #824b07, #0077b6, #001f3f, #077082, #e85d04);
+  border-color: var(--fg-3);
+}
+
+/* Coarse pointers: no hover styling surprises; targets already ≥38px. */
 @media (hover: none) {
   .tc-pill:hover,
   .tc-theme:hover,
   .tc-seg:hover,
   .tc-logo:hover,
+  .tc-font:hover,
+  .tc-accent:hover,
   .tc-panel__close:hover {
     color: inherit;
     border-color: var(--rule);

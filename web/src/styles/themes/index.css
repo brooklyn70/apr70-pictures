@@ -18,6 +18,9 @@
    ============================================================ */
 @import './screening-room.css';
 @import './cutting-room.css';
+/* mission-control (Direction F) — the white-ground x.ai-discipline theme,
+   built out by Opus 2026-07-07 as a third LIVE picker slate. */
+@import './mission-control.css';
 
 /* Dormant on disk, intentionally not imported (retired — see above):
    ./photoplay.css · ./trade-paper.css · ./picture-palace.css */

@@ -24,6 +24,7 @@
 export type DesignSlug =
   | 'screening-room'
   | 'cutting-room'
+  | 'mission-control'
   /* dormant — retired from the picker, css/motion kept on disk; never a live
      selection, always coerced to screening-room if stored. */
   | 'photoplay'
@@ -44,7 +45,9 @@ export interface DesignManifest {
   recommendedFor?: Array<'212' | '310' | 'nrc'>
 }
 
-/** LIVE picker slate — only these two are visitor-selectable (Wave G2 cull). */
+/** LIVE picker slate — visitor-selectable themes. Two ink-on-black house themes
+ *  (screening-room default, cutting-room) + mission-control, the white-ground
+ *  x.ai-discipline direction (Direction F, built out Opus 2026-07-07). */
 export const DESIGNS: DesignManifest[] = [
   {
     slug: 'screening-room',
@@ -60,6 +63,14 @@ export const DESIGNS: DesignManifest[] = [
     base: 'dark',
     swatch: ['#0a0a0a', '#f4f4f2', '#E85D04'],
     recommendedFor: ['nrc'],
+  },
+  {
+    slug: 'mission-control',
+    name: 'Mission Control',
+    blurb: 'White ground, near-black ink. Calm Futura, rounded panels, hairline grids, one warm accent held in reserve.',
+    base: 'light',
+    swatch: ['#ffffff', '#0a0a0a', '#E85D04'],
+    recommendedFor: ['310'],
   },
 ]
 

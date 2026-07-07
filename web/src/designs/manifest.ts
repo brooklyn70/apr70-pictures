@@ -12,15 +12,22 @@
  * every theme ships a DEFAULT mode, and a visible toggle overrides it
  * (localStorage `apr70:mode`; null = follow the theme default).
  *
- * Legacy slugs (signature/noir/amber-heat/imax-deep/daylight) are retired;
- * any stored legacy value falls back cleanly to screening-room.
+ * Theme cull (Wave G2, 2026-07-06 rulings round 2): only screening-room
+ * (default) + cutting-room are LIVE in the picker. photoplay / trade-paper /
+ * picture-palace are retired from the visible list — their css/motion files
+ * stay dormant on disk, and the slug stays in the TYPE union (the motion
+ * dispatcher + dev theme-studio still reference them), but they are absent
+ * from `DESIGNS`, so `isDesignSlug`/`resolveDesign` coerce any stored value of
+ * theirs (and any legacy signature/noir/… slug) cleanly to screening-room.
  */
 
 export type DesignSlug =
   | 'screening-room'
+  | 'cutting-room'
+  /* dormant — retired from the picker, css/motion kept on disk; never a live
+     selection, always coerced to screening-room if stored. */
   | 'photoplay'
   | 'trade-paper'
-  | 'cutting-room'
   | 'picture-palace'
 
 export type ThemeMode = 'light' | 'dark'
@@ -37,6 +44,7 @@ export interface DesignManifest {
   recommendedFor?: Array<'212' | '310' | 'nrc'>
 }
 
+/** LIVE picker slate — only these two are visitor-selectable (Wave G2 cull). */
 export const DESIGNS: DesignManifest[] = [
   {
     slug: 'screening-room',
@@ -46,44 +54,22 @@ export const DESIGNS: DesignManifest[] = [
     swatch: ['#000000', '#E85D04', '#ffffff'],
   },
   {
-    slug: 'photoplay',
-    name: 'Photoplay',
-    blurb: 'Picture-magazine glamour. Condensed cover lines, halftone plates, issue seals. Ivory paper, developed like a print.',
-    base: 'light',
-    swatch: ['#f4efe4', '#171006', '#E85D04'],
-    recommendedFor: ['212'],
-  },
-  {
-    slug: 'trade-paper',
-    name: 'Trade Paper',
-    blurb: 'Broadsheet of record. Justified columns, drop caps, double rules. Nothing flies; everything is filed.',
-    base: 'light',
-    swatch: ['#eae6dd', '#1c1208', '#824B07'],
-  },
-  {
     slug: 'cutting-room',
     name: 'Cutting Room',
-    blurb: 'The bench. Timecode gutters, frame counters, Share Tech Mono. Black and white, hard cuts only.',
+    blurb: 'The bench. Timecode gutters, frame counters, Futura specimen blocks. Black and white, hard cuts only.',
     base: 'dark',
     swatch: ['#0a0a0a', '#f4f4f2', '#E85D04'],
     recommendedFor: ['nrc'],
-  },
-  {
-    slug: 'picture-palace',
-    name: 'Picture Palace',
-    blurb: 'Night-marquee deco. Vertical letter towers, footlight glow, brass hairlines. Blue on a deco night.',
-    base: 'dark',
-    swatch: ['#050810', '#0077B6', '#ffffff'],
-    recommendedFor: ['310'],
   },
 ]
 
 export const DEFAULT_DESIGN: DesignSlug = 'screening-room'
 
-/** Sensible per-division skin for the dev theme-studio preview surface only. */
+/** Sensible per-division skin for the dev theme-studio preview surface only.
+ *  Restricted to LIVE themes after the cull. */
 export const DIVISION_DEFAULT_DESIGN: Record<'212' | '310' | 'nrc', DesignSlug> = {
-  '212': 'photoplay',
-  '310': 'picture-palace',
+  '212': 'screening-room',
+  '310': 'screening-room',
   nrc: 'cutting-room',
 }
 
@@ -121,8 +107,91 @@ export const STORAGE_KEYS = {
   logo: 'apr70:logo',
   logoSize: 'apr70:logo-size',
   fontScale: 'apr70:font-scale',
+  font: 'apr70:font',
+  accent: 'apr70:accent',
   pickerPos: 'apr70:picker-pos',
 } as const
+
+/* ============================================================
+   FONT DEPLOYMENTS — visitor-selected global type preference.
+   Four curated deployments using ONLY the faces already on disk
+   (Futura Std, Futura Std Condensed, Barlow, Share Tech Mono,
+   Georgia system stack — NO new webfont deps). Stamped as
+   data-font on <html>; token rebinds live in theme-control.css
+   (html[data-font="…"] overrides --font-display/-body/-mono).
+   Persisted apr70:font. Default 'house'.
+   ============================================================ */
+export type FontDeployment = 'house' | 'condensed' | 'serif' | 'mono'
+
+export interface FontOption {
+  id: FontDeployment
+  /** Picker label. */
+  label: string
+  /** One-line spec for the panel. */
+  note: string
+  /** Tiny specimen string rendered in the deployment's own display face. */
+  specimen: string
+}
+
+export const FONT_OPTIONS: FontOption[] = [
+  { id: 'house', label: 'House', note: 'Futura display · Barlow body', specimen: 'Aa' },
+  { id: 'condensed', label: 'Condensed', note: 'Futura Condensed display', specimen: 'Aa' },
+  { id: 'serif', label: 'Serif Text', note: 'Futura display · Georgia body', specimen: 'Aa' },
+  { id: 'mono', label: 'Mono', note: 'Share Tech Mono labels & body', specimen: 'Aa' },
+]
+
+export const DEFAULT_FONT: FontDeployment = 'house'
+
+const FONT_IDS = new Set(FONT_OPTIONS.map((f) => f.id))
+
+export function isFontDeployment(value: unknown): value is FontDeployment {
+  return typeof value === 'string' && FONT_IDS.has(value as FontDeployment)
+}
+
+export function resolveFont(value: unknown): FontDeployment {
+  return isFontDeployment(value) ? value : DEFAULT_FONT
+}
+
+/* ============================================================
+   DIVISION ACCENT — visitor-selected global --accent preference.
+   Drives --accent (nav active, leader-tab chip, cursor-adjacent
+   chrome). Stamped as data-accent on <html>; token rebinds live
+   in theme-control.css (html[data-accent="…"]). Persisted
+   apr70:accent. Default 'auto' = follow the active theme's accent
+   (which is sicilian-orange on the house theme). See the accent
+   precedence note in theme-control.css: page-forced > user-picked
+   > theme default.
+   ============================================================ */
+export type AccentChoice = 'auto' | 'orange' | 'amber' | 'blue' | 'navy' | 'teal'
+
+export interface AccentOption {
+  id: AccentChoice
+  label: string
+  /** Swatch hex, or null for 'auto' (rendered as a theme-default chip). */
+  hex: string | null
+}
+
+/** DESIGN.md palette. 'auto' first (default), then the five division inks. */
+export const ACCENT_OPTIONS: AccentOption[] = [
+  { id: 'auto', label: 'Auto', hex: null },
+  { id: 'orange', label: 'Sicilian Orange', hex: '#E85D04' },
+  { id: 'amber', label: '212 Amber', hex: '#824B07' },
+  { id: 'blue', label: '310 Sicilian Blue', hex: '#0077B6' },
+  { id: 'navy', label: 'NRC Navy', hex: '#001F3F' },
+  { id: 'teal', label: '310 Teal', hex: '#077082' },
+]
+
+export const DEFAULT_ACCENT: AccentChoice = 'auto'
+
+const ACCENT_IDS = new Set(ACCENT_OPTIONS.map((a) => a.id))
+
+export function isAccentChoice(value: unknown): value is AccentChoice {
+  return typeof value === 'string' && ACCENT_IDS.has(value as AccentChoice)
+}
+
+export function resolveAccent(value: unknown): AccentChoice {
+  return isAccentChoice(value) ? value : DEFAULT_ACCENT
+}
 
 /** Logo-size slider bounds (nav mark height in px). */
 export const LOGO_SIZE = { min: 24, max: 72, default: 34 } as const

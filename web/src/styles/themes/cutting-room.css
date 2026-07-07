@@ -1,20 +1,27 @@
 /* ============================================================
-   T4 · CUTTING ROOM — the editing bench (FULL DEPLOYMENT, Wave C2).
+   T4 · CUTTING ROOM — the editing bench (FULL DEPLOYMENT, Wave C2;
+   Futura-led voice pass, Wave G3 — Marco's ruling, SPEC §6b).
 
    DESIGN, not palette. The whole front door is re-read as an EDL
-   (edit decision list) printed off a flatbed bench: Share Tech Mono
-   LEADS every voice; Futura survives only as framed type SPECIMENS
-   (the nameplate + the cover display). Layout language = cut list:
-   timecode gutters (CSS-counter SMPTE), event numbers, hairline
-   grids, registration crosshairs. Motion (cutting-room.ts) HARD
-   CUTS with steps() — no smoothing, no dissolves.
+   (edit decision list) printed off a flatbed bench. Futura Std LEADS
+   display headings and the theme's primary voice; Barlow carries the
+   reading passages (a lab document, not a terminal); Share Tech Mono
+   DEMOTES to timecode gutters, keycodes, and small labels only — the
+   nav numerals, the strip-rail keycode, the nameplate indicia, the
+   footer boilerplate, the generated SMPTE stamps. Layout language
+   stays cut list: timecode gutters (CSS-counter SMPTE), event
+   numbers, hairline grids, registration crosshairs. Motion
+   (cutting-room.ts) HARD CUTS with steps() — no smoothing, no
+   dissolves.
 
    BLACK-AND-WHITE ONLY. --accent is rebound to INK so nothing in the
    chrome or blocks turns chromatic; the SINGLE #E85D04 allowed per
    page is spent deliberately on ONE object — the orange grease-pencil
    cue playhead at the head of the top-rail timecode ruler. Every
    other former-orange spot (nameplate dot, dispatch tab, coverline
-   numerals, division sweeps, about rule) is neutralised to ink.
+   numerals, division sweeps, about rule) is neutralised to ink. This
+   also means the sitewide division-accent law (tokens.css, Wave G3)
+   gets vetoed here on purpose — see the counter-rule below.
 
    DEFAULT MODE: dark (matte black bench). Light = paper-white lab sheet.
    Everything scoped under [data-design='cutting-room'].
@@ -26,10 +33,23 @@
   /* The single allowed chromatic mark, spent once (top-rail cue). */
   --frame-marker: #e85d04;
   --font-display: 'Futura Std', Futura, 'Arial Black', sans-serif;
+  --font-body: 'Barlow', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-mono: 'Share Tech Mono', 'Courier New', ui-monospace, monospace;
   /* EDL metrics */
   --edl-tc: 5.4rem;   /* timecode gutter width */
   --hair: 1px;
+}
+
+/* Division-accent law counter-rule (tokens.css, Wave G3) — the B&W
+   bench law outranks it. Three attribute selectors on <html> always
+   beats the division law's html + up-to-two-attributes combination
+   (a class/attribute-count comparison, independent of stylesheet
+   order), so a division page never re-introduces colour into the
+   reel-head cue chip or the scrollbar while this theme is active.
+   Every OTHER division-tinted block already neutralises to ink the
+   same way via its own --div-c/--door-c/--slate-c override below. */
+[data-design='cutting-room'][data-theme][data-division] {
+  --accent: var(--fg-1);
 }
 
 /* ---- DARK (default) — matte black bench ---- */
@@ -83,23 +103,29 @@
 }
 
 /* ============================================================
-   VOICE — Share Tech Mono leads everything.
+   VOICE — Futura Std leads (display headings + the theme's primary
+   voice); Barlow carries reading passages; Share Tech Mono demotes to
+   timecode gutters/keycodes/small labels (each opts in explicitly on
+   its own selector below — nav numerals, the site-nav folio tag, the
+   strip-rail keycode, nameplate subline/location/indicia, the cover
+   credit + coverline numerals, the generated SMPTE stamps, and the
+   about window's closing rule). No blanket li/a/span override any
+   more: an unclassed inline element simply inherits the Barlow body
+   voice, which is what a lab document reads like — a stamped label
+   earns mono by asking for it explicitly.
    ============================================================ */
 [data-design='cutting-room'] body {
-  font-family: var(--font-mono);
-  font-weight: 400;
-  letter-spacing: 0.01em;
+  font-family: var(--font-body);
+  font-weight: 300;
+  letter-spacing: 0.005em;
 }
 [data-design='cutting-room'] p,
-[data-design='cutting-room'] .body,
-[data-design='cutting-room'] li,
-[data-design='cutting-room'] a,
-[data-design='cutting-room'] span {
-  font-family: var(--font-mono);
+[data-design='cutting-room'] .body {
+  font-family: var(--font-body);
 }
-/* Mono paragraphs breathe a little wider so long reads stay legible. */
+/* Barlow paragraphs breathe a little wider so long reads stay legible. */
 [data-design='cutting-room'] p {
-  line-height: 1.65;
+  line-height: 1.7;
   letter-spacing: 0.005em;
 }
 
@@ -164,8 +190,10 @@
   content: '00:';
   color: var(--fg-5);
 }
+/* the label is the nav's Futura/Barlow voice, not a timecode — only the
+   numeral before it earns mono (§ CHROME 2 comment above). */
 [data-design='cutting-room'] .site-nav__label {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   letter-spacing: 0.22em;
   transition: none;
 }
@@ -202,10 +230,11 @@
 }
 
 /* ============================================================
-   BLOCK 1 · NAMEPLATE → a framed Futura type SPECIMEN.
-   Futura is allowed here (specimen). It sits inside a hairline
-   registration frame with corner crosshairs and a mono caption
-   rail; the full stop is inked (no orange).
+   BLOCK 1 · NAMEPLATE → a framed Futura type specimen — now the
+   theme's lead voice, not an exception to it. It sits inside a
+   hairline registration frame with corner crosshairs and a mono
+   caption rail (indicia stays a small label); the full stop is
+   inked (no orange).
    ============================================================ */
 [data-design='cutting-room'][data-theme='dark'] .front-nameplate,
 [data-design='cutting-room'][data-theme='light'] .front-nameplate {
@@ -256,12 +285,13 @@
 }
 
 /* ============================================================
-   BLOCK 2 · IDENTITY STRIP → a lab-report read. Mono, ruled top
-   and bottom, opening sentence inked-bold (not orange).
+   BLOCK 2 · IDENTITY STRIP → a lab-report read. Barlow (the body
+   voice — this is a reading passage, not a stamped label), opening
+   sentence inked-bold (not orange).
    ============================================================ */
 [data-design='cutting-room'] .front-identity .front-identity__read {
-  font-family: var(--font-mono);
-  font-weight: 400;
+  font-family: var(--font-body);
+  font-weight: 300;
   font-size: clamp(0.95rem, 1.5vw, 1.15rem);
   line-height: 1.75;
   letter-spacing: 0.005em;
@@ -289,9 +319,9 @@
   width: 3px;
 }
 [data-design='cutting-room'] .front-dispatch .front-dispatch__name {
-  font-family: var(--font-mono);
-  font-weight: 400;
-  letter-spacing: 0.16em;
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.01em;
   font-size: clamp(0.95rem, 2vw, 1.25rem);
 }
 [data-design='cutting-room'] .front-dispatch .front-dispatch__name b {
@@ -330,7 +360,8 @@
   -webkit-text-stroke: 1.5px color-mix(in srgb, var(--fg-1) 62%, transparent);
 }
 [data-design='cutting-room'] .front-cover .front-cover__deck {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
+  font-weight: 300;
   line-height: 1.7;
 }
 [data-design='cutting-room'] .front-cover .front-cover__cta {
@@ -381,11 +412,8 @@
   color: var(--fg-1);
   font-family: var(--font-mono);
 }
-[data-design='cutting-room'] .front-cover .front-cover__coverline-title {
-  font-family: var(--font-mono);
-  font-weight: 400;
-  letter-spacing: 0.14em;
-}
+/* coverline-title: no override — the base component already sets
+   font-display/700/uppercase, which is exactly the Futura-lead voice. */
 
 /* ============================================================
    BLOCK 5 · THREE DOORS → clip bins on the bench. Division colour
@@ -397,10 +425,10 @@
   border-top: 1px solid var(--rule-strong);
 }
 [data-design='cutting-room'] .front-doors .front-doors__heading {
-  font-family: var(--font-mono);
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-weight: 900;
   font-size: clamp(1.4rem, 3.5vw, 2.4rem);
-  letter-spacing: 0.16em;
+  letter-spacing: -0.01em;
 }
 [data-design='cutting-room'] .front-doors .front-doors__grid {
   background: var(--rule-strong);
@@ -417,13 +445,13 @@
   filter: grayscale(1) contrast(1.05);
 }
 [data-design='cutting-room'] .front-door .front-door__name {
-  font-family: var(--font-mono);
-  font-weight: 400;
-  letter-spacing: 0.1em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.01em;
   font-size: 1.25rem;
 }
 [data-design='cutting-room'] .front-door .front-door__tagline {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-style: normal;
   color: var(--fg-2);
 }
@@ -443,14 +471,13 @@
   border-bottom: 1px solid var(--rule-strong);
 }
 [data-design='cutting-room'] .front-slate .front-slate__heading {
-  font-family: var(--font-mono);
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-weight: 900;
   font-size: clamp(1.4rem, 3.5vw, 2.4rem);
-  letter-spacing: 0.16em;
+  letter-spacing: -0.01em;
 }
-[data-design='cutting-room'] .front-slate .front-slate__lede {
-  font-family: var(--font-mono);
-}
+/* front-slate__lede: no override — the base component already sets
+   font-body (Barlow), which is the reading voice this lede wants. */
 [data-design='cutting-room'] .front-slate .front-slate__list {
   counter-reset: edl;
   border-top: 1px solid var(--rule-strong);
@@ -489,9 +516,9 @@
   color: var(--fg-3);
 }
 [data-design='cutting-room'] .front-slate .front-slate__title {
-  font-family: var(--font-mono);
-  font-weight: 400;
-  letter-spacing: 0.08em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.01em;
 }
 [data-design='cutting-room'] .front-slate .front-slate__row--212 .front-slate__div,
 [data-design='cutting-room'] .front-slate .front-slate__row--310 .front-slate__div,
@@ -502,16 +529,14 @@
 
 /* ============================================================
    BLOCK 7 · ABOUT WINDOW → the 2 a.m. bench. The chromatic radial
-   glow is removed (B&W); the closing rule is inked; the window
-   line reads in mono inside a hairline gate.
+   glow is removed (B&W); the window line + body read in Barlow (a
+   reading passage, not a stamped label); the closing rule stays a
+   small mono label, inked instead of orange.
    ============================================================ */
 [data-design='cutting-room'] .front-about .front-about__window {
-  font-family: var(--font-mono);
-  font-weight: 400;
+  font-family: var(--font-body);
+  font-weight: 300;
   line-height: 1.6;
-}
-[data-design='cutting-room'] .front-about .front-about__body {
-  font-family: var(--font-mono);
 }
 [data-design='cutting-room'] .front-about .front-about__rule {
   font-family: var(--font-mono);
@@ -523,7 +548,10 @@
    to grayscale so the bench stays monochrome (the orange is spent
    on the cue playhead); NRC keeps a per-mode brightness lift so
    its navy/grey still reads (scoped filter override — Footer.astro
-   is never touched). Footer voice → mono.
+   is never touched). Voice: boiler + logotype are display statements
+   (Futura, matching the base component); links stay the small-label
+   voice — but that's Barlow here (footer nav text is body-adjacent,
+   not a stamped keycode), matching Footer.astro's own base.
    ============================================================ */
 [data-design='cutting-room'] .footer__mark {
   filter: grayscale(1);
@@ -535,16 +563,7 @@
   filter: grayscale(1) brightness(0.55);
 }
 [data-design='cutting-room'] .footer__boiler {
-  font-family: var(--font-mono);
-  font-weight: 400;
-  letter-spacing: 0.06em;
-}
-[data-design='cutting-room'] .footer__logotype {
-  font-family: var(--font-mono);
-  font-weight: 400;
-}
-[data-design='cutting-room'] .footer__link {
-  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
 }
 
 /* ============================================================
@@ -597,13 +616,13 @@
 }
 
 /* ============================================================
-   Wave F: division pages
+   Wave F: division pages (block heads updated to Futura-lead, G3)
    B&W bench treatment to match the front-door blocks under this
    design: every division tone neutralised to ink, marks + plate
-   graded to grayscale, block heads set in the Share Tech Mono lead
-   face. The orange is spent on the reel-head cue playhead, never
-   here. Scoped [data-design][data-theme] to win over block-scoped
-   division-tone custom properties.
+   graded to grayscale, block heads set in the Futura display face
+   (the theme's lead voice). The orange is spent on the reel-head
+   cue playhead, never here. Scoped [data-design][data-theme] to win
+   over block-scoped division-tone custom properties.
    ============================================================ */
 [data-design='cutting-room'][data-theme] .division-masthead--212,
 [data-design='cutting-room'][data-theme] .division-masthead--310,
@@ -639,25 +658,27 @@
   filter: grayscale(1) contrast(1.06) brightness(1.02);
   border: 1px solid var(--rule-strong);
 }
-/* section + slate + cross heads read in the mono lead face */
+/* section + slate + cross heads read in the Futura-led display voice
+   (Wave G3): the mono lead face is retired, mono now demotes to the
+   timecode gutters/keycodes/small labels elsewhere in this file. */
 [data-design='cutting-room'][data-theme] .division-section__lede {
-  font-family: var(--font-mono);
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-weight: 700;
   font-size: clamp(1.4rem, 3.2vw, 2.3rem);
-  letter-spacing: 0.08em;
-  line-height: 1.18;
+  letter-spacing: -0.005em;
+  line-height: 1.05;
 }
 [data-design='cutting-room'][data-theme] .division-slate__heading,
 [data-design='cutting-room'][data-theme] .division-cross__heading {
-  font-family: var(--font-mono);
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-weight: 900;
   font-size: clamp(1.4rem, 3.5vw, 2.4rem);
-  letter-spacing: 0.16em;
+  letter-spacing: -0.01em;
 }
 [data-design='cutting-room'][data-theme] .division-slate__title {
-  font-family: var(--font-mono);
-  font-weight: 400;
-  letter-spacing: 0.08em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.01em;
 }
 /* hover wash goes to a hard ink cue, not a coloured sweep */
 [data-design='cutting-room'][data-theme] .division-cross__door::before {

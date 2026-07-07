@@ -89,7 +89,7 @@ export const DISPATCH_FALLBACK_ISSUE: DispatchIssueDoc = {
   contents: [
     {
       label: 'FEATURES',
-      meta: 'PP. 008 — 020',
+      meta: 'PP. 008 -- 020',
       entries: [
         {
           folio: '008',
@@ -99,13 +99,13 @@ export const DISPATCH_FALLBACK_ISSUE: DispatchIssueDoc = {
         },
         {
           folio: '012',
-          title: 'The Mayors — One Autopsy',
+          title: 'The Mayors -- One Autopsy',
           deck: 'Eleven mayors, seventy-five years. Muckraking documentary, forensic not hysterical. Who killed New York City?',
           by: '(212) PICTURES',
         },
         {
           folio: '016',
-          title: 'L.A. Dolce Vita — The Troupe Presents No. 1',
+          title: 'L.A. Dolce Vita -- The Troupe Presents No. 1',
           deck: 'One story, three places at once. Ten days in February. This is the first day.',
           by: 'THE APR 70 TROUPE',
         },
@@ -113,7 +113,7 @@ export const DISPATCH_FALLBACK_ISSUE: DispatchIssueDoc = {
     },
     {
       label: 'DISPATCHES',
-      meta: 'PP. 022 — 030',
+      meta: 'PP. 022 -- 030',
       entries: [
         {
           folio: '022',
@@ -137,7 +137,7 @@ export const DISPATCH_FALLBACK_ISSUE: DispatchIssueDoc = {
     },
     {
       label: 'DEPARTMENTS',
-      meta: 'PP. 032 — 040',
+      meta: 'PP. 032 -- 040',
       entries: [
         {
           folio: '032',
@@ -412,7 +412,7 @@ export const DISPATCH_FALLBACK_ISSUE: DispatchIssueDoc = {
     },
     {
       cat: 'AGENT OF RECORD',
-      title: 'APR 70 LLC — capacity notice',
+      title: 'APR 70 LLC -- capacity notice',
       body: 'Currently accepting select projects. Direct inquiries only via the contact desk. No unsolicited materials.',
       meta: 'LONG ISLAND CITY NY',
     },

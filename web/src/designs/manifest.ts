@@ -162,7 +162,7 @@ export function resolveFont(value: unknown): FontDeployment {
    precedence note in theme-control.css: page-forced > user-picked
    > theme default.
    ============================================================ */
-export type AccentChoice = 'auto' | 'orange' | 'amber' | 'blue' | 'navy' | 'teal'
+export type AccentChoice = 'auto' | 'orange' | 'amber' | 'blue' | 'navy' | 'teal' | 'ink'
 
 export interface AccentOption {
   id: AccentChoice
@@ -179,6 +179,7 @@ export const ACCENT_OPTIONS: AccentOption[] = [
   { id: 'blue', label: '310 Sicilian Blue', hex: '#0077B6' },
   { id: 'navy', label: 'NRC Navy', hex: '#001F3F' },
   { id: 'teal', label: '310 Teal', hex: '#077082' },
+  { id: 'ink', label: 'Bench Ink (Gray Stop)', hex: '#8a8a8a' },
 ]
 
 export const DEFAULT_ACCENT: AccentChoice = 'auto'

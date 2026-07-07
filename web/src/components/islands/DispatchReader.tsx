@@ -85,7 +85,7 @@ export default function DispatchReader() {
           {
             variant: 'text',
             text:
-              'Editorial copy continues here for the reading view. In the live edition, this is where the reported feature appears in full — pages, photos, pull-quotes, the works. For preview purposes the deck is reproduced and a stub follows.',
+              'Editorial copy continues here for the reading view. In the live edition, this is where the reported feature appears in full -- pages, photos, pull-quotes, the works. For preview purposes the deck is reproduced and a stub follows.',
           },
           {
             variant: 'pull',
@@ -94,7 +94,7 @@ export default function DispatchReader() {
           {
             variant: 'text',
             text:
-              'Issues are numbered, never dated. The discipline is the work. The byline is the room. — Editorial Desk',
+              'Issues are numbered, never dated. The discipline is the work. The byline is the room. -- Editorial Desk',
           },
         ],
       })
@@ -148,7 +148,7 @@ export default function DispatchReader() {
         </span>
         <span className="reader-bar-center">DISPATCH · No. 1</span>
         <button className="reader-bar-close" onClick={() => setArticle(null)}>
-          CLOSE — ESC
+          CLOSE • ESC
         </button>
       </div>
       <div className="reader-wrap">

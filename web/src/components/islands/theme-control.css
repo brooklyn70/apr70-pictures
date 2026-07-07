@@ -55,6 +55,10 @@ html[data-accent='amber'] { --accent: var(--apr-amber); }
 html[data-accent='blue'] { --accent: var(--apr-blue); }
 html[data-accent='navy'] { --accent: var(--apr-navy); }
 html[data-accent='teal'] { --accent: var(--apr-imax); }
+/* 'ink' — the Cutting Room's muted gray full stop (--fg-4), offered
+   sitewide by Marco's request (SPEC §6b, 2026-07-07 ruling). Bound to
+   --fg-4 rather than a fixed hex so it stays theme/mode-relative. */
+html[data-accent='ink'] { --accent: var(--fg-4); }
 
 .theme-control {
   position: fixed;

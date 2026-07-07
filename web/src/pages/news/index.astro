@@ -82,25 +82,25 @@ const coverCredit = dbIssueUsable ? undefined : DISPATCH_FALLBACK_COVER_CREDIT
       <SectionRail
         num="§ 04"
         title="Slate Dispatches"
-        meta={`PP. 022 — 030 · ${(issue.dispatches ?? []).length} ON RECORD`}
+        meta={`PP. 022 -- 030 · ${(issue.dispatches ?? []).length} ON RECORD`}
       />
       <Dispatches items={issue.dispatches} />
 
       <SectionRail
         num="§ 05"
         title="The Desks & The Programs"
-        meta="PP. 032 — 034 · ON THE RECORD"
+        meta="PP. 032 -- 034 · ON THE RECORD"
       />
       <Trades trades={issue.trades} calendar={issue.calendar} />
 
       <SectionRail
         num="§ 06"
         title="Open Calls & Notices"
-        meta="PP. 036 — 038 · BACK OF BOOK"
+        meta="PP. 036 -- 038 · BACK OF BOOK"
       />
       <Classifieds items={issue.classifieds} />
 
-      <SectionRail num="§ 07" title="Archive — Numbered Folios" meta="NUMBERED, NEVER DATED" />
+      <SectionRail num="§ 07" title="Archive -- Numbered Folios" meta="NUMBERED, NEVER DATED" />
       <Archive issues={issue.archive} />
 
       <Colophon data={issue.colophon} indicia={issue.indicia} />

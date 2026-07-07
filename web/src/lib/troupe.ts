@@ -98,14 +98,14 @@ export const TROUPE_FALLBACK_BLOCKS: TroupeLayoutBlock[] = [
     blockType: 'hero',
     variant: 'default',
     heading: 'THE APR 70 TROUPE\nPRESENTS',
-    subtext: 'No. 1 — L.A. Dolce Vita. A radio drama for seven voices and a clock.',
+    subtext: 'No. 1 -- L.A. Dolce Vita. A radio drama for seven voices and a clock.',
     division: 'pictures-310',
   },
   {
     blockType: 'playbill',
     programNumber: 'No. 1',
     title: 'L.A. DOLCE VITA',
-    subtitle: 'Il Primo Giorno — a radio drama for seven voices and a clock',
+    subtitle: 'Il Primo Giorno -- a radio drama for seven voices and a clock',
     runtime: 'About 15 minutes',
     sceneCount: 16,
     status: 'in-production',
@@ -159,9 +159,9 @@ export const TROUPE_FALLBACK_BLOCKS: TroupeLayoutBlock[] = [
     blockType: 'twoCol',
     leftHeading: 'THE STORY',
     rightBody: lex(
-      'One story, three places at once, ten days in February — this is the first day. On a family ranch in the Arizona desert, a wedding ends with a secret stopped half a sentence short. In Rome, a gossip columnist who owns no cell phone boards a legendary train dressed for Carnevale. And in East Los Angeles, a senator’s homecoming rally goes off script in front of ten thousand raised telephones.\n' +
+      'One story, three places at once, ten days in February -- this is the first day. On a family ranch in the Arizona desert, a wedding ends with a secret stopped half a sentence short. In Rome, a gossip columnist who owns no cell phone boards a legendary train dressed for Carnevale. And in East Los Angeles, a senator’s homecoming rally goes off script in front of ten thousand raised telephones.\n' +
         'By nightfall the strands are pulling toward each other. A scandal is born live on a phone stream, and one question crosses every language on earth. A stranger in the dining car stays one step ahead of the timetable. A young woman prepares to ride west with a shoebox full of questions and half a name. Nobody at the rally, on the train, or on the ranch knows they are in the same story yet. The listener does.\n' +
-        'Three time zones, one clock. Every cut is stamped in local time and Universal Time, and the Host speaks the stitch aloud — when we cut, the clock tells you where you stand.',
+        'Three time zones, one clock. Every cut is stamped in local time and Universal Time, and the Host speaks the stitch aloud -- when we cut, the clock tells you where you stand.',
     ),
     ratio: '1-2',
     alignment: 'top',
@@ -170,7 +170,7 @@ export const TROUPE_FALLBACK_BLOCKS: TroupeLayoutBlock[] = [
     blockType: 'twoCol',
     leftHeading: 'VOICES FIRST',
     rightBody: lex(
-      'The APR 70 Troupe works in the Mercury Theatre lineage: a resident company, a numbered program, one finished artifact at a time. Voices first, pictures after — the radio play is the proof of the story, made before any camera rolls.\n' +
+      'The APR 70 Troupe works in the Mercury Theatre lineage: a resident company, a numbered program, one finished artifact at a time. Voices first, pictures after -- the radio play is the proof of the story, made before any camera rolls.\n' +
         'Every part is played by a human actor in a room. No synthetic voices. Our people play many parts, in the old tradition.',
     ),
     ratio: '1-2',
@@ -185,8 +185,8 @@ export const TROUPE_FALLBACK_BLOCKS: TroupeLayoutBlock[] = [
     blockType: 'richText',
     megaScale: false,
     content: lex(
-      'We make it the way small companies have always made it: bradded scripts, index cards on a corkboard, and the gear we already own. Rehearse until the doubling disappears, then record — with friends, with borrowed microphones, with an iPhone where an iPhone will do.\n' +
-        'What matters is the finished artifact: fifteen minutes you can hold to your ear. When it is ready, it lands — not before.',
+      'We make it the way small companies have always made it: bradded scripts, index cards on a corkboard, and the gear we already own. Rehearse until the doubling disappears, then record -- with friends, with borrowed microphones, with an iPhone where an iPhone will do.\n' +
+        'What matters is the finished artifact: fifteen minutes you can hold to your ear. When it is ready, it lands -- not before.',
     ),
   },
   {

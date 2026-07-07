@@ -124,7 +124,7 @@ const logoDefaults = { min: LOGO_SIZE.min, max: LOGO_SIZE.max, def: LOGO_SIZE.de
         if (!font || !fonts[font]) font = 'house'
         doc.setAttribute('data-font', font)
 
-        var accents = { orange: 1, amber: 1, blue: 1, navy: 1, teal: 1 }
+        var accents = { orange: 1, amber: 1, blue: 1, navy: 1, teal: 1, ink: 1 }
         var accent = read('apr70:accent')
         if (accent && accents[accent]) doc.setAttribute('data-accent', accent)
         /* 'auto'/absent -> no data-accent attribute; theme/base --accent flows. */

@@ -28,6 +28,22 @@ Steps (in order; ⚙ = agent can do, 👤 = Marco):
 5. 👤 DNS: point apr70.com at Vercel when v3 content is signed off; NAS becomes staging/backup.
 6. ⚙ GEO/AEO pass (lesson #6) rides the same deploy.
 
+### 2a. Post-restore Supabase security hardening (REQUIRED — do immediately after step 2)
+
+`pg_restore` lands all ~228 Payload tables in the `public` schema, which Supabase
+auto-exposes through the Data API (PostgREST) to the `anon` key. Payload enforces
+access in the app layer, not via Postgres RLS, so a fresh restore leaves the whole DB
+— including `public.users` (email, password `hash`, `salt`, reset tokens) — readable
+and writable by anyone with the project URL + anon key. This is the Supabase
+`rls_disabled_in_public` **critical** advisor finding (2026-07-06).
+
+Fix (both, belt-and-suspenders — apr70 does NOT use the Data API; the Astro frontend
+reads Payload's own REST API via `PUBLIC_PAYLOAD_URL`):
+- ⚙ Run `scripts/supabase-harden-rls.sql` (enables RLS default-deny on every public
+  table; Payload connects as the table owner and bypasses RLS, so the CMS is unaffected).
+- 👤 Dashboard → Project Settings → Data API → disable, or remove `public` from
+  "Exposed schemas". Closes the side door regardless of per-table RLS.
+
 ## 3. APR70 store — REMOVED (Marco ruling, 2026-07-02)
 
 No storefront on the site, period. The roast council verdict (RESHAPE) and Marco's ruling agree:

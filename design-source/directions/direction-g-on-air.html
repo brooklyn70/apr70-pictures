@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en" data-direction="on-air" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direction G — On Air · APR 70 Pictures</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Share+Tech+Mono&display=swap">
+<style>
+/* Hallmark · macrostructure: Instrument Console (status bar / dial nav / bezeled panels / log table)
+ * theme: APR 70 locked brand system · tone: broadcast-night technical · anchor hue: orange 35°
+ * studied: no · original direction (the company does radio; the site becomes the control room)
+ * pre-emit critique: P5 H4 E5 S5 R4 V5
+ * direction: G — ON AIR. Frequency-ruler nav, ON AIR lamp, bezeled instrument windows,
+ *   VU meter scrubbed by scroll. Dark default = broadcast night; light = daylight studio.
+ *   Distinct from Screening Room (poster ink), Cutting Room (EDL mono), Mission Control (calm grid).
+ */
+
+/* ---------- FONTS ---------- */
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Light.otf') format('opentype'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Book.otf') format('opentype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Medium.otf') format('opentype'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Bold.otf') format('opentype'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Heavy.otf') format('opentype'); font-weight: 900; font-display: swap; }
+
+/* ---------- TOKENS ---------- */
+:root {
+  --apr-black: #000000;
+  --apr-white: #ffffff;
+  --apr-amber: #824B07;
+  --apr-teal: #077082;
+  --apr-orange: #E85D04;
+  --apr-blue: #0077B6;
+  --apr-offwhite: #c8c8c8;
+
+  --font-display: 'Futura Std', Futura, 'Century Gothic', sans-serif;
+  --font-body: 'Barlow', 'Helvetica Neue', sans-serif;
+  --font-mono: 'Share Tech Mono', ui-monospace, monospace;
+
+  --track-eyebrow: 0.4em;
+  --track-strip: 0.55em;
+  --track-wider: 0.2em;
+
+  --type-station: clamp(3rem, 10.5vw, 9.5rem);
+  --type-h2: clamp(1.6rem, 3.6vw, 2.6rem);
+  --type-body-lg: clamp(1.02rem, 1.4vw, 1.2rem);
+  --type-caption: 0.75rem;
+  --type-micro: 0.65rem;
+  --type-tiny: 0.5625rem;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-base: 0.3s;
+
+  --max-w: 1360px;
+  --pad-x: clamp(1.25rem, 5vw, 4rem);
+  --bezel-r: 6px;
+}
+:root[data-theme="dark"] {
+  --bg-0: #0c0b09;
+  --bg-1: #12100d;
+  --bg-2: #181512;
+  --fg-1: #f4efe8;
+  --fg-2: rgba(244,239,232,0.78);
+  --fg-3: rgba(244,239,232,0.55);
+  --fg-4: rgba(244,239,232,0.36);
+  --rule: rgba(244,239,232,0.12);
+  --rule-strong: rgba(244,239,232,0.28);
+  --bezel: #1f1b16;
+  --lamp-glow: 0 0 14px rgba(232,93,4,0.55), 0 0 40px rgba(232,93,4,0.22);
+  --sign-glow: 0 0 32px rgba(232,93,4,0.16);
+  --tick: rgba(244,239,232,0.22);
+  --amber-ui: #c98a3f;
+  --teal-ui: #3aa8ba;
+  --nrc-ui: #c8c8c8;
+  --photo-filter: grayscale(1) contrast(1.06) brightness(0.94);
+}
+:root[data-theme="light"] {
+  --bg-0: #f4f2ec;
+  --bg-1: #edeae2;
+  --bg-2: #e5e1d7;
+  --fg-1: #171310;
+  --fg-2: rgba(23,19,16,0.78);
+  --fg-3: rgba(23,19,16,0.56);
+  --fg-4: rgba(23,19,16,0.38);
+  --rule: rgba(23,19,16,0.14);
+  --rule-strong: rgba(23,19,16,0.32);
+  --bezel: #dcd7ca;
+  --lamp-glow: none;
+  --sign-glow: none;
+  --tick: rgba(23,19,16,0.3);
+  --amber-ui: #824B07;
+  --teal-ui: #077082;
+  --nrc-ui: #5d5a52;
+  --photo-filter: grayscale(1) contrast(1.02);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { overflow-x: clip; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg-0); color: var(--fg-1);
+  font-family: var(--font-body); font-weight: 300; line-height: 1.7;
+  transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
+}
+::selection { background: var(--apr-orange); color: var(--apr-black); }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+:focus-visible { outline: 2px solid var(--apr-orange); outline-offset: 3px; }
+h1, h2, h3 { overflow-wrap: anywhere; min-width: 0; }
+
+.wrap { max-width: var(--max-w); margin: 0 auto; padding-left: var(--pad-x); padding-right: var(--pad-x); }
+.logo-dark { display: none; }
+:root[data-theme="dark"] .logo-dark { display: block; }
+:root[data-theme="dark"] .logo-light { display: none; }
+
+/* ---------- STATUS BAR + ON AIR LAMP ---------- */
+.statusbar {
+  display: flex; align-items: center; gap: 16px;
+  font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--fg-4); border-bottom: 1px solid var(--rule); padding: 9px var(--pad-x);
+}
+.statusbar .right { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+.onair {
+  font-family: var(--font-display); font-weight: 700; font-size: var(--type-micro); letter-spacing: 0.3em;
+  padding: 4px 10px 3px 13px; border-radius: 3px;
+  background: var(--apr-orange); color: var(--apr-black); box-shadow: var(--lamp-glow);
+}
+
+/* ---------- FREQUENCY-RULER NAV ---------- */
+.dial {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--bg-0) 94%, transparent); backdrop-filter: blur(8px);
+  border-bottom: 2px solid var(--rule-strong);
+}
+.dial-inner { display: flex; align-items: stretch; gap: clamp(10px, 2vw, 24px); padding: 0 var(--pad-x); }
+.dial-brand { display: flex; align-items: center; padding: 10px 0; }
+.dial-brand img { height: 34px; }
+.dial-scale {
+  flex: 1; display: flex; align-items: stretch; gap: clamp(6px, 2.4vw, 30px);
+  background:
+    repeating-linear-gradient(to right, var(--tick) 0 1px, transparent 1px 9px) bottom / 100% 7px no-repeat,
+    repeating-linear-gradient(to right, var(--tick) 0 1px, transparent 1px 45px) bottom / 100% 13px no-repeat;
+  padding: 10px 4px 16px;
+  overflow-x: auto;
+}
+.station { position: relative; display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 4px 8px 8px; flex-shrink: 0; }
+.station .freq { font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.2em; color: var(--fg-4); transition: color var(--dur-base) var(--ease-out); }
+.station .name { font-family: var(--font-display); font-weight: 700; font-size: var(--type-micro); letter-spacing: var(--track-wider); text-transform: uppercase; color: var(--fg-3); transition: color var(--dur-base) var(--ease-out); }
+.station .needle {
+  position: absolute; left: 50%; bottom: -3px; width: 2px; height: 15px; background: var(--apr-orange);
+  transform: translateX(-50%) scaleY(0); transform-origin: bottom;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.station .needle::after { content: ''; position: absolute; top: -5px; left: 50%; transform: translateX(-50%); width: 6px; height: 6px; border-radius: 50%; background: var(--apr-orange); box-shadow: var(--lamp-glow); }
+.station:hover .freq, .station:hover .name { color: var(--fg-1); }
+.station:hover .needle { transform: translateX(-50%) scaleY(0.55); }
+.station:active .needle { transform: translateX(-50%) scaleY(0.8); }
+.station[aria-current] .freq { color: var(--apr-orange); }
+.station[aria-current] .name { color: var(--fg-1); }
+.station[aria-current] .needle { transform: translateX(-50%) scaleY(1); }
+
+/* ---------- HERO · STATION ID ---------- */
+.hero { text-align: center; padding: clamp(3.5rem, 8vw, 6.5rem) var(--pad-x) clamp(2.5rem, 5vw, 4rem); border-bottom: 1px solid var(--rule); }
+.hero-id {
+  font-family: var(--font-display); font-weight: 900; text-transform: uppercase;
+  font-size: var(--type-station); line-height: 0.95; letter-spacing: 0.015em;
+  text-shadow: var(--sign-glow);
+}
+.hero-id .dot { color: var(--apr-orange); text-shadow: var(--lamp-glow); }
+.hero-sub { margin-top: 1.4rem; font-family: var(--font-mono); font-size: var(--type-micro); letter-spacing: 0.28em; text-transform: uppercase; color: var(--fg-3); }
+.hero-loc { margin-top: 0.55rem; font-size: var(--type-caption); letter-spacing: var(--track-wider); text-transform: uppercase; color: var(--fg-4); }
+.hero-indicia { display: flex; justify-content: center; gap: clamp(12px, 3vw, 28px); flex-wrap: wrap; margin-top: clamp(1.75rem, 3.5vw, 2.5rem); }
+.switch-chip {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.24em; text-transform: uppercase; color: var(--fg-3);
+  border: 1px solid var(--rule); border-radius: 3px; background: var(--bg-1); padding: 8px 14px;
+}
+.switch-chip .sw { width: 22px; height: 11px; border-radius: 6px; border: 1px solid var(--rule-strong); position: relative; flex-shrink: 0; }
+.switch-chip .sw::after { content: ''; position: absolute; top: 1px; right: 1px; width: 7px; height: 7px; border-radius: 50%; background: var(--apr-orange); box-shadow: var(--lamp-glow); }
+
+/* ---------- IDENTITY · TRANSMISSION PANEL ---------- */
+.panel {
+  border: 1px solid var(--rule-strong); border-radius: var(--bezel-r);
+  background: var(--bg-1);
+  box-shadow: inset 0 0 0 1px var(--bg-0), inset 0 0 0 2px var(--rule);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+}
+.identity { padding: clamp(2.5rem, 5vw, 4rem) 0; }
+.identity .panel { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(1.5rem, 3.5vw, 3rem); align-items: center; }
+.identity figure img { width: 100%; border-radius: 3px; filter: var(--photo-filter); border: 1px solid var(--rule); }
+.identity figcaption { margin-top: 10px; font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-4); }
+.identity .copy p { font-size: var(--type-body-lg); line-height: 1.8; color: var(--fg-2); max-width: 54ch; }
+.identity .first-words { color: var(--apr-orange); font-weight: 500; }
+.vu { margin-top: 1.75rem; display: flex; gap: 4px; align-items: flex-end; height: 16px; }
+.vu i { flex: 1; height: 100%; background: var(--rule); border-radius: 1px; }
+.vu i.lit { background: var(--apr-orange); box-shadow: var(--lamp-glow); }
+.vu i.lit.hot { background: var(--fg-1); }
+.vu-cap { margin-top: 8px; font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.24em; text-transform: uppercase; color: var(--fg-4); }
+
+/* ---------- DISPATCH · BULLETIN BAR ---------- */
+.dispatch {
+  display: flex; align-items: center; gap: clamp(14px, 3vw, 30px); flex-wrap: wrap;
+  border-top: 2px solid var(--rule-strong); border-bottom: 2px solid var(--rule-strong);
+  padding: 18px var(--pad-x); position: relative;
+}
+.dispatch::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--apr-orange); box-shadow: var(--lamp-glow); }
+.dispatch .lamp { width: 9px; height: 9px; border-radius: 50%; background: var(--apr-orange); box-shadow: var(--lamp-glow); flex-shrink: 0; }
+.db-name { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: clamp(1.1rem, 2.4vw, 1.5rem); }
+.db-name b { color: var(--apr-orange); font-weight: 900; }
+.db-from { font-size: var(--type-caption); color: var(--fg-3); }
+.db-note { margin-left: auto; font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.26em; text-transform: uppercase; color: var(--fg-4); }
+.console-btn {
+  font-family: var(--font-display); font-weight: 700; font-size: var(--type-micro); letter-spacing: var(--track-wider); text-transform: uppercase;
+  color: var(--fg-1); background: var(--bezel); border: 1px solid var(--rule-strong); border-radius: 3px;
+  box-shadow: 0 2px 0 var(--rule-strong); padding: 10px 20px 9px; cursor: pointer;
+  transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out), transform 0.12s var(--ease-out), box-shadow 0.12s var(--ease-out);
+}
+.console-btn:hover { background: var(--apr-orange); color: var(--apr-black); border-color: var(--apr-orange); }
+.console-btn:active { transform: translateY(2px); box-shadow: 0 0 0 var(--rule-strong); }
+
+/* ---------- COVER · PROGRAM BOARD ---------- */
+.cover { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2rem, 4.5vw, 4rem); padding: clamp(3rem, 6vw, 5.5rem) 0; align-items: center; }
+.cover-eyebrow {
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--font-mono); font-size: var(--type-micro); letter-spacing: var(--track-eyebrow); text-transform: uppercase;
+  color: var(--apr-orange); margin-bottom: 1.75rem;
+}
+.cover-eyebrow::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--apr-orange); box-shadow: var(--lamp-glow); }
+.board { border-top: 1px solid var(--rule-strong); }
+.board-row { display: flex; align-items: baseline; gap: clamp(14px, 2.5vw, 26px); border-bottom: 1px solid var(--rule-strong); padding: clamp(0.4rem, 1vw, 0.8rem) 0; }
+.board-row .freq { font-family: var(--font-mono); font-size: var(--type-caption); letter-spacing: 0.2em; color: var(--fg-4); flex-shrink: 0; width: 3.2rem; }
+.board-row .word {
+  font-family: var(--font-display); font-weight: 900; text-transform: uppercase;
+  font-size: clamp(2.4rem, 6.5vw, 5.5rem); line-height: 0.95; letter-spacing: 0.01em;
+}
+.board-row:last-child .word { color: transparent; -webkit-text-stroke: 1.5px var(--fg-2); }
+.cover-deck { margin-top: 1.75rem; font-size: var(--type-body-lg); color: var(--fg-2); max-width: 46ch; }
+.cover .console-btn { display: inline-block; margin-top: 1.9rem; }
+.cover-plate img { width: 100%; border-radius: 3px; filter: var(--photo-filter); border: 1px solid var(--rule); }
+.cover-plate figcaption { margin-top: 10px; font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-4); }
+
+/* ---------- DOORS · THREE CHANNELS ---------- */
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-top: 2px solid var(--rule-strong); padding-top: 1.2rem; margin-top: clamp(1.5rem, 3vw, 2.5rem); }
+.sec-head h2 { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: var(--type-h2); }
+.sec-head .keycode { font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: var(--track-strip); text-transform: uppercase; color: var(--fg-4); }
+.sec-head .lede { font-size: var(--type-caption); color: var(--fg-3); }
+.channels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 2rem; }
+.channel {
+  position: relative; display: flex; flex-direction: column; min-height: 340px;
+  border: 1px solid var(--rule-strong); border-radius: var(--bezel-r); background: var(--bg-1);
+  box-shadow: inset 0 0 0 1px var(--bg-0), inset 0 0 0 2px var(--rule);
+  padding: clamp(1.4rem, 2.5vw, 2rem);
+  transition: border-color var(--dur-base) var(--ease-out);
+}
+.channel:hover { border-color: var(--ch-c); }
+.ch-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+.ch-num { font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.3em; color: var(--fg-4); text-transform: uppercase; }
+.ch-lamp { width: 9px; height: 9px; border-radius: 50%; background: var(--ch-c); box-shadow: 0 0 10px color-mix(in srgb, var(--ch-c) 60%, transparent); transition: box-shadow var(--dur-base) var(--ease-out); }
+.channel:hover .ch-lamp { box-shadow: 0 0 16px var(--ch-c); }
+.ch-logo { height: 72px; display: flex; align-items: center; margin-bottom: 1.4rem; }
+.ch-logo img { height: 100%; width: auto; }
+.channel h3 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: 1.3rem; }
+.channel .tagline { margin-top: 0.5rem; font-style: italic; color: var(--fg-2); font-size: 0.95rem; }
+.channel .mandate { margin-top: 0.9rem; font-size: 0.88rem; color: var(--fg-3); line-height: 1.65; max-width: 38ch; }
+.channel .ch-foot { margin-top: auto; padding-top: 1.4rem; font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.24em; text-transform: uppercase; color: var(--fg-4); display: flex; align-items: center; gap: 10px; }
+.channel .ch-foot::before { content: ''; width: 24px; height: 2px; background: var(--ch-c); }
+.channel-212 { --ch-c: var(--amber-ui); }
+.channel-310 { --ch-c: var(--teal-ui); }
+.channel-nrc { --ch-c: var(--nrc-ui); }
+
+/* ---------- SLATE · BROADCAST LOG ---------- */
+.slate { margin-top: clamp(3rem, 6vw, 5rem); padding-bottom: clamp(2rem, 4vw, 3rem); }
+.slate-list { margin-top: 2rem; border-top: 1px solid var(--rule-strong); }
+.slate-row {
+  display: grid; grid-template-columns: 1rem 3.4rem minmax(0, 1fr) auto auto; gap: 16px; align-items: baseline;
+  padding: 0.95rem 0; border-bottom: 1px solid var(--rule);
+  transition: background var(--dur-base) var(--ease-out);
+}
+.slate-row:hover { background: var(--bg-1); }
+.slate-row .pip { align-self: center; width: 8px; height: 8px; border-radius: 50%; background: var(--slate-c, var(--fg-4)); box-shadow: 0 0 8px color-mix(in srgb, var(--slate-c, transparent) 55%, transparent); }
+.slate-row .idx { font-family: var(--font-mono); font-size: var(--type-caption); color: var(--fg-4); }
+.slate-row .title { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: clamp(1rem, 2vw, 1.4rem); }
+.slate-row .div { font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.18em; color: var(--slate-c, var(--fg-3)); text-transform: uppercase; border: 1px solid color-mix(in srgb, var(--slate-c, var(--fg-4)) 40%, transparent); border-radius: 3px; padding: 2px 8px; white-space: nowrap; }
+.slate-row .fmt { font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.14em; color: var(--fg-4); text-transform: uppercase; text-align: right; }
+
+/* ---------- ABOUT · SIGN-OFF ---------- */
+.about { text-align: center; padding: clamp(3.5rem, 7vw, 6rem) var(--pad-x); border-top: 1px solid var(--rule); }
+.about .window { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.4rem, 3vw, 2.1rem); line-height: 1.35; max-width: 32ch; margin: 0 auto; }
+.about .body { margin: 1.5rem auto 0; max-width: 52ch; color: var(--fg-3); font-size: 0.95rem; }
+.about .rule-line { margin-top: 2.25rem; font-family: var(--font-mono); font-size: var(--type-micro); letter-spacing: var(--track-wider); text-transform: uppercase; color: var(--apr-orange); }
+
+/* ---------- FOOTER · CONSOLE BASE ---------- */
+footer.site { border-top: 2px solid var(--rule-strong); background: var(--bg-1); padding: 2.5rem 0 2.75rem; }
+.foot-boiler { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: clamp(1rem, 2.2vw, 1.35rem); text-align: center; }
+.foot-wordlist { margin-top: 1.4rem; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-4); }
+.foot-wordlist .sep { color: var(--fg-4); opacity: 0.5; }
+.foot-inv { margin-top: 1.4rem; text-align: center; font-size: var(--type-caption); color: var(--fg-3); }
+.foot-addr { margin-top: 0.9rem; text-align: center; font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.3em; text-transform: uppercase; color: var(--fg-4); }
+
+/* ---------- MODE TOGGLE ---------- */
+.mode-toggle {
+  position: fixed; bottom: 18px; right: 18px; z-index: 60;
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--font-mono); font-size: var(--type-micro); letter-spacing: 0.18em; text-transform: uppercase;
+  background: var(--bezel); color: var(--fg-2); border: 1px solid var(--rule-strong); border-radius: 3px;
+  box-shadow: 0 2px 0 var(--rule-strong); padding: 9px 15px; cursor: pointer;
+  transition: color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out), transform 0.12s var(--ease-out), box-shadow 0.12s var(--ease-out);
+}
+.mode-toggle:hover { color: var(--fg-1); border-color: var(--apr-orange); }
+.mode-toggle:active { transform: translateY(2px); box-shadow: 0 0 0 var(--rule-strong); }
+.mode-toggle .lamp { width: 7px; height: 7px; border-radius: 50%; background: var(--apr-orange); box-shadow: var(--lamp-glow); }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 960px) {
+  .identity .panel, .cover { grid-template-columns: 1fr; }
+  .channels { grid-template-columns: 1fr; }
+  .channel { min-height: 0; }
+  .dial-scale { padding-left: 0; }
+}
+@media (max-width: 640px) {
+  .slate-row { grid-template-columns: 1rem 2.4rem minmax(0, 1fr); }
+  .slate-row .div, .slate-row .fmt { display: none; }
+  .statusbar { letter-spacing: 0.18em; }
+  .statusbar .loc { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- STATUS BAR -->
+<div class="statusbar" aria-hidden="true">
+  <span>APR 70 PICTURES</span>
+  <span class="loc">LONG ISLAND CITY NY</span>
+  <span class="right"><span>REEL 086</span><span class="onair">ON AIR</span></span>
+</div>
+
+<!-- FREQUENCY-RULER NAV -->
+<nav class="dial" aria-label="Primary">
+  <div class="dial-inner">
+    <a class="dial-brand" href="#">
+      <img class="logo-dark" src="brand/apr70-logos/apr70-apr70pictures/monogram/apr70_monogram_white_v6.svg" alt="APR 70 Pictures">
+      <img class="logo-light" src="brand/apr70-logos/apr70-apr70pictures/monogram/apr70_monogram_black_v6.svg" alt="APR 70 Pictures">
+    </a>
+    <div class="dial-scale">
+      <a class="station" href="#" aria-current="page"><span class="freq">01</span><span class="name">Front Door</span><span class="needle"></span></a>
+      <a class="station" href="#doors"><span class="freq">02</span><span class="name">Divisions</span><span class="needle"></span></a>
+      <a class="station" href="#slate"><span class="freq">03</span><span class="name">Slate</span><span class="needle"></span></a>
+      <a class="station" href="#"><span class="freq">04</span><span class="name">Troupe</span><span class="needle"></span></a>
+      <a class="station" href="#dispatch"><span class="freq">05</span><span class="name">Dispatch</span><span class="needle"></span></a>
+      <a class="station" href="#"><span class="freq">06</span><span class="name">Contact</span><span class="needle"></span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO · STATION ID -->
+<header class="hero" data-motion="hero">
+  <h1 class="hero-id">APR 70<br>Pictures<span class="dot">.</span></h1>
+  <p class="hero-sub">An entertainment company &middot; Film &middot; Television &middot; Theater &middot; Radio &middot; Books</p>
+  <p class="hero-loc">Long Island City, New York.</p>
+  <div class="hero-indicia">
+    <span class="switch-chip"><span class="sw"></span>Three Divisions</span>
+    <span class="switch-chip"><span class="sw"></span>One Parent Company</span>
+    <span class="switch-chip"><span class="sw"></span>One Standard</span>
+  </div>
+</header>
+
+<!-- IDENTITY · TRANSMISSION PANEL -->
+<section class="identity wrap" data-motion="identity">
+  <div class="panel">
+    <figure>
+      <img src="pd/onair-wallace-1938-crop-1000.jpg" alt="Broadcaster beside a lit ON AIR sign, Farm and Home Hour, 1938.">
+      <figcaption>Harris &amp; Ewing, 1938 &middot; Library of Congress</figcaption>
+    </figure>
+    <div class="copy">
+      <p id="identity-read"><span class="first-words">Seven actors around real microphones.</span> Index cards on a wall in Long Island City. We make pictures for audiences who've been waiting: crime and documentary built out of the five boroughs, elevated genre for global television, auteur features that trade formula for conviction.</p>
+      <div class="vu" id="vu" aria-hidden="true"></div>
+      <p class="vu-cap">SIGNAL</p>
+    </div>
+  </div>
+</section>
+
+<!-- DISPATCH · BULLETIN -->
+<section class="dispatch" id="dispatch" data-motion="dispatch">
+  <span class="lamp" aria-hidden="true"></span>
+  <span class="db-name">Dispatch <b>No. 1</b></span>
+  <span class="db-from">From the offices of APR 70 Pictures, Long Island City, New York.</span>
+  <span class="db-note">Issues numbered, never dated</span>
+  <a class="console-btn" href="#">Read the issue</a>
+</section>
+
+<!-- COVER · PROGRAM BOARD -->
+<main class="cover wrap" data-motion="cover">
+  <div>
+    <p class="cover-eyebrow">The APR 70 Troupe Presents No. 1</p>
+    <div class="board">
+      <div class="board-row"><span class="freq">01</span><span class="word">L.A.</span></div>
+      <div class="board-row"><span class="freq">02</span><span class="word">Dolce</span></div>
+      <div class="board-row"><span class="freq">03</span><span class="word">Vita</span></div>
+    </div>
+    <p class="cover-deck">A radio drama for seven voices and a clock. When we cut, the clock will tell you where you stand. Listen for it.</p>
+    <a class="console-btn" href="#">Program No. 1 plays here</a>
+  </div>
+  <figure class="cover-plate">
+    <img src="pd/control-room-totem-1925-crop-1000.jpg" alt="Master control room, Totem Broadcasters, Seattle, circa 1925.">
+    <figcaption>MOHAI, Seattle, circa 1925 &middot; via Wikimedia Commons</figcaption>
+  </figure>
+</main>
+
+<!-- DOORS · THREE CHANNELS -->
+<section class="wrap" id="doors">
+  <div class="sec-head">
+    <h2>Three Doors</h2>
+    <span class="keycode">DIVISIONS // 212 &middot; 310 &middot; NRC</span>
+  </div>
+  <div class="channels" data-motion="channels">
+    <a class="channel channel-212" href="#">
+      <span class="ch-head"><span class="ch-num">CH 01 &middot; DOOR 01</span><span class="ch-lamp"></span></span>
+      <span class="ch-logo"><img src="brand/apr70-logos/212-pictures/212_hero.svg" alt="(212) Pictures"></span>
+      <h3>(212) Pictures</h3>
+      <p class="tagline">Everything you want. Everything you don't want.</p>
+      <p class="mandate">East Coast. New York first. Every format the city touches.</p>
+      <span class="ch-foot">New York &middot; East Coast</span>
+    </a>
+    <a class="channel channel-310" href="#">
+      <span class="ch-head"><span class="ch-num">CH 02 &middot; DOOR 02</span><span class="ch-lamp"></span></span>
+      <span class="ch-logo"><img src="brand/apr70-logos/310-pictures/310_hero.svg" alt="(310) Pictures"></span>
+      <h3>(310) Pictures</h3>
+      <p class="tagline">Los Angeles, and every market a signal reaches.</p>
+      <p class="mandate">West Coast and global television.</p>
+      <span class="ch-foot">Los Angeles &middot; Global</span>
+    </a>
+    <a class="channel channel-nrc" href="#">
+      <span class="ch-head"><span class="ch-num">CH 03 &middot; DOOR 03</span><span class="ch-lamp"></span></span>
+      <span class="ch-logo"><img src="brand/apr70-logos/new-renaissance-cinema/nrc_v3.svg" alt="New Renaissance Cinema"></span>
+      <h3>New Renaissance Cinema</h3>
+      <p class="tagline">Feature films, by mandate.</p>
+      <p class="mandate">Auteur-driven, morally clear, built for permanence rather than a release window.</p>
+      <span class="ch-foot">Feature Films</span>
+    </a>
+  </div>
+</section>
+
+<!-- SLATE · BROADCAST LOG -->
+<section class="slate wrap" id="slate">
+  <div class="sec-head">
+    <h2>The Slate, On Record</h2>
+    <span class="lede">On the record before it's on the screen.</span>
+  </div>
+  <div class="slate-list" data-motion="slate">
+    <a class="slate-row" href="#" style="--slate-c: var(--amber-ui)"><span class="pip"></span><span class="idx">S.01</span><span class="title">The Mayors</span><span class="div">(212)</span><span class="fmt">Documentary &middot; 11 Episodes</span></a>
+    <a class="slate-row" href="#" style="--slate-c: var(--amber-ui)"><span class="pip"></span><span class="idx">S.02</span><span class="title">Movement</span><span class="div">(212)</span><span class="fmt">Series</span></a>
+    <a class="slate-row" href="#" style="--slate-c: var(--amber-ui)"><span class="pip"></span><span class="idx">S.03</span><span class="title">Sea Gate</span><span class="div">(212)</span><span class="fmt">Episodic</span></a>
+    <a class="slate-row" href="#" style="--slate-c: var(--amber-ui)"><span class="pip"></span><span class="idx">S.04</span><span class="title">Da Hook</span><span class="div">(212)</span><span class="fmt">Episodic &middot; Radio Parallel</span></a>
+    <a class="slate-row" href="#" style="--slate-c: var(--nrc-ui)"><span class="pip"></span><span class="idx">S.05</span><span class="title">A Need Grows in Brooklyn</span><span class="div">NRC &middot; (212) Co-Prod</span><span class="fmt">Feature</span></a>
+    <a class="slate-row" href="#" style="--slate-c: var(--nrc-ui)"><span class="pip"></span><span class="idx">S.06</span><span class="title">Shadowmaster</span><span class="div">NRC &middot; Series to (310)</span><span class="fmt">Feature First</span></a>
+    <a class="slate-row" href="#" style="--slate-c: var(--nrc-ui)"><span class="pip"></span><span class="idx">S.07</span><span class="title">U Bruculinu</span><span class="div">NRC</span><span class="fmt">Feature, Probable</span></a>
+  </div>
+</section>
+
+<!-- ABOUT · SIGN-OFF -->
+<section class="about" data-motion="about">
+  <p class="window">A window lit at two in the morning in Long Island City. Somebody is still reading.</p>
+  <p class="body">APR 70 Pictures is a film and television production company. Three divisions, one parent company, one standard. The work earns its position or it doesn't get made.</p>
+  <p class="rule-line">The audience first, always. Not our slate... their evening.</p>
+</section>
+
+<!-- FOOTER · CONSOLE BASE -->
+<footer class="site">
+  <div class="wrap">
+    <p class="foot-boiler">APR 70 Pictures. Three divisions. No decorative flourishes. Built to last.</p>
+    <p class="foot-wordlist">
+      <span>(212) Pictures &middot; New York &middot; East Coast</span><span class="sep">|</span>
+      <span>(310) Pictures &middot; Los Angeles &middot; Global</span><span class="sep">|</span>
+      <span>New Renaissance Cinema &middot; Feature Films</span>
+    </p>
+    <p class="foot-inv">Investor conversations happen in person. Write to the offices.</p>
+    <p class="foot-addr">ISSUES ARE NUMBERED, NEVER DATED &middot; LONG ISLAND CITY, NEW YORK.</p>
+  </div>
+</footer>
+
+<button class="mode-toggle" id="modeToggle" type="button" aria-label="Switch light or dark mode"><span class="lamp"></span><span class="mode-label">Daylight</span></button>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script>
+/* Mode handling: ?mode=light|dark param wins; toggle flips. Dark = broadcast night (default). */
+(function () {
+  const p = new URLSearchParams(location.search).get('mode');
+  if (p === 'light' || p === 'dark') document.documentElement.dataset.theme = p;
+  const btn = document.getElementById('modeToggle');
+  const label = btn.querySelector('.mode-label');
+  const sync = () => { label.textContent = document.documentElement.dataset.theme === 'dark' ? 'Daylight' : 'Night'; };
+  sync();
+  btn.addEventListener('click', () => {
+    const el = document.documentElement;
+    el.dataset.theme = el.dataset.theme === 'dark' ? 'light' : 'dark';
+    sync();
+  });
+})();
+
+/* Build the VU meter segments (static markup, JS-lit). */
+(function () {
+  const vu = document.getElementById('vu');
+  for (let i = 0; i < 24; i++) { vu.appendChild(document.createElement('i')); }
+})();
+
+/* On Air motion signature: TUNING IN.
+   Blocks arrive from slight blur + drift to locked sharp, one time, like a needle
+   finding the station. The only scroll-scrub is the VU meter (reading progress).
+   Nothing loops, nothing auto-scrolls. Reduced motion collapses to static. */
+gsap.registerPlugin(ScrollTrigger);
+const mm = gsap.matchMedia();
+mm.add('(prefers-reduced-motion: no-preference)', () => {
+  const tuneIn = (sel, trigger, stag) => gsap.from(sel, {
+    opacity: 0, x: -8, filter: 'blur(5px)', duration: 0.5, stagger: stag ?? 0.09, ease: 'power2.out',
+    scrollTrigger: trigger ? { trigger, start: 'top 86%' } : undefined
+  });
+  gsap.from('.statusbar, .dial', { opacity: 0, y: -10, duration: 0.5, stagger: 0.08, ease: 'power2.out' });
+  tuneIn('[data-motion="hero"] > *');
+  tuneIn('.identity .panel > *', '[data-motion="identity"]');
+  tuneIn('[data-motion="dispatch"] > *', '[data-motion="dispatch"]', 0.06);
+  tuneIn('[data-motion="cover"] .board-row, [data-motion="cover"] .cover-eyebrow, [data-motion="cover"] .cover-deck, [data-motion="cover"] .console-btn, [data-motion="cover"] .cover-plate', '[data-motion="cover"]');
+  tuneIn('.channel', '[data-motion="channels"]', 0.12);
+  tuneIn('.slate-row', '[data-motion="slate"]', 0.05);
+  tuneIn('[data-motion="about"] > *', '[data-motion="about"]');
+
+  /* VU meter scrub: segments light with reading progress through the identity panel. */
+  const segs = gsap.utils.toArray('#vu i');
+  ScrollTrigger.create({
+    trigger: '[data-motion="identity"]', start: 'top 80%', end: 'bottom 35%', scrub: true,
+    onUpdate: (self) => {
+      const lit = Math.round(self.progress * segs.length);
+      segs.forEach((s, i) => {
+        s.classList.toggle('lit', i < lit);
+        s.classList.toggle('hot', i < lit && i >= segs.length - 3);
+      });
+    }
+  });
+});
+</script>
+
+</body>
+</html>

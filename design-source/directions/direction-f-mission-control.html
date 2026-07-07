@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="en" data-direction="mission-control" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direction F — Mission Control · APR 70 Pictures</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Share+Tech+Mono&display=swap">
+<style>
+/* Hallmark · macrostructure: Marquee Hero + product mosaic + stat band (x.ai deployment)
+ * theme: APR 70 locked brand system · studied: yes · DNA-source: url
+ * source-url: https://x.ai (live study 2026-07-06, real-browser: nav pills, centered hero chip,
+ *   sentence-height display at lh 1.0 / -0.025em, 1280px container + 672px reading column,
+ *   hairline-grid stat band w/ giant numerals, date-stamped news rows, panel pair, sitemap footer)
+ * observed-fonts (source): universalSans/Display + GeistMono — DEPLOYED HERE AS: Futura Std (500/400
+ *   display, calm weights, no crush) + Barlow (UI/body) + Share Tech Mono (keycodes only)
+ * observed-color-logic: white ground, near-black ink, ONE warm accent as chip outline + grain plate
+ *   — deployed with APR 70 orange #E85D04; division colors demoted to status dots/chips
+ * pre-emit critique: P5 H5 E4 S5 R5 V5
+ * direction: F — MISSION CONTROL. APR 70 wearing x.ai's structural discipline. Not a clone:
+ *   the nameplate stays uppercase w/ the orange full stop, keycodes stay mono, doors stay doors.
+ */
+
+/* ---------- FONTS (local OTFs, same convention as direction-a) ---------- */
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Light.otf') format('opentype'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Book.otf') format('opentype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Medium.otf') format('opentype'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Bold.otf') format('opentype'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Heavy.otf') format('opentype'); font-weight: 900; font-display: swap; }
+
+/* ---------- TOKENS (locked APR 70 system · mode-scoped) ---------- */
+:root {
+  --apr-black: #000000;
+  --apr-white: #ffffff;
+  --apr-amber: #824B07;
+  --apr-teal: #077082;
+  --apr-orange: #E85D04;
+  --apr-blue: #0077B6;
+  --apr-offwhite: #c8c8c8;
+
+  --font-display: 'Futura Std', Futura, 'Century Gothic', sans-serif;
+  --font-body: 'Barlow', 'Helvetica Neue', sans-serif;
+  --font-mono: 'Share Tech Mono', ui-monospace, monospace;
+
+  --track-eyebrow: 0.4em;
+  --track-strip: 0.55em;
+  --track-wider: 0.2em;
+
+  --type-display: clamp(3.4rem, 9.5vw, 8.75rem);
+  --type-h2: clamp(2rem, 4.5vw, 3.5rem);
+  --type-stat: clamp(4rem, 9vw, 8rem);
+  --type-body-lg: clamp(1.05rem, 1.4vw, 1.25rem);
+  --type-ui: 0.875rem;
+  --type-caption: 0.75rem;
+  --type-micro: 0.6875rem;
+  --type-tiny: 0.5625rem;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-base: 0.3s;
+
+  --max-w: 1280px;
+  --read-w: 672px;
+  --pad-x: clamp(1.25rem, 5vw, 3.5rem);
+  --radius-card: 14px;
+  --radius-pill: 999px;
+}
+:root[data-theme="light"] {
+  --bg-0: #ffffff;
+  --bg-1: #f7f7f5;
+  --bg-2: #f1f1ee;
+  --fg-1: #0a0a0a;
+  --fg-2: rgba(10,10,10,0.72);
+  --fg-3: rgba(10,10,10,0.52);
+  --fg-4: rgba(10,10,10,0.36);
+  --rule: rgba(10,10,10,0.10);
+  --rule-strong: rgba(10,10,10,0.22);
+  --grid-line: rgba(10,10,10,0.06);
+  --pill-solid-bg: #0a0a0a;
+  --pill-solid-fg: #ffffff;
+  --amber-ui: #824B07;
+  --teal-ui: #077082;
+  --nrc-ui: #6d6d6d;
+}
+:root[data-theme="dark"] {
+  --bg-0: #0a0a0a;
+  --bg-1: #111111;
+  --bg-2: #161616;
+  --fg-1: #ffffff;
+  --fg-2: rgba(255,255,255,0.78);
+  --fg-3: rgba(255,255,255,0.55);
+  --fg-4: rgba(255,255,255,0.38);
+  --rule: rgba(255,255,255,0.12);
+  --rule-strong: rgba(255,255,255,0.26);
+  --grid-line: rgba(255,255,255,0.07);
+  --pill-solid-bg: #ffffff;
+  --pill-solid-fg: #0a0a0a;
+  --amber-ui: #c98a3f;
+  --teal-ui: #3aa8ba;
+  --nrc-ui: #c8c8c8;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { overflow-x: clip; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg-0); color: var(--fg-1);
+  font-family: var(--font-body); font-weight: 400; line-height: 1.65;
+  transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
+}
+::selection { background: var(--apr-orange); color: var(--apr-white); }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+:focus-visible { outline: 2px solid var(--apr-orange); outline-offset: 3px; }
+h1, h2, h3 { overflow-wrap: anywhere; min-width: 0; }
+
+.wrap { max-width: var(--max-w); margin: 0 auto; padding-left: var(--pad-x); padding-right: var(--pad-x); }
+
+/* ---------- NAV (x.ai: inline links + dual pill CTA) ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; gap: clamp(12px, 2vw, 28px);
+  height: 64px; padding: 0 var(--pad-x);
+  background: color-mix(in srgb, var(--bg-0) 92%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav-brand { display: flex; align-items: center; }
+.nav-brand img { height: 30px; }
+.logo-dark { display: none; }
+:root[data-theme="dark"] .logo-dark { display: block; }
+:root[data-theme="dark"] .logo-light { display: none; }
+.nav-links { display: flex; gap: 2px; align-items: center; margin-right: auto; }
+.nav-link {
+  font-size: var(--type-ui); font-weight: 500; color: var(--fg-2);
+  padding: 6px 12px; border-radius: var(--radius-pill);
+  transition: color var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out);
+}
+.nav-link:hover { color: var(--fg-1); background: var(--bg-1); }
+.nav-link:active { background: var(--bg-2); }
+.nav-link[aria-current] { color: var(--fg-1); }
+.nav-link[aria-current]::after { content: ''; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--apr-orange); margin-left: 7px; vertical-align: 2px; }
+.nav-ctas { display: flex; gap: 10px; align-items: center; }
+.pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-body); font-size: var(--type-ui); font-weight: 500;
+  padding: 8px 18px; border-radius: var(--radius-pill); border: 1px solid var(--rule-strong);
+  color: var(--fg-1); background: transparent; cursor: pointer; white-space: nowrap;
+  transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+}
+.pill:hover { border-color: var(--fg-1); }
+.pill:active { transform: translateY(1px); }
+.pill--solid { background: var(--pill-solid-bg); color: var(--pill-solid-fg); border-color: var(--pill-solid-bg); }
+.pill--solid:hover { background: var(--apr-orange); border-color: var(--apr-orange); color: var(--apr-white); }
+.nav-folio { font-family: var(--font-mono); font-size: var(--type-micro); letter-spacing: 0.2em; color: var(--fg-4); }
+
+/* ---------- HERO ---------- */
+.hero { text-align: center; padding: clamp(4rem, 9vw, 7.5rem) var(--pad-x) clamp(3rem, 6vw, 5rem); }
+.hero-chip {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: var(--type-micro); letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--fg-2); border: 1px solid var(--rule-strong); border-radius: var(--radius-pill);
+  padding: 7px 16px; margin-bottom: clamp(2rem, 4vw, 3rem);
+  transition: border-color var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
+}
+.hero-chip b { font-weight: 400; color: var(--apr-orange); }
+.hero-chip .arrow { color: var(--fg-4); transition: transform var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out); }
+.hero-chip:hover { border-color: var(--apr-orange); color: var(--fg-1); }
+.hero-chip:hover .arrow { transform: translateX(3px); color: var(--apr-orange); }
+.hero-title {
+  font-family: var(--font-display); font-weight: 500; text-transform: uppercase;
+  font-size: var(--type-display); line-height: 1.02; letter-spacing: -0.025em;
+  max-width: 14ch; margin: 0 auto;
+}
+.hero-title .dot { color: var(--apr-orange); }
+.hero-sub {
+  margin-top: 1.75rem; font-size: var(--type-caption); letter-spacing: var(--track-wider);
+  text-transform: uppercase; color: var(--fg-3);
+}
+.hero-loc { margin-top: 0.5rem; font-size: var(--type-ui); color: var(--fg-4); }
+.hero-ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: clamp(2rem, 4vw, 2.75rem); }
+.hero-ctas .pill { padding: 12px 26px; }
+
+/* ---------- IDENTITY (672px reading column, two-tone device) ---------- */
+.identity { max-width: var(--read-w); margin: 0 auto; padding: clamp(2rem, 4vw, 3.5rem) var(--pad-x) clamp(3rem, 6vw, 5rem); text-align: center; }
+.identity p { font-size: var(--type-body-lg); line-height: 1.75; color: var(--fg-3); }
+.identity .lead-tone { color: var(--fg-1); font-weight: 500; }
+
+/* ---------- STAT BAND (x.ai hairline grid + giant numerals) ---------- */
+.stats {
+  position: relative; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  background:
+    repeating-linear-gradient(to right, var(--grid-line) 0 1px, transparent 1px 80px),
+    repeating-linear-gradient(to bottom, var(--grid-line) 0 1px, transparent 1px 80px);
+  padding: clamp(3.5rem, 8vw, 6.5rem) 0;
+}
+.stats-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 3vw, 2rem); text-align: center; }
+.stat-num { font-family: var(--font-display); font-weight: 400; font-size: var(--type-stat); line-height: 1; letter-spacing: -0.02em; }
+.stat-cap { margin-top: 0.9rem; font-family: var(--font-mono); font-size: var(--type-micro); letter-spacing: 0.3em; text-transform: uppercase; color: var(--fg-3); }
+
+/* ---------- SECTION HEAD (heading left · keycode right) ---------- */
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; flex-wrap: wrap; padding-top: clamp(3rem, 7vw, 5.5rem); margin-bottom: clamp(1.75rem, 3vw, 2.5rem); }
+.sec-head h2 { font-family: var(--font-display); font-weight: 500; font-size: var(--type-h2); letter-spacing: -0.015em; line-height: 1.05; }
+.sec-head .aside { font-family: var(--font-mono); font-size: var(--type-micro); letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-4); }
+.sec-head .aside--plain { font-family: var(--font-body); font-size: var(--type-ui); letter-spacing: 0; text-transform: none; color: var(--fg-3); }
+
+/* ---------- DOORS (product-card mosaic) ---------- */
+.doors { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.door {
+  display: flex; flex-direction: column; min-height: 320px;
+  background: var(--bg-1); border: 1px solid var(--rule); border-radius: var(--radius-card);
+  padding: clamp(1.5rem, 2.5vw, 2.25rem);
+  transition: border-color var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out);
+}
+.door:hover { border-color: var(--rule-strong); background: var(--bg-2); }
+.door-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.75rem; }
+.door-logo { height: 56px; display: flex; align-items: center; }
+.door-logo img { height: 100%; width: auto; }
+.door-num { font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.28em; color: var(--fg-4); text-transform: uppercase; }
+.door h3 { font-family: var(--font-display); font-weight: 500; font-size: 1.35rem; letter-spacing: 0; }
+.door .tagline { margin-top: 0.5rem; font-size: var(--type-ui); color: var(--fg-2); }
+.door .mandate { margin-top: 0.9rem; font-size: var(--type-ui); color: var(--fg-3); line-height: 1.6; max-width: 38ch; }
+.door-foot {
+  margin-top: auto; padding-top: 1.6rem; display: flex; align-items: center; gap: 9px;
+  font-size: var(--type-micro); letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-3);
+}
+.door-foot .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--door-c); flex-shrink: 0; }
+.door-foot .arrow { margin-left: auto; color: var(--fg-4); transition: transform var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out); }
+.door:hover .door-foot .arrow { transform: translateX(4px); color: var(--fg-1); }
+.door-212 { --door-c: var(--amber-ui); }
+.door-310 { --door-c: var(--teal-ui); }
+.door-nrc { --door-c: var(--nrc-ui); }
+
+/* ---------- COVER FEATURE (split section + orange grain plate) ---------- */
+.cover { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; padding: clamp(4rem, 8vw, 7rem) 0; }
+.cover-eyebrow { font-size: var(--type-ui); color: var(--fg-3); margin-bottom: 1.4rem; }
+.cover-display {
+  font-family: var(--font-display); font-weight: 500; text-transform: uppercase;
+  font-size: clamp(2.6rem, 5.5vw, 4.5rem); line-height: 1.04; letter-spacing: -0.02em;
+}
+.cover-display .tone-2 { color: var(--fg-4); }
+.cover-deck { margin-top: 1.5rem; font-size: var(--type-body-lg); color: var(--fg-3); max-width: 44ch; }
+.cover-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 2rem; align-items: center; }
+.text-link { font-size: var(--type-ui); font-weight: 500; color: var(--fg-2); display: inline-flex; gap: 8px; align-items: center; padding: 8px 4px; }
+.text-link .arrow { transition: transform var(--dur-base) var(--ease-out); }
+.text-link:hover { color: var(--fg-1); }
+.text-link:hover .arrow { transform: translateX(3px); }
+.plate {
+  position: relative; border-radius: var(--radius-card); padding: clamp(1.25rem, 2.5vw, 2.25rem);
+  background:
+    radial-gradient(120% 140% at 20% 0%, rgba(255,255,255,0.22), transparent 55%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.16'/%3E%3C/svg%3E"),
+    var(--apr-orange);
+}
+.plate::before, .plate::after {
+  content: ''; position: absolute; width: 10px; height: 10px; background: var(--bg-0);
+}
+.plate::before { top: 12px; left: 12px; }
+.plate::after { bottom: 12px; right: 12px; }
+.plate img { width: 100%; border-radius: 8px; }
+.plate-credit { margin-top: 12px; font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-4); }
+
+/* ---------- DISPATCH BAND (panel) ---------- */
+.dispatch {
+  display: flex; align-items: center; gap: clamp(14px, 3vw, 32px); flex-wrap: wrap;
+  background: var(--bg-1); border: 1px solid var(--rule); border-radius: var(--radius-card);
+  padding: clamp(1.5rem, 3vw, 2rem) clamp(1.5rem, 3vw, 2.5rem);
+}
+.dispatch-name { font-family: var(--font-display); font-weight: 500; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 0.01em; }
+.dispatch-name b { color: var(--apr-orange); font-weight: 500; }
+.dispatch-from { font-size: var(--type-ui); color: var(--fg-3); }
+.dispatch-note { margin-left: auto; font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.24em; text-transform: uppercase; color: var(--fg-4); }
+
+/* ---------- SLATE (news-row list) ---------- */
+.slate-list { border-top: 1px solid var(--rule); }
+.slate-row {
+  display: grid; grid-template-columns: 3.25rem minmax(0, 1fr) auto auto 1.25rem; gap: 16px; align-items: baseline;
+  padding: 1.05rem 4px; border-bottom: 1px solid var(--rule);
+  transition: background var(--dur-base) var(--ease-out);
+}
+.slate-row:hover { background: var(--bg-1); }
+.slate-row .idx { font-family: var(--font-mono); font-size: var(--type-caption); color: var(--fg-4); }
+.slate-row .title { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.05rem, 1.8vw, 1.35rem); letter-spacing: 0; }
+.slate-row .chip {
+  font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--slate-c, var(--fg-3)); border: 1px solid color-mix(in srgb, var(--slate-c, var(--fg-3)) 45%, transparent);
+  border-radius: var(--radius-pill); padding: 3px 10px; white-space: nowrap;
+}
+.slate-row .fmt { font-size: var(--type-micro); letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-4); text-align: right; }
+.slate-row .arrow { color: var(--fg-4); transition: transform var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out); }
+.slate-row:hover .arrow { transform: translateX(4px); color: var(--fg-1); }
+
+/* ---------- ABOUT (centered close) ---------- */
+.about { text-align: center; padding: clamp(4.5rem, 9vw, 8rem) var(--pad-x); max-width: 880px; margin: 0 auto; }
+.about .window { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.3; letter-spacing: -0.01em; }
+.about .body { margin: 1.5rem auto 0; max-width: 52ch; color: var(--fg-3); }
+.about .rule-line { margin-top: 2.25rem; font-size: var(--type-caption); letter-spacing: var(--track-wider); text-transform: uppercase; color: var(--apr-orange); }
+
+/* ---------- FOOTER (sitemap) ---------- */
+footer.site { border-top: 1px solid var(--rule); padding: clamp(2.5rem, 5vw, 4rem) 0 2rem; }
+.foot-grid { display: grid; grid-template-columns: minmax(0, 5fr) repeat(3, minmax(0, 2.4fr)); gap: clamp(1.5rem, 4vw, 3rem); }
+.foot-brand img { height: 26px; }
+.foot-brand .addr { margin-top: 1rem; font-size: var(--type-caption); color: var(--fg-3); }
+.foot-brand .inv { margin-top: 0.4rem; font-size: var(--type-caption); color: var(--fg-4); max-width: 30ch; }
+.foot-col .label { font-size: var(--type-ui); font-weight: 500; margin-bottom: 0.6rem; }
+.foot-col .meta { font-size: var(--type-caption); color: var(--fg-3); }
+.foot-col .go { display: inline-flex; gap: 7px; align-items: center; margin-top: 0.7rem; font-size: var(--type-micro); letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-4); }
+.foot-col .go:hover { color: var(--fg-1); }
+.foot-base { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-top: clamp(2rem, 4vw, 3rem); padding-top: 1.25rem; border-top: 1px solid var(--rule); }
+.foot-base .line { font-size: var(--type-caption); color: var(--fg-4); }
+.foot-base .keycode { font-family: var(--font-mono); font-size: var(--type-tiny); letter-spacing: 0.24em; text-transform: uppercase; color: var(--fg-4); }
+
+/* ---------- MODE TOGGLE ---------- */
+.mode-toggle {
+  position: fixed; bottom: 18px; right: 18px; z-index: 60;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: var(--type-micro); letter-spacing: 0.16em; text-transform: uppercase;
+  background: var(--bg-0); color: var(--fg-2); border: 1px solid var(--rule-strong); border-radius: var(--radius-pill);
+  padding: 9px 16px; cursor: pointer;
+  transition: color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+}
+.mode-toggle:hover { color: var(--fg-1); border-color: var(--fg-1); }
+.mode-toggle:active { transform: translateY(1px); }
+.mode-toggle .lamp { width: 7px; height: 7px; border-radius: 50%; background: var(--apr-orange); }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 960px) {
+  .nav-links { display: none; }
+  .doors { grid-template-columns: 1fr; }
+  .door { min-height: 0; }
+  .cover { grid-template-columns: 1fr; }
+  .foot-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .stats-row { grid-template-columns: 1fr; gap: 2.5rem; }
+  .slate-row { grid-template-columns: 2.4rem minmax(0, 1fr) auto; }
+  .slate-row .fmt, .slate-row .arrow { display: none; }
+  .foot-grid { grid-template-columns: 1fr; }
+  .nav-folio { display: none; }
+  .nav-ctas .pill--ghost-sm { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" aria-label="Primary">
+  <a class="nav-brand" href="#">
+    <img class="logo-light" src="brand/apr70-logos/apr70-apr70pictures/monogram/apr70_monogram_black_v6.svg" alt="APR 70 Pictures">
+    <img class="logo-dark" src="brand/apr70-logos/apr70-apr70pictures/monogram/apr70_monogram_white_v6.svg" alt="APR 70 Pictures">
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="#" aria-current="page">Front Door</a>
+    <a class="nav-link" href="#doors">Divisions</a>
+    <a class="nav-link" href="#slate">Slate</a>
+    <a class="nav-link" href="#">Troupe</a>
+    <a class="nav-link" href="#dispatch">Dispatch</a>
+    <a class="nav-link" href="#">Contact</a>
+  </div>
+  <div class="nav-ctas">
+    <span class="nav-folio">LIC · NY</span>
+    <a class="pill pill--solid" href="#dispatch">Read the issue</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" data-motion="hero">
+  <a class="hero-chip" href="#dispatch"><b>Dispatch No. 1</b> Issues numbered, never dated <span class="arrow">&rarr;</span></a>
+  <h1 class="hero-title">APR 70 Pictures<span class="dot">.</span></h1>
+  <p class="hero-sub">An entertainment company &middot; Film &middot; Television &middot; Theater &middot; Radio &middot; Books</p>
+  <p class="hero-loc">Long Island City, New York.</p>
+  <div class="hero-ctas">
+    <a class="pill pill--solid" href="#dispatch">Read the issue</a>
+    <a class="pill" href="#cover">Program No. 1 plays here</a>
+  </div>
+</header>
+
+<!-- IDENTITY -->
+<section class="identity" data-motion="identity">
+  <p><span class="lead-tone">Seven actors around real microphones.</span> Index cards on a wall in Long Island City. We make pictures for audiences who've been waiting: crime and documentary built out of the five boroughs, elevated genre for global television, auteur features that trade formula for conviction.</p>
+</section>
+
+<!-- STAT BAND -->
+<section class="stats" data-motion="stats">
+  <div class="stats-row wrap">
+    <div class="stat"><div class="stat-num">3</div><div class="stat-cap">Three Divisions</div></div>
+    <div class="stat"><div class="stat-num">1</div><div class="stat-cap">One Parent Company</div></div>
+    <div class="stat"><div class="stat-num">1</div><div class="stat-cap">One Standard</div></div>
+  </div>
+</section>
+
+<!-- THREE DOORS -->
+<section class="wrap" id="doors">
+  <div class="sec-head">
+    <h2>Three Doors</h2>
+    <span class="aside">DIVISIONS // 212 &middot; 310 &middot; NRC</span>
+  </div>
+  <div class="doors" data-motion="doors">
+    <a class="door door-212" href="#">
+      <div class="door-top">
+        <span class="door-logo"><img src="brand/apr70-logos/212-pictures/212_hero.svg" alt="(212) Pictures"></span>
+        <span class="door-num">Door 01</span>
+      </div>
+      <h3>(212) Pictures</h3>
+      <p class="tagline">Everything you want. Everything you don't want.</p>
+      <p class="mandate">East Coast. New York first. Every format the city touches.</p>
+      <span class="door-foot"><span class="dot"></span>New York &middot; East Coast<span class="arrow">&rarr;</span></span>
+    </a>
+    <a class="door door-310" href="#">
+      <div class="door-top">
+        <span class="door-logo"><img src="brand/apr70-logos/310-pictures/310_hero.svg" alt="(310) Pictures"></span>
+        <span class="door-num">Door 02</span>
+      </div>
+      <h3>(310) Pictures</h3>
+      <p class="tagline">Los Angeles, and every market a signal reaches.</p>
+      <p class="mandate">West Coast and global television.</p>
+      <span class="door-foot"><span class="dot"></span>Los Angeles &middot; Global<span class="arrow">&rarr;</span></span>
+    </a>
+    <a class="door door-nrc" href="#">
+      <div class="door-top">
+        <span class="door-logo"><img src="brand/apr70-logos/new-renaissance-cinema/nrc_v3.svg" alt="New Renaissance Cinema"></span>
+        <span class="door-num">Door 03</span>
+      </div>
+      <h3>New Renaissance Cinema</h3>
+      <p class="tagline">Feature films, by mandate.</p>
+      <p class="mandate">Auteur-driven, morally clear, built for permanence rather than a release window.</p>
+      <span class="door-foot"><span class="dot"></span>Feature Films<span class="arrow">&rarr;</span></span>
+    </a>
+  </div>
+</section>
+
+<!-- COVER FEATURE -->
+<main class="cover wrap" id="cover" data-motion="cover">
+  <div>
+    <p class="cover-eyebrow">The APR 70 Troupe Presents No. 1</p>
+    <h2 class="cover-display">L.A. Dolce <span class="tone-2">Vita</span></h2>
+    <p class="cover-deck">A radio drama for seven voices and a clock. When we cut, the clock will tell you where you stand. Listen for it.</p>
+    <div class="cover-ctas">
+      <a class="pill pill--solid" href="#">Program No. 1 plays here</a>
+      <a class="text-link" href="#slate">The Slate, On Record <span class="arrow">&rarr;</span></a>
+    </div>
+  </div>
+  <figure class="plate">
+    <img src="pd/script-owi-rehearsal-1942-crop-1000.jpg" alt="Actors reading script pages at a radio microphone during an Office of War Information rehearsal, 1942.">
+    <figcaption class="plate-credit">Office of War Information, 1942 &middot; Library of Congress</figcaption>
+  </figure>
+</main>
+
+<!-- DISPATCH BAND -->
+<section class="wrap" id="dispatch">
+  <div class="dispatch" data-motion="dispatch">
+    <span class="dispatch-name">Dispatch <b>No. 1</b></span>
+    <span class="dispatch-from">From the offices of APR 70 Pictures, Long Island City, New York.</span>
+    <span class="dispatch-note">Issues numbered, never dated</span>
+    <a class="pill" href="#">Read the issue</a>
+  </div>
+</section>
+
+<!-- SLATE -->
+<section class="wrap" id="slate">
+  <div class="sec-head">
+    <h2>The Slate, On Record</h2>
+    <span class="aside aside--plain">On the record before it's on the screen.</span>
+  </div>
+  <div class="slate-list" data-motion="slate">
+    <a class="slate-row" href="#" style="--slate-c: var(--amber-ui)"><span class="idx">S.01</span><span class="title">The Mayors</span><span class="chip">(212)</span><span class="fmt">Documentary &middot; 11 Episodes</span><span class="arrow">&rarr;</span></a>
+    <a class="slate-row" href="#" style="--slate-c: var(--amber-ui)"><span class="idx">S.02</span><span class="title">Movement</span><span class="chip">(212)</span><span class="fmt">Series</span><span class="arrow">&rarr;</span></a>
+    <a class="slate-row" href="#" style="--slate-c: var(--amber-ui)"><span class="idx">S.03</span><span class="title">Sea Gate</span><span class="chip">(212)</span><span class="fmt">Episodic</span><span class="arrow">&rarr;</span></a>
+    <a class="slate-row" href="#" style="--slate-c: var(--amber-ui)"><span class="idx">S.04</span><span class="title">Da Hook</span><span class="chip">(212)</span><span class="fmt">Episodic &middot; Radio Parallel</span><span class="arrow">&rarr;</span></a>
+    <a class="slate-row" href="#" style="--slate-c: var(--nrc-ui)"><span class="idx">S.05</span><span class="title">A Need Grows in Brooklyn</span><span class="chip">NRC &middot; (212) Co-Prod</span><span class="fmt">Feature</span><span class="arrow">&rarr;</span></a>
+    <a class="slate-row" href="#" style="--slate-c: var(--nrc-ui)"><span class="idx">S.06</span><span class="title">Shadowmaster</span><span class="chip">NRC &middot; Series to (310)</span><span class="fmt">Feature First</span><span class="arrow">&rarr;</span></a>
+    <a class="slate-row" href="#" style="--slate-c: var(--nrc-ui)"><span class="idx">S.07</span><span class="title">U Bruculinu</span><span class="chip">NRC</span><span class="fmt">Feature, Probable</span><span class="arrow">&rarr;</span></a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" data-motion="about">
+  <p class="window">A window lit at two in the morning in Long Island City. Somebody is still reading.</p>
+  <p class="body">APR 70 Pictures is a film and television production company. Three divisions, one parent company, one standard. The work earns its position or it doesn't get made.</p>
+  <p class="rule-line">The audience first, always. Not our slate... their evening.</p>
+</section>
+
+<!-- FOOTER -->
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img class="logo-light" src="logos/apr70_logo_full_black.svg" alt="APR 70 Pictures">
+        <img class="logo-dark" src="logos/apr70_logo_full_white.svg" alt="APR 70 Pictures">
+        <p class="addr">Long Island City, New York.</p>
+        <p class="inv">Investor conversations happen in person. Write to the offices.</p>
+      </div>
+      <div class="foot-col">
+        <p class="label">(212) Pictures</p>
+        <p class="meta">New York &middot; East Coast</p>
+        <a class="go" href="#">Door 01 &rarr;</a>
+      </div>
+      <div class="foot-col">
+        <p class="label">(310) Pictures</p>
+        <p class="meta">Los Angeles &middot; Global</p>
+        <a class="go" href="#">Door 02 &rarr;</a>
+      </div>
+      <div class="foot-col">
+        <p class="label">New Renaissance Cinema</p>
+        <p class="meta">Feature Films</p>
+        <a class="go" href="#">Door 03 &rarr;</a>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span class="line">APR 70 Pictures. Three divisions. No decorative flourishes. Built to last.</span>
+      <span class="keycode">APR 70 PICTURES // LONG ISLAND CITY NY // REEL 086</span>
+    </div>
+  </div>
+</footer>
+
+<button class="mode-toggle" id="modeToggle" type="button" aria-label="Switch light or dark mode"><span class="lamp"></span><span class="mode-label">Dark</span></button>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script>
+/* Mode: ?mode=light|dark param wins; toggle flips; both modes fully styled. */
+(function () {
+  const p = new URLSearchParams(location.search).get('mode');
+  if (p === 'light' || p === 'dark') document.documentElement.dataset.theme = p;
+  const btn = document.getElementById('modeToggle');
+  const label = btn.querySelector('.mode-label');
+  const sync = () => { label.textContent = document.documentElement.dataset.theme === 'dark' ? 'Light' : 'Dark'; };
+  sync();
+  btn.addEventListener('click', () => {
+    const el = document.documentElement;
+    el.dataset.theme = el.dataset.theme === 'dark' ? 'light' : 'dark';
+    sync();
+  });
+})();
+
+/* Mission Control motion signature: TELEMETRY SETTLE.
+   Short, even, one-time staggered rises. No scrubbing, no loops, no drift.
+   The calm is the design. Reduced motion collapses to static. */
+gsap.registerPlugin(ScrollTrigger);
+const mm = gsap.matchMedia();
+mm.add('(prefers-reduced-motion: no-preference)', () => {
+  gsap.from('[data-motion="hero"] > *', { y: 14, opacity: 0, duration: 0.6, stagger: 0.09, ease: 'power2.out' });
+  gsap.from('.nav', { opacity: 0, duration: 0.5, ease: 'power2.out' });
+  const settle = (sel, trigger) => gsap.from(sel, {
+    y: 16, opacity: 0, duration: 0.55, stagger: 0.08, ease: 'power2.out',
+    scrollTrigger: { trigger: trigger || sel, start: 'top 86%' }
+  });
+  settle('[data-motion="identity"] p');
+  gsap.from('.stat', { y: 18, opacity: 0, duration: 0.6, stagger: 0.12, ease: 'power2.out', scrollTrigger: { trigger: '.stats', start: 'top 84%' } });
+  settle('.door', '[data-motion="doors"]');
+  settle('[data-motion="cover"] > *');
+  settle('[data-motion="dispatch"]');
+  gsap.from('.slate-row', { y: 12, opacity: 0, duration: 0.45, stagger: 0.06, ease: 'power2.out', scrollTrigger: { trigger: '[data-motion="slate"]', start: 'top 86%' } });
+  settle('[data-motion="about"] > *');
+});
+</script>
+
+</body>
+</html>

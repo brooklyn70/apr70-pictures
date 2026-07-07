@@ -115,6 +115,19 @@ const logoDefaults = { min: LOGO_SIZE.min, max: LOGO_SIZE.max, def: LOGO_SIZE.de
         if (!scale || !scales[scale]) scale = 'm'
         doc.setAttribute('data-font-scale', scale)
         doc.style.setProperty('--font-scale', scales[scale])
+
+        /* Wave G2 — font deployment (apr70:font) + division-accent preference
+           (apr70:accent). Token rebinds are CSS (theme-control.css); here we
+           only stamp the attributes pre-paint so there is no FOUC. */
+        var fonts = { house: 1, condensed: 1, serif: 1, mono: 1 }
+        var font = read('apr70:font')
+        if (!font || !fonts[font]) font = 'house'
+        doc.setAttribute('data-font', font)
+
+        var accents = { orange: 1, amber: 1, blue: 1, navy: 1, teal: 1 }
+        var accent = read('apr70:accent')
+        if (accent && accents[accent]) doc.setAttribute('data-accent', accent)
+        /* 'auto'/absent -> no data-accent attribute; theme/base --accent flows. */
       })()
     </script>
     {faviconSrc ? (

@@ -74,6 +74,18 @@ Reference implementation: `design-source/directions/direction-a-screening-room.h
 5. Orchestrator reviews screenshots VISUALLY before anything reaches Marco; code-review pass on the wave's diff; /verify-style end-to-end drive of changed flows.
 6. A passing matrix is NEVER a design verdict — Marco approves by looking at pictures. (Law from the 2026-07-06 rejection.)
 
+## 6b. Rulings round 2 — Marco, 2026-07-06 evening (supersede conflicting text above)
+- Themes: KEEP screening-room (default) + cutting-room. KILL photoplay, trade-paper, picture-palace (picker shows only live themes; css files may remain dormant). **Cutting Room switches to Futura as the LEAD face** — Share Tech Mono demotes to timecode gutters/keycodes only.
+- Three NEW creative theme candidates go through the mockup gate; **one MUST be "the x.ai direction"** (study https://x.ai DNA, deploy through the locked brand system).
+- Hero nameplate: caps are CLIPPED at the top of each line on all themes (SplitText mask + crushed leading) — fix so nothing clips at rest.
+- Control panel: light/dark toggle MOVES to the menu bar (VMS pattern), out of the panel. Panel gains: FONT picker, DIVISION-ACCENT picker, and the FULL logo library (~20+ marks from web/public/brand/apr70-logos/** + public/logos — not 6).
+- Footer: "The Marks of the House" colophon block is REMOVED entirely.
+- Division color law (DESIGN.md canon): division pages carry their OWN color on the filmstrip leader chip + accents — 310 gets a blue chip (310-sicilian-blue #0077B6 or nrc-navy #001F3F), 212 amber/sicilian-orange, NRC gray/navy. **Cleopatra must appear on /310's slate.**
+- Scrollbar: replace the default browser scrollbar sitewide — thin stroke, division color on division pages, gray in dark mode.
+- Display panel must persist on EVERY page including /news (currently disappears there — bug).
+- Property imagery: PD-first for ALL properties; ComfyUI allowed only with the visible interim credit. ON AIR sign = candidate 4 (1 reads cropped, 3 excluded).
+- Copy: Marco does his own text pass in `site-text-as-built-2026-07-06.md` — agents do NOT rewrite copy; known flags (spoiler leaks on /work/falcon + sea-gate + brooklyn, "The Other Doors" invention, DISPATCH "four features" count bug) await his ruling unless he says otherwise.
+
 ## 7. File ownership per wave (conflict avoidance)
 - Wave A (chrome+panel): Layout.astro, Footer.astro, ThemeControl island, tokens.css, designs manifest/logos, motion dispatcher skeleton.
 - Wave B (front door): index.astro + front-door blocks + content/v4.ts + motion/screening-room.

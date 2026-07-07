@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en" data-direction="aperture">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direction D — Aperture · APR 70 Pictures</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Share+Tech+Mono&display=swap">
+<style>
+/* Hallmark · macrostructure: framed technical column / severe minimal · tone: black-and-white restraint · anchor hue: orange 35° (spent once)
+ * theme: APR 70 house system (locked brand tokens) · studied: x.ai (severe black/white minimalism, huge tight type, thin rules, vast negative space)
+ * direction: D — APERTURE. "The x.ai direction." Pure black gate, one column of white type between hairline rules, sprocket chrome reduced to a single tick.
+ * Extract structure/rhythm from x.ai, not pixels: framed content column, bordered-cell grids, mono technical labels, immense negative space, monochrome discipline.
+ */
+
+/* ---------- FONTS ---------- */
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Light.otf') format('opentype'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Book.otf') format('opentype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Medium.otf') format('opentype'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Bold.otf') format('opentype'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Heavy.otf') format('opentype'); font-weight: 900; font-display: swap; }
+
+/* ---------- TOKENS (locked APR 70 system) ---------- */
+:root {
+  --apr-black: #000000;
+  --apr-white: #ffffff;
+  --apr-amber: #824B07;
+  --apr-teal: #077082;
+  --apr-orange: #E85D04;
+  --apr-blue: #0077B6;
+  --apr-offwhite: #c8c8c8;
+
+  --d212: #c98a3f;  /* amber, lifted to read on black */
+  --d310: #3aa8ba;  /* teal, lifted */
+  --dnrc: #c8c8c8;  /* offwhite */
+
+  --fg-1: #ffffff;
+  --fg-2: rgba(255,255,255,0.72);
+  --fg-3: rgba(255,255,255,0.52);
+  --fg-4: rgba(255,255,255,0.34);
+  --fg-5: rgba(255,255,255,0.18);
+  --bg-0: #000000;
+  --bg-1: #060606;
+  --rule: rgba(255,255,255,0.11);
+  --rule-2: rgba(255,255,255,0.20);
+
+  --font-display: 'Futura Std', Futura, 'Arial Black', sans-serif;
+  --font-body: 'Barlow', 'Helvetica Neue', sans-serif;
+  --font-mono: 'Share Tech Mono', ui-monospace, monospace;
+
+  --col: 1180px;                     /* the framed content column */
+  --pad: clamp(1.25rem, 4vw, 3.5rem);
+  --gut: clamp(2.5rem, 7vw, 7rem);   /* the vast margin outside the column */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: clip; -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg-0); color: var(--fg-1);
+  font-family: var(--font-body); font-weight: 300; line-height: 1.65;
+  overflow-x: clip;
+}
+::selection { background: var(--fg-1); color: #000; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+:focus-visible { outline: 1px solid var(--fg-1); outline-offset: 3px; }
+
+/* The framed column — x.ai's signature: content lives between two full-height hairlines. */
+.frame {
+  max-width: var(--col); margin: 0 auto;
+  border-left: 1px solid var(--rule); border-right: 1px solid var(--rule);
+}
+.pad { padding-left: var(--pad); padding-right: var(--pad); }
+.mono { font-family: var(--font-mono); }
+
+/* section index label — small caps mono with a tick */
+.ix { font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.34em; color: var(--fg-4); text-transform: uppercase; }
+.ix b { color: var(--apr-orange); font-weight: 400; }
+
+/* ---------- NAV ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 60;
+  background: rgba(0,0,0,0.86); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav-in { max-width: var(--col); margin: 0 auto; height: 62px; display: flex; align-items: center; gap: 20px; }
+.nav-brand { display: flex; align-items: center; gap: 12px; }
+.nav-brand img { height: 26px; width: auto; }
+.nav-brand span { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.32em; color: var(--fg-3); text-transform: uppercase; }
+.nav-links { margin-left: auto; display: flex; gap: clamp(14px, 2.2vw, 30px); }
+.nav-link { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-3); position: relative; padding: 4px 0; transition: color 0.3s; }
+.nav-link::after { content:''; position:absolute; left:0; right:0; bottom:-2px; height:1px; background: var(--fg-1); transform: scaleX(0); transform-origin:left; transition: transform 0.32s cubic-bezier(.16,1,.3,1); }
+.nav-link:hover { color: var(--fg-1); } .nav-link:hover::after { transform: scaleX(1); }
+.nav-link[aria-current] { color: var(--fg-1); } .nav-link[aria-current]::after { transform: scaleX(1); background: var(--apr-orange); }
+.nav-cta { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-1); border: 1px solid var(--rule-2); padding: 9px 16px; transition: background 0.28s, color 0.28s, border-color 0.28s; }
+.nav-cta:hover { background: var(--fg-1); color: #000; border-color: var(--fg-1); }
+
+/* ---------- HERO NAMEPLATE ---------- */
+.hero { padding-top: clamp(3.5rem, 10vw, 8.5rem); padding-bottom: clamp(2.5rem, 6vw, 5rem); }
+.hero .ix { margin-bottom: clamp(2rem, 5vw, 3.5rem); display:block; }
+.nameplate {
+  font-family: var(--font-display); font-weight: 900; text-transform: uppercase;
+  font-size: clamp(3.6rem, 15.5vw, 13rem); line-height: 0.9; letter-spacing: -0.035em;
+  padding-top: 0.06em; /* guard: caps never clip at rest */
+}
+.nameplate .l { display: block; will-change: transform, opacity; }
+.nameplate .dot { color: var(--apr-orange); }
+.hero-meta {
+  display: grid; grid-template-columns: 1fr auto; gap: 18px 40px; align-items: end;
+  margin-top: clamp(2.5rem, 6vw, 4.5rem); padding-top: 1.4rem; border-top: 1px solid var(--rule);
+}
+.hero-sub { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em; color: var(--fg-3); text-transform: uppercase; max-width: 40ch; line-height: 1.9; }
+.hero-sub b { color: var(--fg-1); font-weight: 400; }
+.hero-indicia { display: flex; gap: 26px; font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.24em; color: var(--fg-4); text-transform: uppercase; text-align: right; flex-wrap: wrap; justify-content: flex-end; }
+.hero-indicia b { color: var(--fg-1); font-weight: 400; display: block; }
+
+/* ---------- IDENTITY (label / content, x.ai two-column) ---------- */
+.identity { border-top: 1px solid var(--rule); display: grid; grid-template-columns: 200px 1fr; }
+.identity .lbl { padding: clamp(2.5rem,5vw,4rem) 0 clamp(2.5rem,5vw,4rem) var(--pad); border-right: 1px solid var(--rule); }
+.identity .lbl .ix { display:block; }
+.identity .body { padding: clamp(2.5rem,5vw,4rem) var(--pad); }
+.identity .body p { font-size: clamp(1.15rem, 2.2vw, 1.65rem); line-height: 1.55; color: var(--fg-2); max-width: 34ch; font-weight: 300; }
+.identity .body .first-words { color: var(--fg-1); font-weight: 500; }
+
+/* ---------- DISPATCH BAND ---------- */
+.dispatch { border-top: 1px solid var(--rule); }
+.dispatch-in { display: flex; align-items: center; gap: 20px 28px; flex-wrap: wrap; padding: 18px var(--pad); }
+.dispatch .no { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: clamp(0.95rem, 2vw, 1.35rem); letter-spacing: 0.02em; }
+.dispatch .no b { color: var(--apr-orange); }
+.dispatch .from { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; color: var(--fg-3); text-transform: uppercase; }
+.dispatch .note { margin-left: auto; font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: 0.26em; color: var(--fg-4); text-transform: uppercase; }
+.dispatch .cta { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-1); border: 1px solid var(--rule-2); padding: 9px 18px; transition: background 0.28s, color 0.28s; }
+.dispatch .cta:hover { background: var(--fg-1); color: #000; }
+
+/* ---------- COVER STORY ---------- */
+.cover { border-top: 1px solid var(--rule); display: grid; grid-template-columns: 1.15fr 0.85fr; }
+.cover .l-col { padding: clamp(3rem,6vw,5.5rem) var(--pad); border-right: 1px solid var(--rule); }
+.cover .r-col { padding: clamp(3rem,6vw,5.5rem) var(--pad); }
+.cover .eyebrow { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fg-4); display: flex; align-items: center; gap: 12px; margin-bottom: 2rem; }
+.cover .eyebrow::before { content:''; width: 30px; height: 1px; background: var(--apr-orange); }
+.cover-display { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: clamp(3rem, 8.5vw, 7.5rem); line-height: 0.86; letter-spacing: -0.03em; }
+.cover-display .l { display: block; }
+.cover-display .ghost { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.6); font-weight: 700; }
+.cover-deck { margin-top: 2rem; font-size: clamp(1rem,1.5vw,1.2rem); color: var(--fg-2); max-width: 42ch; font-weight: 300; }
+.cover-cta { display: inline-block; margin-top: 2rem; font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-1); border: 1px solid var(--rule-2); padding: 13px 24px; transition: background 0.28s, color 0.28s; }
+.cover-cta:hover { background: var(--fg-1); color: #000; }
+.cover-plate { border: 1px solid var(--rule-2); }
+.cover-plate img { filter: grayscale(1) contrast(1.04); width: 100%; }
+.cover-cap { display: flex; justify-content: space-between; gap: 12px; padding: 10px 12px; border-top: 1px solid var(--rule); font-family: var(--font-mono); font-size: 0.54rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-4); }
+.coverlines { margin-top: 2rem; }
+.coverline { display: grid; grid-template-columns: 2rem 1fr; gap: 14px; padding: 1.1rem 0; border-top: 1px solid var(--rule); }
+.coverline:last-child { border-bottom: 1px solid var(--rule); }
+.coverline .n { font-family: var(--font-mono); font-size: 0.7rem; color: var(--apr-orange); }
+.coverline h3 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 0.02em; }
+.coverline p { font-size: 0.82rem; color: var(--fg-3); margin-top: 5px; line-height: 1.6; }
+
+/* ---------- THREE DOORS (bordered-cell grid) ---------- */
+.doors-head { border-top: 1px solid var(--rule); display: flex; align-items: baseline; justify-content: space-between; padding: 1.25rem var(--pad); }
+.doors-head h2 { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: clamp(1.5rem, 3.6vw, 2.6rem); letter-spacing: -0.01em; }
+.doors { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid var(--rule); }
+.door { position: relative; padding: clamp(1.75rem,2.6vw,2.75rem); min-height: 360px; display: flex; flex-direction: column; border-right: 1px solid var(--rule); }
+.door:last-child { border-right: 0; }
+.door::before { content:''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--door-c); transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(.16,1,.3,1); }
+.door:hover::before { transform: scaleX(1); }
+.door-num { font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: 0.28em; color: var(--fg-4); }
+.door-logo { height: 104px; display: flex; align-items: center; margin: 1.75rem 0 1.75rem; }
+.door-logo img { max-height: 100%; width: auto; max-width: 210px; }
+.door h3 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: 1.3rem; letter-spacing: 0.01em; }
+.door .tag { margin-top: 0.55rem; color: var(--fg-2); font-size: 0.92rem; font-weight: 300; }
+.door .mandate { margin-top: 0.9rem; font-size: 0.8rem; color: var(--fg-3); line-height: 1.65; }
+.door .foot { margin-top: auto; padding-top: 1.5rem; font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-4); display: flex; align-items: center; gap: 10px; }
+.door .foot::before { content:''; width: 22px; height: 2px; background: var(--door-c); }
+.door-212 { --door-c: var(--d212); } .door-310 { --door-c: var(--d310); } .door-nrc { --door-c: var(--dnrc); }
+
+/* ---------- SLATE (data table) ---------- */
+.slate { border-top: 1px solid var(--rule); background: var(--bg-1); }
+.slate-head { display: flex; align-items: baseline; gap: 20px; flex-wrap: wrap; padding: clamp(2.5rem,5vw,4rem) var(--pad) 1.5rem; }
+.slate-head h2 { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: clamp(1.5rem,3.6vw,2.6rem); }
+.slate-head p { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-4); }
+.slate-list { border-top: 1px solid var(--rule); }
+.slate-row { display: grid; grid-template-columns: 3.4rem minmax(0,1fr) 9rem 12rem; gap: 16px; align-items: center; padding: 1rem var(--pad); border-bottom: 1px solid var(--rule); transition: background 0.25s, padding-left 0.25s; }
+.slate-row:hover { background: rgba(255,255,255,0.03); padding-left: calc(var(--pad) + 10px); }
+.slate-row .idx { font-family: var(--font-mono); font-size: 0.68rem; color: var(--fg-4); transition: color 0.25s; }
+.slate-row:hover .idx { color: var(--apr-orange); }
+.slate-row .title { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: clamp(1rem,1.8vw,1.35rem); letter-spacing: 0.01em; }
+.slate-row .dv { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sc, var(--fg-3)); }
+.slate-row .fmt { font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-4); text-align: right; }
+
+/* ---------- ABOUT ---------- */
+.about { border-top: 1px solid var(--rule); padding: clamp(4rem,9vw,8rem) var(--pad); }
+.about .window { font-family: var(--font-display); font-weight: 300; font-size: clamp(1.6rem, 4vw, 3rem); line-height: 1.15; letter-spacing: -0.01em; max-width: 24ch; }
+.about .body { margin-top: 2rem; max-width: 54ch; color: var(--fg-3); font-size: 1rem; }
+.about .rule-line { margin-top: 2.5rem; font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--fg-4); }
+.about .rule-line b { color: var(--apr-orange); font-weight: 400; }
+
+/* ---------- FOOTER ---------- */
+.foot-investor { border-top: 1px solid var(--rule); padding: 1.5rem var(--pad); font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-4); text-align: center; }
+.foot { border-top: 1px solid var(--rule); padding: clamp(2.5rem,5vw,4rem) var(--pad) clamp(3rem,6vw,4.5rem); }
+.foot-boiler { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: clamp(1rem,2vw,1.4rem); letter-spacing: 0.01em; text-align: center; }
+.foot-list { margin-top: 1.5rem; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-4); }
+.foot-list .sep { color: var(--fg-5); }
+.foot-addr { margin-top: 1.25rem; text-align: center; font-family: var(--font-mono); font-size: 0.54rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--fg-5); }
+
+/* ---------- ENTRANCE (one, CSS-only) ---------- */
+@keyframes rise { from { opacity: 0; transform: translateY(0.4em); } to { opacity: 1; transform: none; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+.nameplate .l { animation: rise 0.85s cubic-bezier(.16,1,.3,1) both; }
+.nameplate .l:nth-child(2) { animation-delay: 0.09s; }
+.hero .ix, .hero-meta { animation: fade 1s ease 0.5s both; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  .identity { grid-template-columns: 1fr; }
+  .identity .lbl { border-right: 0; border-bottom: 1px solid var(--rule); padding: 1.5rem var(--pad); }
+  .cover { grid-template-columns: 1fr; }
+  .cover .l-col { border-right: 0; border-bottom: 1px solid var(--rule); }
+  .doors { grid-template-columns: 1fr; }
+  .door { border-right: 0; border-bottom: 1px solid var(--rule); min-height: 0; }
+  .door:last-child { border-bottom: 0; }
+  .nav-links { display: none; }
+  .slate-row { grid-template-columns: 2.4rem 1fr; }
+  .slate-row .dv, .slate-row .fmt { display: none; }
+  .hero-meta { grid-template-columns: 1fr; }
+  .hero-indicia { justify-content: flex-start; text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" aria-label="Primary">
+  <div class="nav-in pad">
+    <a class="nav-brand" href="#"><img src="brand/apr70-logos/apr70-apr70pictures/monogram/apr70_monogram_white_v6.svg" alt="APR 70 Pictures"><span>APR 70 Pictures</span></a>
+    <div class="nav-links">
+      <a class="nav-link" href="#" aria-current="page">Front Door</a>
+      <a class="nav-link" href="#doors">Divisions</a>
+      <a class="nav-link" href="#slate">Slate</a>
+      <a class="nav-link" href="#">Troupe</a>
+      <a class="nav-link" href="#dispatch">Dispatch</a>
+    </div>
+    <a class="nav-cta" href="#dispatch">Read Dispatch</a>
+  </div>
+</nav>
+
+<div class="frame">
+
+  <!-- HERO NAMEPLATE -->
+  <header class="hero pad">
+    <span class="ix"><b>&#9679;</b> &nbsp;01 // Front Door &nbsp; APR 70 Pictures // Long Island City NY</span>
+    <h1 class="nameplate"><span class="l">APR 70</span><span class="l">Pictures<span class="dot">.</span></span></h1>
+    <div class="hero-meta">
+      <p class="hero-sub"><b>A film and television production company.</b> Long Island City, New York.</p>
+      <div class="hero-indicia">
+        <span><b>Three</b>Divisions</span>
+        <span><b>One</b>Parent company</span>
+        <span><b>One</b>Standard</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- IDENTITY -->
+  <section class="identity">
+    <div class="lbl"><span class="ix">02 // Identity</span></div>
+    <div class="body">
+      <p><span class="first-words">Seven actors around real microphones.</span> Index cards on a wall in Long Island City. We make pictures for audiences who've been waiting: crime and documentary built out of the five boroughs, elevated genre for global television, auteur features that trade formula for conviction.</p>
+    </div>
+  </section>
+
+  <!-- DISPATCH BAND -->
+  <section class="dispatch" id="dispatch">
+    <div class="dispatch-in">
+      <span class="no">Dispatch <b>No. 1</b></span>
+      <span class="from">From the offices of APR 70 Pictures, Long Island City, New York.</span>
+      <span class="note">Issues numbered, never dated</span>
+      <a class="cta" href="#">Read the issue</a>
+    </div>
+  </section>
+
+  <!-- COVER STORY -->
+  <main class="cover">
+    <div class="l-col">
+      <p class="eyebrow">The APR 70 Troupe Presents No. 1</p>
+      <h2 class="cover-display"><span class="l">L.A.</span><span class="l">Dolce</span><span class="l ghost">Vita</span></h2>
+      <p class="cover-deck">A radio drama for seven voices and a clock. When we cut, the clock will tell you where you stand. Listen for it.</p>
+      <a class="cover-cta" href="#">Program No. 1 plays here</a>
+    </div>
+    <div class="r-col">
+      <figure class="cover-plate">
+        <img src="pd/script-owi-rehearsal-1942-crop-1000.jpg" alt="Two performers reading a script at a radio microphone, 1942">
+        <figcaption class="cover-cap"><span>Cover Plate // Slot 01</span><span>Library of Congress · OWI · 1942</span></figcaption>
+      </figure>
+      <div class="coverlines">
+        <div class="coverline">
+          <span class="n">02</span>
+          <div><h3>Three Doors</h3><p>(212): the five boroughs at street level. (310): Los Angeles, and every market a signal reaches. New Renaissance Cinema: feature films built for permanence.</p></div>
+        </div>
+        <div class="coverline">
+          <span class="n">03</span>
+          <div><h3>The Slate, On Record</h3><p>Draft synopses from every desk. The boroughs, the coasts, the feature slate. On the record before it's on the screen.</p></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- THREE DOORS -->
+  <section id="doors">
+    <div class="doors-head">
+      <h2>Three Doors</h2>
+      <span class="ix">Divisions // 212 · 310 · NRC</span>
+    </div>
+    <div class="doors">
+      <article class="door door-212">
+        <span class="door-num">Door 01</span>
+        <div class="door-logo"><img src="brand/apr70-logos/212-pictures/212_hero.svg" alt="(212) Pictures"></div>
+        <h3>(212) Pictures</h3>
+        <p class="tag">Everything you want. Everything you don't want.</p>
+        <p class="mandate">East Coast. New York first. Every format the city touches.</p>
+        <p class="foot">New York · East Coast</p>
+      </article>
+      <article class="door door-310">
+        <span class="door-num">Door 02</span>
+        <div class="door-logo"><img src="brand/apr70-logos/310-pictures/310_hero.svg" alt="(310) Pictures"></div>
+        <h3>(310) Pictures</h3>
+        <p class="tag">Los Angeles, and every market a signal reaches.</p>
+        <p class="mandate">West Coast and global television.</p>
+        <p class="foot">Los Angeles · Global</p>
+      </article>
+      <article class="door door-nrc">
+        <span class="door-num">Door 03</span>
+        <div class="door-logo"><img src="brand/apr70-logos/new-renaissance-cinema/nrc_v3.svg" alt="New Renaissance Cinema"></div>
+        <h3>New Renaissance Cinema</h3>
+        <p class="tag">Feature films, by mandate.</p>
+        <p class="mandate">Auteur-driven, morally clear, built for permanence rather than a release window.</p>
+        <p class="foot">Feature Films</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- SLATE -->
+  <section class="slate" id="slate">
+    <div class="slate-head">
+      <h2>The Slate, On Record</h2>
+      <p>On the record before it's on the screen.</p>
+    </div>
+    <div class="slate-list">
+      <a class="slate-row" href="#" style="--sc:var(--d212)"><span class="idx">S.01</span><span class="title">The Mayors</span><span class="dv">(212)</span><span class="fmt">Documentary · 11 Episodes</span></a>
+      <a class="slate-row" href="#" style="--sc:var(--d212)"><span class="idx">S.02</span><span class="title">Movement</span><span class="dv">(212)</span><span class="fmt">Series</span></a>
+      <a class="slate-row" href="#" style="--sc:var(--d212)"><span class="idx">S.03</span><span class="title">Sea Gate</span><span class="dv">(212)</span><span class="fmt">Episodic</span></a>
+      <a class="slate-row" href="#" style="--sc:var(--d212)"><span class="idx">S.04</span><span class="title">Da Hook</span><span class="dv">(212)</span><span class="fmt">Episodic · Radio Parallel</span></a>
+      <a class="slate-row" href="#" style="--sc:var(--dnrc)"><span class="idx">S.05</span><span class="title">A Need Grows in Brooklyn</span><span class="dv">NRC · (212) Co-Prod</span><span class="fmt">Feature</span></a>
+      <a class="slate-row" href="#" style="--sc:var(--dnrc)"><span class="idx">S.06</span><span class="title">Shadowmaster</span><span class="dv">NRC · Series to (310)</span><span class="fmt">Feature First</span></a>
+      <a class="slate-row" href="#" style="--sc:var(--dnrc)"><span class="idx">S.07</span><span class="title">U Bruculinu</span><span class="dv">NRC</span><span class="fmt">Feature, Probable</span></a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <p class="window">A window lit at two in the morning in Long Island City. Somebody is still reading.</p>
+    <p class="body">APR 70 Pictures is a film and television production company. Three divisions, one parent company, one standard. The work earns its position or it doesn't get made.</p>
+    <p class="rule-line"><b>&#9679;</b> &nbsp; The audience first, always. Not our slate... their evening.</p>
+  </section>
+
+  <!-- FOOTER -->
+  <p class="foot-investor">Investor conversations happen in person. Write to the offices.</p>
+  <footer class="foot">
+    <p class="foot-boiler">APR 70 Pictures. Three divisions. No decorative flourishes. Built to last.</p>
+    <p class="foot-list"><span>(212) Pictures · New York · East Coast</span><span class="sep">/</span><span>(310) Pictures · Los Angeles · Global</span><span class="sep">/</span><span>New Renaissance Cinema · Feature Films</span></p>
+    <p class="foot-addr">Long Island City, New York.</p>
+  </footer>
+
+</div>
+
+</body>
+</html>

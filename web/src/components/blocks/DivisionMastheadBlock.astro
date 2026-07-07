@@ -1,0 +1,198 @@
+---
+/**
+ * DivisionMastheadBlock.astro — the division front door (Wave F).
+ *
+ * The division hero lockup at REAL scale (>=140px desktop) from LOCAL /brand/
+ * SVGs, the display name, an optional tagline, and the one-line mandate — all
+ * tinted in the division accent (amber / teal / off-white). 212 carries a
+ * public-domain plate (Berenice Abbott's El, 1936) with a quiet credit; the
+ * other divisions run logo-forward with no forced imagery.
+ *
+ * Zero JS, tokens only (both modes rebind automatically; Wave-F theme sections
+ * add each theme's personality). The name is present at the top of the page by
+ * SSR default — no motion hook that could strand it dim.
+ */
+import type { DivisionMastheadData } from '../../content/v4'
+
+interface Props {
+  block: DivisionMastheadData
+}
+
+const { block } = Astro.props
+const hasPlate = !!block.plate
+---
+
+<header class:list={['division-masthead', `division-masthead--${block.tone}`, { 'division-masthead--plated': hasPlate }]}>
+  <div class="container">
+    <p class="division-masthead__keycode">{block.keycode}</p>
+
+    <div class="division-masthead__grid">
+      <div class="division-masthead__lead">
+        <span class="division-masthead__logo">
+          <img src={block.logo} alt={block.logoAlt} width="360" height="280" />
+        </span>
+        <h1 class="division-masthead__name">{block.name}</h1>
+        {block.tagline && <p class="division-masthead__tagline">{block.tagline}</p>}
+        <p class="division-masthead__mandate">{block.mandate}</p>
+      </div>
+
+      {block.plate && (
+        <figure class="division-masthead__plate">
+          <img
+            class="division-masthead__img"
+            src={block.plate.src}
+            srcset={block.plate.srcset ?? undefined}
+            sizes="(min-width: 900px) 42vw, 100vw"
+            width={block.plate.width ?? undefined}
+            height={block.plate.height ?? undefined}
+            alt={block.plate.alt}
+            loading="eager"
+            decoding="async"
+          />
+          <figcaption class="division-masthead__credit">{block.plate.credit}</figcaption>
+        </figure>
+      )}
+    </div>
+  </div>
+</header>
+
+<style>
+  .division-masthead {
+    border-bottom: 1px solid var(--rule-strong);
+    padding: clamp(2rem, 5vw, 4rem) 0 clamp(2rem, 4vw, 3.25rem);
+    position: relative;
+  }
+  /* Division colour bleeds in as a thin top marker + a soft floor glow. */
+  .division-masthead::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--div-c);
+    opacity: 0.9;
+  }
+
+  .division-masthead__keycode {
+    font-family: var(--font-mono);
+    font-size: var(--type-tiny);
+    letter-spacing: var(--track-strip);
+    text-transform: uppercase;
+    color: var(--fg-5);
+    margin: 0 0 clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .division-masthead__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: center;
+  }
+  .division-masthead--plated .division-masthead__grid {
+    align-items: end;
+  }
+  @media (min-width: 900px) {
+    .division-masthead--plated .division-masthead__grid {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    }
+  }
+
+  /* ── Lead: logo + name + tagline + mandate ── */
+  .division-masthead__logo {
+    display: block;
+    margin-bottom: clamp(1.25rem, 2.5vw, 2rem);
+  }
+  .division-masthead__logo img {
+    /* Real scale — >=140px height on desktop. */
+    height: clamp(120px, 18vw, 190px);
+    width: auto;
+    max-width: min(100%, 320px);
+    display: block;
+  }
+
+  .division-masthead__name {
+    font-family: var(--font-display);
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: clamp(2.4rem, 7vw, 5rem);
+    line-height: 0.9;
+    letter-spacing: -0.015em;
+    color: var(--fg-1);
+    margin: 0;
+  }
+
+  .division-masthead__tagline {
+    margin: clamp(0.9rem, 2vw, 1.25rem) 0 0;
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+    line-height: var(--leading-snug);
+    color: var(--div-c-text);
+    max-width: 30ch;
+  }
+
+  .division-masthead__mandate {
+    margin: clamp(1rem, 2vw, 1.35rem) 0 0;
+    display: flex;
+    gap: 14px;
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: var(--type-body-lg);
+    line-height: var(--leading-body);
+    color: var(--fg-2);
+    max-width: 46ch;
+  }
+  .division-masthead__mandate::before {
+    content: '';
+    flex: 0 0 auto;
+    width: 28px;
+    height: 2px;
+    margin-top: 0.7em;
+    background: var(--div-c);
+  }
+
+  /* ── Plate (PD imagery) ── */
+  .division-masthead__plate {
+    margin: 0;
+  }
+  .division-masthead__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--rule-strong);
+    background: var(--bg-2);
+    filter: grayscale(0.18) contrast(1.03);
+  }
+  .division-masthead__credit {
+    margin-top: var(--s-3);
+    font-family: var(--font-mono);
+    font-size: var(--type-tiny);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg-4);
+  }
+
+  /* ── Division tones ── */
+  .division-masthead--212 {
+    --div-c: var(--apr-amber);
+    --div-c-text: #c98a3f;
+  }
+  .division-masthead--310 {
+    --div-c: var(--apr-imax);
+    --div-c-text: #3aa8ba;
+  }
+  .division-masthead--nrc {
+    --div-c: var(--apr-grey);
+    --div-c-text: var(--apr-grey);
+  }
+  :global([data-theme='light']) .division-masthead--212 {
+    --div-c-text: #8a5a12;
+  }
+  :global([data-theme='light']) .division-masthead--310 {
+    --div-c-text: #0a5c6b;
+  }
+  :global([data-theme='light']) .division-masthead--nrc {
+    --div-c-text: #5a5a5a;
+  }
+</style>

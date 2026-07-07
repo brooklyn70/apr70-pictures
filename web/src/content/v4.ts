@@ -375,6 +375,288 @@ export const V4_DIVISION_PASSAGES: Record<'212' | '310' | 'nrc', ZinePassageData
   },
 }
 
+// ── V4 DIVISION PAGE BLOCKS (Wave F) ─────────────────────────────────────────
+// Bespoke, text-forward division blocks that build /212, /310, /nrc out to the
+// front-door standard: a division masthead (hero logo at real scale + name +
+// tagline + mandate), the Draft-3 section copy VERBATIM, a division slate of
+// linked properties, and a cross-doors strip to the other two divisions. Each
+// renders as a zero-JS Astro component, token-styled so every theme's rebinds
+// carry through, and carries stable `data-motion` hooks the screening-room
+// module already selects (slate/slate-row, doors/door/door-logo). Division
+// accent: (212) amber, (310) teal/IMAX, NRC off-white grey. Copy VERBATIM from
+// Draft 3 (DIVISIONS section). No em dashes in running copy; "..." style.
+
+export type DivisionTone = '212' | '310' | 'nrc'
+
+export type DivisionPlate = {
+  src: string
+  srcset?: string | null
+  width?: number | null
+  height?: number | null
+  alt: string
+  /** Quiet PD credit line (SPEC §5). */
+  credit: string
+}
+
+export type DivisionMastheadData = {
+  blockType: 'divisionMasthead'
+  id?: string | null
+  blockName?: string | null
+  tone: DivisionTone
+  /** Mono chrome strip, e.g. "DIVISION 01 // (212) PICTURES · NEW YORK". */
+  keycode: string
+  /** Local /brand/ hero SVG — displayed at real scale (>=140px desktop). */
+  logo: string
+  logoAlt: string
+  name: string
+  tagline?: string | null
+  mandate: string
+  /** Optional PD plate (212 uses the Abbott El, 1936). */
+  plate?: DivisionPlate | null
+}
+
+export type DivisionSectionData = {
+  blockType: 'divisionSection'
+  id?: string | null
+  blockName?: string | null
+  tone: DivisionTone
+  kicker: string
+  /** Opening sentence, set large (Draft 3 verbatim). */
+  lede: string
+  /** Plain text; blank line = new paragraph. Draft 3 verbatim. */
+  body: string
+  /** Optional formats line (212 only, Draft 3 verbatim). */
+  formatsLabel?: string | null
+  formats?: string | null
+}
+
+export type DivisionSlateRow = {
+  idx: string
+  title: string
+  division: string
+  format: string
+  href: string
+  tone: DivisionTone
+}
+
+export type DivisionSlateData = {
+  blockType: 'divisionSlate'
+  id?: string | null
+  blockName?: string | null
+  tone: DivisionTone
+  heading: string
+  lede: string
+  rows: DivisionSlateRow[]
+}
+
+export type DivisionCrossDoor = {
+  tone: DivisionTone
+  logo: string
+  logoAlt: string
+  name: string
+  line: string
+  href: string
+}
+
+export type DivisionCrossDoorsData = {
+  blockType: 'divisionCrossDoors'
+  id?: string | null
+  blockName?: string | null
+  heading: string
+  keycode: string
+  doors: DivisionCrossDoor[]
+}
+
+export type DivisionBlockData =
+  | DivisionMastheadData
+  | DivisionSectionData
+  | DivisionSlateData
+  | DivisionCrossDoorsData
+
+// Local brand SVGs (never /api/media — see the division pages' logo fallback).
+const DIVISION_LOGO: Record<DivisionTone, { hero: string; alt: string; name: string; line: string; href: string }> = {
+  '212': {
+    hero: '/brand/apr70-logos/212-pictures/212_hero.svg',
+    alt: '(212) Pictures',
+    name: '(212) Pictures',
+    line: 'East Coast. New York first. Every format the city touches.',
+    href: '/212',
+  },
+  '310': {
+    hero: '/brand/apr70-logos/310-pictures/310_hero.svg',
+    alt: '(310) Pictures',
+    name: '(310) Pictures',
+    line: 'West Coast and global television.',
+    href: '/310',
+  },
+  nrc: {
+    hero: '/brand/apr70-logos/new-renaissance-cinema/nrc_v3.svg',
+    alt: 'New Renaissance Cinema',
+    name: 'New Renaissance Cinema',
+    line: 'Feature films, by mandate.',
+    href: '/nrc',
+  },
+}
+
+/** The two OTHER divisions, in canonical 212 · 310 · NRC order. */
+function crossDoorsFor(self: DivisionTone): DivisionCrossDoorsData {
+  const order: DivisionTone[] = ['212', '310', 'nrc']
+  return {
+    blockType: 'divisionCrossDoors',
+    heading: 'The Other Doors',
+    keycode: 'DIVISIONS // 212 · 310 · NRC',
+    doors: order
+      .filter((t) => t !== self)
+      .map((t) => ({
+        tone: t,
+        logo: DIVISION_LOGO[t].hero,
+        logoAlt: DIVISION_LOGO[t].alt,
+        name: DIVISION_LOGO[t].name,
+        line: DIVISION_LOGO[t].line,
+        href: DIVISION_LOGO[t].href,
+      })),
+  }
+}
+
+const V4_DIVISION_MASTHEADS: Record<DivisionTone, DivisionMastheadData> = {
+  '212': {
+    blockType: 'divisionMasthead',
+    tone: '212',
+    keycode: 'DIVISION 01 // (212) PICTURES · NEW YORK',
+    logo: DIVISION_LOGO['212'].hero,
+    logoAlt: '(212) Pictures',
+    name: '(212) Pictures',
+    tagline: "Everything you want. Everything you don't want.",
+    mandate: 'East Coast. New York first. Every format the city touches.',
+    plate: {
+      src: '/pd/nyc-el-72nd-1936/nyc-el-72nd-1936-crop-1000.jpg',
+      srcset:
+        '/pd/nyc-el-72nd-1936/nyc-el-72nd-1936-crop-480.jpg 480w, ' +
+        '/pd/nyc-el-72nd-1936/nyc-el-72nd-1936-crop-1000.jpg 1000w, ' +
+        '/pd/nyc-el-72nd-1936/nyc-el-72nd-1936-crop-2000.jpg 2000w',
+      width: 2000,
+      height: 1648,
+      alt: 'Elevated train station at 72nd Street and Columbus Avenue, New York, 1936.',
+      credit: 'Berenice Abbott, Changing New York (WPA), 1936 · The New York Public Library',
+    },
+  },
+  '310': {
+    blockType: 'divisionMasthead',
+    tone: '310',
+    keycode: 'DIVISION 02 // (310) PICTURES · LOS ANGELES',
+    logo: DIVISION_LOGO['310'].hero,
+    logoAlt: '(310) Pictures',
+    name: '(310) Pictures',
+    tagline: null,
+    mandate: 'West Coast and global television.',
+    plate: null,
+  },
+  nrc: {
+    blockType: 'divisionMasthead',
+    tone: 'nrc',
+    keycode: 'DIVISION 03 // NEW RENAISSANCE CINEMA · FEATURE FILMS',
+    logo: DIVISION_LOGO.nrc.hero,
+    logoAlt: 'New Renaissance Cinema',
+    name: 'New Renaissance Cinema',
+    tagline: null,
+    mandate:
+      'Feature films, by mandate. Every APR 70 feature carries the NRC banner; the territory division joins as co-production.',
+    plate: null,
+  },
+}
+
+// Section copy — Draft 3 DIVISIONS section, VERBATIM. Lede = the opening
+// sentence; body split into paragraphs only at existing sentence boundaries
+// (no word changed). "..." style, no em dashes.
+const V4_DIVISION_SECTIONS: Record<DivisionTone, DivisionSectionData> = {
+  '212': {
+    blockType: 'divisionSection',
+    tone: '212',
+    kicker: 'New York · East Coast',
+    lede: 'The El roars over the corner and nobody stops talking.',
+    body:
+      'New York television: crime, drama, documentary, borough-specific, produced at street level, with the kind of detail that only comes from being in the room.\n\n' +
+      "The five boroughs have a texture that most productions smooth over. (212) Pictures doesn't.",
+    formatsLabel: 'Formats',
+    formats:
+      'Film co-productions, streaming series, documentary, radio and audio drama, theater, publishing.',
+  },
+  '310': {
+    blockType: 'divisionSection',
+    tone: '310',
+    kicker: 'Los Angeles · Global',
+    lede: 'Los Angeles, and every market a signal reaches.',
+    body:
+      'Television built for audiences who travel. Political thrillers, science fiction, hybrid formats that interrogate genre without abandoning it.\n\n' +
+      'Wider geography, wider formal range, and the same hard edge underneath.',
+    formatsLabel: null,
+    formats: null,
+  },
+  nrc: {
+    blockType: 'divisionSection',
+    tone: 'nrc',
+    kicker: 'Feature Films',
+    lede: 'Feature films.',
+    body:
+      'Auteur-driven, morally clear, built for permanence rather than a release window. The greatest art is born inside clear boundaries.\n\n' +
+      'Old Hollywood had rules about what could be shown, so they leaned on subtext, atmosphere, and ingenious writing. We strip away the easy shocks... gratuitous violence, cheap profanity, empty provocation... and force the story to do the heavy lifting.\n\n' +
+      'Adult subject matter is allowed; the execution is what is constrained. The touchstones are Rocky (1976) and 8 1/2 (1963): adult, masterful, and clean, watchable across generations.\n\n' +
+      'New Renaissance Cinema develops the kind of work that forces a conversation and holds it.',
+    formatsLabel: null,
+    formats: null,
+  },
+}
+
+// Division slates — properties as slate rows linking to /work/<slug>. Slugs
+// follow v4.ts + the live CMS (falcon = Da Hook; ladolcevita = L.A. Dolce Vita).
+// Division assignments are canon-correct per v4.ts: brooklyn is NRC-lead /
+// (212) co-production; shadowmaster is NRC feature with a (310) series spawn.
+const V4_DIVISION_SLATES: Record<DivisionTone, DivisionSlateData> = {
+  '212': {
+    blockType: 'divisionSlate',
+    tone: '212',
+    heading: 'The Slate, On Record',
+    lede: "On the record before it's on the screen.",
+    rows: [
+      { idx: 'S.01', title: 'The Mayors', division: '(212)', format: 'Documentary · 11 Episodes', href: '/work/mayors', tone: '212' },
+      { idx: 'S.02', title: 'Movement', division: '(212)', format: 'Series', href: '/work/movement', tone: '212' },
+      { idx: 'S.03', title: 'Sea Gate', division: '(212)', format: 'Episodic', href: '/work/sea-gate', tone: '212' },
+      { idx: 'S.04', title: 'Da Hook', division: '(212)', format: 'Episodic · Radio Parallel', href: '/work/falcon', tone: '212' },
+      { idx: 'S.05', title: 'A Need Grows in Brooklyn', division: 'NRC · (212) Co-Production', format: 'Feature', href: '/work/brooklyn', tone: 'nrc' },
+    ],
+  },
+  '310': {
+    blockType: 'divisionSlate',
+    tone: '310',
+    heading: 'The Slate, On Record',
+    lede: "On the record before it's on the screen.",
+    rows: [
+      { idx: 'S.01', title: 'L.A. Dolce Vita', division: '(310)', format: 'Troupe Presents No. 1', href: '/work/ladolcevita', tone: '310' },
+      { idx: 'S.02', title: 'Shadowmaster', division: 'NRC · Series Spawn to (310)', format: 'Feature First', href: '/work/shadowmaster', tone: 'nrc' },
+    ],
+  },
+  nrc: {
+    blockType: 'divisionSlate',
+    tone: 'nrc',
+    heading: 'The Slate, On Record',
+    lede: "On the record before it's on the screen.",
+    rows: [
+      { idx: 'S.01', title: 'A Need Grows in Brooklyn', division: 'NRC Lead · (212) Co-Production', format: 'Feature', href: '/work/brooklyn', tone: 'nrc' },
+      { idx: 'S.02', title: 'Shadowmaster', division: 'NRC · Series to (310)', format: 'Feature First', href: '/work/shadowmaster', tone: 'nrc' },
+      { idx: 'S.03', title: 'U Bruculinu', division: 'NRC', format: 'Feature, Probable', href: '/work/ubrucculinu', tone: 'nrc' },
+    ],
+  },
+}
+
+/** Complete division-page block stack, compiled in — the fallback used when the
+ *  Payload division layout does not yet carry the v4 division blocks (detected
+ *  by `divisionMasthead`). Order: masthead, section copy, slate, cross-doors. */
+export const V4_DIVISION_BLOCKS: Record<DivisionTone, DivisionBlockData[]> = {
+  '212': [V4_DIVISION_MASTHEADS['212'], V4_DIVISION_SECTIONS['212'], V4_DIVISION_SLATES['212'], crossDoorsFor('212')],
+  '310': [V4_DIVISION_MASTHEADS['310'], V4_DIVISION_SECTIONS['310'], V4_DIVISION_SLATES['310'], crossDoorsFor('310')],
+  nrc: [V4_DIVISION_MASTHEADS.nrc, V4_DIVISION_SECTIONS.nrc, V4_DIVISION_SLATES.nrc, crossDoorsFor('nrc')],
+}
+
 // ── PROPERTIES (bundle: PROPERTIES — the 7 draft synopses, verbatim,
 //    internal ruling notes stripped per the bundle's editor notes) ───────────
 

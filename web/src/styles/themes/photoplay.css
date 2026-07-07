@@ -585,3 +585,59 @@
 [data-design='photoplay'][data-theme] .footer__link {
   font-family: var(--font-serif);
 }
+
+/* ============================================================
+   Wave F: division pages — picture-magazine plates + double rules
+   to match the front-door blocks under this design. Condensed
+   display + serif reading are inherited via the token rebinds.
+   ============================================================ */
+[data-design='photoplay'][data-theme] .division-masthead {
+  border-bottom: 3px double var(--rule-strong);
+}
+/* the plate: matted, ink-bordered, sepia-developed */
+[data-design='photoplay'][data-theme] .division-masthead__img {
+  border: 3px solid var(--fg-1);
+  padding: var(--pp-mat);
+  background: var(--bg-2);
+  filter: sepia(0.42) contrast(1.02) brightness(1.01);
+}
+[data-design='photoplay'][data-theme='dark'] .division-masthead__img {
+  filter: sepia(0.55) contrast(0.98) brightness(0.95);
+}
+[data-design='photoplay'][data-theme] .division-masthead__credit {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+}
+/* section rail rule reads as a magazine ruled column */
+[data-design='photoplay'][data-theme] .division-section {
+  border-bottom: 3px double var(--rule-strong);
+}
+/* slate = "In This Issue" contents: dotted leaders, double-rule head */
+[data-design='photoplay'][data-theme] .division-slate__head {
+  border-bottom: 3px double var(--rule-strong);
+  padding-bottom: var(--s-4);
+}
+[data-design='photoplay'][data-theme] .division-slate__list {
+  border-top: 0;
+}
+[data-design='photoplay'][data-theme] .division-slate__row {
+  border-bottom: 2px dotted var(--rule-strong);
+}
+[data-design='photoplay'][data-theme] .division-slate__row:hover,
+[data-design='photoplay'][data-theme] .division-slate__row:focus-visible {
+  background: color-mix(in srgb, var(--apr-orange) 8%, transparent);
+}
+/* cross-doors = framed plate cards, double-rule head */
+[data-design='photoplay'][data-theme] .division-cross__head {
+  border-top: 3px double var(--rule-strong);
+}
+[data-design='photoplay'][data-theme] .division-cross__grid {
+  background: transparent;
+  border: 0;
+  gap: clamp(1.25rem, 3vw, 2rem);
+}
+[data-design='photoplay'][data-theme] .division-cross__door {
+  border: 2px solid var(--fg-1);
+  background: var(--bg-1);
+}

@@ -2,24 +2,37 @@
 import Layout from '../layouts/Layout.astro';
 import BlockRenderer from '../components/blocks/BlockRenderer.astro';
 import { fetchDivision310Global } from '../lib/payload';
-import { V4_DIVISION_PASSAGES } from '../content/v4';
+import { V4_DIVISION_BLOCKS } from '../content/v4';
 
 const { division310, error } = await fetchDivision310Global();
 const dbBlocks = division310?.layout || [];
-// V4 zine: the bundle's division copy leads. Once the Payload layout carries
-// a zinePassage block (apply-v4-content.ts), the DB version takes over.
-const hasZine = dbBlocks.some((b) => (b as { blockType?: string }).blockType === 'zinePassage');
-const blocks = hasZine ? dbBlocks : [V4_DIVISION_PASSAGES['310'], ...dbBlocks];
-// Themes are global + visitor-selected: the Payload `theme` field is dormant
-// and divisions no longer force a skin (division logo/favicon still apply).
-const faviconOverride = typeof division310?.faviconOverride === 'object' ? division310.faviconOverride : undefined;
-const headerLogo = typeof division310?.headerLogo === 'object' ? division310.headerLogo : undefined;
-const footerLogo = typeof division310?.footerLogo === 'object' ? division310.footerLogo : undefined;
+// V4 division pages: the built-out division block stack leads (masthead,
+// section copy, slate, cross-doors). Once the Payload layout is re-arranged to
+// carry a `divisionMasthead` block, the DB version takes over wholesale.
+const hasDivisionLayout = dbBlocks.some(
+  (b) => (b as { blockType?: string }).blockType === 'divisionMasthead',
+);
+const blocks = hasDivisionLayout ? dbBlocks : V4_DIVISION_BLOCKS['310'];
+
+// ── Logo overrides — CMS-down-safe (Wave F; see 212.astro for the rationale) ──
+const localBrand = (p: string) => ({ url: new URL(p, Astro.url).href });
+const pickLogo = (media: unknown, localPath: string) => {
+  const url =
+    media && typeof media === 'object' && 'url' in media
+      ? (media as { url?: unknown }).url
+      : undefined;
+  if (!error && typeof url === 'string' && /^https?:\/\//.test(url)) return media;
+  return localBrand(localPath);
+};
+
+const navLogoOverride = pickLogo(division310?.headerLogo, '/brand/apr70-logos/310-pictures/310_hero.svg');
+const footerLogoOverride = pickLogo(division310?.footerLogo, '/brand/apr70-logos/310-pictures/310_footer.svg');
+const faviconOverride = pickLogo(division310?.faviconOverride, '/brand/apr70-logos/310-pictures/310_favicon.svg');
 ---
 
-<Layout title="310 Division" faviconOverride={faviconOverride} navLogoOverride={headerLogo} navLogoAltOverride="310 Pictures" footerLogoOverride={footerLogo} footerLogoAltOverride="310 Pictures">
+<Layout title="310 Division" faviconOverride={faviconOverride} navLogoOverride={navLogoOverride} navLogoAltOverride="310 Pictures" footerLogoOverride={footerLogoOverride} footerLogoAltOverride="310 Pictures">
   <main>
-    {error && (
+    {import.meta.env.DEV && error && (
       <div style="padding: 1rem; margin: 2rem auto; max-width: 600px; background: rgba(255,0,0,0.1); border: 1px solid red; border-radius: 4px; font-family: var(--font-body); color: #cc0000;">
         <strong>Fetch Error:</strong> {error}
       </div>

@@ -523,3 +523,24 @@
 [data-design='picture-palace'] [data-motion='cover-line'] {
   transition: none;
 }
+
+/* ============================================================
+   Wave F: division pages — night-marquee accents. Division marks
+   keep their brand colour (as the front-door doors do under this
+   design); the interactive cues take the deco blue + footlight glow.
+   ============================================================ */
+[data-design='picture-palace'][data-theme] .division-masthead__name {
+  text-shadow: 0 0 16px color-mix(in srgb, var(--apr-blue) 24%, transparent);
+}
+[data-design='picture-palace'][data-theme] .division-masthead__img {
+  filter: grayscale(0.3) contrast(1.05) brightness(0.95);
+}
+[data-design='picture-palace'][data-theme] .division-slate__arrow,
+[data-design='picture-palace'][data-theme] .division-cross__go {
+  color: var(--apr-blue);
+}
+[data-design='picture-palace'][data-theme] .division-cross__door:hover,
+[data-design='picture-palace'][data-theme] .division-cross__door:focus-visible {
+  box-shadow:
+    inset 0 0 22px -8px color-mix(in srgb, var(--apr-blue) 60%, transparent);
+}

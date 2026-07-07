@@ -595,3 +595,71 @@
 [data-design='cutting-room'] {
   overflow-x: clip;
 }
+
+/* ============================================================
+   Wave F: division pages
+   B&W bench treatment to match the front-door blocks under this
+   design: every division tone neutralised to ink, marks + plate
+   graded to grayscale, block heads set in the Share Tech Mono lead
+   face. The orange is spent on the reel-head cue playhead, never
+   here. Scoped [data-design][data-theme] to win over block-scoped
+   division-tone custom properties.
+   ============================================================ */
+[data-design='cutting-room'][data-theme] .division-masthead--212,
+[data-design='cutting-room'][data-theme] .division-masthead--310,
+[data-design='cutting-room'][data-theme] .division-masthead--nrc,
+[data-design='cutting-room'][data-theme] .division-section--212,
+[data-design='cutting-room'][data-theme] .division-section--310,
+[data-design='cutting-room'][data-theme] .division-section--nrc {
+  --div-c: var(--fg-1);
+  --div-c-text: var(--fg-2);
+}
+[data-design='cutting-room'][data-theme] .division-slate--212,
+[data-design='cutting-room'][data-theme] .division-slate--310,
+[data-design='cutting-room'][data-theme] .division-slate--nrc {
+  --div-c: var(--fg-1);
+}
+[data-design='cutting-room'][data-theme] .division-slate__row--212,
+[data-design='cutting-room'][data-theme] .division-slate__row--310,
+[data-design='cutting-room'][data-theme] .division-slate__row--nrc {
+  --slate-c: var(--fg-3);
+}
+[data-design='cutting-room'][data-theme] .division-cross__door--212,
+[data-design='cutting-room'][data-theme] .division-cross__door--310,
+[data-design='cutting-room'][data-theme] .division-cross__door--nrc {
+  --door-c: var(--fg-1);
+  --door-c-text: var(--fg-2);
+}
+/* every mark + plate on the bench grades to grayscale */
+[data-design='cutting-room'][data-theme] .division-masthead__logo img,
+[data-design='cutting-room'][data-theme] .division-cross__logo img {
+  filter: grayscale(1) contrast(1.05);
+}
+[data-design='cutting-room'][data-theme] .division-masthead__img {
+  filter: grayscale(1) contrast(1.06) brightness(1.02);
+  border: 1px solid var(--rule-strong);
+}
+/* section + slate + cross heads read in the mono lead face */
+[data-design='cutting-room'][data-theme] .division-section__lede {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 3.2vw, 2.3rem);
+  letter-spacing: 0.08em;
+  line-height: 1.18;
+}
+[data-design='cutting-room'][data-theme] .division-slate__heading,
+[data-design='cutting-room'][data-theme] .division-cross__heading {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+  letter-spacing: 0.16em;
+}
+[data-design='cutting-room'][data-theme] .division-slate__title {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+/* hover wash goes to a hard ink cue, not a coloured sweep */
+[data-design='cutting-room'][data-theme] .division-cross__door::before {
+  opacity: 0.07;
+}

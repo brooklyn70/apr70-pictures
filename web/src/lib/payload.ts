@@ -480,6 +480,24 @@ export async function fetchDivisionNRCGlobal(): Promise<{
 
 // ── Collection types ──────────────────────────────────────────────────────────
 
+/** One slideshow plate on a project (gallery array row). Credit is required for provenance. */
+export type ProjectGalleryItem = {
+  id?: string | null
+  /** Media relation (populated at depth 1) — wins over imageUrl. */
+  image?: Media | number | null
+  /** External image URL fallback. */
+  imageUrl?: string | null
+  caption?: string | null
+  credit?: string | null
+}
+
+/** Pitch-deck slot (group) — renders on EVERY property page. */
+export type ProjectPitchDeck = {
+  status?: 'reserved' | 'available' | null
+  file?: Media | number | null
+  note?: string | null
+}
+
 /** Full doc shape — returned ONLY by single-doc fetchers (detail pages need `layout`). */
 export type ProjectDoc = {
   id: number
@@ -490,6 +508,9 @@ export type ProjectDoc = {
   status?: string | null
   year?: string | null
   heroImage?: unknown
+  synopsis?: string | null
+  gallery?: ProjectGalleryItem[] | null
+  pitchDeck?: ProjectPitchDeck | null
   layout?: unknown[] | null
 }
 

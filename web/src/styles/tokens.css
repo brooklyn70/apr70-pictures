@@ -180,7 +180,9 @@
   /* LAYOUT CONSTANTS */
   --filmstrip-h: 32px;
   --nav-h:       62px;
-  --pad-x:       clamp(1.5rem, 5vw, 4rem);
+  /* V5 (Marco 2026-07-07): wider side margins — text must never crowd the
+     browser edge. Floor raised 1.5→2.25rem, ceiling 4→5.5rem. */
+  --pad-x:       clamp(2.25rem, 6.5vw, 5.5rem);
   --max-content: 1200px;
 
   /* BRAND MARK HEIGHT — visitor "Logo size" dial (24–72px). Set inline on
@@ -628,51 +630,17 @@ html[data-division='nrc'][data-theme='light'] {
 }
 
 /* ============================================================
-   CUSTOM SCROLLBAR — sitewide (Wave G3)
-   Thin, minimal, reads --accent so division pages (law above) and every
-   theme cascade through automatically — no per-theme/per-division
-   scrollbar rules needed anywhere else. In dark mode a saturated accent
-   thumb glares against the near-black canvas, so dark mode swaps to a
-   muted grey thumb instead (Marco: "either the colour of the division,
-   a stroke of blue orange, or grey when it's dark mode" — light mode
-   takes the first two readings, dark mode takes the third). Firefox
-   gets scrollbar-color; WebKit gets the pseudo-element trio. Track
-   stays transparent so the rail reads as a hairline, not a slab; the
-   thumb keeps a visible floor in both modes. Components that already
-   hide their own scrollbar (e.g. the filmstrip's .scroll-window) carry
-   a more specific selector and are unaffected.
+   SCROLLBARS — hidden sitewide (V5, Marco 2026-07-07: "get rid of the
+   browser scroll bars"). Scrolling itself is untouched — wheel, trackpad,
+   touch, keyboard all still work; only the visual rail is gone, on every
+   element, both engines. (Supersedes the Wave G3 accent scrollbar.)
    ============================================================ */
-:root {
-  --scrollbar-w: 11px;
-  --scrollbar-track: transparent;
-  --scrollbar-thumb: var(--accent);
-  --scrollbar-thumb-hover: var(--accent);
-}
-[data-theme='dark'] {
-  --scrollbar-thumb: var(--fg-4);
-  --scrollbar-thumb-hover: var(--fg-3);
-}
-
-html {
-  scrollbar-width: thin;
-  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+html,
+* {
+  scrollbar-width: none;
 }
 *::-webkit-scrollbar {
-  width: var(--scrollbar-w);
-  height: var(--scrollbar-w);
-}
-*::-webkit-scrollbar-track {
-  background: var(--scrollbar-track);
-}
-*::-webkit-scrollbar-thumb {
-  background-color: var(--scrollbar-thumb);
-  background-clip: padding-box;
-  border: 2px solid transparent;
-  border-radius: 999px;
-}
-*::-webkit-scrollbar-thumb:hover {
-  background-color: var(--scrollbar-thumb-hover);
-}
-*::-webkit-scrollbar-corner {
-  background: transparent;
+  display: none;
+  width: 0;
+  height: 0;
 }

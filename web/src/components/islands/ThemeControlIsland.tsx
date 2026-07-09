@@ -476,6 +476,30 @@ export default function ThemeControlIsland() {
               </div>
             </div>
 
+            {/* Logo size — V5 (Marco 2026-07-07): the mandatory icon resizer.
+                Live while dragging (CSS var update is synchronous); the
+                persisted write is debounced in selectLogoSize. */}
+            <div className="tc-section" role="group" aria-label="Logo size">
+              <span className="tc-section__label">
+                Logo size
+                <span className="tc-section__value">{logoSize}px</span>
+              </span>
+              <div className="tc-range-row">
+                <span className="tc-range-end" aria-hidden="true">A</span>
+                <input
+                  className="tc-range"
+                  type="range"
+                  min={LOGO_SIZE.min}
+                  max={LOGO_SIZE.max}
+                  step={1}
+                  value={logoSize}
+                  aria-label="Brand mark size in pixels"
+                  onChange={(e) => selectLogoSize(Number(e.currentTarget.value))}
+                />
+                <span className="tc-range-end tc-range-end--big" aria-hidden="true">A</span>
+              </div>
+            </div>
+
             {/* Font */}
             <div className="tc-section" role="group" aria-label="Font">
               <span className="tc-section__label">Font</span>

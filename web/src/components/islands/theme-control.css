@@ -540,3 +540,60 @@ html[data-accent='ink'] { --accent: var(--fg-4); }
     border-color: var(--rule-strong);
   }
 }
+
+/* ── Logo size range (V5 icon resizer, Marco 2026-07-07) ─────────────── */
+.tc-range-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.tc-range-end {
+  font-family: var(--font-body);
+  font-size: 10px;
+  color: var(--fg-4);
+  line-height: 1;
+}
+.tc-range-end--big {
+  font-size: 15px;
+}
+.tc-range {
+  flex: 1;
+  height: 22px;
+  margin: 0;
+  background: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+.tc-range::-webkit-slider-runnable-track {
+  height: 2px;
+  background: var(--rule-strong);
+  border-radius: 999px;
+}
+.tc-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -6px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+}
+.tc-range::-moz-range-track {
+  height: 2px;
+  background: var(--rule-strong);
+  border-radius: 999px;
+}
+.tc-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+}
+.tc-range:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 999px;
+}

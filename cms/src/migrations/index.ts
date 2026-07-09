@@ -7,6 +7,7 @@ import * as migration_20260528_020717_dispatch_schema from './20260528_020717_di
 import * as migration_20260625_division_theme from './20260625_division_theme';
 import * as migration_20260705_troupe_page from './20260705_troupe_page';
 import * as migration_20260705_v4_zine_blocks from './20260705_v4_zine_blocks';
+import * as migration_20260708_property_page_fields from './20260708_property_page_fields';
 
 export const migrations = [
   {
@@ -53,5 +54,10 @@ export const migrations = [
     up: migration_20260705_v4_zine_blocks.up,
     down: migration_20260705_v4_zine_blocks.down,
     name: '20260705_v4_zine_blocks',
+  },
+  {
+    up: migration_20260708_property_page_fields.up,
+    down: migration_20260708_property_page_fields.down,
+    name: '20260708_property_page_fields',
   },
 ];

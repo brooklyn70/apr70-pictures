@@ -181,26 +181,21 @@ const screeningRoomMotion: ThemeMotion = ({ gsap, SplitText }: MotionApi) => {
     }
   }
 
-  // ── 2 · IDENTITY STRIP reads itself: words develop as you scroll ────────────
-  // (A scroll-linked read, not an entrance yank — the signature "scroll is the
-  //  read." Its dimmed start is intended and unaffected by the blink guard.)
-  fontsReady.then(() => {
-    const read = document.querySelector('[data-motion="identity-read"]')
-    if (read) {
-      const s = new SplitText(read, { type: 'words' })
-      splits.push(s)
-      gsap.fromTo(
-        s.words,
-        { opacity: 0.12 },
-        {
-          opacity: 1,
-          stagger: 0.06,
-          ease: 'none',
-          scrollTrigger: { trigger: read, start: 'top 82%', end: 'bottom 45%', scrub: true },
-        },
-      )
-    }
-  })
+  // ── 2 · IDENTITY STRIP dissolves in as one calm block (Marco 2026-07-07:
+  //  the word-by-word scrub read as sloppy "loading text" — match v2's gentle
+  //  whole-block dissolve instead).
+  entrance(
+    '[data-motion="identity-read"]',
+    { opacity: 0, y: 12, filter: 'blur(6px)' },
+    {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      duration: 0.9,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: '[data-motion="identity-read"]', start: 'top 85%', once: true },
+    },
+  )
 
   // ── 3 · DISPATCH BAND: the leader tab slides through ────────────────────────
   entrance(
@@ -316,36 +311,32 @@ const screeningRoomMotion: ThemeMotion = ({ gsap, SplitText }: MotionApi) => {
     },
   )
 
-  // ── 8 · The 2 a.m. WINDOW develops out of the dark as you arrive ────────────
-  fontsReady.then(() => {
-    const win = document.querySelector('[data-motion="about-window"]')
-    if (win) {
-      const s = new SplitText(win, { type: 'words' })
-      splits.push(s)
-      gsap.fromTo(
-        s.words,
-        { opacity: 0.08 },
-        {
-          opacity: 1,
-          stagger: 0.05,
-          ease: 'none',
-          scrollTrigger: { trigger: '[data-motion="about"]', start: 'top 75%', end: 'top 30%', scrub: true },
-        },
-      )
-    }
-    entrance(
-      '[data-motion="about-reveal"]',
-      { opacity: 0, y: 18 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.9,
-        stagger: 0.2,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: '[data-motion="about-reveal"]', start: 'top 85%' },
-      },
-    )
-  })
+  // ── 8 · The 2 a.m. WINDOW dissolves in as one block (Marco 2026-07-07: no
+  //  word-by-word develop — gentle whole-block dissolve, per v2).
+  entrance(
+    '[data-motion="about-window"]',
+    { opacity: 0, y: 12, filter: 'blur(6px)' },
+    {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      duration: 0.9,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: '[data-motion="about-window"]', start: 'top 85%', once: true },
+    },
+  )
+  entrance(
+    '[data-motion="about-reveal"]',
+    { opacity: 0, y: 18 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.9,
+      stagger: 0.2,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: '[data-motion="about-reveal"]', start: 'top 85%' },
+    },
+  )
 
   // Cleanup: revert SplitText DOM so a theme switch leaves clean markup. The
   // dispatcher kills the ScrollTriggers + reverts the matchMedia scope.

@@ -1,17 +1,27 @@
 ---
 /**
- * /work/[slug] — text-forward property page (v4 zine treatment).
+ * /work/[slug] — property page, v2 structure in the v4 typographic idiom
+ * (Marco's 2026-07-07 ruling: bring back the v2 property pages).
  *
- * The synopsis is the hero: if the Payload project layout carries a
- * zineSynopsis block it renders as-is; otherwise the compiled-in V4 synopsis
- * for this slug (from the copy bundle) takes over — including /work/sea-gate,
- * which has no Payload row yet. Projects outside the 7 bundle synopses fall
- * back to their existing block layout.
+ * Order on the page:
+ *   masthead   — title + division + format line
+ *   01 SYNOPSIS — new Project.synopsis field; falls back to the layout's
+ *                 zineSynopsis block content, then the compiled-in v4 copy
+ *   0n GALLERY  — PropertySlideshow (v2 StageFilmstrip spirit) fed by the new
+ *                 Project.gallery field; typographic placeholder when empty
+ *   0n MOOD BOARD — a gallery plate whose caption starts "MOOD BOARD"
+ *                 renders as one wide collage image (skipped when absent)
+ *   0n PITCH DECK — reserved, designed slot on EVERY property page:
+ *                 by-request card, or a linked file when status=available
+ *   …then the project's remaining Payload layout blocks render unchanged
+ *   (the promoted zineSynopsis block is the only one lifted out).
  */
 import Layout from '../../layouts/Layout.astro'
 import BlockRenderer from '../../components/blocks/BlockRenderer.astro'
-import { fetchProject } from '../../lib/payload'
-import { V4_PROPERTY_BY_SLUG } from '../../content/v4'
+import PropertySlideshow, { type SlideshowItem } from '../../components/PropertySlideshow.astro'
+import { fetchProject, resolveMediaUrl } from '../../lib/payload'
+import type { Media } from 'payload-types'
+import { V4_PROPERTY_BY_SLUG, toParagraphs, type ZineSynopsisData } from '../../content/v4'
 
 const { slug } = Astro.params
 if (!slug) return Astro.redirect('/work')
@@ -23,38 +33,399 @@ if (!project && !fallback) {
   if (!error) return Astro.redirect('/work')
 }
 
+// ── Layout blocks: promote the first zineSynopsis into the synopsis section ──
 const dbBlocks = project?.layout ?? []
-const hasZine = dbBlocks.some(
+const zineIdx = dbBlocks.findIndex(
   (b) => (b as { blockType?: string }).blockType === 'zineSynopsis',
 )
+const zine = zineIdx >= 0 ? (dbBlocks[zineIdx] as ZineSynopsisData) : null
+const hasZine = zineIdx >= 0
 
+/* Remaining blocks keep rendering below (additive redesign, not deletion).
+   Pre-v4 DB layouts stay suppressed when the v4 bundle covers the slug —
+   same behavior this page had before the rework. */
 const blocks = hasZine
-  ? dbBlocks
+  ? dbBlocks.filter((_, i) => i !== zineIdx)
   : fallback
-    ? [fallback.synopsis]
+    ? []
     : dbBlocks
 
+// ── Masthead: title + division + format line ─────────────────────────────────
 const title = hasZine
   ? (project?.title ?? 'Project')
   : (fallback?.title ?? project?.title ?? 'Project')
+
+const divisionLabel: Record<string, string> = {
+  '212': '(212) Pictures',
+  '310': '(310) Pictures',
+  nrc: 'New Renaissance Cinema',
+  corporate: 'Corporate',
+}
+const division = project?.division ?? fallback?.division ?? null
+const formatLine = fallback?.subtitle ?? project?.subtitle ?? null
+const kicker =
+  division || formatLine
+    ? [division ? (divisionLabel[division] ?? division) : null, formatLine]
+        .filter(Boolean)
+        .join(' · ')
+    : (zine?.kicker ?? fallback?.synopsis.kicker ?? null)
+
+// ── Synopsis: Project.synopsis > zineSynopsis block > v4 static copy ─────────
+const synopsisSource = zine ?? fallback?.synopsis ?? null
+const synopsisBody = project?.synopsis || synopsisSource?.body || null
+const paragraphs = toParagraphs(synopsisBody)
+const logline = project?.synopsis ? null : (synopsisSource?.logline ?? null)
+const synopsisNote = synopsisSource?.note ?? null
+const workingDraft = synopsisSource?.workingDraft ?? true
+
+// ── Gallery: slideshow plates + optional MOOD BOARD plate ────────────────────
+const MOOD_RE = /^\s*MOOD BOARD\s*(?:[—–:·-]\s*)?/i
+
+type ResolvedPlate = SlideshowItem & { isMood: boolean }
+const plates: ResolvedPlate[] = (project?.gallery ?? []).flatMap((item) => {
+  const mediaSrc =
+    item.image && typeof item.image === 'object' ? resolveMediaUrl(item.image as Media) : undefined
+  const src = mediaSrc ?? (item.imageUrl || undefined)
+  if (!src) return []
+  const caption = item.caption ?? ''
+  const isMood = MOOD_RE.test(caption)
+  return [
+    {
+      src,
+      alt:
+        (item.image && typeof item.image === 'object' ? (item.image as Media).alt : null) ||
+        caption ||
+        `${title} — gallery plate`,
+      caption: isMood ? caption.replace(MOOD_RE, '') : caption,
+      credit: item.credit ?? '',
+      isMood,
+    },
+  ]
+})
+const moodBoard = plates.find((p) => p.isMood) ?? null
+const slides: SlideshowItem[] = plates.filter((p) => !p.isMood)
+
+// ── Pitch deck: the slot exists on EVERY property page ───────────────────────
+const pitchDeck = project?.pitchDeck ?? null
+const deckFileUrl =
+  pitchDeck?.file && typeof pitchDeck.file === 'object'
+    ? resolveMediaUrl(pitchDeck.file as Media)
+    : undefined
+const deckAvailable = pitchDeck?.status === 'available' && Boolean(deckFileUrl)
+const deckNote =
+  pitchDeck?.note ||
+  (deckAvailable
+    ? 'The current deck, as presented.'
+    : 'The deck is presented in the room. Serious inquiries through the contact desk.')
+
+// ── Section numbering (numbered eyebrows, house idiom) ───────────────────────
+const sectionKeys: string[] = []
+if (paragraphs.length || logline) sectionKeys.push('synopsis')
+sectionKeys.push('gallery')
+if (moodBoard) sectionKeys.push('mood')
+sectionKeys.push('deck')
+const num = (key: string) => String(sectionKeys.indexOf(key) + 1).padStart(2, '0')
 ---
 
 <Layout title={title}>
-  <main>
-    {!blocks.length && (
-      <div class="property-empty">
-        <p>No blocks found for this project.</p>
-      </div>
-    )}
-    <BlockRenderer blocks={blocks} />
+  <main class="property">
+    <div class="container">
+      <header class="property__masthead">
+        {kicker && <p class="property__kicker">{kicker}</p>}
+        <h1 class="property__title">{title}</h1>
+        {workingDraft && <span class="property__draft">working draft</span>}
+      </header>
+
+      {
+        (paragraphs.length > 0 || logline) && (
+          <section class="property__section" aria-label="Synopsis">
+            <div class="property__eyebrow">
+              <span class="property__eyebrow-num">{num('synopsis')}</span>
+              <span class="property__eyebrow-label">Synopsis</span>
+            </div>
+            {logline && <p class="property__logline">{logline}</p>}
+            <div class="property__body">
+              {paragraphs.map((p) => (
+                <p>{p}</p>
+              ))}
+            </div>
+            {synopsisNote && <p class="property__note">{synopsisNote}</p>}
+          </section>
+        )
+      }
+
+      <section class="property__section" aria-label="Gallery">
+        <div class="property__eyebrow">
+          <span class="property__eyebrow-num">{num('gallery')}</span>
+          <span class="property__eyebrow-label">Gallery</span>
+          {
+            slides.length > 0 && (
+              <span class="property__eyebrow-key">{String(slides.length).padStart(2, '0')} plates</span>
+            )
+          }
+        </div>
+        <PropertySlideshow items={slides} title={title} />
+      </section>
+
+      {
+        moodBoard && (
+          <section class="property__section" aria-label="Mood board">
+            <div class="property__eyebrow">
+              <span class="property__eyebrow-num">{num('mood')}</span>
+              <span class="property__eyebrow-label">Mood board</span>
+            </div>
+            <figure class="property__mood">
+              <img src={moodBoard.src} alt={moodBoard.alt} loading="lazy" decoding="async" />
+              <figcaption class="property__mood-caption">
+                {moodBoard.caption && <span class="property__mood-title">{moodBoard.caption}</span>}
+                {moodBoard.credit && <span class="property__mood-credit">{moodBoard.credit}</span>}
+              </figcaption>
+            </figure>
+          </section>
+        )
+      }
+
+      <section class="property__section" aria-label="Pitch deck">
+        <div class="property__eyebrow">
+          <span class="property__eyebrow-num">{num('deck')}</span>
+          <span class="property__eyebrow-label">Pitch deck</span>
+        </div>
+        <div class="property__deck" data-status={deckAvailable ? 'available' : 'reserved'}>
+          <p class="property__deck-key">
+            {deckAvailable ? 'On file · Current issue' : `Slot reserved · ${title}`}
+          </p>
+          <p class="property__deck-head">
+            Pitch deck<span class="property__deck-status"> — {deckAvailable ? 'On file' : 'By request'}</span>
+          </p>
+          <p class="property__deck-note">{deckNote}</p>
+          {
+            deckAvailable ? (
+              <a class="btn-ghost property__deck-cta" href={deckFileUrl} target="_blank" rel="noopener">
+                Open the deck
+              </a>
+            ) : (
+              <a class="link-cta property__deck-cta" href="/contact">
+                Request the deck
+              </a>
+            )
+          }
+        </div>
+      </section>
+    </div>
+
+    {blocks.length > 0 && <BlockRenderer blocks={blocks} />}
   </main>
 </Layout>
 
 <style>
-  .property-empty {
-    padding: var(--s-9) 0;
-    text-align: center;
+  .property {
+    padding: clamp(2.5rem, 6vw, 5rem) 0 clamp(2rem, 5vw, 4rem);
+  }
+
+  .property .container {
+    max-width: min(var(--max-content), 100%);
+  }
+
+  /* ---------- Masthead ---------- */
+  .property__masthead {
+    border-bottom: 1px solid var(--rule-strong);
+    padding-bottom: clamp(1rem, 2.5vw, 1.75rem);
+    margin-bottom: clamp(1.5rem, 3.5vw, 2.5rem);
+  }
+
+  .property__kicker {
+    font-family: var(--font-mono);
+    font-size: var(--type-micro);
+    letter-spacing: var(--track-eyebrow);
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 var(--s-3);
+  }
+
+  .property__title {
+    font-size: clamp(2.25rem, 8vw, 6rem);
+    line-height: var(--leading-crush);
+    margin: 0;
+    color: var(--fg-1);
+    text-wrap: balance;
+  }
+
+  .property__draft {
+    display: inline-block;
+    margin-top: var(--s-4);
     font-family: var(--font-body);
+    font-variant: small-caps;
+    font-weight: 400;
+    font-size: var(--type-caption);
+    letter-spacing: var(--track-wider);
     color: var(--fg-3);
+    border: 1px solid var(--rule-strong);
+    padding: 0.1em 0.7em 0.2em;
+  }
+
+  /* ---------- Numbered section eyebrows ---------- */
+  .property__section {
+    margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  .property__eyebrow {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s-4);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: var(--s-3);
+    margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+  }
+
+  .property__eyebrow-num {
+    font-family: var(--font-mono);
+    font-size: var(--type-micro);
+    letter-spacing: var(--track-wider);
+    color: var(--accent);
+  }
+
+  .property__eyebrow-label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: var(--type-micro);
+    letter-spacing: var(--track-eyebrow);
+    text-transform: uppercase;
+    color: var(--fg-4);
+  }
+
+  .property__eyebrow-key {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: var(--type-tiny);
+    letter-spacing: var(--track-wide);
+    text-transform: uppercase;
+    color: var(--fg-5);
+  }
+
+  /* ---------- Synopsis ---------- */
+  .property__logline {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: clamp(1.125rem, 2.2vw, 1.5rem);
+    line-height: var(--leading-snug);
+    color: var(--fg-1);
+    max-width: 34em;
+    margin: 0 0 clamp(1.5rem, 3.5vw, 2.5rem);
+  }
+
+  .property__body p {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: var(--type-body-lg);
+    line-height: var(--leading-body);
+    color: var(--fg-2);
+    max-width: 68ch;
+    margin: 0 0 var(--s-5);
+  }
+
+  .property__body p:first-child::first-letter {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 3.2em;
+    line-height: 0.8;
+    float: left;
+    padding-right: 0.12em;
+    color: var(--fg-1);
+  }
+
+  .property__note {
+    font-family: var(--font-mono);
+    font-size: var(--type-caption);
+    letter-spacing: var(--track-wide);
+    text-transform: uppercase;
+    color: var(--fg-3);
+    border-top: 1px solid var(--rule);
+    padding-top: var(--s-4);
+    margin: var(--s-6) 0 0;
+    max-width: 68ch;
+  }
+
+  /* ---------- Mood board ---------- */
+  .property__mood {
+    margin: 0;
+  }
+
+  .property__mood img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--rule);
+    background: var(--bg-1);
+  }
+
+  .property__mood-caption {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s-4);
+    padding: var(--s-3) 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .property__mood-title {
+    font-family: var(--font-mono);
+    font-size: var(--type-caption);
+    letter-spacing: var(--track-wider);
+    text-transform: uppercase;
+    color: var(--fg-3);
+  }
+
+  .property__mood-credit {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: var(--type-tiny);
+    letter-spacing: var(--track-wide);
+    text-transform: uppercase;
+    color: var(--fg-4);
+    white-space: nowrap;
+  }
+
+  /* ---------- Pitch deck slot ---------- */
+  .property__deck {
+    border: 1px solid var(--rule-strong);
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    max-width: 44rem;
+  }
+
+  .property__deck-key {
+    font-family: var(--font-mono);
+    font-size: var(--type-tiny);
+    letter-spacing: var(--track-strip);
+    text-transform: uppercase;
+    color: var(--fg-5);
+    margin: 0 0 var(--s-4);
+  }
+
+  .property__deck-head {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--track-tight);
+    text-transform: uppercase;
+    color: var(--fg-1);
+    margin: 0 0 var(--s-4);
+  }
+
+  .property__deck-status {
+    color: var(--accent);
+  }
+
+  .property__deck-note {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: var(--type-body);
+    line-height: var(--leading-body);
+    color: var(--fg-3);
+    max-width: 52ch;
+    margin: 0 0 var(--s-5);
+  }
+
+  .property__deck-cta {
+    display: inline-block;
   }
 </style>

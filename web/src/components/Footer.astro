@@ -30,13 +30,6 @@ const moreNav     = footerLinks?.moreNav     ?? []
 ---
 
 <footer class="site-footer" role="contentinfo" aria-label="Site footer">
-  <!-- Filmstrip top rail -->
-  <div class="footer__rail" aria-hidden="true">
-    {Array.from({ length: 24 }).map(() => (
-      <span class="sprocket" />
-    ))}
-  </div>
-
   <div class="footer__inner container">
     <!-- Col 1: Brand -->
     <div class="footer__col footer__col--brand">
@@ -149,12 +142,6 @@ const moreNav     = footerLinks?.moreNav     ?? []
     <p class="footer__address">{V4_FOOTER.addressLine}</p>
   </div>
 
-  <!-- Filmstrip bottom rail -->
-  <div class="footer__rail footer__rail--bottom" aria-hidden="true">
-    {Array.from({ length: 24 }).map(() => (
-      <span class="sprocket" />
-    ))}
-  </div>
 </footer>
 
 <style>

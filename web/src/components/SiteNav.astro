@@ -1,33 +1,46 @@
 ---
 /**
- * SiteNav.astro — global chrome navigation (T1 house treatment).
+ * SiteNav.astro — global chrome navigation (T1 house treatment, V5 revision).
  *
  * Numbered links, mono numerals, underline-draw hover, orange (accent) active.
  * The brand mark renders at var(--logo-h) (visitor "Logo size" dial) and is the
  * swappable global wordmark (data-brand-wordmark) — the pre-paint stamp + the
  * control panel keep its src in sync with the picked mark + effective mode.
  *
- * Styles are `is:global` on purpose: Wave C themes restyle the nav via
- * `[data-design="<slug>"] .site-nav*` overrides (higher specificity than the
- * base class) without touching this structure. Zero JS — the one-time nav
- * settle is added by src/lib/motion/screening-room.ts; hover/active are CSS.
+ * V5 changes (2026-07-08 feedback):
+ *  - "LIC · NY" folio removed from the bar.
+ *  - Mode toggle is icon-only (sun/moon), no words.
+ *  - Slate gets a dropdown: Full Slate + one link per property (from Payload).
+ *  - Proper responsive collapse: below 860px links fold into a menu button
+ *    that opens a full-width panel. No more horizontal scroll-squash.
+ *  - All bindings run on astro:page-load so they survive view transitions.
+ *
+ * Styles are `is:global` on purpose: themes restyle the nav via
+ * `[data-design="<slug>"] .site-nav*` overrides without touching structure.
  */
+interface NavProject {
+  slug: string
+  title: string
+  division?: string | null
+}
+
 interface Props {
   logoSrc: string
   logoAlt?: string
   brandSwappable?: boolean
+  projects?: NavProject[]
 }
 
-const { logoSrc, logoAlt = 'APR 70 Pictures', brandSwappable = true } = Astro.props
+const { logoSrc, logoAlt = 'APR 70 Pictures', brandSwappable = true, projects = [] } = Astro.props
 
 const pathname = Astro.url.pathname
 
-type NavItem = { num: string; label: string; href: string; active: boolean }
+type NavItem = { num: string; label: string; href: string; active: boolean; children?: NavProject[] }
 
 const raw: Array<Omit<NavItem, 'active'> & { match: (p: string) => boolean }> = [
   { num: '01', label: 'Front Door', href: '/', match: (p) => p === '/' },
   { num: '02', label: 'Divisions', href: '/#divisions', match: (p) => ['/212', '/310', '/nrc'].includes(p) },
-  { num: '03', label: 'Slate', href: '/work', match: (p) => p === '/work' || p.startsWith('/work/') },
+  { num: '03', label: 'Slate', href: '/work', match: (p) => p === '/work' || p.startsWith('/work/'), children: projects },
   { num: '04', label: 'Troupe', href: '/troupe', match: (p) => p.startsWith('/troupe') },
   { num: '05', label: 'Dispatch', href: '/news', match: (p) => p.startsWith('/news') },
   { num: '06', label: 'Contact', href: '/contact', match: (p) => p.startsWith('/contact') },
@@ -48,15 +61,33 @@ const items: NavItem[] = raw.map(({ match, ...rest }) => ({ ...rest, active: mat
 
   <ul class="site-nav__links" role="list">
     {items.map((item) => (
-      <li class="site-nav__item">
+      <li class={`site-nav__item${item.children?.length ? ' site-nav__item--has-menu' : ''}`}>
         <a
           class="site-nav__link"
           href={item.href}
           {...(item.active ? { 'aria-current': 'page' } : {})}
+          {...(item.children?.length ? { 'aria-haspopup': 'true', 'aria-expanded': 'false' } : {})}
         >
           <span class="site-nav__num">{item.num}</span>
           <span class="site-nav__label">{item.label}</span>
+          {item.children?.length ? (
+            <svg class="site-nav__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" /></svg>
+          ) : null}
         </a>
+        {item.children?.length ? (
+          <div class="site-nav__menu" role="menu" aria-label="Slate properties">
+            <a class="site-nav__menu-link site-nav__menu-link--all" role="menuitem" href="/work">
+              <span class="site-nav__menu-title">Full Slate</span>
+              <span class="site-nav__menu-div">ALL</span>
+            </a>
+            {item.children.map((p) => (
+              <a class="site-nav__menu-link" role="menuitem" href={`/work/${p.slug}`}>
+                <span class="site-nav__menu-title">{p.title}</span>
+                {p.division ? <span class="site-nav__menu-div">{String(p.division).toUpperCase()}</span> : null}
+              </a>
+            ))}
+          </div>
+        ) : null}
       </li>
     ))}
   </ul>
@@ -78,80 +109,136 @@ const items: NavItem[] = raw.map(({ match, ...rest }) => ({ ...rest, active: mat
           <path d="M20.5 14.3a8.2 8.2 0 0 1-10.8-10 .7.7 0 0 0-.9-.9 9.6 9.6 0 1 0 12.6 12.6.7.7 0 0 0-.9-.9 8.2 8.2 0 0 1-.0.2z" />
         </svg>
       </span>
-      <span class="site-nav__mode-label" aria-hidden="true">
-        <span class="site-nav__mode-label--light">Light</span>
-        <span class="site-nav__mode-label--dark">Dark</span>
-      </span>
     </button>
 
-    <span class="site-nav__folio" aria-hidden="true">LIC <b>·</b> NY</span>
+    <button
+      id="site-nav-burger"
+      type="button"
+      class="site-nav__burger"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="site-nav-sheet"
+    >
+      <span class="site-nav__burger-bar" aria-hidden="true"></span>
+      <span class="site-nav__burger-bar" aria-hidden="true"></span>
+      <span class="site-nav__burger-bar" aria-hidden="true"></span>
+    </button>
   </div>
 </nav>
 
+<!-- Mobile sheet — same items, stacked; slate children indented beneath Slate. -->
+<div id="site-nav-sheet" class="site-nav-sheet" hidden>
+  <ul class="site-nav-sheet__list" role="list">
+    {items.map((item) => (
+      <li>
+        <a class="site-nav-sheet__link" href={item.href} {...(item.active ? { 'aria-current': 'page' } : {})}>
+          <span class="site-nav__num">{item.num}</span>
+          <span class="site-nav-sheet__label">{item.label}</span>
+        </a>
+        {item.children?.length ? (
+          <ul class="site-nav-sheet__sub" role="list">
+            {item.children.map((p) => (
+              <li>
+                <a class="site-nav-sheet__sublink" href={`/work/${p.slug}`}>{p.title}</a>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </li>
+    ))}
+  </ul>
+</div>
+
 <script>
-  /* Settle-safety net (defect fix, 2026-07-06): the per-theme "nav settle"
-   * entrance tween (owned by src/lib/motion/<slug>.ts, run via the shared
-   * dispatcher) was observed — reproducibly, across fresh builds, with and
-   * without the splash overlay, over long-poll waits well past its ~0.8s
-   * designed duration — to sometimes stall partway through its GSAP stagger,
-   * leaving inline opacity permanently fractional (e.g. link 06 at ~0.001)
-   * instead of settling to fully legible. Root cause lives outside this
-   * component (the theme motion module / shared dispatcher); this is a
-   * narrowly-scoped, harmless-if-unneeded safety net owned entirely by the
-   * nav itself: after a ceiling comfortably past any legitimate settle
-   * duration, force-clear any leftover inline opacity/transform so the nav
-   * can never render stuck dim "at rest". No-op (and invisible) if the
-   * settle already completed cleanly — clearing already-correct inline
-   * styles changes nothing on screen.
-   */
-  window.setTimeout(() => {
-    const nav = document.querySelector<HTMLElement>('.site-nav')
-    if (!nav) return
-    const clear = (el: HTMLElement) => {
-      el.style.removeProperty('opacity')
-      el.style.removeProperty('transform')
-    }
-    clear(nav)
-    nav.querySelectorAll<HTMLElement>('.site-nav__link').forEach(clear)
-  }, 2000)
+  /* Settle-safety net (defect fix, 2026-07-06): force-clear any leftover
+   * inline opacity/transform from a stalled nav-settle tween so the nav can
+   * never render stuck dim "at rest". Re-armed per soft navigation. */
+  const armSettleNet = () => {
+    window.setTimeout(() => {
+      const nav = document.querySelector<HTMLElement>('.site-nav')
+      if (!nav) return
+      const clear = (el: HTMLElement) => {
+        el.style.removeProperty('opacity')
+        el.style.removeProperty('transform')
+      }
+      clear(nav)
+      nav.querySelectorAll<HTMLElement>('.site-nav__link').forEach(clear)
+    }, 2000)
+  }
+  document.addEventListener('astro:page-load', armSettleNet)
 </script>
 
 <script>
-  /* Light/dark MODE toggle (VMS pattern, moved here from the Display panel).
-   * Independent of the theme: flips data-theme on <html>, pins it as a user
-   * choice (data-mode-source="user"), persists apr70:mode — the exact same
-   * contract the panel used, so the pre-paint stamp + resolveMode logic all
-   * still apply. The sun/moon glyph + LIGHT/DARK word swap purely in CSS off
-   * html[data-theme], so they stay correct even before this script runs and
-   * whenever the theme changes elsewhere. The brand-mark ink re-sync (which
-   * needs the full logo map) is handled by the Display panel island's
-   * MutationObserver on data-theme — kept in one place, not duplicated here. */
-  ;(function () {
+  /* Nav behavior — bound per astro:page-load (view-transition safe):
+   * 1) Light/dark MODE toggle (icon-only): flips data-theme on <html>, pins
+   *    it as a user choice, persists apr70:mode. Glyph swap is pure CSS off
+   *    html[data-theme]. The brand-mark ink re-sync is handled by the Display
+   *    panel island's MutationObserver on data-theme (kept in one place).
+   * 2) Burger: toggles the mobile sheet.
+   * 3) Slate dropdown: hover/focus is CSS; this adds tap-to-toggle for
+   *    coarse pointers and aria-expanded bookkeeping.
+   */
+  const bindNav = () => {
     const doc = document.documentElement
+
     const btn = document.getElementById('site-mode-toggle')
-    if (!btn) return
-    const sync = () => {
-      const dark = doc.getAttribute('data-theme') === 'dark'
-      btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode')
-      btn.setAttribute('aria-pressed', dark ? 'true' : 'false')
-    }
-    sync()
-    btn.addEventListener('click', () => {
-      const next = doc.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
-      doc.setAttribute('data-theme', next)
-      doc.setAttribute('data-mode-source', 'user')
-      try {
-        localStorage.setItem('apr70:mode', next)
-      } catch {
-        /* private mode — selection still applies for this page view */
+    if (btn && !btn.dataset.bound) {
+      btn.dataset.bound = '1'
+      const sync = () => {
+        const dark = doc.getAttribute('data-theme') === 'dark'
+        btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode')
+        btn.setAttribute('aria-pressed', dark ? 'true' : 'false')
       }
       sync()
+      btn.addEventListener('click', () => {
+        const next = doc.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+        doc.setAttribute('data-theme', next)
+        doc.setAttribute('data-mode-source', 'user')
+        try {
+          localStorage.setItem('apr70:mode', next)
+        } catch {
+          /* private mode — selection still applies for this page view */
+        }
+        sync()
+      })
+      const obs = new MutationObserver(sync)
+      obs.observe(doc, { attributes: true, attributeFilter: ['data-theme'] })
+    }
+
+    const burger = document.getElementById('site-nav-burger')
+    const sheet = document.getElementById('site-nav-sheet')
+    if (burger && sheet && !burger.dataset.bound) {
+      burger.dataset.bound = '1'
+      burger.addEventListener('click', () => {
+        const open = sheet.hasAttribute('hidden')
+        if (open) sheet.removeAttribute('hidden')
+        else sheet.setAttribute('hidden', '')
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false')
+        burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu')
+        burger.classList.toggle('is-open', open)
+      })
+    }
+
+    document.querySelectorAll<HTMLElement>('.site-nav__item--has-menu').forEach((li) => {
+      const link = li.querySelector<HTMLAnchorElement>('.site-nav__link')
+      if (!link || link.dataset.bound) return
+      link.dataset.bound = '1'
+      link.addEventListener('click', (e) => {
+        /* Coarse pointers: first tap opens the menu, second tap follows. */
+        if (window.matchMedia('(hover: none)').matches && !li.classList.contains('is-open')) {
+          e.preventDefault()
+          li.classList.add('is-open')
+          link.setAttribute('aria-expanded', 'true')
+        }
+      })
+      li.addEventListener('mouseenter', () => link.setAttribute('aria-expanded', 'true'))
+      li.addEventListener('mouseleave', () => {
+        link.setAttribute('aria-expanded', 'false')
+        li.classList.remove('is-open')
+      })
     })
-    /* Keep the button's a11y state correct when a theme switch changes the
-       mode elsewhere (e.g. following a theme's default). */
-    const obs = new MutationObserver(sync)
-    obs.observe(doc, { attributes: true, attributeFilter: ['data-theme'] })
-  })()
+  }
+  document.addEventListener('astro:page-load', bindNav)
 </script>
 
 <style is:global>
@@ -183,12 +270,9 @@ const items: NavItem[] = raw.map(({ match, ...rest }) => ({ ...rest, active: mat
     align-items: baseline;
     gap: clamp(14px, 2.5vw, 34px);
     min-width: 0;
-    overflow-x: auto;
-    scrollbar-width: none;
   }
-  .site-nav__links::-webkit-scrollbar { display: none; }
 
-  .site-nav__item { flex-shrink: 0; }
+  .site-nav__item { flex-shrink: 0; position: relative; }
 
   .site-nav__link {
     position: relative;
@@ -214,6 +298,19 @@ const items: NavItem[] = raw.map(({ match, ...rest }) => ({ ...rest, active: mat
     color: var(--fg-3);
     white-space: nowrap;
     transition: color var(--dur-base) var(--ease-out);
+  }
+  .site-nav__caret {
+    width: 9px;
+    height: 6px;
+    align-self: center;
+    color: var(--fg-5);
+    transition: transform var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
+  }
+  .site-nav__item--has-menu:hover .site-nav__caret,
+  .site-nav__item--has-menu.is-open .site-nav__caret,
+  .site-nav__item--has-menu:focus-within .site-nav__caret {
+    transform: rotate(180deg);
+    color: var(--accent);
   }
   /* underline draw */
   .site-nav__link::after {
@@ -251,7 +348,71 @@ const items: NavItem[] = raw.map(({ match, ...rest }) => ({ ...rest, active: mat
   .site-nav__link[aria-current='page'] .site-nav__label { color: var(--fg-1); }
   .site-nav__link[aria-current='page']::after { transform: scaleX(1); }
 
-  /* right cluster: mode toggle + folio (folio drops on mobile, toggle stays) */
+  /* ── Slate dropdown ─────────────────────────────────────────────────── */
+  .site-nav__menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: -14px;
+    min-width: 248px;
+    padding: 8px 0;
+    background: var(--bg-1);
+    border: 1px solid var(--rule-strong);
+    border-radius: var(--r-xs);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
+    opacity: 0;
+    transform: translateY(-4px);
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out), visibility 0s linear var(--dur-base);
+    z-index: 120;
+  }
+  .site-nav__item--has-menu:hover .site-nav__menu,
+  .site-nav__item--has-menu.is-open .site-nav__menu,
+  .site-nav__item--has-menu:focus-within .site-nav__menu {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0s;
+  }
+  .site-nav__menu-link {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+  .site-nav__menu-title {
+    font-family: var(--font-body);
+    font-size: var(--type-micro);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--fg-2);
+    white-space: nowrap;
+    transition: color var(--dur-base) var(--ease-out);
+  }
+  .site-nav__menu-div {
+    font-family: var(--font-mono);
+    font-size: var(--type-tiny);
+    letter-spacing: 0.15em;
+    color: var(--fg-5);
+  }
+  .site-nav__menu-link:hover .site-nav__menu-title,
+  .site-nav__menu-link:focus-visible .site-nav__menu-title {
+    color: var(--accent);
+  }
+  .site-nav__menu-link--all {
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 6px;
+    padding-bottom: 10px;
+  }
+  .site-nav__menu-link--all .site-nav__menu-title {
+    text-transform: uppercase;
+    letter-spacing: var(--track-eyebrow);
+  }
+
+  /* right cluster: mode toggle (+ burger on small screens) */
   .site-nav__end {
     display: flex;
     align-items: center;
@@ -259,14 +420,14 @@ const items: NavItem[] = raw.map(({ match, ...rest }) => ({ ...rest, active: mat
     flex-shrink: 0;
   }
 
-  /* light/dark mode toggle — crafted for the numbered-nav aesthetic:
-     mono word + sun/moon glyph, holds up in both themes/modes. */
+  /* light/dark mode toggle — icon only (V5 ruling: "just an icon, no words"). */
   .site-nav__mode {
     display: inline-flex;
     align-items: center;
-    gap: 7px;
-    min-height: 34px;
-    padding: 5px 10px;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
     background: transparent;
     border: 1px solid var(--rule-strong);
     border-radius: var(--r-xs);
@@ -295,45 +456,93 @@ const items: NavItem[] = raw.map(({ match, ...rest }) => ({ ...rest, active: mat
     height: 15px;
     display: block;
   }
-  .site-nav__mode-label {
-    font-family: var(--font-mono);
-    font-size: var(--type-tiny);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
-  /* Glyph + word swap purely off html[data-theme] — no JS needed, correct
-     even before the toggle script runs. Show the CURRENT mode. */
+  /* Glyph swap purely off html[data-theme] — show the CURRENT mode. */
   .site-nav__mode-sun,
-  .site-nav__mode-moon,
-  .site-nav__mode-label--light,
-  .site-nav__mode-label--dark {
+  .site-nav__mode-moon {
     display: none;
   }
-  :root[data-theme='light'] .site-nav__mode-sun,
-  :root[data-theme='light'] .site-nav__mode-label--light {
-    display: block;
-  }
-  :root[data-theme='dark'] .site-nav__mode-moon,
-  :root[data-theme='dark'] .site-nav__mode-label--dark {
-    display: block;
-  }
+  :root[data-theme='light'] .site-nav__mode-sun { display: block; }
+  :root[data-theme='dark'] .site-nav__mode-moon { display: block; }
 
-  .site-nav__folio {
-    flex-shrink: 0;
-    font-family: var(--font-mono);
+  /* ── Burger + mobile sheet ──────────────────────────────────────────── */
+  .site-nav__burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    width: 34px;
+    height: 34px;
+    padding: 0 8px;
+    background: transparent;
+    border: 1px solid var(--rule-strong);
+    border-radius: var(--r-xs);
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .site-nav__burger-bar {
+    display: block;
+    height: 1.5px;
+    background: var(--fg-2);
+    transition: transform var(--dur-base) var(--ease-out), opacity var(--dur-base) var(--ease-out);
+  }
+  .site-nav__burger.is-open .site-nav__burger-bar:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .site-nav__burger.is-open .site-nav__burger-bar:nth-child(2) { opacity: 0; }
+  .site-nav__burger.is-open .site-nav__burger-bar:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+
+  .site-nav-sheet {
+    background: var(--bg-1);
+    border-bottom: 1px solid var(--rule-strong);
+    padding: 6px var(--pad-x) 18px;
+  }
+  .site-nav-sheet__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .site-nav-sheet__link {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 11px 2px;
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+  }
+  .site-nav-sheet__label {
+    font-family: var(--font-body);
+    font-size: var(--type-small);
+    font-weight: 500;
+    letter-spacing: var(--track-eyebrow);
+    text-transform: uppercase;
+    color: var(--fg-2);
+  }
+  .site-nav-sheet__link[aria-current='page'] .site-nav-sheet__label { color: var(--accent); }
+  .site-nav-sheet__sub {
+    list-style: none;
+    margin: 0;
+    padding: 2px 0 6px 34px;
+    display: flex;
+    flex-direction: column;
+  }
+  .site-nav-sheet__sublink {
+    display: block;
+    padding: 7px 0;
+    font-family: var(--font-body);
     font-size: var(--type-micro);
-    letter-spacing: 0.2em;
-    color: var(--fg-4);
+    color: var(--fg-3);
+    text-decoration: none;
   }
-  .site-nav__folio b { color: var(--accent); font-weight: 400; }
+  .site-nav-sheet__sublink:hover { color: var(--accent); }
 
-  @media (max-width: 720px) {
-    .site-nav__folio { display: none; }
+  /* Collapse: below 860px the inline links fold into the sheet. */
+  @media (max-width: 860px) {
+    .site-nav__links { display: none; }
+    .site-nav__burger { display: flex; }
   }
-  /* Very tight bars: keep the toggle icon, shed its word to save room. */
-  @media (max-width: 460px) {
-    .site-nav__mode-label { display: none; }
-    .site-nav__mode { padding: 5px 8px; }
+  @media (min-width: 861px) {
+    .site-nav-sheet { display: none !important; }
   }
 
   /* Coarse pointers: no hover surprises (targets stay reachable). */

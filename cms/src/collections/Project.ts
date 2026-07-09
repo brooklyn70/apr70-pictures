@@ -69,6 +69,74 @@ export const Project: CollectionConfig = {
       relationTo: 'media',
     },
     {
+      name: 'synopsis',
+      type: 'textarea',
+      admin: {
+        description:
+          'Property synopsis — renders at the top of /work/<slug>, above the slideshow. Blank line starts a new paragraph. When empty, the page falls back to the Zine Synopsis block, then the compiled-in v4 copy.',
+      },
+    },
+    {
+      name: 'gallery',
+      type: 'array',
+      labels: { singular: 'Plate', plural: 'Gallery plates' },
+      admin: {
+        description:
+          'Property slideshow plates (v2-style filmstrip). A plate whose caption starts with "MOOD BOARD" renders as the wide mood-board collage instead of a slide. Upload wins over the external URL.',
+      },
+      fields: [
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+        },
+        {
+          name: 'imageUrl',
+          type: 'text',
+          admin: { description: 'External image URL — used only when no upload is set.' },
+        },
+        {
+          name: 'caption',
+          type: 'text',
+        },
+        {
+          name: 'credit',
+          type: 'text',
+          required: true,
+          admin: { description: 'Provenance — required on every plate (artist, generator, archive, PD line).' },
+        },
+      ],
+    },
+    {
+      name: 'pitchDeck',
+      type: 'group',
+      admin: {
+        description:
+          'The pitch-deck slot renders on EVERY property page: "reserved" shows the by-request card; "available" links the file.',
+      },
+      fields: [
+        {
+          name: 'status',
+          type: 'select',
+          defaultValue: 'reserved',
+          options: [
+            { label: 'Reserved (by request)', value: 'reserved' },
+            { label: 'Available (linked file)', value: 'available' },
+          ],
+        },
+        {
+          name: 'file',
+          type: 'upload',
+          relationTo: 'media',
+        },
+        {
+          name: 'note',
+          type: 'text',
+          admin: { description: 'One line under the card, e.g. how to request the deck.' },
+        },
+      ],
+    },
+    {
       name: 'layout',
       type: 'blocks',
       blocks: [HeroBlock, RichTextBlock, TwoColBlock, GridBlock, CTABlock, QuotesBlock, FilmstripBlock, DivisionBlock, StatsBlock, DividerBlock, ZineSynopsisBlock],

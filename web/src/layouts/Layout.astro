@@ -1,10 +1,11 @@
 ---
 import '../styles/global.css'
 import '../styles/themes/index.css'
+import { ClientRouter } from 'astro:transitions'
 import Footer from '../components/Footer.astro'
 import SiteNav from '../components/SiteNav.astro'
 import ThemeControlIsland from '../components/islands/ThemeControlIsland'
-import { fetchSiteSettings, fetchFooterLinks, resolveMediaUrl } from '../lib/payload'
+import { fetchSiteSettings, fetchFooterLinks, fetchProjects, resolveMediaUrl } from '../lib/payload'
 import { DESIGNS, resolveDesign, designThemeMode, LOGO_SIZE } from '../designs/manifest'
 import { DEFAULT_LOGO, logoFileMap, logoSrc } from '../designs/logos'
 
@@ -27,15 +28,17 @@ interface Props {
 const CHROME_DESCRIPTION =
   'APR 70 Pictures. An entertainment company: film, television, theater, radio, books. Long Island City, New York.'
 
-const [{ settings }, { footerLinks }] = await Promise.all([
+const [{ settings }, { footerLinks }, { projects: navProjects }] = await Promise.all([
   fetchSiteSettings(),
   fetchFooterLinks(),
+  fetchProjects(),
 ])
 
 const siteName    = settings?.brandLabel ?? 'APR 70 Pictures'
 const { title = siteName, description = CHROME_DESCRIPTION } = Astro.props
 const pageTitle   = title === siteName ? siteName : `${title} · ${siteName}`
-const showRails   = settings?.showFilmstripRails !== false
+/* V5 (2026-07-08 feedback): the decorative rails/rulers above the nav are gone
+   on every theme — "added fluff and do nothing to tell the story of who we are." */
 
 const faviconMedia = Astro.props.faviconOverride ?? settings?.favicon
 const faviconSrc = resolveMediaUrl(
@@ -81,8 +84,11 @@ const logoDefaults = { min: LOGO_SIZE.min, max: LOGO_SIZE.max, def: LOGO_SIZE.de
          explicit mode (apr70:mode) wins; otherwise the active theme's default.
          Legacy/invalid design values fall back cleanly to screening-room.
          Keys: apr70:design, apr70:mode, apr70:logo, apr70:logo-size,
-         apr70:font-scale. Live updates come from the control panel. */
+         apr70:font-scale. Live updates come from the control panel.
+         V5: re-stamps after every view-transition swap (astro:after-swap
+         fires before the new frame paints, so there is still no FOUC). */
       ;(function () {
+        function stamp() {
         var doc = document.documentElement
         function read(key) {
           try { return localStorage.getItem(key) } catch (e) { return null }
@@ -128,6 +134,9 @@ const logoDefaults = { min: LOGO_SIZE.min, max: LOGO_SIZE.max, def: LOGO_SIZE.de
         var accent = read('apr70:accent')
         if (accent && accents[accent]) doc.setAttribute('data-accent', accent)
         /* 'auto'/absent -> no data-accent attribute; theme/base --accent flows. */
+        }
+        stamp()
+        document.addEventListener('astro:after-swap', stamp)
       })()
     </script>
     {faviconSrc ? (
@@ -143,27 +152,24 @@ const logoDefaults = { min: LOGO_SIZE.min, max: LOGO_SIZE.max, def: LOGO_SIZE.de
     <meta property="og:title" content={pageTitle} />
     {description && <meta property="og:description" content={description} />}
     <meta name="theme-color" content="#000000" />
+    <ClientRouter />
   </head>
   <body>
     <div class="site-chrome-top">
-      {showRails && (
-        <div class="strip-rail strip-rail--top strip-rail--leader" aria-hidden="true">
-          {Array.from({ length: 32 }).map(() => (
-            <span class="sprocket" />
-          ))}
-          <span class="strip-rail__keycode">APR 70 PICTURES // LONG ISLAND CITY NY // REEL 086</span>
-        </div>
-      )}
-
       <header class="site-header">
-        <SiteNav logoSrc={navLogoSrc} logoAlt={navLogoAlt} brandSwappable={brandSwappable} />
+        <SiteNav logoSrc={navLogoSrc} logoAlt={navLogoAlt} brandSwappable={brandSwappable} projects={navProjects} />
       </header>
       <script is:inline>
-        /* Sync the SSR brand mark to the pre-paint pick before anything else. */
+        /* Sync the SSR brand mark to the pre-paint pick before anything else.
+           V5: also after every view-transition swap (new DOM, same rule). */
         ;(function () {
-          var src = document.documentElement.getAttribute('data-logo-src')
-          var img = document.querySelector('img[data-brand-wordmark]')
-          if (src && img && img.getAttribute('src') !== src) img.setAttribute('src', src)
+          function syncMark() {
+            var src = document.documentElement.getAttribute('data-logo-src')
+            var img = document.querySelector('img[data-brand-wordmark]')
+            if (src && img && img.getAttribute('src') !== src) img.setAttribute('src', src)
+          }
+          syncMark()
+          document.addEventListener('astro:after-swap', syncMark)
         })()
       </script>
     </div>
@@ -172,15 +178,23 @@ const logoDefaults = { min: LOGO_SIZE.min, max: LOGO_SIZE.max, def: LOGO_SIZE.de
 
     <Footer settings={settings} footerLinks={footerLinks} footerLogoSrc={footerLogoSrc} footerLogoAlt={footerLogoAlt} />
 
-    <ThemeControlIsland client:load />
+    <ThemeControlIsland client:load transition:persist="apr70-control-panel" />
 
     <script>
       /* Boot the site motion layer (dispatcher + cursor + one-time splash).
          Bundled module — runs after parse; SSR content is fully static without
          it. All gating (reduced-motion, touch, front-door-only, once-per-
-         session) lives in the motion modules. */
-      import { bootMotion } from '../lib/motion'
+         session) lives in the motion modules.
+         V5: with the ClientRouter, re-init per-page motion on every soft
+         navigation (astro:page-load fires after the swap settles) so
+         ScrollTriggers bind to the NEW page's DOM. bootMotion itself stays
+         once-per-full-load. */
+      import { bootMotion, initThemeMotion } from '../lib/motion'
       bootMotion()
+      document.addEventListener('astro:page-load', () => {
+        const design = document.documentElement.getAttribute('data-design') || 'screening-room'
+        void initThemeMotion(design)
+      })
     </script>
   </body>
 </html>

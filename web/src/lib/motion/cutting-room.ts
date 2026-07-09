@@ -144,24 +144,20 @@ const cuttingRoomMotion: ThemeMotion = ({ gsap, SplitText }: MotionApi) => {
     }
   }
 
-  // ── 2 · IDENTITY STRIP reads by SNAP: words cut on between discrete frames ──
-  fontsReady.then(() => {
-    const read = document.querySelector('[data-motion="identity-read"]')
-    if (read) {
-      const s = new SplitText(read, { type: 'words' })
-      splits.push(s)
-      gsap.fromTo(
-        s.words,
-        { opacity: 0.16 },
-        {
-          opacity: 1,
-          stagger: 0.08,
-          ease: 'steps(1)',
-          scrollTrigger: { trigger: read, start: 'top 82%', end: 'bottom 48%', scrub: true },
-        },
-      )
-    }
-  })
+  // ── 2 · IDENTITY STRIP dissolves in as one block (Marco 2026-07-07: the
+  //  word-by-word snap scrub read as sloppy "loading text" — gentle whole-block
+  //  dissolve, per v2).
+  cut(
+    '[data-motion="identity-read"]',
+    { opacity: 0, y: 12 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.9,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: '[data-motion="identity-read"]', start: 'top 85%', once: true },
+    },
+  )
 
   // ── 3 · DISPATCH BAND cuts in as a block ────────────────────────────────────
   cut(
@@ -269,35 +265,30 @@ const cuttingRoomMotion: ThemeMotion = ({ gsap, SplitText }: MotionApi) => {
     },
   )
 
-  // ── 7 · The 2 a.m. WINDOW snaps its words on as you arrive ──────────────────
-  fontsReady.then(() => {
-    const win = document.querySelector('[data-motion="about-window"]')
-    if (win) {
-      const s = new SplitText(win, { type: 'words' })
-      splits.push(s)
-      gsap.fromTo(
-        s.words,
-        { opacity: 0.12 },
-        {
-          opacity: 1,
-          stagger: 0.06,
-          ease: 'steps(1)',
-          scrollTrigger: { trigger: '[data-motion="about"]', start: 'top 78%', end: 'top 34%', scrub: true },
-        },
-      )
-    }
-    cut(
-      '[data-motion="about-reveal"]',
-      { opacity: 0 },
-      {
-        opacity: 1,
-        duration: 0.08,
-        stagger: 0.14,
-        ease: 'steps(1)',
-        scrollTrigger: { trigger: '[data-motion="about-reveal"]', start: 'top 86%' },
-      },
-    )
-  })
+  // ── 7 · The 2 a.m. WINDOW dissolves in as one block (Marco 2026-07-07: no
+  //  word-by-word snap — gentle whole-block dissolve, per v2).
+  cut(
+    '[data-motion="about-window"]',
+    { opacity: 0, y: 12 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.9,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: '[data-motion="about-window"]', start: 'top 85%', once: true },
+    },
+  )
+  cut(
+    '[data-motion="about-reveal"]',
+    { opacity: 0 },
+    {
+      opacity: 1,
+      duration: 0.08,
+      stagger: 0.14,
+      ease: 'steps(1)',
+      scrollTrigger: { trigger: '[data-motion="about-reveal"]', start: 'top 86%' },
+    },
+  )
 
   // Cleanup: revert SplitText DOM so a theme switch leaves clean markup.
   return () => {

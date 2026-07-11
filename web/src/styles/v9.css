@@ -1,10 +1,10 @@
 /* ============================================================
-   V9 SKELETON — one shared layout, three personalities.
-   Structure only: geometry, rhythm, composition. Every color,
-   font, texture and ornament comes from the theme files
-   (premiere-night / matinee / late-show) through the token layer
+   V9 SKELETON — one shared layout. Structure only: geometry,
+   rhythm, composition. Every color, font, texture and ornament
+   comes from the single design file (themes/marquee.css — the v8
+   look, per Marco's 2026-07-11 reversal) through the token layer
    (--bg-*, --fg-*, --rule, --accent, --font-*) plus the small
-   --v9-* set each theme binds.
+   --v9-* set the design binds.
 
    Laws honored here:
    - gradient law: photo chrome ALWAYS dark scrim + light ink,

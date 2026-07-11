@@ -95,7 +95,7 @@ const logoDefaults = { min: LOGO_SIZE.min, max: LOGO_SIZE.max, def: LOGO_SIZE.de
         }
 
         var design = read('apr70:design')
-        if (!design || !designModes[design]) design = 'premiere-night'
+        if (!design || !designModes[design]) design = 'marquee'
         doc.setAttribute('data-design', design)
 
         var stored = read('apr70:mode')
@@ -192,7 +192,7 @@ const logoDefaults = { min: LOGO_SIZE.min, max: LOGO_SIZE.max, def: LOGO_SIZE.de
       import { bootMotion, initThemeMotion } from '../lib/motion'
       bootMotion()
       document.addEventListener('astro:page-load', () => {
-        const design = document.documentElement.getAttribute('data-design') || 'premiere-night'
+        const design = document.documentElement.getAttribute('data-design') || 'marquee'
         void initThemeMotion(design)
       })
     </script>

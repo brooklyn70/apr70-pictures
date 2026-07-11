@@ -1,0 +1,131 @@
+/* ============================================================
+   FilmstripSlideshow — sprocket-edged, one frame at a time.
+   Structure/geometry here; ink comes from the theme tokens.
+   The film stock itself is ALWAYS dark (photo bed law), the
+   caption ink under it is themed.
+   ============================================================ */
+
+.fs {
+  outline: none;
+}
+
+.fs__stock {
+  background: #0a0908;
+  padding: 0;
+  position: relative;
+}
+
+/* Sprocket rails — the logo's hole motif, punched through the stock. */
+.fs__rail {
+  height: 16px;
+  position: relative;
+  background: #0a0908;
+}
+.fs__rail::before {
+  content: '';
+  position: absolute;
+  inset: 4px 8px;
+  background-image: radial-gradient(
+    5px 4px at 12px 50%,
+    var(--bg-0) 97%,
+    transparent 100%
+  );
+  background-size: 30px 100%;
+  background-repeat: repeat-x;
+}
+
+.fs__viewport {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3 / 2;
+  touch-action: pan-y;
+}
+@media (min-width: 720px) {
+  .fs__viewport { aspect-ratio: 16 / 9; }
+}
+
+.fs__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-out);
+  pointer-events: none;
+}
+.fs__slide[data-active='true'] {
+  opacity: 1;
+  pointer-events: auto;
+}
+.fs__slide img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---- Underline row: controls + caption ---- */
+.fs__bar {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding-top: 0.7rem;
+}
+.fs__nav {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: none;
+}
+.fs__btn {
+  appearance: none;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1;
+  color: var(--fg-2);
+  background: transparent;
+  border: 1px solid var(--rule-strong);
+  width: 2.2rem;
+  height: 2.2rem;
+  cursor: pointer;
+  transition: color var(--dur-quick) var(--ease-out), border-color var(--dur-quick) var(--ease-out);
+}
+.fs__btn:hover { color: var(--accent); border-color: var(--accent); }
+.fs__counter {
+  font-family: var(--font-mono);
+  font-size: var(--v9-meta, 0.78rem);
+  letter-spacing: 0.12em;
+  color: var(--fg-3);
+  white-space: nowrap;
+  padding-top: 0.55rem;
+}
+.fs__caption { flex: 1; min-width: 0; padding-top: 0; }
+.fs__caption .v9-capline { padding-top: 0.55rem; }
+
+/* ---- Dot rail ---- */
+.fs__dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  padding-top: 0.8rem;
+}
+.fs__dot {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 1px; /* sprocket hole, not a circle */
+  background: var(--fg-5);
+  cursor: pointer;
+  transition: background-color var(--dur-quick) var(--ease-out), transform var(--dur-quick) var(--ease-out);
+}
+.fs__dot:hover { background: var(--fg-3); }
+.fs__dot[aria-current='true'] {
+  background: var(--accent);
+  transform: scale(1.25);
+}
+
+@media (max-width: 719px) {
+  .fs__bar { flex-wrap: wrap; }
+  .fs__caption { flex-basis: 100%; order: 3; }
+}

@@ -51,6 +51,24 @@ import {
  * localStorage so persistence holds even before/without that stamp.
  */
 
+/**
+ * v9 (2026-07-10): the panel slims to Theme (3 chips, names from
+ * site-settings.v9Chrome) · Type size · Logo size. The Logo-library, Font,
+ * and Accent pickers are UNMOUNTED for v9 — themes own typography now — but
+ * their code stays intact below behind this flag.
+ */
+const SHOW_LIBRARY_SECTIONS = false
+
+export type ThemeControlLabels = {
+  displayLabel?: string | null
+  panelTitle?: string | null
+  themeLabel?: string | null
+  scaleLabel?: string | null
+  logoLabel?: string | null
+  /** CMS names for the theme chips, keyed by design slug. */
+  themeNames?: Partial<Record<DesignSlug, string | null>>
+}
+
 const FONT_SCALES = [
   { id: 's', label: 'S', value: '0.9' },
   { id: 'm', label: 'M', value: '1' },
@@ -107,7 +125,7 @@ function applyAccent(id: AccentChoice) {
 
 type Pos = { x: number; y: number }
 
-export default function ThemeControlIsland() {
+export default function ThemeControlIsland({ labels }: { labels?: ThemeControlLabels } = {}) {
   const [open, setOpen] = useState(false)
   /* Defaults on BOTH server and first client render — reading <html> attrs in
      the initializer forks the trees and breaks hydration. The mount effect
@@ -359,6 +377,7 @@ export default function ThemeControlIsland() {
     : undefined
 
   const activeDesign = DESIGNS.find((d) => d.slug === design) ?? DESIGNS[0]
+  const themeName = (slug: DesignSlug, fallback: string) => labels?.themeNames?.[slug] || fallback
   const activeAccentLabel =
     accent === 'auto'
       ? 'Auto · follows theme'
@@ -384,7 +403,7 @@ export default function ThemeControlIsland() {
               <span />
               <span />
             </span>
-            <span className="tc-panel__title">Display</span>
+            <span className="tc-panel__title">{labels?.panelTitle || 'Display'}</span>
             <button
               type="button"
               data-no-drag
@@ -398,8 +417,8 @@ export default function ThemeControlIsland() {
 
           <div className="tc-panel__body">
             {/* Theme */}
-            <div className="tc-section" role="group" aria-label="Theme">
-              <span className="tc-section__label">Theme</span>
+            <div className="tc-section" role="group" aria-label={labels?.themeLabel || 'Theme'}>
+              <span className="tc-section__label">{labels?.themeLabel || 'Theme'}</span>
               <div className="tc-themes">
                 {DESIGNS.map((d) => (
                   <button
@@ -415,7 +434,7 @@ export default function ThemeControlIsland() {
                       ))}
                     </span>
                     <span className="tc-theme__text">
-                      <span className="tc-theme__name">{d.name}</span>
+                      <span className="tc-theme__name">{themeName(d.slug, d.name)}</span>
                       <span className="tc-theme__blurb">{d.blurb}</span>
                     </span>
                   </button>
@@ -424,8 +443,8 @@ export default function ThemeControlIsland() {
             </div>
 
             {/* Type size */}
-            <div className="tc-section" role="group" aria-label="Type size">
-              <span className="tc-section__label">Type size</span>
+            <div className="tc-section" role="group" aria-label={labels?.scaleLabel || 'Type size'}>
+              <span className="tc-section__label">{labels?.scaleLabel || 'Type size'}</span>
               <div className="tc-segment tc-segment--4">
                 {FONT_SCALES.map((f) => (
                   <button
@@ -441,7 +460,9 @@ export default function ThemeControlIsland() {
               </div>
             </div>
 
-            {/* Logo — the FULL mark library, grouped + scrollable */}
+            {/* Logo — the FULL mark library, grouped + scrollable.
+                UNMOUNTED for v9 (SHOW_LIBRARY_SECTIONS) — code kept intact. */}
+            {SHOW_LIBRARY_SECTIONS && (
             <div className="tc-section" role="group" aria-label="Logo">
               <span className="tc-section__label">
                 Logo
@@ -475,13 +496,14 @@ export default function ThemeControlIsland() {
                 ))}
               </div>
             </div>
+            )}
 
             {/* Logo size — V5 (Marco 2026-07-07): the mandatory icon resizer.
                 Live while dragging (CSS var update is synchronous); the
                 persisted write is debounced in selectLogoSize. */}
-            <div className="tc-section" role="group" aria-label="Logo size">
+            <div className="tc-section" role="group" aria-label={labels?.logoLabel || 'Logo size'}>
               <span className="tc-section__label">
-                Logo size
+                {labels?.logoLabel || 'Logo size'}
                 <span className="tc-section__value">{logoSize}px</span>
               </span>
               <div className="tc-range-row">
@@ -500,7 +522,8 @@ export default function ThemeControlIsland() {
               </div>
             </div>
 
-            {/* Font */}
+            {/* Font — UNMOUNTED for v9 (themes own typography); code intact. */}
+            {SHOW_LIBRARY_SECTIONS && (
             <div className="tc-section" role="group" aria-label="Font">
               <span className="tc-section__label">Font</span>
               <div className="tc-fonts">
@@ -524,8 +547,10 @@ export default function ThemeControlIsland() {
                 ))}
               </div>
             </div>
+            )}
 
-            {/* Division accent */}
+            {/* Division accent — UNMOUNTED for v9; code intact. */}
+            {SHOW_LIBRARY_SECTIONS && (
             <div className="tc-section" role="group" aria-label="Division accent">
               <span className="tc-section__label">
                 Accent
@@ -551,6 +576,7 @@ export default function ThemeControlIsland() {
                 ))}
               </div>
             </div>
+            )}
           </div>
         </section>
       ) : (
@@ -570,7 +596,7 @@ export default function ThemeControlIsland() {
               <span key={i} className="tc-chip" style={{ background: hex }} />
             ))}
           </span>
-          Display
+          {labels?.displayLabel || 'Display'}
         </button>
       )}
     </div>

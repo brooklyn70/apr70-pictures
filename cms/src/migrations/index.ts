@@ -8,6 +8,7 @@ import * as migration_20260625_division_theme from './20260625_division_theme';
 import * as migration_20260705_troupe_page from './20260705_troupe_page';
 import * as migration_20260705_v4_zine_blocks from './20260705_v4_zine_blocks';
 import * as migration_20260708_property_page_fields from './20260708_property_page_fields';
+import * as migration_20260710_v9_content_model from './20260710_v9_content_model';
 
 export const migrations = [
   {
@@ -59,5 +60,10 @@ export const migrations = [
     up: migration_20260708_property_page_fields.up,
     down: migration_20260708_property_page_fields.down,
     name: '20260708_property_page_fields',
+  },
+  {
+    up: migration_20260710_v9_content_model.up,
+    down: migration_20260710_v9_content_model.down,
+    name: '20260710_v9_content_model',
   },
 ];

@@ -17,6 +17,8 @@ import { themeField } from '../fields/themeField'
 export const Division310: GlobalConfig = {
   slug: '310',
   label: '310 Division',
+  // Same numeric-slug generate:types fix as Division212.
+  typescript: { interface: 'Division310Global' },
   access: { read: () => true },
   fields: [
     themeField,

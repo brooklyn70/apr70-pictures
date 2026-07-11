@@ -68,6 +68,122 @@ export const Project: CollectionConfig = {
       type: 'upload',
       relationTo: 'media',
     },
+
+    // ── v9 property-page fields (seeded from 02-copy/properties/*.md) ─────────
+    {
+      name: 'logline',
+      type: 'textarea',
+      admin: {
+        description:
+          'v9: the full public logline — shown under the title on /work/<slug> and on the /slate list.',
+      },
+    },
+    {
+      name: 'shortLogline',
+      type: 'text',
+      label: 'Short logline',
+      admin: {
+        description:
+          'v9: the one-line logline used on the home mini-slate (e.g. "A private town at the end of Brooklyn.").',
+      },
+    },
+    {
+      name: 'provenance',
+      type: 'text',
+      admin: {
+        description:
+          'v9: source line for public-domain adaptations (e.g. "After Dashiell Hammett\'s *Red Harvest* (1929); the novel is public domain").',
+      },
+    },
+    {
+      name: 'metaLine',
+      type: 'text',
+      label: 'Meta line',
+      admin: {
+        description:
+          'v9: the property meta line — format · division · status (e.g. "Feature · (212) Pictures · drafted"). Shown with the title on /work/<slug>.',
+      },
+    },
+    {
+      name: 'bodyProse',
+      type: 'textarea',
+      label: 'Body prose',
+      admin: {
+        description:
+          'v9: the property-head paragraph(s) on /work/<slug>, below the logline. Blank line starts a new paragraph; *italics* allowed.',
+      },
+    },
+    {
+      name: 'pageQuote',
+      type: 'group',
+      label: 'Page quote',
+      admin: {
+        description: 'v9: the featured quotation on /work/<slug> (quote-feature section).',
+      },
+      fields: [
+        {
+          name: 'quote',
+          type: 'textarea',
+          admin: { description: 'The quotation, set large.' },
+        },
+        {
+          name: 'cite',
+          type: 'text',
+          admin: { description: 'Who said it.' },
+        },
+        {
+          name: 'note',
+          type: 'text',
+          admin: { description: 'Source note (e.g. "letter, 1889").' },
+        },
+      ],
+    },
+    {
+      name: 'heroCaption',
+      type: 'text',
+      label: 'Hero caption',
+      admin: {
+        description:
+          'v9: caption under the hero photo-fold, before the credit. ==text== renders highlighted.',
+      },
+    },
+    {
+      name: 'heroCredit',
+      type: 'text',
+      label: 'Hero credit',
+      admin: {
+        description: 'v9: credit suffix for the hero (e.g. "AI-generated development frame, disclosed").',
+      },
+    },
+    {
+      name: 'requestBody',
+      type: 'textarea',
+      label: 'Request section body',
+      admin: {
+        description:
+          'v9: the paragraph in the "Read the pages." request section at the bottom of /work/<slug>.',
+      },
+    },
+    {
+      name: 'slateOrder',
+      type: 'number',
+      label: 'Slate order',
+      admin: {
+        position: 'sidebar',
+        description: 'v9: position on the public slate (1 = first). Drives /slate and prev/next navigation.',
+      },
+    },
+    {
+      name: 'publicSlate',
+      type: 'checkbox',
+      label: 'Public slate',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+        description:
+          'v9: when checked, this property appears on the public v9 slate and gets a /work/<slug> page. The two private properties stay unchecked.',
+      },
+    },
     {
       name: 'synopsis',
       type: 'textarea',
@@ -104,6 +220,14 @@ export const Project: CollectionConfig = {
           type: 'text',
           required: true,
           admin: { description: 'Provenance — required on every plate (artist, generator, archive, PD line).' },
+        },
+        {
+          name: 'wide',
+          type: 'checkbox',
+          defaultValue: false,
+          admin: {
+            description: 'v9: span the full mood-grid width (maps, panoramas).',
+          },
         },
       ],
     },

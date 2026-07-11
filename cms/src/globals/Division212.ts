@@ -17,6 +17,9 @@ import { themeField } from '../fields/themeField'
 export const Division212: GlobalConfig = {
   slug: '212',
   label: '212 Division',
+  // The numeric slug generates an invalid TS identifier ("interface 212")
+  // and crashes `payload generate:types`; naming the interface fixes it.
+  typescript: { interface: 'Division212Global' },
   access: { read: () => true },
   fields: [
     themeField,

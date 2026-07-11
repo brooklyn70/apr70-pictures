@@ -43,5 +43,16 @@ export const Media: CollectionConfig = {
       ],
     },
   ],
-  upload: true,
+  upload: {
+    // Focal-point + crop tools in admin so Marco can crop images to the
+    // boxes they render into on the v9 site. The focal point is stored on
+    // the media doc (focalX/focalY) and applied to the generated sizes.
+    crop: true,
+    focalPoint: true,
+    imageSizes: [
+      { name: 'thumb', width: 480 },
+      { name: 'card', width: 1024 },
+      { name: 'hero', width: 1920 },
+    ],
+  },
 }

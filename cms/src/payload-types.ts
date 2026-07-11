@@ -69,6 +69,9 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    projects: Project;
+    news: News;
+    'dispatch-issues': DispatchIssue;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +81,9 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    news: NewsSelect<false> | NewsSelect<true>;
+    'dispatch-issues': DispatchIssuesSelect<false> | DispatchIssuesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -88,6 +94,8 @@ export interface Config {
   };
   fallbackLocale: null;
   globals: {
+    '212': Division212Global;
+    '310': Division310Global;
     home: Home;
     'site-settings': SiteSetting;
     'footer-links': FooterLink;
@@ -96,8 +104,17 @@ export interface Config {
     jobs: Job;
     pitch: Pitch;
     investors: Investor;
+    nrc: Nrc;
+    troupe: Troupe;
+    'v9-home': V9Home;
+    'v9-slate': V9Slate;
+    'v9-craft': V9Craft;
+    'v9-methods': V9Method;
+    'v9-contact': V9Contact;
   };
   globalsSelect: {
+    '212': Select<false> | Select<true>;
+    '310': Select<false> | Select<true>;
     home: HomeSelect<false> | HomeSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     'footer-links': FooterLinksSelect<false> | FooterLinksSelect<true>;
@@ -106,6 +123,13 @@ export interface Config {
     jobs: JobsSelect<false> | JobsSelect<true>;
     pitch: PitchSelect<false> | PitchSelect<true>;
     investors: InvestorsSelect<false> | InvestorsSelect<true>;
+    nrc: NrcSelect<false> | NrcSelect<true>;
+    troupe: TroupeSelect<false> | TroupeSelect<true>;
+    'v9-home': V9HomeSelect<false> | V9HomeSelect<true>;
+    'v9-slate': V9SlateSelect<false> | V9SlateSelect<true>;
+    'v9-craft': V9CraftSelect<false> | V9CraftSelect<true>;
+    'v9-methods': V9MethodsSelect<false> | V9MethodsSelect<true>;
+    'v9-contact': V9ContactSelect<false> | V9ContactSelect<true>;
   };
   locale: null;
   widgets: {
@@ -167,6 +191,14 @@ export interface User {
 export interface Media {
   id: number;
   alt: string;
+  /**
+   * Optional tag for filtering in upload pickers (e.g. logo library).
+   */
+  mediaKind?: ('logo' | 'favicon' | 'wordmark' | 'watermark' | 'photo') | null;
+  /**
+   * Optional division association for cross-filtering.
+   */
+  divisionTag?: ('212' | '310' | 'nrc' | 'corporate') | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -178,167 +210,140 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-kv".
- */
-export interface PayloadKv {
-  id: number;
-  key: string;
-  data:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-locked-documents".
- */
-export interface PayloadLockedDocument {
-  id: number;
-  document?:
-    | ({
-        relationTo: 'users';
-        value: number | User;
-      } | null)
-    | ({
-        relationTo: 'media';
-        value: number | Media;
-      } | null);
-  globalSlug?: string | null;
-  user: {
-    relationTo: 'users';
-    value: number | User;
+  sizes?: {
+    thumb?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    card?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    hero?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
   };
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-preferences".
+ * via the `definition` "projects".
  */
-export interface PayloadPreference {
+export interface Project {
   id: number;
-  user: {
-    relationTo: 'users';
-    value: number | User;
+  title: string;
+  slug: string;
+  division?: ('212' | '310' | 'nrc' | 'corporate') | null;
+  subtitle?: string | null;
+  status?: ('development' | 'production' | 'released' | 'optioned') | null;
+  year?: string | null;
+  heroImage?: (number | null) | Media;
+  /**
+   * v9: the full public logline — shown under the title on /work/<slug> and on the /slate list.
+   */
+  logline?: string | null;
+  /**
+   * v9: the one-line logline used on the home mini-slate (e.g. "A private town at the end of Brooklyn.").
+   */
+  shortLogline?: string | null;
+  /**
+   * v9: source line for public-domain adaptations (e.g. "After Dashiell Hammett's *Red Harvest* (1929); the novel is public domain").
+   */
+  provenance?: string | null;
+  /**
+   * v9: the property meta line — format · division · status (e.g. "Feature · (212) Pictures · drafted"). Shown with the title on /work/<slug>.
+   */
+  metaLine?: string | null;
+  /**
+   * v9: the property-head paragraph(s) on /work/<slug>, below the logline. Blank line starts a new paragraph; *italics* allowed.
+   */
+  bodyProse?: string | null;
+  /**
+   * v9: the featured quotation on /work/<slug> (quote-feature section).
+   */
+  pageQuote?: {
+    /**
+     * The quotation, set large.
+     */
+    quote?: string | null;
+    /**
+     * Who said it.
+     */
+    cite?: string | null;
+    /**
+     * Source note (e.g. "letter, 1889").
+     */
+    note?: string | null;
   };
-  key?: string | null;
-  value?:
+  /**
+   * v9: caption under the hero photo-fold, before the credit. ==text== renders highlighted.
+   */
+  heroCaption?: string | null;
+  /**
+   * v9: credit suffix for the hero (e.g. "AI-generated development frame, disclosed").
+   */
+  heroCredit?: string | null;
+  /**
+   * v9: the paragraph in the "Read the pages." request section at the bottom of /work/<slug>.
+   */
+  requestBody?: string | null;
+  /**
+   * v9: position on the public slate (1 = first). Drives /slate and prev/next navigation.
+   */
+  slateOrder?: number | null;
+  /**
+   * v9: when checked, this property appears on the public v9 slate and gets a /work/<slug> page. The two private properties stay unchecked.
+   */
+  publicSlate?: boolean | null;
+  /**
+   * Property synopsis — renders at the top of /work/<slug>, above the slideshow. Blank line starts a new paragraph. When empty, the page falls back to the Zine Synopsis block, then the compiled-in v4 copy.
+   */
+  synopsis?: string | null;
+  /**
+   * Property slideshow plates (v2-style filmstrip). A plate whose caption starts with "MOOD BOARD" renders as the wide mood-board collage instead of a slide. Upload wins over the external URL.
+   */
+  gallery?:
     | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
+        image?: (number | null) | Media;
+        /**
+         * External image URL — used only when no upload is set.
+         */
+        imageUrl?: string | null;
+        caption?: string | null;
+        /**
+         * Provenance — required on every plate (artist, generator, archive, PD line).
+         */
+        credit: string;
+        /**
+         * v9: span the full mood-grid width (maps, panoramas).
+         */
+        wide?: boolean | null;
+        id?: string | null;
+      }[]
     | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-migrations".
- */
-export interface PayloadMigration {
-  id: number;
-  name?: string | null;
-  batch?: number | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users_select".
- */
-export interface UsersSelect<T extends boolean = true> {
-  updatedAt?: T;
-  createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
-  sessions?:
-    | T
-    | {
-        id?: T;
-        createdAt?: T;
-        expiresAt?: T;
-      };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
- */
-export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-kv_select".
- */
-export interface PayloadKvSelect<T extends boolean = true> {
-  key?: T;
-  data?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-locked-documents_select".
- */
-export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
-  document?: T;
-  globalSlug?: T;
-  user?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-preferences_select".
- */
-export interface PayloadPreferencesSelect<T extends boolean = true> {
-  user?: T;
-  key?: T;
-  value?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-migrations_select".
- */
-export interface PayloadMigrationsSelect<T extends boolean = true> {
-  name?: T;
-  batch?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home".
- */
-export interface Home {
-  id: number;
+  /**
+   * The pitch-deck slot renders on EVERY property page: "reserved" shows the by-request card; "available" links the file.
+   */
+  pitchDeck?: {
+    status?: ('reserved' | 'available') | null;
+    file?: (number | null) | Media;
+    /**
+     * One line under the card, e.g. how to request the deck.
+     */
+    note?: string | null;
+  };
   layout?:
     | (
         | {
@@ -357,6 +362,23 @@ export interface Home {
             variant: 'default' | 'split' | 'fullscreen' | 'slider-auto' | 'slider-curated';
             division: 'pictures-212' | 'pictures-310' | 'nrc' | 'corporate';
             /**
+             * Optional division lockup overlaid on the hero (split/fullscreen/slider).
+             */
+            lockupLogo?: (number | null) | Media;
+            /**
+             * Optional watermark overlay on the hero media.
+             */
+            watermarkLogo?: (number | null) | Media;
+            /**
+             * Opacity of the watermark overlay (0 = invisible, 1 = fully opaque).
+             */
+            watermarkOpacity?: number | null;
+            watermarkPosition?: ('bottom-right' | 'bottom-left' | 'center' | 'top-right') | null;
+            /**
+             * Watermarks can be distracting on small screens. Off by default.
+             */
+            watermarkShowOnMobile?: boolean | null;
+            /**
              * Crossfade duration in milliseconds (slider variants only).
              */
             fadeDuration?: number | null;
@@ -368,6 +390,17 @@ export interface Home {
              * Show the "01 / 04" slide indicator (slider variants only).
              */
             showIndicator?: boolean | null;
+            /**
+             * Explicitly curated slides (image + optional text).
+             */
+            sliderItems?:
+              | {
+                  media: number | Media;
+                  title?: string | null;
+                  subtext?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'hero';
@@ -476,6 +509,10 @@ export interface Home {
              */
             source: 'custom-media' | 'from-projects';
             /**
+             * Aspect ratio and perforation style.
+             */
+            format?: ('academy' | 'super35' | 'widescreen200' | 'imax' | 'v2-header' | 'v2-footer') | null;
+            /**
              * Filter projects by division (only when source = "from Projects").
              */
             projectFilter?: ('all' | '212' | '310' | 'nrc') | null;
@@ -499,7 +536,322 @@ export interface Home {
             /**
              * Select the visual layout variant. Preview all at /dev/division-variants.
              */
-            variant: 'v0-slate-stack' | 'v0-baseline' | 'v1-accordion' | 'v2-cards' | 'v3-split' | 'v4-timeline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
+            variant: 'v0-slate-stack' | 'v0-baseline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
+            /**
+             * Optional section heading above the division rows. Line breaks are intentional.
+             */
+            heading?: string | null;
+            /**
+             * Optional subtext below the heading.
+             */
+            subtext?: string | null;
+            divisions: {
+              /**
+               * Division name (e.g. "(212) Pictures").
+               */
+              name: string;
+              colorToken:
+                | '212-amber'
+                | '212-sicilian-orange'
+                | '310-imax'
+                | 'nrc-grey'
+                | '310-sicilian-blue'
+                | 'nrc-navy';
+              /**
+               * Optional subtitle (e.g. "Brooklyn, New York").
+               */
+              subtitle?: string | null;
+              /**
+               * Division description body. Line breaks are intentional.
+               */
+              description?: string | null;
+              /**
+               * Optional image for variants that use media (v2-cards, v3-split).
+               */
+              media?: (number | null) | Media;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'divisionShowcase';
+          }
+        | {
+            /**
+             * Optional section heading. Line breaks are intentional.
+             */
+            heading?: string | null;
+            columns: '2' | '3' | '4';
+            stats: {
+              /**
+               * The large number or short text (e.g. "24", "$2.5M", "3x").
+               */
+              value: string;
+              /**
+               * Descriptive label below the value (e.g. "Projects in Development").
+               */
+              label: string;
+              colorToken?:
+                | (
+                    | 'none'
+                    | '212-amber'
+                    | '212-sicilian-orange'
+                    | '310-imax'
+                    | 'nrc-grey'
+                    | '310-sicilian-blue'
+                    | 'nrc-navy'
+                  )
+                | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'stats';
+          }
+        | {
+            /**
+             * Text shown between the two rules (e.g. "Structure", "// DIVISIONS"). Leave blank for a plain rule.
+             */
+            label?: string | null;
+            /**
+             * Vertical padding around the divider.
+             */
+            spacing?: ('compact' | 'normal' | 'wide') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'divider';
+          }
+        | {
+            /**
+             * Division and format line, e.g. "(212) · Documentary series, 11 episodes".
+             */
+            kicker?: string | null;
+            title: string;
+            /**
+             * Render the small-caps "working draft" tag.
+             */
+            workingDraft?: boolean | null;
+            logline?: string | null;
+            /**
+             * Synopsis. Blank line starts a new paragraph.
+             */
+            body: string;
+            /**
+             * Optional closing credit line.
+             */
+            note?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'zineSynopsis';
+          }
+      )[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news".
+ */
+export interface News {
+  id: number;
+  title: string;
+  slug: string;
+  date?: string | null;
+  deck?: string | null;
+  featured?: boolean | null;
+  layout?:
+    | (
+        | {
+            /**
+             * Hero headline text. Line breaks are intentional.
+             */
+            heading: string;
+            /**
+             * Smaller subtext below the heading.
+             */
+            subtext?: string | null;
+            /**
+             * Static hero image (used for "default" and "split" variants).
+             */
+            media?: (number | null) | Media;
+            variant: 'default' | 'split' | 'fullscreen' | 'slider-auto' | 'slider-curated';
+            division: 'pictures-212' | 'pictures-310' | 'nrc' | 'corporate';
+            /**
+             * Optional division lockup overlaid on the hero (split/fullscreen/slider).
+             */
+            lockupLogo?: (number | null) | Media;
+            /**
+             * Optional watermark overlay on the hero media.
+             */
+            watermarkLogo?: (number | null) | Media;
+            /**
+             * Opacity of the watermark overlay (0 = invisible, 1 = fully opaque).
+             */
+            watermarkOpacity?: number | null;
+            watermarkPosition?: ('bottom-right' | 'bottom-left' | 'center' | 'top-right') | null;
+            /**
+             * Watermarks can be distracting on small screens. Off by default.
+             */
+            watermarkShowOnMobile?: boolean | null;
+            /**
+             * Crossfade duration in milliseconds (slider variants only).
+             */
+            fadeDuration?: number | null;
+            /**
+             * Time between slides in milliseconds (slider variants only).
+             */
+            autoplayDelay?: number | null;
+            /**
+             * Show the "01 / 04" slide indicator (slider variants only).
+             */
+            showIndicator?: boolean | null;
+            /**
+             * Explicitly curated slides (image + optional text).
+             */
+            sliderItems?:
+              | {
+                  media: number | Media;
+                  title?: string | null;
+                  subtext?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hero';
+          }
+        | {
+            content: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            /**
+             * When enabled, all headings in this block use the massive display scale (e.g. "STORIES ACROSS GENERATIONS"). This separates visual size from semantic heading level.
+             */
+            megaScale?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'richText';
+          }
+        | {
+            leftHeading: string;
+            rightBody: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            ratio?: ('1-3' | '1-1' | '1-2') | null;
+            alignment?: ('top' | 'center') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'twoCol';
+          }
+        | {
+            heading?: string | null;
+            items: {
+              media?: (number | null) | Media;
+              title?: string | null;
+              description?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: any;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'grid';
+          }
+        | {
+            heading: string;
+            subtext?: string | null;
+            buttons: {
+              label: string;
+              url: string;
+              variant: 'solid' | 'ghost' | 'link';
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cta';
+          }
+        | {
+            heading?: string | null;
+            layout: 'stacked' | 'carousel';
+            quotes: {
+              quote: string;
+              attribution?: string | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'quotes';
+          }
+        | {
+            /**
+             * Choose whether to manually curate tiles or pull from the Projects collection.
+             */
+            source: 'custom-media' | 'from-projects';
+            /**
+             * Aspect ratio and perforation style.
+             */
+            format?: ('academy' | 'super35' | 'widescreen200' | 'imax' | 'v2-header' | 'v2-footer') | null;
+            /**
+             * Filter projects by division (only when source = "from Projects").
+             */
+            projectFilter?: ('all' | '212' | '310' | 'nrc') | null;
+            tiles?:
+              | {
+                  media: number | Media;
+                  /**
+                   * Short label shown below the tile.
+                   */
+                  caption?: string | null;
+                  division?: ('none' | '212' | '310' | 'nrc') | null;
+                  id?: string | null;
+                }[]
+              | null;
+            showPerforations?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'filmstrip';
+          }
+        | {
+            /**
+             * Select the visual layout variant. Preview all at /dev/division-variants.
+             */
+            variant: 'v0-slate-stack' | 'v0-baseline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
             /**
              * Optional section heading above the division rows. Line breaks are intentional.
              */
@@ -585,6 +937,1982 @@ export interface Home {
           }
       )[]
     | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * One full DISPATCH magazine issue. The issue with `current: true` renders at /news.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "dispatch-issues".
+ */
+export interface DispatchIssue {
+  id: number;
+  /**
+   * Admin label, e.g. "Vol. 01 No. 01 — Spring 2026". Not shown on the rendered page.
+   */
+  displayTitle: string;
+  slug: string;
+  /**
+   * Mark exactly one issue current. Renders at /news.
+   */
+  current?: boolean | null;
+  releaseDate?: string | null;
+  indicia: {
+    volume: string;
+    number: string;
+    season: string;
+    reel?: string | null;
+    isoDate?: string | null;
+    printRun?: string | null;
+    offices?: string | null;
+    tagline?: string | null;
+  };
+  cover?: {
+    kicker?: string | null;
+    deck?: string | null;
+    byline?: string | null;
+    coverImage?: (number | null) | Media;
+    /**
+     * Big cover headline split into stylable words.
+     */
+    lines?:
+      | {
+          text: string;
+          style?: ('normal' | 'accent' | 'outline') | null;
+          id?: string | null;
+        }[]
+      | null;
+    coverlines?:
+      | {
+          num?: string | null;
+          head?: string | null;
+          deck?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  contents?:
+    | {
+        label: string;
+        meta?: string | null;
+        entries?:
+          | {
+              folio: string;
+              title: string;
+              deck?: string | null;
+              by?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  editorial?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    lead?: string | null;
+    paragraphs?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+    signatureName?: string | null;
+    signatureMeta?: string | null;
+    quote?: string | null;
+    portrait?: (number | null) | Media;
+  };
+  feature?: {
+    eyebrow?: string | null;
+    deck?: string | null;
+    jumpFrom?: string | null;
+    jumpTo?: string | null;
+    heroImage?: (number | null) | Media;
+    titleParts?:
+      | {
+          text: string;
+          italic?: boolean | null;
+          id?: string | null;
+        }[]
+      | null;
+    meta?:
+      | {
+          key: string;
+          value: string;
+          id?: string | null;
+        }[]
+      | null;
+    imageCaption?: {
+      caption?: string | null;
+      credit?: string | null;
+    };
+    paragraphs?:
+      | {
+          variant: 'text' | 'first' | 'pull' | 'small' | 'head';
+          text: string;
+          /**
+           * For pull-quotes only.
+           */
+          attr?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    factbox?: {
+      label?: string | null;
+      fields?:
+        | {
+            key: string;
+            value: string;
+            accent?: ('none' | 'amber' | 'teal' | 'orange') | null;
+            id?: string | null;
+          }[]
+        | null;
+    };
+    related?:
+      | {
+          idx?: string | null;
+          name: string;
+          meta?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  dispatches?:
+    | {
+        division: '212' | '310' | 'nrc';
+        date: string;
+        title: string;
+        body?: string | null;
+        status?: string | null;
+        link?: string | null;
+        /**
+         * Ghost numerals shown behind card.
+         */
+        ghost?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  trades?:
+    | {
+        pub: string;
+        city?: string | null;
+        headline: string;
+        deck?: string | null;
+        attr?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  calendar?:
+    | {
+        date: string;
+        title: string;
+        sub?: string | null;
+        tag?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  classifieds?:
+    | {
+        cat: string;
+        title: string;
+        body?: string | null;
+        meta?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  archive?:
+    | {
+        vol?: string | null;
+        no?: string | null;
+        season?: string | null;
+        mast?: string | null;
+        line?: string | null;
+        state?: string | null;
+        isCurrent?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  colophon?: {
+    legal?: string | null;
+    type?: string | null;
+    baseline?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-kv".
+ */
+export interface PayloadKv {
+  id: number;
+  key: string;
+  data:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents".
+ */
+export interface PayloadLockedDocument {
+  id: number;
+  document?:
+    | ({
+        relationTo: 'users';
+        value: number | User;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'projects';
+        value: number | Project;
+      } | null)
+    | ({
+        relationTo: 'news';
+        value: number | News;
+      } | null)
+    | ({
+        relationTo: 'dispatch-issues';
+        value: number | DispatchIssue;
+      } | null);
+  globalSlug?: string | null;
+  user: {
+    relationTo: 'users';
+    value: number | User;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences".
+ */
+export interface PayloadPreference {
+  id: number;
+  user: {
+    relationTo: 'users';
+    value: number | User;
+  };
+  key?: string | null;
+  value?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations".
+ */
+export interface PayloadMigration {
+  id: number;
+  name?: string | null;
+  batch?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  mediaKind?: T;
+  divisionTag?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        thumb?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        card?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        hero?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects_select".
+ */
+export interface ProjectsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  division?: T;
+  subtitle?: T;
+  status?: T;
+  year?: T;
+  heroImage?: T;
+  logline?: T;
+  shortLogline?: T;
+  provenance?: T;
+  metaLine?: T;
+  bodyProse?: T;
+  pageQuote?:
+    | T
+    | {
+        quote?: T;
+        cite?: T;
+        note?: T;
+      };
+  heroCaption?: T;
+  heroCredit?: T;
+  requestBody?: T;
+  slateOrder?: T;
+  publicSlate?: T;
+  synopsis?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        imageUrl?: T;
+        caption?: T;
+        credit?: T;
+        wide?: T;
+        id?: T;
+      };
+  pitchDeck?:
+    | T
+    | {
+        status?: T;
+        file?: T;
+        note?: T;
+      };
+  layout?:
+    | T
+    | {
+        hero?:
+          | T
+          | {
+              heading?: T;
+              subtext?: T;
+              media?: T;
+              variant?: T;
+              division?: T;
+              lockupLogo?: T;
+              watermarkLogo?: T;
+              watermarkOpacity?: T;
+              watermarkPosition?: T;
+              watermarkShowOnMobile?: T;
+              fadeDuration?: T;
+              autoplayDelay?: T;
+              showIndicator?: T;
+              sliderItems?:
+                | T
+                | {
+                    media?: T;
+                    title?: T;
+                    subtext?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        richText?:
+          | T
+          | {
+              content?: T;
+              megaScale?: T;
+              id?: T;
+              blockName?: T;
+            };
+        twoCol?:
+          | T
+          | {
+              leftHeading?: T;
+              rightBody?: T;
+              ratio?: T;
+              alignment?: T;
+              id?: T;
+              blockName?: T;
+            };
+        grid?:
+          | T
+          | {
+              heading?: T;
+              items?:
+                | T
+                | {
+                    media?: T;
+                    title?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        cta?:
+          | T
+          | {
+              heading?: T;
+              subtext?: T;
+              buttons?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                    variant?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        quotes?:
+          | T
+          | {
+              heading?: T;
+              layout?: T;
+              quotes?:
+                | T
+                | {
+                    quote?: T;
+                    attribution?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        filmstrip?:
+          | T
+          | {
+              source?: T;
+              format?: T;
+              projectFilter?: T;
+              tiles?:
+                | T
+                | {
+                    media?: T;
+                    caption?: T;
+                    division?: T;
+                    id?: T;
+                  };
+              showPerforations?: T;
+              id?: T;
+              blockName?: T;
+            };
+        divisionShowcase?:
+          | T
+          | {
+              variant?: T;
+              heading?: T;
+              subtext?: T;
+              divisions?:
+                | T
+                | {
+                    name?: T;
+                    colorToken?: T;
+                    subtitle?: T;
+                    description?: T;
+                    media?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        stats?:
+          | T
+          | {
+              heading?: T;
+              columns?: T;
+              stats?:
+                | T
+                | {
+                    value?: T;
+                    label?: T;
+                    colorToken?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        divider?:
+          | T
+          | {
+              label?: T;
+              spacing?: T;
+              id?: T;
+              blockName?: T;
+            };
+        zineSynopsis?:
+          | T
+          | {
+              kicker?: T;
+              title?: T;
+              workingDraft?: T;
+              logline?: T;
+              body?: T;
+              note?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news_select".
+ */
+export interface NewsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  date?: T;
+  deck?: T;
+  featured?: T;
+  layout?:
+    | T
+    | {
+        hero?:
+          | T
+          | {
+              heading?: T;
+              subtext?: T;
+              media?: T;
+              variant?: T;
+              division?: T;
+              lockupLogo?: T;
+              watermarkLogo?: T;
+              watermarkOpacity?: T;
+              watermarkPosition?: T;
+              watermarkShowOnMobile?: T;
+              fadeDuration?: T;
+              autoplayDelay?: T;
+              showIndicator?: T;
+              sliderItems?:
+                | T
+                | {
+                    media?: T;
+                    title?: T;
+                    subtext?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        richText?:
+          | T
+          | {
+              content?: T;
+              megaScale?: T;
+              id?: T;
+              blockName?: T;
+            };
+        twoCol?:
+          | T
+          | {
+              leftHeading?: T;
+              rightBody?: T;
+              ratio?: T;
+              alignment?: T;
+              id?: T;
+              blockName?: T;
+            };
+        grid?:
+          | T
+          | {
+              heading?: T;
+              items?:
+                | T
+                | {
+                    media?: T;
+                    title?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        cta?:
+          | T
+          | {
+              heading?: T;
+              subtext?: T;
+              buttons?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                    variant?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        quotes?:
+          | T
+          | {
+              heading?: T;
+              layout?: T;
+              quotes?:
+                | T
+                | {
+                    quote?: T;
+                    attribution?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        filmstrip?:
+          | T
+          | {
+              source?: T;
+              format?: T;
+              projectFilter?: T;
+              tiles?:
+                | T
+                | {
+                    media?: T;
+                    caption?: T;
+                    division?: T;
+                    id?: T;
+                  };
+              showPerforations?: T;
+              id?: T;
+              blockName?: T;
+            };
+        divisionShowcase?:
+          | T
+          | {
+              variant?: T;
+              heading?: T;
+              subtext?: T;
+              divisions?:
+                | T
+                | {
+                    name?: T;
+                    colorToken?: T;
+                    subtitle?: T;
+                    description?: T;
+                    media?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        stats?:
+          | T
+          | {
+              heading?: T;
+              columns?: T;
+              stats?:
+                | T
+                | {
+                    value?: T;
+                    label?: T;
+                    colorToken?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        divider?:
+          | T
+          | {
+              label?: T;
+              spacing?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "dispatch-issues_select".
+ */
+export interface DispatchIssuesSelect<T extends boolean = true> {
+  displayTitle?: T;
+  slug?: T;
+  current?: T;
+  releaseDate?: T;
+  indicia?:
+    | T
+    | {
+        volume?: T;
+        number?: T;
+        season?: T;
+        reel?: T;
+        isoDate?: T;
+        printRun?: T;
+        offices?: T;
+        tagline?: T;
+      };
+  cover?:
+    | T
+    | {
+        kicker?: T;
+        deck?: T;
+        byline?: T;
+        coverImage?: T;
+        lines?:
+          | T
+          | {
+              text?: T;
+              style?: T;
+              id?: T;
+            };
+        coverlines?:
+          | T
+          | {
+              num?: T;
+              head?: T;
+              deck?: T;
+              id?: T;
+            };
+      };
+  contents?:
+    | T
+    | {
+        label?: T;
+        meta?: T;
+        entries?:
+          | T
+          | {
+              folio?: T;
+              title?: T;
+              deck?: T;
+              by?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  editorial?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        lead?: T;
+        paragraphs?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        signatureName?: T;
+        signatureMeta?: T;
+        quote?: T;
+        portrait?: T;
+      };
+  feature?:
+    | T
+    | {
+        eyebrow?: T;
+        deck?: T;
+        jumpFrom?: T;
+        jumpTo?: T;
+        heroImage?: T;
+        titleParts?:
+          | T
+          | {
+              text?: T;
+              italic?: T;
+              id?: T;
+            };
+        meta?:
+          | T
+          | {
+              key?: T;
+              value?: T;
+              id?: T;
+            };
+        imageCaption?:
+          | T
+          | {
+              caption?: T;
+              credit?: T;
+            };
+        paragraphs?:
+          | T
+          | {
+              variant?: T;
+              text?: T;
+              attr?: T;
+              id?: T;
+            };
+        factbox?:
+          | T
+          | {
+              label?: T;
+              fields?:
+                | T
+                | {
+                    key?: T;
+                    value?: T;
+                    accent?: T;
+                    id?: T;
+                  };
+            };
+        related?:
+          | T
+          | {
+              idx?: T;
+              name?: T;
+              meta?: T;
+              id?: T;
+            };
+      };
+  dispatches?:
+    | T
+    | {
+        division?: T;
+        date?: T;
+        title?: T;
+        body?: T;
+        status?: T;
+        link?: T;
+        ghost?: T;
+        id?: T;
+      };
+  trades?:
+    | T
+    | {
+        pub?: T;
+        city?: T;
+        headline?: T;
+        deck?: T;
+        attr?: T;
+        id?: T;
+      };
+  calendar?:
+    | T
+    | {
+        date?: T;
+        title?: T;
+        sub?: T;
+        tag?: T;
+        id?: T;
+      };
+  classifieds?:
+    | T
+    | {
+        cat?: T;
+        title?: T;
+        body?: T;
+        meta?: T;
+        id?: T;
+      };
+  archive?:
+    | T
+    | {
+        vol?: T;
+        no?: T;
+        season?: T;
+        mast?: T;
+        line?: T;
+        state?: T;
+        isCurrent?: T;
+        id?: T;
+      };
+  colophon?:
+    | T
+    | {
+        legal?: T;
+        type?: T;
+        baseline?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-kv_select".
+ */
+export interface PayloadKvSelect<T extends boolean = true> {
+  key?: T;
+  data?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents_select".
+ */
+export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
+  document?: T;
+  globalSlug?: T;
+  user?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences_select".
+ */
+export interface PayloadPreferencesSelect<T extends boolean = true> {
+  user?: T;
+  key?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations_select".
+ */
+export interface PayloadMigrationsSelect<T extends boolean = true> {
+  name?: T;
+  batch?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "212".
+ */
+export interface Division212Global {
+  id: number;
+  /**
+   * Visual skin for this division. Leave blank to use the recommended default (212 → Amber Heat, 310 → IMAX Deep, NRC → Noir).
+   */
+  theme?: ('signature' | 'noir' | 'amber-heat' | 'imax-deep' | 'daylight') | null;
+  /**
+   * Lockup or wordmark shown in the header on this division's pages.
+   */
+  headerLogo?: (number | null) | Media;
+  /**
+   * Mark or wordmark shown in the footer on this division's pages.
+   */
+  footerLogo?: (number | null) | Media;
+  /**
+   * Division-specific favicon. Falls back to site-wide favicon if unset.
+   */
+  faviconOverride?: (number | null) | Media;
+  layout?:
+    | (
+        | {
+            /**
+             * Hero headline text. Line breaks are intentional.
+             */
+            heading: string;
+            /**
+             * Smaller subtext below the heading.
+             */
+            subtext?: string | null;
+            /**
+             * Static hero image (used for "default" and "split" variants).
+             */
+            media?: (number | null) | Media;
+            variant: 'default' | 'split' | 'fullscreen' | 'slider-auto' | 'slider-curated';
+            division: 'pictures-212' | 'pictures-310' | 'nrc' | 'corporate';
+            /**
+             * Optional division lockup overlaid on the hero (split/fullscreen/slider).
+             */
+            lockupLogo?: (number | null) | Media;
+            /**
+             * Optional watermark overlay on the hero media.
+             */
+            watermarkLogo?: (number | null) | Media;
+            /**
+             * Opacity of the watermark overlay (0 = invisible, 1 = fully opaque).
+             */
+            watermarkOpacity?: number | null;
+            watermarkPosition?: ('bottom-right' | 'bottom-left' | 'center' | 'top-right') | null;
+            /**
+             * Watermarks can be distracting on small screens. Off by default.
+             */
+            watermarkShowOnMobile?: boolean | null;
+            /**
+             * Crossfade duration in milliseconds (slider variants only).
+             */
+            fadeDuration?: number | null;
+            /**
+             * Time between slides in milliseconds (slider variants only).
+             */
+            autoplayDelay?: number | null;
+            /**
+             * Show the "01 / 04" slide indicator (slider variants only).
+             */
+            showIndicator?: boolean | null;
+            /**
+             * Explicitly curated slides (image + optional text).
+             */
+            sliderItems?:
+              | {
+                  media: number | Media;
+                  title?: string | null;
+                  subtext?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hero';
+          }
+        | {
+            content: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            /**
+             * When enabled, all headings in this block use the massive display scale (e.g. "STORIES ACROSS GENERATIONS"). This separates visual size from semantic heading level.
+             */
+            megaScale?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'richText';
+          }
+        | {
+            leftHeading: string;
+            rightBody: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            ratio?: ('1-3' | '1-1' | '1-2') | null;
+            alignment?: ('top' | 'center') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'twoCol';
+          }
+        | {
+            heading?: string | null;
+            items: {
+              media?: (number | null) | Media;
+              title?: string | null;
+              description?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: any;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'grid';
+          }
+        | {
+            heading: string;
+            subtext?: string | null;
+            buttons: {
+              label: string;
+              url: string;
+              variant: 'solid' | 'ghost' | 'link';
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cta';
+          }
+        | {
+            heading?: string | null;
+            layout: 'stacked' | 'carousel';
+            quotes: {
+              quote: string;
+              attribution?: string | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'quotes';
+          }
+        | {
+            /**
+             * Choose whether to manually curate tiles or pull from the Projects collection.
+             */
+            source: 'custom-media' | 'from-projects';
+            /**
+             * Aspect ratio and perforation style.
+             */
+            format?: ('academy' | 'super35' | 'widescreen200' | 'imax' | 'v2-header' | 'v2-footer') | null;
+            /**
+             * Filter projects by division (only when source = "from Projects").
+             */
+            projectFilter?: ('all' | '212' | '310' | 'nrc') | null;
+            tiles?:
+              | {
+                  media: number | Media;
+                  /**
+                   * Short label shown below the tile.
+                   */
+                  caption?: string | null;
+                  division?: ('none' | '212' | '310' | 'nrc') | null;
+                  id?: string | null;
+                }[]
+              | null;
+            showPerforations?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'filmstrip';
+          }
+        | {
+            /**
+             * Select the visual layout variant. Preview all at /dev/division-variants.
+             */
+            variant: 'v0-slate-stack' | 'v0-baseline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
+            /**
+             * Optional section heading above the division rows. Line breaks are intentional.
+             */
+            heading?: string | null;
+            /**
+             * Optional subtext below the heading.
+             */
+            subtext?: string | null;
+            divisions: {
+              /**
+               * Division name (e.g. "(212) Pictures").
+               */
+              name: string;
+              colorToken:
+                | '212-amber'
+                | '212-sicilian-orange'
+                | '310-imax'
+                | 'nrc-grey'
+                | '310-sicilian-blue'
+                | 'nrc-navy';
+              /**
+               * Optional subtitle (e.g. "Brooklyn, New York").
+               */
+              subtitle?: string | null;
+              /**
+               * Division description body. Line breaks are intentional.
+               */
+              description?: string | null;
+              /**
+               * Optional image for variants that use media (v2-cards, v3-split).
+               */
+              media?: (number | null) | Media;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'divisionShowcase';
+          }
+        | {
+            /**
+             * Optional section heading. Line breaks are intentional.
+             */
+            heading?: string | null;
+            columns: '2' | '3' | '4';
+            stats: {
+              /**
+               * The large number or short text (e.g. "24", "$2.5M", "3x").
+               */
+              value: string;
+              /**
+               * Descriptive label below the value (e.g. "Projects in Development").
+               */
+              label: string;
+              colorToken?:
+                | (
+                    | 'none'
+                    | '212-amber'
+                    | '212-sicilian-orange'
+                    | '310-imax'
+                    | 'nrc-grey'
+                    | '310-sicilian-blue'
+                    | 'nrc-navy'
+                  )
+                | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'stats';
+          }
+        | {
+            /**
+             * Text shown between the two rules (e.g. "Structure", "// DIVISIONS"). Leave blank for a plain rule.
+             */
+            label?: string | null;
+            /**
+             * Vertical padding around the divider.
+             */
+            spacing?: ('compact' | 'normal' | 'wide') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'divider';
+          }
+        | {
+            /**
+             * Small-caps eyebrow above the heading.
+             */
+            kicker?: string | null;
+            heading: string;
+            /**
+             * One-line mandate / standfirst.
+             */
+            lede?: string | null;
+            /**
+             * Plain text. Blank line starts a new paragraph.
+             */
+            body?: string | null;
+            links?:
+              | {
+                  label: string;
+                  href: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'zinePassage';
+          }
+      )[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "310".
+ */
+export interface Division310Global {
+  id: number;
+  /**
+   * Visual skin for this division. Leave blank to use the recommended default (212 → Amber Heat, 310 → IMAX Deep, NRC → Noir).
+   */
+  theme?: ('signature' | 'noir' | 'amber-heat' | 'imax-deep' | 'daylight') | null;
+  /**
+   * Lockup or wordmark shown in the header on this division's pages.
+   */
+  headerLogo?: (number | null) | Media;
+  /**
+   * Mark or wordmark shown in the footer on this division's pages.
+   */
+  footerLogo?: (number | null) | Media;
+  /**
+   * Division-specific favicon. Falls back to site-wide favicon if unset.
+   */
+  faviconOverride?: (number | null) | Media;
+  layout?:
+    | (
+        | {
+            /**
+             * Hero headline text. Line breaks are intentional.
+             */
+            heading: string;
+            /**
+             * Smaller subtext below the heading.
+             */
+            subtext?: string | null;
+            /**
+             * Static hero image (used for "default" and "split" variants).
+             */
+            media?: (number | null) | Media;
+            variant: 'default' | 'split' | 'fullscreen' | 'slider-auto' | 'slider-curated';
+            division: 'pictures-212' | 'pictures-310' | 'nrc' | 'corporate';
+            /**
+             * Optional division lockup overlaid on the hero (split/fullscreen/slider).
+             */
+            lockupLogo?: (number | null) | Media;
+            /**
+             * Optional watermark overlay on the hero media.
+             */
+            watermarkLogo?: (number | null) | Media;
+            /**
+             * Opacity of the watermark overlay (0 = invisible, 1 = fully opaque).
+             */
+            watermarkOpacity?: number | null;
+            watermarkPosition?: ('bottom-right' | 'bottom-left' | 'center' | 'top-right') | null;
+            /**
+             * Watermarks can be distracting on small screens. Off by default.
+             */
+            watermarkShowOnMobile?: boolean | null;
+            /**
+             * Crossfade duration in milliseconds (slider variants only).
+             */
+            fadeDuration?: number | null;
+            /**
+             * Time between slides in milliseconds (slider variants only).
+             */
+            autoplayDelay?: number | null;
+            /**
+             * Show the "01 / 04" slide indicator (slider variants only).
+             */
+            showIndicator?: boolean | null;
+            /**
+             * Explicitly curated slides (image + optional text).
+             */
+            sliderItems?:
+              | {
+                  media: number | Media;
+                  title?: string | null;
+                  subtext?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hero';
+          }
+        | {
+            content: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            /**
+             * When enabled, all headings in this block use the massive display scale (e.g. "STORIES ACROSS GENERATIONS"). This separates visual size from semantic heading level.
+             */
+            megaScale?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'richText';
+          }
+        | {
+            leftHeading: string;
+            rightBody: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            ratio?: ('1-3' | '1-1' | '1-2') | null;
+            alignment?: ('top' | 'center') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'twoCol';
+          }
+        | {
+            heading?: string | null;
+            items: {
+              media?: (number | null) | Media;
+              title?: string | null;
+              description?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: any;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'grid';
+          }
+        | {
+            heading: string;
+            subtext?: string | null;
+            buttons: {
+              label: string;
+              url: string;
+              variant: 'solid' | 'ghost' | 'link';
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cta';
+          }
+        | {
+            heading?: string | null;
+            layout: 'stacked' | 'carousel';
+            quotes: {
+              quote: string;
+              attribution?: string | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'quotes';
+          }
+        | {
+            /**
+             * Choose whether to manually curate tiles or pull from the Projects collection.
+             */
+            source: 'custom-media' | 'from-projects';
+            /**
+             * Aspect ratio and perforation style.
+             */
+            format?: ('academy' | 'super35' | 'widescreen200' | 'imax' | 'v2-header' | 'v2-footer') | null;
+            /**
+             * Filter projects by division (only when source = "from Projects").
+             */
+            projectFilter?: ('all' | '212' | '310' | 'nrc') | null;
+            tiles?:
+              | {
+                  media: number | Media;
+                  /**
+                   * Short label shown below the tile.
+                   */
+                  caption?: string | null;
+                  division?: ('none' | '212' | '310' | 'nrc') | null;
+                  id?: string | null;
+                }[]
+              | null;
+            showPerforations?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'filmstrip';
+          }
+        | {
+            /**
+             * Select the visual layout variant. Preview all at /dev/division-variants.
+             */
+            variant: 'v0-slate-stack' | 'v0-baseline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
+            /**
+             * Optional section heading above the division rows. Line breaks are intentional.
+             */
+            heading?: string | null;
+            /**
+             * Optional subtext below the heading.
+             */
+            subtext?: string | null;
+            divisions: {
+              /**
+               * Division name (e.g. "(212) Pictures").
+               */
+              name: string;
+              colorToken:
+                | '212-amber'
+                | '212-sicilian-orange'
+                | '310-imax'
+                | 'nrc-grey'
+                | '310-sicilian-blue'
+                | 'nrc-navy';
+              /**
+               * Optional subtitle (e.g. "Brooklyn, New York").
+               */
+              subtitle?: string | null;
+              /**
+               * Division description body. Line breaks are intentional.
+               */
+              description?: string | null;
+              /**
+               * Optional image for variants that use media (v2-cards, v3-split).
+               */
+              media?: (number | null) | Media;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'divisionShowcase';
+          }
+        | {
+            /**
+             * Optional section heading. Line breaks are intentional.
+             */
+            heading?: string | null;
+            columns: '2' | '3' | '4';
+            stats: {
+              /**
+               * The large number or short text (e.g. "24", "$2.5M", "3x").
+               */
+              value: string;
+              /**
+               * Descriptive label below the value (e.g. "Projects in Development").
+               */
+              label: string;
+              colorToken?:
+                | (
+                    | 'none'
+                    | '212-amber'
+                    | '212-sicilian-orange'
+                    | '310-imax'
+                    | 'nrc-grey'
+                    | '310-sicilian-blue'
+                    | 'nrc-navy'
+                  )
+                | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'stats';
+          }
+        | {
+            /**
+             * Text shown between the two rules (e.g. "Structure", "// DIVISIONS"). Leave blank for a plain rule.
+             */
+            label?: string | null;
+            /**
+             * Vertical padding around the divider.
+             */
+            spacing?: ('compact' | 'normal' | 'wide') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'divider';
+          }
+        | {
+            /**
+             * Small-caps eyebrow above the heading.
+             */
+            kicker?: string | null;
+            heading: string;
+            /**
+             * One-line mandate / standfirst.
+             */
+            lede?: string | null;
+            /**
+             * Plain text. Blank line starts a new paragraph.
+             */
+            body?: string | null;
+            links?:
+              | {
+                  label: string;
+                  href: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'zinePassage';
+          }
+      )[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home".
+ */
+export interface Home {
+  id: number;
+  layout?:
+    | (
+        | {
+            /**
+             * Hero headline text. Line breaks are intentional.
+             */
+            heading: string;
+            /**
+             * Smaller subtext below the heading.
+             */
+            subtext?: string | null;
+            /**
+             * Static hero image (used for "default" and "split" variants).
+             */
+            media?: (number | null) | Media;
+            variant: 'default' | 'split' | 'fullscreen' | 'slider-auto' | 'slider-curated';
+            division: 'pictures-212' | 'pictures-310' | 'nrc' | 'corporate';
+            /**
+             * Optional division lockup overlaid on the hero (split/fullscreen/slider).
+             */
+            lockupLogo?: (number | null) | Media;
+            /**
+             * Optional watermark overlay on the hero media.
+             */
+            watermarkLogo?: (number | null) | Media;
+            /**
+             * Opacity of the watermark overlay (0 = invisible, 1 = fully opaque).
+             */
+            watermarkOpacity?: number | null;
+            watermarkPosition?: ('bottom-right' | 'bottom-left' | 'center' | 'top-right') | null;
+            /**
+             * Watermarks can be distracting on small screens. Off by default.
+             */
+            watermarkShowOnMobile?: boolean | null;
+            /**
+             * Crossfade duration in milliseconds (slider variants only).
+             */
+            fadeDuration?: number | null;
+            /**
+             * Time between slides in milliseconds (slider variants only).
+             */
+            autoplayDelay?: number | null;
+            /**
+             * Show the "01 / 04" slide indicator (slider variants only).
+             */
+            showIndicator?: boolean | null;
+            /**
+             * Explicitly curated slides (image + optional text).
+             */
+            sliderItems?:
+              | {
+                  media: number | Media;
+                  title?: string | null;
+                  subtext?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hero';
+          }
+        | {
+            content: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            /**
+             * When enabled, all headings in this block use the massive display scale (e.g. "STORIES ACROSS GENERATIONS"). This separates visual size from semantic heading level.
+             */
+            megaScale?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'richText';
+          }
+        | {
+            leftHeading: string;
+            rightBody: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            ratio?: ('1-3' | '1-1' | '1-2') | null;
+            alignment?: ('top' | 'center') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'twoCol';
+          }
+        | {
+            heading?: string | null;
+            items: {
+              media?: (number | null) | Media;
+              title?: string | null;
+              description?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: any;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'grid';
+          }
+        | {
+            heading: string;
+            subtext?: string | null;
+            buttons: {
+              label: string;
+              url: string;
+              variant: 'solid' | 'ghost' | 'link';
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cta';
+          }
+        | {
+            heading?: string | null;
+            layout: 'stacked' | 'carousel';
+            quotes: {
+              quote: string;
+              attribution?: string | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'quotes';
+          }
+        | {
+            /**
+             * Choose whether to manually curate tiles or pull from the Projects collection.
+             */
+            source: 'custom-media' | 'from-projects';
+            /**
+             * Aspect ratio and perforation style.
+             */
+            format?: ('academy' | 'super35' | 'widescreen200' | 'imax' | 'v2-header' | 'v2-footer') | null;
+            /**
+             * Filter projects by division (only when source = "from Projects").
+             */
+            projectFilter?: ('all' | '212' | '310' | 'nrc') | null;
+            tiles?:
+              | {
+                  media: number | Media;
+                  /**
+                   * Short label shown below the tile.
+                   */
+                  caption?: string | null;
+                  division?: ('none' | '212' | '310' | 'nrc') | null;
+                  id?: string | null;
+                }[]
+              | null;
+            showPerforations?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'filmstrip';
+          }
+        | {
+            /**
+             * Select the visual layout variant. Preview all at /dev/division-variants.
+             */
+            variant: 'v0-slate-stack' | 'v0-baseline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
+            /**
+             * Optional section heading above the division rows. Line breaks are intentional.
+             */
+            heading?: string | null;
+            /**
+             * Optional subtext below the heading.
+             */
+            subtext?: string | null;
+            divisions: {
+              /**
+               * Division name (e.g. "(212) Pictures").
+               */
+              name: string;
+              colorToken:
+                | '212-amber'
+                | '212-sicilian-orange'
+                | '310-imax'
+                | 'nrc-grey'
+                | '310-sicilian-blue'
+                | 'nrc-navy';
+              /**
+               * Optional subtitle (e.g. "Brooklyn, New York").
+               */
+              subtitle?: string | null;
+              /**
+               * Division description body. Line breaks are intentional.
+               */
+              description?: string | null;
+              /**
+               * Optional image for variants that use media (v2-cards, v3-split).
+               */
+              media?: (number | null) | Media;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'divisionShowcase';
+          }
+        | {
+            /**
+             * Optional section heading. Line breaks are intentional.
+             */
+            heading?: string | null;
+            columns: '2' | '3' | '4';
+            stats: {
+              /**
+               * The large number or short text (e.g. "24", "$2.5M", "3x").
+               */
+              value: string;
+              /**
+               * Descriptive label below the value (e.g. "Projects in Development").
+               */
+              label: string;
+              colorToken?:
+                | (
+                    | 'none'
+                    | '212-amber'
+                    | '212-sicilian-orange'
+                    | '310-imax'
+                    | 'nrc-grey'
+                    | '310-sicilian-blue'
+                    | 'nrc-navy'
+                  )
+                | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'stats';
+          }
+        | {
+            /**
+             * Text shown between the two rules (e.g. "Structure", "// DIVISIONS"). Leave blank for a plain rule.
+             */
+            label?: string | null;
+            /**
+             * Vertical padding around the divider.
+             */
+            spacing?: ('compact' | 'normal' | 'wide') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'divider';
+          }
+        | {
+            /**
+             * Nameplate wordmark.
+             */
+            title: string;
+            /**
+             * Line under the nameplate (offices / city).
+             */
+            officesLine?: string | null;
+            /**
+             * Numbered, never dated — e.g. "No. 1".
+             */
+            issueLabel?: string | null;
+            /**
+             * Standing identity strip beneath the nameplate.
+             */
+            dek?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'zineMasthead';
+          }
+        | {
+            /**
+             * Small-caps eyebrow above the heading.
+             */
+            kicker?: string | null;
+            heading: string;
+            /**
+             * One-line mandate / standfirst.
+             */
+            lede?: string | null;
+            /**
+             * Plain text. Blank line starts a new paragraph.
+             */
+            body?: string | null;
+            links?:
+              | {
+                  label: string;
+                  href: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'zinePassage';
+          }
+      )[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -608,6 +2936,93 @@ export interface SiteSetting {
    * Short sub-headline used in meta descriptions and the footer.
    */
   tagline?: string | null;
+  /**
+   * SVG or PNG favicon. Falls back to /favicon.svg if unset.
+   */
+  favicon?: (number | null) | Media;
+  /**
+   * Logotype or mark for the header on light backgrounds.
+   */
+  navLogoLight?: (number | null) | Media;
+  /**
+   * Logotype or mark for the header on dark backgrounds.
+   */
+  navLogoDark?: (number | null) | Media;
+  /**
+   * Every string in the v9 site chrome: the Display panel labels, footer colophon, copyright, and nav links. Seeded from the vault chrome.md canon.
+   */
+  v9Chrome?: {
+    /**
+     * The header button that opens the Display panel.
+     */
+    displayLabel?: string | null;
+    /**
+     * Title at the top of the Display panel.
+     */
+    panelTitle?: string | null;
+    /**
+     * Label over the three theme choices.
+     */
+    themeLabel?: string | null;
+    /**
+     * Display name of the premiere (dark) theme.
+     */
+    themePremiere?: string | null;
+    /**
+     * Display name of the matinee (light) theme.
+     */
+    themeMatinee?: string | null;
+    /**
+     * Display name of the late-show theme.
+     */
+    themeLateshow?: string | null;
+    /**
+     * Label for the type-size control.
+     */
+    scaleLabel?: string | null;
+    /**
+     * Label for the logo-size control.
+     */
+    logoLabel?: string | null;
+    /**
+     * The back-to-top control.
+     */
+    topLabel?: string | null;
+    /**
+     * Prev arrow on /work/<slug> pages.
+     */
+    prevLabel?: string | null;
+    /**
+     * Next arrow on /work/<slug> pages.
+     */
+    nextLabel?: string | null;
+    /**
+     * The "back to the whole slate" link on property pages.
+     */
+    slateReturn?: string | null;
+    /**
+     * The header call to action (e.g. "Request materials →").
+     */
+    cta?: string | null;
+    /**
+     * The footer colophon paragraph (studio, disclosure, typography, privacy).
+     */
+    colophon?: string | null;
+    /**
+     * The footer copyright line (e.g. "© 2026 APR 70 Pictures.").
+     */
+    copyright?: string | null;
+    /**
+     * The site navigation, in order (Home / Slate / Craft / Methods / Contact).
+     */
+    navLinks?:
+      | {
+          href: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
   /**
    * Toggle the top and bottom sprocket-perforation rail chrome on every page.
    */
@@ -694,6 +3109,23 @@ export interface About {
             variant: 'default' | 'split' | 'fullscreen' | 'slider-auto' | 'slider-curated';
             division: 'pictures-212' | 'pictures-310' | 'nrc' | 'corporate';
             /**
+             * Optional division lockup overlaid on the hero (split/fullscreen/slider).
+             */
+            lockupLogo?: (number | null) | Media;
+            /**
+             * Optional watermark overlay on the hero media.
+             */
+            watermarkLogo?: (number | null) | Media;
+            /**
+             * Opacity of the watermark overlay (0 = invisible, 1 = fully opaque).
+             */
+            watermarkOpacity?: number | null;
+            watermarkPosition?: ('bottom-right' | 'bottom-left' | 'center' | 'top-right') | null;
+            /**
+             * Watermarks can be distracting on small screens. Off by default.
+             */
+            watermarkShowOnMobile?: boolean | null;
+            /**
              * Crossfade duration in milliseconds (slider variants only).
              */
             fadeDuration?: number | null;
@@ -705,6 +3137,17 @@ export interface About {
              * Show the "01 / 04" slide indicator (slider variants only).
              */
             showIndicator?: boolean | null;
+            /**
+             * Explicitly curated slides (image + optional text).
+             */
+            sliderItems?:
+              | {
+                  media: number | Media;
+                  title?: string | null;
+                  subtext?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'hero';
@@ -813,6 +3256,10 @@ export interface About {
              */
             source: 'custom-media' | 'from-projects';
             /**
+             * Aspect ratio and perforation style.
+             */
+            format?: ('academy' | 'super35' | 'widescreen200' | 'imax' | 'v2-header' | 'v2-footer') | null;
+            /**
              * Filter projects by division (only when source = "from Projects").
              */
             projectFilter?: ('all' | '212' | '310' | 'nrc') | null;
@@ -836,7 +3283,7 @@ export interface About {
             /**
              * Select the visual layout variant. Preview all at /dev/division-variants.
              */
-            variant: 'v0-slate-stack' | 'v0-baseline' | 'v1-accordion' | 'v2-cards' | 'v3-split' | 'v4-timeline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
+            variant: 'v0-slate-stack' | 'v0-baseline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
             /**
              * Optional section heading above the division rows. Line breaks are intentional.
              */
@@ -949,6 +3396,23 @@ export interface Contact {
             variant: 'default' | 'split' | 'fullscreen' | 'slider-auto' | 'slider-curated';
             division: 'pictures-212' | 'pictures-310' | 'nrc' | 'corporate';
             /**
+             * Optional division lockup overlaid on the hero (split/fullscreen/slider).
+             */
+            lockupLogo?: (number | null) | Media;
+            /**
+             * Optional watermark overlay on the hero media.
+             */
+            watermarkLogo?: (number | null) | Media;
+            /**
+             * Opacity of the watermark overlay (0 = invisible, 1 = fully opaque).
+             */
+            watermarkOpacity?: number | null;
+            watermarkPosition?: ('bottom-right' | 'bottom-left' | 'center' | 'top-right') | null;
+            /**
+             * Watermarks can be distracting on small screens. Off by default.
+             */
+            watermarkShowOnMobile?: boolean | null;
+            /**
              * Crossfade duration in milliseconds (slider variants only).
              */
             fadeDuration?: number | null;
@@ -960,6 +3424,17 @@ export interface Contact {
              * Show the "01 / 04" slide indicator (slider variants only).
              */
             showIndicator?: boolean | null;
+            /**
+             * Explicitly curated slides (image + optional text).
+             */
+            sliderItems?:
+              | {
+                  media: number | Media;
+                  title?: string | null;
+                  subtext?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'hero';
@@ -1068,6 +3543,10 @@ export interface Contact {
              */
             source: 'custom-media' | 'from-projects';
             /**
+             * Aspect ratio and perforation style.
+             */
+            format?: ('academy' | 'super35' | 'widescreen200' | 'imax' | 'v2-header' | 'v2-footer') | null;
+            /**
              * Filter projects by division (only when source = "from Projects").
              */
             projectFilter?: ('all' | '212' | '310' | 'nrc') | null;
@@ -1091,7 +3570,7 @@ export interface Contact {
             /**
              * Select the visual layout variant. Preview all at /dev/division-variants.
              */
-            variant: 'v0-slate-stack' | 'v0-baseline' | 'v1-accordion' | 'v2-cards' | 'v3-split' | 'v4-timeline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
+            variant: 'v0-slate-stack' | 'v0-baseline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
             /**
              * Optional section heading above the division rows. Line breaks are intentional.
              */
@@ -1204,6 +3683,23 @@ export interface Job {
             variant: 'default' | 'split' | 'fullscreen' | 'slider-auto' | 'slider-curated';
             division: 'pictures-212' | 'pictures-310' | 'nrc' | 'corporate';
             /**
+             * Optional division lockup overlaid on the hero (split/fullscreen/slider).
+             */
+            lockupLogo?: (number | null) | Media;
+            /**
+             * Optional watermark overlay on the hero media.
+             */
+            watermarkLogo?: (number | null) | Media;
+            /**
+             * Opacity of the watermark overlay (0 = invisible, 1 = fully opaque).
+             */
+            watermarkOpacity?: number | null;
+            watermarkPosition?: ('bottom-right' | 'bottom-left' | 'center' | 'top-right') | null;
+            /**
+             * Watermarks can be distracting on small screens. Off by default.
+             */
+            watermarkShowOnMobile?: boolean | null;
+            /**
              * Crossfade duration in milliseconds (slider variants only).
              */
             fadeDuration?: number | null;
@@ -1215,6 +3711,17 @@ export interface Job {
              * Show the "01 / 04" slide indicator (slider variants only).
              */
             showIndicator?: boolean | null;
+            /**
+             * Explicitly curated slides (image + optional text).
+             */
+            sliderItems?:
+              | {
+                  media: number | Media;
+                  title?: string | null;
+                  subtext?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'hero';
@@ -1323,6 +3830,10 @@ export interface Job {
              */
             source: 'custom-media' | 'from-projects';
             /**
+             * Aspect ratio and perforation style.
+             */
+            format?: ('academy' | 'super35' | 'widescreen200' | 'imax' | 'v2-header' | 'v2-footer') | null;
+            /**
              * Filter projects by division (only when source = "from Projects").
              */
             projectFilter?: ('all' | '212' | '310' | 'nrc') | null;
@@ -1346,7 +3857,7 @@ export interface Job {
             /**
              * Select the visual layout variant. Preview all at /dev/division-variants.
              */
-            variant: 'v0-slate-stack' | 'v0-baseline' | 'v1-accordion' | 'v2-cards' | 'v3-split' | 'v4-timeline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
+            variant: 'v0-slate-stack' | 'v0-baseline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
             /**
              * Optional section heading above the division rows. Line breaks are intentional.
              */
@@ -1459,6 +3970,23 @@ export interface Pitch {
             variant: 'default' | 'split' | 'fullscreen' | 'slider-auto' | 'slider-curated';
             division: 'pictures-212' | 'pictures-310' | 'nrc' | 'corporate';
             /**
+             * Optional division lockup overlaid on the hero (split/fullscreen/slider).
+             */
+            lockupLogo?: (number | null) | Media;
+            /**
+             * Optional watermark overlay on the hero media.
+             */
+            watermarkLogo?: (number | null) | Media;
+            /**
+             * Opacity of the watermark overlay (0 = invisible, 1 = fully opaque).
+             */
+            watermarkOpacity?: number | null;
+            watermarkPosition?: ('bottom-right' | 'bottom-left' | 'center' | 'top-right') | null;
+            /**
+             * Watermarks can be distracting on small screens. Off by default.
+             */
+            watermarkShowOnMobile?: boolean | null;
+            /**
              * Crossfade duration in milliseconds (slider variants only).
              */
             fadeDuration?: number | null;
@@ -1470,6 +3998,17 @@ export interface Pitch {
              * Show the "01 / 04" slide indicator (slider variants only).
              */
             showIndicator?: boolean | null;
+            /**
+             * Explicitly curated slides (image + optional text).
+             */
+            sliderItems?:
+              | {
+                  media: number | Media;
+                  title?: string | null;
+                  subtext?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'hero';
@@ -1578,6 +4117,10 @@ export interface Pitch {
              */
             source: 'custom-media' | 'from-projects';
             /**
+             * Aspect ratio and perforation style.
+             */
+            format?: ('academy' | 'super35' | 'widescreen200' | 'imax' | 'v2-header' | 'v2-footer') | null;
+            /**
              * Filter projects by division (only when source = "from Projects").
              */
             projectFilter?: ('all' | '212' | '310' | 'nrc') | null;
@@ -1601,7 +4144,7 @@ export interface Pitch {
             /**
              * Select the visual layout variant. Preview all at /dev/division-variants.
              */
-            variant: 'v0-slate-stack' | 'v0-baseline' | 'v1-accordion' | 'v2-cards' | 'v3-split' | 'v4-timeline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
+            variant: 'v0-slate-stack' | 'v0-baseline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
             /**
              * Optional section heading above the division rows. Line breaks are intentional.
              */
@@ -1714,6 +4257,23 @@ export interface Investor {
             variant: 'default' | 'split' | 'fullscreen' | 'slider-auto' | 'slider-curated';
             division: 'pictures-212' | 'pictures-310' | 'nrc' | 'corporate';
             /**
+             * Optional division lockup overlaid on the hero (split/fullscreen/slider).
+             */
+            lockupLogo?: (number | null) | Media;
+            /**
+             * Optional watermark overlay on the hero media.
+             */
+            watermarkLogo?: (number | null) | Media;
+            /**
+             * Opacity of the watermark overlay (0 = invisible, 1 = fully opaque).
+             */
+            watermarkOpacity?: number | null;
+            watermarkPosition?: ('bottom-right' | 'bottom-left' | 'center' | 'top-right') | null;
+            /**
+             * Watermarks can be distracting on small screens. Off by default.
+             */
+            watermarkShowOnMobile?: boolean | null;
+            /**
              * Crossfade duration in milliseconds (slider variants only).
              */
             fadeDuration?: number | null;
@@ -1725,6 +4285,17 @@ export interface Investor {
              * Show the "01 / 04" slide indicator (slider variants only).
              */
             showIndicator?: boolean | null;
+            /**
+             * Explicitly curated slides (image + optional text).
+             */
+            sliderItems?:
+              | {
+                  media: number | Media;
+                  title?: string | null;
+                  subtext?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'hero';
@@ -1833,6 +4404,10 @@ export interface Investor {
              */
             source: 'custom-media' | 'from-projects';
             /**
+             * Aspect ratio and perforation style.
+             */
+            format?: ('academy' | 'super35' | 'widescreen200' | 'imax' | 'v2-header' | 'v2-footer') | null;
+            /**
              * Filter projects by division (only when source = "from Projects").
              */
             projectFilter?: ('all' | '212' | '310' | 'nrc') | null;
@@ -1856,7 +4431,7 @@ export interface Investor {
             /**
              * Select the visual layout variant. Preview all at /dev/division-variants.
              */
-            variant: 'v0-slate-stack' | 'v0-baseline' | 'v1-accordion' | 'v2-cards' | 'v3-split' | 'v4-timeline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
+            variant: 'v0-slate-stack' | 'v0-baseline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
             /**
              * Optional section heading above the division rows. Line breaks are intentional.
              */
@@ -1947,9 +4522,2279 @@ export interface Investor {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home_select".
+ * via the `definition` "nrc".
  */
-export interface HomeSelect<T extends boolean = true> {
+export interface Nrc {
+  id: number;
+  /**
+   * Visual skin for this division. Leave blank to use the recommended default (212 → Amber Heat, 310 → IMAX Deep, NRC → Noir).
+   */
+  theme?: ('signature' | 'noir' | 'amber-heat' | 'imax-deep' | 'daylight') | null;
+  /**
+   * Lockup or wordmark shown in the header on this division's pages.
+   */
+  headerLogo?: (number | null) | Media;
+  /**
+   * Mark or wordmark shown in the footer on this division's pages.
+   */
+  footerLogo?: (number | null) | Media;
+  /**
+   * Division-specific favicon. Falls back to site-wide favicon if unset.
+   */
+  faviconOverride?: (number | null) | Media;
+  layout?:
+    | (
+        | {
+            /**
+             * Hero headline text. Line breaks are intentional.
+             */
+            heading: string;
+            /**
+             * Smaller subtext below the heading.
+             */
+            subtext?: string | null;
+            /**
+             * Static hero image (used for "default" and "split" variants).
+             */
+            media?: (number | null) | Media;
+            variant: 'default' | 'split' | 'fullscreen' | 'slider-auto' | 'slider-curated';
+            division: 'pictures-212' | 'pictures-310' | 'nrc' | 'corporate';
+            /**
+             * Optional division lockup overlaid on the hero (split/fullscreen/slider).
+             */
+            lockupLogo?: (number | null) | Media;
+            /**
+             * Optional watermark overlay on the hero media.
+             */
+            watermarkLogo?: (number | null) | Media;
+            /**
+             * Opacity of the watermark overlay (0 = invisible, 1 = fully opaque).
+             */
+            watermarkOpacity?: number | null;
+            watermarkPosition?: ('bottom-right' | 'bottom-left' | 'center' | 'top-right') | null;
+            /**
+             * Watermarks can be distracting on small screens. Off by default.
+             */
+            watermarkShowOnMobile?: boolean | null;
+            /**
+             * Crossfade duration in milliseconds (slider variants only).
+             */
+            fadeDuration?: number | null;
+            /**
+             * Time between slides in milliseconds (slider variants only).
+             */
+            autoplayDelay?: number | null;
+            /**
+             * Show the "01 / 04" slide indicator (slider variants only).
+             */
+            showIndicator?: boolean | null;
+            /**
+             * Explicitly curated slides (image + optional text).
+             */
+            sliderItems?:
+              | {
+                  media: number | Media;
+                  title?: string | null;
+                  subtext?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hero';
+          }
+        | {
+            content: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            /**
+             * When enabled, all headings in this block use the massive display scale (e.g. "STORIES ACROSS GENERATIONS"). This separates visual size from semantic heading level.
+             */
+            megaScale?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'richText';
+          }
+        | {
+            leftHeading: string;
+            rightBody: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            ratio?: ('1-3' | '1-1' | '1-2') | null;
+            alignment?: ('top' | 'center') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'twoCol';
+          }
+        | {
+            heading?: string | null;
+            items: {
+              media?: (number | null) | Media;
+              title?: string | null;
+              description?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: any;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'grid';
+          }
+        | {
+            heading: string;
+            subtext?: string | null;
+            buttons: {
+              label: string;
+              url: string;
+              variant: 'solid' | 'ghost' | 'link';
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cta';
+          }
+        | {
+            heading?: string | null;
+            layout: 'stacked' | 'carousel';
+            quotes: {
+              quote: string;
+              attribution?: string | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'quotes';
+          }
+        | {
+            /**
+             * Choose whether to manually curate tiles or pull from the Projects collection.
+             */
+            source: 'custom-media' | 'from-projects';
+            /**
+             * Aspect ratio and perforation style.
+             */
+            format?: ('academy' | 'super35' | 'widescreen200' | 'imax' | 'v2-header' | 'v2-footer') | null;
+            /**
+             * Filter projects by division (only when source = "from Projects").
+             */
+            projectFilter?: ('all' | '212' | '310' | 'nrc') | null;
+            tiles?:
+              | {
+                  media: number | Media;
+                  /**
+                   * Short label shown below the tile.
+                   */
+                  caption?: string | null;
+                  division?: ('none' | '212' | '310' | 'nrc') | null;
+                  id?: string | null;
+                }[]
+              | null;
+            showPerforations?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'filmstrip';
+          }
+        | {
+            /**
+             * Select the visual layout variant. Preview all at /dev/division-variants.
+             */
+            variant: 'v0-slate-stack' | 'v0-baseline' | 'v3-baseline-filmstrip' | 'v4-animated-filmstrip';
+            /**
+             * Optional section heading above the division rows. Line breaks are intentional.
+             */
+            heading?: string | null;
+            /**
+             * Optional subtext below the heading.
+             */
+            subtext?: string | null;
+            divisions: {
+              /**
+               * Division name (e.g. "(212) Pictures").
+               */
+              name: string;
+              colorToken:
+                | '212-amber'
+                | '212-sicilian-orange'
+                | '310-imax'
+                | 'nrc-grey'
+                | '310-sicilian-blue'
+                | 'nrc-navy';
+              /**
+               * Optional subtitle (e.g. "Brooklyn, New York").
+               */
+              subtitle?: string | null;
+              /**
+               * Division description body. Line breaks are intentional.
+               */
+              description?: string | null;
+              /**
+               * Optional image for variants that use media (v2-cards, v3-split).
+               */
+              media?: (number | null) | Media;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'divisionShowcase';
+          }
+        | {
+            /**
+             * Optional section heading. Line breaks are intentional.
+             */
+            heading?: string | null;
+            columns: '2' | '3' | '4';
+            stats: {
+              /**
+               * The large number or short text (e.g. "24", "$2.5M", "3x").
+               */
+              value: string;
+              /**
+               * Descriptive label below the value (e.g. "Projects in Development").
+               */
+              label: string;
+              colorToken?:
+                | (
+                    | 'none'
+                    | '212-amber'
+                    | '212-sicilian-orange'
+                    | '310-imax'
+                    | 'nrc-grey'
+                    | '310-sicilian-blue'
+                    | 'nrc-navy'
+                  )
+                | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'stats';
+          }
+        | {
+            /**
+             * Text shown between the two rules (e.g. "Structure", "// DIVISIONS"). Leave blank for a plain rule.
+             */
+            label?: string | null;
+            /**
+             * Vertical padding around the divider.
+             */
+            spacing?: ('compact' | 'normal' | 'wide') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'divider';
+          }
+        | {
+            /**
+             * Small-caps eyebrow above the heading.
+             */
+            kicker?: string | null;
+            heading: string;
+            /**
+             * One-line mandate / standfirst.
+             */
+            lede?: string | null;
+            /**
+             * Plain text. Blank line starts a new paragraph.
+             */
+            body?: string | null;
+            links?:
+              | {
+                  label: string;
+                  href: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'zinePassage';
+          }
+      )[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * The APR 70 Troupe Presents page (/troupe). Seed copy is DRAFT v01 — review every block before launch.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "troupe".
+ */
+export interface Troupe {
+  id: number;
+  layout?:
+    | (
+        | {
+            /**
+             * Hero headline text. Line breaks are intentional.
+             */
+            heading: string;
+            /**
+             * Smaller subtext below the heading.
+             */
+            subtext?: string | null;
+            /**
+             * Static hero image (used for "default" and "split" variants).
+             */
+            media?: (number | null) | Media;
+            variant: 'default' | 'split' | 'fullscreen' | 'slider-auto' | 'slider-curated';
+            division: 'pictures-212' | 'pictures-310' | 'nrc' | 'corporate';
+            /**
+             * Optional division lockup overlaid on the hero (split/fullscreen/slider).
+             */
+            lockupLogo?: (number | null) | Media;
+            /**
+             * Optional watermark overlay on the hero media.
+             */
+            watermarkLogo?: (number | null) | Media;
+            /**
+             * Opacity of the watermark overlay (0 = invisible, 1 = fully opaque).
+             */
+            watermarkOpacity?: number | null;
+            watermarkPosition?: ('bottom-right' | 'bottom-left' | 'center' | 'top-right') | null;
+            /**
+             * Watermarks can be distracting on small screens. Off by default.
+             */
+            watermarkShowOnMobile?: boolean | null;
+            /**
+             * Crossfade duration in milliseconds (slider variants only).
+             */
+            fadeDuration?: number | null;
+            /**
+             * Time between slides in milliseconds (slider variants only).
+             */
+            autoplayDelay?: number | null;
+            /**
+             * Show the "01 / 04" slide indicator (slider variants only).
+             */
+            showIndicator?: boolean | null;
+            /**
+             * Explicitly curated slides (image + optional text).
+             */
+            sliderItems?:
+              | {
+                  media: number | Media;
+                  title?: string | null;
+                  subtext?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hero';
+          }
+        | {
+            /**
+             * Program number as displayed (e.g. "No. 1").
+             */
+            programNumber?: string | null;
+            /**
+             * Episode title (e.g. "L.A. DOLCE VITA").
+             */
+            title: string;
+            /**
+             * Episode subtitle or tagline (e.g. "a radio drama for seven voices and a clock").
+             */
+            subtitle?: string | null;
+            /**
+             * Displayed runtime (e.g. "About 15 minutes").
+             */
+            runtime?: string | null;
+            /**
+             * Number of scenes in the program.
+             */
+            sceneCount?: number | null;
+            status: 'in-production' | 'coming-soon' | 'released';
+            /**
+             * Optional poster or production still. When empty, the local placeholder artwork below is used.
+             */
+            posterImage?: (number | null) | Media;
+            /**
+             * Placeholder line art (local SVG in web/public/troupe/) shown when no poster image is set.
+             */
+            artwork?: ('on-air' | 'microphone' | 'script') | null;
+            /**
+             * The doubling roster. DRAFT seed mirrors the script title page — review before launch.
+             */
+            voices?:
+              | {
+                  /**
+                   * Voice label (e.g. "Voice One").
+                   */
+                  voice: string;
+                  /**
+                   * Short casting descriptor (e.g. "M, 45-60").
+                   */
+                  descriptor?: string | null;
+                  /**
+                   * Roles played, separated by a middle dot.
+                   */
+                  roles: string;
+                  /**
+                   * Optional register note (e.g. "Lead. No doubling.").
+                   */
+                  note?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Short program note shown under the roster.
+             */
+            notes?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'playbill';
+          }
+        | {
+            content: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            /**
+             * When enabled, all headings in this block use the massive display scale (e.g. "STORIES ACROSS GENERATIONS"). This separates visual size from semantic heading level.
+             */
+            megaScale?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'richText';
+          }
+        | {
+            leftHeading: string;
+            rightBody: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            ratio?: ('1-3' | '1-1' | '1-2') | null;
+            alignment?: ('top' | 'center') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'twoCol';
+          }
+        | {
+            heading: string;
+            subtext?: string | null;
+            buttons: {
+              label: string;
+              url: string;
+              variant: 'solid' | 'ghost' | 'link';
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cta';
+          }
+        | {
+            heading?: string | null;
+            layout: 'stacked' | 'carousel';
+            quotes: {
+              quote: string;
+              attribution?: string | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'quotes';
+          }
+        | {
+            /**
+             * Optional section heading. Line breaks are intentional.
+             */
+            heading?: string | null;
+            columns: '2' | '3' | '4';
+            stats: {
+              /**
+               * The large number or short text (e.g. "24", "$2.5M", "3x").
+               */
+              value: string;
+              /**
+               * Descriptive label below the value (e.g. "Projects in Development").
+               */
+              label: string;
+              colorToken?:
+                | (
+                    | 'none'
+                    | '212-amber'
+                    | '212-sicilian-orange'
+                    | '310-imax'
+                    | 'nrc-grey'
+                    | '310-sicilian-blue'
+                    | 'nrc-navy'
+                  )
+                | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'stats';
+          }
+        | {
+            /**
+             * Text shown between the two rules (e.g. "Structure", "// DIVISIONS"). Leave blank for a plain rule.
+             */
+            label?: string | null;
+            /**
+             * Vertical padding around the divider.
+             */
+            spacing?: ('compact' | 'normal' | 'wide') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'divider';
+          }
+      )[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Sections and SEO strings for / on the v9 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "v9-home".
+ */
+export interface V9Home {
+  id: number;
+  /**
+   * The <title> of the page.
+   */
+  seoTitle?: string | null;
+  /**
+   * The meta description of the page.
+   */
+  seoDescription?: string | null;
+  sections?:
+    | (
+        | {
+            /**
+             * The full-bleed photograph. Alt text lives on the media doc. Use the crop/focal point tools on the media doc to control how it sits in the box.
+             */
+            image?: (number | null) | Media;
+            /**
+             * Small line above the headline (e.g. "A film & television studio · Long Island City, NY"). Home hero only.
+             */
+            kicker?: string | null;
+            /**
+             * The H1 laid over the photo. Leave empty for photo-only folds.
+             */
+            heading?: string | null;
+            /**
+             * Caption under the photo, before the credit. ==text== renders highlighted.
+             */
+            caption?: string | null;
+            /**
+             * Credit suffix after the caption (e.g. "AI-generated development frame, disclosed").
+             */
+            credit?: string | null;
+            /**
+             * Full-viewport-height fold (the home hero).
+             */
+            vh100?: boolean | null;
+            /**
+             * Load eagerly (first image on the page).
+             */
+            eager?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'photoFold';
+          }
+        | {
+            /**
+             * The inline route strip (Slate / Craft / Methods / Contact).
+             */
+            links?:
+              | {
+                  href: string;
+                  label: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'routeLine';
+          }
+        | {
+            /**
+             * Scene number shown in the margin (e.g. "1").
+             */
+            scene?: string | null;
+            /**
+             * The slugline over the section (e.g. "INT. THE IDEA - NIGHT").
+             */
+            sceneSlug?: string | null;
+            /**
+             * Section heading.
+             */
+            heading?: string | null;
+            /**
+             * Larger opening paragraph, set apart from the body.
+             */
+            lede?: string | null;
+            /**
+             * Body copy. Blank line starts a new paragraph. **bold**, ==highlight== and [links](/slate) allowed.
+             */
+            body?: string | null;
+            /**
+             * Optional pull quote inside the fold.
+             */
+            quote?: string | null;
+            /**
+             * Attribution for the pull quote.
+             */
+            cite?: string | null;
+            /**
+             * Optional "read more" route (e.g. /craft).
+             */
+            moreHref?: string | null;
+            /**
+             * e.g. "Principles of the craft →".
+             */
+            moreLabel?: string | null;
+            /**
+             * Optional inline link (contact page mailto).
+             */
+            linkHref?: string | null;
+            /**
+             * e.g. "caruso@apr70.com".
+             */
+            linkLabel?: string | null;
+            /**
+             * Optional accessible name for the section landmark.
+             */
+            ariaLabel?: string | null;
+            /**
+             * Tight spacing variant (short folds that lead into a list).
+             */
+            tight?: boolean | null;
+            /**
+             * Render the heading as the page H1 (interior pages).
+             */
+            asH1?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'textFold';
+          }
+        | {
+            /**
+             * The featured quotation, set large.
+             */
+            quote?: string | null;
+            /**
+             * Who said it (e.g. "Alfred Hitchcock").
+             */
+            cite?: string | null;
+            /**
+             * Source note (e.g. "Hitchcock/Truffaut, 1962 interviews").
+             */
+            note?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'quoteFeature';
+          }
+        | {
+            /**
+             * One row per property. Link a Project and the row can pull from it; the fields below are the exact display copy and win when set.
+             */
+            rows?:
+              | {
+                  /**
+                   * The Project this row points at (preferred; keeps the row in sync with /work/<slug>).
+                   */
+                  project?: (number | null) | Project;
+                  /**
+                   * Display title for the row (overrides the project title when set).
+                   */
+                  title?: string | null;
+                  /**
+                   * Row link (e.g. /work/sea-gate).
+                   */
+                  href?: string | null;
+                  /**
+                   * Logline shown on this list (home uses the short one, /slate the full one).
+                   */
+                  logline?: string | null;
+                  /**
+                   * Source line for public-domain adaptations (e.g. "After Dashiell Hammett’s *Red Harvest* (1929)…").
+                   */
+                  provenance?: string | null;
+                  /**
+                   * Meta line (e.g. "Feature · (212) Pictures · ==drafted== · the page →"). ==text== renders highlighted.
+                   */
+                  meta?: string | null;
+                  /**
+                   * Development styling flag from the copy (dev: true rows).
+                   */
+                  dev?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'slateList';
+          }
+        | {
+            /**
+             * Small-type footnote paragraph. Markdown links allowed.
+             */
+            body?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'footnote';
+          }
+        | {
+            /**
+             * Scene number in the margin.
+             */
+            scene?: string | null;
+            /**
+             * e.g. "INT. THE READING - NIGHT".
+             */
+            sceneSlug?: string | null;
+            /**
+             * e.g. "Read the pages."
+             */
+            heading?: string | null;
+            /**
+             * The request paragraph.
+             */
+            body?: string | null;
+            /**
+             * Where the request button goes (e.g. /contact).
+             */
+            linkHref?: string | null;
+            /**
+             * e.g. "Request materials".
+             */
+            linkLabel?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'request';
+          }
+        | {
+            /**
+             * Accessible name for the definition list (e.g. "The disclosure ledger").
+             */
+            ariaLabel?: string | null;
+            /**
+             * Term / definition pairs (the disclosure ledger on /methods).
+             */
+            rows?:
+              | {
+                  /**
+                   * The dt (e.g. "Scripts").
+                   */
+                  term?: string | null;
+                  /**
+                   * The dd. **bold** allowed.
+                   */
+                  definition?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'ledger';
+          }
+        | {
+            /**
+             * A verified public-domain archival photograph or map.
+             */
+            image?: (number | null) | Media;
+            /**
+             * Caption before the credit.
+             */
+            caption?: string | null;
+            /**
+             * Provenance suffix (date, PD basis, source) — required by the disclosure law.
+             */
+            credit?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'archival';
+          }
+        | {
+            /**
+             * The three-division strip on /slate.
+             */
+            divisions?:
+              | {
+                  /**
+                   * e.g. "(212) Pictures".
+                   */
+                  name?: string | null;
+                  /**
+                   * One-line division description.
+                   */
+                  blurb?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'divisionStrip';
+          }
+        | {
+            /**
+             * Accessible name (e.g. "Development frames · Sea Gate").
+             */
+            ariaLabel?: string | null;
+            /**
+             * Scene number in the margin.
+             */
+            scene?: string | null;
+            /**
+             * e.g. "EXT. TWO CITIES - TEN DAYS".
+             */
+            sceneSlug?: string | null;
+            /**
+             * e.g. "The world of the picture."
+             */
+            heading?: string | null;
+            /**
+             * Also run the grid as a slideshow.
+             */
+            slideshow?: boolean | null;
+            items?:
+              | {
+                  /**
+                   * Alt text lives on the media doc.
+                   */
+                  image?: (number | null) | Media;
+                  /**
+                   * Caption before the credit.
+                   */
+                  caption?: string | null;
+                  /**
+                   * Credit suffix (e.g. "AI-generated development frame, disclosed").
+                   */
+                  credit?: string | null;
+                  /**
+                   * Span the full grid width (maps, panoramas).
+                   */
+                  wide?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'moodGrid';
+          }
+      )[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Sections and SEO strings for /slate on the v9 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "v9-slate".
+ */
+export interface V9Slate {
+  id: number;
+  /**
+   * The <title> of the page.
+   */
+  seoTitle?: string | null;
+  /**
+   * The meta description of the page.
+   */
+  seoDescription?: string | null;
+  sections?:
+    | (
+        | {
+            /**
+             * The full-bleed photograph. Alt text lives on the media doc. Use the crop/focal point tools on the media doc to control how it sits in the box.
+             */
+            image?: (number | null) | Media;
+            /**
+             * Small line above the headline (e.g. "A film & television studio · Long Island City, NY"). Home hero only.
+             */
+            kicker?: string | null;
+            /**
+             * The H1 laid over the photo. Leave empty for photo-only folds.
+             */
+            heading?: string | null;
+            /**
+             * Caption under the photo, before the credit. ==text== renders highlighted.
+             */
+            caption?: string | null;
+            /**
+             * Credit suffix after the caption (e.g. "AI-generated development frame, disclosed").
+             */
+            credit?: string | null;
+            /**
+             * Full-viewport-height fold (the home hero).
+             */
+            vh100?: boolean | null;
+            /**
+             * Load eagerly (first image on the page).
+             */
+            eager?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'photoFold';
+          }
+        | {
+            /**
+             * The inline route strip (Slate / Craft / Methods / Contact).
+             */
+            links?:
+              | {
+                  href: string;
+                  label: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'routeLine';
+          }
+        | {
+            /**
+             * Scene number shown in the margin (e.g. "1").
+             */
+            scene?: string | null;
+            /**
+             * The slugline over the section (e.g. "INT. THE IDEA - NIGHT").
+             */
+            sceneSlug?: string | null;
+            /**
+             * Section heading.
+             */
+            heading?: string | null;
+            /**
+             * Larger opening paragraph, set apart from the body.
+             */
+            lede?: string | null;
+            /**
+             * Body copy. Blank line starts a new paragraph. **bold**, ==highlight== and [links](/slate) allowed.
+             */
+            body?: string | null;
+            /**
+             * Optional pull quote inside the fold.
+             */
+            quote?: string | null;
+            /**
+             * Attribution for the pull quote.
+             */
+            cite?: string | null;
+            /**
+             * Optional "read more" route (e.g. /craft).
+             */
+            moreHref?: string | null;
+            /**
+             * e.g. "Principles of the craft →".
+             */
+            moreLabel?: string | null;
+            /**
+             * Optional inline link (contact page mailto).
+             */
+            linkHref?: string | null;
+            /**
+             * e.g. "caruso@apr70.com".
+             */
+            linkLabel?: string | null;
+            /**
+             * Optional accessible name for the section landmark.
+             */
+            ariaLabel?: string | null;
+            /**
+             * Tight spacing variant (short folds that lead into a list).
+             */
+            tight?: boolean | null;
+            /**
+             * Render the heading as the page H1 (interior pages).
+             */
+            asH1?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'textFold';
+          }
+        | {
+            /**
+             * The featured quotation, set large.
+             */
+            quote?: string | null;
+            /**
+             * Who said it (e.g. "Alfred Hitchcock").
+             */
+            cite?: string | null;
+            /**
+             * Source note (e.g. "Hitchcock/Truffaut, 1962 interviews").
+             */
+            note?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'quoteFeature';
+          }
+        | {
+            /**
+             * One row per property. Link a Project and the row can pull from it; the fields below are the exact display copy and win when set.
+             */
+            rows?:
+              | {
+                  /**
+                   * The Project this row points at (preferred; keeps the row in sync with /work/<slug>).
+                   */
+                  project?: (number | null) | Project;
+                  /**
+                   * Display title for the row (overrides the project title when set).
+                   */
+                  title?: string | null;
+                  /**
+                   * Row link (e.g. /work/sea-gate).
+                   */
+                  href?: string | null;
+                  /**
+                   * Logline shown on this list (home uses the short one, /slate the full one).
+                   */
+                  logline?: string | null;
+                  /**
+                   * Source line for public-domain adaptations (e.g. "After Dashiell Hammett’s *Red Harvest* (1929)…").
+                   */
+                  provenance?: string | null;
+                  /**
+                   * Meta line (e.g. "Feature · (212) Pictures · ==drafted== · the page →"). ==text== renders highlighted.
+                   */
+                  meta?: string | null;
+                  /**
+                   * Development styling flag from the copy (dev: true rows).
+                   */
+                  dev?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'slateList';
+          }
+        | {
+            /**
+             * Small-type footnote paragraph. Markdown links allowed.
+             */
+            body?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'footnote';
+          }
+        | {
+            /**
+             * Scene number in the margin.
+             */
+            scene?: string | null;
+            /**
+             * e.g. "INT. THE READING - NIGHT".
+             */
+            sceneSlug?: string | null;
+            /**
+             * e.g. "Read the pages."
+             */
+            heading?: string | null;
+            /**
+             * The request paragraph.
+             */
+            body?: string | null;
+            /**
+             * Where the request button goes (e.g. /contact).
+             */
+            linkHref?: string | null;
+            /**
+             * e.g. "Request materials".
+             */
+            linkLabel?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'request';
+          }
+        | {
+            /**
+             * Accessible name for the definition list (e.g. "The disclosure ledger").
+             */
+            ariaLabel?: string | null;
+            /**
+             * Term / definition pairs (the disclosure ledger on /methods).
+             */
+            rows?:
+              | {
+                  /**
+                   * The dt (e.g. "Scripts").
+                   */
+                  term?: string | null;
+                  /**
+                   * The dd. **bold** allowed.
+                   */
+                  definition?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'ledger';
+          }
+        | {
+            /**
+             * A verified public-domain archival photograph or map.
+             */
+            image?: (number | null) | Media;
+            /**
+             * Caption before the credit.
+             */
+            caption?: string | null;
+            /**
+             * Provenance suffix (date, PD basis, source) — required by the disclosure law.
+             */
+            credit?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'archival';
+          }
+        | {
+            /**
+             * The three-division strip on /slate.
+             */
+            divisions?:
+              | {
+                  /**
+                   * e.g. "(212) Pictures".
+                   */
+                  name?: string | null;
+                  /**
+                   * One-line division description.
+                   */
+                  blurb?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'divisionStrip';
+          }
+        | {
+            /**
+             * Accessible name (e.g. "Development frames · Sea Gate").
+             */
+            ariaLabel?: string | null;
+            /**
+             * Scene number in the margin.
+             */
+            scene?: string | null;
+            /**
+             * e.g. "EXT. TWO CITIES - TEN DAYS".
+             */
+            sceneSlug?: string | null;
+            /**
+             * e.g. "The world of the picture."
+             */
+            heading?: string | null;
+            /**
+             * Also run the grid as a slideshow.
+             */
+            slideshow?: boolean | null;
+            items?:
+              | {
+                  /**
+                   * Alt text lives on the media doc.
+                   */
+                  image?: (number | null) | Media;
+                  /**
+                   * Caption before the credit.
+                   */
+                  caption?: string | null;
+                  /**
+                   * Credit suffix (e.g. "AI-generated development frame, disclosed").
+                   */
+                  credit?: string | null;
+                  /**
+                   * Span the full grid width (maps, panoramas).
+                   */
+                  wide?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'moodGrid';
+          }
+      )[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Sections and SEO strings for /craft on the v9 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "v9-craft".
+ */
+export interface V9Craft {
+  id: number;
+  /**
+   * The <title> of the page.
+   */
+  seoTitle?: string | null;
+  /**
+   * The meta description of the page.
+   */
+  seoDescription?: string | null;
+  sections?:
+    | (
+        | {
+            /**
+             * The full-bleed photograph. Alt text lives on the media doc. Use the crop/focal point tools on the media doc to control how it sits in the box.
+             */
+            image?: (number | null) | Media;
+            /**
+             * Small line above the headline (e.g. "A film & television studio · Long Island City, NY"). Home hero only.
+             */
+            kicker?: string | null;
+            /**
+             * The H1 laid over the photo. Leave empty for photo-only folds.
+             */
+            heading?: string | null;
+            /**
+             * Caption under the photo, before the credit. ==text== renders highlighted.
+             */
+            caption?: string | null;
+            /**
+             * Credit suffix after the caption (e.g. "AI-generated development frame, disclosed").
+             */
+            credit?: string | null;
+            /**
+             * Full-viewport-height fold (the home hero).
+             */
+            vh100?: boolean | null;
+            /**
+             * Load eagerly (first image on the page).
+             */
+            eager?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'photoFold';
+          }
+        | {
+            /**
+             * The inline route strip (Slate / Craft / Methods / Contact).
+             */
+            links?:
+              | {
+                  href: string;
+                  label: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'routeLine';
+          }
+        | {
+            /**
+             * Scene number shown in the margin (e.g. "1").
+             */
+            scene?: string | null;
+            /**
+             * The slugline over the section (e.g. "INT. THE IDEA - NIGHT").
+             */
+            sceneSlug?: string | null;
+            /**
+             * Section heading.
+             */
+            heading?: string | null;
+            /**
+             * Larger opening paragraph, set apart from the body.
+             */
+            lede?: string | null;
+            /**
+             * Body copy. Blank line starts a new paragraph. **bold**, ==highlight== and [links](/slate) allowed.
+             */
+            body?: string | null;
+            /**
+             * Optional pull quote inside the fold.
+             */
+            quote?: string | null;
+            /**
+             * Attribution for the pull quote.
+             */
+            cite?: string | null;
+            /**
+             * Optional "read more" route (e.g. /craft).
+             */
+            moreHref?: string | null;
+            /**
+             * e.g. "Principles of the craft →".
+             */
+            moreLabel?: string | null;
+            /**
+             * Optional inline link (contact page mailto).
+             */
+            linkHref?: string | null;
+            /**
+             * e.g. "caruso@apr70.com".
+             */
+            linkLabel?: string | null;
+            /**
+             * Optional accessible name for the section landmark.
+             */
+            ariaLabel?: string | null;
+            /**
+             * Tight spacing variant (short folds that lead into a list).
+             */
+            tight?: boolean | null;
+            /**
+             * Render the heading as the page H1 (interior pages).
+             */
+            asH1?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'textFold';
+          }
+        | {
+            /**
+             * The featured quotation, set large.
+             */
+            quote?: string | null;
+            /**
+             * Who said it (e.g. "Alfred Hitchcock").
+             */
+            cite?: string | null;
+            /**
+             * Source note (e.g. "Hitchcock/Truffaut, 1962 interviews").
+             */
+            note?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'quoteFeature';
+          }
+        | {
+            /**
+             * One row per property. Link a Project and the row can pull from it; the fields below are the exact display copy and win when set.
+             */
+            rows?:
+              | {
+                  /**
+                   * The Project this row points at (preferred; keeps the row in sync with /work/<slug>).
+                   */
+                  project?: (number | null) | Project;
+                  /**
+                   * Display title for the row (overrides the project title when set).
+                   */
+                  title?: string | null;
+                  /**
+                   * Row link (e.g. /work/sea-gate).
+                   */
+                  href?: string | null;
+                  /**
+                   * Logline shown on this list (home uses the short one, /slate the full one).
+                   */
+                  logline?: string | null;
+                  /**
+                   * Source line for public-domain adaptations (e.g. "After Dashiell Hammett’s *Red Harvest* (1929)…").
+                   */
+                  provenance?: string | null;
+                  /**
+                   * Meta line (e.g. "Feature · (212) Pictures · ==drafted== · the page →"). ==text== renders highlighted.
+                   */
+                  meta?: string | null;
+                  /**
+                   * Development styling flag from the copy (dev: true rows).
+                   */
+                  dev?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'slateList';
+          }
+        | {
+            /**
+             * Small-type footnote paragraph. Markdown links allowed.
+             */
+            body?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'footnote';
+          }
+        | {
+            /**
+             * Scene number in the margin.
+             */
+            scene?: string | null;
+            /**
+             * e.g. "INT. THE READING - NIGHT".
+             */
+            sceneSlug?: string | null;
+            /**
+             * e.g. "Read the pages."
+             */
+            heading?: string | null;
+            /**
+             * The request paragraph.
+             */
+            body?: string | null;
+            /**
+             * Where the request button goes (e.g. /contact).
+             */
+            linkHref?: string | null;
+            /**
+             * e.g. "Request materials".
+             */
+            linkLabel?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'request';
+          }
+        | {
+            /**
+             * Accessible name for the definition list (e.g. "The disclosure ledger").
+             */
+            ariaLabel?: string | null;
+            /**
+             * Term / definition pairs (the disclosure ledger on /methods).
+             */
+            rows?:
+              | {
+                  /**
+                   * The dt (e.g. "Scripts").
+                   */
+                  term?: string | null;
+                  /**
+                   * The dd. **bold** allowed.
+                   */
+                  definition?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'ledger';
+          }
+        | {
+            /**
+             * A verified public-domain archival photograph or map.
+             */
+            image?: (number | null) | Media;
+            /**
+             * Caption before the credit.
+             */
+            caption?: string | null;
+            /**
+             * Provenance suffix (date, PD basis, source) — required by the disclosure law.
+             */
+            credit?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'archival';
+          }
+        | {
+            /**
+             * The three-division strip on /slate.
+             */
+            divisions?:
+              | {
+                  /**
+                   * e.g. "(212) Pictures".
+                   */
+                  name?: string | null;
+                  /**
+                   * One-line division description.
+                   */
+                  blurb?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'divisionStrip';
+          }
+        | {
+            /**
+             * Accessible name (e.g. "Development frames · Sea Gate").
+             */
+            ariaLabel?: string | null;
+            /**
+             * Scene number in the margin.
+             */
+            scene?: string | null;
+            /**
+             * e.g. "EXT. TWO CITIES - TEN DAYS".
+             */
+            sceneSlug?: string | null;
+            /**
+             * e.g. "The world of the picture."
+             */
+            heading?: string | null;
+            /**
+             * Also run the grid as a slideshow.
+             */
+            slideshow?: boolean | null;
+            items?:
+              | {
+                  /**
+                   * Alt text lives on the media doc.
+                   */
+                  image?: (number | null) | Media;
+                  /**
+                   * Caption before the credit.
+                   */
+                  caption?: string | null;
+                  /**
+                   * Credit suffix (e.g. "AI-generated development frame, disclosed").
+                   */
+                  credit?: string | null;
+                  /**
+                   * Span the full grid width (maps, panoramas).
+                   */
+                  wide?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'moodGrid';
+          }
+      )[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Sections and SEO strings for /methods on the v9 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "v9-methods".
+ */
+export interface V9Method {
+  id: number;
+  /**
+   * The <title> of the page.
+   */
+  seoTitle?: string | null;
+  /**
+   * The meta description of the page.
+   */
+  seoDescription?: string | null;
+  sections?:
+    | (
+        | {
+            /**
+             * The full-bleed photograph. Alt text lives on the media doc. Use the crop/focal point tools on the media doc to control how it sits in the box.
+             */
+            image?: (number | null) | Media;
+            /**
+             * Small line above the headline (e.g. "A film & television studio · Long Island City, NY"). Home hero only.
+             */
+            kicker?: string | null;
+            /**
+             * The H1 laid over the photo. Leave empty for photo-only folds.
+             */
+            heading?: string | null;
+            /**
+             * Caption under the photo, before the credit. ==text== renders highlighted.
+             */
+            caption?: string | null;
+            /**
+             * Credit suffix after the caption (e.g. "AI-generated development frame, disclosed").
+             */
+            credit?: string | null;
+            /**
+             * Full-viewport-height fold (the home hero).
+             */
+            vh100?: boolean | null;
+            /**
+             * Load eagerly (first image on the page).
+             */
+            eager?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'photoFold';
+          }
+        | {
+            /**
+             * The inline route strip (Slate / Craft / Methods / Contact).
+             */
+            links?:
+              | {
+                  href: string;
+                  label: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'routeLine';
+          }
+        | {
+            /**
+             * Scene number shown in the margin (e.g. "1").
+             */
+            scene?: string | null;
+            /**
+             * The slugline over the section (e.g. "INT. THE IDEA - NIGHT").
+             */
+            sceneSlug?: string | null;
+            /**
+             * Section heading.
+             */
+            heading?: string | null;
+            /**
+             * Larger opening paragraph, set apart from the body.
+             */
+            lede?: string | null;
+            /**
+             * Body copy. Blank line starts a new paragraph. **bold**, ==highlight== and [links](/slate) allowed.
+             */
+            body?: string | null;
+            /**
+             * Optional pull quote inside the fold.
+             */
+            quote?: string | null;
+            /**
+             * Attribution for the pull quote.
+             */
+            cite?: string | null;
+            /**
+             * Optional "read more" route (e.g. /craft).
+             */
+            moreHref?: string | null;
+            /**
+             * e.g. "Principles of the craft →".
+             */
+            moreLabel?: string | null;
+            /**
+             * Optional inline link (contact page mailto).
+             */
+            linkHref?: string | null;
+            /**
+             * e.g. "caruso@apr70.com".
+             */
+            linkLabel?: string | null;
+            /**
+             * Optional accessible name for the section landmark.
+             */
+            ariaLabel?: string | null;
+            /**
+             * Tight spacing variant (short folds that lead into a list).
+             */
+            tight?: boolean | null;
+            /**
+             * Render the heading as the page H1 (interior pages).
+             */
+            asH1?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'textFold';
+          }
+        | {
+            /**
+             * The featured quotation, set large.
+             */
+            quote?: string | null;
+            /**
+             * Who said it (e.g. "Alfred Hitchcock").
+             */
+            cite?: string | null;
+            /**
+             * Source note (e.g. "Hitchcock/Truffaut, 1962 interviews").
+             */
+            note?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'quoteFeature';
+          }
+        | {
+            /**
+             * One row per property. Link a Project and the row can pull from it; the fields below are the exact display copy and win when set.
+             */
+            rows?:
+              | {
+                  /**
+                   * The Project this row points at (preferred; keeps the row in sync with /work/<slug>).
+                   */
+                  project?: (number | null) | Project;
+                  /**
+                   * Display title for the row (overrides the project title when set).
+                   */
+                  title?: string | null;
+                  /**
+                   * Row link (e.g. /work/sea-gate).
+                   */
+                  href?: string | null;
+                  /**
+                   * Logline shown on this list (home uses the short one, /slate the full one).
+                   */
+                  logline?: string | null;
+                  /**
+                   * Source line for public-domain adaptations (e.g. "After Dashiell Hammett’s *Red Harvest* (1929)…").
+                   */
+                  provenance?: string | null;
+                  /**
+                   * Meta line (e.g. "Feature · (212) Pictures · ==drafted== · the page →"). ==text== renders highlighted.
+                   */
+                  meta?: string | null;
+                  /**
+                   * Development styling flag from the copy (dev: true rows).
+                   */
+                  dev?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'slateList';
+          }
+        | {
+            /**
+             * Small-type footnote paragraph. Markdown links allowed.
+             */
+            body?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'footnote';
+          }
+        | {
+            /**
+             * Scene number in the margin.
+             */
+            scene?: string | null;
+            /**
+             * e.g. "INT. THE READING - NIGHT".
+             */
+            sceneSlug?: string | null;
+            /**
+             * e.g. "Read the pages."
+             */
+            heading?: string | null;
+            /**
+             * The request paragraph.
+             */
+            body?: string | null;
+            /**
+             * Where the request button goes (e.g. /contact).
+             */
+            linkHref?: string | null;
+            /**
+             * e.g. "Request materials".
+             */
+            linkLabel?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'request';
+          }
+        | {
+            /**
+             * Accessible name for the definition list (e.g. "The disclosure ledger").
+             */
+            ariaLabel?: string | null;
+            /**
+             * Term / definition pairs (the disclosure ledger on /methods).
+             */
+            rows?:
+              | {
+                  /**
+                   * The dt (e.g. "Scripts").
+                   */
+                  term?: string | null;
+                  /**
+                   * The dd. **bold** allowed.
+                   */
+                  definition?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'ledger';
+          }
+        | {
+            /**
+             * A verified public-domain archival photograph or map.
+             */
+            image?: (number | null) | Media;
+            /**
+             * Caption before the credit.
+             */
+            caption?: string | null;
+            /**
+             * Provenance suffix (date, PD basis, source) — required by the disclosure law.
+             */
+            credit?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'archival';
+          }
+        | {
+            /**
+             * The three-division strip on /slate.
+             */
+            divisions?:
+              | {
+                  /**
+                   * e.g. "(212) Pictures".
+                   */
+                  name?: string | null;
+                  /**
+                   * One-line division description.
+                   */
+                  blurb?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'divisionStrip';
+          }
+        | {
+            /**
+             * Accessible name (e.g. "Development frames · Sea Gate").
+             */
+            ariaLabel?: string | null;
+            /**
+             * Scene number in the margin.
+             */
+            scene?: string | null;
+            /**
+             * e.g. "EXT. TWO CITIES - TEN DAYS".
+             */
+            sceneSlug?: string | null;
+            /**
+             * e.g. "The world of the picture."
+             */
+            heading?: string | null;
+            /**
+             * Also run the grid as a slideshow.
+             */
+            slideshow?: boolean | null;
+            items?:
+              | {
+                  /**
+                   * Alt text lives on the media doc.
+                   */
+                  image?: (number | null) | Media;
+                  /**
+                   * Caption before the credit.
+                   */
+                  caption?: string | null;
+                  /**
+                   * Credit suffix (e.g. "AI-generated development frame, disclosed").
+                   */
+                  credit?: string | null;
+                  /**
+                   * Span the full grid width (maps, panoramas).
+                   */
+                  wide?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'moodGrid';
+          }
+      )[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Sections and SEO strings for /contact on the v9 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "v9-contact".
+ */
+export interface V9Contact {
+  id: number;
+  /**
+   * The <title> of the page.
+   */
+  seoTitle?: string | null;
+  /**
+   * The meta description of the page.
+   */
+  seoDescription?: string | null;
+  sections?:
+    | (
+        | {
+            /**
+             * The full-bleed photograph. Alt text lives on the media doc. Use the crop/focal point tools on the media doc to control how it sits in the box.
+             */
+            image?: (number | null) | Media;
+            /**
+             * Small line above the headline (e.g. "A film & television studio · Long Island City, NY"). Home hero only.
+             */
+            kicker?: string | null;
+            /**
+             * The H1 laid over the photo. Leave empty for photo-only folds.
+             */
+            heading?: string | null;
+            /**
+             * Caption under the photo, before the credit. ==text== renders highlighted.
+             */
+            caption?: string | null;
+            /**
+             * Credit suffix after the caption (e.g. "AI-generated development frame, disclosed").
+             */
+            credit?: string | null;
+            /**
+             * Full-viewport-height fold (the home hero).
+             */
+            vh100?: boolean | null;
+            /**
+             * Load eagerly (first image on the page).
+             */
+            eager?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'photoFold';
+          }
+        | {
+            /**
+             * The inline route strip (Slate / Craft / Methods / Contact).
+             */
+            links?:
+              | {
+                  href: string;
+                  label: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'routeLine';
+          }
+        | {
+            /**
+             * Scene number shown in the margin (e.g. "1").
+             */
+            scene?: string | null;
+            /**
+             * The slugline over the section (e.g. "INT. THE IDEA - NIGHT").
+             */
+            sceneSlug?: string | null;
+            /**
+             * Section heading.
+             */
+            heading?: string | null;
+            /**
+             * Larger opening paragraph, set apart from the body.
+             */
+            lede?: string | null;
+            /**
+             * Body copy. Blank line starts a new paragraph. **bold**, ==highlight== and [links](/slate) allowed.
+             */
+            body?: string | null;
+            /**
+             * Optional pull quote inside the fold.
+             */
+            quote?: string | null;
+            /**
+             * Attribution for the pull quote.
+             */
+            cite?: string | null;
+            /**
+             * Optional "read more" route (e.g. /craft).
+             */
+            moreHref?: string | null;
+            /**
+             * e.g. "Principles of the craft →".
+             */
+            moreLabel?: string | null;
+            /**
+             * Optional inline link (contact page mailto).
+             */
+            linkHref?: string | null;
+            /**
+             * e.g. "caruso@apr70.com".
+             */
+            linkLabel?: string | null;
+            /**
+             * Optional accessible name for the section landmark.
+             */
+            ariaLabel?: string | null;
+            /**
+             * Tight spacing variant (short folds that lead into a list).
+             */
+            tight?: boolean | null;
+            /**
+             * Render the heading as the page H1 (interior pages).
+             */
+            asH1?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'textFold';
+          }
+        | {
+            /**
+             * The featured quotation, set large.
+             */
+            quote?: string | null;
+            /**
+             * Who said it (e.g. "Alfred Hitchcock").
+             */
+            cite?: string | null;
+            /**
+             * Source note (e.g. "Hitchcock/Truffaut, 1962 interviews").
+             */
+            note?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'quoteFeature';
+          }
+        | {
+            /**
+             * One row per property. Link a Project and the row can pull from it; the fields below are the exact display copy and win when set.
+             */
+            rows?:
+              | {
+                  /**
+                   * The Project this row points at (preferred; keeps the row in sync with /work/<slug>).
+                   */
+                  project?: (number | null) | Project;
+                  /**
+                   * Display title for the row (overrides the project title when set).
+                   */
+                  title?: string | null;
+                  /**
+                   * Row link (e.g. /work/sea-gate).
+                   */
+                  href?: string | null;
+                  /**
+                   * Logline shown on this list (home uses the short one, /slate the full one).
+                   */
+                  logline?: string | null;
+                  /**
+                   * Source line for public-domain adaptations (e.g. "After Dashiell Hammett’s *Red Harvest* (1929)…").
+                   */
+                  provenance?: string | null;
+                  /**
+                   * Meta line (e.g. "Feature · (212) Pictures · ==drafted== · the page →"). ==text== renders highlighted.
+                   */
+                  meta?: string | null;
+                  /**
+                   * Development styling flag from the copy (dev: true rows).
+                   */
+                  dev?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'slateList';
+          }
+        | {
+            /**
+             * Small-type footnote paragraph. Markdown links allowed.
+             */
+            body?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'footnote';
+          }
+        | {
+            /**
+             * Scene number in the margin.
+             */
+            scene?: string | null;
+            /**
+             * e.g. "INT. THE READING - NIGHT".
+             */
+            sceneSlug?: string | null;
+            /**
+             * e.g. "Read the pages."
+             */
+            heading?: string | null;
+            /**
+             * The request paragraph.
+             */
+            body?: string | null;
+            /**
+             * Where the request button goes (e.g. /contact).
+             */
+            linkHref?: string | null;
+            /**
+             * e.g. "Request materials".
+             */
+            linkLabel?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'request';
+          }
+        | {
+            /**
+             * Accessible name for the definition list (e.g. "The disclosure ledger").
+             */
+            ariaLabel?: string | null;
+            /**
+             * Term / definition pairs (the disclosure ledger on /methods).
+             */
+            rows?:
+              | {
+                  /**
+                   * The dt (e.g. "Scripts").
+                   */
+                  term?: string | null;
+                  /**
+                   * The dd. **bold** allowed.
+                   */
+                  definition?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'ledger';
+          }
+        | {
+            /**
+             * A verified public-domain archival photograph or map.
+             */
+            image?: (number | null) | Media;
+            /**
+             * Caption before the credit.
+             */
+            caption?: string | null;
+            /**
+             * Provenance suffix (date, PD basis, source) — required by the disclosure law.
+             */
+            credit?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'archival';
+          }
+        | {
+            /**
+             * The three-division strip on /slate.
+             */
+            divisions?:
+              | {
+                  /**
+                   * e.g. "(212) Pictures".
+                   */
+                  name?: string | null;
+                  /**
+                   * One-line division description.
+                   */
+                  blurb?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'divisionStrip';
+          }
+        | {
+            /**
+             * Accessible name (e.g. "Development frames · Sea Gate").
+             */
+            ariaLabel?: string | null;
+            /**
+             * Scene number in the margin.
+             */
+            scene?: string | null;
+            /**
+             * e.g. "EXT. TWO CITIES - TEN DAYS".
+             */
+            sceneSlug?: string | null;
+            /**
+             * e.g. "The world of the picture."
+             */
+            heading?: string | null;
+            /**
+             * Also run the grid as a slideshow.
+             */
+            slideshow?: boolean | null;
+            items?:
+              | {
+                  /**
+                   * Alt text lives on the media doc.
+                   */
+                  image?: (number | null) | Media;
+                  /**
+                   * Caption before the credit.
+                   */
+                  caption?: string | null;
+                  /**
+                   * Credit suffix (e.g. "AI-generated development frame, disclosed").
+                   */
+                  credit?: string | null;
+                  /**
+                   * Span the full grid width (maps, panoramas).
+                   */
+                  wide?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'moodGrid';
+          }
+      )[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "212_select".
+ */
+export interface Select<T extends boolean = true> {
+  theme?: T;
+  headerLogo?: T;
+  footerLogo?: T;
+  faviconOverride?: T;
   layout?:
     | T
     | {
@@ -1961,9 +6806,22 @@ export interface HomeSelect<T extends boolean = true> {
               media?: T;
               variant?: T;
               division?: T;
+              lockupLogo?: T;
+              watermarkLogo?: T;
+              watermarkOpacity?: T;
+              watermarkPosition?: T;
+              watermarkShowOnMobile?: T;
               fadeDuration?: T;
               autoplayDelay?: T;
               showIndicator?: T;
+              sliderItems?:
+                | T
+                | {
+                    media?: T;
+                    title?: T;
+                    subtext?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -2035,6 +6893,7 @@ export interface HomeSelect<T extends boolean = true> {
           | T
           | {
               source?: T;
+              format?: T;
               projectFilter?: T;
               tiles?:
                 | T
@@ -2091,6 +6950,23 @@ export interface HomeSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        zinePassage?:
+          | T
+          | {
+              kicker?: T;
+              heading?: T;
+              lede?: T;
+              body?: T;
+              links?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;
@@ -2098,57 +6974,13 @@ export interface HomeSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "site-settings_select".
+ * via the `definition` "310_select".
  */
-export interface SiteSettingsSelect<T extends boolean = true> {
-  brandLabel?: T;
-  legalEntity?: T;
-  tagline?: T;
-  showFilmstripRails?: T;
-  lastDeployed?: T;
-  seededVersion?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "footer-links_select".
- */
-export interface FooterLinksSelect<T extends boolean = true> {
-  primaryNav?:
-    | T
-    | {
-        label?: T;
-        href?: T;
-        openInNewTab?: T;
-        id?: T;
-      };
-  divisionNav?:
-    | T
-    | {
-        label?: T;
-        href?: T;
-        openInNewTab?: T;
-        id?: T;
-      };
-  moreNav?:
-    | T
-    | {
-        label?: T;
-        href?: T;
-        openInNewTab?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "about_select".
- */
-export interface AboutSelect<T extends boolean = true> {
+export interface Select<T extends boolean = true> {
+  theme?: T;
+  headerLogo?: T;
+  footerLogo?: T;
+  faviconOverride?: T;
   layout?:
     | T
     | {
@@ -2160,9 +6992,22 @@ export interface AboutSelect<T extends boolean = true> {
               media?: T;
               variant?: T;
               division?: T;
+              lockupLogo?: T;
+              watermarkLogo?: T;
+              watermarkOpacity?: T;
+              watermarkPosition?: T;
+              watermarkShowOnMobile?: T;
               fadeDuration?: T;
               autoplayDelay?: T;
               showIndicator?: T;
+              sliderItems?:
+                | T
+                | {
+                    media?: T;
+                    title?: T;
+                    subtext?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -2234,6 +7079,458 @@ export interface AboutSelect<T extends boolean = true> {
           | T
           | {
               source?: T;
+              format?: T;
+              projectFilter?: T;
+              tiles?:
+                | T
+                | {
+                    media?: T;
+                    caption?: T;
+                    division?: T;
+                    id?: T;
+                  };
+              showPerforations?: T;
+              id?: T;
+              blockName?: T;
+            };
+        divisionShowcase?:
+          | T
+          | {
+              variant?: T;
+              heading?: T;
+              subtext?: T;
+              divisions?:
+                | T
+                | {
+                    name?: T;
+                    colorToken?: T;
+                    subtitle?: T;
+                    description?: T;
+                    media?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        stats?:
+          | T
+          | {
+              heading?: T;
+              columns?: T;
+              stats?:
+                | T
+                | {
+                    value?: T;
+                    label?: T;
+                    colorToken?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        divider?:
+          | T
+          | {
+              label?: T;
+              spacing?: T;
+              id?: T;
+              blockName?: T;
+            };
+        zinePassage?:
+          | T
+          | {
+              kicker?: T;
+              heading?: T;
+              lede?: T;
+              body?: T;
+              links?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home_select".
+ */
+export interface HomeSelect<T extends boolean = true> {
+  layout?:
+    | T
+    | {
+        hero?:
+          | T
+          | {
+              heading?: T;
+              subtext?: T;
+              media?: T;
+              variant?: T;
+              division?: T;
+              lockupLogo?: T;
+              watermarkLogo?: T;
+              watermarkOpacity?: T;
+              watermarkPosition?: T;
+              watermarkShowOnMobile?: T;
+              fadeDuration?: T;
+              autoplayDelay?: T;
+              showIndicator?: T;
+              sliderItems?:
+                | T
+                | {
+                    media?: T;
+                    title?: T;
+                    subtext?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        richText?:
+          | T
+          | {
+              content?: T;
+              megaScale?: T;
+              id?: T;
+              blockName?: T;
+            };
+        twoCol?:
+          | T
+          | {
+              leftHeading?: T;
+              rightBody?: T;
+              ratio?: T;
+              alignment?: T;
+              id?: T;
+              blockName?: T;
+            };
+        grid?:
+          | T
+          | {
+              heading?: T;
+              items?:
+                | T
+                | {
+                    media?: T;
+                    title?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        cta?:
+          | T
+          | {
+              heading?: T;
+              subtext?: T;
+              buttons?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                    variant?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        quotes?:
+          | T
+          | {
+              heading?: T;
+              layout?: T;
+              quotes?:
+                | T
+                | {
+                    quote?: T;
+                    attribution?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        filmstrip?:
+          | T
+          | {
+              source?: T;
+              format?: T;
+              projectFilter?: T;
+              tiles?:
+                | T
+                | {
+                    media?: T;
+                    caption?: T;
+                    division?: T;
+                    id?: T;
+                  };
+              showPerforations?: T;
+              id?: T;
+              blockName?: T;
+            };
+        divisionShowcase?:
+          | T
+          | {
+              variant?: T;
+              heading?: T;
+              subtext?: T;
+              divisions?:
+                | T
+                | {
+                    name?: T;
+                    colorToken?: T;
+                    subtitle?: T;
+                    description?: T;
+                    media?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        stats?:
+          | T
+          | {
+              heading?: T;
+              columns?: T;
+              stats?:
+                | T
+                | {
+                    value?: T;
+                    label?: T;
+                    colorToken?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        divider?:
+          | T
+          | {
+              label?: T;
+              spacing?: T;
+              id?: T;
+              blockName?: T;
+            };
+        zineMasthead?:
+          | T
+          | {
+              title?: T;
+              officesLine?: T;
+              issueLabel?: T;
+              dek?: T;
+              id?: T;
+              blockName?: T;
+            };
+        zinePassage?:
+          | T
+          | {
+              kicker?: T;
+              heading?: T;
+              lede?: T;
+              body?: T;
+              links?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  brandLabel?: T;
+  legalEntity?: T;
+  tagline?: T;
+  favicon?: T;
+  navLogoLight?: T;
+  navLogoDark?: T;
+  v9Chrome?:
+    | T
+    | {
+        displayLabel?: T;
+        panelTitle?: T;
+        themeLabel?: T;
+        themePremiere?: T;
+        themeMatinee?: T;
+        themeLateshow?: T;
+        scaleLabel?: T;
+        logoLabel?: T;
+        topLabel?: T;
+        prevLabel?: T;
+        nextLabel?: T;
+        slateReturn?: T;
+        cta?: T;
+        colophon?: T;
+        copyright?: T;
+        navLinks?:
+          | T
+          | {
+              href?: T;
+              label?: T;
+              id?: T;
+            };
+      };
+  showFilmstripRails?: T;
+  lastDeployed?: T;
+  seededVersion?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer-links_select".
+ */
+export interface FooterLinksSelect<T extends boolean = true> {
+  primaryNav?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        openInNewTab?: T;
+        id?: T;
+      };
+  divisionNav?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        openInNewTab?: T;
+        id?: T;
+      };
+  moreNav?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        openInNewTab?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about_select".
+ */
+export interface AboutSelect<T extends boolean = true> {
+  layout?:
+    | T
+    | {
+        hero?:
+          | T
+          | {
+              heading?: T;
+              subtext?: T;
+              media?: T;
+              variant?: T;
+              division?: T;
+              lockupLogo?: T;
+              watermarkLogo?: T;
+              watermarkOpacity?: T;
+              watermarkPosition?: T;
+              watermarkShowOnMobile?: T;
+              fadeDuration?: T;
+              autoplayDelay?: T;
+              showIndicator?: T;
+              sliderItems?:
+                | T
+                | {
+                    media?: T;
+                    title?: T;
+                    subtext?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        richText?:
+          | T
+          | {
+              content?: T;
+              megaScale?: T;
+              id?: T;
+              blockName?: T;
+            };
+        twoCol?:
+          | T
+          | {
+              leftHeading?: T;
+              rightBody?: T;
+              ratio?: T;
+              alignment?: T;
+              id?: T;
+              blockName?: T;
+            };
+        grid?:
+          | T
+          | {
+              heading?: T;
+              items?:
+                | T
+                | {
+                    media?: T;
+                    title?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        cta?:
+          | T
+          | {
+              heading?: T;
+              subtext?: T;
+              buttons?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                    variant?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        quotes?:
+          | T
+          | {
+              heading?: T;
+              layout?: T;
+              quotes?:
+                | T
+                | {
+                    quote?: T;
+                    attribution?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        filmstrip?:
+          | T
+          | {
+              source?: T;
+              format?: T;
               projectFilter?: T;
               tiles?:
                 | T
@@ -2311,9 +7608,22 @@ export interface ContactSelect<T extends boolean = true> {
               media?: T;
               variant?: T;
               division?: T;
+              lockupLogo?: T;
+              watermarkLogo?: T;
+              watermarkOpacity?: T;
+              watermarkPosition?: T;
+              watermarkShowOnMobile?: T;
               fadeDuration?: T;
               autoplayDelay?: T;
               showIndicator?: T;
+              sliderItems?:
+                | T
+                | {
+                    media?: T;
+                    title?: T;
+                    subtext?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -2385,6 +7695,7 @@ export interface ContactSelect<T extends boolean = true> {
           | T
           | {
               source?: T;
+              format?: T;
               projectFilter?: T;
               tiles?:
                 | T
@@ -2462,9 +7773,22 @@ export interface JobsSelect<T extends boolean = true> {
               media?: T;
               variant?: T;
               division?: T;
+              lockupLogo?: T;
+              watermarkLogo?: T;
+              watermarkOpacity?: T;
+              watermarkPosition?: T;
+              watermarkShowOnMobile?: T;
               fadeDuration?: T;
               autoplayDelay?: T;
               showIndicator?: T;
+              sliderItems?:
+                | T
+                | {
+                    media?: T;
+                    title?: T;
+                    subtext?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -2536,6 +7860,7 @@ export interface JobsSelect<T extends boolean = true> {
           | T
           | {
               source?: T;
+              format?: T;
               projectFilter?: T;
               tiles?:
                 | T
@@ -2613,9 +7938,22 @@ export interface PitchSelect<T extends boolean = true> {
               media?: T;
               variant?: T;
               division?: T;
+              lockupLogo?: T;
+              watermarkLogo?: T;
+              watermarkOpacity?: T;
+              watermarkPosition?: T;
+              watermarkShowOnMobile?: T;
               fadeDuration?: T;
               autoplayDelay?: T;
               showIndicator?: T;
+              sliderItems?:
+                | T
+                | {
+                    media?: T;
+                    title?: T;
+                    subtext?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -2687,6 +8025,7 @@ export interface PitchSelect<T extends boolean = true> {
           | T
           | {
               source?: T;
+              format?: T;
               projectFilter?: T;
               tiles?:
                 | T
@@ -2764,9 +8103,22 @@ export interface InvestorsSelect<T extends boolean = true> {
               media?: T;
               variant?: T;
               division?: T;
+              lockupLogo?: T;
+              watermarkLogo?: T;
+              watermarkOpacity?: T;
+              watermarkPosition?: T;
+              watermarkShowOnMobile?: T;
               fadeDuration?: T;
               autoplayDelay?: T;
               showIndicator?: T;
+              sliderItems?:
+                | T
+                | {
+                    media?: T;
+                    title?: T;
+                    subtext?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -2838,6 +8190,7 @@ export interface InvestorsSelect<T extends boolean = true> {
           | T
           | {
               source?: T;
+              format?: T;
               projectFilter?: T;
               tiles?:
                 | T
@@ -2891,6 +8244,1144 @@ export interface InvestorsSelect<T extends boolean = true> {
           | {
               label?: T;
               spacing?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "nrc_select".
+ */
+export interface NrcSelect<T extends boolean = true> {
+  theme?: T;
+  headerLogo?: T;
+  footerLogo?: T;
+  faviconOverride?: T;
+  layout?:
+    | T
+    | {
+        hero?:
+          | T
+          | {
+              heading?: T;
+              subtext?: T;
+              media?: T;
+              variant?: T;
+              division?: T;
+              lockupLogo?: T;
+              watermarkLogo?: T;
+              watermarkOpacity?: T;
+              watermarkPosition?: T;
+              watermarkShowOnMobile?: T;
+              fadeDuration?: T;
+              autoplayDelay?: T;
+              showIndicator?: T;
+              sliderItems?:
+                | T
+                | {
+                    media?: T;
+                    title?: T;
+                    subtext?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        richText?:
+          | T
+          | {
+              content?: T;
+              megaScale?: T;
+              id?: T;
+              blockName?: T;
+            };
+        twoCol?:
+          | T
+          | {
+              leftHeading?: T;
+              rightBody?: T;
+              ratio?: T;
+              alignment?: T;
+              id?: T;
+              blockName?: T;
+            };
+        grid?:
+          | T
+          | {
+              heading?: T;
+              items?:
+                | T
+                | {
+                    media?: T;
+                    title?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        cta?:
+          | T
+          | {
+              heading?: T;
+              subtext?: T;
+              buttons?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                    variant?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        quotes?:
+          | T
+          | {
+              heading?: T;
+              layout?: T;
+              quotes?:
+                | T
+                | {
+                    quote?: T;
+                    attribution?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        filmstrip?:
+          | T
+          | {
+              source?: T;
+              format?: T;
+              projectFilter?: T;
+              tiles?:
+                | T
+                | {
+                    media?: T;
+                    caption?: T;
+                    division?: T;
+                    id?: T;
+                  };
+              showPerforations?: T;
+              id?: T;
+              blockName?: T;
+            };
+        divisionShowcase?:
+          | T
+          | {
+              variant?: T;
+              heading?: T;
+              subtext?: T;
+              divisions?:
+                | T
+                | {
+                    name?: T;
+                    colorToken?: T;
+                    subtitle?: T;
+                    description?: T;
+                    media?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        stats?:
+          | T
+          | {
+              heading?: T;
+              columns?: T;
+              stats?:
+                | T
+                | {
+                    value?: T;
+                    label?: T;
+                    colorToken?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        divider?:
+          | T
+          | {
+              label?: T;
+              spacing?: T;
+              id?: T;
+              blockName?: T;
+            };
+        zinePassage?:
+          | T
+          | {
+              kicker?: T;
+              heading?: T;
+              lede?: T;
+              body?: T;
+              links?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "troupe_select".
+ */
+export interface TroupeSelect<T extends boolean = true> {
+  layout?:
+    | T
+    | {
+        hero?:
+          | T
+          | {
+              heading?: T;
+              subtext?: T;
+              media?: T;
+              variant?: T;
+              division?: T;
+              lockupLogo?: T;
+              watermarkLogo?: T;
+              watermarkOpacity?: T;
+              watermarkPosition?: T;
+              watermarkShowOnMobile?: T;
+              fadeDuration?: T;
+              autoplayDelay?: T;
+              showIndicator?: T;
+              sliderItems?:
+                | T
+                | {
+                    media?: T;
+                    title?: T;
+                    subtext?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        playbill?:
+          | T
+          | {
+              programNumber?: T;
+              title?: T;
+              subtitle?: T;
+              runtime?: T;
+              sceneCount?: T;
+              status?: T;
+              posterImage?: T;
+              artwork?: T;
+              voices?:
+                | T
+                | {
+                    voice?: T;
+                    descriptor?: T;
+                    roles?: T;
+                    note?: T;
+                    id?: T;
+                  };
+              notes?: T;
+              id?: T;
+              blockName?: T;
+            };
+        richText?:
+          | T
+          | {
+              content?: T;
+              megaScale?: T;
+              id?: T;
+              blockName?: T;
+            };
+        twoCol?:
+          | T
+          | {
+              leftHeading?: T;
+              rightBody?: T;
+              ratio?: T;
+              alignment?: T;
+              id?: T;
+              blockName?: T;
+            };
+        cta?:
+          | T
+          | {
+              heading?: T;
+              subtext?: T;
+              buttons?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                    variant?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        quotes?:
+          | T
+          | {
+              heading?: T;
+              layout?: T;
+              quotes?:
+                | T
+                | {
+                    quote?: T;
+                    attribution?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        stats?:
+          | T
+          | {
+              heading?: T;
+              columns?: T;
+              stats?:
+                | T
+                | {
+                    value?: T;
+                    label?: T;
+                    colorToken?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        divider?:
+          | T
+          | {
+              label?: T;
+              spacing?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "v9-home_select".
+ */
+export interface V9HomeSelect<T extends boolean = true> {
+  seoTitle?: T;
+  seoDescription?: T;
+  sections?:
+    | T
+    | {
+        photoFold?:
+          | T
+          | {
+              image?: T;
+              kicker?: T;
+              heading?: T;
+              caption?: T;
+              credit?: T;
+              vh100?: T;
+              eager?: T;
+              id?: T;
+              blockName?: T;
+            };
+        routeLine?:
+          | T
+          | {
+              links?:
+                | T
+                | {
+                    href?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        textFold?:
+          | T
+          | {
+              scene?: T;
+              sceneSlug?: T;
+              heading?: T;
+              lede?: T;
+              body?: T;
+              quote?: T;
+              cite?: T;
+              moreHref?: T;
+              moreLabel?: T;
+              linkHref?: T;
+              linkLabel?: T;
+              ariaLabel?: T;
+              tight?: T;
+              asH1?: T;
+              id?: T;
+              blockName?: T;
+            };
+        quoteFeature?:
+          | T
+          | {
+              quote?: T;
+              cite?: T;
+              note?: T;
+              id?: T;
+              blockName?: T;
+            };
+        slateList?:
+          | T
+          | {
+              rows?:
+                | T
+                | {
+                    project?: T;
+                    title?: T;
+                    href?: T;
+                    logline?: T;
+                    provenance?: T;
+                    meta?: T;
+                    dev?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        footnote?:
+          | T
+          | {
+              body?: T;
+              id?: T;
+              blockName?: T;
+            };
+        request?:
+          | T
+          | {
+              scene?: T;
+              sceneSlug?: T;
+              heading?: T;
+              body?: T;
+              linkHref?: T;
+              linkLabel?: T;
+              id?: T;
+              blockName?: T;
+            };
+        ledger?:
+          | T
+          | {
+              ariaLabel?: T;
+              rows?:
+                | T
+                | {
+                    term?: T;
+                    definition?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        archival?:
+          | T
+          | {
+              image?: T;
+              caption?: T;
+              credit?: T;
+              id?: T;
+              blockName?: T;
+            };
+        divisionStrip?:
+          | T
+          | {
+              divisions?:
+                | T
+                | {
+                    name?: T;
+                    blurb?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        moodGrid?:
+          | T
+          | {
+              ariaLabel?: T;
+              scene?: T;
+              sceneSlug?: T;
+              heading?: T;
+              slideshow?: T;
+              items?:
+                | T
+                | {
+                    image?: T;
+                    caption?: T;
+                    credit?: T;
+                    wide?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "v9-slate_select".
+ */
+export interface V9SlateSelect<T extends boolean = true> {
+  seoTitle?: T;
+  seoDescription?: T;
+  sections?:
+    | T
+    | {
+        photoFold?:
+          | T
+          | {
+              image?: T;
+              kicker?: T;
+              heading?: T;
+              caption?: T;
+              credit?: T;
+              vh100?: T;
+              eager?: T;
+              id?: T;
+              blockName?: T;
+            };
+        routeLine?:
+          | T
+          | {
+              links?:
+                | T
+                | {
+                    href?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        textFold?:
+          | T
+          | {
+              scene?: T;
+              sceneSlug?: T;
+              heading?: T;
+              lede?: T;
+              body?: T;
+              quote?: T;
+              cite?: T;
+              moreHref?: T;
+              moreLabel?: T;
+              linkHref?: T;
+              linkLabel?: T;
+              ariaLabel?: T;
+              tight?: T;
+              asH1?: T;
+              id?: T;
+              blockName?: T;
+            };
+        quoteFeature?:
+          | T
+          | {
+              quote?: T;
+              cite?: T;
+              note?: T;
+              id?: T;
+              blockName?: T;
+            };
+        slateList?:
+          | T
+          | {
+              rows?:
+                | T
+                | {
+                    project?: T;
+                    title?: T;
+                    href?: T;
+                    logline?: T;
+                    provenance?: T;
+                    meta?: T;
+                    dev?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        footnote?:
+          | T
+          | {
+              body?: T;
+              id?: T;
+              blockName?: T;
+            };
+        request?:
+          | T
+          | {
+              scene?: T;
+              sceneSlug?: T;
+              heading?: T;
+              body?: T;
+              linkHref?: T;
+              linkLabel?: T;
+              id?: T;
+              blockName?: T;
+            };
+        ledger?:
+          | T
+          | {
+              ariaLabel?: T;
+              rows?:
+                | T
+                | {
+                    term?: T;
+                    definition?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        archival?:
+          | T
+          | {
+              image?: T;
+              caption?: T;
+              credit?: T;
+              id?: T;
+              blockName?: T;
+            };
+        divisionStrip?:
+          | T
+          | {
+              divisions?:
+                | T
+                | {
+                    name?: T;
+                    blurb?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        moodGrid?:
+          | T
+          | {
+              ariaLabel?: T;
+              scene?: T;
+              sceneSlug?: T;
+              heading?: T;
+              slideshow?: T;
+              items?:
+                | T
+                | {
+                    image?: T;
+                    caption?: T;
+                    credit?: T;
+                    wide?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "v9-craft_select".
+ */
+export interface V9CraftSelect<T extends boolean = true> {
+  seoTitle?: T;
+  seoDescription?: T;
+  sections?:
+    | T
+    | {
+        photoFold?:
+          | T
+          | {
+              image?: T;
+              kicker?: T;
+              heading?: T;
+              caption?: T;
+              credit?: T;
+              vh100?: T;
+              eager?: T;
+              id?: T;
+              blockName?: T;
+            };
+        routeLine?:
+          | T
+          | {
+              links?:
+                | T
+                | {
+                    href?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        textFold?:
+          | T
+          | {
+              scene?: T;
+              sceneSlug?: T;
+              heading?: T;
+              lede?: T;
+              body?: T;
+              quote?: T;
+              cite?: T;
+              moreHref?: T;
+              moreLabel?: T;
+              linkHref?: T;
+              linkLabel?: T;
+              ariaLabel?: T;
+              tight?: T;
+              asH1?: T;
+              id?: T;
+              blockName?: T;
+            };
+        quoteFeature?:
+          | T
+          | {
+              quote?: T;
+              cite?: T;
+              note?: T;
+              id?: T;
+              blockName?: T;
+            };
+        slateList?:
+          | T
+          | {
+              rows?:
+                | T
+                | {
+                    project?: T;
+                    title?: T;
+                    href?: T;
+                    logline?: T;
+                    provenance?: T;
+                    meta?: T;
+                    dev?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        footnote?:
+          | T
+          | {
+              body?: T;
+              id?: T;
+              blockName?: T;
+            };
+        request?:
+          | T
+          | {
+              scene?: T;
+              sceneSlug?: T;
+              heading?: T;
+              body?: T;
+              linkHref?: T;
+              linkLabel?: T;
+              id?: T;
+              blockName?: T;
+            };
+        ledger?:
+          | T
+          | {
+              ariaLabel?: T;
+              rows?:
+                | T
+                | {
+                    term?: T;
+                    definition?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        archival?:
+          | T
+          | {
+              image?: T;
+              caption?: T;
+              credit?: T;
+              id?: T;
+              blockName?: T;
+            };
+        divisionStrip?:
+          | T
+          | {
+              divisions?:
+                | T
+                | {
+                    name?: T;
+                    blurb?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        moodGrid?:
+          | T
+          | {
+              ariaLabel?: T;
+              scene?: T;
+              sceneSlug?: T;
+              heading?: T;
+              slideshow?: T;
+              items?:
+                | T
+                | {
+                    image?: T;
+                    caption?: T;
+                    credit?: T;
+                    wide?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "v9-methods_select".
+ */
+export interface V9MethodsSelect<T extends boolean = true> {
+  seoTitle?: T;
+  seoDescription?: T;
+  sections?:
+    | T
+    | {
+        photoFold?:
+          | T
+          | {
+              image?: T;
+              kicker?: T;
+              heading?: T;
+              caption?: T;
+              credit?: T;
+              vh100?: T;
+              eager?: T;
+              id?: T;
+              blockName?: T;
+            };
+        routeLine?:
+          | T
+          | {
+              links?:
+                | T
+                | {
+                    href?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        textFold?:
+          | T
+          | {
+              scene?: T;
+              sceneSlug?: T;
+              heading?: T;
+              lede?: T;
+              body?: T;
+              quote?: T;
+              cite?: T;
+              moreHref?: T;
+              moreLabel?: T;
+              linkHref?: T;
+              linkLabel?: T;
+              ariaLabel?: T;
+              tight?: T;
+              asH1?: T;
+              id?: T;
+              blockName?: T;
+            };
+        quoteFeature?:
+          | T
+          | {
+              quote?: T;
+              cite?: T;
+              note?: T;
+              id?: T;
+              blockName?: T;
+            };
+        slateList?:
+          | T
+          | {
+              rows?:
+                | T
+                | {
+                    project?: T;
+                    title?: T;
+                    href?: T;
+                    logline?: T;
+                    provenance?: T;
+                    meta?: T;
+                    dev?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        footnote?:
+          | T
+          | {
+              body?: T;
+              id?: T;
+              blockName?: T;
+            };
+        request?:
+          | T
+          | {
+              scene?: T;
+              sceneSlug?: T;
+              heading?: T;
+              body?: T;
+              linkHref?: T;
+              linkLabel?: T;
+              id?: T;
+              blockName?: T;
+            };
+        ledger?:
+          | T
+          | {
+              ariaLabel?: T;
+              rows?:
+                | T
+                | {
+                    term?: T;
+                    definition?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        archival?:
+          | T
+          | {
+              image?: T;
+              caption?: T;
+              credit?: T;
+              id?: T;
+              blockName?: T;
+            };
+        divisionStrip?:
+          | T
+          | {
+              divisions?:
+                | T
+                | {
+                    name?: T;
+                    blurb?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        moodGrid?:
+          | T
+          | {
+              ariaLabel?: T;
+              scene?: T;
+              sceneSlug?: T;
+              heading?: T;
+              slideshow?: T;
+              items?:
+                | T
+                | {
+                    image?: T;
+                    caption?: T;
+                    credit?: T;
+                    wide?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "v9-contact_select".
+ */
+export interface V9ContactSelect<T extends boolean = true> {
+  seoTitle?: T;
+  seoDescription?: T;
+  sections?:
+    | T
+    | {
+        photoFold?:
+          | T
+          | {
+              image?: T;
+              kicker?: T;
+              heading?: T;
+              caption?: T;
+              credit?: T;
+              vh100?: T;
+              eager?: T;
+              id?: T;
+              blockName?: T;
+            };
+        routeLine?:
+          | T
+          | {
+              links?:
+                | T
+                | {
+                    href?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        textFold?:
+          | T
+          | {
+              scene?: T;
+              sceneSlug?: T;
+              heading?: T;
+              lede?: T;
+              body?: T;
+              quote?: T;
+              cite?: T;
+              moreHref?: T;
+              moreLabel?: T;
+              linkHref?: T;
+              linkLabel?: T;
+              ariaLabel?: T;
+              tight?: T;
+              asH1?: T;
+              id?: T;
+              blockName?: T;
+            };
+        quoteFeature?:
+          | T
+          | {
+              quote?: T;
+              cite?: T;
+              note?: T;
+              id?: T;
+              blockName?: T;
+            };
+        slateList?:
+          | T
+          | {
+              rows?:
+                | T
+                | {
+                    project?: T;
+                    title?: T;
+                    href?: T;
+                    logline?: T;
+                    provenance?: T;
+                    meta?: T;
+                    dev?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        footnote?:
+          | T
+          | {
+              body?: T;
+              id?: T;
+              blockName?: T;
+            };
+        request?:
+          | T
+          | {
+              scene?: T;
+              sceneSlug?: T;
+              heading?: T;
+              body?: T;
+              linkHref?: T;
+              linkLabel?: T;
+              id?: T;
+              blockName?: T;
+            };
+        ledger?:
+          | T
+          | {
+              ariaLabel?: T;
+              rows?:
+                | T
+                | {
+                    term?: T;
+                    definition?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        archival?:
+          | T
+          | {
+              image?: T;
+              caption?: T;
+              credit?: T;
+              id?: T;
+              blockName?: T;
+            };
+        divisionStrip?:
+          | T
+          | {
+              divisions?:
+                | T
+                | {
+                    name?: T;
+                    blurb?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        moodGrid?:
+          | T
+          | {
+              ariaLabel?: T;
+              scene?: T;
+              sceneSlug?: T;
+              heading?: T;
+              slideshow?: T;
+              items?:
+                | T
+                | {
+                    image?: T;
+                    caption?: T;
+                    credit?: T;
+                    wide?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };

@@ -23,6 +23,7 @@ import { Division212 } from './globals/Division212'
 import { Division310 } from './globals/Division310'
 import { DivisionNRC } from './globals/DivisionNRC'
 import { TroupePage } from './globals/TroupePage'
+import { V9Home, V9Slate, V9Craft, V9Methods, V9Contact } from './globals/v9Pages'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -73,7 +74,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Project, NewsArticle, DispatchIssue],
-  globals: [Home, SiteSettings, FooterLinks, About, Contact, Jobs, Pitch, Investors, Division212, Division310, DivisionNRC, TroupePage],
+  globals: [Home, SiteSettings, FooterLinks, About, Contact, Jobs, Pitch, Investors, Division212, Division310, DivisionNRC, TroupePage, V9Home, V9Slate, V9Craft, V9Methods, V9Contact],
   editor: aprLexicalEditor,
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

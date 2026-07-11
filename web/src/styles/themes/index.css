@@ -16,11 +16,11 @@
    here so dead rules never ship in the build — only the two live
    theme files load below.
    ============================================================ */
-@import './screening-room.css';
-@import './cutting-room.css';
-/* mission-control (Direction F) — the white-ground x.ai-discipline theme,
-   built out by Opus 2026-07-07 as a third LIVE picker slate. */
-@import './mission-control.css';
+/* V9 slate (2026-07-10): premiere-night (default) + matinee + late-show. */
+@import './premiere-night.css';
+@import './matinee.css';
+@import './late-show.css';
 
 /* Dormant on disk, intentionally not imported (retired — see above):
+   ./screening-room.css · ./cutting-room.css · ./mission-control.css ·
    ./photoplay.css · ./trade-paper.css · ./picture-palace.css */

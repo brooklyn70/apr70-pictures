@@ -22,11 +22,16 @@
  */
 
 export type DesignSlug =
+  | 'premiere-night'
+  | 'matinee'
+  | 'late-show'
+  /* dormant — retired from the picker, css/motion kept on disk; never a live
+     selection, always coerced to the default if stored. v9 (2026-07-10):
+     screening-room / cutting-room / mission-control join the dormant list —
+     the v9 slate is premiere-night (default) + matinee + late-show. */
   | 'screening-room'
   | 'cutting-room'
   | 'mission-control'
-  /* dormant — retired from the picker, css/motion kept on disk; never a live
-     selection, always coerced to screening-room if stored. */
   | 'photoplay'
   | 'trade-paper'
   | 'picture-palace'
@@ -45,43 +50,42 @@ export interface DesignManifest {
   recommendedFor?: Array<'212' | '310' | 'nrc'>
 }
 
-/** LIVE picker slate — visitor-selectable themes. Two ink-on-black house themes
- *  (screening-room default, cutting-room) + mission-control, the white-ground
- *  x.ai-discipline direction (Direction F, built out Opus 2026-07-07). */
+/** LIVE picker slate — visitor-selectable themes. The v9 house bill:
+ *  premiere-night (default, movie-palace velvet), matinee (daylight aged
+ *  paper), late-show (neon noir). Names are mirrored in Payload
+ *  site-settings.v9Chrome; the manifest strings are the fallback. */
 export const DESIGNS: DesignManifest[] = [
   {
-    slug: 'screening-room',
-    name: 'Screening Room',
-    blurb: 'Dark poster modernism. Futura Heavy at reel scale, orange leader, sprocket chrome. House lights down.',
+    slug: 'premiere-night',
+    name: 'Premiere Night',
+    blurb: 'Movie-palace velvet. Oxblood ground, antique gold, Fraunces at marquee scale. House lights down.',
     base: 'dark',
-    swatch: ['#000000', '#E85D04', '#ffffff'],
+    swatch: ['#160a0d', '#c9a227', '#f6ead8'],
   },
   {
-    slug: 'cutting-room',
-    name: 'Cutting Room',
-    blurb: 'The bench. Timecode gutters, frame counters, Futura specimen blocks. Black and white, hard cuts only.',
-    base: 'dark',
-    swatch: ['#0a0a0a', '#f4f4f2', '#E85D04'],
-    recommendedFor: ['nrc'],
-  },
-  {
-    slug: 'mission-control',
-    name: 'Mission Control',
-    blurb: 'White ground, near-black ink. Calm Futura, rounded panels, hairline grids, one warm accent held in reserve.',
+    slug: 'matinee',
+    name: 'Matinee',
+    blurb: 'The daylight theme. Aged-paper cream, near-black ink, a red pencil, and a typed shooting script.',
     base: 'light',
-    swatch: ['#ffffff', '#0a0a0a', '#E85D04'],
-    recommendedFor: ['310'],
+    swatch: ['#f4ecdd', '#191512', '#b03a2e'],
+  },
+  {
+    slug: 'late-show',
+    name: 'Late Show',
+    blurb: 'Neon noir. Blue-black ground, electric cyan and magenta, timecode labels, faint scanlines.',
+    base: 'dark',
+    swatch: ['#05070f', '#38e1ff', '#ff3d9e'],
   },
 ]
 
-export const DEFAULT_DESIGN: DesignSlug = 'screening-room'
+export const DEFAULT_DESIGN: DesignSlug = 'premiere-night'
 
 /** Sensible per-division skin for the dev theme-studio preview surface only.
  *  Restricted to LIVE themes after the cull. */
 export const DIVISION_DEFAULT_DESIGN: Record<'212' | '310' | 'nrc', DesignSlug> = {
-  '212': 'screening-room',
-  '310': 'screening-room',
-  nrc: 'cutting-room',
+  '212': 'premiere-night',
+  '310': 'matinee',
+  nrc: 'late-show',
 }
 
 const SLUGS = new Set(DESIGNS.map((d) => d.slug))

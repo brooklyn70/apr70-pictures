@@ -1,0 +1,173 @@
+/* ============================================================
+   V9 T2 · MATINEE — the daylight theme. Warm aged-paper cream,
+   near-black ink, Fraunces display over Newsreader text, an
+   editorial red pencil, Courier Prime slugs set like a typed
+   shooting script, ruled lines and generous margins.
+   Dark mode = "the print vault": ink ground, paper-cream type,
+   the pencil brightens.
+   Scoped under [data-design='matinee'].
+   ============================================================ */
+
+html[data-design='matinee'] {
+  --accent: #a02c20; /* red pencil — AA on cream */
+  --mt-pencil: #b03a2e;
+}
+
+html[data-design='matinee'],
+html[data-design='matinee'][data-font] {
+  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-mono: 'Courier Prime', 'Courier New', ui-monospace, monospace;
+}
+html[data-design='matinee'][data-accent] { --accent: #a02c20; }
+
+/* ---- LIGHT (default): the reading copy ---- */
+[data-design='matinee'][data-theme='light'] {
+  --bg-0: #f4ecdd;
+  --bg-1: #efe6d3;
+  --bg-2: #e8dcc4;
+  --bg-3: #ddceb2;
+  --fg-1: #191512;
+  --fg-2: rgba(25, 21, 18, 0.85);
+  --fg-3: rgba(25, 21, 18, 0.64);
+  --fg-4: rgba(25, 21, 18, 0.45);
+  --fg-5: rgba(25, 21, 18, 0.3);
+  --fg-6: rgba(25, 21, 18, 0.13);
+  --rule: rgba(25, 21, 18, 0.18);
+  --rule-strong: rgba(25, 21, 18, 0.42);
+  --muted: #6d6255;
+  --cursor-color: rgba(25, 21, 18, 0.85);
+}
+[data-design='matinee'][data-theme='light'] body {
+  background: var(--bg-0);
+  color: var(--fg-1);
+}
+
+/* ---- DARK ("the print vault") ---- */
+[data-design='matinee'][data-theme='dark'] {
+  --accent: #e2604f;
+  --bg-0: #171310;
+  --bg-1: #1e1915;
+  --bg-2: #26201a;
+  --bg-3: #322a21;
+  --fg-1: #f0e7d6;
+  --fg-2: rgba(240, 231, 214, 0.84);
+  --fg-3: rgba(240, 231, 214, 0.62);
+  --fg-4: rgba(240, 231, 214, 0.42);
+  --fg-5: rgba(240, 231, 214, 0.27);
+  --fg-6: rgba(240, 231, 214, 0.12);
+  --rule: rgba(240, 231, 214, 0.16);
+  --rule-strong: rgba(240, 231, 214, 0.38);
+  --muted: #9c8f7c;
+  --cursor-color: rgba(240, 231, 214, 0.9);
+}
+html[data-design='matinee'][data-theme='dark'][data-accent] { --accent: #e2604f; }
+[data-design='matinee'][data-theme='dark'] body {
+  background: var(--bg-0);
+  color: var(--fg-1);
+}
+
+/* ---- Paper grain (subtle, chrome ground only, never on photos) ---- */
+[data-design='matinee'][data-theme='light'] .v9 {
+  background:
+    radial-gradient(140% 90% at 50% -10%, rgba(255, 252, 244, 0.75) 0%, rgba(255, 252, 244, 0) 55%),
+    var(--bg-0);
+}
+
+/* ---- Display voice: upright Fraunces, editorial, generous margins ---- */
+[data-design='matinee'] .v9 {
+  --v9-display-weight: 620;
+  --v9-display-tracking: -0.02em;
+  --v9-measure: 62ch;
+  --v9-fold-gap: clamp(4rem, 10vw, 9.5rem);
+}
+[data-design='matinee'] .v9 .v9-textfold__heading,
+[data-design='matinee'] .v9 .v9-photofold__heading,
+[data-design='matinee'] .v9 .v9-prophead__title {
+  font-variation-settings: 'SOFT' 0, 'WONK' 0;
+}
+
+/* ---- Typed shooting-script furniture ---- */
+[data-design='matinee'] .v9-scene {
+  border-bottom: 1px solid var(--rule-strong);
+  border-top: 3px double var(--rule-strong);
+  padding-top: 0.55rem;
+}
+[data-design='matinee'] .v9-scene__num {
+  color: var(--fg-1);
+  font-weight: 700;
+}
+[data-design='matinee'] .v9-scene__slug {
+  color: var(--fg-2);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+[data-design='matinee'] .v9-capline,
+[data-design='matinee'] .v9-slaterow__meta,
+[data-design='matinee'] .v9-prophead__meta {
+  font-weight: 400;
+}
+
+/* Ruled lines: the whole page reads as a marked-up manuscript. */
+[data-design='matinee'] .v9-divider {
+  height: 5px;
+  border-top: 1px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule-strong);
+}
+[data-design='matinee'] .v9-routeline { border-block: 1px solid var(--rule-strong); }
+
+/* ---- Red-pencil accents ---- */
+[data-design='matinee'] .v9-hl {
+  color: inherit;
+  background: linear-gradient(
+    to top,
+    transparent 8%,
+    color-mix(in srgb, var(--mt-pencil) 30%, transparent) 8%,
+    color-mix(in srgb, var(--mt-pencil) 30%, transparent) 46%,
+    transparent 46%
+  );
+  padding-inline: 0.08em;
+}
+[data-design='matinee'] .v9-pull {
+  border-left: 3px solid var(--accent);
+}
+[data-design='matinee'] .v9-more {
+  color: var(--accent);
+  border-bottom: 1.5px solid var(--accent);
+}
+
+/* ---- Buttons: a rubber stamp in red pencil ---- */
+[data-design='matinee'] .v9-btn {
+  background: var(--accent);
+  border: 1.5px solid var(--accent);
+  color: var(--bg-0);
+  border-radius: 0;
+  font-weight: 700;
+}
+[data-design='matinee'] .v9-btn:hover {
+  background: transparent;
+  color: var(--accent);
+}
+[data-design='matinee'] .v9-btn--ghost {
+  background: transparent;
+  color: var(--fg-1);
+  border: 1.5px solid var(--rule-strong);
+  font-weight: 700;
+}
+[data-design='matinee'] .v9-btn--ghost:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ---- Panels stay flat paper; the ink does the work ---- */
+[data-design='matinee'] .v9-request {
+  border: 1.5px solid var(--fg-1);
+  box-shadow: 4px 4px 0 color-mix(in srgb, var(--fg-1) 22%, transparent);
+}
+[data-design='matinee'] .v9-division { background: var(--bg-1); }
+[data-design='matinee'] .v9-archival__frame {
+  border: 1px solid var(--rule-strong);
+  background: #14100d;
+}
+
+/* ---- Chrome ---- */
+[data-design='matinee'] .v9-header { border-bottom: 1.5px solid var(--rule-strong); }
+[data-design='matinee'] .v9-footer { border-top: 3px double var(--rule-strong); }
+[data-design='matinee'] ::selection { background: #a02c20; color: #f4ecdd; }

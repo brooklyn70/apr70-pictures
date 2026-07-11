@@ -110,7 +110,7 @@ const panelLabels = {
     <meta property="og:site_name" content={NAP.name} />
     <meta name="theme-color" content="#150a0d" />
     {jsonLdAll.map((block) => (
-      <script type="application/ld+json" set:html={JSON.stringify(block)} />
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(block)} />
     ))}
   </head>
   <body class="v9">

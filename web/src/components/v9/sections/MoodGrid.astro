@@ -8,7 +8,7 @@
 import type { V9Section } from '../../../lib/payload'
 import FilmstripSlideshow, { type FilmstripItem } from '../../islands/FilmstripSlideshow'
 import { renderInline } from '../../../lib/v9/inline'
-import { frameFromMedia, focalPosition } from '../media'
+import { frameFromMedia } from '../media'
 
 type MoodGridData = Extract<V9Section, { blockType: 'moodGrid' }>
 const section = Astro.props.section as MoodGridData

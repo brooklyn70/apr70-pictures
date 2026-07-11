@@ -75,6 +75,18 @@
   gap: clamp(0.75rem, 3vw, 2.5rem);
   padding-block: 0.7rem;
 }
+/* Mobile: brand on its own row, the five routes on a full-width second row —
+   nothing clips at 375. */
+@media (max-width: 719px) {
+  .v9-header__row { flex-wrap: wrap; row-gap: 0.15rem; }
+  .v9-nav {
+    margin-left: 0;
+    flex-basis: 100%;
+    justify-content: space-between;
+    gap: 0.6rem;
+  }
+  .v9-nav__link { letter-spacing: 0.14em; }
+}
 .v9-brand {
   display: inline-flex;
   align-items: center;
@@ -168,6 +180,10 @@
 
 .v9-section { margin-block: var(--v9-fold-gap); }
 .v9-section--tight { margin-block: calc(var(--v9-fold-gap) * 0.45); }
+
+/* The page's first fold sits against the header, not below a phantom gap. */
+.v9 main > .v9-photofold:first-child { margin-top: 0; }
+.v9 main > .v9-section:first-child { margin-top: calc(var(--v9-fold-gap) * 0.4); }
 
 /* ---- Scene margin (screenplay furniture over text folds) ---- */
 .v9-scene {

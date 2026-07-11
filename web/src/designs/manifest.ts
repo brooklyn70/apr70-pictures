@@ -22,13 +22,15 @@
  */
 
 export type DesignSlug =
+  | 'marquee'
+  /* dormant — retired from the picker; never a live selection, always coerced
+     to the default if stored. Marco's ruling 2026-07-11: the v9 trio
+     (premiere-night / matinee / late-show) is REJECTED and deleted from disk;
+     the site is ONE design again — 'marquee', the v8 look. The older slugs
+     stay in the TYPE union only so legacy references still typecheck. */
   | 'premiere-night'
   | 'matinee'
   | 'late-show'
-  /* dormant — retired from the picker, css/motion kept on disk; never a live
-     selection, always coerced to the default if stored. v9 (2026-07-10):
-     screening-room / cutting-room / mission-control join the dormant list —
-     the v9 slate is premiere-night (default) + matinee + late-show. */
   | 'screening-room'
   | 'cutting-room'
   | 'mission-control'
@@ -50,42 +52,28 @@ export interface DesignManifest {
   recommendedFor?: Array<'212' | '310' | 'nrc'>
 }
 
-/** LIVE picker slate — visitor-selectable themes. The v9 house bill:
- *  premiere-night (default, movie-palace velvet), matinee (daylight aged
- *  paper), late-show (neon noir). Names are mirrored in Payload
- *  site-settings.v9Chrome; the manifest strings are the fallback. */
+/** The ONE live design (Marco's v8 reversal, 2026-07-11): 'marquee' — the
+ *  v8 look ported onto the v9 IA. Light/dark/system is a MODE on <html>
+ *  data-theme, not a design; the Display panel drives it (localStorage
+ *  apr70-theme). Any legacy stored design slug coerces here. */
 export const DESIGNS: DesignManifest[] = [
   {
-    slug: 'premiere-night',
-    name: 'Premiere Night',
-    blurb: 'Movie-palace velvet. Oxblood ground, antique gold, Fraunces at marquee scale. House lights down.',
+    slug: 'marquee',
+    name: 'Marquee',
+    blurb: 'The v8 editorial look. Marquee Night dark, House Lights light, Fraunces and Newsreader on warm paper.',
     base: 'dark',
-    swatch: ['#160a0d', '#c9a227', '#f6ead8'],
-  },
-  {
-    slug: 'matinee',
-    name: 'Matinee',
-    blurb: 'The daylight theme. Aged-paper cream, near-black ink, a red pencil, and a typed shooting script.',
-    base: 'light',
-    swatch: ['#f4ecdd', '#191512', '#b03a2e'],
-  },
-  {
-    slug: 'late-show',
-    name: 'Late Show',
-    blurb: 'Neon noir. Blue-black ground, electric cyan and magenta, timecode labels, faint scanlines.',
-    base: 'dark',
-    swatch: ['#05070f', '#38e1ff', '#ff3d9e'],
+    swatch: ['#0b0604', '#e45b15', '#f5f1e9'],
   },
 ]
 
-export const DEFAULT_DESIGN: DesignSlug = 'premiere-night'
+export const DEFAULT_DESIGN: DesignSlug = 'marquee'
 
-/** Sensible per-division skin for the dev theme-studio preview surface only.
- *  Restricted to LIVE themes after the cull. */
+/** Per-division skin for the dev theme-studio preview surface only.
+ *  One design now — every division previews on it. */
 export const DIVISION_DEFAULT_DESIGN: Record<'212' | '310' | 'nrc', DesignSlug> = {
-  '212': 'premiere-night',
-  '310': 'matinee',
-  nrc: 'late-show',
+  '212': 'marquee',
+  '310': 'marquee',
+  nrc: 'marquee',
 }
 
 const SLUGS = new Set(DESIGNS.map((d) => d.slug))
@@ -209,8 +197,9 @@ export function resolveAccent(value: unknown): AccentChoice {
   return isAccentChoice(value) ? value : DEFAULT_ACCENT
 }
 
-/** Logo-size slider bounds (nav mark height in px). */
-export const LOGO_SIZE = { min: 24, max: 72, default: 34 } as const
+/** Logo-size slider bounds (nav mark height in px). Default matches v8's
+ *  larger brand (--logo-h: 3.4rem = 54px at the base type size). */
+export const LOGO_SIZE = { min: 24, max: 72, default: 54 } as const
 
 export function resolveLogoSize(value: unknown): number {
   const n = typeof value === 'string' ? parseInt(value, 10) : typeof value === 'number' ? value : NaN

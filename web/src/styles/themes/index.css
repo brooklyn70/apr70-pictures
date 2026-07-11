@@ -1,26 +1,14 @@
 /* ============================================================
-   apr70 — THEME DEPLOYMENTS (V4 theme slate)
-   Loaded globally by Layout.astro. Each theme is a full DESIGN,
-   scoped entirely under [data-design="<slug>"] so nothing leaks
-   across themes. Shared tokens live in tokens.css. Every theme
-   binds BOTH [data-theme="light"] and [data-theme="dark"].
+   apr70 — THEME DEPLOYMENT
+   Marco's ruling 2026-07-11: the three v9 themes (premiere-night /
+   matinee / late-show) are REJECTED and their files deleted. The
+   site is ONE design again — "marquee", the faithful port of the
+   v8 static site (Marquee Night dark / House Lights light / System
+   follow, switched by data-theme on <html>). See
+   ./marquee.css for the palette, laws, and component skin.
 
-   Rulings round 2 (Marco, 2026-07-06, SPEC §6b): the picker is
-   culled to two LIVE themes — screening-room (default) + cutting-
-   room. photoplay / trade-paper / picture-palace are RETIRED: no
-   `[data-design]` value can ever select them again (see
-   designs/manifest.ts — DESIGNS only lists the two live slugs, and
-   the pre-paint script + resolveDesign() fall any stored legacy
-   value back to screening-room). Their CSS stays on disk per
-   Marco's ruling (do not delete) but is deliberately UNIMPORTED
-   here so dead rules never ship in the build — only the two live
-   theme files load below.
-   ============================================================ */
-/* V9 slate (2026-07-10): premiere-night (default) + matinee + late-show. */
-@import './premiere-night.css';
-@import './matinee.css';
-@import './late-show.css';
-
-/* Dormant on disk, intentionally not imported (retired — see above):
+   Dormant on disk, intentionally not imported (retired earlier):
    ./screening-room.css · ./cutting-room.css · ./mission-control.css ·
-   ./photoplay.css · ./trade-paper.css · ./picture-palace.css */
+   ./photoplay.css · ./trade-paper.css · ./picture-palace.css
+   ============================================================ */
+@import './marquee.css';

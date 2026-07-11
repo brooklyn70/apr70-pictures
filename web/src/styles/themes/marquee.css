@@ -1,0 +1,569 @@
+/* ============================================================
+   MARQUEE — the one v9 design, a faithful port of the v8 site
+   (apr70-v8/site/css/tokens.css + site.css). Marco's ruling
+   2026-07-11: premiere-night / matinee / late-show are REJECTED;
+   the site looks like v8 again.
+
+   One visual design, three MODES on <html> data-theme:
+     (absent / anything else)  = System — follows prefers-color-scheme
+     data-theme="dark"         = Marquee Night (the v8 default)
+     data-theme="light"        = House Lights
+
+   v8 laws carried over verbatim:
+   - the OKLCH palette (Marquee Night / House Lights values)
+   - GRADIENT LAW: --scrim + on-photo inks are FIXED dark-cinema
+     values in BOTH themes. Photo chrome never goes white.
+   - Fraunces display (italic, light weights) · Newsreader text ·
+     Courier Prime mono
+   - type scale steps via html[data-scale] (s 87.5 / m 100 /
+     l 112.5 / xl 125), logo height via --logo-h
+   - film-grain veil, hairline rules, restrained editorial spacing
+   ============================================================ */
+
+/* ---------- Marquee Night (default dark) — v8 tokens verbatim ---------- */
+:root {
+  color-scheme: dark;
+
+  --color-paper:    oklch(13% 0.012 55);
+  --color-paper-2:  oklch(17% 0.014 55);
+  --color-paper-3:  oklch(21% 0.015 55);
+  --color-rule:     oklch(32% 0.014 55);
+  --color-neutral:  oklch(64% 0.012 60);
+  --color-muted:    oklch(76% 0.010 65);
+  --color-ink:      oklch(94% 0.010 75);
+  --color-accent:   oklch(64% 0.185 42);   /* flame, from brand #E85D04 */
+  --color-accent-dim: oklch(52% 0.15 42);
+  --color-focus:    oklch(72% 0.17 55);
+
+  /* photo chrome — CONSTANT across themes: a letterbox is black in any house */
+  --scrim:          oklch(13% 0.012 55);
+  --ink-on-photo:   oklch(94% 0.010 75);
+  --muted-on-photo: oklch(84% 0.009 70);
+
+  --grain-opacity: 0.05;
+
+  /* v8 type */
+  --font-display: 'Fraunces', 'Iowan Old Style', serif;
+  --font-body:    'Newsreader', 'Iowan Old Style', serif;
+  --font-mono:    'Courier Prime', 'Courier New', monospace;
+
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-md:   1.0625rem;
+  --text-lg:   1.3125rem;
+  --text-xl:   1.75rem;
+  --text-2xl:  2.375rem;
+  --text-display-s: clamp(2.25rem, 5.5vw, 3.75rem);
+  --text-display:   clamp(2.75rem, 7.5vw, 5.5rem);
+
+  /* space — 4pt scale */
+  --space-2xs: 0.25rem;
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1.25rem;
+  --space-lg:  2rem;
+  --space-xl:  3.25rem;
+  --space-2xl: 5rem;
+  --space-3xl: 8rem;
+
+  --measure: 62ch;
+
+  /* motion (v8 names; the v9 tokens keep theirs) */
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long:  420ms;
+
+  --rule-hairline: 1px solid var(--color-rule);
+
+  /* ---- bindings: the v9 skeleton token names, fed v8 values ---- */
+  --bg-0: var(--color-paper);
+  --bg-1: var(--color-paper-2);
+  --bg-2: var(--color-paper-3);
+  --bg-3: var(--color-paper-3);
+  --fg-1: var(--color-ink);
+  --fg-2: var(--color-muted);
+  --fg-3: var(--color-neutral);
+  --fg-4: color-mix(in oklch, var(--color-neutral) 72%, var(--color-paper));
+  --fg-5: color-mix(in oklch, var(--color-neutral) 48%, var(--color-paper));
+  --fg-6: color-mix(in oklch, var(--color-neutral) 24%, var(--color-paper));
+  --rule: var(--color-rule);
+  --rule-strong: var(--color-rule);
+  --accent: var(--color-accent);
+  --muted: var(--color-neutral);
+  --cursor-color: var(--color-ink);
+}
+
+/* ---------- type scale (Display panel · persisted) — v8 steps ---------- */
+html[data-scale='s']  { font-size: 87.5%; }
+html[data-scale='m']  { font-size: 100%; }
+html[data-scale='l']  { font-size: 112.5%; }
+html[data-scale='xl'] { font-size: 125%; }
+
+/* ---------- House Lights (light) — v8 tokens verbatim ----------
+   One override set, applied two ways: OS preference (when no manual
+   choice) and the explicit data-theme="light" from the Display panel.
+   NOTE: --scrim / --ink-on-photo / --muted-on-photo are deliberately
+   ABSENT — image overlays stay dark in both themes (gradient law). */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) {
+    color-scheme: light;
+    --color-paper:    oklch(96% 0.012 85);
+    --color-paper-2:  oklch(93% 0.014 85);
+    --color-paper-3:  oklch(89% 0.016 85);
+    --color-rule:     oklch(82% 0.015 80);
+    --color-neutral:  oklch(45% 0.014 60);
+    --color-muted:    oklch(36% 0.012 55);
+    --color-ink:      oklch(21% 0.020 55);
+    --color-accent:   oklch(52% 0.19 42);
+    --color-accent-dim: oklch(45% 0.16 42);
+    --color-focus:    oklch(48% 0.17 55);
+    --grain-opacity: 0.035;
+  }
+}
+:root[data-theme='light'] {
+  color-scheme: light;
+  --color-paper:    oklch(96% 0.012 85);
+  --color-paper-2:  oklch(93% 0.014 85);
+  --color-paper-3:  oklch(89% 0.016 85);
+  --color-rule:     oklch(82% 0.015 80);
+  --color-neutral:  oklch(45% 0.014 60);
+  --color-muted:    oklch(36% 0.012 55);
+  --color-ink:      oklch(21% 0.020 55);
+  --color-accent:   oklch(52% 0.19 42);
+  --color-accent-dim: oklch(45% 0.16 42);
+  --color-focus:    oklch(48% 0.17 55);
+  --grain-opacity: 0.035;
+}
+
+/* ---------- theme-scoped brand assets (v8 .only-dark/.only-light law,
+   applied to the v9 two-ink header mark). System mode = no data-theme
+   attribute, so the OS preference decides via the media query. ---------- */
+.v9 [data-mark-ink='light'] { display: block; }
+.v9 [data-mark-ink='dark'] { display: none; }
+:root[data-theme='light'] .v9 [data-mark-ink='light'] { display: none; }
+:root[data-theme='light'] .v9 [data-mark-ink='dark'] { display: block; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) .v9 [data-mark-ink='light'] { display: none; }
+  :root:not([data-theme='dark']) .v9 [data-mark-ink='dark'] { display: block; }
+}
+
+/* ---------- base voice ---------- */
+body {
+  cursor: auto; /* v8 has no crosshair signature */
+}
+.v9 {
+  /* v8 type scale mapped onto the v9 size tokens */
+  --v9-h1: var(--text-display);
+  --v9-h2: var(--text-display-s);
+  --v9-h3: var(--text-xl);
+  --v9-lede: clamp(1.3125rem, 2vw, 1.75rem);
+  --v9-body: var(--text-md);
+  --v9-quote: clamp(1.75rem, 3vw, 2.375rem);
+  --v9-meta: var(--text-xs);
+  --v9-micro: var(--text-xs);
+  --v9-measure: var(--measure);
+  --v9-display-weight: 380;
+  --v9-display-tracking: 0;
+
+  line-height: 1.62;
+  font-weight: 400;
+  transition: background-color var(--dur-short) cubic-bezier(0.16, 1, 0.3, 1),
+    color var(--dur-short) cubic-bezier(0.16, 1, 0.3, 1);
+}
+.v9 ::selection {
+  background: color-mix(in oklch, var(--color-accent) 30%, var(--color-paper));
+  color: var(--color-ink);
+}
+.v9 :focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+/* film-grain veil — the medium is a print, not a screen (v8) */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+
+/* the italic editorial display voice — every display heading, per v8 */
+.v9-textfold__heading,
+.v9-photofold__heading,
+.v9-prophead__title,
+.v9-request__heading,
+.v9-moodgrid__heading,
+.v9-slaterow__title,
+.v9-ring__title,
+.v9-quotefeature p,
+.v9-pull p {
+  font-style: italic;
+}
+
+/* ---------- header / nav — v8 nav-solid ---------- */
+.v9-header {
+  background: var(--color-paper);
+  backdrop-filter: none;
+  border-bottom: var(--rule-hairline);
+}
+.v9-nav__link {
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  color: var(--color-neutral);
+  transition: color var(--dur-micro) cubic-bezier(0.16, 1, 0.3, 1);
+}
+.v9-nav__link:hover { color: var(--color-accent); }
+.v9-nav__link[aria-current='page'] {
+  color: var(--color-ink);
+  border-bottom-color: var(--color-accent);
+  border-bottom-width: 1px;
+}
+.v9-brand__mark { transition: height var(--dur-short) cubic-bezier(0.16, 1, 0.3, 1); }
+
+/* ---------- photographic folds — GRADIENT LAW (v8 values) ----------
+   Bottom letterbox: 40% tall, --scrim at 88%. Top: 18% tall, 72%.
+   Fixed dark cinema values in BOTH themes. */
+.v9-scrim {
+  background:
+    linear-gradient(to bottom, color-mix(in oklch, var(--scrim) 72%, transparent), transparent)
+      top / 100% 18% no-repeat,
+    linear-gradient(to top, color-mix(in oklch, var(--scrim) 88%, transparent), transparent)
+      bottom / 100% 40% no-repeat;
+}
+.v9-photofold__frame { background: var(--scrim); }
+.v9-photofold__kicker {
+  letter-spacing: 0.14em;
+  color: var(--muted-on-photo);
+  text-shadow: 0 1px 4px var(--scrim);
+}
+.v9-photofold__heading {
+  font-weight: 340;
+  line-height: 1.02;
+  max-width: 12ch;
+  color: var(--ink-on-photo);
+  text-shadow: 0 1px 12px color-mix(in oklch, var(--scrim) 65%, transparent);
+}
+
+/* caption line — v8 .caption voice */
+.v9-capline {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-neutral);
+}
+.v9-capline__credit { color: var(--color-neutral); }
+.v9-hl { color: var(--color-accent); }
+
+/* ---------- scene margin — v8 .slug ---------- */
+.v9-scene {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.v9-scene__num {
+  font-size: var(--text-sm);
+  letter-spacing: 0.1em;
+  color: var(--color-accent);
+}
+.v9-scene__slug {
+  font-size: var(--text-sm);
+  letter-spacing: 0.1em;
+  color: var(--color-neutral);
+}
+
+/* ---------- text folds / prose ---------- */
+.v9-textfold__heading { line-height: 1.06; }
+.v9-textfold__lede {
+  line-height: 1.45;
+  color: var(--color-ink);
+}
+.v9-textfold__lede::first-letter { color: var(--color-accent); }
+.v9-prose { font-size: var(--text-lg); }
+.v9-prose p { color: var(--color-ink); }
+.v9-prose a {
+  color: inherit;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 1px;
+}
+.v9-prose a:hover { color: var(--color-accent); }
+.v9-prose a:active { color: var(--color-accent-dim); }
+.v9-prose strong { color: var(--color-ink); font-weight: 500; }
+
+/* the "more" route — v8 .prose a.more */
+.v9-more {
+  font-size: var(--text-sm);
+  letter-spacing: 0.08em;
+  color: var(--color-ink);
+  border-bottom: 1px solid var(--color-accent);
+  padding-bottom: 2px;
+}
+.v9-more:hover { color: var(--color-accent); }
+
+/* pull-quote voice — v8 .pull */
+.v9-pull {
+  border-left: 0;
+  padding-left: 0;
+  max-width: 26ch;
+}
+.v9-pull p {
+  font-weight: 350;
+  font-size: var(--text-xl);
+  line-height: 1.35;
+}
+.v9-pull cite {
+  letter-spacing: 0.1em;
+  color: var(--color-neutral);
+}
+
+/* ---------- quote feature (v8 pull voice, page scale) ---------- */
+.v9-quotefeature p {
+  font-weight: 350;
+  line-height: 1.35;
+}
+.v9-quotefeature cite {
+  letter-spacing: 0.1em;
+  color: var(--color-neutral);
+}
+.v9-quotefeature .v9-quotefeature__note { color: var(--color-neutral); }
+
+/* ---------- route line — v8 .route-line ---------- */
+.v9-routeline__link {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--color-neutral);
+}
+.v9-routeline__link:hover { color: var(--color-accent); transform: none; }
+.v9-routeline__index { color: var(--color-accent); }
+
+/* ---------- slate rows — v8 .slate-row ---------- */
+.v9-slaterow__link:hover { background: var(--color-paper-2); }
+.v9-slaterow__num::before {
+  color: var(--color-neutral);
+  letter-spacing: 0.08em;
+}
+.v9-slaterow__title {
+  font-weight: 420;
+  font-size: var(--text-2xl);
+  line-height: 1.1;
+}
+.v9-slaterow__link:hover .v9-slaterow__title { color: var(--color-accent); }
+.v9-slaterow__logline {
+  color: var(--color-muted);
+  font-size: var(--text-md);
+  max-width: 46ch;
+}
+.v9-slaterow__provenance {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: var(--text-xs);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-neutral);
+}
+.v9-slaterow__meta {
+  letter-spacing: 0.08em;
+  color: var(--color-neutral);
+}
+
+/* ---------- footnote ---------- */
+.v9-footnote {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  color: var(--color-neutral);
+  line-height: 1.7;
+  max-width: 72ch;
+}
+
+/* ---------- request block — v8 .request ---------- */
+.v9-request {
+  border: 0;
+  border-top: var(--rule-hairline);
+  padding: var(--space-2xl) 0 0;
+}
+.v9-request__heading { line-height: 1.06; }
+
+/* the request CTA — v8 .request-link (italic display, flame underline) */
+.v9 .v9-btn {
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid var(--color-accent);
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-xl);
+  font-weight: 380;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 0 0 3px;
+  transition: color var(--dur-micro) cubic-bezier(0.16, 1, 0.3, 1),
+    transform var(--dur-micro) cubic-bezier(0.16, 1, 0.3, 1);
+}
+.v9 .v9-btn:hover { background: transparent; color: var(--color-accent); }
+.v9 .v9-btn:active { transform: translateY(1px); }
+.v9 .v9-btn--ghost {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: var(--text-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--color-accent);
+  padding-bottom: 2px;
+}
+.v9 .v9-btn--ghost:hover { color: var(--color-accent); border-color: var(--color-accent); }
+
+/* ---------- ledger — v8 .ledger ---------- */
+.v9-ledger { border-top: var(--rule-hairline); }
+.v9-ledger dt {
+  font-size: var(--text-sm);
+  letter-spacing: 0.08em;
+  color: var(--color-neutral);
+}
+.v9-ledger dd { color: var(--color-muted); }
+.v9-ledger dd strong { color: var(--color-ink); font-weight: 500; }
+
+/* ---------- archival figure — v8 .archival ---------- */
+.v9-archival__frame {
+  background: transparent;
+  border: var(--rule-hairline);
+  padding: 0;
+}
+.v9-archival__frame img { filter: sepia(0.12) contrast(1.02); }
+
+/* ---------- division strip — v8 .division-strip ---------- */
+.v9-divisionstrip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-lg) var(--space-2xl);
+  align-items: baseline;
+  background: transparent;
+  border: 0;
+  border-top: var(--rule-hairline);
+  padding-top: var(--space-lg);
+}
+.v9-division {
+  background: transparent;
+  padding: 0;
+  max-width: 30ch;
+}
+.v9-division__name {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+.v9-division__blurb {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-neutral);
+  line-height: 1.7;
+}
+
+/* ---------- mood grid — v8 .mood-grid ---------- */
+.v9-frame__box {
+  background: var(--scrim);
+  border: var(--rule-hairline);
+}
+
+/* ---------- property head — v8 .prop-head ---------- */
+.v9-prophead__meta {
+  font-size: var(--text-sm);
+  letter-spacing: 0.1em;
+  color: var(--color-neutral);
+}
+.v9-prophead__title {
+  font-size: var(--text-display-s);
+  line-height: 1.06;
+}
+.v9-prophead__logline {
+  font-size: var(--text-lg);
+  line-height: 1.5;
+  color: var(--color-muted);
+  max-width: 52ch;
+}
+.v9-prophead__provenance {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: var(--text-xs);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-neutral);
+}
+
+/* ---------- prev / next ring ---------- */
+.v9-ring__link { background: var(--color-paper); }
+.v9-ring__link:hover { background: var(--color-paper-2); }
+.v9-ring__dir { color: var(--color-neutral); letter-spacing: 0.1em; }
+.v9-ring__return {
+  letter-spacing: 0.08em;
+  color: var(--color-neutral);
+  border-bottom: 1px solid var(--color-rule);
+}
+.v9-ring__return:hover { color: var(--color-accent); border-bottom-color: var(--color-accent); }
+
+/* ---------- footer — v8 .foot-dense ---------- */
+.v9-footer { border-top: var(--rule-hairline); }
+.v9-footer__nav a {
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  color: var(--color-neutral);
+  border-bottom: 1px solid var(--color-rule);
+  padding-bottom: 2px;
+}
+.v9-footer__nav a:hover { color: var(--color-accent); border-bottom-color: var(--color-accent); }
+.v9-footer__colophon {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.9;
+  letter-spacing: 0.03em;
+  color: var(--color-neutral);
+  max-width: 110ch;
+}
+.v9-footer__copy {
+  letter-spacing: 0.03em;
+  text-transform: none;
+  color: var(--color-muted);
+}
+
+/* ---------- contact regarding strip ---------- */
+.v9-regarding {
+  border: 0;
+  border-block: var(--rule-hairline);
+  color: var(--color-neutral);
+  letter-spacing: 0.08em;
+}
+
+/* ---------- scroll-top — skinned with v8 chrome ---------- */
+.v9-scrolltop {
+  border-radius: 0;
+  background: var(--color-paper-2);
+  border: var(--rule-hairline);
+  color: var(--color-neutral);
+  letter-spacing: 0.08em;
+}
+.v9-scrolltop:hover { color: var(--color-accent); border-color: var(--color-accent); }
+
+/* ---------- reveal motion — v8 ---------- */
+html.js .v9 .reveal {
+  opacity: 0;
+  transform: translateY(10px);
+}
+html.js .v9 .reveal.is-in {
+  animation: v8-reveal var(--dur-long) cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+@keyframes v8-reveal {
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js .v9 .reveal { opacity: 1; transform: none; animation: none; }
+}

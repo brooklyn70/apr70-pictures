@@ -1,431 +1,178 @@
 ---
 /**
- * /work/[slug] — property page, v2 structure in the v4 typographic idiom
- * (Marco's 2026-07-07 ruling: bring back the v2 property pages).
+ * /work/[slug] — the v9 property template (2026-07-10).
  *
  * Order on the page:
- *   masthead   — title + division + format line
- *   01 SYNOPSIS — new Project.synopsis field; falls back to the layout's
- *                 zineSynopsis block content, then the compiled-in v4 copy
- *   0n GALLERY  — PropertySlideshow (v2 StageFilmstrip spirit) fed by the new
- *                 Project.gallery field; typographic placeholder when empty
- *   0n MOOD BOARD — a gallery plate whose caption starts "MOOD BOARD"
- *                 renders as one wide collage image (skipped when absent)
- *   0n PITCH DECK — reserved, designed slot on EVERY property page:
- *                 by-request card, or a linked file when status=available
- *   …then the project's remaining Payload layout blocks render unchanged
- *   (the promoted zineSynopsis block is the only one lifted out).
+ *   hero photo-fold  — heroImage + heroCaption/heroCredit (skips when pending)
+ *   property head    — metaLine · title · logline · provenance · bodyProse
+ *   quote feature    — pageQuote {quote, cite, note}
+ *   gallery          — FilmstripSlideshow island (plain grid without JS)
+ *   request          — requestBody + mailto CTA (v9Chrome.cta) + /contact?re=<slug>
+ *   prev/next ring   — slateOrder order, wrap-around 9 -> 1, + slateReturn
+ *
+ * GEO: CreativeWork JSON-LD typed Movie/TVSeries from the metaLine, plus
+ * BreadcrumbList. Non-public slugs bounce to /slate.
  */
-import Layout from '../../layouts/Layout.astro'
-import BlockRenderer from '../../components/blocks/BlockRenderer.astro'
-import PropertySlideshow, { type SlideshowItem } from '../../components/PropertySlideshow.astro'
-import { fetchProject, resolveMediaUrl } from '../../lib/payload'
-import type { Media } from 'payload-types'
-import { V4_PROPERTY_BY_SLUG, toParagraphs, type ZineSynopsisData } from '../../content/v4'
+import V9Layout from '../../layouts/V9Layout.astro'
+import FilmstripSlideshow, { type FilmstripItem } from '../../components/islands/FilmstripSlideshow'
+import { fetchV9Project, fetchV9SlateProjects, fetchV9Chrome } from '../../lib/payload'
+import { renderInline, renderParagraphs, plainText } from '../../lib/v9/inline'
+import { frameFromMedia, focalPosition } from '../../components/v9/media'
+import { propertyJsonLd, breadcrumbJsonLd, NAP } from '../../lib/v9/site'
 
 const { slug } = Astro.params
-if (!slug) return Astro.redirect('/work')
+if (!slug) return Astro.redirect('/slate')
 
-const { project, error } = await fetchProject(slug)
-const fallback = V4_PROPERTY_BY_SLUG[slug]
+const [{ project }, { slate }, { chrome }] = await Promise.all([
+  fetchV9Project(slug),
+  fetchV9SlateProjects(),
+  fetchV9Chrome(),
+])
 
-if (!project && !fallback) {
-  if (!error) return Astro.redirect('/work')
-}
+if (!project || !project.publicSlate) return Astro.redirect('/slate')
 
-// ── Layout blocks: promote the first zineSynopsis into the synopsis section ──
-const dbBlocks = project?.layout ?? []
-const zineIdx = dbBlocks.findIndex(
-  (b) => (b as { blockType?: string }).blockType === 'zineSynopsis',
-)
-const zine = zineIdx >= 0 ? (dbBlocks[zineIdx] as ZineSynopsisData) : null
-const hasZine = zineIdx >= 0
+const title = project.title
+const description = plainText(project.logline) || `${title} · ${NAP.name}`
 
-/* Remaining blocks keep rendering below (additive redesign, not deletion).
-   Pre-v4 DB layouts stay suppressed when the v4 bundle covers the slug —
-   same behavior this page had before the rework. */
-const blocks = hasZine
-  ? dbBlocks.filter((_, i) => i !== zineIdx)
-  : fallback
-    ? []
-    : dbBlocks
+// ── Hero fold ────────────────────────────────────────────────────────────────
+const hero = frameFromMedia(project.heroImage)
 
-// ── Masthead: title + division + format line ─────────────────────────────────
-const title = hasZine
-  ? (project?.title ?? 'Project')
-  : (fallback?.title ?? project?.title ?? 'Project')
-
-const divisionLabel: Record<string, string> = {
-  '212': '(212) Pictures',
-  '310': '(310) Pictures',
-  nrc: 'New Renaissance Cinema',
-  corporate: 'Corporate',
-}
-const division = project?.division ?? fallback?.division ?? null
-const formatLine = fallback?.subtitle ?? project?.subtitle ?? null
-const kicker =
-  division || formatLine
-    ? [division ? (divisionLabel[division] ?? division) : null, formatLine]
-        .filter(Boolean)
-        .join(' · ')
-    : (zine?.kicker ?? fallback?.synopsis.kicker ?? null)
-
-// ── Synopsis: Project.synopsis > zineSynopsis block > v4 static copy ─────────
-const synopsisSource = zine ?? fallback?.synopsis ?? null
-const synopsisBody = project?.synopsis || synopsisSource?.body || null
-const paragraphs = toParagraphs(synopsisBody)
-const logline = project?.synopsis ? null : (synopsisSource?.logline ?? null)
-const synopsisNote = synopsisSource?.note ?? null
-const workingDraft = synopsisSource?.workingDraft ?? true
-
-// ── Gallery: slideshow plates + optional MOOD BOARD plate ────────────────────
-const MOOD_RE = /^\s*MOOD BOARD\s*(?:[—–:·-]\s*)?/i
-
-type ResolvedPlate = SlideshowItem & { isMood: boolean }
-const plates: ResolvedPlate[] = (project?.gallery ?? []).flatMap((item) => {
-  const mediaSrc =
-    item.image && typeof item.image === 'object' ? resolveMediaUrl(item.image as Media) : undefined
-  const src = mediaSrc ?? (item.imageUrl || undefined)
-  if (!src) return []
-  const caption = item.caption ?? ''
-  const isMood = MOOD_RE.test(caption)
+// ── Gallery ──────────────────────────────────────────────────────────────────
+const galleryItems: FilmstripItem[] = (project.gallery ?? []).flatMap((item) => {
+  const frame = frameFromMedia(item.image)
+  if (!frame) return []
   return [
     {
-      src,
-      alt:
-        (item.image && typeof item.image === 'object' ? (item.image as Media).alt : null) ||
-        caption ||
-        `${title} — gallery plate`,
-      caption: isMood ? caption.replace(MOOD_RE, '') : caption,
-      credit: item.credit ?? '',
-      isMood,
+      src: frame.src,
+      alt: frame.alt || item.caption || `${title} development frame`,
+      caption: item.caption ?? null,
+      captionHtml: item.caption ? renderInline(item.caption) : null,
+      credit: item.credit ?? null,
+      wide: (item as { wide?: boolean | null }).wide ?? false,
+      focalX: frame.focalX,
+      focalY: frame.focalY,
     },
   ]
 })
-const moodBoard = plates.find((p) => p.isMood) ?? null
-const slides: SlideshowItem[] = plates.filter((p) => !p.isMood)
 
-// ── Pitch deck: the slot exists on EVERY property page ───────────────────────
-const pitchDeck = project?.pitchDeck ?? null
-const deckFileUrl =
-  pitchDeck?.file && typeof pitchDeck.file === 'object'
-    ? resolveMediaUrl(pitchDeck.file as Media)
-    : undefined
-const deckAvailable = pitchDeck?.status === 'available' && Boolean(deckFileUrl)
-const deckNote =
-  pitchDeck?.note ||
-  (deckAvailable
-    ? 'The current deck, as presented.'
-    : 'The deck is presented in the room. Serious inquiries through the contact desk.')
+// ── Request ──────────────────────────────────────────────────────────────────
+const ctaLabel = chrome.cta || 'Request materials'
+const mailto = `mailto:${NAP.email}?subject=${encodeURIComponent(`APR 70 materials request · ${title}`)}`
+const requestHtml = renderParagraphs(project.requestBody)
 
-// ── Section numbering (numbered eyebrows, house idiom) ───────────────────────
-const sectionKeys: string[] = []
-if (paragraphs.length || logline) sectionKeys.push('synopsis')
-sectionKeys.push('gallery')
-if (moodBoard) sectionKeys.push('mood')
-sectionKeys.push('deck')
-const num = (key: string) => String(sectionKeys.indexOf(key) + 1).padStart(2, '0')
+// ── Prev / next ring (slateOrder order, wrap-around) ─────────────────────────
+const idx = slate.findIndex((p) => p.slug === slug)
+const ring = slate.length > 1 && idx >= 0
+const prev = ring ? slate[(idx - 1 + slate.length) % slate.length] : null
+const next = ring ? slate[(idx + 1) % slate.length] : null
+
+// ── Quote ────────────────────────────────────────────────────────────────────
+const quote = project.pageQuote?.quote ?? null
+const quoteCite = project.pageQuote?.cite ?? null
+const quoteNote = project.pageQuote?.note ?? null
+
+const bodyHtml = renderParagraphs(project.bodyProse)
+
+const jsonLd = [propertyJsonLd(project), breadcrumbJsonLd(project)]
 ---
 
-<Layout title={title}>
-  <main class="property">
-    <div class="container">
-      <header class="property__masthead">
-        {kicker && <p class="property__kicker">{kicker}</p>}
-        <h1 class="property__title">{title}</h1>
-        {workingDraft && <span class="property__draft">working draft</span>}
-      </header>
-
-      {
-        (paragraphs.length > 0 || logline) && (
-          <section class="property__section" aria-label="Synopsis">
-            <div class="property__eyebrow">
-              <span class="property__eyebrow-num">{num('synopsis')}</span>
-              <span class="property__eyebrow-label">Synopsis</span>
-            </div>
-            {logline && <p class="property__logline">{logline}</p>}
-            <div class="property__body">
-              {paragraphs.map((p) => (
-                <p>{p}</p>
-              ))}
-            </div>
-            {synopsisNote && <p class="property__note">{synopsisNote}</p>}
-          </section>
-        )
-      }
-
-      <section class="property__section" aria-label="Gallery">
-        <div class="property__eyebrow">
-          <span class="property__eyebrow-num">{num('gallery')}</span>
-          <span class="property__eyebrow-label">Gallery</span>
-          {
-            slides.length > 0 && (
-              <span class="property__eyebrow-key">{String(slides.length).padStart(2, '0')} plates</span>
-            )
-          }
+<V9Layout title={`${title} · ${NAP.name}`} description={description} jsonLd={jsonLd}>
+  {
+    hero && (
+      <section class="v9-photofold" aria-label={`${title} hero`}>
+        <div class="v9-photofold__frame">
+          <img
+            src={hero.src}
+            alt={hero.alt}
+            loading="eager"
+            decoding="sync"
+            style={`object-position: ${focalPosition(hero)}`}
+          />
+          <div class="v9-scrim" aria-hidden="true" />
         </div>
-        <PropertySlideshow items={slides} title={title} />
+        {(project.heroCaption || project.heroCredit) && (
+          <div class="v9-col">
+            <span class="v9-capline">
+              {project.heroCaption && <span set:html={renderInline(project.heroCaption)} />}
+              {project.heroCredit && <span class="v9-capline__credit">{project.heroCredit}</span>}
+            </span>
+          </div>
+        )}
       </section>
+    )
+  }
 
-      {
-        moodBoard && (
-          <section class="property__section" aria-label="Mood board">
-            <div class="property__eyebrow">
-              <span class="property__eyebrow-num">{num('mood')}</span>
-              <span class="property__eyebrow-label">Mood board</span>
-            </div>
-            <figure class="property__mood">
-              <img src={moodBoard.src} alt={moodBoard.alt} loading="lazy" decoding="async" />
-              <figcaption class="property__mood-caption">
-                {moodBoard.caption && <span class="property__mood-title">{moodBoard.caption}</span>}
-                {moodBoard.credit && <span class="property__mood-credit">{moodBoard.credit}</span>}
-              </figcaption>
-            </figure>
-          </section>
-        )
-      }
+  <header class="v9-col v9-prophead">
+    {project.metaLine && <p class="v9-prophead__meta" set:html={renderInline(project.metaLine)} />}
+    <h1 class="v9-prophead__title">{title}</h1>
+    {project.logline && <p class="v9-prophead__logline" set:html={renderInline(project.logline)} />}
+    {
+      project.provenance && (
+        <p class="v9-prophead__provenance" set:html={renderInline(project.provenance)} />
+      )
+    }
+    {bodyHtml && <div class="v9-prose" set:html={bodyHtml} />}
+  </header>
 
-      <section class="property__section" aria-label="Pitch deck">
-        <div class="property__eyebrow">
-          <span class="property__eyebrow-num">{num('deck')}</span>
-          <span class="property__eyebrow-label">Pitch deck</span>
-        </div>
-        <div class="property__deck" data-status={deckAvailable ? 'available' : 'reserved'}>
-          <p class="property__deck-key">
-            {deckAvailable ? 'On file · Current issue' : `Slot reserved · ${title}`}
-          </p>
-          <p class="property__deck-head">
-            Pitch deck<span class="property__deck-status"> — {deckAvailable ? 'On file' : 'By request'}</span>
-          </p>
-          <p class="property__deck-note">{deckNote}</p>
-          {
-            deckAvailable ? (
-              <a class="btn-ghost property__deck-cta" href={deckFileUrl} target="_blank" rel="noopener">
-                Open the deck
-              </a>
-            ) : (
-              <a class="link-cta property__deck-cta" href="/contact">
-                Request the deck
-              </a>
-            )
-          }
+  {
+    quote && (
+      <section class="v9-section v9-quotefeature" aria-label={quoteCite ? `Quotation from ${quoteCite}` : 'Quotation'}>
+        <div class="v9-col">
+          <blockquote>
+            <p>{quote}</p>
+            {quoteCite && <cite>{quoteCite}</cite>}
+          </blockquote>
+          {quoteNote && <span class="v9-quotefeature__note">{quoteNote}</span>}
         </div>
       </section>
+    )
+  }
+
+  {
+    galleryItems.length > 0 && (
+      <section class="v9-section" aria-label={`Development frames · ${title}`}>
+        <div class="v9-col">
+          <div class="v9-scene">
+            <span class="v9-scene__slug">The world of the picture</span>
+          </div>
+          <FilmstripSlideshow client:visible items={galleryItems} label={`Development frames · ${title}`} />
+        </div>
+      </section>
+    )
+  }
+
+  <section class="v9-section" aria-label={`Request materials · ${title}`}>
+    <div class="v9-col">
+      <div class="v9-request">
+        <h2 class="v9-request__heading">Read the pages.</h2>
+        {requestHtml && <div class="v9-prose" set:html={requestHtml} />}
+        <p class="v9-prose">
+          <a class="v9-btn" href={mailto}>{ctaLabel}</a>
+        </p>
+        <a class="v9-ring__return" href={`/contact?re=${encodeURIComponent(slug)}`}>
+          Or go through the contact desk
+        </a>
+      </div>
     </div>
+  </section>
 
-    {blocks.length > 0 && <BlockRenderer blocks={blocks} />}
-  </main>
-</Layout>
-
-<style>
-  .property {
-    padding: clamp(2.5rem, 6vw, 5rem) 0 clamp(2rem, 5vw, 4rem);
+  {
+    ring && prev && next && (
+      <footer class="v9-section v9-section--tight" aria-label="More of the slate">
+        <div class="v9-col">
+          <nav class="v9-ring" aria-label="Slate navigation">
+            <a class="v9-ring__link" href={`/work/${prev.slug}`} rel="prev">
+              <span class="v9-ring__dir">{chrome.prevLabel}</span>
+              <span class="v9-ring__title">{prev.title}</span>
+            </a>
+            <a class="v9-ring__link v9-ring__link--next" href={`/work/${next.slug}`} rel="next">
+              <span class="v9-ring__dir">{chrome.nextLabel}</span>
+              <span class="v9-ring__title">{next.title}</span>
+            </a>
+          </nav>
+          <a class="v9-ring__return" href="/slate">{chrome.slateReturn}</a>
+        </div>
+      </footer>
+    )
   }
-
-  .property .container {
-    max-width: min(var(--max-content), 100%);
-  }
-
-  /* ---------- Masthead ---------- */
-  .property__masthead {
-    border-bottom: 1px solid var(--rule-strong);
-    padding-bottom: clamp(1rem, 2.5vw, 1.75rem);
-    margin-bottom: clamp(1.5rem, 3.5vw, 2.5rem);
-  }
-
-  .property__kicker {
-    font-family: var(--font-mono);
-    font-size: var(--type-micro);
-    letter-spacing: var(--track-eyebrow);
-    text-transform: uppercase;
-    color: var(--accent);
-    margin: 0 0 var(--s-3);
-  }
-
-  .property__title {
-    font-size: clamp(2.25rem, 8vw, 6rem);
-    line-height: var(--leading-crush);
-    margin: 0;
-    color: var(--fg-1);
-    text-wrap: balance;
-  }
-
-  .property__draft {
-    display: inline-block;
-    margin-top: var(--s-4);
-    font-family: var(--font-body);
-    font-variant: small-caps;
-    font-weight: 400;
-    font-size: var(--type-caption);
-    letter-spacing: var(--track-wider);
-    color: var(--fg-3);
-    border: 1px solid var(--rule-strong);
-    padding: 0.1em 0.7em 0.2em;
-  }
-
-  /* ---------- Numbered section eyebrows ---------- */
-  .property__section {
-    margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
-  }
-
-  .property__eyebrow {
-    display: flex;
-    align-items: baseline;
-    gap: var(--s-4);
-    border-bottom: 1px solid var(--rule);
-    padding-bottom: var(--s-3);
-    margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
-  }
-
-  .property__eyebrow-num {
-    font-family: var(--font-mono);
-    font-size: var(--type-micro);
-    letter-spacing: var(--track-wider);
-    color: var(--accent);
-  }
-
-  .property__eyebrow-label {
-    font-family: var(--font-body);
-    font-weight: 500;
-    font-size: var(--type-micro);
-    letter-spacing: var(--track-eyebrow);
-    text-transform: uppercase;
-    color: var(--fg-4);
-  }
-
-  .property__eyebrow-key {
-    margin-left: auto;
-    font-family: var(--font-mono);
-    font-size: var(--type-tiny);
-    letter-spacing: var(--track-wide);
-    text-transform: uppercase;
-    color: var(--fg-5);
-  }
-
-  /* ---------- Synopsis ---------- */
-  .property__logline {
-    font-family: var(--font-body);
-    font-weight: 400;
-    font-size: clamp(1.125rem, 2.2vw, 1.5rem);
-    line-height: var(--leading-snug);
-    color: var(--fg-1);
-    max-width: 34em;
-    margin: 0 0 clamp(1.5rem, 3.5vw, 2.5rem);
-  }
-
-  .property__body p {
-    font-family: var(--font-body);
-    font-weight: 300;
-    font-size: var(--type-body-lg);
-    line-height: var(--leading-body);
-    color: var(--fg-2);
-    max-width: 68ch;
-    margin: 0 0 var(--s-5);
-  }
-
-  .property__body p:first-child::first-letter {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 3.2em;
-    line-height: 0.8;
-    float: left;
-    padding-right: 0.12em;
-    color: var(--fg-1);
-  }
-
-  .property__note {
-    font-family: var(--font-mono);
-    font-size: var(--type-caption);
-    letter-spacing: var(--track-wide);
-    text-transform: uppercase;
-    color: var(--fg-3);
-    border-top: 1px solid var(--rule);
-    padding-top: var(--s-4);
-    margin: var(--s-6) 0 0;
-    max-width: 68ch;
-  }
-
-  /* ---------- Mood board ---------- */
-  .property__mood {
-    margin: 0;
-  }
-
-  .property__mood img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border: 1px solid var(--rule);
-    background: var(--bg-1);
-  }
-
-  .property__mood-caption {
-    display: flex;
-    align-items: baseline;
-    gap: var(--s-4);
-    padding: var(--s-3) 0;
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .property__mood-title {
-    font-family: var(--font-mono);
-    font-size: var(--type-caption);
-    letter-spacing: var(--track-wider);
-    text-transform: uppercase;
-    color: var(--fg-3);
-  }
-
-  .property__mood-credit {
-    margin-left: auto;
-    font-family: var(--font-mono);
-    font-size: var(--type-tiny);
-    letter-spacing: var(--track-wide);
-    text-transform: uppercase;
-    color: var(--fg-4);
-    white-space: nowrap;
-  }
-
-  /* ---------- Pitch deck slot ---------- */
-  .property__deck {
-    border: 1px solid var(--rule-strong);
-    padding: clamp(1.5rem, 4vw, 2.5rem);
-    max-width: 44rem;
-  }
-
-  .property__deck-key {
-    font-family: var(--font-mono);
-    font-size: var(--type-tiny);
-    letter-spacing: var(--track-strip);
-    text-transform: uppercase;
-    color: var(--fg-5);
-    margin: 0 0 var(--s-4);
-  }
-
-  .property__deck-head {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(1.5rem, 3.5vw, 2.5rem);
-    line-height: var(--leading-tight);
-    letter-spacing: var(--track-tight);
-    text-transform: uppercase;
-    color: var(--fg-1);
-    margin: 0 0 var(--s-4);
-  }
-
-  .property__deck-status {
-    color: var(--accent);
-  }
-
-  .property__deck-note {
-    font-family: var(--font-body);
-    font-weight: 300;
-    font-size: var(--type-body);
-    line-height: var(--leading-body);
-    color: var(--fg-3);
-    max-width: 52ch;
-    margin: 0 0 var(--s-5);
-  }
-
-  .property__deck-cta {
-    display: inline-block;
-  }
-</style>
+</V9Layout>

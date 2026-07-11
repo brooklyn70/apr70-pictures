@@ -1,0 +1,75 @@
+---
+/**
+ * slateList — the numbered property list. Row display fields win; linked
+ * Project fills the gaps (title, slug, loglines, meta). Rows with neither a
+ * link nor a title are skipped.
+ */
+import type { V9Section } from '../../../lib/payload'
+import { renderInline } from '../../../lib/v9/inline'
+
+type SlateListData = Extract<V9Section, { blockType: 'slateList' }>
+const section = Astro.props.section as SlateListData
+
+type Row = {
+  title: string
+  href: string | null
+  logline: string | null
+  provenance: string | null
+  meta: string | null
+  dev: boolean
+}
+
+const rows: Row[] = (section.rows ?? []).flatMap((row) => {
+  const project = row.project && typeof row.project === 'object' ? row.project : null
+  const title = row.title || project?.title
+  if (!title) return []
+  const href = row.href || (project?.slug ? `/work/${project.slug}` : null)
+  return [
+    {
+      title,
+      href,
+      logline: row.logline || project?.shortLogline || project?.logline || null,
+      provenance: row.provenance || project?.provenance || null,
+      meta: row.meta || project?.metaLine || null,
+      dev: Boolean(row.dev),
+    },
+  ]
+})
+---
+
+{
+  rows.length > 0 && (
+    <section class="v9-section v9-section--tight" aria-label="The slate">
+      <div class="v9-col">
+        <ol class="v9-slatelist">
+          {rows.map((row) => {
+            const inner = (
+              <>
+                <span class="v9-slaterow__num" aria-hidden="true" />
+                <span class="v9-slaterow__body">
+                  <p class="v9-slaterow__title">{row.title}</p>
+                  {row.logline && <p class="v9-slaterow__logline" set:html={renderInline(row.logline)} />}
+                  {row.provenance && (
+                    <p class="v9-slaterow__provenance" set:html={renderInline(row.provenance)} />
+                  )}
+                  {row.meta && <p class="v9-slaterow__meta" set:html={renderInline(row.meta)} />}
+                </span>
+              </>
+            )
+            return (
+              <li class="v9-slaterow" data-dev={row.dev ? 'true' : undefined}>
+                {row.href ? (
+                  <a class="v9-slaterow__link" href={row.href}>
+                    {inner}
+                  </a>
+                ) : (
+                  <div class="v9-slaterow__link">{inner}</div>
+                )}
+              </li>
+            )
+          })}
+        </ol>
+      </div>
+    </section>
+  )
+}

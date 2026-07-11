@@ -1,0 +1,19 @@
+---
+/** footnote — small-type paragraph; markdown links allowed. */
+import type { V9Section } from '../../../lib/payload'
+import { renderParagraphs } from '../../../lib/v9/inline'
+
+type FootnoteData = Extract<V9Section, { blockType: 'footnote' }>
+const section = Astro.props.section as FootnoteData
+const html = renderParagraphs(section.body)
+---
+
+{
+  html && (
+    <aside class="v9-section v9-section--tight" aria-label="Footnote">
+      <div class="v9-col">
+        <div class="v9-footnote" set:html={html} />
+      </div>
+    </aside>
+  )
+}

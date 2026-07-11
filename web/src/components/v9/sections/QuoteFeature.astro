@@ -1,0 +1,21 @@
+---
+/** quoteFeature — one quotation set large, with attribution and source note. */
+import type { V9Section } from '../../../lib/payload'
+
+type QuoteFeatureData = Extract<V9Section, { blockType: 'quoteFeature' }>
+const section = Astro.props.section as QuoteFeatureData
+---
+
+{
+  section.quote && (
+    <section class="v9-section v9-quotefeature" aria-label={section.cite ? `Quotation from ${section.cite}` : 'Quotation'}>
+      <div class="v9-col">
+        <blockquote>
+          <p>{section.quote}</p>
+          {section.cite && <cite>{section.cite}</cite>}
+        </blockquote>
+        {section.note && <span class="v9-quotefeature__note">{section.note}</span>}
+      </div>
+    </section>
+  )
+}

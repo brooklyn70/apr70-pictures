@@ -1,0 +1,15 @@
+---
+/** /craft — the craft of constraint (Site v9 · Craft global). */
+import V9Layout from '../layouts/V9Layout.astro'
+import SectionRenderer from '../components/v9/SectionRenderer.astro'
+import { fetchV9Page } from '../lib/payload'
+import { NAP } from '../lib/v9/site'
+
+const { page } = await fetchV9Page('v9-craft')
+const title = page?.seoTitle ?? `The Craft · ${NAP.name}`
+const description = page?.seoDescription ?? NAP.description
+---
+
+<V9Layout title={title} description={description}>
+  <SectionRenderer sections={page?.sections} />
+</V9Layout>

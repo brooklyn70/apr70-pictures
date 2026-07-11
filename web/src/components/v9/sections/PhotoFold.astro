@@ -1,0 +1,71 @@
+---
+/**
+ * photoFold — full-bleed photograph with optional overlaid kicker/H1 and a
+ * caption+credit line beneath. Gradient law: the overlay always sits on a
+ * dark scrim with light ink, every theme, both modes. Image may be PENDING
+ * (null): with a heading we still render the words; photo-only folds skip.
+ */
+import type { V9Section } from '../../../lib/payload'
+import { renderInline } from '../../../lib/v9/inline'
+import { frameFromMedia, focalPosition } from '../media'
+
+type PhotoFoldData = Extract<V9Section, { blockType: 'photoFold' }>
+const section = Astro.props.section as PhotoFoldData
+
+const frame = frameFromMedia(section.image)
+const hasWords = Boolean(section.heading || section.kicker)
+const hasCaption = Boolean(section.caption || section.credit)
+---
+
+{
+  (frame || hasWords) && (
+    <section
+      class={section.vh100 ? 'v9-photofold v9-photofold--vh100' : 'v9-photofold'}
+      aria-label={section.heading ?? section.caption ?? 'Photograph'}
+    >
+      {frame ? (
+        <div class="v9-photofold__frame">
+          <img
+            src={frame.src}
+            alt={frame.alt}
+            loading={section.eager ? 'eager' : 'lazy'}
+            decoding={section.eager ? 'sync' : 'async'}
+            style={`object-position: ${focalPosition(frame)}`}
+          />
+          <div class="v9-scrim" aria-hidden="true" />
+          {hasWords && (
+            <div class="v9-photofold__overlay">
+              <div class="v9-photofold__overlay-inner">
+                {section.kicker && <p class="v9-photofold__kicker">{section.kicker}</p>}
+                {section.heading &&
+                  (section.vh100 ? (
+                    <h1 class="v9-photofold__heading">{section.heading}</h1>
+                  ) : (
+                    <h2 class="v9-photofold__heading">{section.heading}</h2>
+                  ))}
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div class="v9-col">
+          {section.kicker && <p class="v9-prophead__meta">{section.kicker}</p>}
+          {section.heading &&
+            (section.vh100 ? (
+              <h1 class="v9-textfold__heading">{section.heading}</h1>
+            ) : (
+              <h2 class="v9-textfold__heading">{section.heading}</h2>
+            ))}
+        </div>
+      )}
+      {frame && hasCaption && (
+        <div class="v9-col">
+          <span class="v9-capline">
+            {section.caption && <span set:html={renderInline(section.caption)} />}
+            {section.credit && <span class="v9-capline__credit">{section.credit}</span>}
+          </span>
+        </div>
+      )}
+    </section>
+  )
+}

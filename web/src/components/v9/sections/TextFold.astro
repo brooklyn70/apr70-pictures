@@ -1,0 +1,59 @@
+---
+/**
+ * textFold — the workhorse: scene margin (number + slugline), heading, lede,
+ * body paragraphs, optional pull quote, optional "more" route and inline link.
+ */
+import type { V9Section } from '../../../lib/payload'
+import { renderInline, renderParagraphs } from '../../../lib/v9/inline'
+
+type TextFoldData = Extract<V9Section, { blockType: 'textFold' }>
+const section = Astro.props.section as TextFoldData
+
+const bodyHtml = renderParagraphs(section.body)
+const classes = section.tight ? 'v9-section v9-section--tight' : 'v9-section'
+---
+
+<section class={classes} aria-label={section.ariaLabel ?? section.heading ?? undefined}>
+  <div class="v9-col">
+    {
+      (section.scene || section.sceneSlug) && (
+        <div class="v9-scene">
+          {section.scene && <span class="v9-scene__num">{section.scene}</span>}
+          {section.sceneSlug && <span class="v9-scene__slug">{section.sceneSlug}</span>}
+        </div>
+      )
+    }
+    {
+      section.heading &&
+        (section.asH1 ? (
+          <h1 class="v9-textfold__heading">{section.heading}</h1>
+        ) : (
+          <h2 class="v9-textfold__heading">{section.heading}</h2>
+        ))
+    }
+    {section.lede && <p class="v9-textfold__lede" set:html={renderInline(section.lede)} />}
+    {bodyHtml && <div class="v9-prose" set:html={bodyHtml} />}
+    {
+      section.quote && (
+        <blockquote class="v9-pull">
+          <p set:html={renderInline(section.quote)} />
+          {section.cite && <cite>{section.cite}</cite>}
+        </blockquote>
+      )
+    }
+    {
+      section.linkHref && section.linkLabel && (
+        <p class="v9-prose">
+          <a href={section.linkHref}>{section.linkLabel}</a>
+        </p>
+      )
+    }
+    {
+      section.moreHref && section.moreLabel && (
+        <a class="v9-more" href={section.moreHref}>
+          {section.moreLabel}
+        </a>
+      )
+    }
+  </div>
+</section>

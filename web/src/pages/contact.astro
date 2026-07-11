@@ -1,25 +1,44 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import BlockRenderer from '../components/blocks/BlockRenderer.astro';
-import { fetchContactGlobal } from '../lib/payload';
+/**
+ * /contact — the desk (Site v9 · Contact global).
+ * ?re=<slug> arrives from a property's request section: when it names a
+ * public-slate property, a "regarding" strip renders above the sections with
+ * a mailto that carries the property in the subject line.
+ */
+import V9Layout from '../layouts/V9Layout.astro'
+import SectionRenderer from '../components/v9/SectionRenderer.astro'
+import { fetchV9Page, fetchV9SlateProjects } from '../lib/payload'
+import { NAP } from '../lib/v9/site'
 
-const { contact, error } = await fetchContactGlobal();
-const blocks = contact?.layout || [];
+const { page } = await fetchV9Page('v9-contact')
+const title = page?.seoTitle ?? `Contact · ${NAP.name}`
+const description = page?.seoDescription ?? NAP.description
+
+/* Regarding strip (?re=<slug>) — validated against the public slate. */
+const re = Astro.url.searchParams.get('re')
+let regarding: { title: string; slug: string } | null = null
+if (re) {
+  const { slate } = await fetchV9SlateProjects()
+  const hit = slate.find((p) => p.slug === re)
+  if (hit) regarding = { title: hit.title, slug: hit.slug }
+}
+const regardingMailto = regarding
+  ? `mailto:${NAP.email}?subject=${encodeURIComponent(`APR 70 materials request · ${regarding.title}`)}`
+  : null
 ---
 
-<Layout title="Contact">
-  <main>
-    {error && (
-      <div style="padding: 1rem; margin: 2rem auto; max-width: 600px; background: rgba(255,0,0,0.1); border: 1px solid red; border-radius: 4px; font-family: var(--font-body); color: #cc0000;">
-        <strong>Fetch Error:</strong> {error}
-      </div>
-    )}
-    {!blocks.length && !error ? (
-      <div style="padding: 4rem; text-align: center; font-family: var(--font-body); color: var(--apr-mid-dark);">
-        No blocks found. Add some blocks to the Contact global in Payload!
-      </div>
-    ) : (
-      <BlockRenderer blocks={blocks} />
-    )}
-  </main>
-</Layout>
+<V9Layout title={title} description={description}>
+  {
+    regarding && regardingMailto && (
+      <section class="v9-section v9-section--tight" aria-label="Regarding">
+        <div class="v9-col">
+          <p class="v9-regarding">
+            Regarding <mark class="v9-hl">{regarding.title}</mark> &middot;{' '}
+            <a href={regardingMailto}>request the pages by email</a>
+          </p>
+        </div>
+      </section>
+    )
+  }
+  <SectionRenderer sections={page?.sections} />
+</V9Layout>

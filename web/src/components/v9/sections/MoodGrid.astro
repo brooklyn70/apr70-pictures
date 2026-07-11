@@ -1,0 +1,75 @@
+---
+/**
+ * moodGrid — development frames. Plain grid by default (zero JS); when the
+ * editor checks `slideshow`, the FilmstripSlideshow island runs the frames
+ * one at a time (its SSR/no-JS form IS the plain grid). Pending images
+ * (null media) are skipped item by item; an all-pending grid skips whole.
+ */
+import type { V9Section } from '../../../lib/payload'
+import FilmstripSlideshow, { type FilmstripItem } from '../../islands/FilmstripSlideshow'
+import { renderInline } from '../../../lib/v9/inline'
+import { frameFromMedia, focalPosition } from '../media'
+
+type MoodGridData = Extract<V9Section, { blockType: 'moodGrid' }>
+const section = Astro.props.section as MoodGridData
+
+const items: FilmstripItem[] = (section.items ?? []).flatMap((item) => {
+  const frame = frameFromMedia(item.image)
+  if (!frame) return []
+  return [
+    {
+      src: frame.src,
+      alt: frame.alt || item.caption || 'Development frame',
+      caption: item.caption ?? null,
+      captionHtml: item.caption ? renderInline(item.caption) : null,
+      credit: item.credit ?? null,
+      wide: item.wide ?? false,
+      focalX: frame.focalX,
+      focalY: frame.focalY,
+    },
+  ]
+})
+
+const label = section.ariaLabel ?? section.heading ?? 'Development frames'
+---
+
+{
+  items.length > 0 && (
+    <section class="v9-section v9-moodgrid" aria-label={label}>
+      <div class="v9-col">
+        {(section.scene || section.sceneSlug) && (
+          <div class="v9-scene">
+            {section.scene && <span class="v9-scene__num">{section.scene}</span>}
+            {section.sceneSlug && <span class="v9-scene__slug">{section.sceneSlug}</span>}
+          </div>
+        )}
+        {section.heading && <h2 class="v9-moodgrid__heading">{section.heading}</h2>}
+        {section.slideshow ? (
+          <FilmstripSlideshow client:visible items={items} label={label} />
+        ) : (
+          <div class="v9-framegrid">
+            {items.map((it) => (
+              <figure class={it.wide ? 'v9-frame v9-frame--wide' : 'v9-frame'}>
+                <div class="v9-frame__box">
+                  <img
+                    src={it.src}
+                    alt={it.alt}
+                    loading="lazy"
+                    decoding="async"
+                    style={`object-position: ${it.focalX ?? 50}% ${it.focalY ?? 50}%`}
+                  />
+                </div>
+                <figcaption>
+                  <span class="v9-capline">
+                    {it.captionHtml && <span set:html={it.captionHtml} />}
+                    {it.credit && <span class="v9-capline__credit">{it.credit}</span>}
+                  </span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}

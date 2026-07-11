@@ -1,4 +1,4 @@
-import type { Home, Media } from 'payload-types'
+import type { Home, Media, Project, V9Home } from 'payload-types'
 import { placeholderUrl, type PlaceholderOptions } from './placeholder'
 
 // Generic layout-bearing global (About, Contact, Jobs, Pitch, Investors share
@@ -717,6 +717,134 @@ export async function fetchNewsArticle(
 ): Promise<{ article: NewsArticleDoc | null; error: string | null; stale?: boolean }> {
   const { data, error, stale } = await fetchCollectionDoc<NewsArticleDoc>('news', slug)
   return { article: data, error, stale }
+}
+
+// ── V9 (2026-07-10): page globals, chrome, slate ─────────────────────────────
+// The five "Site v9 · <Page>" globals share one sections union (generated
+// types); the chrome strings live on site-settings.v9Chrome. All fetchers run
+// through the SWR cache above.
+
+/** One v9 page section (the 11-block union from the generated types). */
+export type V9Section = NonNullable<V9Home['sections']>[number]
+
+export type V9PageData = {
+  seoTitle?: string | null
+  seoDescription?: string | null
+  sections?: V9Section[] | null
+}
+
+export type V9PageSlug = 'v9-home' | 'v9-slate' | 'v9-craft' | 'v9-methods' | 'v9-contact'
+
+export async function fetchV9Page(slug: V9PageSlug): Promise<{
+  page: V9PageData | null
+  error: string | null
+  stale?: boolean
+}> {
+  const { data, error, stale } = await fetchGlobal<V9PageData>(slug, 1)
+  return { page: data, error, stale }
+}
+
+export type V9NavLink = { href: string; label: string; id?: string | null }
+
+export type V9ChromeData = {
+  displayLabel?: string | null
+  panelTitle?: string | null
+  themeLabel?: string | null
+  themePremiere?: string | null
+  themeMatinee?: string | null
+  themeLateshow?: string | null
+  scaleLabel?: string | null
+  logoLabel?: string | null
+  topLabel?: string | null
+  prevLabel?: string | null
+  nextLabel?: string | null
+  slateReturn?: string | null
+  cta?: string | null
+  colophon?: string | null
+  copyright?: string | null
+  navLinks?: V9NavLink[] | null
+}
+
+/** v9Chrome off site-settings, with hard fallbacks so chrome never renders blank. */
+export async function fetchV9Chrome(): Promise<{
+  chrome: V9ChromeData
+  error: string | null
+}> {
+  const { data, error } = await fetchGlobal<SiteSettingsData & { v9Chrome?: V9ChromeData | null }>(
+    'site-settings',
+    2,
+  )
+  const chrome: V9ChromeData = data?.v9Chrome ?? {}
+  return {
+    chrome: {
+      topLabel: 'Back to top',
+      prevLabel: 'Previous property',
+      nextLabel: 'Next property',
+      slateReturn: 'The whole slate',
+      cta: 'Request materials',
+      copyright: '© 2026 APR 70 Pictures.',
+      ...Object.fromEntries(Object.entries(chrome).filter(([, v]) => v != null)),
+    },
+    error,
+  }
+}
+
+/** Slim slate row — the nine public properties, ordered. Powers /slate context,
+ *  the /work prev-next ring, llms.txt, and the sitemap. */
+export type V9SlateItem = {
+  id: number
+  title: string
+  slug: string
+  slateOrder?: number | null
+  logline?: string | null
+  shortLogline?: string | null
+  provenance?: string | null
+  metaLine?: string | null
+}
+
+function mapV9SlateItem(raw: unknown): V9SlateItem | null {
+  if (!raw || typeof raw !== 'object') return null
+  const doc = raw as Record<string, unknown>
+  if (typeof doc.id !== 'number' || typeof doc.slug !== 'string') return null
+  return {
+    id: doc.id,
+    title: typeof doc.title === 'string' ? doc.title : '',
+    slug: doc.slug,
+    slateOrder: typeof doc.slateOrder === 'number' ? doc.slateOrder : null,
+    logline: typeof doc.logline === 'string' ? doc.logline : null,
+    shortLogline: typeof doc.shortLogline === 'string' ? doc.shortLogline : null,
+    provenance: typeof doc.provenance === 'string' ? doc.provenance : null,
+    metaLine: typeof doc.metaLine === 'string' ? doc.metaLine : null,
+  }
+}
+
+const V9_SLATE_PARAMS =
+  '&where[publicSlate][equals]=true&sort=slateOrder' +
+  '&select[title]=true&select[slug]=true&select[slateOrder]=true&select[logline]=true' +
+  '&select[shortLogline]=true&select[provenance]=true&select[metaLine]=true'
+
+export async function fetchV9SlateProjects(): Promise<{
+  slate: V9SlateItem[]
+  error: string | null
+  stale?: boolean
+}> {
+  const { data, error, stale } = await fetchSlimList<V9SlateItem>(
+    'col:projects:v9slate',
+    'projects',
+    V9_SLATE_PARAMS,
+    mapV9SlateItem,
+  )
+  return { slate: data ?? [], error, stale }
+}
+
+/** Full v9 property doc (generated Project type has every v9 field). */
+export async function fetchV9Project(slug: string): Promise<{
+  project: Project | null
+  error: string | null
+  stale?: boolean
+}> {
+  const { data, error, stale } = await fetchCollectionDoc<Project>('projects', slug)
+  return { project: data, error, stale }
 }
 
 // ── DISPATCH Issue (magazine layout for /news) ────────────────────────────────

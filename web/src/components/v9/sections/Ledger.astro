@@ -1,0 +1,26 @@
+---
+/** ledger — the disclosure ledger: a definition list of term / definition rows. */
+import type { V9Section } from '../../../lib/payload'
+import { renderInline } from '../../../lib/v9/inline'
+
+type LedgerData = Extract<V9Section, { blockType: 'ledger' }>
+const section = Astro.props.section as LedgerData
+const rows = (section.rows ?? []).filter((r) => r.term || r.definition)
+---
+
+{
+  rows.length > 0 && (
+    <section class="v9-section" aria-label={section.ariaLabel ?? 'Ledger'}>
+      <div class="v9-col">
+        <dl class="v9-ledger">
+          {rows.map((row) => (
+            <div class="v9-ledger__row">
+              <dt>{row.term}</dt>
+              <dd set:html={renderInline(row.definition)} />
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+  )
+}

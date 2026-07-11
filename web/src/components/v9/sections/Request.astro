@@ -1,0 +1,33 @@
+---
+/** request — the "read the pages" panel with the CTA. */
+import type { V9Section } from '../../../lib/payload'
+import { renderParagraphs } from '../../../lib/v9/inline'
+
+type RequestData = Extract<V9Section, { blockType: 'request' }>
+const section = Astro.props.section as RequestData
+const bodyHtml = renderParagraphs(section.body)
+---
+
+<section class="v9-section" aria-label={section.heading ?? 'Request materials'}>
+  <div class="v9-col">
+    <div class="v9-request">
+      {
+        (section.scene || section.sceneSlug) && (
+          <div class="v9-scene">
+            {section.scene && <span class="v9-scene__num">{section.scene}</span>}
+            {section.sceneSlug && <span class="v9-scene__slug">{section.sceneSlug}</span>}
+          </div>
+        )
+      }
+      {section.heading && <h2 class="v9-request__heading">{section.heading}</h2>}
+      {bodyHtml && <div class="v9-prose" set:html={bodyHtml} />}
+      {
+        section.linkHref && section.linkLabel && (
+          <a class="v9-btn" href={section.linkHref}>
+            {section.linkLabel}
+          </a>
+        )
+      }
+    </div>
+  </div>
+</section>

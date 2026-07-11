@@ -1,0 +1,15 @@
+---
+/** /slate — the working slate (Site v9 · Slate global). */
+import V9Layout from '../layouts/V9Layout.astro'
+import SectionRenderer from '../components/v9/SectionRenderer.astro'
+import { fetchV9Page } from '../lib/payload'
+import { NAP } from '../lib/v9/site'
+
+const { page } = await fetchV9Page('v9-slate')
+const title = page?.seoTitle ?? `The Slate · ${NAP.name}`
+const description = page?.seoDescription ?? NAP.description
+---
+
+<V9Layout title={title} description={description}>
+  <SectionRenderer sections={page?.sections} />
+</V9Layout>

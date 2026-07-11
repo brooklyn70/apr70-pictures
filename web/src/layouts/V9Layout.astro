@@ -1,0 +1,165 @@
+---
+/**
+ * V9Layout — the v9 public front door chrome (2026-07-10).
+ * One shared skeleton, three theme personalities (premiere-night default,
+ * matinee, late-show) via the [data-design] token system. Header nav and
+ * footer come from site-settings.v9Chrome; page metadata + JSON-LD arrive
+ * as props. Plain MPA (no ClientRouter): every v9 page stands alone, the
+ * pre-paint stamp below kills FOUC on each load.
+ */
+import '../styles/global.css'
+import '../styles/themes/index.css'
+import '../styles/v9.css'
+import ThemeControlIsland from '../components/islands/ThemeControlIsland'
+import ScrollTopIsland from '../components/islands/ScrollTopIsland'
+import { fetchV9Chrome } from '../lib/payload'
+import { DESIGNS, DEFAULT_DESIGN, LOGO_SIZE, designThemeMode } from '../designs/manifest'
+import { organizationJsonLd, webSiteJsonLd, canonical, V9_PAGES, NAP } from '../lib/v9/site'
+
+interface Props {
+  title: string
+  description?: string
+  /** Page-specific JSON-LD blocks (Organization + WebSite are always injected). */
+  jsonLd?: Record<string, unknown>[]
+}
+
+const { title, description = NAP.description, jsonLd = [] } = Astro.props
+
+const { chrome } = await fetchV9Chrome()
+const navLinks =
+  chrome.navLinks && chrome.navLinks.length > 0
+    ? chrome.navLinks
+    : V9_PAGES.map((p) => ({ href: p.path, label: p.label }))
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/'
+const canonicalUrl = canonical(path)
+
+/* Pre-paint data — v9 themes own typography and mode; only design, type size
+   and logo size are visitor dials (apr70:design / apr70:font-scale /
+   apr70:logo-size). */
+const designModes = Object.fromEntries(DESIGNS.map((d) => [d.slug, d.base]))
+const defaultDesign = DEFAULT_DESIGN
+const logoDefaults = { min: LOGO_SIZE.min, max: LOGO_SIZE.max, def: LOGO_SIZE.default }
+
+const ssrMode = designThemeMode(DEFAULT_DESIGN)
+const jsonLdAll = [organizationJsonLd(), webSiteJsonLd(), ...jsonLd]
+
+const panelLabels = {
+  displayLabel: chrome.displayLabel,
+  panelTitle: chrome.panelTitle,
+  themeLabel: chrome.themeLabel,
+  scaleLabel: chrome.scaleLabel,
+  logoLabel: chrome.logoLabel,
+  themeNames: {
+    'premiere-night': chrome.themePremiere,
+    matinee: chrome.themeMatinee,
+    'late-show': chrome.themeLateshow,
+  },
+}
+---
+
+<!doctype html>
+<html lang="en" data-design={defaultDesign} data-theme={ssrMode}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline define:vars={{ designModes, defaultDesign, logoDefaults }}>
+      /* v9 pre-paint stamp — runs before first paint, no FOUC. Theme owns its
+         light/dark base; visitor dials are design, type size, logo size. */
+      ;(function () {
+        var doc = document.documentElement
+        function read(key) {
+          try { return localStorage.getItem(key) } catch (e) { return null }
+        }
+        var design = read('apr70:design')
+        if (!design || !designModes[design]) design = defaultDesign
+        doc.setAttribute('data-design', design)
+        doc.setAttribute('data-theme', designModes[design] === 'light' ? 'light' : 'dark')
+        doc.setAttribute('data-mode-source', 'theme')
+
+        var scales = { s: '0.9', m: '1', l: '1.1', xl: '1.2' }
+        var scale = read('apr70:font-scale')
+        if (!scale || !scales[scale]) scale = 'm'
+        doc.setAttribute('data-font-scale', scale)
+        doc.style.setProperty('--font-scale', scales[scale])
+
+        var size = parseInt(read('apr70:logo-size'), 10)
+        if (!isFinite(size)) size = logoDefaults.def
+        if (size < logoDefaults.min) size = logoDefaults.min
+        if (size > logoDefaults.max) size = logoDefaults.max
+        doc.setAttribute('data-logo-size', String(size))
+        doc.style.setProperty('--logo-h', size + 'px')
+      })()
+    </script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-readable site summary" />
+    <link
+      rel="preload"
+      href="/fonts/Fraunces-normal-300-700.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={NAP.name} />
+    <meta name="theme-color" content="#150a0d" />
+    {jsonLdAll.map((block) => (
+      <script type="application/ld+json" set:html={JSON.stringify(block)} />
+    ))}
+  </head>
+  <body class="v9">
+    <header class="v9-header">
+      <div class="v9-col v9-header__row">
+        <a class="v9-brand" href="/" aria-label={NAP.name}>
+          <img
+            class="v9-brand__mark"
+            data-mark-ink="light"
+            src="/logos/apr70_logo_full_white.svg"
+            alt={NAP.name}
+          />
+          <img
+            class="v9-brand__mark"
+            data-mark-ink="dark"
+            src="/logos/apr70_logo_full_black.svg"
+            alt=""
+            aria-hidden="true"
+          />
+        </a>
+        <nav class="v9-nav" aria-label="Primary">
+          {navLinks.map((link) => (
+            <a
+              class="v9-nav__link"
+              href={link.href}
+              aria-current={(link.href === '/' ? path === '/' : path.startsWith(link.href)) ? 'page' : undefined}
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="v9-footer">
+      <div class="v9-col">
+        <nav class="v9-footer__nav" aria-label="Footer">
+          {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+        </nav>
+        {chrome.colophon && <p class="v9-footer__colophon">{chrome.colophon}</p>}
+        <p class="v9-footer__copy">{chrome.copyright}</p>
+      </div>
+    </footer>
+
+    <ThemeControlIsland client:load labels={panelLabels} />
+    <ScrollTopIsland client:load label={chrome.topLabel} />
+  </body>
+</html>

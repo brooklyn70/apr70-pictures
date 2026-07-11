@@ -1,0 +1,40 @@
+---
+/**
+ * archival — a verified public-domain photograph or map in a mounted frame.
+ * The credit (date + PD basis + source) is required by the disclosure law,
+ * so it always renders when present. Skips cleanly when the image is pending.
+ */
+import type { V9Section } from '../../../lib/payload'
+import { renderInline } from '../../../lib/v9/inline'
+import { frameFromMedia, focalPosition } from '../media'
+
+type ArchivalData = Extract<V9Section, { blockType: 'archival' }>
+const section = Astro.props.section as ArchivalData
+const frame = frameFromMedia(section.image)
+---
+
+{
+  frame && (
+    <section class="v9-section v9-archival" aria-label={section.caption ?? 'Archival image'}>
+      <div class="v9-col">
+        <figure>
+          <div class="v9-archival__frame">
+            <img
+              src={frame.src}
+              alt={frame.alt}
+              loading="lazy"
+              decoding="async"
+              style={`object-position: ${focalPosition(frame)}`}
+            />
+          </div>
+          <figcaption>
+            <span class="v9-capline">
+              {section.caption && <span set:html={renderInline(section.caption)} />}
+              {section.credit && <span class="v9-capline__credit">{section.credit}</span>}
+            </span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+  )
+}

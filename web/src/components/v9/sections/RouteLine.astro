@@ -1,0 +1,23 @@
+---
+/** routeLine — the inline route strip on the home page. */
+import type { V9Section } from '../../../lib/payload'
+
+type RouteLineData = Extract<V9Section, { blockType: 'routeLine' }>
+const section = Astro.props.section as RouteLineData
+const links = section.links ?? []
+---
+
+{
+  links.length > 0 && (
+    <section class="v9-section v9-section--tight" aria-label="Site routes">
+      <nav class="v9-col v9-routeline">
+        {links.map((link, i) => (
+          <a class="v9-routeline__link" href={link.href}>
+            <span class="v9-routeline__index">{String(i + 1).padStart(2, '0')}</span>
+            {link.label}
+          </a>
+        ))}
+      </nav>
+    </section>
+  )
+}

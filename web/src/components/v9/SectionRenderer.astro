@@ -1,0 +1,45 @@
+---
+/**
+ * SectionRenderer — one switch over the v9 section union. Every v9 page is
+ * an editor-ordered stack of these; unknown block types render nothing.
+ */
+import type { V9Section } from '../../lib/payload'
+import PhotoFold from './sections/PhotoFold.astro'
+import RouteLine from './sections/RouteLine.astro'
+import TextFold from './sections/TextFold.astro'
+import QuoteFeature from './sections/QuoteFeature.astro'
+import SlateList from './sections/SlateList.astro'
+import Footnote from './sections/Footnote.astro'
+import Request from './sections/Request.astro'
+import Ledger from './sections/Ledger.astro'
+import Archival from './sections/Archival.astro'
+import DivisionStrip from './sections/DivisionStrip.astro'
+import MoodGrid from './sections/MoodGrid.astro'
+
+interface Props {
+  sections: V9Section[] | null | undefined
+}
+
+const sections = Astro.props.sections ?? []
+
+const components: Record<string, any> = {
+  photoFold: PhotoFold,
+  routeLine: RouteLine,
+  textFold: TextFold,
+  quoteFeature: QuoteFeature,
+  slateList: SlateList,
+  footnote: Footnote,
+  request: Request,
+  ledger: Ledger,
+  archival: Archival,
+  divisionStrip: DivisionStrip,
+  moodGrid: MoodGrid,
+}
+---
+
+{
+  sections.map((section) => {
+    const Component = components[section.blockType]
+    return Component ? <Component section={section} /> : null
+  })
+}

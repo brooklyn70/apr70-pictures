@@ -18,6 +18,11 @@ import { test, expect, type Page } from '@playwright/test'
 
 const SITE = process.env.PUBLIC_SITE_URL || 'http://localhost:4321'
 
+/* Interactive tests: kill smooth-scroll + reveal transitions, which keep
+   elements "unstable" for actionability checks. The site honors
+   prefers-reduced-motion, so this is a supported first-party path. */
+test.use({ reducedMotion: 'reduce' })
+
 const LIVE_ROUTES = ['/', '/slate', '/craft', '/methods', '/contact', '/work/sea-gate', '/212', '/310', '/nrc']
 
 const FIRST_PARTY = [
@@ -99,12 +104,15 @@ test.describe('routes', () => {
 test.describe('chrome', () => {
   test('mode toggle flips data-theme and persists', async ({ page }) => {
     await page.goto(`${SITE}/`)
-    await page.getByRole('button', { name: /display/i }).click()
+    await page.addStyleTag({ content: 'html{scroll-behavior:auto!important} *{transition:none!important;animation:none!important}' })
+    const pill = page.getByRole('button', { name: 'Open display settings' })
+    await pill.waitFor({ state: 'visible' })
+    await pill.click()
     await page.getByRole('button', { name: /house lights/i }).click()
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
     await page.reload()
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
-    await page.getByRole('button', { name: /display/i }).click()
+    await page.getByRole('button', { name: 'Open display settings' }).click()
     await page.getByRole('button', { name: /marquee night/i }).click()
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
   })
@@ -129,7 +137,8 @@ test.describe('chrome', () => {
 
   test('Futura Std is the loaded display face', async ({ page }) => {
     await page.goto(`${SITE}/`)
-    await page.waitForFunction(() => document.fonts.ready.then(() => true))
+    await page.evaluate(() => document.fonts.load('16px "Futura Std"'))
+    await page.waitForFunction(() => document.fonts.check('16px "Futura Std"'))
     const loaded = await page.evaluate(() => document.fonts.check('16px "Futura Std"'))
     expect(loaded).toBe(true)
     const navFont = await page.evaluate(() => {
@@ -153,7 +162,10 @@ test.describe('founding roll', () => {
 
   test('enrollment end-to-end (test entry, cleaned by teardown)', async ({ page }) => {
     await page.goto(`${SITE}/contact`)
+    await page.addStyleTag({ content: 'html{scroll-behavior:auto!important} *{transition:none!important;animation:none!important}' })
     const form = page.locator('form[aria-label="Join the Founding Roll"]')
+    await form.scrollIntoViewIfNeeded()
+    await page.waitForTimeout(1800) // client:visible hydration settle
     await form.locator('input[name="name"]').fill('Playwright QA')
     await form.locator('input[name="email"]').fill('playwright-qa@apr70.test')
     await form.locator('input[name="consent"]').check()

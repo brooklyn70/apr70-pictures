@@ -1,3 +1,8 @@
+# Pin the compose project name so pgdata/cms_media volumes survive directory
+# renames (tree lives under ~/websites/apr70-website/v10 since 2026-07-12).
+# NAS deploys still override this with -p apr70v3.
+name: apr70-pictures
+
 services:
   postgres:
     image: postgres:16-alpine

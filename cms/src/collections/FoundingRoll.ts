@@ -24,7 +24,10 @@ export const FoundingRoll: CollectionConfig = {
   },
   access: {
     create: () => true,
-    read: ({ req }) => Boolean(req.user),
+    // The roll is public BY DESIGN (v5: members are answered by name and
+    // number; the count is printed). Contact details are not: email, note,
+    // consent, and source are admin-only via field-level access below.
+    read: () => true,
     update: ({ req }) => Boolean(req.user),
     delete: ({ req }) => Boolean(req.user),
   },
@@ -71,12 +74,14 @@ export const FoundingRoll: CollectionConfig = {
       required: true,
       unique: true,
       index: true,
+      access: { read: ({ req }) => Boolean(req.user) },
     },
     {
       name: 'note',
       type: 'textarea',
       maxLength: 500,
       label: 'Note (optional)',
+      access: { read: ({ req }) => Boolean(req.user) },
       admin: { description: 'Anything the enrollee wanted to say to the writer.' },
     },
     {
@@ -87,11 +92,13 @@ export const FoundingRoll: CollectionConfig = {
       defaultValue: false,
       validate: (value: boolean | null | undefined) =>
         value === true || 'Enrollment requires consent.',
+      access: { read: ({ req }) => Boolean(req.user) },
     },
     {
       name: 'source',
       type: 'text',
       label: 'Join source',
+      access: { read: ({ req }) => Boolean(req.user) },
       admin: {
         readOnly: true,
         description: 'Page or campaign the enrollment came from (source-tagged per the v5 design).',

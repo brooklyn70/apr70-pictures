@@ -1,0 +1,57 @@
+---
+/**
+ * foundingRoll — the Founding Roll enrollment fold (v10, catalog 1.3).
+ * The site's first public transaction: a numbered, free, never-reissued
+ * roll (v5 business-design lineage). Copy comes from the CMS block; the
+ * count renders server-side when showCount is on; the form is an island.
+ */
+import type { V9Section } from '../../../lib/payload'
+import { fetchRollCount } from '../../../lib/payload'
+import RollFormIsland from '../../islands/RollFormIsland'
+
+type FoundingRollData = Extract<V9Section, { blockType: 'foundingRoll' }>
+const section = Astro.props.section as FoundingRollData
+
+const heading = section.heading ?? 'The Founding Roll.'
+const body = section.body ?? ''
+const submitLabel = section.submitLabel ?? 'Take a number'
+const successNote = section.successNote ?? 'You are on the roll.'
+const showCount = section.showCount ?? true
+
+const count = showCount ? await fetchRollCount() : null
+const source = Astro.url.pathname || '/'
+
+/* body: plain paragraphs on blank lines; **bold** and ==highlight== */
+const paragraphs = body
+  .split(/\n\s*\n/)
+  .map((p) => p.trim())
+  .filter(Boolean)
+const renderInline = (t: string) =>
+  t
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/==([^=]+)==/g, '<mark>$1</mark>')
+---
+
+<section class="v9-section v9-roll" aria-label="The Founding Roll">
+  <div class="v9-col">
+    {
+      (section.scene || section.sceneSlug) && (
+        <div class="v9-scene">
+          {section.scene && <span class="v9-scene__num">{section.scene}</span>}
+          {section.sceneSlug && <span class="v9-scene__slug">{section.sceneSlug}</span>}
+        </div>
+      )
+    }
+    <h2 class="v9-textfold__heading">{heading}</h2>
+    {count !== null && count > 0 && (
+      <p class="v9-roll__count">{count} {count === 1 ? 'name' : 'names'} on the roll</p>
+    )}
+    {paragraphs.map((p) => (
+      <p class="v9-prose" set:html={renderInline(p)} />
+    ))}
+    <RollFormIsland client:visible submitLabel={submitLabel} successNote={successNote} source={source} />
+  </div>
+</section>

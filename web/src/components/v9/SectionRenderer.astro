@@ -15,6 +15,7 @@ import Ledger from './sections/Ledger.astro'
 import Archival from './sections/Archival.astro'
 import DivisionStrip from './sections/DivisionStrip.astro'
 import MoodGrid from './sections/MoodGrid.astro'
+import FoundingRoll from './sections/FoundingRoll.astro'
 
 interface Props {
   sections: V9Section[] | null | undefined
@@ -34,6 +35,7 @@ const components: Record<string, any> = {
   archival: Archival,
   divisionStrip: DivisionStrip,
   moodGrid: MoodGrid,
+  foundingRoll: FoundingRoll,
 }
 ---
 

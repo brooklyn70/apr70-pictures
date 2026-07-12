@@ -1,0 +1,116 @@
+---
+/**
+ * DivisionPage — the shared body of the three public division pages
+ * (/212 · /310 · /nrc), rendered inside V9Layout (v9 chrome, marquee design).
+ *
+ * Per the v10 Divisions panel ruling (2026-07-12), the division page is the ONE
+ * surface where the division mark LEADS (condition 2): a full-size typographic
+ * Futura lockup, its discipline line locked to it (condition 4), a short
+ * investor-readable paragraph, and the division's slate directly beneath — a
+ * mark only ever appears with real properties under it (condition 5). No new
+ * pictorial marks: the lockup is the house display face, one system across all
+ * three (condition 6).
+ */
+import type { V9SlateItem } from '../../lib/payload'
+import { renderInline } from '../../lib/v9/inline'
+
+interface Props {
+  division: '212' | '310' | 'nrc'
+  /** The typographic lockup text, e.g. "(212) Pictures". */
+  lockup: string
+  /** One sentence: what the house makes, for whom (no em dashes). */
+  discipline: string
+  /** Short investor-readable paragraph (adapted from the panel copy draft). */
+  paragraph: string
+  /** The public properties this division owns, ordered. */
+  slate: V9SlateItem[]
+}
+
+const { division, lockup, discipline, paragraph, slate } = Astro.props
+---
+
+<header class="v9-col v9-divhead">
+  <p class="v9-divhead__eyebrow">A division of APR 70 Pictures</p>
+  <h1 class="v9-divhead__lockup" data-division={division}>{lockup}</h1>
+  <p class="v9-divhead__discipline">{discipline}</p>
+  <div class="v9-prose v9-divhead__prose"><p>{paragraph}</p></div>
+</header>
+
+{
+  slate.length > 0 && (
+    <section class="v9-section v9-section--tight" aria-label={`${lockup} slate`}>
+      <div class="v9-col">
+        <p class="v9-scene__slug v9-divhead__slatelabel">The slate</p>
+        <ol class="v9-slatelist">
+          {slate.map((p) => (
+            <li class="v9-slaterow">
+              <a class="v9-slaterow__link" href={`/work/${p.slug}`}>
+                <span class="v9-slaterow__num" aria-hidden="true" />
+                <span class="v9-slaterow__body">
+                  <p class="v9-slaterow__title">{p.title}</p>
+                  {(p.shortLogline || p.logline) && (
+                    <p
+                      class="v9-slaterow__logline"
+                      set:html={renderInline(p.shortLogline || p.logline || '')}
+                    />
+                  )}
+                  {p.provenance && (
+                    <p class="v9-slaterow__provenance" set:html={renderInline(p.provenance)} />
+                  )}
+                  {p.metaLine && <p class="v9-slaterow__meta" set:html={renderInline(p.metaLine)} />}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  /* The division head: the one surface where the division mark leads (ruling
+     condition 2). Full-size typographic lockup in the house display face. */
+  .v9-divhead {
+    padding-top: clamp(2rem, 6vw, 4.5rem);
+  }
+  .v9-divhead__eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-neutral);
+    margin: 0 0 var(--space-md);
+  }
+  .v9-divhead__lockup {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--text-display);
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+    margin: 0;
+  }
+  .v9-divhead__discipline {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+    line-height: 1.28;
+    color: var(--color-muted);
+    max-width: 34ch;
+    margin: clamp(0.75rem, 2vw, 1.25rem) 0 0;
+  }
+  .v9-divhead__prose {
+    margin-top: clamp(1.5rem, 3.5vw, 2.5rem);
+    max-width: 60ch;
+  }
+  .v9-divhead__prose :global(p) {
+    font-size: var(--text-lg);
+    line-height: 1.6;
+    color: var(--color-ink);
+    margin: 0;
+  }
+  .v9-divhead__slatelabel {
+    margin: 0 0 var(--space-md);
+  }
+</style>

@@ -22,7 +22,7 @@ import '../styles/v9.css'
 import '../styles/themes/index.css'
 import ThemeControlIsland from '../components/islands/ThemeControlIsland'
 import ScrollTopIsland from '../components/islands/ScrollTopIsland'
-import { fetchV9Chrome } from '../lib/payload'
+import { fetchV9Chrome, fetchSiteSettings, resolveMediaUrl } from '../lib/payload'
 import { organizationJsonLd, webSiteJsonLd, canonical, V9_PAGES, NAP } from '../lib/v9/site'
 
 interface Props {
@@ -35,6 +35,26 @@ interface Props {
 const { title, description = NAP.description, jsonLd = [] } = Astro.props
 
 const { chrome } = await fetchV9Chrome()
+
+/* ── Brand Kit (v10, F1) — Payload-driven brand controls ──────────────────
+   Logo files, logo height, accent/rollover/highlight tokens, and the
+   default mode all come from Site Settings → Brand Kit in the CMS. Marco
+   edits brand presentation in Payload; the site reflects it on refresh
+   (SSR + short SWR cache). Hard fallbacks keep the chrome alive if the
+   CMS is unreachable. */
+const { settings } = await fetchSiteSettings()
+const kit = settings?.brandKit ?? {}
+const logoH = Math.min(72, Math.max(24, kit.logoHeight ?? 34))
+const modeDefault = kit.modeDefault ?? 'system'
+const accent = kit.accent ?? 'flame'
+const linkHover = kit.linkHover ?? 'accent'
+const highlight = kit.highlight ?? 'flame'
+/* Payload media law for the marks: data-mark-ink='light' is the LIGHT-colored
+   mark (shown on dark paper) = the CMS "Nav Logo (Dark theme)" upload;
+   data-mark-ink='dark' is the dark mark for House Lights = "Nav Logo (Light
+   theme)". Static /logos files remain the fallback. */
+const markLight = resolveMediaUrl(settings?.navLogoDark) || '/logos/apr70_logo_full_white.svg'
+const markDark = resolveMediaUrl(settings?.navLogoLight) || '/logos/apr70_logo_full_black.svg'
 const navLinks =
   chrome.navLinks && chrome.navLinks.length > 0
     ? chrome.navLinks
@@ -61,16 +81,23 @@ const panelLabels = {
 ---
 
 <!doctype html>
-<html lang="en">
+<html
+  lang="en"
+  data-theme={modeDefault !== 'system' ? modeDefault : undefined}
+  data-accent={accent !== 'flame' ? accent : undefined}
+  data-hover={linkHover !== 'accent' ? linkHover : undefined}
+  data-highlight={highlight !== 'flame' ? highlight : undefined}
+  style={`--logo-h: ${logoH}px`}
+>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script is:inline>
       /* v8 pre-paint stamp — runs before first paint, no FOUC.
-         apr70-theme: dark | light | system (anything else = system, which
-         means NO data-theme attribute so prefers-color-scheme decides).
-         v10 catalog: the type-scale and logo-size visitor dials are gone —
-         this stamp only ever sets mode now. */
+         apr70-theme: dark | light | system (anything else = system).
+         v10 brand kit: the server renders the ADMIN default mode as a
+         data-theme attribute; a stored visitor choice still wins. With no
+         stored choice the server default stands (no removeAttribute). */
       ;(function () {
         var doc = document.documentElement
         doc.classList.add('js')
@@ -79,7 +106,7 @@ const panelLabels = {
         }
         var theme = read('apr70-theme')
         if (theme === 'dark' || theme === 'light') doc.setAttribute('data-theme', theme)
-        else doc.removeAttribute('data-theme')
+        else if (theme === 'system') doc.removeAttribute('data-theme')
       })()
     </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -88,7 +115,14 @@ const panelLabels = {
     <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-readable site summary" />
     <link
       rel="preload"
-      href="/fonts/Fraunces-normal-300-700.woff2"
+      href="/fonts/FuturaStd-Book.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/FuturaStd-Medium.woff2"
       as="font"
       type="font/woff2"
       crossorigin
@@ -107,7 +141,8 @@ const panelLabels = {
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content={NAP.name} />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0604" />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f1e9" />
+    {/* v10: House Lights re-toned to the house hue (≈ oklch 94.5% 0.008 55) */}
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f1efec" />
     {jsonLdAll.map((block) => (
       <script is:inline type="application/ld+json" set:html={JSON.stringify(block)} />
     ))}
@@ -119,13 +154,13 @@ const panelLabels = {
           <img
             class="v9-brand__mark"
             data-mark-ink="light"
-            src="/logos/apr70_logo_full_white.svg"
+            src={markLight}
             alt={NAP.name}
           />
           <img
             class="v9-brand__mark"
             data-mark-ink="dark"
-            src="/logos/apr70_logo_full_black.svg"
+            src={markDark}
             alt=""
             aria-hidden="true"
           />

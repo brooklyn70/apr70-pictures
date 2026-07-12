@@ -1,0 +1,84 @@
+/* Founding Roll form (v10) — editorial, hairline, house type. */
+.v9-roll__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md, 1.25rem);
+  max-width: 44rem;
+}
+.v9-roll__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md, 1.25rem);
+}
+@media (max-width: 40rem) {
+  .v9-roll__row { grid-template-columns: 1fr; }
+}
+.v9-roll__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.v9-roll__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs, 0.75rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+}
+.v9-roll__input {
+  font-family: var(--font-body);
+  font-size: var(--text-md, 1.0625rem);
+  color: var(--color-ink);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--color-rule);
+  padding: 0.35rem 0;
+  border-radius: 0;
+}
+.v9-roll__input:focus {
+  outline: none;
+  border-bottom-color: var(--color-accent);
+}
+.v9-roll__input--note { resize: vertical; }
+.v9-roll__hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.v9-roll__consent {
+  display: flex;
+  gap: 0.6rem;
+  align-items: baseline;
+  font-size: var(--text-sm, 0.875rem);
+  color: var(--fg-2);
+}
+.v9-roll__consent input { accent-color: var(--color-accent); }
+.v9-roll__error {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm, 0.875rem);
+  color: var(--color-accent);
+  margin: 0;
+}
+.v9-roll__submit { align-self: flex-start; cursor: pointer; }
+.v9-roll__done {
+  font-family: var(--font-serif, serif);
+  font-style: italic;
+  font-size: var(--text-lg, 1.3125rem);
+  color: var(--color-ink);
+}
+.v9-roll__number {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+.v9-roll__count {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs, 0.75rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+  margin: 0 0 var(--space-md, 1.25rem);
+}

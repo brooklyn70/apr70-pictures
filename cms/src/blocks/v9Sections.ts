@@ -473,6 +473,68 @@ export const V9MoodGridBlock: Block = {
   ],
 }
 
+export const V9FoundingRollBlock: Block = {
+  slug: 'foundingRoll',
+  labels: { singular: 'Founding Roll', plural: 'Founding Roll sections' },
+  fields: [
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'scene',
+          type: 'text',
+          admin: { description: 'Scene number in the margin.', width: '33%' },
+        },
+        {
+          name: 'sceneSlug',
+          type: 'text',
+          label: 'Scene slug',
+          admin: { description: 'e.g. "INT. THE ROLL - NIGHT".', width: '67%' },
+        },
+      ],
+    },
+    {
+      name: 'heading',
+      type: 'text',
+      admin: { description: 'e.g. "The Founding Roll."' },
+    },
+    {
+      name: 'body',
+      type: 'textarea',
+      admin: {
+        description:
+          'The enrollment paragraph. Plain markdown (**bold**, ==highlight==). No em dashes (copy law).',
+      },
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'submitLabel',
+          type: 'text',
+          admin: { description: 'The enroll button label (e.g. "Take a number").', width: '50%' },
+        },
+        {
+          name: 'showCount',
+          type: 'checkbox',
+          defaultValue: true,
+          admin: {
+            description: 'Print the current roll count above the form (the v5 design law).',
+            width: '50%',
+          },
+        },
+      ],
+    },
+    {
+      name: 'successNote',
+      type: 'text',
+      admin: {
+        description: 'Shown after a successful enrollment, before the assigned number.',
+      },
+    },
+  ],
+}
+
 /** The shared section set for every "Site v9 · <Page>" global. */
 export const V9_SECTION_BLOCKS: Block[] = [
   V9PhotoFoldBlock,
@@ -486,4 +548,5 @@ export const V9_SECTION_BLOCKS: Block[] = [
   V9ArchivalBlock,
   V9DivisionStripBlock,
   V9MoodGridBlock,
+  V9FoundingRollBlock,
 ]

@@ -175,7 +175,7 @@ body {
     color var(--dur-short) cubic-bezier(0.16, 1, 0.3, 1);
 }
 .v9 ::selection {
-  background: color-mix(in oklch, var(--color-accent) 30%, var(--color-paper));
+  background: color-mix(in oklch, var(--highlight-color, var(--color-accent)) 30%, var(--color-paper));
   color: var(--color-ink);
 }
 .v9 :focus-visible {
@@ -219,12 +219,15 @@ body::after {
   border-bottom: var(--rule-hairline);
 }
 .v9-nav__link {
+  /* v10 F2: nav is set in the house display face (Futura), not mono */
+  font-family: var(--font-display);
+  font-weight: 500;
   font-size: var(--text-xs);
   letter-spacing: 0.08em;
   color: var(--color-neutral);
   transition: color var(--dur-micro) cubic-bezier(0.16, 1, 0.3, 1);
 }
-.v9-nav__link:hover { color: var(--color-accent); }
+.v9-nav__link:hover { color: var(--color-hover); }
 .v9-nav__link[aria-current='page'] {
   color: var(--color-ink);
   border-bottom-color: var(--color-accent);
@@ -295,7 +298,7 @@ body::after {
   text-decoration-color: var(--color-accent);
   text-decoration-thickness: 1px;
 }
-.v9-prose a:hover { color: var(--color-accent); }
+.v9-prose a:hover { color: var(--color-hover); }
 .v9-prose a:active { color: var(--color-accent-dim); }
 .v9-prose strong { color: var(--color-ink); font-weight: 500; }
 
@@ -307,7 +310,7 @@ body::after {
   border-bottom: 1px solid var(--color-accent);
   padding-bottom: 2px;
 }
-.v9-more:hover { color: var(--color-accent); }
+.v9-more:hover { color: var(--color-hover); }
 
 /* pull-quote voice — v8 .pull */
 .v9-pull {
@@ -345,7 +348,7 @@ body::after {
   font-weight: 400;
   color: var(--color-neutral);
 }
-.v9-routeline__link:hover { color: var(--color-accent); transform: none; }
+.v9-routeline__link:hover { color: var(--color-hover); transform: none; }
 .v9-routeline__index { color: var(--color-accent); }
 
 /* ---------- slate rows — v8 .slate-row ---------- */
@@ -359,7 +362,7 @@ body::after {
   font-size: var(--text-2xl);
   line-height: 1.1;
 }
-.v9-slaterow__link:hover .v9-slaterow__title { color: var(--color-accent); }
+.v9-slaterow__link:hover .v9-slaterow__title { color: var(--color-hover); }
 .v9-slaterow__logline {
   color: var(--color-muted);
   font-size: var(--text-md);
@@ -414,7 +417,7 @@ body::after {
   transition: color var(--dur-micro) cubic-bezier(0.16, 1, 0.3, 1),
     transform var(--dur-micro) cubic-bezier(0.16, 1, 0.3, 1);
 }
-.v9 .v9-btn:hover { background: transparent; color: var(--color-accent); }
+.v9 .v9-btn:hover { background: transparent; color: var(--color-hover); }
 .v9 .v9-btn:active { transform: translateY(1px); }
 .v9 .v9-btn--ghost {
   font-family: var(--font-mono);
@@ -425,7 +428,7 @@ body::after {
   border-bottom: 1px solid var(--color-accent);
   padding-bottom: 2px;
 }
-.v9 .v9-btn--ghost:hover { color: var(--color-accent); border-color: var(--color-accent); }
+.v9 .v9-btn--ghost:hover { color: var(--color-hover); border-color: var(--color-hover); }
 
 /* ---------- ledger — v8 .ledger ---------- */
 .v9-ledger { border-top: var(--rule-hairline); }
@@ -519,7 +522,7 @@ body::after {
   color: var(--color-neutral);
   border-bottom: 1px solid var(--color-rule);
 }
-.v9-ring__return:hover { color: var(--color-accent); border-bottom-color: var(--color-accent); }
+.v9-ring__return:hover { color: var(--color-hover); border-bottom-color: var(--color-hover); }
 
 /* ---------- footer — v8 .foot-dense ---------- */
 .v9-footer { border-top: var(--rule-hairline); }
@@ -530,7 +533,7 @@ body::after {
   border-bottom: 1px solid var(--color-rule);
   padding-bottom: 2px;
 }
-.v9-footer__nav a:hover { color: var(--color-accent); border-bottom-color: var(--color-accent); }
+.v9-footer__nav a:hover { color: var(--color-hover); border-bottom-color: var(--color-hover); }
 .v9-footer__colophon {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
@@ -561,7 +564,7 @@ body::after {
   color: var(--color-neutral);
   letter-spacing: 0.08em;
 }
-.v9-scrolltop:hover { color: var(--color-accent); border-color: var(--color-accent); }
+.v9-scrolltop:hover { color: var(--color-hover); border-color: var(--color-hover); }
 
 /* ---------- reveal motion — v8 ---------- */
 html.js .v9 .reveal {
@@ -578,3 +581,62 @@ html.js .v9 .reveal.is-in {
 @media (prefers-reduced-motion: reduce) {
   html.js .v9 .reveal { opacity: 1; transform: none; animation: none; }
 }
+
+/* ============================================================
+   BRAND KIT (v10, F1) — Payload-driven brand controls.
+   <html> carries data-accent / data-hover / data-highlight plus an
+   inline --logo-h, all read from Site Settings → Brand Kit in the
+   CMS (no code deploy to change them). The palette below is the
+   CURATED map: each named token has a dark-mode value here and a
+   light-mode value in the light overrides, so every admin choice
+   stays contrast-safe in both modes. Free-form color is deliberately
+   impossible.
+   ============================================================ */
+:root {
+  --pal-flame:     oklch(64% 0.185 42);
+  --pal-flame-dim: oklch(52% 0.15 42);
+  --pal-amber:     oklch(66% 0.13 70);
+  --pal-amber-dim: oklch(54% 0.11 70);
+  --pal-imax:      oklch(66% 0.10 200);
+  --pal-imax-dim:  oklch(54% 0.09 200);
+  --pal-blue:      oklch(66% 0.13 245);
+  --pal-blue-dim:  oklch(54% 0.11 245);
+  --pal-grey:      oklch(76% 0.012 55);
+  --pal-grey-dim:  oklch(64% 0.012 55);
+  --color-hover:     var(--color-accent);
+  --highlight-color: var(--color-accent);
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) {
+    --pal-flame: oklch(52% 0.19 42);  --pal-flame-dim: oklch(45% 0.16 42);
+    --pal-amber: oklch(50% 0.12 70);  --pal-amber-dim: oklch(43% 0.10 70);
+    --pal-imax:  oklch(47% 0.10 200); --pal-imax-dim:  oklch(41% 0.09 200);
+    --pal-blue:  oklch(50% 0.14 245); --pal-blue-dim:  oklch(43% 0.12 245);
+    --pal-grey:  oklch(45% 0.012 55); --pal-grey-dim:  oklch(38% 0.012 55);
+  }
+}
+:root[data-theme='light'] {
+  --pal-flame: oklch(52% 0.19 42);  --pal-flame-dim: oklch(45% 0.16 42);
+  --pal-amber: oklch(50% 0.12 70);  --pal-amber-dim: oklch(43% 0.10 70);
+  --pal-imax:  oklch(47% 0.10 200); --pal-imax-dim:  oklch(41% 0.09 200);
+  --pal-blue:  oklch(50% 0.14 245); --pal-blue-dim:  oklch(43% 0.12 245);
+  --pal-grey:  oklch(45% 0.012 55); --pal-grey-dim:  oklch(38% 0.012 55);
+}
+
+/* accent — data-accent='flame' or absent keeps the house flame default */
+:root[data-accent='amber']         { --color-accent: var(--pal-amber); --color-accent-dim: var(--pal-amber-dim); }
+:root[data-accent='imax']          { --color-accent: var(--pal-imax);  --color-accent-dim: var(--pal-imax-dim); }
+:root[data-accent='sicilian-blue'] { --color-accent: var(--pal-blue);  --color-accent-dim: var(--pal-blue-dim); }
+:root[data-accent='nrc-grey']      { --color-accent: var(--pal-grey);  --color-accent-dim: var(--pal-grey-dim); }
+
+/* link/nav rollover — data-hover='accent' or absent follows the accent */
+:root[data-hover='flame']          { --color-hover: var(--pal-flame); }
+:root[data-hover='amber']          { --color-hover: var(--pal-amber); }
+:root[data-hover='imax']           { --color-hover: var(--pal-imax); }
+:root[data-hover='sicilian-blue']  { --color-hover: var(--pal-blue); }
+:root[data-hover='ink']            { --color-hover: var(--color-ink); }
+
+/* selection highlight — data-highlight='flame' or absent follows the accent */
+:root[data-highlight='amber']         { --highlight-color: var(--pal-amber); }
+:root[data-highlight='sicilian-blue'] { --highlight-color: var(--pal-blue); }
+:root[data-highlight='ink']           { --highlight-color: var(--color-ink); }

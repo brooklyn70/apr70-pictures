@@ -29,6 +29,14 @@ export type FooterLink = {
   id?: string | null
 }
 
+export type BrandKitData = {
+  logoHeight?: number | null
+  modeDefault?: 'system' | 'dark' | 'light' | null
+  accent?: 'flame' | 'amber' | 'imax' | 'sicilian-blue' | 'nrc-grey' | null
+  linkHover?: 'accent' | 'flame' | 'amber' | 'imax' | 'sicilian-blue' | 'ink' | null
+  highlight?: 'flame' | 'amber' | 'sicilian-blue' | 'ink' | null
+}
+
 export type SiteSettingsData = {
   brandLabel?: string | null
   legalEntity?: string | null
@@ -39,6 +47,7 @@ export type SiteSettingsData = {
   favicon?: Media | number | null
   navLogoLight?: Media | number | null
   navLogoDark?: Media | number | null
+  brandKit?: BrandKitData | null
 }
 
 export type DivisionGlobalData = {
@@ -837,6 +846,27 @@ export async function fetchV9SlateProjects(): Promise<{
   return { slate: data ?? [], error, stale }
 }
 
+/** The public properties one division owns, ordered by slateOrder. Powers the
+ *  division pages (/212 · /310 · /nrc). Same slim projection + egress discipline
+ *  as the whole-slate fetcher, filtered to publicSlate=true AND division=<div>. */
+export async function fetchDivisionSlate(division: '212' | '310' | 'nrc'): Promise<{
+  slate: V9SlateItem[]
+  error: string | null
+  stale?: boolean
+}> {
+  const params =
+    `&where[publicSlate][equals]=true&where[division][equals]=${division}&sort=slateOrder` +
+    '&select[title]=true&select[slug]=true&select[slateOrder]=true&select[logline]=true' +
+    '&select[shortLogline]=true&select[provenance]=true&select[metaLine]=true'
+  const { data, error, stale } = await fetchSlimList<V9SlateItem>(
+    `col:projects:division:${division}`,
+    'projects',
+    params,
+    mapV9SlateItem,
+  )
+  return { slate: data ?? [], error, stale }
+}
+
 /** Full v9 property doc (generated Project type has every v9 field). */
 export async function fetchV9Project(slug: string): Promise<{
   project: Project | null
@@ -997,4 +1027,19 @@ export async function fetchCurrentDispatchIssue(): Promise<{
   const key = 'dispatch:current'
   const { data, error, stale } = await withSwrCache(key, fetchCurrentDispatchUncached)
   return { issue: data, error, stale }
+}
+
+/** Founding Roll count (v10) — the roll is publicly readable by design
+ *  (names + numbers only; contact fields are admin-gated in the CMS).
+ *  Null on any failure so the section renders without the count. */
+export async function fetchRollCount(): Promise<number | null> {
+  if (!PAYLOAD_URL) return null
+  try {
+    const res = await fetch(`${trimSlash(PAYLOAD_URL)}/api/founding-roll?limit=0&depth=0`)
+    if (!res.ok) return null
+    const data = (await res.json()) as { totalDocs?: number }
+    return typeof data.totalDocs === 'number' ? data.totalDocs : null
+  } catch {
+    return null
+  }
 }

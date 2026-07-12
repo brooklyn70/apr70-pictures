@@ -5504,6 +5504,39 @@ export interface V9Home {
             blockName?: string | null;
             blockType: 'moodGrid';
           }
+        | {
+            /**
+             * Scene number in the margin.
+             */
+            scene?: string | null;
+            /**
+             * e.g. "INT. THE ROLL - NIGHT".
+             */
+            sceneSlug?: string | null;
+            /**
+             * e.g. "The Founding Roll."
+             */
+            heading?: string | null;
+            /**
+             * The enrollment paragraph. Plain markdown (**bold**, ==highlight==). No em dashes (copy law).
+             */
+            body?: string | null;
+            /**
+             * The enroll button label (e.g. "Take a number").
+             */
+            submitLabel?: string | null;
+            /**
+             * Print the current roll count above the form (the v5 design law).
+             */
+            showCount?: boolean | null;
+            /**
+             * Shown after a successful enrollment, before the assigned number.
+             */
+            successNote?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'foundingRoll';
+          }
       )[]
     | null;
   updatedAt?: string | null;
@@ -5840,6 +5873,39 @@ export interface V9Slate {
             id?: string | null;
             blockName?: string | null;
             blockType: 'moodGrid';
+          }
+        | {
+            /**
+             * Scene number in the margin.
+             */
+            scene?: string | null;
+            /**
+             * e.g. "INT. THE ROLL - NIGHT".
+             */
+            sceneSlug?: string | null;
+            /**
+             * e.g. "The Founding Roll."
+             */
+            heading?: string | null;
+            /**
+             * The enrollment paragraph. Plain markdown (**bold**, ==highlight==). No em dashes (copy law).
+             */
+            body?: string | null;
+            /**
+             * The enroll button label (e.g. "Take a number").
+             */
+            submitLabel?: string | null;
+            /**
+             * Print the current roll count above the form (the v5 design law).
+             */
+            showCount?: boolean | null;
+            /**
+             * Shown after a successful enrollment, before the assigned number.
+             */
+            successNote?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'foundingRoll';
           }
       )[]
     | null;
@@ -6178,6 +6244,39 @@ export interface V9Craft {
             blockName?: string | null;
             blockType: 'moodGrid';
           }
+        | {
+            /**
+             * Scene number in the margin.
+             */
+            scene?: string | null;
+            /**
+             * e.g. "INT. THE ROLL - NIGHT".
+             */
+            sceneSlug?: string | null;
+            /**
+             * e.g. "The Founding Roll."
+             */
+            heading?: string | null;
+            /**
+             * The enrollment paragraph. Plain markdown (**bold**, ==highlight==). No em dashes (copy law).
+             */
+            body?: string | null;
+            /**
+             * The enroll button label (e.g. "Take a number").
+             */
+            submitLabel?: string | null;
+            /**
+             * Print the current roll count above the form (the v5 design law).
+             */
+            showCount?: boolean | null;
+            /**
+             * Shown after a successful enrollment, before the assigned number.
+             */
+            successNote?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'foundingRoll';
+          }
       )[]
     | null;
   updatedAt?: string | null;
@@ -6515,6 +6614,39 @@ export interface V9Method {
             blockName?: string | null;
             blockType: 'moodGrid';
           }
+        | {
+            /**
+             * Scene number in the margin.
+             */
+            scene?: string | null;
+            /**
+             * e.g. "INT. THE ROLL - NIGHT".
+             */
+            sceneSlug?: string | null;
+            /**
+             * e.g. "The Founding Roll."
+             */
+            heading?: string | null;
+            /**
+             * The enrollment paragraph. Plain markdown (**bold**, ==highlight==). No em dashes (copy law).
+             */
+            body?: string | null;
+            /**
+             * The enroll button label (e.g. "Take a number").
+             */
+            submitLabel?: string | null;
+            /**
+             * Print the current roll count above the form (the v5 design law).
+             */
+            showCount?: boolean | null;
+            /**
+             * Shown after a successful enrollment, before the assigned number.
+             */
+            successNote?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'foundingRoll';
+          }
       )[]
     | null;
   updatedAt?: string | null;
@@ -6851,6 +6983,39 @@ export interface V9Contact {
             id?: string | null;
             blockName?: string | null;
             blockType: 'moodGrid';
+          }
+        | {
+            /**
+             * Scene number in the margin.
+             */
+            scene?: string | null;
+            /**
+             * e.g. "INT. THE ROLL - NIGHT".
+             */
+            sceneSlug?: string | null;
+            /**
+             * e.g. "The Founding Roll."
+             */
+            heading?: string | null;
+            /**
+             * The enrollment paragraph. Plain markdown (**bold**, ==highlight==). No em dashes (copy law).
+             */
+            body?: string | null;
+            /**
+             * The enroll button label (e.g. "Take a number").
+             */
+            submitLabel?: string | null;
+            /**
+             * Print the current roll count above the form (the v5 design law).
+             */
+            showCount?: boolean | null;
+            /**
+             * Shown after a successful enrollment, before the assigned number.
+             */
+            successNote?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'foundingRoll';
           }
       )[]
     | null;
@@ -8813,6 +8978,19 @@ export interface V9HomeSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        foundingRoll?:
+          | T
+          | {
+              scene?: T;
+              sceneSlug?: T;
+              heading?: T;
+              body?: T;
+              submitLabel?: T;
+              showCount?: T;
+              successNote?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;
@@ -8973,6 +9151,19 @@ export interface V9SlateSelect<T extends boolean = true> {
                     wide?: T;
                     id?: T;
                   };
+              id?: T;
+              blockName?: T;
+            };
+        foundingRoll?:
+          | T
+          | {
+              scene?: T;
+              sceneSlug?: T;
+              heading?: T;
+              body?: T;
+              submitLabel?: T;
+              showCount?: T;
+              successNote?: T;
               id?: T;
               blockName?: T;
             };
@@ -9139,6 +9330,19 @@ export interface V9CraftSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        foundingRoll?:
+          | T
+          | {
+              scene?: T;
+              sceneSlug?: T;
+              heading?: T;
+              body?: T;
+              submitLabel?: T;
+              showCount?: T;
+              successNote?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;
@@ -9302,6 +9506,19 @@ export interface V9MethodsSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        foundingRoll?:
+          | T
+          | {
+              scene?: T;
+              sceneSlug?: T;
+              heading?: T;
+              body?: T;
+              submitLabel?: T;
+              showCount?: T;
+              successNote?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;
@@ -9462,6 +9679,19 @@ export interface V9ContactSelect<T extends boolean = true> {
                     wide?: T;
                     id?: T;
                   };
+              id?: T;
+              blockName?: T;
+            };
+        foundingRoll?:
+          | T
+          | {
+              scene?: T;
+              sceneSlug?: T;
+              heading?: T;
+              body?: T;
+              submitLabel?: T;
+              showCount?: T;
+              successNote?: T;
               id?: T;
               blockName?: T;
             };

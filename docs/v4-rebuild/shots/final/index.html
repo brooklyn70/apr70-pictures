@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>APR 70 · V4 Five Themes · Judgment Gallery</title>
+<style>
+:root { --bg:#101012; --panel:#17171a; --text:#e8e6e1; --muted:#9b978f; --line:rgba(232,230,225,0.14); --accent:#E85D04; }
+@media (prefers-color-scheme: light) { :root { --bg:#f0eee9; --panel:#fff; --text:#1c1a16; --muted:#6b675f; --line:rgba(28,26,22,0.14);} }
+:root[data-theme="light"] { --bg:#f0eee9; --panel:#fff; --text:#1c1a16; --muted:#6b675f; --line:rgba(28,26,22,0.14); }
+:root[data-theme="dark"] { --bg:#101012; --panel:#17171a; --text:#e8e6e1; --muted:#9b978f; --line:rgba(232,230,225,0.14); }
+html, body { overflow-x: clip; }
+body { background:var(--bg); color:var(--text); font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; line-height:1.6; margin:0; padding:0 clamp(16px,4vw,48px) 80px; }
+.wrap { max-width:1220px; margin:0 auto; }
+.kicker { font-size:11px; letter-spacing:0.35em; text-transform:uppercase; color:var(--accent); font-weight:600; padding-top:clamp(28px,5vw,52px); }
+h1 { font-size:clamp(1.6rem,3.8vw,2.5rem); line-height:1.1; margin:10px 0 0; letter-spacing:-0.01em; }
+p.sub { color:var(--muted); max-width:72ch; }
+.ask { margin:20px 0 0; padding:14px 18px; border:1px solid var(--line); border-left:3px solid var(--accent); background:var(--panel); font-size:0.95rem; }
+.theme { margin-top:clamp(40px,6vw,64px); border-top:1px solid var(--line); padding-top:26px; }
+.theme h2 { font-size:clamp(1.2rem,2.4vw,1.6rem); margin:0; }
+.theme p.blurb { color:var(--muted); max-width:76ch; margin:8px 0 16px; }
+.pair { display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:start; }
+figure { margin:0; background:var(--panel); border:1px solid var(--line); padding:8px; }
+figcaption { font-size:10px; letter-spacing:0.26em; text-transform:uppercase; color:var(--muted); padding:2px 2px 8px; }
+figure img { display:block; width:100%; height:auto; }
+.section-head { margin-top:clamp(48px,7vw,72px); border-top:1px solid var(--line); padding-top:26px; }
+.mag-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; }
+.onair-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; max-width:900px; }
+.rulings { padding-left:20px; color:var(--muted); font-size:0.94rem; max-width:82ch; }
+.rulings li { margin:7px 0; }
+.rulings b { color:var(--text); }
+@media (max-width:760px) { .pair { grid-template-columns:1fr; } }
+</style>
+<div class="wrap">
+  <p class="kicker">APR 70 Pictures · V4 Rebuild · The Judgment Gallery</p>
+  <h1>Five themes, five designs. The magazine. Your call.</h1>
+  <p class="sub">Everything below is committed and building clean: the front door in all five theme designs (each its own typography deployment, layout personality, texture, nav treatment, and motion signature), light and dark per theme with the independent toggle, and DISPATCH as a full magazine that renders with the CMS off. All copy is Draft 3 verbatim, numbered never dated. All photography is verified public domain with rights recorded; the ON AIR sign is the one ComfyUI interim, credited.</p>
+  <p class="sub">Live site (click through, use the Display panel: theme picker, light/dark toggle, type size, logo picker + size slider): <a style="color:var(--accent)" href="http://localhost:4400">http://localhost:4400</a> · the magazine: <a style="color:var(--accent)" href="http://localhost:4400/news">/news</a></p>
+  <div class="ask"><strong>Rule on:</strong> 1) each theme — keep / kill / notes; 2) the ON AIR pick (bottom); 3) em dashes as label separators (magazine contents entries, the editor's signature, footer wordlist) — allowed as header-class, or purge; 4) the footer's legal "© 2026" line — stays (my ruling: it's legal chrome, not an indicium) or goes.</div>
+  
+<section class="theme">
+  <h2>1 · Screening Room</h2>
+  <p class="blurb">House design + default. Dark poster modernism: Futura Heavy at poster scale, orange leader, sprocket chrome, scroll-read type, film-gate wipes.</p>
+  <div class="pair">
+    <figure><figcaption>dark (default) · desktop</figcaption><img src="home--screening-room--dark--1440.png" alt="1 · Screening Room dark" loading="lazy"></figure>
+    <figure><figcaption>light · desktop</figcaption><img src="home--screening-room--light--1440.png" alt="1 · Screening Room light" loading="lazy"></figure>
+  </div>
+</section>
+<section class="theme">
+  <h2>2 · Photoplay</h2>
+  <p class="blurb">The picture magazine. Ivory stock (cooled per your ruling), condensed cover lines with letterpress shadow, serif text, halftone plates, No. 1 seal, spine-tab nav, plates that develop like prints.</p>
+  <div class="pair">
+    <figure><figcaption>light (default) · desktop</figcaption><img src="home--photoplay--light--1440.png" alt="2 · Photoplay light" loading="lazy"></figure>
+    <figure><figcaption>dark · desktop</figcaption><img src="home--photoplay--dark--1440.png" alt="2 · Photoplay dark" loading="lazy"></figure>
+  </div>
+</section>
+<section class="theme">
+  <h2>3 · Trade Paper</h2>
+  <p class="blurb">The broadsheet. Cooled parchment, justified two-column text with drop caps, double rules and dotted leaders, ink-stamp folio nav. The anti-spectacle theme: rules draw themselves, nothing flies.</p>
+  <div class="pair">
+    <figure><figcaption>light (default) · desktop</figcaption><img src="home--trade-paper--light--1440.png" alt="3 · Trade Paper light" loading="lazy"></figure>
+    <figure><figcaption>dark · desktop</figcaption><img src="home--trade-paper--dark--1440.png" alt="3 · Trade Paper dark" loading="lazy"></figure>
+  </div>
+</section>
+<section class="theme">
+  <h2>4 · Cutting Room</h2>
+  <p class="blurb">The editing bench. Black-and-white only, Share Tech Mono leads, SMPTE timecode gutters, registration-frame type specimens, grayscale plates. Motion is hard cuts: steps() easing, no dissolves. One orange grease-pencil cue per page.</p>
+  <div class="pair">
+    <figure><figcaption>dark (default) · desktop</figcaption><img src="home--cutting-room--dark--1440.png" alt="4 · Cutting Room dark" loading="lazy"></figure>
+    <figure><figcaption>light · desktop</figcaption><img src="home--cutting-room--light--1440.png" alt="4 · Cutting Room light" loading="lazy"></figure>
+  </div>
+</section>
+<section class="theme">
+  <h2>5 · Picture Palace</h2>
+  <p class="blurb">The night marquee. Deco black-blue with brand navy, bulb-band marquee nameplate with a glowing jewel stop, vertical letter towers for the cover story, marquee-cell nav that lights on hover, letters that warm up in sequence.</p>
+  <div class="pair">
+    <figure><figcaption>dark (default) · desktop</figcaption><img src="home--picture-palace--dark--1440.png" alt="5 · Picture Palace dark" loading="lazy"></figure>
+    <figure><figcaption>light · desktop</figcaption><img src="home--picture-palace--light--1440.png" alt="5 · Picture Palace light" loading="lazy"></figure>
+  </div>
+</section>
+  <section class="section-head">
+    <h2>DISPATCH — the magazine, under each theme</h2>
+    <p class="sub">Full anatomy: masthead, cover over the Abbott El plate, contents, editor's letter, The Mayors cover story, slate dispatches, desks, notices, numbered-folio archive, colophon. No dates anywhere on the editorial surface.</p>
+    <div class="mag-grid"><figure><figcaption>Screening Room · dark</figcaption><img src="news--screening-room--dark--1440.png" alt="Screening Room · dark" loading="lazy"></figure><figure><figcaption>Photoplay · light</figcaption><img src="news--photoplay--light--1440.png" alt="Photoplay · light" loading="lazy"></figure><figure><figcaption>Trade Paper · light</figcaption><img src="news--trade-paper--light--1440.png" alt="Trade Paper · light" loading="lazy"></figure><figure><figcaption>Cutting Room · dark</figcaption><img src="news--cutting-room--dark--1440.png" alt="Cutting Room · dark" loading="lazy"></figure><figure><figcaption>Picture Palace · dark</figcaption><img src="news--picture-palace--dark--1440.png" alt="Picture Palace · dark" loading="lazy"></figure></div>
+  </section>
+  <section class="section-head">
+    <h2>Mobile</h2>
+    
+<div class="mag-grid"><figure><figcaption>screening-room · mobile dark</figcaption><img src="home--screening-room--dark--390.png" alt="screening-room mobile" loading="lazy"></figure><figure><figcaption>photoplay · mobile dark</figcaption><img src="home--photoplay--dark--390.png" alt="photoplay mobile" loading="lazy"></figure><figure><figcaption>trade-paper · mobile dark</figcaption><img src="home--trade-paper--dark--390.png" alt="trade-paper mobile" loading="lazy"></figure><figure><figcaption>cutting-room · mobile dark</figcaption><img src="home--cutting-room--dark--390.png" alt="cutting-room mobile" loading="lazy"></figure><figure><figcaption>picture-palace · mobile dark</figcaption><img src="home--picture-palace--dark--390.png" alt="picture-palace mobile" loading="lazy"></figure></div>
+  </section>
+  <section class="section-head">
+    <h2>ON AIR sign — ComfyUI interim, pick one (credited until you replace it)</h2>
+    <div class="onair-grid"><figure><figcaption>Candidate 1 · over the studio door (my pick)</figcaption><img src="onair-sign-candidate-1.png" alt="Candidate 1 · over the studio door (my pick)" loading="lazy"></figure><figure><figcaption>Candidate 2 · cast-metal close-up</figcaption><img src="onair-sign-candidate-2.png" alt="Candidate 2 · cast-metal close-up" loading="lazy"></figure><figure><figcaption>Candidate 4 · B&W lightbox</figcaption><img src="onair-sign-candidate-4.png" alt="Candidate 4 · B&W lightbox" loading="lazy"></figure></div>
+  </section>
+  <section class="section-head">
+    <h2>Standing state</h2>
+    <ul class="rulings">
+      <li><b>Committed on main, not pushed:</b> waves A (chrome, control panel, splash, cursor) + B (front door) + C (four themes) + D (magazine) + fixes, PD imagery + credits manifest, SPEC, design sources.</li>
+      <li><b>Running now:</b> a full verification matrix (10 routes × 5 themes × 2 modes × 2 viewports) hunting for breakage on secondary pages (/212, /work, /about...). Defects found there get fixed before any deploy.</li>
+      <li><b>Not done yet:</b> division/property/troupe/about page design passes (they inherit theme CSS but haven't had their own wave), Draft 3 copy application beyond the front door + magazine, staging deploy (only with your go), DNS (yours alone).</li>
+    </ul>
+  </section>
+</div>
+</body></html>

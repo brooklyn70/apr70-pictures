@@ -16,6 +16,8 @@ import { themeField } from '../fields/themeField'
 
 export const Division310: GlobalConfig = {
   slug: '310',
+  // v10 admin trim (Marco 2026-07-12): fed the retired v4 surface; hidden, not deleted — data kept for archive/possible v11 reuse.
+  admin: { hidden: true },
   label: '310 Division',
   // Same numeric-slug generate:types fix as Division212.
   typescript: { interface: 'Division310Global' },

@@ -16,6 +16,8 @@ import { themeField } from '../fields/themeField'
 
 export const Division212: GlobalConfig = {
   slug: '212',
+  // v10 admin trim (Marco 2026-07-12): fed the retired v4 surface; hidden, not deleted — data kept for archive/possible v11 reuse.
+  admin: { hidden: true },
   label: '212 Division',
   // The numeric slug generates an invalid TS identifier ("interface 212")
   // and crashes `payload generate:types`; naming the interface fixes it.

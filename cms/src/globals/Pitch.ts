@@ -13,6 +13,8 @@ import { DividerBlock } from '../blocks/DividerBlock'
 
 export const Pitch: GlobalConfig = {
   slug: 'pitch',
+  // v10 admin trim (Marco 2026-07-12): fed the retired v4 surface; hidden, not deleted — data kept for archive/possible v11 reuse.
+  admin: { hidden: true },
   label: 'Pitch',
   access: { read: () => true },
   fields: [

@@ -65,7 +65,8 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     livePreview: {
-      globals: ['home'],
+      // v10 admin trim: 'home' (v4 front door) is hidden; no globals wired to live preview.
+      globals: [],
       breakpoints: [
         { label: 'Desktop', name: 'desktop', width: 1440, height: 900 },
         { label: 'Tablet',  name: 'tablet',  width: 768,  height: 1024 },

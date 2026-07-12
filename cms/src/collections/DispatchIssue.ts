@@ -15,6 +15,8 @@ export const DispatchIssue: CollectionConfig = {
   labels: { singular: 'Dispatch Issue', plural: 'Dispatch Issues' },
   access: { read: () => true },
   admin: {
+    // v10 admin trim (Marco 2026-07-12): fed the retired v4 surface; hidden, not deleted — data kept for archive/possible v11 reuse.
+    hidden: true,
     useAsTitle: 'displayTitle',
     defaultColumns: ['displayTitle', 'season', 'current', 'releaseDate'],
     description:

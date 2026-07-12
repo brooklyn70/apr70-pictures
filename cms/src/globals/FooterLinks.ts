@@ -18,6 +18,8 @@ export const FooterLinks: GlobalConfig = {
     read: () => true,
   },
   admin: {
+    // v10 admin trim (Marco 2026-07-12): fed the retired v4 surface; hidden, not deleted — data kept for archive/possible v11 reuse.
+    hidden: true,
     description: 'Navigation links displayed in the 4-column site footer grid.',
   },
   fields: [

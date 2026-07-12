@@ -20,6 +20,8 @@ export const TroupePage: GlobalConfig = {
   label: 'Troupe Presents',
   access: { read: () => true },
   admin: {
+    // v10 admin trim (Marco 2026-07-12): fed the retired v4 surface; hidden, not deleted — data kept for archive/possible v11 reuse.
+    hidden: true,
     description:
       'The APR 70 Troupe Presents page (/troupe). Seed copy is DRAFT v01 — review every block before launch.',
   },

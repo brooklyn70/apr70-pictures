@@ -13,6 +13,8 @@ import { DividerBlock } from '../blocks/DividerBlock'
 
 export const Investors: GlobalConfig = {
   slug: 'investors',
+  // v10 admin trim (Marco 2026-07-12): fed the retired v4 surface; hidden, not deleted — data kept for archive/possible v11 reuse.
+  admin: { hidden: true },
   label: 'Investors',
   access: { read: () => true },
   fields: [

@@ -290,7 +290,8 @@ const items: NavItem[] = raw.map(({ match, ...rest }) => ({ ...rest, active: mat
     transition: color var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
   }
   .site-nav__label {
-    font-family: var(--font-body);
+    /* v10: nav is set in the house display face (Futura), per F2. */
+    font-family: var(--font-display);
     font-size: var(--type-micro);
     font-weight: 500;
     letter-spacing: var(--track-eyebrow);

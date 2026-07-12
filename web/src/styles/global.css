@@ -1,3 +1,19 @@
 @import "./tokens.css";
 @import "./v9-fonts.css";
 @import "tailwindcss";
+
+/* ============================================================
+   F4 (v10, Marco 2026-07-12): scrollbars are hidden VISUALLY,
+   site-wide. Wheel, trackpad, touch, and keyboard scrolling all
+   keep working — nothing locks overflow. A11y tradeoff (no visual
+   scroll-position affordance) is logged in the V10 Change Register.
+   ============================================================ */
+* {
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* legacy Edge/IE */
+}
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;              /* WebKit/Blink */
+}

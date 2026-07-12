@@ -1,68 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
-
 /* ============================================================
    APR 70 PICTURES — COLORS & TYPE
    Bold. Mature. In your face.
    Italian Modernist / Vignelli-Munari lineage. Film sprocket DNA.
-   ============================================================ */
 
-/* ---------- WEBFONTS ---------- */
-@font-face {
-  font-family: 'Futura Std';
-  src: url('/fonts/FuturaStd-Light.otf') format('opentype');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Futura Std';
-  src: url('/fonts/FuturaStd-Book.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Futura Std';
-  src: url('/fonts/FuturaStd-Medium.otf') format('opentype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Futura Std';
-  src: url('/fonts/FuturaStd-Bold.otf') format('opentype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Futura Std';
-  src: url('/fonts/FuturaStd-BoldOblique.otf') format('opentype');
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Futura Std';
-  src: url('/fonts/FuturaStd-Heavy.otf') format('opentype');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Futura Std Condensed';
-  src: url('/fonts/FuturaStd-CondensedBold.otf') format('opentype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Futura Std Condensed';
-  src: url('/fonts/FuturaStd-CondensedExtraBd.otf') format('opentype');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
+   v10: the Google Fonts @import (Barlow / Share Tech Mono) is GONE —
+   it was the P0 privacy leak contradicting the zero-third-party claim.
+   All faces are self-hosted; the Futura faces live in v9-fonts.css.
+   ============================================================ */
 
 /* ---------- ROOT TOKENS ---------- */
 :root {

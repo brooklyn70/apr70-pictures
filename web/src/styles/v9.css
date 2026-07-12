@@ -368,7 +368,7 @@
   max-width: 44ch;
 }
 .v9-pull p {
-  font-family: var(--font-display);
+  font-family: var(--font-serif); /* v10: quotes keep the serif italic voice */
   font-style: italic;
   font-weight: 450;
   font-size: clamp(1.2rem, 2.4vw, 1.6rem);
@@ -407,7 +407,7 @@
 }
 .v9-quotefeature blockquote { margin: 0; }
 .v9-quotefeature p {
-  font-family: var(--font-display);
+  font-family: var(--font-serif); /* v10: quotes keep the serif italic voice */
   font-style: italic;
   font-weight: 480;
   font-size: var(--v9-quote);

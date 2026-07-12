@@ -13,8 +13,8 @@
    - the OKLCH palette (Marquee Night / House Lights values)
    - GRADIENT LAW: --scrim + on-photo inks are FIXED dark-cinema
      values in BOTH themes. Photo chrome never goes white.
-   - Fraunces display (italic, light weights) · Newsreader text ·
-     Courier Prime mono
+   - Futura Std display (v10 house face) · Newsreader text ·
+     Courier Prime mono · Fraunces kept as editorial serif accent
    - type scale steps via html[data-scale] (s 87.5 / m 100 /
      l 112.5 / xl 125), logo height via --logo-h
    - film-grain veil, hairline rules, restrained editorial spacing
@@ -42,8 +42,12 @@
 
   --grain-opacity: 0.05;
 
-  /* v8 type */
-  --font-display: 'Fraunces', 'Iowan Old Style', serif;
+  /* v10 type — Futura Std is the house display face (Marco 2026-07-12):
+     logo, nav, headlines, division labels. Body and mono registers stay
+     restrained so long prose and sluglines keep their craft. Fraunces
+     remains available as an editorial serif accent (--font-serif). */
+  --font-display: 'Futura Std', Futura, 'Century Gothic', 'Helvetica Neue', sans-serif;
+  --font-serif:   'Fraunces', 'Iowan Old Style', serif;
   --font-body:    'Newsreader', 'Iowan Old Style', serif;
   --font-mono:    'Courier Prime', 'Courier New', monospace;
 
@@ -190,14 +194,19 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
 }
 
-/* the italic editorial display voice — every display heading, per v8 */
+/* v10 display voice — structural headings sit UPRIGHT in Futura (the v8
+   italic-Fraunces heading law is superseded by Marco's 2026-07-12 Futura
+   ruling). Quotations and pull text keep the italic editorial voice, but
+   in the serif accent face — see v9.css (--font-serif). */
 .v9-textfold__heading,
 .v9-photofold__heading,
 .v9-prophead__title,
 .v9-request__heading,
 .v9-moodgrid__heading,
 .v9-slaterow__title,
-.v9-ring__title,
+.v9-ring__title {
+  font-style: normal;
+}
 .v9-quotefeature p,
 .v9-pull p {
   font-style: italic;
@@ -387,13 +396,15 @@ body::after {
 }
 .v9-request__heading { line-height: 1.06; }
 
-/* the request CTA — v8 .request-link (italic display, flame underline) */
+/* the request CTA — v8 .request-link (italic editorial serif, flame
+   underline). v10: stays in the Fraunces accent so the editorial CTA
+   signature survives the Futura display switch. */
 .v9 .v9-btn {
   background: transparent;
   border: 0;
   border-bottom: 2px solid var(--color-accent);
   color: var(--color-ink);
-  font-family: var(--font-display);
+  font-family: var(--font-serif);
   font-style: italic;
   font-size: var(--text-xl);
   font-weight: 380;

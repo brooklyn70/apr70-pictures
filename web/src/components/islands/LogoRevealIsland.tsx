@@ -142,9 +142,9 @@ export default function LogoRevealIsland() {
           <text
             x="160"
             y="58"
-            fontFamily="'Fraunces', Georgia, serif"
+            fontFamily="'Futura Std', Futura, 'Century Gothic', sans-serif"
             fontSize="38"
-            fontWeight="600"
+            fontWeight="700"
             fill="#FFFFFF"
             textAnchor="middle"
             letterSpacing="0.18em"

@@ -7,8 +7,8 @@
    follow, switched by data-theme on <html>). See
    ./marquee.css for the palette, laws, and component skin.
 
-   Dormant on disk, intentionally not imported (retired earlier):
-   ./screening-room.css · ./cutting-room.css · ./mission-control.css ·
-   ./photoplay.css · ./trade-paper.css · ./picture-palace.css
+   v10 catalog (2026-07-12): the six dormant theme files that used to sit
+   next to this one — none of them ever imported — are now deleted from
+   disk. marquee.css is the only theme that has ever existed here.
    ============================================================ */
 @import './marquee.css';

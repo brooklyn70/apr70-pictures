@@ -7,10 +7,15 @@
  *   data-theme="dark" = Marquee Night (default look)
  *   data-theme="light"= House Lights
  * Persisted as localStorage apr70-theme (dark | light | system), stamped
- * pre-paint below so nothing flashes. Type size (v8 steps, html[data-scale])
- * and logo size (--logo-h px) ride the same stamp. Header nav and footer
- * come from site-settings.v9Chrome; page metadata + JSON-LD arrive as props.
+ * pre-paint below so nothing flashes. Header nav and footer come from
+ * site-settings.v9Chrome; page metadata + JSON-LD arrive as props.
  * Plain MPA (no ClientRouter): every v9 page stands alone.
+ *
+ * v10 catalog (2026-07-12): the visitor type-size dial (html[data-scale])
+ * and logo-size dial (--logo-h) are RETIRED from the Display panel — the
+ * pre-paint stamp below no longer reads/writes apr70:font-scale or
+ * apr70:logo-size. --logo-h stays a live token (SiteNav still reads it);
+ * only the visitor control that used to write it is gone.
  */
 import '../styles/global.css'
 import '../styles/v9.css'
@@ -18,7 +23,6 @@ import '../styles/themes/index.css'
 import ThemeControlIsland from '../components/islands/ThemeControlIsland'
 import ScrollTopIsland from '../components/islands/ScrollTopIsland'
 import { fetchV9Chrome } from '../lib/payload'
-import { LOGO_SIZE } from '../designs/manifest'
 import { organizationJsonLd, webSiteJsonLd, canonical, V9_PAGES, NAP } from '../lib/v9/site'
 
 interface Props {
@@ -39,8 +43,6 @@ const navLinks =
 const path = Astro.url.pathname.replace(/\/$/, '') || '/'
 const canonicalUrl = canonical(path)
 
-const logoDefaults = { min: LOGO_SIZE.min, max: LOGO_SIZE.max, def: LOGO_SIZE.default }
-
 const jsonLdAll = [organizationJsonLd(), webSiteJsonLd(), ...jsonLd]
 
 /* The Display panel's three theme choices are v8's MODES. The CMS fields
@@ -50,8 +52,6 @@ const panelLabels = {
   displayLabel: chrome.displayLabel,
   panelTitle: chrome.panelTitle,
   themeLabel: chrome.themeLabel,
-  scaleLabel: chrome.scaleLabel,
-  logoLabel: chrome.logoLabel,
   themeNames: {
     dark: chrome.themePremiere,
     light: chrome.themeMatinee,
@@ -65,10 +65,12 @@ const panelLabels = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script is:inline define:vars={{ logoDefaults }}>
+    <script is:inline>
       /* v8 pre-paint stamp — runs before first paint, no FOUC.
          apr70-theme: dark | light | system (anything else = system, which
-         means NO data-theme attribute so prefers-color-scheme decides). */
+         means NO data-theme attribute so prefers-color-scheme decides).
+         v10 catalog: the type-scale and logo-size visitor dials are gone —
+         this stamp only ever sets mode now. */
       ;(function () {
         var doc = document.documentElement
         doc.classList.add('js')
@@ -78,18 +80,6 @@ const panelLabels = {
         var theme = read('apr70-theme')
         if (theme === 'dark' || theme === 'light') doc.setAttribute('data-theme', theme)
         else doc.removeAttribute('data-theme')
-
-        var scales = { s: 1, m: 1, l: 1, xl: 1 }
-        var scale = read('apr70:font-scale')
-        if (!scale || !scales[scale]) scale = 'm'
-        doc.setAttribute('data-scale', scale)
-
-        var size = parseInt(read('apr70:logo-size'), 10)
-        if (!isFinite(size)) size = logoDefaults.def
-        if (size < logoDefaults.min) size = logoDefaults.min
-        if (size > logoDefaults.max) size = logoDefaults.max
-        doc.setAttribute('data-logo-size', String(size))
-        doc.style.setProperty('--logo-h', size + 'px')
       })()
     </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

@@ -1,25 +1,30 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import BlockRenderer from '../components/blocks/BlockRenderer.astro';
-import { fetchInvestorsGlobal } from '../lib/payload';
+/**
+ * /investors — retired as a public page (v10 catalog, room-only doctrine).
+ * There is no public deck or data room; investor materials move only by a
+ * person-to-person request. Serves a real 410 (Gone) since output: 'server'
+ * gives us a live status code, and renders in v9 chrome so the retirement
+ * itself still reads as APR 70, not a broken link.
+ */
+import V9Layout from '../layouts/V9Layout.astro'
+import { NAP } from '../lib/v9/site'
 
-const { investors, error } = await fetchInvestorsGlobal();
-const blocks = investors?.layout || [];
+const title = `Investors · ${NAP.name}`
+const description = 'Investor materials at APR 70 Pictures move by personal request, not a public page.'
+
+Astro.response.status = 410
+Astro.response.statusText = 'Gone'
 ---
 
-<Layout title="Investors">
-  <main>
-    {error && (
-      <div style="padding: 1rem; margin: 2rem auto; max-width: 600px; background: rgba(255,0,0,0.1); border: 1px solid red; border-radius: 4px; font-family: var(--font-body); color: #cc0000;">
-        <strong>Fetch Error:</strong> {error}
-      </div>
-    )}
-    {!blocks.length && !error ? (
-      <div style="padding: 4rem; text-align: center; font-family: var(--font-body); color: var(--apr-mid-dark);">
-        No blocks found. Add some blocks to the Investors global in Payload!
-      </div>
-    ) : (
-      <BlockRenderer blocks={blocks} />
-    )}
-  </main>
-</Layout>
+<V9Layout title={title} description={description}>
+  <section class="v9-section" aria-label="Investors">
+    <div class="v9-col">
+      <h1 class="v9-textfold__heading">Investors</h1>
+      <p class="v9-prose">
+        This page is retired. APR 70 doesn't run a public deck or an open data room —
+        investor materials move person to person, on request.
+      </p>
+      <a class="v9-more" href="/contact">Request a conversation →</a>
+    </div>
+  </section>
+</V9Layout>

@@ -1,8 +1,9 @@
-/* ThemeControlIsland — the free-floating Display panel, wearing v8's
-   .display-pill / .display-panel skin (apr70-v8/site/css/site.css is the
-   visual authority). Paper-2 surface, hairline rules, Courier Prime mono
-   labels, flame accent, square corners. Draggability and the fixed
-   bottom-right anchor survive from v9 (Marco asked to keep them). */
+/* ThemeControlIsland — the Display panel, wearing v8's .display-pill /
+   .display-panel skin (apr70-v8/site/css/site.css is the visual authority).
+   Paper-2 surface, hairline rules, Courier Prime mono labels, flame accent,
+   square corners. Fixed bottom-right anchor, not draggable (v10 catalog,
+   2026-07-12: the free-float drag behavior is retired along with the
+   logo-size and type-size dials — mode toggle is all that's left). */
 
 /* ============================================================
    LEGACY GLOBAL TOKEN REBINDS — kept ONLY for the old Layout.astro
@@ -63,8 +64,7 @@ html[data-accent='ink'] { --accent: var(--fg-4); }
   text-transform: uppercase;
   line-height: 1;
   padding: 0.85rem 0.9rem;
-  cursor: grab;
-  touch-action: none;
+  cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
   transition: color var(--dur-micro) cubic-bezier(0.16, 1, 0.3, 1),
@@ -73,9 +73,6 @@ html[data-accent='ink'] { --accent: var(--fg-4); }
 .tc-pill:hover {
   color: var(--color-accent);
   border-color: var(--color-accent);
-}
-.tc-pill:active {
-  cursor: grabbing;
 }
 .tc-pill:focus-visible {
   outline: 2px solid var(--color-focus);
@@ -110,24 +107,6 @@ html[data-accent='ink'] { --accent: var(--fg-4); }
   min-height: 44px;
   padding: 0 0.5rem 0 1.25rem;
   border-bottom: var(--rule-hairline);
-  cursor: grab;
-  touch-action: none;
-  user-select: none;
-  -webkit-user-select: none;
-}
-.tc-panel__head:active {
-  cursor: grabbing;
-}
-
-.tc-panel__grip {
-  display: inline-flex;
-  flex-direction: column;
-  gap: 3px;
-}
-.tc-panel__grip span {
-  width: 14px;
-  height: 1px;
-  background: var(--color-neutral);
 }
 
 /* v8 .dp-title voice */
@@ -236,61 +215,6 @@ html[data-accent='ink'] { --accent: var(--fg-4); }
 .tc-seg:focus-visible {
   outline: 2px solid var(--color-focus);
   outline-offset: 2px;
-}
-
-/* ---- logo-size slider (kept from v9, inked with v8 tokens) ---- */
-.tc-range-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.tc-range-end {
-  font-family: var(--font-body);
-  font-size: 10px;
-  color: var(--color-neutral);
-  line-height: 1;
-}
-.tc-range-end--big {
-  font-size: 15px;
-}
-.tc-range {
-  -webkit-appearance: none;
-  appearance: none;
-  flex: 1;
-  width: 100%;
-  height: 28px;
-  margin: 0;
-  background: transparent;
-  cursor: pointer;
-}
-.tc-range:focus-visible {
-  outline: 2px solid var(--color-focus);
-  outline-offset: 4px;
-}
-.tc-range::-webkit-slider-runnable-track {
-  height: 2px;
-  background: var(--color-rule);
-}
-.tc-range::-moz-range-track {
-  height: 2px;
-  background: var(--color-rule);
-}
-.tc-range::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 14px;
-  height: 14px;
-  margin-top: -6px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  border: none;
-}
-.tc-range::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  border: none;
 }
 
 /* Coarse pointers: no hover styling surprises; targets already >= 40px. */

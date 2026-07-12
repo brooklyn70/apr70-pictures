@@ -15,9 +15,13 @@
      values in BOTH themes. Photo chrome never goes white.
    - Futura Std display (v10 house face) · Newsreader text ·
      Courier Prime mono · Fraunces kept as editorial serif accent
-   - type scale steps via html[data-scale] (s 87.5 / m 100 /
-     l 112.5 / xl 125), logo height via --logo-h
+   - logo height via --logo-h (token stays live; the visitor logo-size
+     dial that used to write it is retired — v10 catalog, 2026-07-12)
    - film-grain veil, hairline rules, restrained editorial spacing
+
+   v10 catalog (2026-07-12): the visitor type-scale dial (html[data-scale])
+   is retired along with its Display-panel control — those rules are gone
+   from this file. House Lights re-toned to the house hue (55), see below.
    ============================================================ */
 
 /* ---------- Marquee Night (default dark) — v8 tokens verbatim ---------- */
@@ -97,12 +101,6 @@
   --cursor-color: var(--color-ink);
 }
 
-/* ---------- type scale (Display panel · persisted) — v8 steps ---------- */
-html[data-scale='s']  { font-size: 87.5%; }
-html[data-scale='m']  { font-size: 100%; }
-html[data-scale='l']  { font-size: 112.5%; }
-html[data-scale='xl'] { font-size: 125%; }
-
 /* ---------- House Lights (light) — v8 tokens verbatim ----------
    One override set, applied two ways: OS preference (when no manual
    choice) and the explicit data-theme="light" from the Display panel.
@@ -111,13 +109,14 @@ html[data-scale='xl'] { font-size: 125%; }
 @media (prefers-color-scheme: light) {
   :root:not([data-theme='dark']) {
     color-scheme: light;
-    --color-paper:    oklch(96% 0.012 85);
-    --color-paper-2:  oklch(93% 0.014 85);
-    --color-paper-3:  oklch(89% 0.016 85);
-    --color-rule:     oklch(82% 0.015 80);
-    --color-neutral:  oklch(45% 0.014 60);
-    --color-muted:    oklch(36% 0.012 55);
-    --color-ink:      oklch(21% 0.020 55);
+    /* re-toned to the house hue per v10 catalog (authored neutral, not default cream) */
+    --color-paper:    oklch(94.5% 0.008 55);
+    --color-paper-2:  oklch(91.5% 0.010 55);
+    --color-paper-3:  oklch(88% 0.012 55);
+    --color-rule:     oklch(81% 0.012 55);
+    --color-neutral:  oklch(44% 0.014 55);
+    --color-muted:    oklch(34% 0.012 55);
+    --color-ink:      oklch(19% 0.018 55);
     --color-accent:   oklch(52% 0.19 42);
     --color-accent-dim: oklch(45% 0.16 42);
     --color-focus:    oklch(48% 0.17 55);
@@ -126,13 +125,14 @@ html[data-scale='xl'] { font-size: 125%; }
 }
 :root[data-theme='light'] {
   color-scheme: light;
-  --color-paper:    oklch(96% 0.012 85);
-  --color-paper-2:  oklch(93% 0.014 85);
-  --color-paper-3:  oklch(89% 0.016 85);
-  --color-rule:     oklch(82% 0.015 80);
-  --color-neutral:  oklch(45% 0.014 60);
-  --color-muted:    oklch(36% 0.012 55);
-  --color-ink:      oklch(21% 0.020 55);
+  /* re-toned to the house hue per v10 catalog (authored neutral, not default cream) */
+  --color-paper:    oklch(94.5% 0.008 55);
+  --color-paper-2:  oklch(91.5% 0.010 55);
+  --color-paper-3:  oklch(88% 0.012 55);
+  --color-rule:     oklch(81% 0.012 55);
+  --color-neutral:  oklch(44% 0.014 55);
+  --color-muted:    oklch(34% 0.012 55);
+  --color-ink:      oklch(19% 0.018 55);
   --color-accent:   oklch(52% 0.19 42);
   --color-accent-dim: oklch(45% 0.16 42);
   --color-focus:    oklch(48% 0.17 55);

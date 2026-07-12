@@ -33,6 +33,20 @@ export default defineConfig({
   output: 'server',
   adapter,
 
+  // ── v10 catalog: retired legacy-chrome routes ────────────────────────────
+  // output: 'server' means these are real redirects at request time (301),
+  // not meta-refresh stubs. /investors and /pitch are NOT here — they stay
+  // live routes serving a real 410 in v9 chrome (room-only doctrine), see
+  // src/pages/investors.astro + src/pages/pitch.astro.
+  redirects: {
+    '/about': '/methods',
+    '/jobs': '/contact',
+    '/troupe': '/methods',
+    '/work': '/slate',
+    '/news': '/',
+    '/news/[...slug]': '/',
+  },
+
   // Listen on all interfaces so remote previews (IDE tunnels, Anti-Gravity, etc.)
   // can reach the dev server. Default port 4321; if busy Astro tries the next.
   server: {

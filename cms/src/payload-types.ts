@@ -72,6 +72,7 @@ export interface Config {
     projects: Project;
     news: News;
     'dispatch-issues': DispatchIssue;
+    'founding-roll': FoundingRoll;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -84,6 +85,7 @@ export interface Config {
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     news: NewsSelect<false> | NewsSelect<true>;
     'dispatch-issues': DispatchIssuesSelect<false> | DispatchIssuesSelect<true>;
+    'founding-roll': FoundingRollSelect<false> | FoundingRollSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -1142,6 +1144,32 @@ export interface DispatchIssue {
   createdAt: string;
 }
 /**
+ * Public enrollments on the Founding Roll. Numbers are assigned automatically and never reissued.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "founding-roll".
+ */
+export interface FoundingRoll {
+  id: number;
+  /**
+   * Assigned automatically on enrollment. Never reissued.
+   */
+  rollNumber?: number | null;
+  name: string;
+  email: string;
+  /**
+   * Anything the enrollee wanted to say to the writer.
+   */
+  note?: string | null;
+  consent: boolean;
+  /**
+   * Page or campaign the enrollment came from (source-tagged per the v5 design).
+   */
+  source?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -1184,6 +1212,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'dispatch-issues';
         value: number | DispatchIssue;
+      } | null)
+    | ({
+        relationTo: 'founding-roll';
+        value: number | FoundingRoll;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1884,6 +1916,20 @@ export interface DispatchIssuesSelect<T extends boolean = true> {
         type?: T;
         baseline?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "founding-roll_select".
+ */
+export interface FoundingRollSelect<T extends boolean = true> {
+  rollNumber?: T;
+  name?: T;
+  email?: T;
+  note?: T;
+  consent?: T;
+  source?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -2948,6 +2994,31 @@ export interface SiteSetting {
    * Logotype or mark for the header on dark backgrounds.
    */
   navLogoDark?: (number | null) | Media;
+  /**
+   * Logo size and the canonical theme colors (accent, link rollover, selection highlight, default mode). Public site reflects changes on refresh.
+   */
+  brandKit?: {
+    /**
+     * Height of the nav brand mark in pixels (24–72). Admin-set; there is no visitor control.
+     */
+    logoHeight?: number | null;
+    /**
+     * Mode used when a visitor has not chosen one. Visitor choice in the Display panel still wins.
+     */
+    modeDefault?: ('system' | 'dark' | 'light') | null;
+    /**
+     * The lead accent: editorial CTA underline, active nav, focus ring, flame details. Each option carries dark-mode and light-mode OKLCH variants that pass contrast.
+     */
+    accent?: ('flame' | 'amber' | 'imax' | 'sicilian-blue' | 'nrc-grey') | null;
+    /**
+     * Color links and nav items turn on hover/rollover.
+     */
+    linkHover?: ('accent' | 'flame' | 'amber' | 'imax' | 'sicilian-blue' | 'ink') | null;
+    /**
+     * Text-selection (::selection) pair. Each option is a tested background/foreground pair.
+     */
+    highlight?: ('flame' | 'amber' | 'sicilian-blue' | 'ink') | null;
+  };
   /**
    * Every string in the v9 site chrome: the Display panel labels, footer colophon, copyright, and nav links. Seeded from the vault chrome.md canon.
    */
@@ -7361,6 +7432,15 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   favicon?: T;
   navLogoLight?: T;
   navLogoDark?: T;
+  brandKit?:
+    | T
+    | {
+        logoHeight?: T;
+        modeDefault?: T;
+        accent?: T;
+        linkHover?: T;
+        highlight?: T;
+      };
   v9Chrome?:
     | T
     | {

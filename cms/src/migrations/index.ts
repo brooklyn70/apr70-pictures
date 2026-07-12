@@ -9,6 +9,7 @@ import * as migration_20260705_troupe_page from './20260705_troupe_page';
 import * as migration_20260705_v4_zine_blocks from './20260705_v4_zine_blocks';
 import * as migration_20260708_property_page_fields from './20260708_property_page_fields';
 import * as migration_20260710_v9_content_model from './20260710_v9_content_model';
+import * as migration_20260712_171318_v10_brand_kit_founding_roll from './20260712_171318_v10_brand_kit_founding_roll';
 
 export const migrations = [
   {
@@ -39,7 +40,7 @@ export const migrations = [
   {
     up: migration_20260528_020717_dispatch_schema.up,
     down: migration_20260528_020717_dispatch_schema.down,
-    name: '20260528_020717_dispatch_schema'
+    name: '20260528_020717_dispatch_schema',
   },
   {
     up: migration_20260625_division_theme.up,
@@ -65,5 +66,10 @@ export const migrations = [
     up: migration_20260710_v9_content_model.up,
     down: migration_20260710_v9_content_model.down,
     name: '20260710_v9_content_model',
+  },
+  {
+    up: migration_20260712_171318_v10_brand_kit_founding_roll.up,
+    down: migration_20260712_171318_v10_brand_kit_founding_roll.down,
+    name: '20260712_171318_v10_brand_kit_founding_roll'
   },
 ];

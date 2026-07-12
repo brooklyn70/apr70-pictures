@@ -10,6 +10,7 @@ import { Media } from './collections/Media'
 import { Project } from './collections/Project'
 import { NewsArticle } from './collections/NewsArticle'
 import { DispatchIssue } from './collections/DispatchIssue'
+import { FoundingRoll } from './collections/FoundingRoll'
 import { aprLexicalEditor } from './editor/aprLexicalEditor'
 import { Home } from './globals/Home'
 import { SiteSettings } from './globals/SiteSettings'
@@ -73,7 +74,7 @@ export default buildConfig({
       url: () => process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:4321',
     },
   },
-  collections: [Users, Media, Project, NewsArticle, DispatchIssue],
+  collections: [Users, Media, Project, NewsArticle, DispatchIssue, FoundingRoll],
   globals: [Home, SiteSettings, FooterLinks, About, Contact, Jobs, Pitch, Investors, Division212, Division310, DivisionNRC, TroupePage, V9Home, V9Slate, V9Craft, V9Methods, V9Contact],
   editor: aprLexicalEditor,
   secret: process.env.PAYLOAD_SECRET || '',

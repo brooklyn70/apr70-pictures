@@ -113,6 +113,116 @@ export const SiteSettings: GlobalConfig = {
       ],
     },
 
+    // ── Brand Kit (v10, F1) ───────────────────────────────────────────────────
+    // Marco's brand control room. Logo presentation and the canonical theme
+    // colors are edited HERE, not in CSS. The public site reads this global
+    // server-side on every render (short SWR cache), so edits appear after a
+    // page refresh — no code deploy. Colors are curated named tokens, not
+    // free-form: each option maps to contrast-safe OKLCH pairs (dark + light
+    // mode variants) defined once in marquee.css.
+    {
+      name: 'brandKit',
+      type: 'group',
+      label: 'Brand Kit (v10)',
+      admin: {
+        description:
+          'Logo size and the canonical theme colors (accent, link rollover, selection highlight, default mode). Public site reflects changes on refresh.',
+      },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'logoHeight',
+              type: 'number',
+              label: 'Logo height (px)',
+              min: 24,
+              max: 72,
+              defaultValue: 34,
+              admin: {
+                description:
+                  'Height of the nav brand mark in pixels (24–72). Admin-set; there is no visitor control.',
+                width: '50%',
+              },
+            },
+            {
+              name: 'modeDefault',
+              type: 'select',
+              label: 'Default mode',
+              defaultValue: 'system',
+              options: [
+                { label: 'System (follow visitor OS)', value: 'system' },
+                { label: 'Marquee Night (dark)', value: 'dark' },
+                { label: 'House Lights (light)', value: 'light' },
+              ],
+              admin: {
+                description:
+                  'Mode used when a visitor has not chosen one. Visitor choice in the Display panel still wins.',
+                width: '50%',
+              },
+            },
+          ],
+        },
+        {
+          name: 'accent',
+          type: 'select',
+          label: 'Brand accent',
+          defaultValue: 'flame',
+          options: [
+            { label: 'Flame — 212 Sicilian Orange (house default)', value: 'flame' },
+            { label: '212 Amber', value: 'amber' },
+            { label: '310 IMAX Teal', value: 'imax' },
+            { label: '310 Sicilian Blue', value: 'sicilian-blue' },
+            { label: 'NRC Grey (quiet)', value: 'nrc-grey' },
+          ],
+          admin: {
+            description:
+              'The lead accent: editorial CTA underline, active nav, focus ring, flame details. Each option carries dark-mode and light-mode OKLCH variants that pass contrast.',
+          },
+        },
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'linkHover',
+              type: 'select',
+              label: 'Link rollover',
+              defaultValue: 'accent',
+              options: [
+                { label: 'Follow the brand accent', value: 'accent' },
+                { label: 'Flame', value: 'flame' },
+                { label: '212 Amber', value: 'amber' },
+                { label: '310 IMAX Teal', value: 'imax' },
+                { label: '310 Sicilian Blue', value: 'sicilian-blue' },
+                { label: 'Ink (quiet darken/brighten)', value: 'ink' },
+              ],
+              admin: {
+                description: 'Color links and nav items turn on hover/rollover.',
+                width: '50%',
+              },
+            },
+            {
+              name: 'highlight',
+              type: 'select',
+              label: 'Selection highlight',
+              defaultValue: 'flame',
+              options: [
+                { label: 'Flame on ink', value: 'flame' },
+                { label: '212 Amber on paper', value: 'amber' },
+                { label: '310 Sicilian Blue on paper', value: 'sicilian-blue' },
+                { label: 'Ink on paper (quiet)', value: 'ink' },
+              ],
+              admin: {
+                description:
+                  'Text-selection (::selection) pair. Each option is a tested background/foreground pair.',
+                width: '50%',
+              },
+            },
+          ],
+        },
+      ],
+    },
+
     // ── v9 chrome strings (seeded from 02-copy/chrome.md) ────────────────────
     {
       name: 'v9Chrome',

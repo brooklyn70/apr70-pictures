@@ -1,0 +1,652 @@
+<!--
+  APR 70 Pictures - v10 transaction bench (DESIGN STUDY, NOT A LIVE PRODUCT)
+  Four future transaction concepts, drawn look-and-feel only. Every control is
+  switched off: no form action, no live endpoint, no real input anywhere.
+
+  Self-contained: inline CSS, no JS, zero third-party requests (colophon law).
+  Fonts are self-hosted. The @font-face rules point at RELATIVE paths
+  ../../web/public/fonts/*.woff2, which resolve when this file is opened from
+  its home at v10/docs/transaction-ideas/. Opened from anywhere else (the vault
+  mirror copy included), the faces fall back to the font-family stacks
+  (Futura / Georgia / monospace) declared on the tokens. Nothing external loads
+  in either case.
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>APR 70 Pictures · Transaction bench · design study</title>
+
+<style>
+  /* ---- self-hosted faces (relative to v10/docs/transaction-ideas/) ---- */
+  @font-face { font-family:'Futura Std'; src:url('../../web/public/fonts/FuturaStd-Light.woff2') format('woff2'); font-weight:300; font-style:normal; font-display:swap; }
+  @font-face { font-family:'Futura Std'; src:url('../../web/public/fonts/FuturaStd-Book.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+  @font-face { font-family:'Futura Std'; src:url('../../web/public/fonts/FuturaStd-Medium.woff2') format('woff2'); font-weight:500; font-style:normal; font-display:swap; }
+  @font-face { font-family:'Futura Std'; src:url('../../web/public/fonts/FuturaStd-Bold.woff2') format('woff2'); font-weight:700; font-style:normal; font-display:swap; }
+  @font-face { font-family:'Futura Std'; src:url('../../web/public/fonts/FuturaStd-Heavy.woff2') format('woff2'); font-weight:900; font-style:normal; font-display:swap; }
+  @font-face { font-family:'Futura Std Condensed'; src:url('../../web/public/fonts/FuturaStd-CondensedExtraBd.woff2') format('woff2'); font-weight:900; font-style:normal; font-display:swap; }
+  @font-face { font-family:'Fraunces'; src:url('../../web/public/fonts/Fraunces-italic-300-700.woff2') format('woff2'); font-weight:300 700; font-style:italic; font-display:swap; }
+  @font-face { font-family:'Newsreader'; src:url('../../web/public/fonts/Newsreader-normal-400-600.woff2') format('woff2'); font-weight:400 600; font-style:normal; font-display:swap; }
+  @font-face { font-family:'Newsreader'; src:url('../../web/public/fonts/Newsreader-italic-400-600.woff2') format('woff2'); font-weight:400 600; font-style:italic; font-display:swap; }
+  @font-face { font-family:'Courier Prime'; src:url('../../web/public/fonts/CourierPrime-normal-400.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+  @font-face { font-family:'Courier Prime'; src:url('../../web/public/fonts/CourierPrime-normal-700.woff2') format('woff2'); font-weight:700; font-style:normal; font-display:swap; }
+
+  /* ---- Marquee Night (default dark) - tokens verbatim from marquee.css ---- */
+  :root {
+    color-scheme: dark;
+    --paper:    oklch(13% 0.012 55);
+    --paper-2:  oklch(17% 0.014 55);
+    --paper-3:  oklch(21% 0.015 55);
+    --rule:     oklch(32% 0.014 55);
+    --neutral:  oklch(64% 0.012 60);
+    --muted:    oklch(76% 0.010 65);
+    --ink:      oklch(94% 0.010 75);
+    --accent:   oklch(64% 0.185 42);
+    --accent-dim: oklch(52% 0.15 42);
+    --focus:    oklch(72% 0.17 55);
+
+    --scrim:          oklch(13% 0.012 55);
+    --ink-on-photo:   oklch(94% 0.010 75);
+    --muted-on-photo: oklch(84% 0.009 70);
+    --grain-opacity: 0.05;
+
+    --font-display: 'Futura Std', Futura, 'Century Gothic', 'Helvetica Neue', sans-serif;
+    --font-cond:    'Futura Std Condensed', 'Futura Std', 'Arial Narrow', sans-serif;
+    --font-serif:   'Fraunces', Georgia, 'Iowan Old Style', serif;
+    --font-body:    'Newsreader', Georgia, 'Iowan Old Style', serif;
+    --font-mono:    'Courier Prime', 'Courier New', monospace;
+
+    --text-xs: 0.75rem; --text-sm: 0.875rem; --text-md: 1.0625rem;
+    --text-lg: 1.3125rem; --text-xl: 1.75rem; --text-2xl: 2.375rem;
+    --display-s: clamp(2.25rem, 5.5vw, 3.75rem);
+    --display:   clamp(2.75rem, 7.5vw, 5.5rem);
+
+    --sp-2xs:.25rem; --sp-xs:.5rem; --sp-sm:.75rem; --sp-md:1.25rem;
+    --sp-lg:2rem; --sp-xl:3.25rem; --sp-2xl:5rem; --sp-3xl:8rem;
+    --measure: 62ch;
+    --hair: 1px solid var(--rule);
+    --gutter: clamp(1.25rem, 5vw, 4rem);
+    --col: min(74rem, 100% - 2*var(--gutter));
+  }
+
+  /* ---- House Lights (light) - only when the OS asks, gradient law kept ---- */
+  @media (prefers-color-scheme: light) {
+    :root {
+      color-scheme: light;
+      --paper:   oklch(96% 0.012 85);
+      --paper-2: oklch(93% 0.014 85);
+      --paper-3: oklch(89% 0.016 85);
+      --rule:    oklch(82% 0.015 80);
+      --neutral: oklch(45% 0.014 60);
+      --muted:   oklch(36% 0.012 55);
+      --ink:     oklch(21% 0.020 55);
+      --accent:  oklch(52% 0.19 42);
+      --accent-dim: oklch(45% 0.16 42);
+      --focus:   oklch(48% 0.17 55);
+      --grain-opacity: 0.035;
+      /* --scrim / on-photo inks stay dark: a lit surface is dark in any house */
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: var(--text-md);
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* film-grain veil - the medium is a print, not a screen */
+  body::after {
+    content:''; position: fixed; inset: 0; pointer-events: none; z-index: 40;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  }
+  ::selection { background: color-mix(in oklch, var(--accent) 30%, var(--paper)); color: var(--ink); }
+  :focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+  .col { width: var(--col); margin-inline: auto; }
+
+  /* ---- header ---- */
+  .site-head {
+    border-bottom: var(--hair);
+    background: var(--paper);
+  }
+  .site-head__row {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: var(--sp-md); padding-block: .95rem; flex-wrap: wrap;
+  }
+  .brand {
+    font-family: var(--font-display); font-weight: 700;
+    letter-spacing: .01em; font-size: 1.05rem; text-transform: none;
+  }
+  .brand b { color: var(--accent); font-weight: 700; }
+  .site-head__tag {
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    letter-spacing: .18em; text-transform: uppercase; color: var(--neutral);
+  }
+
+  /* ---- slugline header (screenplay furniture) ---- */
+  .slug {
+    display: flex; align-items: baseline; gap: .9rem;
+    border-bottom: var(--hair); padding-bottom: .6rem;
+    margin-bottom: clamp(1.4rem, 3vw, 2.2rem);
+  }
+  .slug__num {
+    font-family: var(--font-mono); font-size: var(--text-sm);
+    letter-spacing: .2em; color: var(--accent);
+  }
+  .slug__line {
+    font-family: var(--font-mono); font-size: var(--text-sm);
+    letter-spacing: .18em; text-transform: uppercase; color: var(--neutral);
+  }
+
+  /* ---- cover ---- */
+  .cover { padding-block: clamp(3rem, 8vw, 6rem) clamp(2rem, 5vw, 3.5rem); }
+  .cover__kicker {
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    letter-spacing: .3em; text-transform: uppercase; color: var(--neutral);
+    margin: 0 0 1.4rem;
+  }
+  .cover__title {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: var(--display); line-height: 1.0; letter-spacing: -.01em;
+    margin: 0 0 1.4rem; max-width: 16ch; text-wrap: balance;
+  }
+  .cover__stand {
+    font-size: var(--text-lg); line-height: 1.5; color: var(--ink);
+    max-width: 54ch; margin: 0 0 1.5rem;
+  }
+  .cover__stand strong { color: var(--ink); font-weight: 600; }
+  .cover__stand em {
+    font-family: var(--font-serif); font-style: italic; font-weight: 450;
+    color: var(--ink);
+  }
+  .disclaim {
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    letter-spacing: .06em; color: var(--neutral); line-height: 1.8;
+    border-top: var(--hair); padding-top: 1.1rem; max-width: 70ch; margin: 0;
+  }
+  .disclaim b { color: var(--accent); font-weight: 700; }
+
+  /* ---- concept panel ---- */
+  .panel { padding-block: clamp(3.25rem, 8vw, 6.5rem); border-top: var(--hair); }
+  .panel__name {
+    font-family: var(--font-display); font-weight: 500;
+    font-size: var(--display-s); line-height: 1.02; letter-spacing: -.01em;
+    margin: 0 0 1rem; max-width: 18ch; text-wrap: balance;
+  }
+  .panel__promise {
+    font-family: var(--font-serif); font-style: italic; font-weight: 450;
+    font-size: clamp(1.35rem, 2.6vw, 1.9rem); line-height: 1.3;
+    color: var(--ink); margin: 0 0 1.6rem; max-width: 34ch;
+  }
+  .panel__body {
+    font-size: var(--text-md); line-height: 1.62; color: var(--muted);
+    max-width: var(--measure); margin: 0 0 clamp(1.8rem, 4vw, 2.6rem);
+  }
+  .panel__body strong { color: var(--ink); font-weight: 600; }
+  .tests {
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    letter-spacing: .05em; color: var(--neutral); line-height: 1.7;
+    max-width: 66ch; margin: clamp(1.5rem, 3vw, 2rem) 0 0;
+  }
+  .tests b { color: var(--accent); font-weight: 700; letter-spacing: .12em; }
+
+  /* ---- shared mock surface + off-state chrome ---- */
+  .mock { position: relative; }
+  .mock__ribbon {
+    position: absolute; top: 0; right: 0; z-index: 2;
+    font-family: var(--font-mono); font-size: .62rem;
+    letter-spacing: .22em; text-transform: uppercase; color: var(--paper);
+    background: var(--accent); padding: .3rem .6rem;
+  }
+  /* every control below is inert on purpose */
+  .ctrl, .cta[disabled] { cursor: not-allowed; }
+  .cta {
+    display: inline-block; background: transparent; border: 0;
+    border-bottom: 2px solid var(--accent); color: var(--ink);
+    font-family: var(--font-serif); font-style: italic; font-weight: 450;
+    font-size: var(--text-xl); letter-spacing: 0; padding: 0 0 3px;
+  }
+  .cta[disabled] { opacity: .55; }
+  .field {
+    font-family: var(--font-body); font-size: var(--text-md);
+    color: var(--muted); background: transparent;
+    border: 0; border-bottom: 1px solid var(--rule);
+    padding: .5rem 0; width: 100%; opacity: .7;
+  }
+  .checkline {
+    display: flex; align-items: baseline; gap: .6rem;
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    letter-spacing: .04em; color: var(--neutral); margin-top: 1rem;
+  }
+  .checkline input { accent-color: var(--accent); opacity: .7; }
+  .radioline {
+    display: flex; gap: 1.4rem; flex-wrap: wrap;
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    letter-spacing: .1em; text-transform: uppercase; color: var(--neutral);
+  }
+  .radioline label { display: inline-flex; align-items: baseline; gap: .5rem; }
+  .radioline input { accent-color: var(--accent); opacity: .7; }
+  .fineprint {
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    letter-spacing: .04em; color: var(--neutral); margin: 1rem 0 0;
+  }
+
+  /* ============================================================
+     1 - DISPATCH: masthead + dateline
+     ============================================================ */
+  .masthead {
+    border: var(--hair); background: var(--paper-2);
+    padding: clamp(1.5rem, 4vw, 2.75rem);
+  }
+  .masthead__rule--top { border-top: 3px double var(--rule); padding-top: .9rem; }
+  .masthead__title {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: clamp(2rem, 6vw, 3.75rem); line-height: .95;
+    letter-spacing: .01em; text-align: center; margin: 0;
+    text-transform: uppercase;
+  }
+  .masthead__dateline {
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    letter-spacing: .18em; text-transform: uppercase; color: var(--neutral);
+    text-align: center; margin: 0; padding: .8rem 0 1rem;
+    border-bottom: 3px double var(--rule);
+    display: flex; justify-content: center; flex-wrap: wrap; gap: .3rem 1rem;
+  }
+  .masthead__enroll {
+    display: flex; gap: 1.25rem; align-items: flex-end; flex-wrap: wrap;
+    margin-top: 1.6rem;
+  }
+  .masthead__enroll .fieldwrap { flex: 1 1 18rem; }
+  .fieldlabel {
+    display: block; font-family: var(--font-mono); font-size: .62rem;
+    letter-spacing: .22em; text-transform: uppercase; color: var(--neutral);
+    margin-bottom: .35rem;
+  }
+
+  /* ============================================================
+     2 - COLLECTOR: numbered-edition plate
+     ============================================================ */
+  .plate {
+    border: var(--hair); background: var(--paper-2);
+    display: grid; grid-template-columns: 1fr; gap: 0;
+    max-width: 40rem;
+  }
+  .plate__lit {
+    background: var(--scrim); color: var(--ink-on-photo);
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border-bottom: var(--hair);
+  }
+  .plate__proj {
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--muted-on-photo); margin: 0 0 .6rem;
+    display: flex; flex-wrap: wrap; gap: .3rem .8rem;
+  }
+  .plate__number {
+    font-family: var(--font-cond); font-weight: 900;
+    font-size: clamp(2.6rem, 9vw, 5rem); line-height: .9;
+    letter-spacing: .02em; color: var(--ink-on-photo); margin: 0;
+  }
+  .plate__number small {
+    font-family: var(--font-mono); font-weight: 400; font-size: 1rem;
+    letter-spacing: .1em; color: var(--muted-on-photo); display: inline-block;
+    margin-left: .4rem;
+  }
+  .plate__caption {
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    letter-spacing: .06em; color: var(--muted-on-photo); margin: 1rem 0 0;
+  }
+  .plate__body { padding: clamp(1.5rem, 4vw, 2.5rem); }
+  .plate__body .radioline { margin-bottom: 1.25rem; }
+
+  /* ============================================================
+     3 - BOX OFFICE: ticket stub with perforation
+     ============================================================ */
+  .ticket {
+    display: grid; grid-template-columns: 1fr; max-width: 44rem;
+    background: var(--scrim); color: var(--ink-on-photo);
+    border: var(--hair);
+  }
+  @media (min-width: 640px) { .ticket { grid-template-columns: 1fr 13rem; } }
+  .ticket__main { padding: clamp(1.5rem, 4vw, 2.5rem); }
+  .ticket__admit {
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    letter-spacing: .34em; text-transform: uppercase;
+    color: var(--muted-on-photo); margin: 0 0 1rem;
+  }
+  .ticket__title {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(1.6rem, 4.5vw, 2.5rem); line-height: 1.0;
+    letter-spacing: .01em; color: var(--ink-on-photo); margin: 0 0 1rem;
+  }
+  .ticket__meta {
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted-on-photo); line-height: 2; margin: 0;
+  }
+  .ticket__meta b { color: var(--ink-on-photo); font-weight: 700; }
+  .ticket__stub {
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border-top: 2px dashed var(--rule);
+    display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem;
+  }
+  @media (min-width: 640px) {
+    .ticket__stub { border-top: 0; border-left: 2px dashed var(--rule); }
+  }
+  .ticket__seat {
+    font-family: var(--font-cond); font-weight: 900;
+    font-size: clamp(2rem, 7vw, 3rem); line-height: .9; letter-spacing: .04em;
+    color: var(--ink-on-photo); margin: 0;
+  }
+  .ticket__seat small {
+    display: block; font-family: var(--font-mono); font-weight: 400;
+    font-size: .7rem; letter-spacing: .24em; text-transform: uppercase;
+    color: var(--muted-on-photo); margin-bottom: .35rem;
+  }
+  .ticket .cta { color: var(--ink-on-photo); }
+
+  /* ============================================================
+     4 - SUPPORT PASS: single-title marquee
+     ============================================================ */
+  .marquee {
+    background: var(--scrim); color: var(--ink-on-photo);
+    border: var(--hair); padding: 0; max-width: 44rem; overflow: hidden;
+  }
+  .marquee__bulbs {
+    height: 14px;
+    background:
+      radial-gradient(circle at center, var(--accent) 0 2.2px, transparent 2.6px) 0 50% / 22px 100% repeat-x;
+    opacity: .85; margin: 10px 12px 0;
+  }
+  .marquee__frame {
+    border: 1px solid color-mix(in oklch, var(--accent) 40%, transparent);
+    margin: 12px; padding: clamp(1.75rem, 5vw, 3rem) clamp(1.25rem, 4vw, 2.5rem);
+    text-align: center;
+  }
+  .marquee__over {
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    letter-spacing: .3em; text-transform: uppercase;
+    color: var(--muted-on-photo); margin: 0 0 1rem;
+  }
+  .marquee__title {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: clamp(2rem, 7vw, 3.5rem); line-height: .95; letter-spacing: .02em;
+    text-transform: uppercase; color: var(--ink-on-photo); margin: 0;
+  }
+  .marquee__sub {
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--muted-on-photo); margin: 1rem 0 0;
+  }
+  .tier {
+    border: var(--hair); border-top: 0; background: var(--paper-2);
+    padding: clamp(1.5rem, 4vw, 2.5rem); max-width: 44rem;
+  }
+  .tier__list { list-style: none; margin: 0 0 1.5rem; padding: 0; }
+  .tier__list li {
+    padding: .6rem 0; border-bottom: var(--hair);
+    font-size: var(--text-md); color: var(--muted);
+    display: flex; gap: .8rem; align-items: baseline;
+  }
+  .tier__list li::before {
+    content: '+'; color: var(--accent); font-family: var(--font-mono);
+    font-weight: 700;
+  }
+  .fence {
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    letter-spacing: .05em; line-height: 1.8; color: var(--neutral);
+    border-left: 2px solid var(--accent); padding: .2rem 0 .2rem 1rem;
+    margin: 0 0 1.5rem; max-width: 60ch;
+  }
+  .fence b { color: var(--ink); font-weight: 700; }
+
+  /* ---- closing memo ---- */
+  .memo { padding-block: clamp(3rem, 7vw, 5.5rem); border-top: var(--hair); }
+  .memo__body {
+    font-family: var(--font-serif); font-style: italic; font-weight: 450;
+    font-size: clamp(1.35rem, 3vw, 2rem); line-height: 1.32;
+    color: var(--ink); max-width: 30ch; margin: 0 0 1.6rem;
+  }
+  .memo__plain {
+    font-size: var(--text-md); line-height: 1.62; color: var(--muted);
+    max-width: var(--measure); margin: 0;
+  }
+
+  /* ---- footer ---- */
+  .site-foot { border-top: var(--hair); padding-block: clamp(2.5rem, 5vw, 3.5rem); }
+  .colophon {
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    letter-spacing: .04em; line-height: 1.9; color: var(--neutral);
+    max-width: 90ch; margin: 0;
+  }
+  .colophon b { color: var(--accent); font-weight: 700; }
+
+  @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+</style>
+
+<header class="site-head">
+  <div class="col site-head__row">
+    <span class="brand">APR <b>70</b> Pictures</span>
+    <span class="site-head__tag">Transaction bench · design study</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- ========================= COVER ========================= -->
+  <section class="cover col">
+    <p class="cover__kicker">Internal design memo · v10 · Marquee Night</p>
+    <h1 class="cover__title">Four ways the studio could transact</h1>
+    <p class="cover__stand">
+      The <strong>Founding Roll</strong> is already the studio's first transaction,
+      live and built on its own. These four are the bench: candidates the studio may
+      test later, drawn here as <em>direction, not product</em>. Each panel is a picture
+      of how the surface could look, sketched with its controls switched off. Read them
+      the way you read storyboards, one question at a time: is this the one worth
+      building next.
+    </p>
+    <p class="disclaim">
+      <b>Design only.</b> Every field, box, and button on this page is inert. No form
+      submits, no endpoint answers, no email or dollar is taken anywhere below. Names,
+      dates, and numbers on the mock surfaces are placeholders for the look, nothing more.
+    </p>
+  </section>
+
+  <!-- ===================== 1 · DISPATCH ====================== -->
+  <section class="panel col">
+    <div class="slug">
+      <span class="slug__num">1</span>
+      <span class="slug__line">INT. THE DISPATCH - MORNING</span>
+    </div>
+    <h2 class="panel__name">The APR 70 Dispatch</h2>
+    <p class="panel__promise">The slate, in your inbox, when there is something worth sending.</p>
+    <p class="panel__body">
+      A free enrollment tied to the work. When a script advances, a title goes public,
+      or a screening is set, the dispatch carries the notice. Now and then it carries a
+      short editorial note from the writer about what a scene is trying to do. It is
+      <strong>one list</strong>, run by the person who writes the pages, sent only when
+      there is real news, and open to leave at any time.
+    </p>
+
+    <div class="mock masthead">
+      <span class="mock__ribbon">Design mock · controls off</span>
+      <div class="masthead__rule--top">
+        <p class="masthead__title">The APR 70 Dispatch</p>
+      </div>
+      <p class="masthead__dateline">
+        <span>Long Island City, N.Y.</span><span>Est. 2026</span><span>No. 001</span>
+      </p>
+      <div class="masthead__enroll">
+        <div class="fieldwrap">
+          <span class="fieldlabel">Your email</span>
+          <input class="field ctrl" type="email" placeholder="you@example.com" disabled aria-disabled="true">
+        </div>
+        <button class="cta ctrl" type="button" disabled>Enroll &rarr;</button>
+      </div>
+      <label class="checkline">
+        <input type="checkbox" checked disabled aria-disabled="true">
+        Include the writer's occasional notes on the craft.
+      </label>
+      <p class="fineprint">Free to join. Nothing tracked beyond the address. Leave whenever you like.</p>
+    </div>
+
+    <p class="tests">
+      <b>Tests</b> whether a no-cost, low-friction list earns steady, willing enrollment,
+      and builds a direct audience the studio owns, before any paid tier is on the table.
+    </p>
+  </section>
+
+  <!-- ================== 2 · COLLECTOR EDITIONS =============== -->
+  <section class="panel col">
+    <div class="slug">
+      <span class="slug__num">2</span>
+      <span class="slug__line">INT. THE EDITION - CONTINUOUS</span>
+    </div>
+    <h2 class="panel__name">Collector Editions</h2>
+    <p class="panel__promise">A limited artifact tied to one moment in a picture.</p>
+    <p class="panel__body">
+      A frame, a script excerpt, a release milestone, issued in a fixed and numbered run.
+      Some editions are digital, some physical, each tied to a specific project and a
+      specific beat. These are <strong>collector media, made to be kept</strong>, and
+      every edition states its number and its size on its face. The run closes when it closes.
+    </p>
+
+    <div class="mock plate">
+      <span class="mock__ribbon">Design mock · controls off</span>
+      <div class="plate__lit">
+        <p class="plate__proj"><span>L.A. Dolce Vita</span><span>Frame · Sunset Blvd, 2 AM</span></p>
+        <p class="plate__number">No. 017<small>/ 250</small></p>
+        <p class="plate__caption">AI-generated development frame, disclosed · issued on release day</p>
+      </div>
+      <div class="plate__body">
+        <div class="radioline">
+          <label><input type="radio" name="fmt" checked disabled aria-disabled="true"> Digital plate</label>
+          <label><input type="radio" name="fmt" disabled aria-disabled="true"> Physical print</label>
+        </div>
+        <button class="cta ctrl" type="button" disabled>Reserve this edition &rarr;</button>
+        <p class="fineprint">Edition of 250. Numbered on issue. Price set per release.</p>
+      </div>
+    </div>
+
+    <p class="tests">
+      <b>Tests</b> whether a fixed, numbered run tied to a beat in a real picture reads
+      as collectible provenance, and holds its value, rather than reading as merch.
+    </p>
+  </section>
+
+  <!-- ============ 3 · EVENT BOX OFFICE / RSVP =============== -->
+  <section class="panel col">
+    <div class="slug">
+      <span class="slug__num">3</span>
+      <span class="slug__line">EXT. THE BOX OFFICE - NIGHT</span>
+    </div>
+    <h2 class="panel__name">The Box Office</h2>
+    <p class="panel__promise">A seat held for a screening, a reading, or a preview.</p>
+    <p class="panel__body">
+      Reserve a place at a live or streamed event: a screening, a table read, a first
+      look at a cut. Early RSVP opens the room before anything is public. A held seat is
+      a held seat, <strong>confirmed by email, with the room size stated up front</strong>
+      so the house is honest about how many it can hold.
+    </p>
+
+    <div class="mock ticket">
+      <span class="mock__ribbon">Design mock · controls off</span>
+      <div class="ticket__main">
+        <p class="ticket__admit">Admit one</p>
+        <h3 class="ticket__title">L.A. Dolce Vita · Table Read</h3>
+        <p class="ticket__meta">
+          <b>Sat · 8:00 PM ET</b><br>
+          Streamed, plus a small room in LIC<br>
+          House of 40 · early RSVP
+        </p>
+      </div>
+      <div class="ticket__stub">
+        <p class="ticket__seat"><small>Seat</small>GA<small style="letter-spacing:.12em">No. 042</small></p>
+        <button class="cta ctrl" type="button" disabled>Reserve seat &rarr;</button>
+      </div>
+    </div>
+
+    <p class="tests">
+      <b>Tests</b> whether early RSVP fills a small room and gives an honest read on
+      demand for a title before a public date, cast, or price is set.
+    </p>
+  </section>
+
+  <!-- =============== 4 · SUPPORT PASS ======================= -->
+  <section class="panel col">
+    <div class="slug">
+      <span class="slug__num">4</span>
+      <span class="slug__line">INT. THE MARQUEE - DUSK</span>
+    </div>
+    <h2 class="panel__name">Support Pass</h2>
+    <p class="panel__promise">Back one title, on clear terms, with a plain fence around it.</p>
+    <p class="panel__body">
+      A bounded supporter tier tied to a single title or division. A supporter helps a
+      named picture move forward and gets the maker's account of how it is going. The
+      fence is the point: <strong>one title, one division, a stated ceiling</strong>, and
+      a plain account of what a supporter does and does not receive. It reads as patronage
+      of a specific work, kept well apart from anything that behaves like an investor page
+      or a pooled ask.
+    </p>
+
+    <div class="mock marquee">
+      <span class="mock__ribbon">Design mock · controls off</span>
+      <div class="marquee__bulbs"></div>
+      <div class="marquee__frame">
+        <p class="marquee__over">Now in development</p>
+        <p class="marquee__title">L.A. Dolce Vita</p>
+        <p class="marquee__sub">(310) Pictures · one title · one division</p>
+      </div>
+    </div>
+    <div class="tier">
+      <ul class="tier__list">
+        <li>Early cuts and development frames as they are made</li>
+        <li>The writer's production notes, addressed to supporters</li>
+        <li>Your name in the private colophon, if you want it there</li>
+      </ul>
+      <p class="fence">
+        <b>This is patronage of one title.</b> Support only, with a stated ceiling.
+        Equity, returns, and any public tally stay off the table. Money for one named
+        picture, kept apart from every other title on the slate.
+      </p>
+      <button class="cta ctrl" type="button" disabled>Become a supporter &rarr;</button>
+    </div>
+
+    <p class="tests">
+      <b>Tests</b> whether a fenced, single-title supporter tier can raise real support
+      and stay plainly on the right side of the line, without drifting toward
+      investor-page behavior or a pooled ask.
+    </p>
+  </section>
+
+  <!-- =============== CLOSING MEMO =========================== -->
+  <section class="memo col">
+    <div class="slug">
+      <span class="slug__num">5</span>
+      <span class="slug__line">INT. THE MEMO - DAY</span>
+    </div>
+    <p class="memo__body">Pick the one or two worth a real build.</p>
+    <p class="memo__plain">
+      The Founding Roll stays the live first transaction; the bench waits behind it until
+      you say go. Each panel above asks a single yes or no: is this the surface worth
+      testing next. The design is here so the decision can be made on how it looks and
+      feels, not on a spec. The rest is drawing.
+    </p>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="col">
+    <p class="colophon">
+      APR 70 Pictures · transaction bench · design study, v10 · <b>Marquee Night</b> ·
+      Futura Std display, Newsreader text, Courier Prime slugs, Fraunces italic accent ·
+      self-hosted type, zero third-party requests · <b>not a live product</b>: every
+      control on this page is switched off by design.
+    </p>
+  </div>
+</footer>

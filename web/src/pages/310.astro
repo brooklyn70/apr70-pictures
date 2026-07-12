@@ -1,45 +1,31 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import BlockRenderer from '../components/blocks/BlockRenderer.astro';
-import { fetchDivision310Global } from '../lib/payload';
-import { V4_DIVISION_BLOCKS } from '../content/v4';
+/**
+ * /310 - the (310) Pictures division page (v9 chrome, marquee design).
+ * Rebuilt 2026-07-12 to the v10 Divisions panel ruling: full-size typographic
+ * lockup, discipline line, investor paragraph, and the division's own slate.
+ * Staging note (Selznick): the flagship L.A. Dolce Vita sits on top of the slate.
+ */
+import V9Layout from '../layouts/V9Layout.astro'
+import DivisionPage from '../components/v9/DivisionPage.astro'
+import { fetchDivisionSlate } from '../lib/payload'
+import { NAP } from '../lib/v9/site'
 
-const { division310, error } = await fetchDivision310Global();
-const dbBlocks = division310?.layout || [];
-// V4 division pages: the built-out division block stack leads (masthead,
-// section copy, slate, cross-doors). Once the Payload layout is re-arranged to
-// carry a `divisionMasthead` block, the DB version takes over wholesale.
-const hasDivisionLayout = dbBlocks.some(
-  (b) => (b as { blockType?: string }).blockType === 'divisionMasthead',
-);
-const blocks = hasDivisionLayout ? dbBlocks : V4_DIVISION_BLOCKS['310'];
+const { slate } = await fetchDivisionSlate('310')
 
-// ── Logo overrides — CMS-down-safe (Wave F; see 212.astro for the rationale) ──
-const localBrand = (p: string) => ({ url: new URL(p, Astro.url).href });
-const pickLogo = (media: unknown, localPath: string) => {
-  const url =
-    media && typeof media === 'object' && 'url' in media
-      ? (media as { url?: unknown }).url
-      : undefined;
-  if (!error && typeof url === 'string' && /^https?:\/\//.test(url)) return media;
-  return localBrand(localPath);
-};
-
-const navLogoOverride = pickLogo(division310?.headerLogo, '/brand/apr70-logos/310-pictures/310_hero.svg');
-const footerLogoOverride = pickLogo(division310?.footerLogo, '/brand/apr70-logos/310-pictures/310_footer.svg');
-const faviconOverride = pickLogo(division310?.faviconOverride, '/brand/apr70-logos/310-pictures/310_favicon.svg');
+const lockup = '(310) Pictures'
+const discipline = 'Television for audiences who travel, staged out of Los Angeles.'
+const paragraph =
+  '(310) Pictures makes television for audiences who travel. Political thrillers, science fiction, and hybrid formats that interrogate genre without talking down to the room, staged out of Los Angeles with reach into international markets. The flagship series L.A. Dolce Vita anchors the house. When a (310) story begins as a feature it carries the New Renaissance Cinema banner and (310) joins as co-production.'
+const title = `${lockup} · ${NAP.name}`
 ---
 
-<Layout title="310 Division" faviconOverride={faviconOverride} navLogoOverride={navLogoOverride} navLogoAltOverride="310 Pictures" footerLogoOverride={footerLogoOverride} footerLogoAltOverride="310 Pictures">
-  {/* Division accent law (Wave G3, tokens.css) — see 212.astro for the
-      rationale. 310's data-division drives the BLUE top-rail chip. */}
-  <script is:inline>document.documentElement.setAttribute('data-division', '310')</script>
-  <main>
-    {import.meta.env.DEV && error && (
-      <div style="padding: 1rem; margin: 2rem auto; max-width: 600px; background: rgba(255,0,0,0.1); border: 1px solid red; border-radius: 4px; font-family: var(--font-body); color: #cc0000;">
-        <strong>Fetch Error:</strong> {error}
-      </div>
-    )}
-    <BlockRenderer blocks={blocks} />
-  </main>
-</Layout>
+<V9Layout title={title} description={discipline}>
+  <script is:inline>document.documentElement.setAttribute('data-accent', 'sicilian-blue')</script>
+  <DivisionPage
+    division="310"
+    lockup={lockup}
+    discipline={discipline}
+    paragraph={paragraph}
+    slate={slate}
+  />
+</V9Layout>

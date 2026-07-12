@@ -1,56 +1,30 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import BlockRenderer from '../components/blocks/BlockRenderer.astro';
-import { fetchDivision212Global } from '../lib/payload';
-import { V4_DIVISION_BLOCKS } from '../content/v4';
+/**
+ * /212 - the (212) Pictures division page (v9 chrome, marquee design).
+ * Rebuilt 2026-07-12 to the v10 Divisions panel ruling: full-size typographic
+ * lockup, discipline line, investor paragraph, and the division's own slate.
+ */
+import V9Layout from '../layouts/V9Layout.astro'
+import DivisionPage from '../components/v9/DivisionPage.astro'
+import { fetchDivisionSlate } from '../lib/payload'
+import { NAP } from '../lib/v9/site'
 
-const { division212, error } = await fetchDivision212Global();
-const dbBlocks = division212?.layout || [];
-// V4 division pages: the built-out division block stack leads (masthead,
-// section copy, slate, cross-doors). Once the Payload layout is re-arranged to
-// carry a `divisionMasthead` block, the DB version takes over wholesale.
-const hasDivisionLayout = dbBlocks.some(
-  (b) => (b as { blockType?: string }).blockType === 'divisionMasthead',
-);
-const blocks = hasDivisionLayout ? dbBlocks : V4_DIVISION_BLOCKS['212'];
+const { slate } = await fetchDivisionSlate('212')
 
-// ── Logo overrides — CMS-down-safe (Wave F) ──────────────────────────────────
-// The division logos live as LOCAL /brand/ SVGs AND as Payload media whose URLs
-// are relative /api/media/... paths. Those relative paths 404 whenever the CMS
-// media proxy is absent (built preview, CMS down) — the matrix's 404s. We only
-// trust a genuinely usable ABSOLUTE media URL (e.g. Vercel's PUBLIC_MEDIA_BASE)
-// and there was no fetch error; otherwise we resolve to the local brand SVG,
-// absolute to THIS origin so Layout's resolveMediaUrl passes it through unchanged
-// (never prefixed with a CMS media base). No console errors on a CMS-down render.
-const localBrand = (p: string) => ({ url: new URL(p, Astro.url).href });
-const pickLogo = (media: unknown, localPath: string) => {
-  const url =
-    media && typeof media === 'object' && 'url' in media
-      ? (media as { url?: unknown }).url
-      : undefined;
-  if (!error && typeof url === 'string' && /^https?:\/\//.test(url)) return media;
-  return localBrand(localPath);
-};
-
-const navLogoOverride = pickLogo(division212?.headerLogo, '/brand/apr70-logos/212-pictures/212_hero.svg');
-const footerLogoOverride = pickLogo(division212?.footerLogo, '/brand/apr70-logos/212-pictures/212_footer.svg');
-const faviconOverride = pickLogo(division212?.faviconOverride, '/brand/apr70-logos/212-pictures/212_favicon.svg');
+const lockup = '(212) Pictures'
+const discipline = 'New York television at street level, built from the five boroughs.'
+const paragraph =
+  '(212) Pictures makes New York television at street level. Crime, drama, and documentary at the level of specificity the city demands, where the five boroughs are a living subject rather than a backdrop. When a feature grows out of this territory it carries the New Renaissance Cinema banner and (212) joins as co-production, so a New York story can move to the big screen without changing hands.'
+const title = `${lockup} · ${NAP.name}`
 ---
 
-<Layout title="212 Division" faviconOverride={faviconOverride} navLogoOverride={navLogoOverride} navLogoAltOverride="212 Pictures" footerLogoOverride={footerLogoOverride} footerLogoAltOverride="212 Pictures">
-  {/* Division accent law (Wave G3, tokens.css) — stamps <html data-division>
-      so the sitewide --accent (top-rail leader chip + scrollbar) reads this
-      division's colour. Layout.astro (Wave G1's file) has no `division` prop,
-      so the page component reaches <html> itself via a synchronous inline
-      script, same technique as Layout's own pre-paint theme stamp. Runs as
-      the first thing in the slot, before <main>, to settle before paint. */}
-  <script is:inline>document.documentElement.setAttribute('data-division', '212')</script>
-  <main>
-    {import.meta.env.DEV && error && (
-      <div style="padding: 1rem; margin: 2rem auto; max-width: 600px; background: rgba(255,0,0,0.1); border: 1px solid red; border-radius: 4px; font-family: var(--font-body); color: #cc0000;">
-        <strong>Fetch Error:</strong> {error}
-      </div>
-    )}
-    <BlockRenderer blocks={blocks} />
-  </main>
-</Layout>
+<V9Layout title={title} description={discipline}>
+  <script is:inline>document.documentElement.setAttribute('data-accent', 'flame')</script>
+  <DivisionPage
+    division="212"
+    lockup={lockup}
+    discipline={discipline}
+    paragraph={paragraph}
+    slate={slate}
+  />
+</V9Layout>

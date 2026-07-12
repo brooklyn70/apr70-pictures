@@ -1,25 +1,112 @@
 ---
-/** divisionStrip — the three-division strip on /slate. */
+/**
+ * divisionStrip - the subordinate three-division row on shared surfaces (/ and
+ * /slate). Per the v10 Divisions panel ruling (2026-07-12, conditions 3-4):
+ * one uniform row of typographic Futura lockups, each with its discipline line
+ * locked to it, each linking to its own division page, sitting beneath and
+ * smaller than the APR 70 presence. The CMS field schema is unchanged (name +
+ * blurb); the lockup treatment and the link are derived here in the component.
+ */
 import type { V9Section } from '../../../lib/payload'
 
 type DivisionStripData = Extract<V9Section, { blockType: 'divisionStrip' }>
 const section = Astro.props.section as DivisionStripData
 const divisions = (section.divisions ?? []).filter((d) => d.name)
+
+// Explicit lockup → division-page mapping, matched on the stable token carried
+// in each lockup name. Keeps /212 · /310 · /nrc without a new CMS field.
+function hrefFor(name: string): string | null {
+  if (name.includes('212')) return '/212'
+  if (name.includes('310')) return '/310'
+  if (/renaissance/i.test(name) || /\bNRC\b/.test(name)) return '/nrc'
+  return null
+}
 ---
 
 {
   divisions.length > 0 && (
-    <section class="v9-section v9-section--tight" aria-label="Divisions">
+    <section class="v9-section v9-section--tight" aria-label="The divisions of APR 70 Pictures">
       <div class="v9-col">
+        <p class="v9-scene__slug v9-dvstrip__label">The houses</p>
         <div class="v9-divisionstrip">
-          {divisions.map((d) => (
-            <div class="v9-division">
-              <h3 class="v9-division__name">{d.name}</h3>
-              {d.blurb && <p class="v9-division__blurb">{d.blurb}</p>}
-            </div>
-          ))}
+          {divisions.map((d) => {
+            const href = hrefFor(d.name as string)
+            const inner = (
+              <>
+                <span class="v9-division__name">{d.name}</span>
+                {d.blurb && <span class="v9-division__blurb">{d.blurb}</span>}
+              </>
+            )
+            return href ? (
+              <a class="v9-division v9-division--link" href={href}>
+                {inner}
+              </a>
+            ) : (
+              <div class="v9-division">{inner}</div>
+            )
+          })}
         </div>
       </div>
     </section>
   )
 }
+
+<style>
+  .v9-dvstrip__label {
+    margin: 0 0 var(--space-md);
+  }
+  /* Uniform row, hairline-led, subordinate: three equal columns that collapse
+     to a stack on narrow screens. */
+  .v9-divisionstrip {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    border-top: var(--rule-hairline);
+    padding-top: var(--space-lg);
+    background: transparent;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+  }
+  @media (min-width: 720px) {
+    .v9-divisionstrip {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-2xl);
+    }
+  }
+  .v9-division {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    max-width: 34ch;
+    padding: 0;
+    background: transparent;
+    text-decoration: none;
+  }
+  /* The typographic lockup: house display face (Futura), subordinate size, so a
+     division mark never outweighs the APR 70 mark on the surface it shares. */
+  .v9-division__name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-style: normal;
+    font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+    line-height: 1.1;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--color-ink);
+  }
+  .v9-division--link:hover .v9-division__name,
+  .v9-division--link:focus-visible .v9-division__name {
+    color: var(--accent);
+  }
+  /* The discipline line: hairline, one sentence, always locked to the mark. */
+  .v9-division__blurb {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-style: normal;
+    letter-spacing: 0;
+    text-transform: none;
+    line-height: 1.5;
+    color: var(--color-muted);
+  }
+</style>

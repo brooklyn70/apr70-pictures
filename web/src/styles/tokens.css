@@ -167,7 +167,6 @@ body {
   font-weight: 300;
   font-size: var(--type-body);
   line-height: var(--leading-body);
-  cursor: crosshair;  /* signature APR 70 cursor */
 }
 
 /* ---------- DISPLAY TYPE ---------- */
@@ -518,60 +517,8 @@ a:hover { color: var(--fg-1); }
 .bg-orange { background: var(--apr-orange); }
 .bg-navy { background: var(--apr-navy); }
 
-/* ============================================================
-   DIVISION ACCENT LAW (Wave G3 — SPEC §6b + DESIGN.md canon)
-   Each division page stamps `data-division` on <html> itself via a
-   small inline script in 212.astro / 310.astro / nrc.astro (Layout.astro
-   is Wave G1's file and is never touched for this — the page component
-   is the one place a division wave CAN reach <html>). That stamp forces
-   the sitewide --accent that the top-rail leader chip (.strip-rail--
-   leader, tokens.css above) and the scrollbar law below both read.
-
-   Precedence (the contract theme-control.css documents):
-   page-forced > user-picked > theme default.
-     theme default : [data-design='…'] { --accent }        (0,1,0)
-     user picked   : html[data-accent='…'] { --accent }     (0,1,1)
-                     — the control panel's division-accent picker
-                     (theme-control.css, wave G2). 'auto' emits no
-                     attribute, so lower layers flow through.
-     page forced   : html[data-design][data-division='…']   (0,2,1)
-                     — THESE RULES. The extra bare [data-design]
-                     attribute (always present on <html>: SSR-stamped
-                     by Layout, re-set pre-paint) lifts the division
-                     law above the user pick by SPECIFICITY, not by
-                     import order — theme-control.css is bundled after
-                     this file, so an equal-specificity tie would hand
-                     the win to the user pick and strip /212 /310 /nrc
-                     of their ruled colours (SPEC §6b).
-   A theme may still veto the whole chain — but only from ITS OWN file,
-   at higher specificity, as a deliberate law: cutting-room.css's
-   `[data-design='cutting-room'][data-theme][data-division]` counter-rule
-   is (0,3,0), which outranks (0,2,1), so the B&W bench law holds even
-   on a division page with a picked accent.
-
-   Colours: 212 = sicilian-orange (already the house accent — no visible
-   change, but now driven by the law rather than coincidence). 310 = the
-   BLUE chip Marco ruled for ("either the navy or the Sicilian blue" — the
-   sicilian-blue reads better as a thin rail stroke); the teal division-
-   primary used throughout /310's masthead/section/slate/cross-door blocks
-   is untouched, this law only reaches the top-rail chip + the scrollbar.
-   NRC = grey on dark canvases (reads clean on the rail's near-black
-   bench); navy on light ones, because grey-on-near-white has no contrast.
-   ============================================================ */
-html[data-design][data-division='212'] {
-  --accent: var(--apr-orange);
-}
-html[data-design][data-division='310'] {
-  --accent: var(--apr-blue);
-}
-html[data-design][data-division='nrc'] {
-  --accent: var(--apr-grey);
-}
-/* (0,2,1) like the base nrc rule but LATER in this file, so it wins the
-   light-mode tie; still (0,2,1) > the user pick's (0,1,1). */
-html[data-division='nrc'][data-theme='light'] {
-  --accent: var(--apr-navy);
-}
+/* v10: the data-design/data-division accent rules died with Layout.astro
+   (division pages now set data-accent; see marquee.css Brand Kit). */
 
 /* ============================================================
    SCROLLBARS — hidden sitewide (V5, Marco 2026-07-07: "get rid of the

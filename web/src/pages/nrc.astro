@@ -1,45 +1,32 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import BlockRenderer from '../components/blocks/BlockRenderer.astro';
-import { fetchDivisionNRCGlobal } from '../lib/payload';
-import { V4_DIVISION_BLOCKS } from '../content/v4';
+/**
+ * /nrc - the New Renaissance Cinema division page (v9 chrome, marquee design).
+ * Rebuilt 2026-07-12 to the v10 Divisions panel ruling: full-size typographic
+ * lockup, discipline line, investor paragraph, and the division's own slate.
+ * NRC holds the feature slate (the deep bench, six of ten properties), including
+ * Sea Gate and Da Hook, both ruled NRC features 2026-07-12.
+ */
+import V9Layout from '../layouts/V9Layout.astro'
+import DivisionPage from '../components/v9/DivisionPage.astro'
+import { fetchDivisionSlate } from '../lib/payload'
+import { NAP } from '../lib/v9/site'
 
-const { divisionNRC, error } = await fetchDivisionNRCGlobal();
-const dbBlocks = divisionNRC?.layout || [];
-// V4 division pages: the built-out division block stack leads (masthead,
-// section copy, slate, cross-doors). Once the Payload layout is re-arranged to
-// carry a `divisionMasthead` block, the DB version takes over wholesale.
-const hasDivisionLayout = dbBlocks.some(
-  (b) => (b as { blockType?: string }).blockType === 'divisionMasthead',
-);
-const blocks = hasDivisionLayout ? dbBlocks : V4_DIVISION_BLOCKS.nrc;
+const { slate } = await fetchDivisionSlate('nrc')
 
-// ── Logo overrides — CMS-down-safe (Wave F; see 212.astro for the rationale) ──
-const localBrand = (p: string) => ({ url: new URL(p, Astro.url).href });
-const pickLogo = (media: unknown, localPath: string) => {
-  const url =
-    media && typeof media === 'object' && 'url' in media
-      ? (media as { url?: unknown }).url
-      : undefined;
-  if (!error && typeof url === 'string' && /^https?:\/\//.test(url)) return media;
-  return localBrand(localPath);
-};
-
-const navLogoOverride = pickLogo(divisionNRC?.headerLogo, '/brand/apr70-logos/new-renaissance-cinema/nrc_v3.svg');
-const footerLogoOverride = pickLogo(divisionNRC?.footerLogo, '/brand/apr70-logos/new-renaissance-cinema/nrc_footer.svg');
-const faviconOverride = pickLogo(divisionNRC?.faviconOverride, '/brand/apr70-logos/new-renaissance-cinema/nrc_favicon.svg');
+const lockup = 'New Renaissance Cinema'
+const discipline = 'Feature films built for permanence.'
+const paragraph =
+  'New Renaissance Cinema makes feature films built for permanence. Auteur-driven and morally clear, developed for the long life of a picture. Film deserves its own conversation, and this is where APR 70 Pictures has it at feature length. Every APR 70 feature carries this banner, and its home territory, (212) or (310), joins as co-production, so a story can move rooms without changing hands.'
+const title = `${lockup} · ${NAP.name}`
 ---
 
-<Layout title="NRC Division" faviconOverride={faviconOverride} navLogoOverride={navLogoOverride} navLogoAltOverride="New Renaissance Cinema" footerLogoOverride={footerLogoOverride} footerLogoAltOverride="New Renaissance Cinema">
-  {/* Division accent law (Wave G3, tokens.css) — see 212.astro for the
-      rationale. NRC's data-division drives the grey/navy top-rail chip. */}
-  <script is:inline>document.documentElement.setAttribute('data-division', 'nrc')</script>
-  <main>
-    {import.meta.env.DEV && error && (
-      <div style="padding: 1rem; margin: 2rem auto; max-width: 600px; background: rgba(255,0,0,0.1); border: 1px solid red; border-radius: 4px; font-family: var(--font-body); color: #cc0000;">
-        <strong>Fetch Error:</strong> {error}
-      </div>
-    )}
-    <BlockRenderer blocks={blocks} />
-  </main>
-</Layout>
+<V9Layout title={title} description={discipline}>
+  <script is:inline>document.documentElement.setAttribute('data-accent', 'nrc-grey')</script>
+  <DivisionPage
+    division="nrc"
+    lockup={lockup}
+    discipline={discipline}
+    paragraph={paragraph}
+    slate={slate}
+  />
+</V9Layout>

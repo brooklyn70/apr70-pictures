@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>APR 70 · V10 Build Recap · 2026-07-12</title>
+<title>APR 70 · MASTER RECAP</title>
 <style>
   /* Self-contained. No external requests. Fonts served from the repo. */
-  @font-face { font-family: 'Futura Std'; src: url('../../web/public/fonts/FuturaStd-Light.woff2') format('woff2'); font-weight: 300; font-display: swap; }
-  @font-face { font-family: 'Futura Std'; src: url('../../web/public/fonts/FuturaStd-Book.woff2') format('woff2'); font-weight: 400; font-display: swap; }
-  @font-face { font-family: 'Futura Std'; src: url('../../web/public/fonts/FuturaStd-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
-  @font-face { font-family: 'Futura Std'; src: url('../../web/public/fonts/FuturaStd-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
-  @font-face { font-family: 'Futura Std'; src: url('../../web/public/fonts/FuturaStd-Heavy.woff2') format('woff2'); font-weight: 900; font-display: swap; }
-  @font-face { font-family: 'Newsreader'; src: url('../../web/public/fonts/Newsreader-normal-400-600.woff2') format('woff2'); font-weight: 400 600; font-display: swap; }
-  @font-face { font-family: 'Newsreader'; src: url('../../web/public/fonts/Newsreader-italic-400-600.woff2') format('woff2'); font-weight: 400 600; font-style: italic; font-display: swap; }
-  @font-face { font-family: 'Fraunces'; src: url('../../web/public/fonts/Fraunces-italic-300-700.woff2') format('woff2'); font-weight: 300 700; font-style: italic; font-display: swap; }
-  @font-face { font-family: 'Courier Prime'; src: url('../../web/public/fonts/CourierPrime-normal-400.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+  @font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Light.woff2') format('woff2'), url('../../web/public/fonts/FuturaStd-Light.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+  @font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Book.woff2') format('woff2'), url('../../web/public/fonts/FuturaStd-Book.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+  @font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Medium.woff2') format('woff2'), url('../../web/public/fonts/FuturaStd-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+  @font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Bold.woff2') format('woff2'), url('../../web/public/fonts/FuturaStd-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+  @font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Heavy.woff2') format('woff2'), url('../../web/public/fonts/FuturaStd-Heavy.woff2') format('woff2'); font-weight: 900; font-display: swap; }
+  @font-face { font-family: 'Newsreader'; src: url('fonts/Newsreader-normal-400-600.woff2') format('woff2'), url('../../web/public/fonts/Newsreader-normal-400-600.woff2') format('woff2'); font-weight: 400 600; font-display: swap; }
+  @font-face { font-family: 'Newsreader'; src: url('fonts/Newsreader-italic-400-600.woff2') format('woff2'), url('../../web/public/fonts/Newsreader-italic-400-600.woff2') format('woff2'); font-weight: 400 600; font-style: italic; font-display: swap; }
+  @font-face { font-family: 'Fraunces'; src: url('fonts/Fraunces-italic-300-700.woff2') format('woff2'), url('../../web/public/fonts/Fraunces-italic-300-700.woff2') format('woff2'); font-weight: 300 700; font-style: italic; font-display: swap; }
+  @font-face { font-family: 'Courier Prime'; src: url('fonts/CourierPrime-normal-400.woff2') format('woff2'), url('../../web/public/fonts/CourierPrime-normal-400.woff2') format('woff2'); font-weight: 400; font-display: swap; }
 
   :root {
     --paper: oklch(13% 0.012 55); --paper-2: oklch(17% 0.014 55); --paper-3: oklch(21% 0.015 55);
@@ -104,7 +104,7 @@
 
 <header>
   <div class="col">
-    <p class="kicker">APR 70 PICTURES · V10 BUILD RECAP · 2026-07-12 · FABLE 5 UNATTENDED RUN · <b>DEPLOY OK</b></p>
+    <p class="kicker">APR 70 PICTURES · <b>MASTER RECAP</b> · THE LIVING DOCUMENT · CURRENT VERSION: V10 · UPDATED 2026-07-12 · <b>DEPLOY OK</b></p>
     <h1>The honest, Payload-driven, Futura-branded best of APR 70.</h1>
     <p class="standfirst">Divisions that sell, a Founding Roll that acts, images from SharedData only, and a site whose privacy and rights claims survive inspection.</p>
     <span class="verdict">LIVE AT KIMASERVER:8080 · STAGING.APR70.COM UNTOUCHED · ROLLBACK ONE COMMAND</span>
@@ -250,10 +250,23 @@ cd ~/websites/apr70-website/v10/web && pnpm dev   # Astro on :4321</pre>
   </div>
 </section>
 
+<section>
+  <div class="col">
+    <p class="slug"><span class="n">5</span>INT. THE LEDGER - ARCHIVE</p>
+    <h2>Version ledger</h2>
+    <p class="lede">One row per shipped version. This file has no version number on purpose: it is always current, updated with every build, and its git history is the archive. Every future version appends a row here and refreshes the map above.</p>
+    <table>
+      <tr><th>Version</th><th>Date</th><th>What it was</th><th>Paper trail</th></tr>
+      <tr><td class="doc"><b>v10</b> <span class="tag hot">CURRENT</span></td><td>2026-07-12</td><td>The truth, brand, and transaction pass: P0 privacy fix, Futura house face, Payload Brand Kit, divisions rebuilt per panel, Sea Gate + Da Hook to NRC, Founding Roll live, SharedData image fill, rights language, admin trim. Playwright 19/19. Deployed to kimaserver:8080; staging untouched.</td><td><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.14%20V10%20Build/00%20V10%20Change%20Register.md">V10 Change Register</a></td></tr>
+      <tr><td class="doc">v11-design</td><td>pending</td><td>The beauty pass (Gemini brief at ~/websites/gemini-design-pass-prompt.md): keep every truth, break the boredom. Appends its row here when it ships.</td><td>pending</td></tr>
+    </table>
+  </div>
+</section>
+
 <footer>
   <div class="col">
     <p>Guardrails held the whole run: no spend, nothing published, no one contacted, no images generated, money never moved, staging untouched and verified. Sources of truth: branch <code>v10</code> of the apr70-pictures repository, the SharedData media library, and the vault paper trail under 11.14 V10 Build. This page makes zero external requests and sets its own type in Futura, Newsreader, Fraunces, and Courier Prime, the same stack the site serves.</p>
-    <p class="copy">© 2026 APR 70 PICTURES. ORIGINAL WORKS RESERVED. · BUILT 2026-07-12 · FABLE 5</p>
+    <p class="copy">© 2026 APR 70 PICTURES. ORIGINAL WORKS RESERVED. · MASTER RECAP · LIVING DOCUMENT · LAST UPDATED 2026-07-12 · FABLE 5</p>
   </div>
 </footer>
 

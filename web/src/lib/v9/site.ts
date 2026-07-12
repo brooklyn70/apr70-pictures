@@ -32,6 +32,14 @@ export const V9_PAGES = [
   { path: '/contact', label: 'Contact' },
 ] as const
 
+/** The three division pages (v10) — on the machine surface (llms/sitemap),
+ *  not in the five-page primary nav; the strip and footer link them. */
+export const DIVISION_PAGES = [
+  { path: '/212', label: '(212) Pictures' },
+  { path: '/310', label: '(310) Pictures' },
+  { path: '/nrc', label: 'New Renaissance Cinema' },
+] as const
+
 export const canonical = (path: string): string =>
   `${SITE_URL}${path === '/' ? '/' : path.replace(/\/$/, '')}`
 

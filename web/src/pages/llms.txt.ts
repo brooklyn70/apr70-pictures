@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro'
 import { fetchV9SlateProjects } from '../lib/payload'
 import { plainText } from '../lib/v9/inline'
-import { NAP, SITE_URL, canonical, V9_PAGES } from '../lib/v9/site'
+import { NAP, SITE_URL, canonical, V9_PAGES, DIVISION_PAGES } from '../lib/v9/site'
 
 /**
  * /llms.txt — the curated, LLM-readable site summary (llmstxt.org shape),
@@ -24,6 +24,7 @@ export const GET: APIRoute = async () => {
     '## Pages',
     '',
     ...V9_PAGES.map((p) => `- [${p.label}](${canonical(p.path)})`),
+    ...DIVISION_PAGES.map((p) => `- [${p.label}](${canonical(p.path)})`),
     '',
     '## The slate (nine public properties, in order)',
     '',

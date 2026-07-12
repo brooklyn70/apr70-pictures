@@ -27,6 +27,25 @@ export const GET: APIRoute = async () => {
     '',
   ]
 
+  // The divisions, verbatim from the public strip (v10: divisions are
+  // public pages; the machine surface carries exactly the public sentences).
+  const home = await fetchV9Page('v9-home')
+  const strip = (home.page?.sections ?? []).find((s) => s.blockType === 'divisionStrip')
+  if (strip && 'divisions' in strip && strip.divisions?.length) {
+    lines.push('## Divisions', '')
+    const hrefs: Record<string, string> = {
+      '(212) Pictures': '/212',
+      '(310) Pictures': '/310',
+      'New Renaissance Cinema': '/nrc',
+    }
+    for (const d of strip.divisions) {
+      if (!d.name) continue
+      const href = hrefs[d.name]
+      lines.push(`- **${plainText(d.name)}**${href ? ` (${canonical(href)})` : ''}: ${plainText(d.blurb)}`)
+    }
+    lines.push('')
+  }
+
   // The disclosure ledger, verbatim from /methods.
   const ledger = (methods?.sections ?? []).find((s) => s.blockType === 'ledger')
   if (ledger && 'rows' in ledger && ledger.rows?.length) {

@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>APR 70 · V10 Build Recap · 2026-07-12</title>
+<style>
+  /* Self-contained. No external requests. Fonts served from the repo. */
+  @font-face { font-family: 'Futura Std'; src: url('../../web/public/fonts/FuturaStd-Light.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+  @font-face { font-family: 'Futura Std'; src: url('../../web/public/fonts/FuturaStd-Book.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+  @font-face { font-family: 'Futura Std'; src: url('../../web/public/fonts/FuturaStd-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+  @font-face { font-family: 'Futura Std'; src: url('../../web/public/fonts/FuturaStd-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+  @font-face { font-family: 'Futura Std'; src: url('../../web/public/fonts/FuturaStd-Heavy.woff2') format('woff2'); font-weight: 900; font-display: swap; }
+  @font-face { font-family: 'Newsreader'; src: url('../../web/public/fonts/Newsreader-normal-400-600.woff2') format('woff2'); font-weight: 400 600; font-display: swap; }
+  @font-face { font-family: 'Newsreader'; src: url('../../web/public/fonts/Newsreader-italic-400-600.woff2') format('woff2'); font-weight: 400 600; font-style: italic; font-display: swap; }
+  @font-face { font-family: 'Fraunces'; src: url('../../web/public/fonts/Fraunces-italic-300-700.woff2') format('woff2'); font-weight: 300 700; font-style: italic; font-display: swap; }
+  @font-face { font-family: 'Courier Prime'; src: url('../../web/public/fonts/CourierPrime-normal-400.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+
+  :root {
+    --paper: oklch(13% 0.012 55); --paper-2: oklch(17% 0.014 55); --paper-3: oklch(21% 0.015 55);
+    --rule: oklch(32% 0.014 55); --neutral: oklch(64% 0.012 60); --muted: oklch(76% 0.010 65);
+    --ink: oklch(94% 0.010 75); --accent: oklch(64% 0.185 42); --accent-dim: oklch(52% 0.15 42);
+    --display: 'Futura Std', Futura, 'Century Gothic', sans-serif;
+    --body: 'Newsreader', 'Iowan Old Style', serif;
+    --mono: 'Courier Prime', 'Courier New', monospace;
+    --serif-it: 'Fraunces', Georgia, serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; scrollbar-width: none; }
+  *::-webkit-scrollbar { display: none; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: var(--body); font-size: 1.0625rem; line-height: 1.62;
+  }
+  body::after {
+    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 4; opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .col { max-width: 1160px; margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 4rem); }
+  a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--accent-dim); }
+  a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* masthead */
+  header { border-bottom: 1px solid var(--rule); padding: 4.5rem 0 3rem; }
+  .kicker { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--neutral); margin-bottom: 1.2rem; }
+  .kicker b { color: var(--accent); font-weight: 400; }
+  h1 { font-family: var(--display); font-weight: 300; font-size: clamp(2.75rem, 7vw, 5rem); line-height: 1.02; letter-spacing: 0.01em; text-transform: uppercase; }
+  .standfirst { font-family: var(--serif-it); font-style: italic; font-weight: 380; font-size: clamp(1.2rem, 2vw, 1.5rem); color: var(--muted); max-width: 52ch; margin-top: 1.4rem; line-height: 1.4; }
+  .verdict { display: inline-block; margin-top: 1.8rem; font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.18em; color: var(--paper); background: var(--accent); padding: 0.45rem 0.9rem; }
+
+  /* stats strip */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); border-bottom: 1px solid var(--rule); }
+  .stat { padding: 1.6rem 1rem 1.4rem; border-right: 1px solid var(--rule); }
+  .stat:last-child { border-right: 0; }
+  .stat b { display: block; font-family: var(--display); font-weight: 300; font-size: 2.2rem; color: var(--ink); }
+  .stat span { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--neutral); }
+
+  /* sections */
+  section { padding: 4rem 0 2.5rem; border-bottom: 1px solid var(--rule); }
+  .slug { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--neutral); margin-bottom: 0.7rem; }
+  .slug .n { color: var(--accent); margin-right: 0.9em; }
+  h2 { font-family: var(--display); font-weight: 400; font-size: clamp(1.7rem, 3.4vw, 2.4rem); text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 1.4rem; }
+  h3 { font-family: var(--display); font-weight: 500; font-size: 1.05rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 2rem 0 0.8rem; }
+  p.lede { max-width: 62ch; color: var(--muted); margin-bottom: 1.6rem; }
+
+  /* the map */
+  .map { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.6rem; }
+  .card { background: var(--paper-2); border: 1px solid var(--rule); }
+  .card img { width: 100%; display: block; aspect-ratio: 1440/1000; object-fit: cover; object-position: top; border-bottom: 1px solid var(--rule); }
+  .card .pad { padding: 1rem 1.1rem 1.15rem; }
+  .card .route { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.12em; color: var(--accent); }
+  .card h4 { font-family: var(--display); font-weight: 500; font-size: 1.02rem; letter-spacing: 0.06em; text-transform: uppercase; margin: 0.35rem 0 0.3rem; }
+  .card p { font-size: 0.92rem; color: var(--neutral); line-height: 1.5; }
+  .breadcrumb { font-family: var(--mono); font-size: 0.78rem; color: var(--neutral); letter-spacing: 0.08em; margin: 1.8rem 0 0.4rem; line-height: 2; }
+  .breadcrumb b { color: var(--ink); font-weight: 400; }
+  .breadcrumb .sep { color: var(--accent); padding: 0 0.4em; }
+
+  /* tables */
+  table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+  th { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--neutral); text-align: left; padding: 0.55rem 0.9rem 0.55rem 0; border-bottom: 1px solid var(--rule); font-weight: 400; }
+  td { padding: 0.7rem 0.9rem 0.7rem 0; border-bottom: 1px solid var(--paper-3); vertical-align: top; }
+  td.doc { white-space: nowrap; }
+  td .path { font-family: var(--mono); font-size: 0.72rem; color: var(--neutral); display: block; margin-top: 0.15rem; white-space: normal; word-break: break-all; }
+  .tag { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--paper); background: var(--neutral); padding: 0.14rem 0.5rem; }
+  .tag.hot { background: var(--accent); }
+
+  /* two column acts */
+  .acts { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0 3rem; }
+  .act { padding: 1.1rem 0; border-bottom: 1px solid var(--paper-3); }
+  .act b { font-family: var(--display); font-weight: 500; font-size: 0.95rem; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 0.25rem; }
+  .act p { font-size: 0.94rem; color: var(--neutral); }
+
+  .note { font-family: var(--serif-it); font-style: italic; color: var(--muted); border-left: 2px solid var(--accent); padding: 0.4rem 0 0.4rem 1.2rem; max-width: 58ch; margin: 1.6rem 0; }
+  code, .cmd { font-family: var(--mono); font-size: 0.82rem; color: var(--muted); background: var(--paper-2); padding: 0.12rem 0.4rem; }
+  pre { background: var(--paper-2); border: 1px solid var(--rule); padding: 1rem 1.2rem; overflow-x: auto; font-family: var(--mono); font-size: 0.8rem; line-height: 1.7; color: var(--muted); margin: 0.8rem 0 1.4rem; }
+  ol.queue { counter-reset: q; list-style: none; max-width: 66ch; }
+  ol.queue li { counter-increment: q; padding: 0.9rem 0 0.9rem 3rem; position: relative; border-bottom: 1px solid var(--paper-3); }
+  ol.queue li::before { content: counter(q, decimal-leading-zero); position: absolute; left: 0; top: 0.95rem; font-family: var(--mono); color: var(--accent); font-size: 0.85rem; }
+  footer { padding: 3rem 0 4.5rem; }
+  footer p { font-size: 0.85rem; color: var(--neutral); max-width: 78ch; line-height: 1.7; }
+  footer .copy { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.1em; margin-top: 1.2rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="col">
+    <p class="kicker">APR 70 PICTURES · V10 BUILD RECAP · 2026-07-12 · FABLE 5 UNATTENDED RUN · <b>DEPLOY OK</b></p>
+    <h1>The honest, Payload-driven, Futura-branded best of APR 70.</h1>
+    <p class="standfirst">Divisions that sell, a Founding Roll that acts, images from SharedData only, and a site whose privacy and rights claims survive inspection.</p>
+    <span class="verdict">LIVE AT KIMASERVER:8080 · STAGING.APR70.COM UNTOUCHED · ROLLBACK ONE COMMAND</span>
+  </div>
+</header>
+
+<div class="col stats">
+  <div class="stat"><b>19/19</b><span>Playwright green, production build</span></div>
+  <div class="stat"><b>0</b><span>third-party requests, nine routes</span></div>
+  <div class="stat"><b>0</b><span>broken images (was 33)</span></div>
+  <div class="stat"><b>0</b><span>em dashes in public copy</span></div>
+  <div class="stat"><b>16/16</b><span>Definition of Done met</span></div>
+  <div class="stat"><b>31</b><span>vault canon files reconciled</span></div>
+  <div class="stat"><b>8</b><span>commits on branch v10</span></div>
+</div>
+
+<section>
+  <div class="col">
+    <p class="slug"><span class="n">1</span>EXT. THE MAP - NIGHT</p>
+    <h2>The site, as delivered</h2>
+    <p class="lede">Every card below is a live capture from the deployed preview at kimaserver:8080, taken after the deploy verified. Twelve public surfaces, one design, two modes.</p>
+
+    <p class="breadcrumb"><b>Home</b> <span class="sep">→</span> Slate <span class="sep">→</span> Property pages (the ring of nine) <span class="sep">→</span> Craft <span class="sep">→</span> Methods (the ledger) <span class="sep">→</span> Contact (the Roll)<br>
+    <b>Home</b> <span class="sep">→</span> Division strip <span class="sep">→</span> (212) Pictures · (310) Pictures · New Renaissance Cinema <span class="sep">→</span> each division's slate <span class="sep">→</span> back to /work/&lt;slug&gt;</p>
+
+    <div class="map">
+      <div class="card"><img src="shots/home-marquee-night.png" alt="Homepage in Marquee Night"><div class="pad"><span class="route">/</span><h4>Home · Marquee Night</h4><p>Futura Light hero over the L.A. Dolce Vita frame. LogoReveal plays once per session, now set in Futura.</p></div></div>
+      <div class="card"><img src="shots/home-house-lights.png" alt="Homepage in House Lights"><div class="pad"><span class="route">/ (light)</span><h4>Home · House Lights</h4><p>Re-toned to the house hue 55. Photo chrome stays dark in both modes: the gradient law.</p></div></div>
+      <div class="card"><img src="shots/slate.png" alt="The slate"><div class="pad"><span class="route">/slate</span><h4>The Slate</h4><p>Nine public properties, real continuous numbering, PD provenance on the Hammett titles, division strip at the foot.</p></div></div>
+      <div class="card"><img src="shots/division-212.png" alt="212 Pictures division page"><div class="pad"><span class="route">/212</span><h4>(212) Pictures</h4><p>New York television at street level, built from the five boroughs. Typographic lockup per the panel ruling.</p></div></div>
+      <div class="card"><img src="shots/division-310.png" alt="310 Pictures division page"><div class="pad"><span class="route">/310</span><h4>(310) Pictures</h4><p>Television for audiences who travel, staged out of Los Angeles. L.A. Dolce Vita rides on top, flagship first.</p></div></div>
+      <div class="card"><img src="shots/division-nrc.png" alt="New Renaissance Cinema division page"><div class="pad"><span class="route">/nrc</span><h4>New Renaissance Cinema</h4><p>Feature films built for permanence. Six features including Sea Gate and Da Hook, moved home by your ruling.</p></div></div>
+      <div class="card"><img src="shots/property-sea-gate.png" alt="Sea Gate property page"><div class="pad"><span class="route">/work/sea-gate</span><h4>Sea Gate</h4><p>NRC feature. After Hammett's Red Harvest, 1929, US public domain since 2025. Original screenplay reserved.</p></div></div>
+      <div class="card"><img src="shots/property-da-hook.png" alt="Da Hook property page"><div class="pad"><span class="route">/work/da-hook</span><h4>Da Hook</h4><p>NRC feature. After The Maltese Falcon, 1930, US public domain since 2026, this year. Red Hook, fall 1970.</p></div></div>
+      <div class="card"><img src="shots/craft.png" alt="Craft page"><div class="pad"><span class="route">/craft</span><h4>Craft</h4><p>The craft of constraint, restored frame in the photo fold.</p></div></div>
+      <div class="card"><img src="shots/methods.png" alt="Methods page with disclosure ledger"><div class="pad"><span class="route">/methods</span><h4>Methods · The Ledger</h4><p>Eight rows now: Scripts through Why It Matters, plus the new Rights row. The privacy row is dated, verified 2026-07-12.</p></div></div>
+      <div class="card"><img src="shots/founding-roll.png" alt="The Founding Roll enrollment fold"><div class="pad"><span class="route">/contact · scene 3</span><h4>The Founding Roll</h4><p>The first public transaction. Numbered, free, never reissued, consent-gated. The roll ships empty: No. 1 is waiting.</p></div></div>
+      <div class="card"><img src="shots/transaction-ideas.png" alt="Transaction ideas design memo"><div class="pad"><span class="route">docs (not live)</span><h4>The Bench · Four Ideas</h4><p>Dispatch Subscription, Collector Editions, Box Office, Support Pass. Design memo only, one yes/no each.</p></div></div>
+    </div>
+
+    <h3>Retired and machine surfaces</h3>
+    <p class="breadcrumb">
+      301 <span class="sep">·</span> /about→/methods · /jobs→/contact · /troupe→/methods · /work→/slate · /news→/<br>
+      410 <span class="sep">·</span> /investors · /pitch (room only; courteous retirement pages in v9 chrome)<br>
+      302 <span class="sep">·</span> /work/mayors (private; appears on no public or machine surface)<br>
+      TXT <span class="sep">·</span> <a href="http://kimaserver:8080/llms.txt">/llms.txt</a> · <a href="http://kimaserver:8080/llms-full.txt">/llms-full.txt</a> · /sitemap.xml · /robots.txt (bound to exactly the public surface)
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <p class="slug"><span class="n">2</span>INT. THE PAPERS - DAY</p>
+    <h2>Every document, one table</h2>
+    <p class="lede">All file links open from disk. Vault notes also open in Obsidian by path. Nothing below is on the public site.</p>
+
+    <h3>Governing documents</h3>
+    <table>
+      <tr><th>Document</th><th>What it is</th></tr>
+      <tr><td class="doc"><a href="file:///Users/marco/websites/master-prompt-v10.md">master-prompt-v10.md</a><span class="path">~/websites/master-prompt-v10.md</span></td><td>The brief this run executed. The goal line, the laws, the DoD.</td></tr>
+      <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.14%20V10%20Build/00%20V10%20Feedback.md">00 V10 Feedback</a><span class="path">vault · 11.14 V10 Build/</span></td><td>Your feedback, locked before the run.</td></tr>
+      <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.14%20V10%20Build/00%20V10%20Change%20Register.md">00 V10 Change Register</a><span class="path">vault · 11.14 V10 Build/</span></td><td><span class="tag hot">READ FIRST</span> Every feedback + catalog item mapped done / deferred / refused, plus the open flags awaiting your ruling.</td></tr>
+      <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.13%20V10%20Catalog/V10-Best-of-Catalog.md">V10 Best-of Catalog</a><span class="path">vault · 11.13 V10 Catalog/</span></td><td>The blueprint that decided what v10 is.</td></tr>
+    </table>
+
+    <h3>Evidence and QA</h3>
+    <table>
+      <tr><th>Document</th><th>What it is</th></tr>
+      <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.14%20V10%20Build/06-qa/payload-dod-evidence.md">Payload DoD evidence</a><span class="path">vault · 06-qa/</span></td><td>P1 through P8 with proof, the Founding Roll end-to-end results, the P0 privacy verification, and the NAS deploy verification block.</td></tr>
+      <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.14%20V10%20Build/06-qa/image-pass-report.md">Image pass report</a><span class="path">vault · 06-qa/</span></td><td>All 33 broken slots, the 32 SharedData fills with alt and provenance, the one honest PENDING.</td></tr>
+      <tr><td class="doc"><a href="file:///Users/marco/websites/apr70-website/v10/cms/tests/e2e/v10-public.e2e.spec.ts">v10-public.e2e.spec.ts</a><span class="path">v10/cms/tests/e2e/</span></td><td>The regression harness. Run it any time: 19 tests including the zero-third-party network law.</td></tr>
+      <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.14%20V10%20Build/07-recap/v10-build-recap.md">v10-build-recap.md</a><span class="path">vault · 07-recap/</span></td><td>The written recap behind this page.</td></tr>
+    </table>
+
+    <h3>Rulings and canon</h3>
+    <table>
+      <tr><th>Document</th><th>What it is</th></tr>
+      <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.14%20V10%20Build/03-divisions/v10-divisions-panel.md">Divisions panel</a><span class="path">vault · 03-divisions/</span></td><td>Jobs, Disney, Hughes, Selznick, Giannini. Unanimous would-fund; the logo ruling and its seven conditions; verified precedents; Jobs's dissent.</td></tr>
+      <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.06%20Divisions/00-division-canon.md">Division canon</a><span class="path">vault · 11.06 Divisions/</span></td><td>Updated: Sea Gate + Da Hook under NRC as features, with provenance lines.</td></tr>
+      <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.14%20V10%20Build/01-architecture/path-map-and-host-notes.md">Path map + host notes</a><span class="path">vault · 01-architecture/</span></td><td>Where everything lives after the consolidation; NAS footguns.</td></tr>
+    </table>
+
+    <h3 id="lawyer">The lawyer packet</h3>
+    <p class="lede">Bring these three to IP counsel. The research is sourced to copyright.gov and flags its own uncertainty; the drafts are what the site now says. None of it is legal advice, and the counsel visit stays on your side of the human gate.</p>
+    <table>
+      <tr><th>Document</th><th>What counsel gets from it</th></tr>
+      <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.14%20V10%20Build/05-ip-copyright/copyright-posture-research.md">Copyright posture research</a><span class="path">vault · 05-ip-copyright/</span></td><td><span class="tag hot">COUNSEL</span> Fixation vs registration for unfinished drafts (17 U.S.C. § 102, USCO Circular 1); PD-derivative scope for the Hammett titles; the <b>USCO registration checklist</b> with forms, GRUW group-registration option for up to ten unpublished works, current fees, and portal links.</td></tr>
+      <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.14%20V10%20Build/05-ip-copyright/site-rights-language-drafts.md">Site rights language drafts</a><span class="path">vault · 05-ip-copyright/</span></td><td><span class="tag hot">COUNSEL</span> The exact notices now live: "Original works reserved.", the /methods Rights row, both PD provenance patterns with verified dates (Red Harvest PD 2025, Maltese Falcon PD 2026). Counsel confirms or red-lines.</td></tr>
+      <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.14%20V10%20Build/00%20V10%20Change%20Register.md">Change register · flags</a><span class="path">vault · 11.14 V10 Build/</span></td><td>The eleven-properties count question and anything else counsel should see stated plainly.</td></tr>
+    </table>
+
+    <h3>The bench (design only, not product)</h3>
+    <table>
+      <tr><th>Document</th><th>What it is</th></tr>
+      <tr><td class="doc"><a href="../transaction-ideas/transaction-ideas.html">transaction-ideas.html</a><span class="path">v10/docs/transaction-ideas/ · mirrored in vault 04-transactions/</span></td><td>Four future transaction concepts in the house design, controls visibly off. One yes/no per concept is all it asks.</td></tr>
+      <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.14%20V10%20Build/04-transactions/transaction-ideas-note.md">transaction-ideas-note.md</a><span class="path">vault · 04-transactions/</span></td><td>What each design tests and the decision each asks of you.</td></tr>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <p class="slug"><span class="n">3</span>INT. THE BOOTH - NIGHT</p>
+    <h2>Ops, one card</h2>
+    <div class="acts">
+      <div class="act"><b>The live preview</b><p><a href="http://kimaserver:8080/">kimaserver:8080</a> · Docker project <code>apr70v3</code> on the NAS. Verified title-match to local after deploy.</p></div>
+      <div class="act"><b>The admin</b><p><a href="http://kimaserver:8080/admin">kimaserver:8080/admin</a> (or localhost:3000/admin in dev) · login caruso@apr70.com · password = <code>PAYLOAD_SEED_PASSWORD</code> in the NAS <code>/volume1/apps/apr70-pictures/.env</code>.</p></div>
+      <div class="act"><b>Your brand controls</b><p>Admin → Globals → Site Settings → <b>Brand Kit</b>: logo, logo height, accent, rollover, highlight, default mode. Refresh the site and it wears the change.</p></div>
+      <div class="act"><b>The Roll's names</b><p>Admin → Collections → <b>Founding Roll</b>. Emails and notes are visible only to you.</p></div>
+      <div class="act"><b>Go-live (your gate)</b><p>The 5-step flip of staging.apr70.com: <a href="file:///Users/marco/websites/apr70-website/_deploy/v10-go-live-staging-runbook.md">v10-go-live-staging-runbook.md</a>.</p></div>
+      <div class="act"><b>Undo everything on the NAS</b><p><code>bash ~/websites/apr70-website/_deploy/deploy-v10-to-nas.sh --rollback</code> restores git, database, media, images from today's backup.</p></div>
+    </div>
+
+    <h3>Commands you may want</h3>
+    <pre># redeploy after local changes (reversible, backs up first)
+bash ~/websites/apr70-website/_deploy/deploy-v10-to-nas.sh --plan   # dry
+bash ~/websites/apr70-website/_deploy/deploy-v10-to-nas.sh --run
+
+# run the regression harness against a production build
+cd ~/websites/apr70-website/v10/web && pnpm build && \
+  HOST=127.0.0.1 PORT=4322 PUBLIC_PAYLOAD_URL=http://localhost:3000 node ./dist/server/entry.mjs &
+cd ~/websites/apr70-website/v10/cms && PUBLIC_SITE_URL=http://127.0.0.1:4322 \
+  npx cross-env NODE_OPTIONS="--no-deprecation --import=tsx/esm" playwright test tests/e2e/v10-public.e2e.spec.ts
+
+# local dev
+cd ~/websites/apr70-website/v10/cms && pnpm dev   # Payload on :3000
+cd ~/websites/apr70-website/v10/web && pnpm dev   # Astro on :4321</pre>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <p class="slug"><span class="n">4</span>INT. YOUR DESK - CONTINUOUS</p>
+    <h2>What waits on you</h2>
+    <ol class="queue">
+      <li>Walk <a href="http://kimaserver:8080/">the preview</a> in both modes; change something in Brand Kit and watch the site wear it.</li>
+      <li>Open <a href="../transaction-ideas/transaction-ideas.html">the bench</a>; say yes or no to each of the four.</li>
+      <li>Rule the register flags: the eleven-properties count, Jobs's homepage-strip dissent, the LADV and Sea Gate gallery trims, the Shadowmaster and U Bruculinu meta lines.</li>
+      <li>Take the <a href="#lawyer">lawyer packet</a> to IP counsel when you're ready; the USCO checklist inside is drafted and waiting.</li>
+      <li>When the preview satisfies you, run the go-live runbook and staging.apr70.com becomes v10.</li>
+    </ol>
+    <p class="note">The Roll ships empty on purpose. Number one on the Founding Roll of APR 70 Pictures is still unclaimed, and it will never be reissued. That seems like something a founder should hand out himself.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="col">
+    <p>Guardrails held the whole run: no spend, nothing published, no one contacted, no images generated, money never moved, staging untouched and verified. Sources of truth: branch <code>v10</code> of the apr70-pictures repository, the SharedData media library, and the vault paper trail under 11.14 V10 Build. This page makes zero external requests and sets its own type in Futura, Newsreader, Fraunces, and Courier Prime, the same stack the site serves.</p>
+    <p class="copy">© 2026 APR 70 PICTURES. ORIGINAL WORKS RESERVED. · BUILT 2026-07-12 · FABLE 5</p>
+  </div>
+</footer>
+
+</body>
+</html>

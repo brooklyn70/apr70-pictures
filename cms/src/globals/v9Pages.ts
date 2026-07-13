@@ -1,27 +1,31 @@
 import type { GlobalConfig } from 'payload'
 
 import { V9_SECTION_BLOCKS } from '../blocks/v9Sections'
+import { SITE_VERSION } from '../siteVersion'
 
 /**
- * The five v9 page globals — one per public route of the v9 site
+ * The five page globals — one per public route of the site
  * (/, /slate, /craft, /methods, /contact). Each is an editor-ordered stack
- * of the shared v9 section blocks plus its own SEO strings, seeded from the
+ * of the shared section blocks plus its own SEO strings, seeded from the
  * vault copy canon (11.12 V9 Build/02-copy) by cms/scripts/seed-v9.ts.
  * Per-property pages (/work/<slug>) come from the Projects collection.
+ *
+ * The slugs still read `v9-*` because they are Postgres table names. What
+ * Marco sees in the admin is driven by SITE_VERSION — see ../siteVersion.ts.
  */
-const createV9PageGlobal = (opts: {
+const createPageGlobal = (opts: {
   slug: string
-  label: string
+  name: string
   route: string
 }): GlobalConfig => ({
   slug: opts.slug,
-  label: opts.label,
+  label: `Site ${SITE_VERSION} · ${opts.name}`,
   access: {
     read: () => true,
   },
   admin: {
-    group: 'Site v9',
-    description: `Sections and SEO strings for ${opts.route} on the v9 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.`,
+    group: `Site ${SITE_VERSION}`,
+    description: `Sections and SEO strings for ${opts.route} on the ${SITE_VERSION} site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.`,
   },
   fields: [
     {
@@ -45,32 +49,32 @@ const createV9PageGlobal = (opts: {
   ],
 })
 
-export const V9Home = createV9PageGlobal({
+export const V9Home = createPageGlobal({
   slug: 'v9-home',
-  label: 'Site v9 · Home',
+  name: 'Home',
   route: '/',
 })
 
-export const V9Slate = createV9PageGlobal({
+export const V9Slate = createPageGlobal({
   slug: 'v9-slate',
-  label: 'Site v9 · Slate',
+  name: 'Slate',
   route: '/slate',
 })
 
-export const V9Craft = createV9PageGlobal({
+export const V9Craft = createPageGlobal({
   slug: 'v9-craft',
-  label: 'Site v9 · Craft',
+  name: 'Craft',
   route: '/craft',
 })
 
-export const V9Methods = createV9PageGlobal({
+export const V9Methods = createPageGlobal({
   slug: 'v9-methods',
-  label: 'Site v9 · Methods',
+  name: 'Methods',
   route: '/methods',
 })
 
-export const V9Contact = createV9PageGlobal({
+export const V9Contact = createPageGlobal({
   slug: 'v9-contact',
-  label: 'Site v9 · Contact',
+  name: 'Contact',
   route: '/contact',
 })

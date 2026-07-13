@@ -37,11 +37,19 @@ export type BrandKitData = {
   highlight?: 'flame' | 'amber' | 'sicilian-blue' | 'ink' | null
 }
 
+/** The DISPATCH switch — Site Settings → DISPATCH in Payload. `enabled` is the
+ *  whole public contract: false (or absent) means /dispatch does not exist. */
+export type DispatchSettings = {
+  enabled?: boolean | null
+  navLabel?: string | null
+}
+
 export type SiteSettingsData = {
   brandLabel?: string | null
   legalEntity?: string | null
   tagline?: string | null
   showFilmstripRails?: boolean | null
+  dispatch?: DispatchSettings | null
   lastDeployed?: string | null
   seededVersion?: string | null
   favicon?: Media | number | null

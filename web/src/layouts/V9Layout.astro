@@ -55,10 +55,24 @@ const highlight = kit.highlight ?? 'flame'
    theme)". Static /logos files remain the fallback. */
 const markLight = resolveMediaUrl(settings?.navLogoDark) || '/logos/apr70_logo_full_white.svg'
 const markDark = resolveMediaUrl(settings?.navLogoLight) || '/logos/apr70_logo_full_black.svg'
-const navLinks =
+const baseNavLinks =
   chrome.navLinks && chrome.navLinks.length > 0
     ? chrome.navLinks
     : V9_PAGES.map((p) => ({ href: p.path, label: p.label }))
+
+/* DISPATCH (v10) — the news page is Marco's switch, not a deploy. While
+   Site Settings → DISPATCH → Publish is off, /dispatch 404s and this link
+   never renders; tick it and the page joins the nav on the next refresh.
+   Skipped if he has already hand-added /dispatch to the CMS nav array. */
+const dispatchOn = settings?.dispatch?.enabled === true
+const dispatchLabel = settings?.dispatch?.navLabel?.trim() || 'Dispatch'
+const dispatchAlreadyInNav = baseNavLinks.some(
+  (link) => (link.href ?? '').replace(/\/$/, '') === '/dispatch',
+)
+const navLinks =
+  dispatchOn && !dispatchAlreadyInNav
+    ? [...baseNavLinks, { href: '/dispatch', label: dispatchLabel }]
+    : baseNavLinks
 
 const path = Astro.url.pathname.replace(/\/$/, '') || '/'
 const canonicalUrl = canonical(path)

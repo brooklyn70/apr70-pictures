@@ -3,7 +3,7 @@ import type { CollectionConfig } from 'payload'
 /**
  * DispatchIssue — one document per quarterly issue of DISPATCH.
  *
- * The renderer at /news picks the issue marked `current: true`.
+ * The renderer at /dispatch picks the issue marked `current: true`.
  * Past issues populate the Archive strip.
  *
  * Shape mirrors the JSX `DISPATCH_DATA` contract from the Marco
@@ -15,12 +15,13 @@ export const DispatchIssue: CollectionConfig = {
   labels: { singular: 'Dispatch Issue', plural: 'Dispatch Issues' },
   access: { read: () => true },
   admin: {
-    // v10 admin trim (Marco 2026-07-12): fed the retired v4 surface; hidden, not deleted — data kept for archive/possible v11 reuse.
-    hidden: true,
+    // Hidden in the v10 admin trim (2026-07-12), un-hidden 2026-07-13 on Marco's
+    // ruling: DISPATCH must be his to publish and un-publish at will.
+    group: 'Dispatch',
     useAsTitle: 'displayTitle',
-    defaultColumns: ['displayTitle', 'season', 'current', 'releaseDate'],
+    defaultColumns: ['displayTitle', 'current', 'releaseDate'],
     description:
-      'One full DISPATCH magazine issue. The issue with `current: true` renders at /news.',
+      'One full DISPATCH issue. The issue ticked "current" is the one that renders. Whether the page is PUBLIC at all is the DISPATCH switch in Site Settings — it ships off; tick it and the page is live on the next refresh.',
   },
   fields: [
     // ───── Sidebar / indicia ─────
@@ -46,7 +47,7 @@ export const DispatchIssue: CollectionConfig = {
       defaultValue: false,
       admin: {
         position: 'sidebar',
-        description: 'Mark exactly one issue current. Renders at /news.',
+        description: 'Mark exactly one issue current. It is the issue /dispatch renders.',
       },
     },
     {

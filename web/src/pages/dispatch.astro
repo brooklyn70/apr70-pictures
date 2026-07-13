@@ -1,0 +1,433 @@
+---
+/**
+ * /dispatch — DISPATCH, the studio news page. The old /news, rebuilt in v9
+ * chrome rather than re-skinned from the retired v4 magazine.
+ *
+ * THE SWITCH (Marco 2026-07-13): this page exists only while Site Settings →
+ * DISPATCH → "Publish the DISPATCH page" is ticked in Payload. output:'server'
+ * means that checkbox is read on every request, so publishing and un-publishing
+ * are Marco's, live, with no rebuild and no deploy. While it is off the route
+ * serves a real 404 — the page genuinely does not exist, rather than sitting
+ * there empty — following the same room-only doctrine as /investors and /pitch.
+ *
+ * Content comes from the Dispatch Issue marked `current` in the CMS.
+ */
+import V9Layout from '../layouts/V9Layout.astro'
+import { fetchSiteSettings, fetchCurrentDispatchIssue, resolveMediaUrl } from '../lib/payload'
+import { renderInline } from '../lib/v9/inline'
+import { NAP } from '../lib/v9/site'
+
+const { settings } = await fetchSiteSettings()
+const published = settings?.dispatch?.enabled === true
+
+const { issue } = published ? await fetchCurrentDispatchIssue() : { issue: null }
+
+/* Off, or on with no current issue to show: 404 either way. A published page
+   with nothing in it would be worse than no page. */
+const live = published && issue !== null
+
+if (!live) {
+  Astro.response.status = 404
+  Astro.response.statusText = 'Not Found'
+}
+
+const indicia = issue?.indicia
+const cover = issue?.cover
+const editorial = issue?.editorial
+const feature = issue?.feature
+
+const indiciaLine = [indicia?.volume, indicia?.number, indicia?.season, indicia?.reel]
+  .filter(Boolean)
+  .join(' · ')
+
+const heroSrc = resolveMediaUrl(feature?.heroImage as never)
+const portraitSrc = resolveMediaUrl(editorial?.portrait as never)
+
+const title = live ? `Dispatch · ${indicia?.season ?? ''} · ${NAP.name}`.replace(/ +/g, ' ') : `Dispatch · ${NAP.name}`
+const description = live
+  ? (cover?.deck ?? 'Studio news from APR 70 Pictures.')
+  : 'Studio news from APR 70 Pictures.'
+
+const factboxFields = feature?.factbox?.fields ?? []
+---
+
+<V9Layout title={title} description={description}>
+  {
+    !live ? (
+      <section class="v9-section" aria-label="Dispatch">
+        <div class="v9-col">
+          <h1 class="v9-textfold__heading">Dispatch</h1>
+          <p class="v9-prose">
+            There is no issue on the stand right now. DISPATCH goes out when there's
+            something worth reporting — not on a schedule.
+          </p>
+          <a class="v9-more" href="/slate">The whole slate →</a>
+        </div>
+      </section>
+    ) : (
+      <>
+        {/* ── Masthead ─────────────────────────────────────────────── */}
+        <section class="v9-section" aria-label="Dispatch masthead">
+          <div class="v9-col">
+            <div class="v9-scene">
+              <span class="v9-scene__num">Dispatch</span>
+              {indiciaLine && <span class="v9-scene__slug">{indiciaLine}</span>}
+            </div>
+            {cover?.kicker && <p class="dsp-kicker">{cover.kicker}</p>}
+            <h1 class="v9-textfold__heading dsp-headline">
+              {(cover?.lines ?? []).map((word) => (
+                <span class={`dsp-word dsp-word--${word.style ?? 'normal'}`}>{word.text} </span>
+              ))}
+            </h1>
+            {cover?.deck && <p class="v9-textfold__lede" set:html={renderInline(cover.deck)} />}
+            {cover?.byline && <p class="v9-capline">{cover.byline}</p>}
+          </div>
+        </section>
+
+        {/* ── Coverlines ───────────────────────────────────────────── */}
+        {(cover?.coverlines ?? []).length > 0 && (
+          <section class="v9-section v9-section--tight" aria-label="In this issue">
+            <div class="v9-col">
+              <dl class="v9-ledger">
+                {(cover?.coverlines ?? []).map((line) => (
+                  <div class="v9-ledger__row">
+                    <dt>
+                      {line.num ? `${line.num} · ` : ''}
+                      {line.head}
+                    </dt>
+                    <dd>{line.deck}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </section>
+        )}
+
+        {/* ── From the Editor ──────────────────────────────────────── */}
+        {(editorial?.title || (editorial?.paragraphs ?? []).length > 0) && (
+          <section class="v9-section" aria-label="From the editor">
+            <div class="v9-col">
+              {editorial?.eyebrow && (
+                <div class="v9-scene">
+                  <span class="v9-scene__slug">{editorial.eyebrow}</span>
+                </div>
+              )}
+              {editorial?.title && <h2 class="v9-textfold__heading">{editorial.title}</h2>}
+              {editorial?.lead && (
+                <p class="v9-textfold__lede" set:html={renderInline(editorial.lead)} />
+              )}
+              <div class="v9-prose">
+                {(editorial?.paragraphs ?? []).map((p) => (
+                  <p set:html={renderInline(p.text)} />
+                ))}
+              </div>
+              {editorial?.quote && (
+                <blockquote class="v9-pull">
+                  <p set:html={renderInline(editorial.quote)} />
+                </blockquote>
+              )}
+              {editorial?.signatureName && (
+                <p class="v9-capline">
+                  {editorial.signatureName}
+                  {editorial.signatureMeta ? ` · ${editorial.signatureMeta}` : ''}
+                </p>
+              )}
+              {portraitSrc && (
+                <figure class="v9-frame dsp-portrait">
+                  <img src={portraitSrc} alt={editorial?.signatureName ?? ''} loading="lazy" />
+                </figure>
+              )}
+            </div>
+          </section>
+        )}
+
+        {/* ── Cover story ──────────────────────────────────────────── */}
+        {(feature?.titleParts ?? []).length > 0 && (
+          <section class="v9-section" aria-label="Cover story">
+            <div class="v9-col">
+              {feature?.eyebrow && (
+                <div class="v9-scene">
+                  <span class="v9-scene__slug">{feature.eyebrow}</span>
+                </div>
+              )}
+              <h2 class="v9-textfold__heading">
+                {(feature?.titleParts ?? []).map((part) =>
+                  part.italic ? <em>{part.text} </em> : <span>{part.text} </span>,
+                )}
+              </h2>
+              {feature?.deck && (
+                <p class="v9-textfold__lede" set:html={renderInline(feature.deck)} />
+              )}
+            </div>
+
+            {heroSrc && (
+              <figure class="v9-frame v9-frame--wide">
+                <img src={heroSrc} alt={feature?.imageCaption?.caption ?? ''} loading="lazy" />
+                {(feature?.imageCaption?.caption || feature?.imageCaption?.credit) && (
+                  <figcaption class="v9-capline">
+                    {feature?.imageCaption?.caption && (
+                      <span set:html={renderInline(feature.imageCaption.caption)} />
+                    )}
+                    {feature?.imageCaption?.credit && <em> {feature.imageCaption.credit}</em>}
+                  </figcaption>
+                )}
+              </figure>
+            )}
+
+            <div class="v9-col">
+              <div class="v9-prose">
+                {(feature?.paragraphs ?? []).map((p) => {
+                  if (p.variant === 'pull') {
+                    return (
+                      <blockquote class="v9-pull">
+                        <p set:html={renderInline(p.text)} />
+                        {p.attr && <cite>{p.attr}</cite>}
+                      </blockquote>
+                    )
+                  }
+                  if (p.variant === 'head') return <h3 class="dsp-subhead">{p.text}</h3>
+                  if (p.variant === 'small') return <p class="v9-capline">{p.text}</p>
+                  return (
+                    <p
+                      class={p.variant === 'first' ? 'dsp-first' : undefined}
+                      set:html={renderInline(p.text)}
+                    />
+                  )
+                })}
+              </div>
+
+              {factboxFields.length > 0 && (
+                <dl class="v9-ledger dsp-factbox">
+                  {feature?.factbox?.label && (
+                    <div class="v9-ledger__row">
+                      <dt class="dsp-factbox__label">{feature.factbox.label}</dt>
+                      <dd />
+                    </div>
+                  )}
+                  {factboxFields.map((f) => (
+                    <div class="v9-ledger__row">
+                      <dt>{f.key}</dt>
+                      <dd data-accent={f.accent && f.accent !== 'none' ? f.accent : undefined}>
+                        {f.value}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
+            </div>
+          </section>
+        )}
+
+        {/* ── Slate dispatches ─────────────────────────────────────── */}
+        {(issue?.dispatches ?? []).length > 0 && (
+          <section class="v9-section" aria-label="Slate dispatches">
+            <div class="v9-col">
+              <h2 class="v9-textfold__heading">From the slate</h2>
+              <div class="dsp-cards">
+                {(issue?.dispatches ?? []).map((card) => (
+                  <article class="dsp-card" data-division={card.division}>
+                    <p class="v9-capline">
+                      {card.date}
+                      {card.status ? ` · ${card.status}` : ''}
+                    </p>
+                    <h3 class="dsp-card__title">
+                      {card.link ? <a href={card.link}>{card.title}</a> : card.title}
+                    </h3>
+                    {card.body && <p class="v9-prose" set:html={renderInline(card.body)} />}
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── Trades ───────────────────────────────────────────────── */}
+        {(issue?.trades ?? []).length > 0 && (
+          <section class="v9-section" aria-label="Trades">
+            <div class="v9-col">
+              <h2 class="v9-textfold__heading">The trades</h2>
+              {(issue?.trades ?? []).map((t) => (
+                <article class="dsp-trade">
+                  <p class="v9-capline">
+                    {t.pub}
+                    {t.city ? ` · ${t.city}` : ''}
+                  </p>
+                  <h3 class="dsp-subhead">{t.headline}</h3>
+                  {t.deck && <p class="v9-prose" set:html={renderInline(t.deck)} />}
+                  {t.attr && <p class="v9-capline">{t.attr}</p>}
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* ── Calendar ─────────────────────────────────────────────── */}
+        {(issue?.calendar ?? []).length > 0 && (
+          <section class="v9-section v9-section--tight" aria-label="Calendar">
+            <div class="v9-col">
+              <h2 class="v9-textfold__heading">Calendar</h2>
+              <dl class="v9-ledger">
+                {(issue?.calendar ?? []).map((e) => (
+                  <div class="v9-ledger__row">
+                    <dt>{e.date}</dt>
+                    <dd>
+                      {e.title}
+                      {e.sub ? ` — ${e.sub}` : ''}
+                      {e.tag ? <em> · {e.tag}</em> : null}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </section>
+        )}
+
+        {/* ── Classifieds ──────────────────────────────────────────── */}
+        {(issue?.classifieds ?? []).length > 0 && (
+          <section class="v9-section v9-section--tight" aria-label="Classifieds">
+            <div class="v9-col">
+              <h2 class="v9-textfold__heading">Classifieds</h2>
+              <div class="dsp-cards">
+                {(issue?.classifieds ?? []).map((c) => (
+                  <article class="dsp-card">
+                    <p class="v9-capline">{c.cat}</p>
+                    <h3 class="dsp-card__title">{c.title}</h3>
+                    {c.body && <p class="v9-prose" set:html={renderInline(c.body)} />}
+                    {c.meta && <p class="v9-capline">{c.meta}</p>}
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── Archive ──────────────────────────────────────────────── */}
+        {(issue?.archive ?? []).length > 0 && (
+          <section class="v9-section v9-section--tight" aria-label="Archive">
+            <div class="v9-col">
+              <h2 class="v9-textfold__heading">Back issues</h2>
+              <dl class="v9-ledger">
+                {(issue?.archive ?? []).map((a) => (
+                  <div class="v9-ledger__row">
+                    <dt>
+                      {[a.vol, a.no].filter(Boolean).join(' ')}
+                      {a.isCurrent ? ' — current' : ''}
+                    </dt>
+                    <dd>
+                      {[a.season, a.mast, a.line].filter(Boolean).join(' · ')}
+                      {a.state ? <em> ({a.state})</em> : null}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </section>
+        )}
+
+        {/* ── Colophon ─────────────────────────────────────────────── */}
+        {(issue?.colophon?.legal || issue?.colophon?.type) && (
+          <section class="v9-section v9-section--tight" aria-label="Colophon">
+            <div class="v9-col">
+              <p class="v9-footnote" set:html={renderInline(issue?.colophon?.legal)} />
+              {issue?.colophon?.type && (
+                <p class="v9-footnote" set:html={renderInline(issue.colophon.type)} />
+              )}
+              {issue?.colophon?.baseline && <p class="v9-capline">{issue.colophon.baseline}</p>}
+            </div>
+          </section>
+        )}
+      </>
+    )
+  }
+</V9Layout>
+
+<style>
+  /* DISPATCH-only typography. Everything structural (v9-section, v9-col,
+     v9-ledger, v9-prose, v9-pull, v9-capline, v9-frame) is house chrome —
+     this file only adds what the magazine genuinely needs and nothing else,
+     so the page reads as APR 70 rather than as a second design. */
+  .dsp-kicker {
+    font-family: var(--font-mono);
+    font-size: var(--v9-meta, 0.78rem);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+
+  .dsp-headline .dsp-word--accent {
+    color: var(--accent);
+  }
+  .dsp-headline .dsp-word--outline {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--fg-2);
+  }
+
+  .dsp-subhead {
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+    margin: 1.6rem 0 0.6rem;
+    color: var(--fg-1);
+  }
+
+  /* Drop cap on the first paragraph of the cover story. */
+  .dsp-first::first-letter {
+    float: left;
+    font-size: 3.4em;
+    line-height: 0.82;
+    padding: 0.08em 0.12em 0 0;
+    color: var(--accent);
+  }
+
+  .dsp-portrait {
+    max-width: 12rem;
+    margin-top: 1.4rem;
+  }
+  .dsp-portrait img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .dsp-factbox {
+    margin-top: 2rem;
+    border-top: 1px solid var(--rule-strong);
+    padding-top: 1rem;
+  }
+  .dsp-factbox__label {
+    font-family: var(--font-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+  }
+  .dsp-factbox dd[data-accent] {
+    color: var(--accent);
+  }
+
+  .dsp-cards {
+    display: grid;
+    gap: 1.6rem;
+    margin-top: 1.6rem;
+  }
+  @media (min-width: 720px) {
+    .dsp-cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 2rem 2.4rem;
+    }
+  }
+
+  .dsp-card {
+    border-top: 1px solid var(--rule-strong);
+    padding-top: 0.9rem;
+  }
+  .dsp-card__title {
+    font-size: 1.1rem;
+    margin: 0.35rem 0 0.6rem;
+  }
+
+  .dsp-trade {
+    border-top: 1px solid var(--rule);
+    padding-top: 0.9rem;
+    margin-top: 1.4rem;
+  }
+</style>

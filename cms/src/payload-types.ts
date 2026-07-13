@@ -253,27 +253,27 @@ export interface Project {
   year?: string | null;
   heroImage?: (number | null) | Media;
   /**
-   * v9: the full public logline — shown under the title on /work/<slug> and on the /slate list.
+   * the full public logline — shown under the title on /work/<slug> and on the /slate list.
    */
   logline?: string | null;
   /**
-   * v9: the one-line logline used on the home mini-slate (e.g. "A private town at the end of Brooklyn.").
+   * the one-line logline used on the home mini-slate (e.g. "A private town at the end of Brooklyn.").
    */
   shortLogline?: string | null;
   /**
-   * v9: source line for public-domain adaptations (e.g. "After Dashiell Hammett's *Red Harvest* (1929); the novel is public domain").
+   * source line for public-domain adaptations (e.g. "After Dashiell Hammett's *Red Harvest* (1929); the novel is public domain").
    */
   provenance?: string | null;
   /**
-   * v9: the property meta line — format · division · status (e.g. "Feature · (212) Pictures · drafted"). Shown with the title on /work/<slug>.
+   * the property meta line — format · division · status (e.g. "Feature · (212) Pictures · drafted"). Shown with the title on /work/<slug>.
    */
   metaLine?: string | null;
   /**
-   * v9: the property-head paragraph(s) on /work/<slug>, below the logline. Blank line starts a new paragraph; *italics* allowed.
+   * the property-head paragraph(s) on /work/<slug>, below the logline. Blank line starts a new paragraph; *italics* allowed.
    */
   bodyProse?: string | null;
   /**
-   * v9: the featured quotation on /work/<slug> (quote-feature section).
+   * the featured quotation on /work/<slug> (quote-feature section).
    */
   pageQuote?: {
     /**
@@ -290,23 +290,23 @@ export interface Project {
     note?: string | null;
   };
   /**
-   * v9: caption under the hero photo-fold, before the credit. ==text== renders highlighted.
+   * caption under the hero photo-fold, before the credit. ==text== renders highlighted.
    */
   heroCaption?: string | null;
   /**
-   * v9: credit suffix for the hero (e.g. "AI-generated development frame, disclosed").
+   * credit suffix for the hero (e.g. "AI-generated development frame, disclosed").
    */
   heroCredit?: string | null;
   /**
-   * v9: the paragraph in the "Read the pages." request section at the bottom of /work/<slug>.
+   * the paragraph in the "Read the pages." request section at the bottom of /work/<slug>.
    */
   requestBody?: string | null;
   /**
-   * v9: position on the public slate (1 = first). Drives /slate and prev/next navigation.
+   * position on the public slate (1 = first). Drives /slate and prev/next navigation.
    */
   slateOrder?: number | null;
   /**
-   * v9: when checked, this property appears on the public v9 slate and gets a /work/<slug> page. The two private properties stay unchecked.
+   * when checked, this property appears on the public slate and gets a /work/<slug> page. The two private properties stay unchecked.
    */
   publicSlate?: boolean | null;
   /**
@@ -329,7 +329,7 @@ export interface Project {
          */
         credit: string;
         /**
-         * v9: span the full mood-grid width (maps, panoramas).
+         * span the full mood-grid width (maps, panoramas).
          */
         wide?: boolean | null;
         id?: string | null;
@@ -651,6 +651,8 @@ export interface Project {
   createdAt: string;
 }
 /**
+ * The original news articles, from before the page became DISPATCH. Kept and editable; no public route renders them today. The live news page is DISPATCH — see Dispatch Issues, and the switch in Site Settings.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "news".
  */
@@ -943,7 +945,7 @@ export interface News {
   createdAt: string;
 }
 /**
- * One full DISPATCH magazine issue. The issue with `current: true` renders at /news.
+ * One full DISPATCH issue. The issue ticked "current" is the one that renders. Whether the page is PUBLIC at all is the DISPATCH switch in Site Settings — it ships off; tick it and the page is live on the next refresh.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "dispatch-issues".
@@ -956,7 +958,7 @@ export interface DispatchIssue {
   displayTitle: string;
   slug: string;
   /**
-   * Mark exactly one issue current. Renders at /news.
+   * Mark exactly one issue current. It is the issue /dispatch renders.
    */
   current?: boolean | null;
   releaseDate?: string | null;
@@ -3020,7 +3022,7 @@ export interface SiteSetting {
     highlight?: ('flame' | 'amber' | 'sicilian-blue' | 'ink') | null;
   };
   /**
-   * Every string in the v9 site chrome: the Display panel labels, footer colophon, copyright, and nav links. Seeded from the vault chrome.md canon.
+   * Every string in the v10 site chrome: the Display panel labels, footer colophon, copyright, and nav links. Seeded from the vault chrome.md canon.
    */
   v9Chrome?: {
     /**
@@ -3098,6 +3100,19 @@ export interface SiteSetting {
    * Toggle the top and bottom sprocket-perforation rail chrome on every page.
    */
   showFilmstripRails?: boolean | null;
+  /**
+   * DISPATCH is the studio news page — the old /news, rebuilt in the current house style. It ships OFF: /dispatch returns 404 and no nav link appears. Tick Publish and refresh the site and the page is live immediately, with no deploy. Write issues under Dispatch Issues; the one marked "current" is the one that renders.
+   */
+  dispatch?: {
+    /**
+     * On: /dispatch is live and joins the nav. Off: the page 404s and the link disappears. Taking it down never deletes an issue.
+     */
+    enabled?: boolean | null;
+    /**
+     * The word used in the site navigation while the page is live.
+     */
+    navLabel?: string | null;
+  };
   /**
    * Timestamp of the last CI deploy.
    */
@@ -5173,7 +5188,7 @@ export interface Troupe {
   createdAt?: string | null;
 }
 /**
- * Sections and SEO strings for / on the v9 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ * Sections and SEO strings for / on the v10 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "v9-home".
@@ -5543,7 +5558,7 @@ export interface V9Home {
   createdAt?: string | null;
 }
 /**
- * Sections and SEO strings for /slate on the v9 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ * Sections and SEO strings for /slate on the v10 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "v9-slate".
@@ -5913,7 +5928,7 @@ export interface V9Slate {
   createdAt?: string | null;
 }
 /**
- * Sections and SEO strings for /craft on the v9 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ * Sections and SEO strings for /craft on the v10 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "v9-craft".
@@ -6283,7 +6298,7 @@ export interface V9Craft {
   createdAt?: string | null;
 }
 /**
- * Sections and SEO strings for /methods on the v9 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ * Sections and SEO strings for /methods on the v10 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "v9-methods".
@@ -6653,7 +6668,7 @@ export interface V9Method {
   createdAt?: string | null;
 }
 /**
- * Sections and SEO strings for /contact on the v9 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ * Sections and SEO strings for /contact on the v10 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "v9-contact".
@@ -7633,6 +7648,12 @@ export interface SiteSettingsSelect<T extends boolean = true> {
             };
       };
   showFilmstripRails?: T;
+  dispatch?:
+    | T
+    | {
+        enabled?: T;
+        navLabel?: T;
+      };
   lastDeployed?: T;
   seededVersion?: T;
   updatedAt?: T;

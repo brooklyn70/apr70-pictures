@@ -1,15 +1,19 @@
 import type { APIRoute } from 'astro'
-import { fetchV9SlateProjects } from '../lib/payload'
+import { fetchV9SlateProjects, fetchSiteSettings } from '../lib/payload'
 import { canonical, V9_PAGES, DIVISION_PAGES } from '../lib/v9/site'
 
 /** /sitemap.xml — the five v9 pages + the nine public properties, canonical
- *  https://apr70.com URLs. Built live from Payload. */
+ *  https://apr70.com URLs. Built live from Payload.
+ *  /dispatch joins the map only while its Payload switch is on — the same
+ *  condition under which the route serves a 200 instead of a 404. */
 export const GET: APIRoute = async () => {
   const { slate } = await fetchV9SlateProjects()
+  const { settings } = await fetchSiteSettings()
 
   const urls = [
     ...V9_PAGES.map((p) => canonical(p.path)),
     ...DIVISION_PAGES.map((p) => canonical(p.path)),
+    ...(settings?.dispatch?.enabled === true ? [canonical('/dispatch')] : []),
     ...slate.map((p) => canonical(`/work/${p.slug}`)),
   ]
 

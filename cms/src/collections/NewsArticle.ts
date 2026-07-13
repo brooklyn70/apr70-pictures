@@ -15,10 +15,14 @@ export const NewsArticle: CollectionConfig = {
   slug: 'news',
   access: { read: () => true },
   admin: {
-    // v10 admin trim (Marco 2026-07-12): fed the retired v4 surface; hidden, not deleted — data kept for archive/possible v11 reuse.
-    hidden: true,
+    // Hidden in the v10 admin trim (2026-07-12), un-hidden 2026-07-13 on Marco's
+    // ruling: the news surface must be his to bring back, not a dev's. Nothing
+    // here was ever deleted — these are the pre-DISPATCH articles.
+    group: 'Dispatch',
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', 'date', 'featured'],
+    description:
+      'The original news articles, from before the page became DISPATCH. Kept and editable; no public route renders them today. The live news page is DISPATCH — see Dispatch Issues, and the switch in Site Settings.',
   },
   fields: [
     {

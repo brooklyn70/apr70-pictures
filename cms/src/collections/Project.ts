@@ -75,7 +75,7 @@ export const Project: CollectionConfig = {
       type: 'textarea',
       admin: {
         description:
-          'v9: the full public logline — shown under the title on /work/<slug> and on the /slate list.',
+          'the full public logline — shown under the title on /work/<slug> and on the /slate list.',
       },
     },
     {
@@ -84,7 +84,7 @@ export const Project: CollectionConfig = {
       label: 'Short logline',
       admin: {
         description:
-          'v9: the one-line logline used on the home mini-slate (e.g. "A private town at the end of Brooklyn.").',
+          'the one-line logline used on the home mini-slate (e.g. "A private town at the end of Brooklyn.").',
       },
     },
     {
@@ -92,7 +92,7 @@ export const Project: CollectionConfig = {
       type: 'text',
       admin: {
         description:
-          'v9: source line for public-domain adaptations (e.g. "After Dashiell Hammett\'s *Red Harvest* (1929); the novel is public domain").',
+          'source line for public-domain adaptations (e.g. "After Dashiell Hammett\'s *Red Harvest* (1929); the novel is public domain").',
       },
     },
     {
@@ -101,7 +101,7 @@ export const Project: CollectionConfig = {
       label: 'Meta line',
       admin: {
         description:
-          'v9: the property meta line — format · division · status (e.g. "Feature · (212) Pictures · drafted"). Shown with the title on /work/<slug>.',
+          'the property meta line — format · division · status (e.g. "Feature · (212) Pictures · drafted"). Shown with the title on /work/<slug>.',
       },
     },
     {
@@ -110,7 +110,7 @@ export const Project: CollectionConfig = {
       label: 'Body prose',
       admin: {
         description:
-          'v9: the property-head paragraph(s) on /work/<slug>, below the logline. Blank line starts a new paragraph; *italics* allowed.',
+          'the property-head paragraph(s) on /work/<slug>, below the logline. Blank line starts a new paragraph; *italics* allowed.',
       },
     },
     {
@@ -118,7 +118,7 @@ export const Project: CollectionConfig = {
       type: 'group',
       label: 'Page quote',
       admin: {
-        description: 'v9: the featured quotation on /work/<slug> (quote-feature section).',
+        description: 'the featured quotation on /work/<slug> (quote-feature section).',
       },
       fields: [
         {
@@ -144,7 +144,7 @@ export const Project: CollectionConfig = {
       label: 'Hero caption',
       admin: {
         description:
-          'v9: caption under the hero photo-fold, before the credit. ==text== renders highlighted.',
+          'caption under the hero photo-fold, before the credit. ==text== renders highlighted.',
       },
     },
     {
@@ -152,7 +152,7 @@ export const Project: CollectionConfig = {
       type: 'text',
       label: 'Hero credit',
       admin: {
-        description: 'v9: credit suffix for the hero (e.g. "AI-generated development frame, disclosed").',
+        description: 'credit suffix for the hero (e.g. "AI-generated development frame, disclosed").',
       },
     },
     {
@@ -161,7 +161,7 @@ export const Project: CollectionConfig = {
       label: 'Request section body',
       admin: {
         description:
-          'v9: the paragraph in the "Read the pages." request section at the bottom of /work/<slug>.',
+          'the paragraph in the "Read the pages." request section at the bottom of /work/<slug>.',
       },
     },
     {
@@ -170,7 +170,7 @@ export const Project: CollectionConfig = {
       label: 'Slate order',
       admin: {
         position: 'sidebar',
-        description: 'v9: position on the public slate (1 = first). Drives /slate and prev/next navigation.',
+        description: 'position on the public slate (1 = first). Drives /slate and prev/next navigation.',
       },
     },
     {
@@ -181,7 +181,7 @@ export const Project: CollectionConfig = {
       admin: {
         position: 'sidebar',
         description:
-          'v9: when checked, this property appears on the public v9 slate and gets a /work/<slug> page. The two private properties stay unchecked.',
+          'when checked, this property appears on the public slate and gets a /work/<slug> page. The two private properties stay unchecked.',
       },
     },
     {
@@ -226,7 +226,7 @@ export const Project: CollectionConfig = {
           type: 'checkbox',
           defaultValue: false,
           admin: {
-            description: 'v9: span the full mood-grid width (maps, panoramas).',
+            description: 'span the full mood-grid width (maps, panoramas).',
           },
         },
       ],

@@ -11,6 +11,7 @@ import * as migration_20260708_property_page_fields from './20260708_property_pa
 import * as migration_20260710_v9_content_model from './20260710_v9_content_model';
 import * as migration_20260712_171318_v10_brand_kit_founding_roll from './20260712_171318_v10_brand_kit_founding_roll';
 import * as migration_20260712_173039_v10_founding_roll_block from './20260712_173039_v10_founding_roll_block';
+import * as migration_20260713_dispatch_switch from './20260713_dispatch_switch';
 
 export const migrations = [
   {
@@ -77,5 +78,10 @@ export const migrations = [
     up: migration_20260712_173039_v10_founding_roll_block.up,
     down: migration_20260712_173039_v10_founding_roll_block.down,
     name: '20260712_173039_v10_founding_roll_block'
+  },
+  {
+    up: migration_20260713_dispatch_switch.up,
+    down: migration_20260713_dispatch_switch.down,
+    name: '20260713_dispatch_switch',
   },
 ];

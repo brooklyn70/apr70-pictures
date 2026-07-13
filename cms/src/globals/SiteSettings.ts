@@ -1,5 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
+import { SITE_VERSION } from '../siteVersion'
+
 /**
  * SiteSettings — singleton global for site-wide identity and feature flags.
  *
@@ -227,10 +229,9 @@ export const SiteSettings: GlobalConfig = {
     {
       name: 'v9Chrome',
       type: 'group',
-      label: 'v9 Chrome (header · Display panel · footer)',
+      label: `${SITE_VERSION} Chrome (header · Display panel · footer)`,
       admin: {
-        description:
-          'Every string in the v9 site chrome: the Display panel labels, footer colophon, copyright, and nav links. Seeded from the vault chrome.md canon.',
+        description: `Every string in the ${SITE_VERSION} site chrome: the Display panel labels, footer colophon, copyright, and nav links. Seeded from the vault chrome.md canon.`,
       },
       fields: [
         {
@@ -370,6 +371,41 @@ export const SiteSettings: GlobalConfig = {
         description:
           'Toggle the top and bottom sprocket-perforation rail chrome on every page.',
       },
+    },
+
+    // ── DISPATCH switch (v10, Marco 2026-07-13) ───────────────────────────────
+    // The news page, parked and reversible. The site is SSR, so this checkbox
+    // is a real switch, not a build flag: tick it, refresh the site, the page
+    // is live. Untick it and it's gone — the issues are kept either way.
+    {
+      name: 'dispatch',
+      type: 'group',
+      label: 'DISPATCH (the news page)',
+      admin: {
+        description:
+          'DISPATCH is the studio news page — the old /news, rebuilt in the current house style. It ships OFF: /dispatch returns 404 and no nav link appears. Tick Publish and refresh the site and the page is live immediately, with no deploy. Write issues under Dispatch Issues; the one marked "current" is the one that renders.',
+      },
+      fields: [
+        {
+          name: 'enabled',
+          type: 'checkbox',
+          label: 'Publish the DISPATCH page',
+          defaultValue: false,
+          admin: {
+            description:
+              'On: /dispatch is live and joins the nav. Off: the page 404s and the link disappears. Taking it down never deletes an issue.',
+          },
+        },
+        {
+          name: 'navLabel',
+          type: 'text',
+          label: 'Nav label',
+          defaultValue: 'Dispatch',
+          admin: {
+            description: 'The word used in the site navigation while the page is live.',
+          },
+        },
+      ],
     },
 
     // ── Build Metadata (read-only) ────────────────────────────────────────────

@@ -91,6 +91,21 @@ test.describe('routes', () => {
     }
   })
 
+  /* DISPATCH ships parked: the route and the switch exist, the page does not.
+     Publishing is Marco's call in Payload (Site Settings → DISPATCH), never a
+     side effect of a deploy — so the shipped default must stay 404, and the
+     nav must not carry the link. If this fails, someone left it switched on. */
+  test('dispatch is parked: 404 and absent from nav + sitemap', async ({ request, page }) => {
+    const res = await request.get(`${SITE}/dispatch`, { maxRedirects: 0 })
+    expect(res.status()).toBe(404)
+
+    const sitemap = await request.get(`${SITE}/sitemap.xml`)
+    expect(await sitemap.text()).not.toContain('/dispatch')
+
+    await page.goto(`${SITE}/`)
+    await expect(page.locator('.v9-nav__link[href="/dispatch"]')).toHaveCount(0)
+  })
+
   test('private property leaks nowhere', async ({ request }) => {
     const work = await request.get(`${SITE}/work/mayors`, { maxRedirects: 0 })
     expect([301, 302, 404]).toContain(work.status())

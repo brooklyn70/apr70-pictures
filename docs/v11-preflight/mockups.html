@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en" data-mode="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>APR 70 · v11 PRE-FLIGHT — defects, solutions, mockups</title>
+<style>
+  /* Self-contained. No external requests. Fonts from ./fonts/. */
+  @font-face { font-family:'Futura Std'; src:url('fonts/FuturaStd-Light.woff2') format('woff2'); font-weight:300; font-display:swap; }
+  @font-face { font-family:'Futura Std'; src:url('fonts/FuturaStd-Book.woff2') format('woff2'); font-weight:400; font-display:swap; }
+  @font-face { font-family:'Futura Std'; src:url('fonts/FuturaStd-Medium.woff2') format('woff2'); font-weight:500; font-display:swap; }
+  @font-face { font-family:'Newsreader'; src:url('fonts/Newsreader-normal-400-600.woff2') format('woff2'); font-weight:400 600; font-display:swap; }
+  @font-face { font-family:'Fraunces'; src:url('fonts/Fraunces-italic-300-700.woff2') format('woff2'); font-weight:300 700; font-style:italic; font-display:swap; }
+  @font-face { font-family:'Courier Prime'; src:url('fonts/CourierPrime-normal-400.woff2') format('woff2'); font-weight:400; font-display:swap; }
+
+  /* The report itself wears the house palette, and it TOGGLES, so you can see
+     every mockup in Marquee Night and House Lights, which is the whole point:
+     the bulb defect only exists in one of them. */
+  :root[data-mode="dark"] {
+    --bg-0:#0f0e0d; --paper-2:#171614; --rule:#2e2b28; --neutral:#9b948c;
+    --muted:#c3bcb2; --ink:#f0ebe3; --accent:#e0592a; --stock:#0a0908;
+  }
+  :root[data-mode="light"] {
+    --bg-0:#f2efe9; --paper-2:#e8e4dc; --rule:#d2ccc2; --neutral:#6c665f;
+    --muted:#3f3a35; --ink:#1a1815; --accent:#c8461c; --stock:#0a0908;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:var(--bg-0); color:var(--ink);
+    font-family:'Newsreader',Georgia,serif; font-size:1.02rem; line-height:1.62;
+    transition:background .3s ease,color .3s ease;
+  }
+  .col { max-width:1120px; margin:0 auto; padding:0 clamp(1.25rem,4vw,3rem); }
+  code { font-family:'Courier Prime',monospace; font-size:.86em; color:var(--accent); }
+  a { color:var(--ink); }
+
+  header { border-bottom:1px solid var(--rule); padding:3.5rem 0 2.25rem; }
+  .kicker { font-family:'Courier Prime',monospace; font-size:.72rem; letter-spacing:.2em;
+            text-transform:uppercase; color:var(--neutral); margin-bottom:1rem; }
+  .kicker b { color:var(--accent); font-weight:400; }
+  h1 { font-family:'Futura Std',sans-serif; font-weight:300; font-size:clamp(2.2rem,5.5vw,3.6rem);
+       line-height:1.04; text-transform:uppercase; letter-spacing:.01em; }
+  .standfirst { font-family:'Fraunces',Georgia,serif; font-style:italic; font-size:1.2rem;
+                color:var(--muted); max-width:56ch; margin-top:1.2rem; }
+  .nochange { display:inline-block; margin-top:1.5rem; font-family:'Courier Prime',monospace;
+              font-size:.75rem; letter-spacing:.14em; text-transform:uppercase;
+              background:var(--accent); color:#0f0e0d; padding:.4rem .8rem; }
+
+  section { padding:3.5rem 0 2rem; border-bottom:1px solid var(--rule); }
+  .slug { font-family:'Courier Prime',monospace; font-size:.74rem; letter-spacing:.18em;
+          text-transform:uppercase; color:var(--neutral); margin-bottom:.6rem; }
+  .slug .n { color:var(--accent); margin-right:.8em; }
+  h2 { font-family:'Futura Std',sans-serif; font-weight:400; font-size:clamp(1.5rem,3vw,2.1rem);
+       text-transform:uppercase; letter-spacing:.02em; margin-bottom:1rem; }
+  h3 { font-family:'Futura Std',sans-serif; font-weight:500; font-size:.95rem; letter-spacing:.1em;
+       text-transform:uppercase; color:var(--muted); margin:2rem 0 .7rem; }
+  p { max-width:66ch; margin-bottom:1rem; color:var(--muted); }
+  p.lede { color:var(--ink); font-size:1.1rem; }
+  .tag { font-family:'Courier Prime',monospace; font-size:.64rem; letter-spacing:.13em;
+         text-transform:uppercase; padding:.16rem .5rem; background:var(--neutral); color:var(--bg-0); }
+  .tag.bug { background:#c0392b; color:#fff; }
+  .tag.ask { background:var(--accent); color:#0f0e0d; }
+  .tag.ok  { background:#4a7c59; color:#fff; }
+
+  /* ── the mode switch for THIS report ───────────────────────────── */
+  .modebar { position:fixed; top:1rem; right:1rem; z-index:50; display:flex; gap:.4rem;
+             background:var(--paper-2); border:1px solid var(--rule); padding:.35rem; }
+  .modebar button { font-family:'Courier Prime',monospace; font-size:.68rem; letter-spacing:.1em;
+                    text-transform:uppercase; background:transparent; color:var(--neutral);
+                    border:0; padding:.42rem .7rem; cursor:pointer; }
+  .modebar button[aria-pressed="true"] { background:var(--accent); color:#0f0e0d; }
+
+  .demo { background:var(--paper-2); border:1px solid var(--rule); padding:1.6rem; margin:1.4rem 0; }
+  .demo__label { font-family:'Courier Prime',monospace; font-size:.68rem; letter-spacing:.14em;
+                 text-transform:uppercase; color:var(--neutral); margin-bottom:.9rem; }
+  .two { display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; }
+  @media (max-width:760px){ .two { grid-template-columns:1fr; } }
+
+  /* ── DEFECT 1: the sprocket rail ───────────────────────────────── */
+  .rail { height:18px; position:relative; background:var(--stock); }
+  .rail::before {
+    content:''; position:absolute; inset:5px 8px;
+    -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='8' viewBox='0 0 30 8'%3E%3Ccircle cx='12' cy='4' r='4' fill='%23fff'/%3E%3C/svg%3E");
+            mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='8' viewBox='0 0 30 8'%3E%3Ccircle cx='12' cy='4' r='4' fill='%23fff'/%3E%3C/svg%3E");
+    -webkit-mask-size:30px 8px; mask-size:30px 8px;
+    -webkit-mask-repeat:repeat-x; mask-repeat:repeat-x;
+  }
+  /* SHIPPED TODAY (broken in Marquee Night): holes painted the page background. */
+  .rail--shipped::before { background:var(--bg-0); }
+  /* PROPOSED: holes are LIGHT in both modes. Film is backlit. A perforation shows
+     the lamp behind the stock, never the wall behind the screen. */
+  .rail--fixed::before { background:#ede7dc; }
+  /* PROPOSED+: the bulbs actually glow. */
+  .rail--glow::before { background:#f6efe2; filter:drop-shadow(0 0 3px rgba(224,89,42,.55)); }
+  .filmbed { background:var(--stock); padding:0; }
+  .filmbed__photo { height:82px; background:linear-gradient(100deg,#4a3520,#8a5a2c 40%,#2a2018); }
+
+  /* ── DEFECT 2: nav / display pill ──────────────────────────────── */
+  .navdemo { background:var(--bg-0); border:1px solid var(--rule); padding:0 1.1rem;
+             display:flex; align-items:center; justify-content:space-between; height:56px; }
+  .navdemo__brand { font-family:'Futura Std',sans-serif; font-weight:500; letter-spacing:.12em;
+                    font-size:.9rem; }
+  .navdemo__links { display:flex; gap:1.4rem; align-items:center; }
+  .navdemo__links a { font-family:'Courier Prime',monospace; font-size:.72rem; letter-spacing:.18em;
+                      text-transform:uppercase; color:var(--neutral); text-decoration:none; }
+  .navdemo__links a.on { color:var(--ink); border-bottom:2px solid var(--accent); padding-bottom:3px; }
+  /* the pill Marco dislikes */
+  .pill { display:inline-flex; align-items:center; gap:.5rem; border:1px solid var(--rule);
+          background:var(--paper-2); padding:.5rem .85rem; font-family:'Courier Prime',monospace;
+          font-size:.7rem; letter-spacing:.13em; text-transform:uppercase; color:var(--muted); }
+  .pill__bulb { width:.55em; height:.55em; border-radius:50%; background:var(--accent);
+                box-shadow:0 0 6px var(--accent); }
+  .pillstage { position:relative; height:90px; background:var(--paper-2);
+               border:1px dashed var(--rule); display:flex; align-items:flex-end;
+               justify-content:flex-end; padding:.8rem; }
+  /* the proposed nav icon */
+  .modeicon { background:transparent; border:0; cursor:pointer; padding:.35rem; line-height:0;
+              color:var(--neutral); transition:color .2s ease; }
+  .modeicon:hover { color:var(--accent); }
+  .modeicon svg { width:17px; height:17px; display:block; }
+  :root[data-mode="dark"] .modeicon .sun { display:block; }
+  :root[data-mode="dark"] .modeicon .moon { display:none; }
+  :root[data-mode="light"] .modeicon .sun { display:none; }
+  :root[data-mode="light"] .modeicon .moon { display:block; }
+
+  /* ── ENHANCEMENT: slate row hover ──────────────────────────────── */
+  .slaterow { display:grid; grid-template-columns:2.5rem 1fr; gap:1.2rem; padding:1.5rem 0;
+              border-top:1px solid var(--rule); position:relative; cursor:crosshair; }
+  .slaterow__no { font-family:'Courier Prime',monospace; font-size:.72rem; color:var(--neutral);
+                  padding-top:.55rem; }
+  .slaterow__t { font-family:'Futura Std',sans-serif; font-weight:300; font-size:1.9rem;
+                 letter-spacing:.005em; }
+  .slaterow__l { font-size:.98rem; color:var(--muted); max-width:52ch; margin-top:.3rem; }
+  .slaterow__m { font-family:'Courier Prime',monospace; font-size:.7rem; letter-spacing:.13em;
+                 text-transform:uppercase; color:var(--neutral); margin-top:.6rem; }
+  .slaterow__m b { color:var(--accent); font-weight:400; }
+
+  /* variant A — the bulb wipe: a marquee bulb strip lights along the top rule */
+  .v-a .slaterow::before {
+    content:''; position:absolute; top:-1px; left:0; right:0; height:2px;
+    background-image:radial-gradient(circle at 3px 1px, var(--accent) 1.1px, transparent 1.4px);
+    background-size:11px 2px; background-repeat:repeat-x;
+    opacity:0; transform:scaleX(.25); transform-origin:left center;
+    transition:opacity .35s ease,transform .5s cubic-bezier(.16,1,.3,1);
+  }
+  .v-a .slaterow:hover::before { opacity:1; transform:scaleX(1); }
+
+  /* variant B — the key-image reveal: the property's frame fades in on the dead right half */
+  .v-b .slaterow { grid-template-columns:2.5rem 1fr 15rem; align-items:center; }
+  .v-b .slaterow__img { width:15rem; height:8.4rem; background:var(--stock); position:relative;
+      overflow:hidden; opacity:.22; filter:grayscale(1); transform:translateX(10px);
+      transition:opacity .4s ease,filter .4s ease,transform .5s cubic-bezier(.16,1,.3,1); }
+  .v-b .slaterow__img i { position:absolute; inset:0; display:block; }
+  .v-b .slaterow:hover .slaterow__img { opacity:1; filter:grayscale(0); transform:none; }
+
+  /* variant C — the projector wash: warm light rakes across the row */
+  .v-c .slaterow::after {
+    content:''; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(100deg, transparent 0%, color-mix(in oklab, var(--accent) 13%, transparent) 45%, transparent 78%);
+    opacity:0; transition:opacity .4s ease;
+  }
+  .v-c .slaterow:hover::after { opacity:1; }
+  .v-c .slaterow__t { transition:color .3s ease; }
+  .v-c .slaterow:hover .slaterow__t { color:var(--accent); }
+
+  figure { margin:1.2rem 0; }
+  figure img { width:100%; display:block; border:1px solid var(--rule); }
+  figcaption { font-family:'Courier Prime',monospace; font-size:.68rem; letter-spacing:.1em;
+               text-transform:uppercase; color:var(--neutral); margin-top:.5rem; }
+
+  table { width:100%; border-collapse:collapse; font-size:.94rem; margin:1rem 0; }
+  th { font-family:'Courier Prime',monospace; font-size:.66rem; letter-spacing:.14em;
+       text-transform:uppercase; color:var(--neutral); text-align:left; font-weight:400;
+       padding:.5rem .8rem .5rem 0; border-bottom:1px solid var(--rule); }
+  td { padding:.65rem .8rem .65rem 0; border-bottom:1px solid var(--rule); vertical-align:top;
+       color:var(--muted); }
+
+  .callout { border-left:2px solid var(--accent); padding:.2rem 0 .2rem 1.1rem; margin:1.4rem 0; }
+  .callout p { color:var(--ink); }
+  footer { padding:3rem 0 4rem; font-family:'Courier Prime',monospace; font-size:.7rem;
+           letter-spacing:.12em; text-transform:uppercase; color:var(--neutral); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="modebar" role="group" aria-label="Preview mode">
+  <button id="m-dark" aria-pressed="true">Marquee night</button>
+  <button id="m-light" aria-pressed="false">House lights</button>
+</div>
+
+<header>
+  <div class="col">
+    <p class="kicker">APR 70 PICTURES · <b>V11 PRE-FLIGHT</b> · 2026-07-13 · ASSESS AND STOP</p>
+    <h1>Defects, solutions,<br>and mockups.</h1>
+    <p class="standfirst">No code was changed. Everything below is a proposal you can look at, hover
+      over, and switch modes on. The live site is untouched.</p>
+    <p class="nochange">Zero changes made to the site</p>
+  </div>
+</header>
+
+<!-- ══════════════ 1 · THE BUG ══════════════ -->
+<section>
+  <div class="col">
+    <p class="slug"><span class="n">1</span>THE BUG YOU CAUGHT <span class="tag bug">confirmed</span></p>
+    <h2>The marquee bulbs die in Marquee Night</h2>
+
+    <p class="lede">You are right, and the cause is exact. The sprocket holes are painted
+      <code>var(--bg-0)</code> ... the page background. In House Lights that is cream and they read
+      beautifully. In Marquee Night it is <code>oklch(0.13 …)</code>, near black, and the film stock
+      behind them is <code>#0a0908</code>, also near black. <strong>Black holes punched in black
+      film.</strong></p>
+
+    <div class="callout">
+      <p>This is mine. I fixed the <em>shape</em> this morning ... they were ellipses, now they are
+        true circles ... and I verified it in House Lights only, because that is the mode my test
+        browser happened to be in. I never looked at Marquee Night, which is the signature mode. The
+        colour was broken before I touched it and I shipped straight past it.</p>
+    </div>
+
+    <p><b>Toggle the switch at the top right of this page</b> and watch the first strip vanish.</p>
+
+    <div class="demo">
+      <p class="demo__label">A · shipped today — holes = var(--bg-0) — invisible in Marquee Night</p>
+      <div class="filmbed">
+        <div class="rail rail--shipped"></div>
+        <div class="filmbed__photo"></div>
+        <div class="rail rail--shipped"></div>
+      </div>
+    </div>
+
+    <div class="demo">
+      <p class="demo__label">B · proposed fix — holes are LIGHT in both modes</p>
+      <div class="filmbed">
+        <div class="rail rail--fixed"></div>
+        <div class="filmbed__photo"></div>
+        <div class="rail rail--fixed"></div>
+      </div>
+      <p style="margin-top:1rem;margin-bottom:0">The reasoning is physical, not cosmetic. Film is
+        <em>backlit</em>. A perforation shows you the lamp behind the stock. It should never show you
+        the wall behind the screen. So the hole colour is a constant of the film, not a variable of
+        the page.</p>
+    </div>
+
+    <div class="demo">
+      <p class="demo__label">C · proposed fix, plus the bulbs actually glow <span class="tag ask">your call</span></p>
+      <div class="filmbed">
+        <div class="rail rail--glow"></div>
+        <div class="filmbed__photo"></div>
+        <div class="rail rail--glow"></div>
+      </div>
+      <p style="margin-top:1rem;margin-bottom:0">Same fix, with a warm bloom on each hole. This is
+        the "little touch" version ... it costs one <code>drop-shadow</code> and it is the difference
+        between a perforation and a bulb.</p>
+    </div>
+
+    <div class="two">
+      <figure>
+        <img src="shots/rail-dark.png" alt="The rail in Marquee Night: bulbs invisible">
+        <figcaption>Live site · Marquee Night · the defect</figcaption>
+      </figure>
+      <figure>
+        <img src="shots/rail-light.png" alt="The rail in House Lights: bulbs visible">
+        <figcaption>Live site · House Lights · works fine</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ 2 · THE PILL ══════════════ -->
+<section>
+  <div class="col">
+    <p class="slug"><span class="n">2</span>THE DISPLAY PILL <span class="tag ask">your ruling</span></p>
+    <h2>Kill the pill. Put the mode in the nav.</h2>
+
+    <p class="lede">You are right that it does not earn its place. Here is the fact that settles it:
+      <strong>the Display panel now contains exactly one control</strong> ... the three theme chips.
+      In v9 it held a type-size dial, a logo-size slider, swatch chips, and it was draggable. All of
+      that was retired. What is left is a floating box, permanently on screen, on every page, to do
+      one job that a 17px icon does better.</p>
+
+    <div class="demo">
+      <p class="demo__label">now — a floating pill, bottom right, on every page, forever</p>
+      <div class="pillstage">
+        <span class="pill"><span class="pill__bulb"></span> Display</span>
+      </div>
+    </div>
+
+    <div class="demo">
+      <p class="demo__label">proposed — the mode lives in the nav. click the icon; it works.</p>
+      <div class="navdemo">
+        <span class="navdemo__brand">APR 70</span>
+        <span class="navdemo__links">
+          <a href="#" class="on">Home</a>
+          <a href="#">Slate</a>
+          <a href="#">Craft</a>
+          <a href="#">Methods</a>
+          <a href="#">Contact</a>
+          <button class="modeicon" id="navToggle" aria-label="Switch between Marquee night and House lights">
+            <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"
+                 stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>
+            <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"
+                 stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1z"/></svg>
+          </button>
+        </span>
+      </div>
+      <p style="margin-top:1rem;margin-bottom:0">That icon is live. Click it. It drives this whole
+        page, and it is the entire feature.</p>
+    </div>
+
+    <h3>What you lose, honestly</h3>
+    <table>
+      <tr><th>Thing</th><th>Where it goes</th></tr>
+      <tr><td>Theme chips (Marquee night / House lights / System)</td>
+          <td>The icon covers dark and light. <b>"System" is the one real casualty</b> ... it becomes the default when a visitor has not chosen, rather than a thing they pick. That is how most sites do it and I think it is correct, but it is your call.</td></tr>
+      <tr><td>The glowing bulb on the pill</td>
+          <td>It was the nicest thing about the pill. It can move onto the nav icon as a hover glow.</td></tr>
+      <tr><td>Type size and logo size dials</td>
+          <td>Already gone in v10. The pill was not carrying them.</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════════ 3 · HOVER ══════════════ -->
+<section>
+  <div class="col">
+    <p class="slug"><span class="n">3</span>THE PROPERTY HOVER <span class="tag ask">pick one</span></p>
+    <h2>The little touch you liked</h2>
+
+    <p class="lede">Gemini's hover work is not recoverable ... it never made it into git, it lived in
+      the workspace you deleted. So rather than describe it, here are three built from scratch.
+      <strong>Hover the rows.</strong> They are live.</p>
+
+    <div class="demo v-a">
+      <p class="demo__label">A · the bulb wipe — a marquee bulb strip lights along the row as you enter it</p>
+      <div class="slaterow">
+        <span class="slaterow__no">02</span>
+        <div>
+          <div class="slaterow__t">L.A. Dolce Vita</div>
+          <p class="slaterow__l">When a presidential candidate is caught via live stream with a mysterious woman, the ensuing scandal unravels fifteen years of secrets.</p>
+          <p class="slaterow__m">Series · (310) Pictures · <b>Pilot + nine on the page</b></p>
+        </div>
+      </div>
+      <div class="slaterow">
+        <span class="slaterow__no">03</span>
+        <div>
+          <div class="slaterow__t">Sea Gate</div>
+          <p class="slaterow__l">A private town at the end of Brooklyn, present day, high summer.</p>
+          <p class="slaterow__m">Feature · (212) Pictures · <b>Drafted</b></p>
+        </div>
+      </div>
+      <p style="margin-top:1.2rem;margin-bottom:0">This is the marquee, used as an interaction. It
+        ties the hover to the brand instead of being generic highlight behaviour. Cheapest of the three.</p>
+    </div>
+
+    <div class="demo v-b">
+      <p class="demo__label">B · the key-image reveal — the property's frame wakes up in the dead right half</p>
+      <div class="slaterow">
+        <span class="slaterow__no">02</span>
+        <div>
+          <div class="slaterow__t">L.A. Dolce Vita</div>
+          <p class="slaterow__l">When a presidential candidate is caught via live stream with a mysterious woman, the ensuing scandal unravels fifteen years of secrets.</p>
+          <p class="slaterow__m">Series · (310) Pictures · <b>Pilot + nine on the page</b></p>
+        </div>
+        <div class="slaterow__img"><i style="background:linear-gradient(115deg,#1b1207,#c07a35 45%,#3a2a16)"></i></div>
+      </div>
+      <div class="slaterow">
+        <span class="slaterow__no">03</span>
+        <div>
+          <div class="slaterow__t">Sea Gate</div>
+          <p class="slaterow__l">A private town at the end of Brooklyn, present day, high summer.</p>
+          <p class="slaterow__m">Feature · (212) Pictures · <b>Drafted</b></p>
+        </div>
+        <div class="slaterow__img"><i style="background:linear-gradient(115deg,#0d1a1f,#3e7f92 45%,#16262b)"></i></div>
+      </div>
+      <p style="margin-top:1.2rem;margin-bottom:0">This one does two jobs at once. It is the hover
+        highlight you wanted, <em>and</em> it fills the empty right half of every slate row with the
+        thing the row is actually about. The frames sit dim and grey until you touch them, so the
+        page stays quiet at rest. <b>This is the one I would ship.</b></p>
+    </div>
+
+    <div class="demo v-c">
+      <p class="demo__label">C · the projector wash — warm light rakes across the row</p>
+      <div class="slaterow">
+        <span class="slaterow__no">02</span>
+        <div>
+          <div class="slaterow__t">L.A. Dolce Vita</div>
+          <p class="slaterow__l">When a presidential candidate is caught via live stream with a mysterious woman, the ensuing scandal unravels fifteen years of secrets.</p>
+          <p class="slaterow__m">Series · (310) Pictures · <b>Pilot + nine on the page</b></p>
+        </div>
+      </div>
+      <div class="slaterow">
+        <span class="slaterow__no">03</span>
+        <div>
+          <div class="slaterow__t">Sea Gate</div>
+          <p class="slaterow__l">A private town at the end of Brooklyn, present day, high summer.</p>
+          <p class="slaterow__m">Feature · (212) Pictures · <b>Drafted</b></p>
+        </div>
+      </div>
+      <p style="margin-top:1.2rem;margin-bottom:0">The quietest. A wash of projector light crosses
+        the row and the title warms to flame. Costs almost nothing and never shouts.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ 4 · STRUCTURAL ══════════════ -->
+<section>
+  <div class="col">
+    <p class="slug"><span class="n">4</span>STRUCTURAL DEFECTS <span class="tag">report only</span></p>
+    <h2>What I found, and what I would do</h2>
+
+    <p class="lede">You said you are not unhappy with the site, and you are right that little touches
+      are what make it sing. So read these as observations, not as a demand for surgery. Each one has
+      a cheap version and an expensive version, and the cheap version is usually enough.</p>
+
+    <h3>S1 · Half of every page is empty</h3>
+    <p>Text sits in a narrow left column and the right ~45% of the viewport is dead. The rhythm on
+      every page is: half-empty text block, full-bleed photo, half-empty text block. Word and image
+      never share a frame.</p>
+    <figure>
+      <img src="shots/home-scrolled.png" alt="Home page scrolled: text left, right half empty">
+      <figcaption>Home, scrolled · the right half carries nothing</figcaption>
+    </figure>
+    <p><b>Cheap fix:</b> hover variant B above already puts the property's frame in that space on
+      /slate. <b>Expensive fix:</b> asymmetric folds site-wide, images bleeding into the margin,
+      captions in the gutter. I would do the cheap one and see if it still bothers you.</p>
+
+    <h3>S2 · The slate is a bibliography</h3>
+    <p>The nine properties ... the product ... are listed as title, logline, and a mono meta line.
+      <strong>No images at all.</strong> These are motion pictures.</p>
+    <figure>
+      <img src="shots/slate-scrolled.png" alt="Slate list with no images">
+      <figcaption>/slate · nine motion pictures, zero pictures</figcaption>
+    </figure>
+    <p><b>Fix:</b> hover variant B. Every row gets its key frame. This is the single highest-value
+      change available and it is also the hover highlight you already said you liked. They are the
+      same move.</p>
+
+    <h3>S3 · The property page never names the property</h3>
+    <p>You land on <code>/work/la-dolce-vita</code> and the hero is an unlabelled photograph. The
+      title is below the fold. Home, Slate and a property page all open with the same full-bleed
+      photo and mono caption, so at a glance they are indistinguishable.</p>
+    <figure>
+      <img src="shots/work.png" alt="Property page hero with no title">
+      <figcaption>/work/la-dolce-vita · a beautiful photo of nothing in particular</figcaption>
+    </figure>
+    <p><b>Fix:</b> title and logline over the hero, on the scrim that is already there. The gradient
+      law already guarantees a dark scrim and light ink, so this costs nothing structurally. One
+      fold, one page template.</p>
+
+    <h3>S4 · The signature cursor is dead code</h3>
+    <p>The trailing-dot cursor's CSS is in <code>tokens.css:412-435</code> and its GSAP driver is in
+      <code>lib/motion/cursor.ts</code>. <strong>Nothing imports <code>lib/motion/</code>.</strong> It
+      is orphaned and tree-shaken out of the bundle. Separately, <code>marquee.css:156</code> asserts
+      <code>body { cursor: auto }</code>, killing the crosshair v9 had.</p>
+    <p><b>Fix:</b> one import, one deleted line. This is the cheapest personality in the codebase and
+      it is the thing the old brief said you missed most.</p>
+
+    <h3>S5 · What is NOT broken <span class="tag ok">leave alone</span></h3>
+    <p>The Craft page quote-feature is genuinely beautiful and nothing should touch it. The
+      photography is excellent throughout ... the images were never the problem. The mono screenplay
+      furniture (scene numbers, sluglines, the tracked-out nav) is the strongest surviving character
+      in the chrome. Build on it, do not replace it.</p>
+    <figure>
+      <img src="shots/craft-scrolled.png" alt="The craft page quote feature">
+      <figcaption>/craft · this works. Do not let anyone redesign it.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ══════════════ 4B · THE PANEL ══════════════ -->
+<section>
+  <div class="col">
+    <p class="slug"><span class="n">5</span>THE CRITICS PASS <span class="tag bug">1 factual bug found</span></p>
+    <h2>The panel read v10 cold</h2>
+
+    <p class="lede">You asked whether the critics had seen v10. They had not. They have now. Giannini,
+      Selznick, Disney, Hughes and Jobs each read the live site with <strong>no knowledge of who you
+      are, what you think of it, or what I was proposing</strong> ... the panel's cold-money rule. Full
+      reviews are filed in the vault.</p>
+
+    <table>
+      <tr><th>Investor</th><th>Score</th><th>Fund?</th><th>The line</th></tr>
+      <tr><td>Giannini</td><td><b>7/10</b></td><td>Yes</td><td>"A man who works alone, and says so out loud. That is character, and character is what I lend on."</td></tr>
+      <tr><td>Selznick</td><td><b>7/10</b></td><td>Yes</td><td>"A beautifully dressed window with the merchandise arranged wrong."</td></tr>
+      <tr><td>Disney</td><td><b>6/10</b></td><td>Yes</td><td>"The page claims the generational audience in its largest type and stocks nothing for it."</td></tr>
+      <tr><td>Hughes</td><td><b>6/10</b></td><td>Yes</td><td>"He owns scripts and he owns opinions. Not one picture has been shot."</td></tr>
+      <tr><td>Jobs</td><td><b>6/10</b></td><td>Yes</td><td>"You said you list facts. You listed seven promises and four facts."</td></tr>
+    </table>
+
+    <p><b>All five would take the meeting. None would write the check off the page.</b> Every one of
+      them praised the typography and the screenplay-slugline architecture, unprompted. The design is
+      not the problem, and that is worth knowing before anyone redesigns anything.</p>
+
+    <h3><span class="tag bug">the ruling you must make</span> The billing blocks contradict each other</h3>
+    <p><strong>Four of the five found this independently, and it is a factual bug, not taste.</strong>
+      Your /nrc page publishes the law at 9.04: <em>"Every APR 70 feature carries this banner, and its
+      home territory, (212) or (310), joins as co-production."</em> Then:</p>
+    <table>
+      <tr><th>Property</th><th>On home + slate</th><th>On /nrc</th></tr>
+      <tr><td><b>Sea Gate</b></td><td><code>FEATURE · (212) PICTURES · DRAFTED</code></td><td><code>FEATURE · NEW RENAISSANCE CINEMA · DRAFTED</code></td></tr>
+      <tr><td><b>Da Hook</b></td><td><code>FEATURE · (212) PICTURES</code></td><td><code>FEATURE · NEW RENAISSANCE CINEMA</code></td></tr>
+      <tr><td>A Need Grows in Brooklyn</td><td colspan="2"><code>NEW RENAISSANCE CINEMA WITH (212) PICTURES</code> ... correct on both</td></tr>
+    </table>
+    <p>And /nrc defines New Renaissance Cinema as <em>"Feature films built for permanence"</em> ... then
+      hangs two <b>series</b> on it (Shadowmaster, U Bruculinu).</p>
+    <div class="callout">
+      <p>Hughes: <em>"A man careless with small machines crashes big ones. Any lawyer doing diligence
+        finds this in nine minutes and prices the chaos in."</em></p>
+    </div>
+    <p><b>Fix:</b> one billing string per property, stored once in Payload, rendered identically
+      everywhere. Then you rule on whether NRC takes series or those two move house.</p>
+
+    <h3>They also, unprompted, confirmed two things</h3>
+    <p><b>The pill.</b> You said you dislike it. They were never told that. Hughes: <em>"a floating
+      pill reading DISPLAY with a red dot... It reads as a REC indicator or a developer toggle... a dev
+      artifact shipped to production."</em> Disney: <em>"a debug button in the corner."</em> Your
+      instinct was right and two of the five reached for it independently.</p>
+    <p><b>The dead right half.</b> Hughes: <em>"the entire right half of the page is empty cream. The
+      strongest asset this company has is the frame, and the frame appears once at the top and never
+      again in the list."</em> Selznick: <em>"You have frames for these pictures. You put none of them
+      beside the titles."</em> That is hover variant B, arrived at from the money side.</p>
+
+    <h3>Unanimous, all five: kill the roll counter</h3>
+    <p><code>1 NAME ON THE ROLL</code> is the only number you publish anywhere, and it says nobody is
+      here. Selznick: <em>"A public counter reading 1 is not a low number, it is an empty room."</em>
+      Keep the roll, keep the copy (all five liked "the numbers start low, stay yours, and are never
+      reissued"). <b>Delete the numeral</b> until it clears three digits.</p>
+
+    <h3>Disney's idea, which nobody else saw</h3>
+    <div class="callout">
+      <p><b>THE HAMMETT BOROUGHS.</b> Hammett's novels enter the public domain one a year. Red Harvest
+        (1929) came free in 2025 and became Sea Gate. The Maltese Falcon (1930) came free in 2026 and
+        becomes Da Hook. Disney: <em>"That is not two features. That is a position."</em> You have it
+        on the page as a grey legal footnote. It is a slate with a calendar ... one continuous city,
+        built one year at a time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ 5 · DECISIONS ══════════════ -->
+<section>
+  <div class="col">
+    <p class="slug"><span class="n">6</span>WHAT I NEED FROM YOU</p>
+    <h2>Five rulings</h2>
+    <table>
+      <tr><th>#</th><th>Ruling</th><th>My recommendation</th></tr>
+      <tr><td>1</td><td>Bulb fix: plain light holes (B) or light holes that glow (C)?</td><td><b>C.</b> The glow is one line and it is the whole point of calling them bulbs.</td></tr>
+      <tr><td>2</td><td>Kill the Display pill, move mode to a nav icon?</td><td><b>Yes.</b> It holds one control. The icon does it better.</td></tr>
+      <tr><td>3</td><td>Does "System" mode survive as a visitor choice?</td><td><b>No</b> ... it becomes the silent default. But this is genuinely yours to call.</td></tr>
+      <tr><td>4</td><td>Which hover: bulb wipe (A), key-image reveal (B), projector wash (C)?</td><td><b>B.</b> It is the hover you liked AND it fixes the imageless slate in one move.</td></tr>
+      <tr><td>5</td><td>Restore the crosshair + trailing-dot cursor?</td><td><b>Yes.</b> The code is already sitting in the repo, unplugged.</td></tr>
+    </table>
+    <div class="callout">
+      <p>Nothing above has been built into the site. Say which ones you want and I will do exactly
+        those, one commit each, with a before and after picture for every one.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="col">
+    APR 70 PICTURES · V11 PRE-FLIGHT · 2026-07-13 · NO CHANGES MADE · SELF-CONTAINED, ZERO EXTERNAL REQUESTS
+  </div>
+</footer>
+
+<script>
+  const root = document.documentElement
+  const dark = document.getElementById('m-dark')
+  const light = document.getElementById('m-light')
+  const navToggle = document.getElementById('navToggle')
+  function setMode(m) {
+    root.setAttribute('data-mode', m)
+    dark.setAttribute('aria-pressed', String(m === 'dark'))
+    light.setAttribute('aria-pressed', String(m === 'light'))
+  }
+  dark.addEventListener('click', () => setMode('dark'))
+  light.addEventListener('click', () => setMode('light'))
+  navToggle.addEventListener('click', () =>
+    setMode(root.getAttribute('data-mode') === 'dark' ? 'light' : 'dark'))
+</script>
+</body>
+</html>

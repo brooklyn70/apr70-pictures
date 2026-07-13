@@ -415,7 +415,13 @@ async function main(): Promise<void> {
           rows: groups(s, 'title').map((g) => ({
             project: g.href ? projectIds.get(g.href.replace('/work/', '')) ?? null : null,
             title: g.title, href: g.href, logline: g.logline ?? null,
-            provenance: g.provenance ?? null, meta: g.meta ?? null, dev: g.dev === 'true',
+            provenance: g.provenance ?? null, dev: g.dev === 'true',
+            // meta is deliberately NOT seeded. The billing block has exactly one
+            // home — Project.metaLine — and a per-row override here is what let the
+            // two drift apart until four of five investors caught the contradiction
+            // (fixed in v11 by fix-billing-blocks.ts). Seeding g.meta would rebuild
+            // that second source of truth on the next re-seed and undo the fix.
+            meta: null,
           })),
         }
       case 'footnote':

@@ -65,11 +65,12 @@ const CANON: Record<string, string> = {
   'cleopatra': 'Series · (310) Pictures · ==in development==',
   // RULED (Marco, 2026-07-13): NRC is features only. Both of these were billed
   // "Series" by the site alone — the division canon has said "Feature" for each
-  // since 2026-07-06. Neither has a home territory (Shadowmaster's platform is
-  // global and unlocated; U Bruculinu is Sicily), so neither takes a co-production
-  // arm. Shadowmaster's 310 tie is the FUTURE series spawn, not a partner on the
-  // feature. Site copy was the drift; canon was right.
-  'shadowmaster': 'Feature · New Renaissance Cinema · ==in development==',
+  // since 2026-07-06. Site copy was the drift; canon was right.
+  //
+  // Shadowmaster is SET IN LOS ANGELES (Marco, 2026-07-13 — the setting was an
+  // empty stub until this ruling), so it takes the (310) co-production arm.
+  'shadowmaster': 'Feature · New Renaissance Cinema with (310) Pictures · ==in development==',
+  // U Bruculinu is Sicily — neither coast. It is the stateless picture: NRC alone.
   'u-bruculinu': 'Feature · New Renaissance Cinema · ==in development==',
 }
 

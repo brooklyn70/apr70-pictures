@@ -2987,9 +2987,17 @@ export interface SiteSetting {
    */
   tagline?: string | null;
   /**
-   * SVG or PNG favicon. Falls back to /favicon.svg if unset.
+   * The tab icon. SVG or PNG. Falls back to the built-in /favicon.svg if unset. (Wired 2026-07-13 — before that this field existed but the site ignored it and always served the static file.)
    */
   favicon?: (number | null) | Media;
+  /**
+   * Optional. Served to browsers whose UI is in dark mode. Leave empty and the main favicon is used for both — only worth setting if the main one goes muddy on a dark tab strip.
+   */
+  faviconDark?: (number | null) | Media;
+  /**
+   * The icon iOS uses when the site is saved to a home screen. 180×180 PNG is the safe size. Optional.
+   */
+  appleTouchIcon?: (number | null) | Media;
   /**
    * Logotype or mark for the header on light backgrounds.
    */
@@ -2998,6 +3006,12 @@ export interface SiteSetting {
    * Logotype or mark for the header on dark backgrounds.
    */
   navLogoDark?: (number | null) | Media;
+  accent212?: ('flame' | 'amber' | 'imax' | 'sicilian-blue' | 'nrc-grey') | null;
+  favicon212?: (number | null) | Media;
+  accent310?: ('flame' | 'amber' | 'imax' | 'sicilian-blue' | 'nrc-grey') | null;
+  favicon310?: (number | null) | Media;
+  accentNrc?: ('flame' | 'amber' | 'imax' | 'sicilian-blue' | 'nrc-grey') | null;
+  faviconNrc?: (number | null) | Media;
   /**
    * Logo size and the canonical theme colors (accent, link rollover, selection highlight, default mode). Public site reflects changes on refresh.
    */
@@ -7687,8 +7701,16 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   legalEntity?: T;
   tagline?: T;
   favicon?: T;
+  faviconDark?: T;
+  appleTouchIcon?: T;
   navLogoLight?: T;
   navLogoDark?: T;
+  accent212?: T;
+  favicon212?: T;
+  accent310?: T;
+  favicon310?: T;
+  accentNrc?: T;
+  faviconNrc?: T;
   brandKit?:
     | T
     | {

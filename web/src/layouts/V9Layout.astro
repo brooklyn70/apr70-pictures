@@ -30,9 +30,12 @@ interface Props {
   description?: string
   /** Page-specific JSON-LD blocks (Organization + WebSite are always injected). */
   jsonLd?: Record<string, unknown>[]
+  /** Division pages only. Swaps in that division's accent + tab icon from
+   *  Site Settings → Division Brand. Was hardcoded in each page until v11. */
+  division?: '212' | '310' | 'nrc'
 }
 
-const { title, description = NAP.description, jsonLd = [] } = Astro.props
+const { title, description = NAP.description, jsonLd = [], division } = Astro.props
 
 const { chrome } = await fetchV9Chrome()
 
@@ -46,9 +49,47 @@ const { settings } = await fetchSiteSettings()
 const kit = settings?.brandKit ?? {}
 const logoH = Math.min(72, Math.max(24, kit.logoHeight ?? 34))
 const modeDefault = kit.modeDefault ?? 'system'
-const accent = kit.accent ?? 'flame'
+const houseAccent = kit.accent ?? 'flame'
 const linkHover = kit.linkHover ?? 'accent'
 const highlight = kit.highlight ?? 'flame'
+
+/* ── Division Brand (v11) ─────────────────────────────────────────────────
+   A division page overrides the house accent with its own, and may carry its
+   own tab icon. Both used to be unreachable: the accent was a hardcoded
+   `data-accent` written by an inline script in each of 212/310/nrc.astro, and
+   there was no division favicon at all. They are Site Settings → Division
+   Brand now, and this is stamped SERVER-SIDE — no inline script, so the colour
+   is right in the first paint instead of flashing the house accent first.
+   The defaults below reproduce exactly what the pages used to hardcode. */
+const DIVISION_FALLBACK = { '212': 'flame', '310': 'sicilian-blue', nrc: 'nrc-grey' } as const
+const divisionAccent = division
+  ? (division === '212'
+      ? settings?.accent212
+      : division === '310'
+        ? settings?.accent310
+        : settings?.accentNrc) ?? DIVISION_FALLBACK[division]
+  : null
+const accent = divisionAccent ?? houseAccent
+
+const divisionFavicon = division
+  ? resolveMediaUrl(
+      (division === '212'
+        ? settings?.favicon212
+        : division === '310'
+          ? settings?.favicon310
+          : settings?.faviconNrc) as never,
+    )
+  : null
+
+/* ── Favicons (v11) ───────────────────────────────────────────────────────
+   The `favicon` upload has existed since v10 and the site IGNORED it — this
+   file hardcoded /favicon.svg, so uploading one in Payload did nothing at all.
+   Now: division icon → site icon → the static file. `faviconDark` is optional
+   and only serves browsers whose UI chrome is dark. */
+const siteFavicon = resolveMediaUrl(settings?.favicon as never)
+const faviconDark = resolveMediaUrl(settings?.faviconDark as never)
+const appleTouchIcon = resolveMediaUrl(settings?.appleTouchIcon as never)
+const faviconHref = divisionFavicon || siteFavicon || '/favicon.svg'
 /* Payload media law for the marks: data-mark-ink='light' is the LIGHT-colored
    mark (shown on dark paper) = the CMS "Nav Logo (Dark theme)" upload;
    data-mark-ink='dark' is the dark mark for House Lights = "Nav Logo (Light
@@ -144,8 +185,12 @@ const panelLabels = {
         else if (theme === 'system') doc.removeAttribute('data-theme')
       })()
     </script>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    {/* Favicon: division icon → site icon (Payload) → the static file. The dark
+        variant is only emitted if Marco actually uploaded one; browsers pick it
+        via the media query and fall back to the first <link> otherwise. */}
+    <link rel="icon" href={faviconHref} />
+    {faviconDark && <link rel="icon" href={faviconDark} media="(prefers-color-scheme: dark)" />}
+    {appleTouchIcon && <link rel="apple-touch-icon" href={appleTouchIcon} />}
     <link rel="canonical" href={canonicalUrl} />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-readable site summary" />
     <link

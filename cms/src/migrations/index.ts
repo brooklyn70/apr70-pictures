@@ -12,6 +12,7 @@ import * as migration_20260710_v9_content_model from './20260710_v9_content_mode
 import * as migration_20260712_171318_v10_brand_kit_founding_roll from './20260712_171318_v10_brand_kit_founding_roll';
 import * as migration_20260712_173039_v10_founding_roll_block from './20260712_173039_v10_founding_roll_block';
 import * as migration_20260713_213517_troupe_switch from './20260713_213517_troupe_switch';
+import * as migration_20260713_222007_division_brand_and_favicons from './20260713_222007_division_brand_and_favicons';
 import * as migration_20260713_dispatch_switch from './20260713_dispatch_switch';
 
 export const migrations = [
@@ -84,6 +85,11 @@ export const migrations = [
     up: migration_20260713_213517_troupe_switch.up,
     down: migration_20260713_213517_troupe_switch.down,
     name: '20260713_213517_troupe_switch',
+  },
+  {
+    up: migration_20260713_222007_division_brand_and_favicons.up,
+    down: migration_20260713_222007_division_brand_and_favicons.down,
+    name: '20260713_222007_division_brand_and_favicons',
   },
   {
     up: migration_20260713_dispatch_switch.up,

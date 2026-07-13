@@ -3,6 +3,25 @@ import type { GlobalConfig } from 'payload'
 import { SITE_VERSION } from '../siteVersion'
 
 /**
+ * The house colour vocabulary. Free-form hex is deliberately impossible: every
+ * value here resolves, in themes/marquee.css, to an OKLCH pair with a dark AND a
+ * light variant that both pass contrast — so no choice Marco makes in the admin
+ * can produce unreadable text in either mode.
+ *
+ * Shared by the Brand Kit accent and the three Division Brand accents so the two
+ * lists cannot drift apart. (theme-control.css still carries a DEAD copy of an
+ * older vocabulary — orange/navy/teal/blue — that matches nothing here and can
+ * never fire; that whole file is orphaned. Do not revive it as a source.)
+ */
+const DIVISION_ACCENT_OPTIONS = [
+  { label: 'Flame — 212 Sicilian Orange (house default)', value: 'flame' },
+  { label: '212 Amber', value: 'amber' },
+  { label: '310 IMAX Teal', value: 'imax' },
+  { label: '310 Sicilian Blue', value: 'sicilian-blue' },
+  { label: 'NRC Grey (quiet)', value: 'nrc-grey' },
+]
+
+/**
  * SiteSettings — singleton global for site-wide identity and feature flags.
  *
  * Fields:
@@ -70,15 +89,49 @@ export const SiteSettings: GlobalConfig = {
       },
       fields: [
         {
-          name: 'favicon',
+          type: 'row',
+          fields: [
+            {
+              name: 'favicon',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Favicon',
+              admin: {
+                description:
+                  'The tab icon. SVG or PNG. Falls back to the built-in /favicon.svg if unset. (Wired 2026-07-13 — before that this field existed but the site ignored it and always served the static file.)',
+                width: '50%',
+              },
+              filterOptions: {
+                mediaKind: { in: ['favicon'] },
+              },
+            },
+            {
+              name: 'faviconDark',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Favicon (dark tab bars)',
+              admin: {
+                description:
+                  'Optional. Served to browsers whose UI is in dark mode. Leave empty and the main favicon is used for both — only worth setting if the main one goes muddy on a dark tab strip.',
+                width: '50%',
+              },
+              filterOptions: {
+                mediaKind: { in: ['favicon'] },
+              },
+            },
+          ],
+        },
+        {
+          name: 'appleTouchIcon',
           type: 'upload',
           relationTo: 'media',
-          label: 'Favicon',
+          label: 'Apple touch icon',
           admin: {
-            description: 'SVG or PNG favicon. Falls back to /favicon.svg if unset.',
+            description:
+              'The icon iOS uses when the site is saved to a home screen. 180×180 PNG is the safe size. Optional.',
           },
           filterOptions: {
-            mediaKind: { in: ['favicon'] },
+            mediaKind: { in: ['favicon', 'logo'] },
           },
         },
         {
@@ -109,6 +162,92 @@ export const SiteSettings: GlobalConfig = {
               filterOptions: {
                 mediaKind: { in: ['logo', 'wordmark'] },
               },
+            },
+          ],
+        },
+      ],
+    },
+
+    // ── Division Brand (v11, 2026-07-13) ──────────────────────────────────────
+    // The per-division accent used to be HARDCODED in the page files
+    // (212.astro said data-accent="flame", 310.astro "sicilian-blue",
+    // nrc.astro "nrc-grey") — a code edit and a deploy to change a colour.
+    // It is Marco's now.
+    //
+    // NOTE ON FAVICONS: a division favicon is a browser-tab icon, not a mark ON
+    // the page — so it does NOT reverse "condition 6" (no pictorial division
+    // marks in the layout; ruled 2026-07-13, see the division canon). The
+    // division favicon SVGs already sit in the media library; tag one as
+    // mediaKind "Favicon" for it to appear in these pickers.
+    {
+      type: 'collapsible',
+      label: 'Division Brand (v11)',
+      admin: {
+        description:
+          'Per-division accent colour and tab icon, for /212, /310 and /nrc. Each division page overrides the house accent with its own. Leave a favicon empty and the division falls back to the site favicon.',
+        initCollapsed: true,
+      },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'accent212',
+              type: 'select',
+              label: '(212) accent',
+              defaultValue: 'flame',
+              options: DIVISION_ACCENT_OPTIONS,
+              admin: { width: '50%' },
+            },
+            {
+              name: 'favicon212',
+              type: 'upload',
+              relationTo: 'media',
+              label: '(212) favicon',
+              admin: { width: '50%' },
+              filterOptions: { mediaKind: { in: ['favicon'] } },
+            },
+          ],
+        },
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'accent310',
+              type: 'select',
+              label: '(310) accent',
+              defaultValue: 'sicilian-blue',
+              options: DIVISION_ACCENT_OPTIONS,
+              admin: { width: '50%' },
+            },
+            {
+              name: 'favicon310',
+              type: 'upload',
+              relationTo: 'media',
+              label: '(310) favicon',
+              admin: { width: '50%' },
+              filterOptions: { mediaKind: { in: ['favicon'] } },
+            },
+          ],
+        },
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'accentNrc',
+              type: 'select',
+              label: 'New Renaissance Cinema accent',
+              defaultValue: 'nrc-grey',
+              options: DIVISION_ACCENT_OPTIONS,
+              admin: { width: '50%' },
+            },
+            {
+              name: 'faviconNrc',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'NRC favicon',
+              admin: { width: '50%' },
+              filterOptions: { mediaKind: { in: ['favicon'] } },
             },
           ],
         },
@@ -170,13 +309,7 @@ export const SiteSettings: GlobalConfig = {
           type: 'select',
           label: 'Brand accent',
           defaultValue: 'flame',
-          options: [
-            { label: 'Flame — 212 Sicilian Orange (house default)', value: 'flame' },
-            { label: '212 Amber', value: 'amber' },
-            { label: '310 IMAX Teal', value: 'imax' },
-            { label: '310 Sicilian Blue', value: 'sicilian-blue' },
-            { label: 'NRC Grey (quiet)', value: 'nrc-grey' },
-          ],
+          options: DIVISION_ACCENT_OPTIONS,
           admin: {
             description:
               'The lead accent: editorial CTA underline, active nav, focus ring, flame details. Each option carries dark-mode and light-mode OKLCH variants that pass contrast.',

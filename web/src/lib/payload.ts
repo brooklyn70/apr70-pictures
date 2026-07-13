@@ -29,10 +29,16 @@ export type FooterLink = {
   id?: string | null
 }
 
+/** The house colour vocabulary. Mirrors DIVISION_ACCENT_OPTIONS in the CMS
+ *  (cms/src/globals/SiteSettings.ts). Free-form hex is deliberately impossible:
+ *  each token resolves in themes/marquee.css to an OKLCH pair with a dark AND a
+ *  light variant that both pass contrast. */
+export type AccentToken = 'flame' | 'amber' | 'imax' | 'sicilian-blue' | 'nrc-grey'
+
 export type BrandKitData = {
   logoHeight?: number | null
   modeDefault?: 'system' | 'dark' | 'light' | null
-  accent?: 'flame' | 'amber' | 'imax' | 'sicilian-blue' | 'nrc-grey' | null
+  accent?: AccentToken | null
   linkHover?: 'accent' | 'flame' | 'amber' | 'imax' | 'sicilian-blue' | 'ink' | null
   highlight?: 'flame' | 'amber' | 'sicilian-blue' | 'ink' | null
 }
@@ -81,6 +87,17 @@ export type SiteSettingsData = {
   showFilmstripRails?: boolean | null
   dispatch?: DispatchSettings | null
   troupe?: TroupeSettings | null
+  /* Favicons (v11) — `favicon` finally does something; the rest are optional. */
+  faviconDark?: Media | number | null
+  appleTouchIcon?: Media | number | null
+  /* Division Brand (v11) — the per-division accent + tab icon, formerly hardcoded
+     in 212.astro / 310.astro / nrc.astro. */
+  accent212?: AccentToken | null
+  favicon212?: Media | number | null
+  accent310?: AccentToken | null
+  favicon310?: Media | number | null
+  accentNrc?: AccentToken | null
+  faviconNrc?: Media | number | null
   lastDeployed?: string | null
   seededVersion?: string | null
   favicon?: Media | number | null

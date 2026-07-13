@@ -408,6 +408,38 @@ export const SiteSettings: GlobalConfig = {
       ],
     },
 
+    // ── TROUPE (the radio play) ───────────────────────────────────────────────
+    {
+      name: 'troupe',
+      type: 'group',
+      label: 'TROUPE (the radio play)',
+      admin: {
+        description:
+          'THE APR 70 TROUPE PRESENTS — the radio programme, at /troupe. It ships OFF. Unlike DISPATCH, this switch is not enough on its own: the page also needs an audio file on Troupe Programme. Both, or the route 404s. That is deliberate — a radio page with no radio on it is a promise, and promises are what the investor panel marked this company down for. Tick this, upload the recording, and the page publishes itself with no deploy.',
+      },
+      fields: [
+        {
+          name: 'enabled',
+          type: 'checkbox',
+          label: 'Publish the TROUPE page',
+          defaultValue: false,
+          admin: {
+            description:
+              'On AND an audio file present: /troupe is live and joins the nav. Either one missing: the page 404s and the link disappears. Taking it down never deletes the programme.',
+          },
+        },
+        {
+          name: 'navLabel',
+          type: 'text',
+          label: 'Nav label',
+          defaultValue: 'Troupe',
+          admin: {
+            description: 'The word used in the site navigation while the page is live.',
+          },
+        },
+      ],
+    },
+
     // ── Build Metadata (read-only) ────────────────────────────────────────────
     {
       type: 'collapsible',

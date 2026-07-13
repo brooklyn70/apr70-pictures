@@ -108,6 +108,7 @@ export interface Config {
     investors: Investor;
     nrc: Nrc;
     troupe: Troupe;
+    'troupe-program': TroupeProgram;
     'v9-home': V9Home;
     'v9-slate': V9Slate;
     'v9-craft': V9Craft;
@@ -127,6 +128,7 @@ export interface Config {
     investors: InvestorsSelect<false> | InvestorsSelect<true>;
     nrc: NrcSelect<false> | NrcSelect<true>;
     troupe: TroupeSelect<false> | TroupeSelect<true>;
+    'troupe-program': TroupeProgramSelect<false> | TroupeProgramSelect<true>;
     'v9-home': V9HomeSelect<false> | V9HomeSelect<true>;
     'v9-slate': V9SlateSelect<false> | V9SlateSelect<true>;
     'v9-craft': V9CraftSelect<false> | V9CraftSelect<true>;
@@ -3114,6 +3116,19 @@ export interface SiteSetting {
     navLabel?: string | null;
   };
   /**
+   * THE APR 70 TROUPE PRESENTS — the radio programme, at /troupe. It ships OFF. Unlike DISPATCH, this switch is not enough on its own: the page also needs an audio file on Troupe Programme. Both, or the route 404s. That is deliberate — a radio page with no radio on it is a promise, and promises are what the investor panel marked this company down for. Tick this, upload the recording, and the page publishes itself with no deploy.
+   */
+  troupe?: {
+    /**
+     * On AND an audio file present: /troupe is live and joins the nav. Either one missing: the page 404s and the link disappears. Taking it down never deletes the programme.
+     */
+    enabled?: boolean | null;
+    /**
+     * The word used in the site navigation while the page is live.
+     */
+    navLabel?: string | null;
+  };
+  /**
    * Timestamp of the last CI deploy.
    */
   lastDeployed?: string | null;
@@ -5184,6 +5199,68 @@ export interface Troupe {
           }
       )[]
     | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * The APR 70 Troupe Presents — the radio programme. The page at /troupe stays dark until BOTH the switch in Site Settings → TROUPE is on AND an audio file is uploaded below. No radio, no radio page.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "troupe-program".
+ */
+export interface TroupeProgram {
+  id: number;
+  /**
+   * The Mercury lineage: a numbered programme. "No. 1", "No. 2"…
+   */
+  programNumber?: string | null;
+  /**
+   * As performed, e.g. "15 minutes".
+   */
+  runtime?: string | null;
+  recordedOn?: string | null;
+  /**
+   * The property being performed, e.g. "L.A. Dolce Vita".
+   */
+  title?: string | null;
+  /**
+   * The episode or movement, e.g. "Il Primo Giorno".
+   */
+  subtitle?: string | null;
+  /**
+   * Links the programme back to the slate entry it performs.
+   */
+  property?: (number | null) | Project;
+  /**
+   * One or two sentences. What the listener is about to hear.
+   */
+  logline?: string | null;
+  /**
+   * The finished programme. THIS IS THE GATE: while it is empty, /troupe returns 404 even with the switch on. Upload it and the page publishes itself. Human voices only — no synthetic voices (house policy).
+   */
+  audio?: (number | null) | Media;
+  /**
+   * Optional. A single frame to sit above the player.
+   */
+  poster?: (number | null) | Media;
+  /**
+   * Every voice, credited. A resident company is the whole idea.
+   */
+  cast?:
+    | {
+        role?: string | null;
+        player?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * The note in the playbill — what this is, why radio first. Supports ==highlight== markup.
+   */
+  programmeNote?: string | null;
+  /**
+   * Writer, direction, sound. Supports ==highlight== markup.
+   */
+  credits?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -7654,6 +7731,12 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         enabled?: T;
         navLabel?: T;
       };
+  troupe?:
+    | T
+    | {
+        enabled?: T;
+        navLabel?: T;
+      };
   lastDeployed?: T;
   seededVersion?: T;
   updatedAt?: T;
@@ -8837,6 +8920,33 @@ export interface TroupeSelect<T extends boolean = true> {
               blockName?: T;
             };
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "troupe-program_select".
+ */
+export interface TroupeProgramSelect<T extends boolean = true> {
+  programNumber?: T;
+  runtime?: T;
+  recordedOn?: T;
+  title?: T;
+  subtitle?: T;
+  property?: T;
+  logline?: T;
+  audio?: T;
+  poster?: T;
+  cast?:
+    | T
+    | {
+        role?: T;
+        player?: T;
+        id?: T;
+      };
+  programmeNote?: T;
+  credits?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

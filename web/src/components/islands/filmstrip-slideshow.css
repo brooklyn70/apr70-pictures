@@ -27,10 +27,28 @@
   background: #0a0908;
 }
 
+/* THE FRAME FITS THE WINDOW (Marco 2026-07-13: "it's a bit too large in my window").
+   Two changes, and they belong together:
+
+   1. max-height caps the viewport against the WINDOW, not the column. A 16/9 box
+      at a 1065px column is ~600px tall, which on a laptop pushed the frame past
+      the fold — you could not see one whole picture at once. `min(68svh, 620px)`
+      means the frame is never taller than about two-thirds of the screen, so the
+      image, its caption and its controls all sit in view together, at any size.
+
+   2. object-fit: CONTAIN, not cover. Cover guaranteed the box was full and the
+      PICTURE was cropped; Marco wants the whole frame. Contain letterboxes — and
+      the letterbox lands on #0a0908, the film stock the frame already sits on, so
+      an uncropped picture reads as a frame ON the strip rather than a mistake.
+      This is a deliberate, local exception to the crop-to-box law: that law exists
+      so thumbnails in a GRID tile flush, and this is not a grid, it is the one
+      place a visitor looks at a single picture properly. */
 .fs__viewport {
   position: relative;
   overflow: hidden;
   aspect-ratio: 3 / 2;
+  max-height: min(68svh, 620px);
+  background: #0a0908;
   touch-action: pan-y;
 }
 @media (min-width: 720px) {
@@ -53,7 +71,39 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+}
+
+/* ---- Click the picture itself to advance ----
+   (Marco 2026-07-13: advance from the left/right SIDES of the image, not only the
+   arrows underneath.) Two invisible zones over the outer thirds of the frame. The
+   middle third is left alone so the picture can still simply be looked at. They are
+   real <button>s, but aria-hidden: the arrows under the frame already give keyboard
+   and screen-reader users the same two actions, and announcing them twice is noise.
+   The cursor becomes a directional arrow so the affordance is discoverable without
+   painting furniture on top of the frame. */
+.fs__zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 33%;
+  z-index: 2;
+  border: 0;
+  padding: 0;
+  background: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.fs__zone--prev { left: 0; cursor: w-resize; }
+.fs__zone--next { right: 0; cursor: e-resize; }
+/* Keep the crosshair on the middle third — nothing to click there. */
+.fs__zone:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -4px;
+}
+@media (hover: none) {
+  /* On touch the swipe already does this, and a 33% dead zone would eat the swipe. */
+  .fs__zone { display: none; }
 }
 
 /* ---- Underline row: controls + caption ---- */

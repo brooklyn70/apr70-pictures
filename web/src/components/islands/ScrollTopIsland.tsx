@@ -33,6 +33,13 @@ export default function ScrollTopIsland({ label }: Props) {
     window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' })
   }
 
+  /* The arrow alone (Marco 2026-07-13). The words "Back to top" are gone from the
+     face of the control — an up-arrow in the corner of a scrolled page needs no
+     caption. The label survives as the ACCESSIBLE name, so screen readers and the
+     tooltip still say it; the CMS still owns the wording. Never ship a bare glyph
+     with no accessible name. */
+  const name = label || 'Back to top'
+
   return (
     <button
       type="button"
@@ -40,12 +47,13 @@ export default function ScrollTopIsland({ label }: Props) {
       data-shown={shown ? 'true' : 'false'}
       tabIndex={shown ? 0 : -1}
       aria-hidden={!shown}
+      aria-label={name}
+      title={name}
       onClick={toTop}
     >
       <span className="v9-scrolltop__glyph" aria-hidden="true">
         &uarr;
       </span>
-      {label || 'Back to top'}
     </button>
   )
 }

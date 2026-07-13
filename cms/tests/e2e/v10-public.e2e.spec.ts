@@ -69,11 +69,16 @@ test.describe('routes', () => {
     }
   })
 
+  /* NOTE: /troupe is NOT in this table any more (v11, 2026-07-13). It was a v10
+     retired route (301 → /methods); it is now a real, switch-gated page, and its
+     301 was removed so the switch can take effect at all. Its behaviour is
+     asserted by the "troupe is dark" test below, which requires a 404 and
+     explicitly rejects a 301 — if the redirect ever creeps back, that test fails
+     rather than this one silently passing. */
   test('retired routes redirect', async ({ request }) => {
     const redirects: Record<string, string> = {
       '/about': '/methods',
       '/jobs': '/contact',
-      '/troupe': '/methods',
       '/work': '/slate',
       '/news': '/',
     }
@@ -104,6 +109,24 @@ test.describe('routes', () => {
 
     await page.goto(`${SITE}/`)
     await expect(page.locator('.v9-nav__link[href="/dispatch"]')).toHaveCount(0)
+  })
+
+  /* TROUPE (v11) — the radio play page. It ships dark, and it stays dark until BOTH
+     the switch is on AND a recording is uploaded. This test guards the shipped
+     state; it also guards the thing that matters most about this page, which is
+     that /troupe must never be reachable while there is no radio on it. The old
+     v4 /troupe was a 301 to /methods — that redirect was REMOVED so the route
+     could exist again, so a 301 here now means the redirect crept back and the
+     switch can never work. 404 is the only acceptable answer. */
+  test('troupe is dark: 404 (not a 301) and absent from nav + sitemap', async ({ request, page }) => {
+    const res = await request.get(`${SITE}/troupe`, { maxRedirects: 0 })
+    expect(res.status()).toBe(404)
+
+    const sitemap = await request.get(`${SITE}/sitemap.xml`)
+    expect(await sitemap.text()).not.toContain('/troupe')
+
+    await page.goto(`${SITE}/`)
+    await expect(page.locator('.v9-nav__link[href="/troupe"]')).toHaveCount(0)
   })
 
   test('private property leaks nowhere', async ({ request }) => {

@@ -1,0 +1,208 @@
+---
+/**
+ * /troupe — THE APR 70 TROUPE PRESENTS. The radio play.
+ *
+ * WHY THIS PAGE IS DARK ON ARRIVAL
+ * Three investors, independently, named the radio play as the highest-return move
+ * available to APR 70 — "the check waits for the record." This page is its home,
+ * built and waiting. What does not exist yet is the artifact: a ~15-minute script
+ * for L.A. Dolce Vita EP101 was drafted 2026-07-02 and is still awaiting Marco's
+ * read; there is no cast and no recording.
+ *
+ * THE DOUBLE GATE (Marco 2026-07-13). This route is live only when BOTH:
+ *   1. Site Settings → TROUPE → "Publish the TROUPE page" is ticked, AND
+ *   2. Troupe Programme → "The recording" holds an audio file.
+ * Either missing → a real 404, the same room-only doctrine as /dispatch,
+ * /investors and /pitch: the page genuinely does not exist rather than sitting
+ * there empty. The second condition is the one that matters. A radio page with no
+ * radio on it is a promise, and an unkept promise on this site is precisely what
+ * the investor panel already marked the company down for. The page cannot
+ * advertise the thing until the thing is real — and the day the recording is
+ * uploaded it publishes itself, because the site is output:'server'. No deploy.
+ *
+ * This is NOT the v4 /troupe (deleted in the v10 catalog with its BlockRenderer
+ * chrome, and 301'd to /methods). This is a new page in v9 chrome, and the
+ * redirect has been removed so the route can exist again.
+ */
+import V9Layout from '../layouts/V9Layout.astro'
+import { fetchSiteSettings, fetchTroupeProgram, resolveMediaUrl } from '../lib/payload'
+import { renderInline } from '../lib/v9/inline'
+import { NAP } from '../lib/v9/site'
+
+const { settings } = await fetchSiteSettings()
+const published = settings?.troupe?.enabled === true
+
+const { programme } = published ? await fetchTroupeProgram() : { programme: null }
+
+const audioSrc = resolveMediaUrl(programme?.audio as never)
+const posterSrc = resolveMediaUrl(programme?.poster as never)
+
+/* The double gate. `audioSrc` is the real one. */
+const live = published && Boolean(audioSrc)
+
+if (!live) {
+  Astro.response.status = 404
+  Astro.response.statusText = 'Not Found'
+}
+
+const programNumber = programme?.programNumber?.trim() || 'No. 1'
+const progTitle = programme?.title?.trim() || ''
+const subtitle = programme?.subtitle?.trim() || ''
+const runtime = programme?.runtime?.trim() || ''
+const cast = (programme?.cast ?? []).filter((c) => c?.role || c?.player)
+
+const recordedOn = programme?.recordedOn
+  ? new Date(programme.recordedOn).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      timeZone: 'UTC',
+    })
+  : ''
+
+const billing = [programNumber, runtime, recordedOn].filter(Boolean).join(' · ')
+
+const title = live
+  ? `The Troupe Presents · ${progTitle} · ${NAP.name}`
+  : `The Troupe · ${NAP.name}`
+const description = live
+  ? programme?.logline?.trim() ||
+    `A radio play from APR 70 Pictures. ${progTitle}, performed by the APR 70 Troupe.`
+  : 'The APR 70 Troupe. Radio plays, performed by human actors.'
+---
+
+<V9Layout title={title} description={description}>
+  {
+    !live ? (
+      /* The 404 body. Honest about why: there is no programme, not "coming soon". */
+      <section class="v9-section" aria-label="The Troupe">
+        <div class="v9-col">
+          <h1 class="v9-textfold__heading">The Troupe</h1>
+          <p class="v9-prose">
+            There is no programme on the air right now. The APR 70 Troupe performs when
+            there is something finished to perform — voices first, pictures after.
+          </p>
+          <a class="v9-more" href="/slate">The whole slate →</a>
+        </div>
+      </section>
+    ) : (
+      <>
+        {/* ── The playbill head ────────────────────────────────────── */}
+        <section class="v9-section" aria-label="Programme">
+          <div class="v9-col">
+            <div class="v9-scene">
+              <span class="v9-scene__num">The Troupe Presents</span>
+              {billing && <span class="v9-scene__slug">{billing}</span>}
+            </div>
+
+            <p class="trp-kicker">The APR 70 Troupe presents</p>
+            <h1 class="v9-textfold__heading trp-title">{progTitle}</h1>
+            {subtitle && <p class="trp-subtitle">{subtitle}</p>}
+            {programme?.logline && (
+              <p class="v9-textfold__lede" set:html={renderInline(programme.logline)} />
+            )}
+          </div>
+        </section>
+
+        {/* ── The recording. The whole reason the page exists. ─────── */}
+        <section class="v9-section v9-section--tight" aria-label="The recording">
+          <div class="v9-col">
+            <div class="trp-stock">
+              {posterSrc && (
+                <img class="trp-poster" src={posterSrc} alt={`${progTitle} — programme still`} />
+              )}
+              <audio class="trp-player" controls preload="none" src={audioSrc}>
+                Your browser cannot play audio.{' '}
+                <a href={audioSrc}>Download the programme instead.</a>
+              </audio>
+            </div>
+            <p class="v9-capline">
+              Performed by human actors. <mark class="v9-hl">No synthetic voices.</mark>
+            </p>
+          </div>
+        </section>
+
+        {/* ── The cast ─────────────────────────────────────────────── */}
+        {cast.length > 0 && (
+          <section class="v9-section v9-section--tight" aria-label="Cast">
+            <div class="v9-col">
+              <p class="v9-capline trp-rule">The company</p>
+              <dl class="v9-ledger">
+                {cast.map((member) => (
+                  <div class="v9-ledger__row">
+                    <dt>{member.role}</dt>
+                    <dd>{member.player}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </section>
+        )}
+
+        {/* ── Programme note + credits ─────────────────────────────── */}
+        {(programme?.programmeNote || programme?.credits) && (
+          <section class="v9-section" aria-label="Programme note">
+            <div class="v9-col">
+              {programme?.programmeNote && (
+                <p class="v9-prose" set:html={renderInline(programme.programmeNote)} />
+              )}
+              {programme?.credits && (
+                <p class="v9-capline trp-credits" set:html={renderInline(programme.credits)} />
+              )}
+              <a class="v9-more" href="/slate">The whole slate →</a>
+            </div>
+          </section>
+        )}
+      </>
+    )
+  }
+</V9Layout>
+
+<style>
+  /* Structure only; every colour comes from the theme tokens, so the page
+     follows the Brand Kit accent like every other surface. */
+  .trp-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+    margin-bottom: 0.6rem;
+  }
+  .trp-title {
+    margin-bottom: 0.4rem;
+  }
+  .trp-subtitle {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--fg-2);
+    margin-bottom: 1.1rem;
+  }
+
+  /* The player sits on film stock, like the frames elsewhere on the site.
+     Unpunched rails — the sprocket holes were retired 2026-07-13. */
+  .trp-stock {
+    background: #0a0908;
+    padding: clamp(0.9rem, 2vw, 1.4rem);
+  }
+  .trp-poster {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-bottom: clamp(0.9rem, 2vw, 1.4rem);
+  }
+  .trp-player {
+    display: block;
+    width: 100%;
+  }
+
+  .trp-rule {
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 0.9rem;
+  }
+  .trp-credits {
+    margin-top: 1.1rem;
+  }
+</style>

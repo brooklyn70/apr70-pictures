@@ -3,9 +3,8 @@ import './filmstrip-slideshow.css'
 import { useEffect, useRef, useState } from 'react'
 
 /**
- * FilmstripSlideshow (v9) — one frame at a time inside sprocket-hole rails
- * (the logo motif). Used by moodGrid sections (slideshow: true) and the
- * property galleries.
+ * FilmstripSlideshow (v9) — one frame at a time on the film stock. Used by
+ * moodGrid sections (slideshow: true) and the property galleries.
  *
  * Progressive enhancement: the SSR pass (and any visitor without JS) gets the
  * plain v9-framegrid; after mount the same items re-render as the filmstrip.
@@ -13,8 +12,15 @@ import { useEffect, useRef, useState } from 'react'
  * via pointer events; under prefers-reduced-motion transitions are cuts
  * (handled in CSS — the .v9 reduced-motion rule zeroes the fade).
  *
- * Crop-to-box law: object-fit cover with object-position from the media doc's
- * focal point, so every frame fills its box; no letterboxing.
+ * FOUR WAYS TO ADVANCE, all the same action: the arrows under the frame, the
+ * dots, arrow keys, and — since 2026-07-13 — clicking the left or right SIDE of
+ * the picture itself. A swipe covers touch.
+ *
+ * The frame is CONTAINED and capped to the window (see filmstrip-slideshow.css):
+ * the whole picture is always visible and always fits on screen. That is a local
+ * exception to the crop-to-box law, which governs GRIDS; this is the one surface
+ * where a visitor looks at a single picture properly. The rails are unpunched —
+ * the sprocket holes were retired 2026-07-13.
  */
 
 export type FilmstripItem = {
@@ -146,6 +152,25 @@ export default function FilmstripSlideshow({ items, label }: Props) {
               />
             </div>
           ))}
+
+          {/* Click the sides of the picture to advance (Marco 2026-07-13).
+              aria-hidden: the arrows below already expose these two actions to
+              keyboard and screen-reader users; these zones are the mouse
+              affordance for the same thing, and announcing them twice is noise. */}
+          <button
+            type="button"
+            className="fs__zone fs__zone--prev"
+            tabIndex={-1}
+            aria-hidden="true"
+            onClick={() => go(index - 1)}
+          />
+          <button
+            type="button"
+            className="fs__zone fs__zone--next"
+            tabIndex={-1}
+            aria-hidden="true"
+            onClick={() => go(index + 1)}
+          />
         </div>
         <div className="fs__rail" aria-hidden="true" />
       </div>

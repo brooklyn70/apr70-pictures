@@ -44,12 +44,43 @@ export type DispatchSettings = {
   navLabel?: string | null
 }
 
+/** The TROUPE switch — Site Settings → TROUPE. Unlike DISPATCH, `enabled` is
+ *  only HALF the contract: /troupe also requires an audio file on the Troupe
+ *  Programme. See TroupeProgramData below. */
+export type TroupeSettings = {
+  enabled?: boolean | null
+  navLabel?: string | null
+}
+
+/** THE APR 70 TROUPE PRESENTS — the radio programme (/troupe).
+ *  `audio` is the gate: no recording, no page. */
+export type TroupeCastMember = {
+  role?: string | null
+  player?: string | null
+}
+
+export type TroupeProgramData = {
+  programNumber?: string | null
+  runtime?: string | null
+  recordedOn?: string | null
+  title?: string | null
+  subtitle?: string | null
+  property?: ProjectDoc | number | null
+  logline?: string | null
+  audio?: Media | number | null
+  poster?: Media | number | null
+  cast?: TroupeCastMember[] | null
+  programmeNote?: string | null
+  credits?: string | null
+}
+
 export type SiteSettingsData = {
   brandLabel?: string | null
   legalEntity?: string | null
   tagline?: string | null
   showFilmstripRails?: boolean | null
   dispatch?: DispatchSettings | null
+  troupe?: TroupeSettings | null
   lastDeployed?: string | null
   seededVersion?: string | null
   favicon?: Media | number | null
@@ -1048,6 +1079,29 @@ export async function fetchCurrentDispatchIssue(): Promise<{
   const key = 'dispatch:current'
   const { data, error, stale } = await withSwrCache(key, fetchCurrentDispatchUncached)
   return { issue: data, error, stale }
+}
+
+/** THE APR 70 TROUPE PRESENTS — the radio programme global.
+ *  depth=2 so `audio`, `poster` and `property` arrive resolved rather than as
+ *  bare ids. (Depth matters here: the v11 slate-frames bug was exactly this —
+ *  at depth 1 a nested upload silently resolved to nothing.) */
+async function fetchTroupeProgramUncached(): Promise<PayloadFetchResult<TroupeProgramData>> {
+  const apiBase = PAYLOAD_URL
+  if (!apiBase) return { data: null, error: 'Set PUBLIC_PAYLOAD_URL' }
+  const url = `${trimSlash(apiBase)}/api/globals/troupe-program?depth=2`
+  const got = await payloadGetJson(url)
+  if ('error' in got) return { data: null, error: got.error }
+  return { data: got.json as TroupeProgramData, error: null }
+}
+
+export async function fetchTroupeProgram(): Promise<{
+  programme: TroupeProgramData | null
+  error: string | null
+  stale?: boolean
+}> {
+  const key = 'troupe:programme'
+  const { data, error, stale } = await withSwrCache(key, fetchTroupeProgramUncached)
+  return { programme: data, error, stale }
 }
 
 /** Founding Roll count (v10) — the roll is publicly readable by design

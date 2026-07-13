@@ -414,7 +414,20 @@ a:hover { color: var(--fg-1); }
    Injected + driven by src/lib/motion/cursor.ts (GSAP quickTo).
    Body keeps `cursor: crosshair` as the no-JS / reduced-motion
    / touch fallback; this dot is added only when motion is on.
-   Colour reads --accent so each theme drives its own trail.
+
+   The dot paints --cursor-color, which is the theme's INK: white
+   on Marquee Night, black under House Lights. It follows the
+   background because the ink already does.
+
+   NO mix-blend-mode (fixed 2026-07-13, Marco: "on the light site
+   it is gray, should be black"). It used to be `difference`, which
+   DOUBLE-FLIPPED an already-flipping colour: under House Lights the
+   ink is near-black (19%) and the paper near-white (94%), and
+   difference gives |94 − 19| ≈ 75% — a washed-out grey, on light
+   paper, which is the worst possible contrast. Blending only ever
+   made sense with a FIXED source colour; with a themed one it
+   cancels the theme out. Painting the ink straight is both simpler
+   and correct in each mode.
    ============================================================ */
 .apr-cursor-dot {
   position: fixed;
@@ -428,7 +441,6 @@ a:hover { color: var(--fg-1); }
   z-index: 9999;
   transform: translate(-50%, -50%);
   will-change: transform;
-  mix-blend-mode: difference;
   opacity: 0;
   transition: opacity 0.2s var(--ease-in);
 }

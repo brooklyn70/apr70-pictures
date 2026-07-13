@@ -41,7 +41,11 @@ export default defineConfig({
   redirects: {
     '/about': '/methods',
     '/jobs': '/contact',
-    '/troupe': '/methods',
+    /* '/troupe' is NO LONGER a redirect (Marco 2026-07-13). It is a real route
+       again — src/pages/troupe.astro — gated behind Site Settings → TROUPE plus
+       an uploaded recording. A redirect here would win over the page and the
+       switch could never take effect. While the gate is shut the page serves its
+       own 404, which is the intended behaviour, not this 301. */
     '/work': '/slate',
     '/news': '/',
     '/news/[...slug]': '/',

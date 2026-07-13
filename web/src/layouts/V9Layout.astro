@@ -22,7 +22,7 @@ import '../styles/v9.css'
 import '../styles/themes/index.css'
 import ModeToggleIsland from '../components/islands/ModeToggleIsland'
 import ScrollTopIsland from '../components/islands/ScrollTopIsland'
-import { fetchV9Chrome, fetchSiteSettings, resolveMediaUrl } from '../lib/payload'
+import { fetchV9Chrome, fetchSiteSettings, fetchTroupeProgram, resolveMediaUrl } from '../lib/payload'
 import { organizationJsonLd, webSiteJsonLd, canonical, V9_PAGES, NAP } from '../lib/v9/site'
 
 interface Props {
@@ -69,10 +69,31 @@ const dispatchLabel = settings?.dispatch?.navLabel?.trim() || 'Dispatch'
 const dispatchAlreadyInNav = baseNavLinks.some(
   (link) => (link.href ?? '').replace(/\/$/, '') === '/dispatch',
 )
-const navLinks =
+const withDispatch =
   dispatchOn && !dispatchAlreadyInNav
     ? [...baseNavLinks, { href: '/dispatch', label: dispatchLabel }]
     : baseNavLinks
+
+/* TROUPE (v11) — the radio play. Same switch idea as DISPATCH, but the nav link
+   must clear the SAME DOUBLE GATE the page does: the checkbox is not enough, the
+   recording has to exist. Ticking Publish with no audio uploaded would otherwise
+   hang a link in the nav that 404s — the one thing worse than no link at all.
+   The programme is only fetched when the switch is on, so while TROUPE is off
+   (its shipping state) this costs nothing; when it is on, the SWR cache means
+   one fetch, not one per page. */
+const troupeOn = settings?.troupe?.enabled === true
+const { programme: troupeProgramme } = troupeOn
+  ? await fetchTroupeProgram()
+  : { programme: null }
+const troupeLive = troupeOn && Boolean(resolveMediaUrl(troupeProgramme?.audio as never))
+const troupeLabel = settings?.troupe?.navLabel?.trim() || 'Troupe'
+const troupeAlreadyInNav = withDispatch.some(
+  (link) => (link.href ?? '').replace(/\/$/, '') === '/troupe',
+)
+const navLinks =
+  troupeLive && !troupeAlreadyInNav
+    ? [...withDispatch, { href: '/troupe', label: troupeLabel }]
+    : withDispatch
 
 const path = Astro.url.pathname.replace(/\/$/, '') || '/'
 const canonicalUrl = canonical(path)

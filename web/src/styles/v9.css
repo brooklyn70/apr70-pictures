@@ -803,7 +803,11 @@
   color: var(--fg-2);
 }
 
-/* ---- Scroll-to-top ---- */
+/* ---- Scroll-to-top ----
+   The arrow alone (Marco 2026-07-13) — the "Back to top" caption was dropped from
+   the face of the control, so the pill becomes a CIRCLE: equal padding, fixed
+   2.35rem box, content centred. The words live on as the button's accessible
+   name (aria-label + title), not as ink. */
 .v9-scrolltop {
   position: fixed;
   left: 0.9rem;
@@ -811,16 +815,16 @@
   z-index: 70;
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
+  justify-content: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  padding: 0;
   font-family: var(--font-mono);
   font-size: var(--v9-micro);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
   color: var(--fg-2);
   background: color-mix(in srgb, var(--bg-1) 92%, transparent);
   border: 1px solid var(--rule-strong);
   border-radius: 999px;
-  padding: 0.6rem 1rem;
   cursor: pointer;
   opacity: 0;
   transform: translateY(0.75rem);
@@ -833,7 +837,7 @@
   pointer-events: auto;
 }
 .v9-scrolltop:hover { color: var(--accent); border-color: var(--accent); }
-.v9-scrolltop__glyph { font-size: 0.85rem; line-height: 1; }
+.v9-scrolltop__glyph { font-size: 1rem; line-height: 1; }
 
 /* ---- Logo reveal overlay ---- */
 .v9-reveal {

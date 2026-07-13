@@ -104,7 +104,7 @@
 
 <header>
   <div class="col">
-    <p class="kicker">APR 70 PICTURES · <b>MASTER RECAP</b> · THE LIVING DOCUMENT · CURRENT VERSION: V10 · UPDATED 2026-07-13 · <b>DEPLOY OK</b></p>
+    <p class="kicker">APR 70 PICTURES · <b>MASTER RECAP</b> · THE LIVING DOCUMENT · CURRENT VERSION: V10 · UPDATED 2026-07-13 · <b>LIVE AT STAGING.APR70.COM</b></p>
     <h1>The honest, Payload-driven, Futura-branded best of APR 70.</h1>
     <p class="standfirst">Divisions that sell, a Founding Roll that acts, images from SharedData only, and a site whose privacy and rights claims survive inspection.</p>
     <span class="verdict">LIVE AT KIMASERVER:8080 · STAGING.APR70.COM UNTOUCHED · ROLLBACK ONE COMMAND</span>
@@ -214,7 +214,9 @@
       <div class="act"><b>The admin</b><p><a href="http://kimaserver:8080/admin">kimaserver:8080/admin</a> (or localhost:3000/admin in dev) · login caruso@apr70.com · password = <code>PAYLOAD_SEED_PASSWORD</code> in the NAS <code>/volume1/apps/apr70-pictures/.env</code>.</p></div>
       <div class="act"><b>Your brand controls</b><p>Admin → Globals → Site Settings → <b>Brand Kit</b>: logo, logo height, accent, rollover, highlight, default mode. Refresh the site and it wears the change.</p></div>
       <div class="act"><b>The Roll's names</b><p>Admin → Collections → <b>Founding Roll</b>. Emails and notes are visible only to you.</p></div>
-      <div class="act"><b>Go-live (your gate)</b><p>The 5-step flip of staging.apr70.com: <a href="file:///Users/marco/websites/apr70-website/_deploy/v10-go-live-staging-runbook.md">v10-go-live-staging-runbook.md</a>.</p></div>
+      <div class="act"><b>LIVE — the public site</b><p><a href="https://staging.apr70.com/">staging.apr70.com</a> serves <b>v10</b> as of 2026-07-13, with a valid certificate. The old v4 monolith still runs on the NAS at <code>:3000</code> as a fallback — rolling back means pointing the <code>apr70-staging</code> reverse-proxy rule back to port 3000.</p></div>
+      <div class="act"><b>LIVE — the front door</b><p><a href="https://apr70.com/">apr70.com</a> serves the holding page (source: <code>v10/holding/</code>), Web Station root <code>/volume1/web/apr70/</code>. Self-contained: zero third-party requests. The page it replaced leaked every visitor's IP to Google Fonts.</p></div>
+      <div class="act"><b>⚠️ www.apr70.com is broken</b><p>Its DNS A record points at <code>127.0.0.1</code> — for anyone on the internet, that is their own machine. It is why <code>www</code> could never be validated onto the TLS certificate. Fix the A record at Namecheap to <code>68.174.247.189</code>; until then <code>www</code> must be left OUT of any cert request or the whole issuance fails.</p></div>
       <div class="act"><b>Undo everything on the NAS</b><p><code>bash ~/websites/apr70-website/_deploy/deploy-v10-to-nas.sh --rollback</code> restores git, database, media, images from today's backup.</p></div>
     </div>
 

@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en" data-mode="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>APR 70 · SPROCKET OPTIONS</title>
+<style>
+  @font-face { font-family:'Futura Std'; src:url('fonts/FuturaStd-Light.woff2') format('woff2'); font-weight:300; font-display:swap; }
+  @font-face { font-family:'Futura Std'; src:url('fonts/FuturaStd-Medium.woff2') format('woff2'); font-weight:500; font-display:swap; }
+  @font-face { font-family:'Newsreader'; src:url('fonts/Newsreader-normal-400-600.woff2') format('woff2'); font-weight:400 600; font-display:swap; }
+  @font-face { font-family:'Courier Prime'; src:url('fonts/CourierPrime-normal-400.woff2') format('woff2'); font-weight:400; font-display:swap; }
+
+  :root[data-mode="dark"]  { --bg:#0f0e0d; --p2:#171614; --rule:#2e2b28; --dim:#9b948c; --mut:#c3bcb2; --ink:#f0ebe3; --acc:#e0592a; }
+  :root[data-mode="light"] { --bg:#f2efe9; --p2:#e8e4dc; --rule:#d2ccc2; --dim:#6c665f; --mut:#3f3a35; --ink:#1a1815; --acc:#c8461c; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--ink); font-family:'Newsreader',Georgia,serif;
+         line-height:1.62; transition:background .3s,color .3s; }
+  .col { max-width:1080px; margin:0 auto; padding:0 clamp(1.25rem,4vw,3rem); }
+  code { font-family:'Courier Prime',monospace; font-size:.85em; color:var(--acc); }
+
+  header { border-bottom:1px solid var(--rule); padding:3.25rem 0 2rem; }
+  .kick { font-family:'Courier Prime',monospace; font-size:.72rem; letter-spacing:.2em;
+          text-transform:uppercase; color:var(--dim); margin-bottom:1rem; }
+  .kick b { color:var(--acc); font-weight:400; }
+  h1 { font-family:'Futura Std',sans-serif; font-weight:300; font-size:clamp(2rem,5vw,3.2rem);
+       text-transform:uppercase; line-height:1.05; }
+  .sf { font-size:1.1rem; color:var(--mut); max-width:58ch; margin-top:1rem; }
+
+  section { padding:2.75rem 0 1.5rem; border-bottom:1px solid var(--rule); }
+  h2 { font-family:'Futura Std',sans-serif; font-weight:500; font-size:1.15rem; letter-spacing:.08em;
+       text-transform:uppercase; margin-bottom:.5rem; }
+  h2 .tag { font-family:'Courier Prime',monospace; font-size:.6rem; letter-spacing:.13em;
+            padding:.16rem .5rem; margin-left:.6rem; vertical-align:middle;
+            background:var(--dim); color:var(--bg); }
+  h2 .tag.rec { background:var(--acc); color:#0f0e0d; }
+  h2 .tag.no  { background:#c0392b; color:#fff; }
+  p { color:var(--mut); max-width:66ch; margin-bottom:.9rem; }
+
+  .modebar { position:fixed; top:1rem; right:1rem; z-index:9; display:flex; gap:.35rem;
+             background:var(--p2); border:1px solid var(--rule); padding:.3rem; }
+  .modebar button { font-family:'Courier Prime',monospace; font-size:.66rem; letter-spacing:.1em;
+                    text-transform:uppercase; background:none; color:var(--dim); border:0;
+                    padding:.4rem .65rem; cursor:pointer; }
+  .modebar button[aria-pressed="true"] { background:var(--acc); color:#0f0e0d; }
+
+  /* ── the film bed ─────────────────────────────────────────── */
+  .bed { background:#0a0908; margin:1rem 0 .6rem; }
+  .photo { height:74px; background:linear-gradient(100deg,#43301c,#8a5a2c 42%,#241b13); }
+  .rail { height:16px; position:relative; background:#0a0908; }
+  .rail::before { content:''; position:absolute; inset:4px 8px;
+                  -webkit-mask-repeat:repeat-x; mask-repeat:repeat-x; }
+
+  /* A · what shipped today: circles, painted the PAGE background */
+  .r-a::before {
+    background:var(--bg);
+    -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='8' viewBox='0 0 30 8'%3E%3Ccircle cx='12' cy='4' r='4' fill='%23fff'/%3E%3C/svg%3E");
+            mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='8' viewBox='0 0 30 8'%3E%3Ccircle cx='12' cy='4' r='4' fill='%23fff'/%3E%3C/svg%3E");
+    -webkit-mask-size:30px 8px; mask-size:30px 8px;
+  }
+  /* B · TRUE 35mm PERF: rounded rectangle, wider than tall. Kodak KS geometry. */
+  .r-b::before {
+    background:#ede7dc;
+    -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='8' viewBox='0 0 26 8'%3E%3Crect x='6' y='0.6' width='13' height='6.8' rx='1.6' fill='%23fff'/%3E%3C/svg%3E");
+            mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='8' viewBox='0 0 26 8'%3E%3Crect x='6' y='0.6' width='13' height='6.8' rx='1.6' fill='%23fff'/%3E%3C/svg%3E");
+    -webkit-mask-size:26px 8px; mask-size:26px 8px;
+  }
+  /* C · the LOGO's own sprocket: a tall, tight rect, as in the wordmark */
+  .r-c::before {
+    background:#ede7dc;
+    -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='8' viewBox='0 0 18 8'%3E%3Crect x='6' y='1' width='6' height='6' rx='0.8' fill='%23fff'/%3E%3C/svg%3E");
+            mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='8' viewBox='0 0 18 8'%3E%3Crect x='6' y='1' width='6' height='6' rx='0.8' fill='%23fff'/%3E%3C/svg%3E");
+    -webkit-mask-size:18px 8px; mask-size:18px 8px;
+  }
+  /* D · perf + warm lamp behind the gate */
+  .r-d::before {
+    background:#f6efe2;
+    filter:drop-shadow(0 0 3px rgba(224,89,42,.6));
+    -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='8' viewBox='0 0 26 8'%3E%3Crect x='6' y='0.6' width='13' height='6.8' rx='1.6' fill='%23fff'/%3E%3C/svg%3E");
+            mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='8' viewBox='0 0 26 8'%3E%3Crect x='6' y='0.6' width='13' height='6.8' rx='1.6' fill='%23fff'/%3E%3C/svg%3E");
+    -webkit-mask-size:26px 8px; mask-size:26px 8px;
+  }
+  /* E · no holes at all: just the black bed and a hairline gate */
+  .r-e { height:6px; border-top:1px solid #2a2622; border-bottom:1px solid #2a2622; }
+  .r-e::before { display:none; }
+
+  /* zoom strip: the same rail at 4x so the geometry is legible */
+  .zoom { overflow:hidden; border:1px solid var(--rule); background:#0a0908; height:64px; }
+  .zoom > .rail { transform:scale(4); transform-origin:left center; width:25%; height:16px;
+                  position:relative; top:24px; }
+
+  table { width:100%; border-collapse:collapse; font-size:.94rem; margin-top:1rem; }
+  th { font-family:'Courier Prime',monospace; font-size:.64rem; letter-spacing:.14em;
+       text-transform:uppercase; color:var(--dim); text-align:left; font-weight:400;
+       padding:.45rem .8rem .45rem 0; border-bottom:1px solid var(--rule); }
+  td { padding:.6rem .8rem .6rem 0; border-bottom:1px solid var(--rule); color:var(--mut);
+       vertical-align:top; }
+  .callout { border-left:2px solid var(--acc); padding:.15rem 0 .15rem 1rem; margin:1.2rem 0; }
+  .callout p { color:var(--ink); }
+  footer { padding:2.5rem 0 4rem; font-family:'Courier Prime',monospace; font-size:.68rem;
+           letter-spacing:.12em; text-transform:uppercase; color:var(--dim); }
+</style>
+</head>
+<body>
+
+<div class="modebar" role="group" aria-label="Preview mode">
+  <button id="md" aria-pressed="true">Marquee night</button>
+  <button id="ml" aria-pressed="false">House lights</button>
+</div>
+
+<header>
+  <div class="col">
+    <p class="kick">APR 70 · <b>SPROCKET OPTIONS</b> · 2026-07-13 · NOTHING BUILT</p>
+    <h1>The holes.</h1>
+    <p class="sf">Toggle the modes above. Every option is shown at real size, then at 4x so you can
+      see the geometry. Nothing here is in the site.</p>
+  </div>
+</header>
+
+<section>
+  <div class="col">
+    <h2>First, the thing I got wrong</h2>
+    <p>This morning you said the marquee lights "should be svg circles", and I built circles. You
+      have now looked at them and you do not like them. <strong>You are right, and the reason is that
+      a real sprocket hole is not a circle.</strong></p>
+    <p>35mm perforations are <em>rounded rectangles</em>, wider than they are tall. That is the Kodak
+      KS geometry, and it is what a projectionist sees when the gate is open. And the tell is already
+      in your own house: the APR 70 wordmark's sprockets are <code>&lt;rect&gt;</code> elements, and
+      there is a <code>.sprocket</code> rule sitting unused in <code>tokens.css</code> at
+      <code>13&times;9</code> with a corner radius. <strong>The brand already knew.</strong></p>
+    <div class="callout">
+      <p>Whatever shape you pick, one thing must change regardless: the holes are currently painted
+        <code>var(--bg-0)</code>, the page background, which is why they vanish in Marquee Night.
+        Film is backlit. A perforation shows the lamp behind the stock, never the wall behind the
+        screen. <strong>The hole colour is a constant of the film, not a variable of the page.</strong></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <h2>A · circles, as shipped <span class="tag no">the defect</span></h2>
+    <p>True circles, holes painted the page background. In House Lights they read. In Marquee Night
+      they are black on black. Switch the mode and watch them disappear.</p>
+    <div class="bed"><div class="rail r-a"></div><div class="photo"></div><div class="rail r-a"></div></div>
+    <div class="zoom"><div class="rail r-a"></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <h2>B · the true 35mm perforation <span class="tag rec">recommended</span></h2>
+    <p>Rounded rectangle, wider than tall, light in both modes. This is what film actually looks like,
+      it matches the sprockets in your own wordmark, and it is the shape the unused
+      <code>.sprocket</code> rule in the codebase was already describing.</p>
+    <div class="bed"><div class="rail r-b"></div><div class="photo"></div><div class="rail r-b"></div></div>
+    <div class="zoom"><div class="rail r-b"></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <h2>C · the wordmark's own sprocket</h2>
+    <p>The exact geometry of the logo: a small, near-square rect, tighter pitch. The most literal
+      possible tie between the mark and the chrome. Quieter than B, and it reads more as a row of
+      ticks than as film.</p>
+    <div class="bed"><div class="rail r-c"></div><div class="photo"></div><div class="rail r-c"></div></div>
+    <div class="zoom"><div class="rail r-c"></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <h2>D · the perforation, with the lamp behind it</h2>
+    <p>B, plus a warm bloom. This is the only option that earns the phrase "marquee lights" ... the
+      others are holes; this one is lit. Costs a single <code>drop-shadow</code>. It is also the
+      loudest, and on a page of nine photographs it may be one flourish too many.</p>
+    <div class="bed"><div class="rail r-d"></div><div class="photo"></div><div class="rail r-d"></div></div>
+    <div class="zoom"><div class="rail r-d"></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <h2>E · no holes</h2>
+    <p>The film bed with a hairline gate and nothing punched. Worth seeing, because the honest
+      question is whether the rails earn their place at all. You killed the decorative rails in v9
+      yourself ... <em>"added fluff and do nothing to tell the story of who we are."</em></p>
+    <div class="bed"><div class="rail r-e"></div><div class="photo"></div><div class="rail r-e"></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <h2>F · the full 35mm edge <span class="tag">exists already</span></h2>
+    <p>Not mocked up, because it is <strong>real code sitting in the legacy monolith</strong>:
+      <code>_legacy-APR_70/src/components/FilmstripTop.tsx</code>. A cream film base, a dark keycode
+      data band printed <code>EASTMAN 5243 025 02401 191 ID</code> with footage counters and tiny
+      keycode glyphs rendered upside down as on real stock, a teal glow line, and perforations that
+      regenerate on resize to fill any monitor (capped at 900 holes, commented "Marco: 50 inch
+      monitors").</p>
+    <p>It is the most beautiful piece of chrome this project has ever had and it is also, almost
+      certainly, the thing you meant when you said "decorative rails". Say the word and I will port
+      it. But be warned: it is a lot, and it is the direction v9 explicitly walked away from.</p>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <h2>The call</h2>
+    <table>
+      <tr><th>Option</th><th>What it is</th><th>My read</th></tr>
+      <tr><td><b>A</b></td><td>circles, page-coloured</td><td>Broken in Marquee Night. Not a candidate.</td></tr>
+      <tr><td><b>B</b></td><td>true 35mm perf, light in both modes</td><td><b>Ship this.</b> It is correct, it matches the wordmark, and it fixes the defect.</td></tr>
+      <tr><td><b>C</b></td><td>the wordmark's rect</td><td>Good if you want the chrome to whisper the logo rather than the film.</td></tr>
+      <tr><td><b>D</b></td><td>B, lit</td><td>The only real "marquee light". Take it if you want one flourish.</td></tr>
+      <tr><td><b>E</b></td><td>nothing punched</td><td>The honest null. Worth a look before you spend anything.</td></tr>
+      <tr><td><b>F</b></td><td>the full legacy filmstrip</td><td>Spectacular, already written, and probably too much.</td></tr>
+    </table>
+    <div class="callout">
+      <p>Nothing here is in the site. Pick a letter and it is a ten minute change.</p>
+    </div>
+  </div>
+</section>
+
+<footer><div class="col">APR 70 · SPROCKET OPTIONS · SELF-CONTAINED · NO CHANGES MADE</div></footer>
+
+<script>
+  const r = document.documentElement, d = document.getElementById('md'), l = document.getElementById('ml')
+  const set = m => { r.setAttribute('data-mode', m)
+    d.setAttribute('aria-pressed', String(m==='dark')); l.setAttribute('aria-pressed', String(m==='light')) }
+  d.onclick = () => set('dark'); l.onclick = () => set('light')
+</script>
+</body>
+</html>

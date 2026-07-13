@@ -28,11 +28,15 @@
  *   - The "the page →" affordance moves out of the data and into SlateList.astro,
  *     where it belongs: it is a link affordance, not a billing fact.
  *
- * NOT FIXED HERE — needs Marco's ruling (see the report):
- *   /nrc defines New Renaissance Cinema as "Feature films built for permanence",
- *   then hangs two SERIES on it (Shadowmaster, U Bruculinu). Either NRC takes
- *   series and that definition is rewritten, or those two move house. That is a
- *   canon decision, not a typo, so this script leaves them exactly as they are.
+ * RULED 2026-07-13 (Marco) — the second half of the same bug:
+ *   /nrc defines New Renaissance Cinema as "Feature films built for permanence"
+ *   and then hung two SERIES on it (Shadowmaster, U Bruculinu). This looked like a
+ *   canon question. It was not. The division canon (11.06 Divisions, status: canon,
+ *   2026-07-06) already bills BOTH as features — "Feature first" and "Feature
+ *   (probable)" — and the V10 Change Register had already logged the site's "Series"
+ *   label as known, unfixed drift. So the site was simply wrong, and the /nrc
+ *   definition needs no rewrite: once both are Features, it stops contradicting
+ *   itself. Marco's ruling: "NRC is features only." Both flipped to Feature below.
  *
  * Run from cms/:  npx tsx scripts/fix-billing-blocks.ts --dry-run
  *                 npx tsx scripts/fix-billing-blocks.ts --apply
@@ -44,8 +48,10 @@ import config from '../src/payload.config'
 const APPLY = process.argv.includes('--apply')
 
 /** The canonical billing block for every public property. Status is highlighted.
- *  The co-production law: a FEATURE carries New Renaissance Cinema AND its home
- *  territory. A SERIES carries its territory alone. */
+ *  The co-production law (Marco, 2026-07-13): a FEATURE carries New Renaissance
+ *  Cinema, and its home territory joins as co-production — (212) if it is NY,
+ *  (310) if it is West Coast. A feature set in NEITHER carries NRC alone.
+ *  A SERIES carries its territory alone and never wears the NRC banner. */
 const CANON: Record<string, string> = {
   'a-need-grows-in-brooklyn':
     'Feature · New Renaissance Cinema with (212) Pictures · ==drafted==',
@@ -57,9 +63,14 @@ const CANON: Record<string, string> = {
   'da-hook': 'Feature · New Renaissance Cinema with (212) Pictures · ==in development==',
   'the-movement': 'Series · (212) Pictures · ==in development==',
   'cleopatra': 'Series · (310) Pictures · ==in development==',
-  // Left as-is pending Marco's ruling on whether NRC takes series at all.
-  'shadowmaster': 'Series · New Renaissance Cinema · ==in development==',
-  'u-bruculinu': 'Series · New Renaissance Cinema · ==in development==',
+  // RULED (Marco, 2026-07-13): NRC is features only. Both of these were billed
+  // "Series" by the site alone — the division canon has said "Feature" for each
+  // since 2026-07-06. Neither has a home territory (Shadowmaster's platform is
+  // global and unlocated; U Bruculinu is Sicily), so neither takes a co-production
+  // arm. Shadowmaster's 310 tie is the FUTURE series spawn, not a partner on the
+  // feature. Site copy was the drift; canon was right.
+  'shadowmaster': 'Feature · New Renaissance Cinema · ==in development==',
+  'u-bruculinu': 'Feature · New Renaissance Cinema · ==in development==',
 }
 
 const payload = await getPayload({ config })

@@ -757,7 +757,12 @@ export async function fetchV9Page(slug: V9PageSlug): Promise<{
   error: string | null
   stale?: boolean
 }> {
-  const { data, error, stale } = await fetchGlobal<V9PageData>(slug, 1)
+  // depth 2, not 1 (v11): a slateList row links a Project, and that Project's
+  // heroImage is one level deeper again. At depth 1 the Project expands but its
+  // heroImage stays a bare ID, so every slate row rendered without its frame.
+  // The page globals are SWR-cached, so this costs one deeper read per TTL, not
+  // one per request.
+  const { data, error, stale } = await fetchGlobal<V9PageData>(slug, 2)
   return { page: data, error, stale }
 }
 
@@ -817,6 +822,9 @@ export type V9SlateItem = {
   shortLogline?: string | null
   provenance?: string | null
   metaLine?: string | null
+  /** v11: the key frame. The slate used to list nine motion pictures with no
+   *  pictures on it; every row now carries its own frame. */
+  heroImage?: Media | number | null
 }
 
 function mapV9SlateItem(raw: unknown): V9SlateItem | null {
@@ -832,13 +840,17 @@ function mapV9SlateItem(raw: unknown): V9SlateItem | null {
     shortLogline: typeof doc.shortLogline === 'string' ? doc.shortLogline : null,
     provenance: typeof doc.provenance === 'string' ? doc.provenance : null,
     metaLine: typeof doc.metaLine === 'string' ? doc.metaLine : null,
+    heroImage: (doc.heroImage ?? null) as Media | number | null,
   }
 }
 
+// depth=1 resolves heroImage into a Media doc. The projection stays slim: one
+// extra relation, nine rows, and it is what puts a picture on every slate row.
 const V9_SLATE_PARAMS =
-  '&where[publicSlate][equals]=true&sort=slateOrder' +
+  '&where[publicSlate][equals]=true&sort=slateOrder&depth=1' +
   '&select[title]=true&select[slug]=true&select[slateOrder]=true&select[logline]=true' +
-  '&select[shortLogline]=true&select[provenance]=true&select[metaLine]=true'
+  '&select[shortLogline]=true&select[provenance]=true&select[metaLine]=true' +
+  '&select[heroImage]=true'
 
 export async function fetchV9SlateProjects(): Promise<{
   slate: V9SlateItem[]
@@ -863,9 +875,10 @@ export async function fetchDivisionSlate(division: '212' | '310' | 'nrc'): Promi
   stale?: boolean
 }> {
   const params =
-    `&where[publicSlate][equals]=true&where[division][equals]=${division}&sort=slateOrder` +
+    `&where[publicSlate][equals]=true&where[division][equals]=${division}&sort=slateOrder&depth=1` +
     '&select[title]=true&select[slug]=true&select[slateOrder]=true&select[logline]=true' +
-    '&select[shortLogline]=true&select[provenance]=true&select[metaLine]=true'
+    '&select[shortLogline]=true&select[provenance]=true&select[metaLine]=true' +
+    '&select[heroImage]=true'
   const { data, error, stale } = await fetchSlimList<V9SlateItem>(
     `col:projects:division:${division}`,
     'projects',

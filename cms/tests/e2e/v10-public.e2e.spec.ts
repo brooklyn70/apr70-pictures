@@ -117,19 +117,75 @@ test.describe('routes', () => {
 })
 
 test.describe('chrome', () => {
-  test('mode toggle flips data-theme and persists', async ({ page }) => {
+  /* v11: the floating "Display" pill is gone; the mode switch is a single icon in
+     the nav. It names the ACTION, not the state, so in the dark it offers you the
+     house lights. Asserted with the OS forced to dark so the starting mode is
+     deterministic. */
+  test('nav mode toggle flips data-theme and persists', async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'dark' })
     await page.goto(`${SITE}/`)
     await page.addStyleTag({ content: 'html{scroll-behavior:auto!important} *{transition:none!important;animation:none!important}' })
-    const pill = page.getByRole('button', { name: 'Open display settings' })
-    await pill.waitFor({ state: 'visible' })
-    await pill.click()
-    await page.getByRole('button', { name: /house lights/i }).click()
+
+    const toggle = page.locator('.mode-toggle')
+    await toggle.waitFor({ state: 'visible' })
+    await expect(toggle).toHaveAttribute('data-mode', 'dark')
+
+    await toggle.click()
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+
     await page.reload()
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
-    await page.getByRole('button', { name: 'Open display settings' }).click()
-    await page.getByRole('button', { name: /marquee night/i }).click()
+    await expect(page.locator('.mode-toggle')).toHaveAttribute('data-mode', 'light')
+
+    await page.locator('.mode-toggle').click()
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+  })
+
+  /* The pill must stay dead. It was a floating box holding one control, parked on
+     top of the artwork on every page; two investors read it, independently, as a
+     dev artifact left in production. */
+  test('the Display pill is gone', async ({ page }) => {
+    await page.goto(`${SITE}/`)
+    await expect(page.locator('.tc-pill')).toHaveCount(0)
+    await expect(page.locator('.theme-control')).toHaveCount(0)
+  })
+
+  /* v11: nine motion pictures, nine frames. The slate used to list them with no
+     images at all and the right half of every row empty. */
+  test('every slate row carries its frame', async ({ page }) => {
+    await page.goto(`${SITE}/slate`)
+    const rows = page.locator('.v9-slaterow')
+    const n = await rows.count()
+    expect(n).toBeGreaterThanOrEqual(9)
+    for (let i = 0; i < n; i++) {
+      await expect(rows.nth(i).locator('.v9-slaterow__frame img')).toHaveCount(1)
+    }
+  })
+
+  /* THE BILLING LAW (/nrc): "Every APR 70 feature carries this banner, and its
+     home territory, (212) or (310), joins as co-production." Sea Gate and Da Hook
+     used to wear "(212) Pictures" on /slate and "New Renaissance Cinema" on /nrc:
+     the same picture, two studios, depending which page you opened. Four of five
+     investors caught it. It is one string now, from Project.metaLine, and this
+     test fails the moment a second source of truth reappears. */
+  test('billing blocks agree across every surface', async ({ page }) => {
+    const want = /Feature · New Renaissance Cinema with \(212\) Pictures/i
+    for (const path of ['/slate', '/nrc']) {
+      await page.goto(`${SITE}${path}`)
+      const body = await page.locator('body').innerText()
+      expect(body, `${path} must bill Sea Gate as a co-production`).toMatch(want)
+      expect(body, `${path} must not bill a feature to (212) alone`).not.toMatch(
+        /Feature · \(212\) Pictures/i,
+      )
+    }
+  })
+
+  /* The roll counter shipped reading "1 NAME ON THE ROLL". All five investors
+     called for its head. It stays hidden below the floor, whatever the CMS
+     checkbox says. */
+  test('the roll counter is suppressed below the floor', async ({ page }) => {
+    await page.goto(`${SITE}/contact`)
+    await expect(page.locator('.v9-roll__count')).toHaveCount(0)
   })
 
   test('property ring: prev/next navigate the slate', async ({ page }) => {

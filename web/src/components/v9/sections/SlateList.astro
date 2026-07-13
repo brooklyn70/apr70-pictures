@@ -1,10 +1,24 @@
 ---
 /**
- * slateList — the numbered property list. Row display fields win; linked
- * Project fills the gaps (title, slug, loglines, meta). Rows with neither a
- * link nor a title are skipped.
+ * slateList — the numbered property list.
+ *
+ * v11 (Marco 2026-07-13), two changes, both from the investor panel:
+ *
+ * 1. ONE BILLING STRING. The row's `meta` override is gone. The billing block
+ *    ("Feature · New Renaissance Cinema with (212) Pictures · ==drafted==") now
+ *    comes from Project.metaLine and nowhere else. Two sources is how Sea Gate
+ *    ended up billed to (212) Pictures here and to New Renaissance Cinema on
+ *    /nrc, breaking the co-production law the site publishes itself. The "the
+ *    page →" affordance moved out of the data and into this file, where it
+ *    belongs: it is a link cue, not a billing fact.
+ *
+ * 2. EVERY ROW CARRIES ITS FRAME. The slate listed nine motion pictures and
+ *    showed none of them, with the right half of every row empty. The key frame
+ *    now sits in that space, dim and desaturated at rest so the page stays quiet,
+ *    and waking up when you touch the row.
  */
 import type { V9Section } from '../../../lib/payload'
+import { resolveMediaUrl } from '../../../lib/payload'
 import { renderInline } from '../../../lib/v9/inline'
 
 type SlateListData = Extract<V9Section, { blockType: 'slateList' }>
@@ -16,6 +30,7 @@ type Row = {
   logline: string | null
   provenance: string | null
   meta: string | null
+  img: string | null
   dev: boolean
 }
 
@@ -30,7 +45,9 @@ const rows: Row[] = (section.rows ?? []).flatMap((row) => {
       href,
       logline: row.logline || project?.shortLogline || project?.logline || null,
       provenance: row.provenance || project?.provenance || null,
-      meta: row.meta || project?.metaLine || null,
+      // Project.metaLine is the ONLY source. Do not reintroduce an override here.
+      meta: project?.metaLine || null,
+      img: resolveMediaUrl(project?.heroImage as never) ?? null,
       dev: Boolean(row.dev),
     },
   ]
@@ -52,8 +69,18 @@ const rows: Row[] = (section.rows ?? []).flatMap((row) => {
                   {row.provenance && (
                     <p class="v9-slaterow__provenance" set:html={renderInline(row.provenance)} />
                   )}
-                  {row.meta && <p class="v9-slaterow__meta" set:html={renderInline(row.meta)} />}
+                  {row.meta && (
+                    <p class="v9-slaterow__meta">
+                      <span set:html={renderInline(row.meta)} />
+                      {row.href && <span class="v9-slaterow__cue"> · the page →</span>}
+                    </p>
+                  )}
                 </span>
+                {row.img && (
+                  <span class="v9-slaterow__frame" aria-hidden="true">
+                    <img src={row.img} alt="" loading="lazy" decoding="async" />
+                  </span>
+                )}
               </>
             )
             return (

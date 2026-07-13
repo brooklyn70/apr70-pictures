@@ -1,0 +1,51 @@
+/* ============================================================
+   ModeToggleIsland — the mode switch, in the nav.
+   v11: replaces the floating "Display" pill. The bulb glow that
+   was the nicest thing about the pill survives here, on hover.
+   ============================================================ */
+
+.mode-toggle {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0.3rem;
+  margin-left: 0.35rem;
+  line-height: 0;
+  color: var(--fg-3);
+  cursor: pointer;
+  border-radius: 0;
+  transition:
+    color var(--dur-quick) var(--ease-out),
+    filter var(--dur-quick) var(--ease-out);
+}
+
+.mode-toggle:hover,
+.mode-toggle:focus-visible {
+  color: var(--accent);
+  /* the pill's filament bulb, kept */
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--accent) 55%, transparent));
+}
+
+.mode-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* NB: no `display` here. `.mode-toggle svg` (0,1,1) would outrank the
+   `.mode-toggle__sun` hide rule (0,1,0) and paint both icons at once. */
+.mode-toggle svg {
+  width: 17px;
+  height: 17px;
+}
+
+/* Show the sun in the dark (the light you can turn on), the moon in the light.
+   Before hydration resolves the real mode, data-mode is absent: show neither,
+   so nothing flickers to the wrong icon and then swaps. */
+.mode-toggle__sun,
+.mode-toggle__moon { display: none; }
+.mode-toggle[data-mode='dark'] .mode-toggle__sun { display: block; }
+.mode-toggle[data-mode='light'] .mode-toggle__moon { display: block; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mode-toggle { transition: none; }
+}

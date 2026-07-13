@@ -11,6 +11,10 @@ import 'dotenv/config'
  */
 export default defineConfig({
   testDir: './tests/e2e',
+  /* v11: the Founding Roll spec has always been named "cleaned by teardown" and
+     there was no teardown, so it passed once on a clean database and failed on
+     every run after. It is real now. */
+  globalTeardown: './tests/global-teardown.ts',
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */

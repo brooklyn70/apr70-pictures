@@ -18,7 +18,23 @@ const submitLabel = section.submitLabel ?? 'Take a number'
 const successNote = section.successNote ?? 'You are on the roll.'
 const showCount = section.showCount ?? true
 
-const count = showCount ? await fetchRollCount() : null
+/* ── THE FLOOR (v11, Marco 2026-07-13) ───────────────────────────────────────
+   The site shipped a counter reading "1 NAME ON THE ROLL". It was the only
+   number published anywhere on the site, and it said nobody was here. All five
+   investors on the panel called for its head, unanimously and independently.
+
+     Selznick: "A public counter reading 1 is not a low number, it is an empty
+                room. Scarcity reads as design. Emptiness reads as failure."
+
+   A CMS checkbox alone would not have saved us, because the checkbox was ON and
+   the number still shipped. So the floor lives in code: below it, the count is
+   not rendered at all, whatever the switch says. The roll, the numbering and the
+   copy are untouched ... "the numbers start low, stay yours, and are never
+   reissued" was the line every investor praised. Only the scoreboard goes. */
+const ROLL_COUNT_FLOOR = 100
+
+const rawCount = showCount ? await fetchRollCount() : null
+const count = rawCount !== null && rawCount >= ROLL_COUNT_FLOOR ? rawCount : null
 const source = Astro.url.pathname || '/'
 
 /* body: plain paragraphs on blank lines; **bold** and ==highlight== */
@@ -46,8 +62,8 @@ const renderInline = (t: string) =>
       )
     }
     <h2 class="v9-textfold__heading">{heading}</h2>
-    {count !== null && count > 0 && (
-      <p class="v9-roll__count">{count} {count === 1 ? 'name' : 'names'} on the roll</p>
+    {count !== null && (
+      <p class="v9-roll__count">{count} names on the roll</p>
     )}
     {paragraphs.map((p) => (
       <p class="v9-prose" set:html={renderInline(p)} />

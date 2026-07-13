@@ -20,7 +20,7 @@
 import '../styles/global.css'
 import '../styles/v9.css'
 import '../styles/themes/index.css'
-import ThemeControlIsland from '../components/islands/ThemeControlIsland'
+import ModeToggleIsland from '../components/islands/ModeToggleIsland'
 import ScrollTopIsland from '../components/islands/ScrollTopIsland'
 import { fetchV9Chrome, fetchSiteSettings, resolveMediaUrl } from '../lib/payload'
 import { organizationJsonLd, webSiteJsonLd, canonical, V9_PAGES, NAP } from '../lib/v9/site'
@@ -189,6 +189,14 @@ const panelLabels = {
               {link.label}
             </a>
           ))}
+          {/* v11: the mode switch lives here now, as a 17px icon. The floating
+              "Display" pill is gone (Marco 2026-07-13; Hughes and Disney both
+              read it, independently, as a dev artifact left in production). */}
+          <ModeToggleIsland
+            client:load
+            darkLabel={chrome.themePremiere}
+            lightLabel={chrome.themeMatinee}
+          />
         </nav>
       </div>
     </header>
@@ -207,8 +215,29 @@ const panelLabels = {
       </div>
     </footer>
 
-    <ThemeControlIsland client:load labels={panelLabels} />
     <ScrollTopIsland client:load label={chrome.topLabel} />
+
+    {/* ── The signature cursor, plugged back in (v11, Marco 2026-07-13) ──────
+        This was never "missing". Both halves shipped in v10 and neither ran:
+        the dot's CSS sat in tokens.css and its GSAP driver sat in
+        lib/motion/cursor.ts, and NOTHING imported lib/motion, so the whole tree
+        was tree-shaken out of the bundle. v9 booted it from Layout.astro:192;
+        v10 kept only this layout, which never did.
+
+        Booting initCursor directly rather than bootMotion(): bootMotion also
+        fires the old splash (superseded by LogoRevealIsland) and the per-theme
+        motion modules (whose themes were deleted in v10). We want the cursor and
+        nothing else. initCursor bails itself on coarse pointers and on
+        prefers-reduced-motion, so touch and reduced-motion never even bind the
+        listener. */}
+    <script>
+      import { gsap } from 'gsap'
+      import { ScrollTrigger } from 'gsap/ScrollTrigger'
+      import { SplitText } from 'gsap/SplitText'
+      import { initCursor } from '../lib/motion/cursor'
+
+      initCursor({ gsap, ScrollTrigger, SplitText })
+    </script>
 
     <script is:inline>
       /* v8 reveal-once-on-scroll, applied to the v9 folds. Progressive

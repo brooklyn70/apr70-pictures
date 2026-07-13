@@ -153,7 +153,27 @@
 
 /* ---------- base voice ---------- */
 body {
-  cursor: auto; /* v8 has no crosshair signature */
+  /* v11 (Marco 2026-07-13): the crosshair is back. v10 asserted `cursor: auto`
+     here to strip it, on the reasoning that "v8 has no crosshair signature".
+     But the crosshair IS the signature: v9 carried it (tokens.css:226, commented
+     "signature APR 70 cursor") and the v5 brand guide specifies it by name. It is
+     the fallback beneath the trailing dot, and on a touch device or under
+     prefers-reduced-motion (where the dot never mounts) it is the whole effect. */
+  cursor: crosshair;
+}
+/* The crosshair is a signature, not a hazard: a text field must still say
+   "type here" and a control must still say "press me". */
+input,
+textarea,
+select,
+[contenteditable] {
+  cursor: auto;
+}
+button,
+[role='button'],
+label[for],
+summary {
+  cursor: pointer;
 }
 .v9 {
   /* v8 type scale mapped onto the v9 size tokens */

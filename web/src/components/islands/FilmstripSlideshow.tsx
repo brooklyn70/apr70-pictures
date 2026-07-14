@@ -16,11 +16,12 @@ import { useEffect, useRef, useState } from 'react'
  * dots, arrow keys, and — since 2026-07-13 — clicking the left or right SIDE of
  * the picture itself. A swipe covers touch.
  *
- * The frame is CONTAINED and capped to the window (see filmstrip-slideshow.css):
- * the whole picture is always visible and always fits on screen. That is a local
- * exception to the crop-to-box law, which governs GRIDS; this is the one surface
- * where a visitor looks at a single picture properly. The rails are unpunched —
- * the sprocket holes were retired 2026-07-13.
+ * The frame renders at the PICTURE'S OWN ASPECT, capped to the window (see
+ * filmstrip-slideshow.css) — no letterbox bed, no rails; the film-stock chrome
+ * was retired 2026-07-13 (v12, "no cookie cutter"). The whole picture is always
+ * visible and always fits on screen. That is a local exception to the
+ * crop-to-box law, which governs GRIDS; this is the one surface where a visitor
+ * looks at a single picture properly.
  */
 
 export type FilmstripItem = {
@@ -128,51 +129,42 @@ export default function FilmstripSlideshow({ items, label }: Props) {
       tabIndex={0}
       onKeyDown={onKeyDown}
     >
-      <div className="fs__stock">
-        <div className="fs__rail" aria-hidden="true" />
-        <div
-          className="fs__viewport"
-          onPointerDown={onPointerDown}
-          onPointerUp={onPointerUp}
-          onPointerCancel={() => (touch.current = null)}
-        >
-          {items.map((it, i) => (
-            <div
-              key={i}
-              className="fs__slide"
-              data-active={i === index ? 'true' : undefined}
-              aria-hidden={i !== index}
-            >
-              <img
-                src={it.src}
-                alt={it.alt}
-                loading={i === 0 ? 'eager' : 'lazy'}
-                decoding="async"
-                style={{ objectPosition: focalPos(it) }}
-              />
-            </div>
-          ))}
+      <div
+        className="fs__viewport"
+        onPointerDown={onPointerDown}
+        onPointerUp={onPointerUp}
+        onPointerCancel={() => (touch.current = null)}
+      >
+        {items.map((it, i) => (
+          <div
+            key={i}
+            className="fs__slide"
+            data-active={i === index ? 'true' : undefined}
+            aria-hidden={i !== index}
+          >
+            {/* Natural aspect, no crop — objectPosition would be inert here. */}
+            <img src={it.src} alt={it.alt} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+          </div>
+        ))}
 
-          {/* Click the sides of the picture to advance (Marco 2026-07-13).
-              aria-hidden: the arrows below already expose these two actions to
-              keyboard and screen-reader users; these zones are the mouse
-              affordance for the same thing, and announcing them twice is noise. */}
-          <button
-            type="button"
-            className="fs__zone fs__zone--prev"
-            tabIndex={-1}
-            aria-hidden="true"
-            onClick={() => go(index - 1)}
-          />
-          <button
-            type="button"
-            className="fs__zone fs__zone--next"
-            tabIndex={-1}
-            aria-hidden="true"
-            onClick={() => go(index + 1)}
-          />
-        </div>
-        <div className="fs__rail" aria-hidden="true" />
+        {/* Click the sides of the picture to advance (Marco 2026-07-13).
+            aria-hidden: the arrows below already expose these two actions to
+            keyboard and screen-reader users; these zones are the mouse
+            affordance for the same thing, and announcing them twice is noise. */}
+        <button
+          type="button"
+          className="fs__zone fs__zone--prev"
+          tabIndex={-1}
+          aria-hidden="true"
+          onClick={() => go(index - 1)}
+        />
+        <button
+          type="button"
+          className="fs__zone fs__zone--next"
+          tabIndex={-1}
+          aria-hidden="true"
+          onClick={() => go(index + 1)}
+        />
       </div>
 
       <div className="fs__bar">

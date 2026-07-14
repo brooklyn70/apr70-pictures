@@ -302,7 +302,7 @@ async function main(): Promise<void> {
       gallery.push({
         image: await ensureMedia(item.src, item.alt),
         caption,
-        credit: credit || 'AI-generated development frame, disclosed',
+        credit: credit || 'AI-generated development frame',
         wide: item.wide === 'true',
       })
     }

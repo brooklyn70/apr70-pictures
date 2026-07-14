@@ -465,21 +465,20 @@
 }
 .v9-slaterow__link:hover { background: color-mix(in srgb, var(--fg-1) 4%, transparent); }
 
-/* The frame sits dim and grey at rest, so the page is quiet until you touch it,
-   then wakes to full colour. It is decoration for the reader, not content for a
-   reader who cannot see it: alt="" and aria-hidden on the wrapper. */
+/* The frame rests in full colour, only slightly veiled, and wakes on touch.
+   The v11 rest state (opacity .24 + grayscale + contrast) read as pixelation,
+   not quiet — Marco 2026-07-13, v12. It is decoration for the reader, not
+   content for a reader who cannot see it: alt="" and aria-hidden on the wrapper. */
 .v9-slaterow__frame {
   display: none;
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background: #0a0908;
-  opacity: 0.24;
-  filter: grayscale(1) contrast(0.92);
+  opacity: 0.8;
   transform: translateX(10px);
   transition:
     opacity var(--dur-slow) var(--ease-out),
-    filter var(--dur-slow) var(--ease-out),
     transform var(--dur-slow) var(--ease-out);
 }
 @media (min-width: 900px) { .v9-slaterow__frame { display: block; } }
@@ -494,7 +493,6 @@
 .v9-slaterow__link:hover .v9-slaterow__frame,
 .v9-slaterow__link:focus-visible .v9-slaterow__frame {
   opacity: 1;
-  filter: none;
   transform: none;
 }
 /* The link cue, moved out of the CMS data and into the chrome where it belongs. */

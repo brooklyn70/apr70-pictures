@@ -46,7 +46,7 @@ export const V9PhotoFoldBlock: Block = {
     {
       name: 'credit',
       type: 'text',
-      admin: { description: 'Credit suffix after the caption (e.g. "AI-generated development frame, disclosed").' },
+      admin: { description: 'Credit suffix after the caption (e.g. "AI-generated development frame").' },
     },
     {
       type: 'row',
@@ -460,7 +460,7 @@ export const V9MoodGridBlock: Block = {
         {
           name: 'credit',
           type: 'text',
-          admin: { description: 'Credit suffix (e.g. "AI-generated development frame, disclosed").' },
+          admin: { description: 'Credit suffix (e.g. "AI-generated development frame").' },
         },
         {
           name: 'wide',

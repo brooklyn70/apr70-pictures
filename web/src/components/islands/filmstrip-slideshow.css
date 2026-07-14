@@ -1,77 +1,49 @@
 /* ============================================================
-   FilmstripSlideshow — dark rails, one frame at a time.
+   FilmstripSlideshow — one frame at a time, at its own aspect.
    Structure/geometry here; ink comes from the theme tokens.
-   The film stock itself is ALWAYS dark (photo bed law), the
-   caption ink under it is themed.
    ============================================================ */
 
 .fs {
   outline: none;
 }
 
-.fs__stock {
-  background: #0a0908;
-  padding: 0;
-  position: relative;
-}
-
-/* The rails are UNPUNCHED — no sprocket holes (Marco 2026-07-13, option E).
-   Two earlier attempts (a repeating radial-gradient, then an SVG-masked
-   circle) both painted the hole with var(--bg-0), the PAGE background —
-   so the holes vanished in Marquee Night. That was the wrong mental model
-   twice over: film is backlit, so a perforation shows the lamp behind the
-   stock, never the wall behind the screen. Rather than draw a third wrong
-   hole, the decoration is gone. The rail is what remains of the stock. */
-.fs__rail {
-  height: 16px;
-  background: #0a0908;
-}
-
-/* THE FRAME FITS THE WINDOW (Marco 2026-07-13: "it's a bit too large in my window").
-   Two changes, and they belong together:
-
-   1. max-height caps the viewport against the WINDOW, not the column. A 16/9 box
-      at a 1065px column is ~600px tall, which on a laptop pushed the frame past
-      the fold — you could not see one whole picture at once. `min(68svh, 620px)`
-      means the frame is never taller than about two-thirds of the screen, so the
-      image, its caption and its controls all sit in view together, at any size.
-
-   2. object-fit: CONTAIN, not cover. Cover guaranteed the box was full and the
-      PICTURE was cropped; Marco wants the whole frame. Contain letterboxes — and
-      the letterbox lands on #0a0908, the film stock the frame already sits on, so
-      an uncropped picture reads as a frame ON the strip rather than a mistake.
-      This is a deliberate, local exception to the crop-to-box law: that law exists
-      so thumbnails in a GRID tile flush, and this is not a grid, it is the one
-      place a visitor looks at a single picture properly. */
+/* THE FRAME IS THE PICTURE (Marco 2026-07-13, v12: no cookie cutter).
+   The v11 form was a fixed 16/9 box, object-fit: contain, on #0a0908 —
+   so every non-16/9 picture floated in a dark letterbox bed. The bed,
+   the stock and the rails are gone. Each frame now renders at its own
+   aspect ratio, capped to the window (`min(68svh, 620px)` — the earlier
+   fits-the-window ruling still holds), and the wrapper shrink-wraps the
+   picture so the click zones cover the image, not empty stage.
+   The no-JS framegrid below is untouched: crop-to-box still governs GRIDS. */
 .fs__viewport {
   position: relative;
-  overflow: hidden;
-  aspect-ratio: 3 / 2;
-  max-height: min(68svh, 620px);
-  background: #0a0908;
+  width: fit-content;
+  max-width: 100%;
   touch-action: pan-y;
 }
-@media (min-width: 720px) {
-  .fs__viewport { aspect-ratio: 16 / 9; }
-}
 
+/* Natural flow, one visible at a time. A cut-with-fade replaces the old
+   crossfade: two pictures of different shapes cannot occupy one box. */
 .fs__slide {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity var(--dur-slow) var(--ease-out);
-  pointer-events: none;
+  display: none;
 }
 .fs__slide[data-active='true'] {
-  opacity: 1;
-  pointer-events: auto;
+  display: block;
+  animation: fs-frame-in var(--dur-slow) var(--ease-out);
 }
 .fs__slide img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: min(68svh, 620px);
+}
+@keyframes fs-frame-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fs__slide[data-active='true'] { animation: none; }
 }
 
 /* ---- Click the picture itself to advance ----

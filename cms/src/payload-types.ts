@@ -5314,7 +5314,7 @@ export interface V9Home {
              */
             caption?: string | null;
             /**
-             * Credit suffix after the caption (e.g. "AI-generated development frame, disclosed").
+             * Credit suffix after the caption (e.g. "AI-generated development frame").
              */
             credit?: string | null;
             /**
@@ -5596,7 +5596,7 @@ export interface V9Home {
                    */
                   caption?: string | null;
                   /**
-                   * Credit suffix (e.g. "AI-generated development frame, disclosed").
+                   * Credit suffix (e.g. "AI-generated development frame").
                    */
                   credit?: string | null;
                   /**
@@ -5684,7 +5684,7 @@ export interface V9Slate {
              */
             caption?: string | null;
             /**
-             * Credit suffix after the caption (e.g. "AI-generated development frame, disclosed").
+             * Credit suffix after the caption (e.g. "AI-generated development frame").
              */
             credit?: string | null;
             /**
@@ -5966,7 +5966,7 @@ export interface V9Slate {
                    */
                   caption?: string | null;
                   /**
-                   * Credit suffix (e.g. "AI-generated development frame, disclosed").
+                   * Credit suffix (e.g. "AI-generated development frame").
                    */
                   credit?: string | null;
                   /**
@@ -6054,7 +6054,7 @@ export interface V9Craft {
              */
             caption?: string | null;
             /**
-             * Credit suffix after the caption (e.g. "AI-generated development frame, disclosed").
+             * Credit suffix after the caption (e.g. "AI-generated development frame").
              */
             credit?: string | null;
             /**
@@ -6336,7 +6336,7 @@ export interface V9Craft {
                    */
                   caption?: string | null;
                   /**
-                   * Credit suffix (e.g. "AI-generated development frame, disclosed").
+                   * Credit suffix (e.g. "AI-generated development frame").
                    */
                   credit?: string | null;
                   /**
@@ -6424,7 +6424,7 @@ export interface V9Method {
              */
             caption?: string | null;
             /**
-             * Credit suffix after the caption (e.g. "AI-generated development frame, disclosed").
+             * Credit suffix after the caption (e.g. "AI-generated development frame").
              */
             credit?: string | null;
             /**
@@ -6706,7 +6706,7 @@ export interface V9Method {
                    */
                   caption?: string | null;
                   /**
-                   * Credit suffix (e.g. "AI-generated development frame, disclosed").
+                   * Credit suffix (e.g. "AI-generated development frame").
                    */
                   credit?: string | null;
                   /**
@@ -6794,7 +6794,7 @@ export interface V9Contact {
              */
             caption?: string | null;
             /**
-             * Credit suffix after the caption (e.g. "AI-generated development frame, disclosed").
+             * Credit suffix after the caption (e.g. "AI-generated development frame").
              */
             credit?: string | null;
             /**
@@ -7076,7 +7076,7 @@ export interface V9Contact {
                    */
                   caption?: string | null;
                   /**
-                   * Credit suffix (e.g. "AI-generated development frame, disclosed").
+                   * Credit suffix (e.g. "AI-generated development frame").
                    */
                   credit?: string | null;
                   /**

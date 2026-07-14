@@ -18,6 +18,16 @@ Every frame arrives with the rectangle **already placed** by a saliency pass, so
 *correcting* the machine, not composing from scratch. Most it gets right. Fix the ones it doesn't,
 and move on.
 
+## The ratio is per picture, not per pass
+
+A folder holds heroes and standards together — sometimes the same shot as both a jpeg and a
+png. The toolbar ratio is only the **default** a folder opens with; every picture carries its
+own target. `1` sets it to hero (2.39), `2` to standard (2.00), or pick anything from the
+per-picture dropdown. **Set all →** sweeps the whole roll when you do want one ratio.
+
+Everything lands in one output folder, and `frames.json` records what each file became —
+`frameRatio` there maps 1:1 onto Payload's `Media.frameRatio`, so nothing downstream has to guess.
+
 ## Three verdicts
 
 | | | |
@@ -32,13 +42,14 @@ walk away mid-pass and come back.
 
 ## Output
 
-Written to a subfolder of wherever the pictures came from — `_ratio-2.39` by default, or name it
+Written to a subfolder of wherever the pictures came from — `_frames` by default, or name it
 yourself. Filenames are preserved exactly.
 
 - **crops** — the cropped picture, same name, same format
 - **extends** — `<name>-extend-canvas.png` + `<name>-extend-mask.png` (white = paint here,
   black = keep), plus an `extend-queue.json` listing every job with its pad amounts
 - **natives** — copied through untouched
+- **`frames.json`** — what every file became, with its `frameRatio` for Payload
 
 From there you pick the image up in Payload yourself. Media uploads are cropped to the house ratio
 on arrival by the `cropToFrame` hook anyway, and a picture already on ratio passes through it

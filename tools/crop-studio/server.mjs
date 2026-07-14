@@ -57,6 +57,9 @@ const looksArchival = (name) => {
   return m ? Number(m[1]) <= 1935 : false
 }
 
+/** The two house ratios have names in Payload. Anything else is just a number. */
+const frameRatioOf = (r) => (r === 2.39 ? 'hero' : r === 2 ? 'standard' : `custom-${r}`)
+
 /** Where sharp's saliency detector would put the frame — the seed the editor corrects. */
 async function seedRect(file, w, h, ratio) {
   const [cw, ch] = w / h > ratio ? [Math.round(h * ratio), h] : [w, Math.round(w / ratio)]
@@ -125,18 +128,24 @@ const routes = {
       const r = meta.width / meta.height
       const archival = looksArchival(name)
 
+      // The target ratio is PER PICTURE, not per pass. A folder holds heroes and standards
+      // together — sometimes the same shot as both a jpeg and a png — and forcing one ratio
+      // on the whole folder meant running it twice and picking one output or the other.
+      const target = prev?.target ?? ratio
+
       items.push({
         name,
         w: meta.width,
         h: meta.height,
         ratio: +r.toFixed(3),
+        target,
         format: meta.format,
         bytes: fs.statSync(file).size,
         archival,
         // A picture already wider than the target, or a strip, or a portrait, is a warning —
         // not a rule. The editor overrules any of it.
         verdict: prev?.verdict ?? (archival || r < 0.95 || r > 3.0 ? 'native' : 'crop'),
-        rect: prev?.rect ?? (await seedRect(file, meta.width, meta.height, ratio)),
+        rect: prev?.rect ?? (await seedRect(file, meta.width, meta.height, target)),
         seeded: !prev,
       })
     }
@@ -155,7 +164,13 @@ const routes = {
     fs.writeFileSync(
       path.join(dir, STATE_FILE),
       JSON.stringify(
-        { ratio, savedAt: new Date().toISOString(), items: Object.fromEntries(items.map((i) => [i.name, { verdict: i.verdict, rect: i.rect }])) },
+        {
+          defaultRatio: ratio,
+          savedAt: new Date().toISOString(),
+          items: Object.fromEntries(
+            items.map((i) => [i.name, { verdict: i.verdict, target: i.target, rect: i.rect }]),
+          ),
+        },
         null,
         2,
       ),
@@ -165,16 +180,18 @@ const routes = {
 
   /** Write the results. Crops are pure extracts at native resolution — no resampling, no upscale. */
   async 'POST /api/apply'(body) {
-    const { dir, outName, ratio, items } = body
-    const outDir = path.join(dir, outName || `_ratio-${ratio}`)
+    const { dir, outName, items } = body
+    const outDir = path.join(dir, outName || '_frames')
     fs.mkdirSync(outDir, { recursive: true })
 
     const done = []
     const extendQueue = []
+    const manifest = []
 
     for (const it of items) {
       const src = path.join(dir, it.name)
       const out = path.join(outDir, it.name)
+      const ratio = it.target // per picture, not per pass
 
       try {
         if (it.verdict === 'skip') {
@@ -184,6 +201,7 @@ const routes = {
 
         if (it.verdict === 'native') {
           fs.copyFileSync(src, out)
+          manifest.push({ file: it.name, frameRatio: 'native', ratio: null, out: `${it.w}x${it.h}` })
           done.push({ name: it.name, action: 'NATIVE', out: `${it.w}x${it.h}` })
           continue
         }
@@ -235,7 +253,8 @@ const routes = {
             mask: `${base}-extend-mask.png`,
           }
           extendQueue.push(job)
-          done.push({ name: it.name, action: 'EXTEND', out: `${cw}x${ch}` })
+          manifest.push({ file: it.name, frameRatio: frameRatioOf(ratio), ratio, out: `${cw}x${ch}`, pending: 'outpaint' })
+          done.push({ name: it.name, action: 'EXTEND', out: `${cw}x${ch}`, ratio })
           continue
         }
 
@@ -246,7 +265,8 @@ const routes = {
         const h = Math.max(1, Math.min(Math.round(it.rect.h), it.h - y))
 
         await sharp(src).extract({ left: x, top: y, width: w, height: h }).toFile(out)
-        done.push({ name: it.name, action: 'CROP', out: `${w}x${h}`, kept: +(((w * h) / (it.w * it.h)) * 100).toFixed(1) })
+        manifest.push({ file: it.name, frameRatio: frameRatioOf(ratio), ratio, out: `${w}x${h}` })
+        done.push({ name: it.name, action: 'CROP', out: `${w}x${h}`, ratio, kept: +(((w * h) / (it.w * it.h)) * 100).toFixed(1) })
       } catch (e) {
         done.push({ name: it.name, action: 'ERROR', error: String(e.message).slice(0, 120) })
       }
@@ -255,9 +275,14 @@ const routes = {
     if (extendQueue.length) {
       fs.writeFileSync(
         path.join(outDir, 'extend-queue.json'),
-        JSON.stringify({ ratio, note: 'Feed canvas + mask to KIE / Comfy / generative fill. White in the mask is the region to paint.', jobs: extendQueue }, null, 2),
+        JSON.stringify({ note: 'Feed canvas + mask to KIE / Comfy / generative fill. White in the mask is the region to paint.', jobs: extendQueue }, null, 2),
       )
     }
+    // Maps 1:1 onto Payload's Media.frameRatio, so an importer never has to guess.
+    fs.writeFileSync(
+      path.join(outDir, 'frames.json'),
+      JSON.stringify({ note: 'frameRatio maps to Payload Media.frameRatio (hero 2.39 / standard 2.00 / native).', frames: manifest }, null, 2),
+    )
     return { outDir, done }
   },
 }

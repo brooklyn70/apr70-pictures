@@ -7,7 +7,7 @@
  */
 import type { V9Section } from '../../../lib/payload'
 import { renderInline } from '../../../lib/v9/inline'
-import { frameFromMedia, focalPosition } from '../media'
+import { frameFromMedia, focalPosition, SIZES_FULLBLEED } from '../media'
 
 type PhotoFoldData = Extract<V9Section, { blockType: 'photoFold' }>
 const section = Astro.props.section as PhotoFoldData
@@ -27,6 +27,10 @@ const hasCaption = Boolean(section.caption || section.credit)
         <div class="v9-photofold__frame">
           <img
             src={frame.src}
+            srcset={frame.srcset}
+            sizes={SIZES_FULLBLEED}
+            width={frame.width}
+            height={frame.height}
             alt={frame.alt}
             loading={section.eager ? 'eager' : 'lazy'}
             decoding={section.eager ? 'sync' : 'async'}

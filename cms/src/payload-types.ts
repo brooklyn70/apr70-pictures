@@ -196,6 +196,10 @@ export interface Media {
   id: number;
   alt: string;
   /**
+   * Cropped on upload. Scope for full-bleed heroes; 2.00:1 (the streaming ratio) for everything else. Native leaves the picture alone — use it for archival maps, engravings and period photographs, which are records rather than film frames.
+   */
+  frameRatio?: ('standard' | 'hero' | 'native') | null;
+  /**
    * Optional tag for filtering in upload pickers (e.g. logo library).
    */
   mediaKind?: ('logo' | 'favicon' | 'wordmark' | 'watermark' | 'photo') | null;
@@ -1291,6 +1295,7 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  frameRatio?: T;
   mediaKind?: T;
   divisionTag?: T;
   updatedAt?: T;

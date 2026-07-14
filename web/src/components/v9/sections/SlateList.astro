@@ -18,7 +18,7 @@
  *    and waking up when you touch the row.
  */
 import type { V9Section } from '../../../lib/payload'
-import { resolveMediaUrl } from '../../../lib/payload'
+import { resolveMediaUrl, resolveMediaSrcset } from '../../../lib/payload'
 import { renderInline } from '../../../lib/v9/inline'
 
 type SlateListData = Extract<V9Section, { blockType: 'slateList' }>
@@ -48,6 +48,7 @@ const rows: Row[] = (section.rows ?? []).flatMap((row) => {
       // Project.metaLine is the ONLY source. Do not reintroduce an override here.
       meta: project?.metaLine || null,
       img: resolveMediaUrl(project?.heroImage as never) ?? null,
+      imgSrcset: resolveMediaSrcset(project?.heroImage as never),
       dev: Boolean(row.dev),
     },
   ]
@@ -78,7 +79,14 @@ const rows: Row[] = (section.rows ?? []).flatMap((row) => {
                 </span>
                 {row.img && (
                   <span class="v9-slaterow__frame" aria-hidden="true">
-                    <img src={row.img} alt="" loading="lazy" decoding="async" />
+                    <img
+                      src={row.img}
+                      srcset={row.imgSrcset}
+                      sizes="(max-width: 900px) 0px, 33vw"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
                   </span>
                 )}
               </>

@@ -26,6 +26,9 @@ import { useEffect, useRef, useState } from 'react'
 
 export type FilmstripItem = {
   src: string
+  srcset?: string
+  width?: number
+  height?: number
   alt: string
   caption?: string | null
   captionHtml?: string | null
@@ -34,6 +37,9 @@ export type FilmstripItem = {
   focalX?: number | null
   focalY?: number | null
 }
+
+const SIZES_GRID = '(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 33vw'
+const SIZES_STAGE = '(max-width: 900px) 100vw, 900px'
 
 type Props = {
   items: FilmstripItem[]
@@ -81,6 +87,10 @@ export default function FilmstripSlideshow({ items, label }: Props) {
             <div className="v9-frame__box">
               <img
                 src={it.src}
+                srcSet={it.srcset}
+                sizes={SIZES_GRID}
+                width={it.width}
+                height={it.height}
                 alt={it.alt}
                 loading="lazy"
                 decoding="async"
@@ -143,7 +153,16 @@ export default function FilmstripSlideshow({ items, label }: Props) {
             aria-hidden={i !== index}
           >
             {/* Natural aspect, no crop — objectPosition would be inert here. */}
-            <img src={it.src} alt={it.alt} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+            <img
+              src={it.src}
+              srcSet={it.srcset}
+              sizes={SIZES_STAGE}
+              width={it.width}
+              height={it.height}
+              alt={it.alt}
+              loading={i === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+            />
           </div>
         ))}
 

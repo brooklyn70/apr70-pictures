@@ -224,9 +224,13 @@
   position: absolute;
   inset: 0;
 }
-.v9-photofold__frame { aspect-ratio: 4 / 3; }
+/* House ratios. Scope for full-bleed; 2.00:1 (the streaming ratio) for everything else.
+   The masters are cut to these, so cover has nothing left to crop and nothing to letterbox.
+   OPEN: mobile. Scope at 375px is a 157px band, too thin to carry a headline, so the phone
+   holds a gentler 2:1 and cover trims the sides — steer it with the media doc's focal point. */
+.v9-photofold__frame { aspect-ratio: 2 / 1; }
 @media (min-width: 720px) {
-  .v9-photofold__frame { aspect-ratio: 21 / 10; }
+  .v9-photofold__frame { aspect-ratio: 2.39 / 1; }
 }
 .v9-photofold--vh100 .v9-photofold__frame {
   aspect-ratio: auto;
@@ -472,7 +476,8 @@
 .v9-slaterow__frame {
   display: none;
   position: relative;
-  aspect-ratio: 16 / 9;
+  /* Renders project.heroImage, which is cut to scope. */
+  aspect-ratio: 2.39 / 1;
   overflow: hidden;
   background: #0a0908;
   opacity: 0.8;
@@ -690,9 +695,11 @@
   position: relative;
   overflow: hidden;
   background: #0a0908;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 2 / 1;
 }
-.v9-frame--wide .v9-frame__box { aspect-ratio: 21 / 9; }
+/* --wide already spans the full row, so it earns its emphasis from scale.
+   Re-cropping it to a second ratio on top of that was the old bug, not a decision. */
+.v9-frame--wide .v9-frame__box { aspect-ratio: 2 / 1; }
 .v9-frame__box img {
   position: absolute;
   inset: 0;

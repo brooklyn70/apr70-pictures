@@ -17,7 +17,7 @@ import V9Layout from '../../layouts/V9Layout.astro'
 import FilmstripSlideshow, { type FilmstripItem } from '../../components/islands/FilmstripSlideshow'
 import { fetchV9Project, fetchV9SlateProjects, fetchV9Chrome } from '../../lib/payload'
 import { renderInline, renderParagraphs, plainText } from '../../lib/v9/inline'
-import { frameFromMedia, focalPosition } from '../../components/v9/media'
+import { frameFromMedia, focalPosition, SIZES_FULLBLEED } from '../../components/v9/media'
 import { propertyJsonLd, breadcrumbJsonLd, NAP } from '../../lib/v9/site'
 
 const { slug } = Astro.params
@@ -83,9 +83,14 @@ const jsonLd = [propertyJsonLd(project), breadcrumbJsonLd(project)]
         <div class="v9-photofold__frame">
           <img
             src={hero.src}
+            srcset={hero.srcset}
+            sizes={SIZES_FULLBLEED}
+            width={hero.width}
+            height={hero.height}
             alt={hero.alt}
             loading="eager"
             decoding="sync"
+            fetchpriority="high"
             style={`object-position: ${focalPosition(hero)}`}
           />
           <div class="v9-scrim" aria-hidden="true" />

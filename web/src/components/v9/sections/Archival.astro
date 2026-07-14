@@ -6,7 +6,7 @@
  */
 import type { V9Section } from '../../../lib/payload'
 import { renderInline } from '../../../lib/v9/inline'
-import { frameFromMedia, focalPosition } from '../media'
+import { frameFromMedia, focalPosition, SIZES_FULLBLEED } from '../media'
 
 type ArchivalData = Extract<V9Section, { blockType: 'archival' }>
 const section = Astro.props.section as ArchivalData
@@ -21,6 +21,10 @@ const frame = frameFromMedia(section.image)
           <div class="v9-archival__frame">
             <img
               src={frame.src}
+              srcset={frame.srcset}
+              sizes={SIZES_FULLBLEED}
+              width={frame.width}
+              height={frame.height}
               alt={frame.alt}
               loading="lazy"
               decoding="async"

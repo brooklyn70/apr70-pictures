@@ -356,11 +356,36 @@ function parseGlobalResponse<T>(raw: unknown): T | null {
 const MEDIA_BASE =
   ((import.meta.env.PUBLIC_MEDIA_BASE as string | undefined) ?? '').replace(/\/+$/, '')
 
-export function resolveMediaUrl(media: Media | null | undefined): string | undefined {
+// Accepts a Media doc or any of its generated size entries — both carry a `url`.
+export function resolveMediaUrl(
+  media: { url?: string | null } | null | undefined,
+): string | undefined {
   if (!media?.url) return undefined
   const u = media.url
   if (u.startsWith('http://') || u.startsWith('https://')) return u
   return `${MEDIA_BASE}${u.startsWith('/') ? '' : '/'}${u}`
+}
+
+/**
+ * The generated tiers, as a srcset.
+ *
+ * Without this the site hands browsers the original — 3-11MB PNG masters that then get
+ * downscaled client-side, while thumb/card/hero sit unused on disk. The originals stay the
+ * masters; these are what actually ship.
+ */
+export function resolveMediaSrcset(media: Media | null | undefined): string | undefined {
+  const sizes = media?.sizes as
+    | Record<string, { url?: string | null; width?: number | null } | undefined>
+    | undefined
+  if (!sizes) return undefined
+
+  const entries: string[] = []
+  for (const key of ['thumb', 'card', 'hero']) {
+    const size = sizes[key]
+    const url = resolveMediaUrl(size)
+    if (url && size?.width) entries.push(`${url} ${size.width}w`)
+  }
+  return entries.length ? entries.join(', ') : undefined
 }
 
 /**

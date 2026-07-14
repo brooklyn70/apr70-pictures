@@ -6,57 +6,79 @@
   "stills": [
     {
       "slug": "hero-portrait",
-      "refs": ["hero_a_need_grows_in_brooklyn_01.png"],
+      "refs": [
+        "hero_a_need_grows_in_brooklyn_01.png"
+      ],
       "prompt": "Recompose this exact subject as a wide anamorphic cinematic frame. Black and white 35mm portrait of the same teenage boy, dark hair, open collar over a worn jacket, direct unguarded gaze into the lens. Keep his face identical. Place him off-centre; let the Brooklyn street fall away behind him into shallow-focus bokeh, parked sedans and brick facades. Monochrome only, no colour anywhere in the frame. Natural film grain, high contrast, cinematic. No text, no watermark, no logo, no sparkle."
     },
     {
       "slug": "stoop-italian-ice",
-      "refs": ["01-angib-01-stoop.jpg"],
+      "refs": [
+        "01-angib-01-stoop.jpg"
+      ],
       "prompt": "Recompose this exact scene as a wide anamorphic cinematic frame. Two teenagers in 1985 Brooklyn sitting on a brownstone stoop sharing an Italian ice, the boy in a white Clash t-shirt with dark curly hair, the girl with teased blonde hair, a denim vest and neon jelly bracelets. Keep their faces, wardrobe and the intimate moment identical. Shot from inside the stoop looking out, dark sandstone banister walls framing both edges of the frame, parked 1980s sedans along the curb, chain link fence and street beyond. Warm late afternoon sunlight, 35mm anamorphic film still, natural grain, cinematic. No text, no watermark."
     },
     {
       "slug": "limelight-club",
-      "refs": ["01-angib-02-club.jpg"],
+      "refs": [
+        "01-angib-02-club.jpg"
+      ],
       "prompt": "Recompose this exact scene as a wide anamorphic cinematic frame. Interior of a deconsecrated gothic stone church converted into a 1985 Manhattan nightclub. Soaring carved stone arches and a huge stained glass rose window above a packed crowd of young people in leather and denim. Coloured stage light cutting through heavy haze, velvet rope in the foreground. Keep the architecture and the crowd identical. Wide establishing composition, 35mm anamorphic film still, natural grain, cinematic. No text, no watermark."
     },
     {
       "slug": "club-dancefloor",
-      "refs": ["angib-club.png"],
+      "refs": [
+        "angib-club.png"
+      ],
       "prompt": "Recompose this exact scene as a wide anamorphic cinematic frame. A packed 1985 nightclub dance floor seen from behind the DJ booth, turntables and a crate of vinyl records in the immediate foreground, neon tubes in magenta and green slashing across the ceiling, dancers in denim and leather lit through thick haze. Keep the DJ booth and crowd identical. 35mm anamorphic film still, natural grain, cinematic. No text, no watermark."
     },
     {
       "slug": "boy-under-el",
-      "refs": ["01-boy-under-el.png"],
+      "refs": [
+        "01-boy-under-el.png"
+      ],
       "prompt": "Recompose this exact scene as a wide anamorphic cinematic frame. A teenager in a denim jacket standing alone in the middle of a Brooklyn street at dusk, beneath the steel girders of an elevated train trestle. Keep the figure's face and wardrobe identical. Storefronts and parked sedans receding down the block, warm sodium streetlights just coming on against a deep blue sky. 35mm anamorphic film still, natural grain, shallow depth of field, cinematic. No text, no watermark."
     },
     {
       "slug": "stoop-block",
-      "refs": ["02-stoop-block.png"],
+      "refs": [
+        "02-stoop-block.png"
+      ],
       "prompt": "Recompose this exact scene as a wide anamorphic cinematic frame. A 1985 Brooklyn block on a summer afternoon: neighbours of all ages sitting out on a brick brownstone stoop, leaning on the iron railing, talking across the sidewalk. Big American sedans parked nose to tail along the curb. Keep the people and the building identical. Bright natural daylight, 35mm anamorphic film still, natural grain, cinematic. No text, no watermark."
     },
     {
       "slug": "pizzeria-ninos",
-      "refs": ["04-pizzaria-ninos.png"],
+      "refs": [
+        "04-pizzaria-ninos.png"
+      ],
       "prompt": "Recompose this exact scene as a wide anamorphic cinematic frame. A corner pizzeria in 1985 Brooklyn at blue hour, its windows glowing warm amber onto a wet sidewalk, a few figures inside and passers-by on the corner. Parked sedans along the curb, brick tenements above, deep blue dusk sky. Keep the storefront identical. 35mm anamorphic film still, natural grain, cinematic. No text, no watermark, no sparkle."
     },
     {
       "slug": "night-street",
-      "refs": ["05-night-street.png"],
+      "refs": [
+        "05-night-street.png"
+      ],
       "prompt": "Recompose this exact scene as a wide anamorphic cinematic frame. A deserted Brooklyn street at night beneath an elevated train trestle, wet asphalt reflecting amber sodium streetlights, brick warehouses on both sides, fog hanging in the air, a single car far down the block. No people. Keep the street identical. 35mm anamorphic film still, natural grain, cinematic. No text, no watermark."
     },
     {
       "slug": "first-love",
-      "refs": ["07-first-love.png"],
+      "refs": [
+        "07-first-love.png"
+      ],
       "prompt": "Recompose this exact scene as a wide anamorphic cinematic frame. A teenage couple sitting close together on a brownstone stoop at night, the boy in a denim jacket, the girl leaning into him, both laughing. Keep their faces and wardrobe identical. Carved stone banister, wet street and parked cars behind them, warm lit windows above, soft streetlight glow. 35mm anamorphic film still, natural grain, shallow depth of field, cinematic. No text, no watermark."
     },
     {
       "slug": "aftermath-block",
-      "refs": ["08-aftermath-block.png"],
+      "refs": [
+        "08-aftermath-block.png"
+      ],
       "prompt": "Recompose this exact scene as a wide anamorphic cinematic frame. A derelict Brooklyn street the morning after, strewn with debris and toppled oil drums, an elevated train trestle overhead, boarded and burnt-out brick buildings receding down the block. No people. Cold overcast blue light, desaturated. Keep the street identical. 35mm anamorphic film still, natural grain, cinematic. No text, no watermark."
     },
     {
       "slug": "street-dusk-walk",
-      "refs": ["angib.jpg"],
+      "refs": [
+        "angib.jpg"
+      ],
       "prompt": "Recompose this exact scene as a wide anamorphic cinematic frame. A lone figure walking away down the middle of a Brooklyn residential block at sunset, seen from behind. Bicycles chained to a signpost in the foreground, a corner grocery storefront, brownstone stoops and parked sedans lining the street, an elevated train bridge crossing the far end of the block. Keep the street and the walking figure identical. Warm golden low sun, 35mm anamorphic film still, natural grain, cinematic. No text, no watermark."
     }
   ]

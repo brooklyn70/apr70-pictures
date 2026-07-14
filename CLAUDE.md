@@ -1,7 +1,7 @@
 # CLAUDE.md — apr70-pictures (v3)
 
 **Authoritative working document for all agents working in this repo.**
-**Last updated:** 2026-07-14 (Mayors / ten-properties decision pointer)
+**Last updated:** 2026-07-14 (main-only branch cutover)
 **Repo:** `brooklyn70/apr70-pictures`
 **Live (when shipped):** https://apr70.com
 **Staging:** https://staging-v3.apr70.com (pending DSM slot)
@@ -84,7 +84,7 @@ Typography: Futura Std (display), Barlow (body), Share Tech Mono (filmstrip/meta
 - **Backend:** Payload v3 (Postgres). Standalone Node service. Lexical editor with D-7 inline blocks + Color Injector plugin.
 - **Animation:** GSAP + ScrollTrigger. No other motion libraries.
 - **Hosting:** Docker on Synology NAS. nginx reverse proxy. Postgres in container. Media on NAS volume.
-- **Deploy:** push → NAS git fetch + reset → docker compose build + up.
+- **Deploy:** push `main` → NAS git fetch + checkout `main` → docker compose build + up. Script: `~/websites/apr70-website/_deploy/deploy-v10-to-nas.sh` (`BRANCH` defaults to `main`).
 
 ---
 
@@ -113,6 +113,13 @@ Tasks are managed manually via `TASKS.md`. No external orchestrator. Scheduled c
 **Post-deploy verification** — run on demand after NAS deploys. Ask Claude Code: "Verify the apr70 NAS deploy: check containers healthy, CMS API responds, /212 /310 /nrc pages return content, media URLs resolve."
 
 ---
+
+## Branching (LOCKED)
+
+- **One long-lived branch:** `main`. Do not create `vN` long-lived branches.
+- **Version bumps** change `SITE_VERSION` in `cms/src/siteVersion.ts` only — not a new git branch.
+- **Feature work** uses short-lived branches merged back to `main`.
+- Archaeology: tags `archive/v9-branch`, `archive/v10-branch`, `archive/pre-main-ff-v11`. Old monolith repo `brooklyn70/apr70-website` is archived on GitHub.
 
 ## File line cap
 

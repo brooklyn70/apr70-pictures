@@ -1,6 +1,6 @@
 # BRIEF — apr70-pictures (v3 → V4 live on Vercel)
 
-**Current (2026-07-14):** Public slate = **ten properties** (nine on `/slate`; **The Mayors** private for legal counsel — row kept, `publicSlate=false`). Restore playbook: `docs/decisions/2026-07-13-ten-properties-mayors-private.md`. Staging on NAS ships `SITE_VERSION` v12 / branch `v11`.
+**Current (2026-07-14):** Public slate = **ten properties** (nine on `/slate`; **The Mayors** private for legal counsel — row kept, `publicSlate=false`). Restore playbook: `docs/decisions/2026-07-13-ten-properties-mayors-private.md`. Staging on NAS ships `SITE_VERSION` v12 from branch `main`. **Git rule:** one long-lived branch (`main`); version bumps only change `SITE_VERSION`; feature work uses short-lived branches. Archive tags: `archive/v9-branch`, `archive/v10-branch`, `archive/pre-main-ff-v11`. Old GitHub monolith `brooklyn70/apr70-website` is archived.
 
 **Updated:** 2026-07-05 (Fable 5 orchestrated session)
 **Phase:** V4 SHIPPED TO VERCEL STAGING — https://apr70-web.vercel.app (Astro serverless) + https://apr70-cms-brooklyn70-brooklyn70s-projects.vercel.app (Payload → Supabase `apr70` ref rrxeqsryndjoivcsnkqq). NAS still serves apr70.com, untouched; DNS cutover deliberately NOT done.

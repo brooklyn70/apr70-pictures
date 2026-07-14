@@ -178,6 +178,42 @@ const download = (url, dest) =>
     execFile('curl', ['-sS', '-fL', '-o', dest, url], (err) => (err ? reject(err) : resolve(dest))),
   )
 
+// ── the slate ─────────────────────────────────────────────────────────────────
+//
+// The Prompt tab does not browse folders: the ten properties are known. Their
+// shot lists live in still-regen/specs/<property>.json — the same files the
+// regen.py CLI runs — so the tab and the CLI are two hands on one instrument.
+
+const SHARED = '/Volumes/SharedData'
+const SPECS = path.join(__dir, '..', 'still-regen', 'specs')
+// On SharedData but not on the slate: the universe folder is a setting, not a
+// property, and holding is a parking lot. (11-07 is retired — Falcon is Da
+// Hook's source text, see docs/decisions/2026-07-14-property-identities-*.)
+const NOT_PROPERTIES = new Set(['11-06-la-dolce-vita-universe', '11-99-holding'])
+
+const stillsDirOf = (prop) => path.join(SHARED, prop, '02-stills')
+
+const listImages = (dir) => {
+  try {
+    return fs.readdirSync(dir).filter((f) => IMG.test(f) && !f.startsWith('.') && !f.startsWith('._')).sort()
+  } catch {
+    return []
+  }
+}
+
+const specPathOf = (prop) => {
+  if (!/^11-\d{2}-[a-z0-9-]+$/.test(prop)) throw new Error(`not a property id: ${prop}`)
+  return path.join(SPECS, `${prop}.json`)
+}
+
+const readSpec = (prop) => {
+  try {
+    return JSON.parse(fs.readFileSync(specPathOf(prop), 'utf8'))
+  } catch {
+    return null
+  }
+}
+
 // ── routes ────────────────────────────────────────────────────────────────────
 
 const routes = {
@@ -343,6 +379,117 @@ const routes = {
                 aspect_ratio: '21:9', prompt: motion, taskId, url, output: out })
     await download(url, out)
     return { out, name: path.basename(out), bytes: fs.statSync(out).size }
+  },
+
+  // ── Prompt tab ──────────────────────────────────────────────────────────────
+
+  /** The slate, with enough numbers to see coverage at a glance. */
+  async 'POST /api/props'() {
+    const props = fs
+      .readdirSync(SHARED)
+      .filter((f) => /^11-\d{2}-/.test(f) && !NOT_PROPERTIES.has(f))
+      .sort()
+    return {
+      props: props.map((id) => {
+        const spec = readSpec(id)
+        return {
+          id,
+          title: spec?.title ?? null,
+          shots: spec?.stills?.length ?? 0,
+          stills: listImages(stillsDirOf(id)).length,
+          generated: listImages(path.join(stillsDirOf(id), '_regen')).length,
+        }
+      }),
+    }
+  },
+
+  /** One property's spec, plus what is on disk: the existing stills (candidates
+   *  for a shot's reference image) and everything already generated. */
+  async 'POST /api/spec'(body) {
+    const { prop } = body
+    const spec = readSpec(prop)
+    const dir = stillsDirOf(prop)
+    return {
+      prop,
+      dir,
+      spec,
+      stills: listImages(dir),
+      regen: listImages(path.join(dir, '_regen')),
+    }
+  },
+
+  /** The tab autosaves the whole spec — it is the same file regen.py reads, so
+   *  an edit in the browser is an edit to the CLI's plan too. */
+  async 'POST /api/spec-save'(body) {
+    const { prop, spec } = body
+    if (!spec || !Array.isArray(spec.stills)) throw new Error('spec needs a stills array')
+    const bad = spec.stills.find((s) => !s.slug || !/^[a-z0-9][a-z0-9-]*$/.test(s.slug))
+    if (bad) throw new Error(`bad slug: "${bad.slug ?? ''}" — lowercase letters, digits and dashes`)
+    const dupe = spec.stills.map((s) => s.slug).find((s, i, a) => a.indexOf(s) !== i)
+    if (dupe) throw new Error(`two shots share the slug "${dupe}"`)
+    fs.mkdirSync(SPECS, { recursive: true })
+    fs.writeFileSync(specPathOf(prop), JSON.stringify(spec, null, 2) + '\n')
+    return { ok: true }
+  },
+
+  /** Native file chooser for a reference image that is not one of the stills. */
+  async 'POST /api/pick-file'() {
+    return new Promise((resolve) => {
+      execFile(
+        'osascript',
+        ['-e', 'POSIX path of (choose file with prompt "Choose a reference image" of type {"public.image"})'],
+        (err, stdout) => resolve(err ? { cancelled: true } : { file: stdout.trim() }),
+      )
+    })
+  },
+
+  /** Generate ONE variant of one shot from the spec. The client loops for more —
+   *  each call is one credit spend, one ledger line, one picture on disk.
+   *
+   *  Nothing is overwritten: outputs land in 02-stills/_regen and the v-number
+   *  climbs past whatever is already there. Refs are named relative to the
+   *  property's stills folder, or absolute for a file picked from elsewhere;
+   *  they carry cast and wardrobe only — the prompt owns the composition. */
+  async 'POST /api/shot-generate'(body) {
+    const { prop, slug } = body
+    const token = await kieKey()
+    if (!token) throw new Error('no KIE key')
+    const spec = readSpec(prop)
+    const shot = spec?.stills?.find((s) => s.slug === slug)
+    if (!shot) throw new Error(`no shot "${slug}" in ${prop}`)
+    if (!shot.prompt?.trim()) throw new Error(`"${slug}" has no prompt yet`)
+
+    const dir = stillsDirOf(prop)
+    const outDir = path.join(dir, '_regen')
+    fs.mkdirSync(outDir, { recursive: true })
+
+    const full = shot.notes?.trim()
+      ? `${shot.prompt.trim()}\n\nCorrections that matter: ${shot.notes.trim()}`
+      : shot.prompt.trim()
+
+    const refs = []
+    for (const r of shot.refs ?? []) {
+      const p = path.isAbsolute(r) ? r : path.join(dir, r)
+      if (fs.existsSync(p)) refs.push(await kieUpload(p, token))
+    }
+
+    const { taskId, url } = await kieRun(
+      IMAGE_MODEL,
+      { prompt: full, image_input: refs, aspect_ratio: '21:9', resolution: '4K' },
+      token,
+    )
+
+    let n = 1
+    while (fs.existsSync(path.join(outDir, `${slug}-v${n}.png`))) n++
+    const out = path.join(outDir, `${slug}-v${n}.png`)
+
+    logPrompt({ kind: 'image', property: prop, slug, dir, model: IMAGE_MODEL,
+                aspect_ratio: '21:9', resolution: '4K', prompt: full,
+                notes: shot.notes || null, refs, taskId, url, output: out })
+    await download(url, out)
+
+    const m = await sharp(out).metadata()
+    return { out, name: path.basename(out), w: m.width, h: m.height }
   },
 
   async 'POST /api/save-state'(body) {

@@ -109,12 +109,58 @@
   .strip img{width:100%;border-radius:3px;border:1px solid var(--line);display:block;cursor:zoom-in}
   .strip figcaption{font:.62rem/1.4 var(--mono);color:var(--dim);padding-top:.15rem}
   #vidbox video{width:100%;border-radius:4px;border:1px solid var(--line);display:block}
+
+  /* ── tabs: FRAMES is the crop instrument, PROMPTS is the shot-list desk ── */
+  .tabs{display:flex;border-bottom:1px solid var(--line)}
+  .tab{flex:1;padding:.6rem 0;background:none;border:0;border-bottom:2px solid transparent;
+       color:var(--dim);font:600 .64rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase}
+  .tab:hover{color:var(--fg)}
+  .tab.on{color:var(--amber);border-bottom-color:var(--amber)}
+  body[data-tab=frames] [data-tab=prompts]{display:none}
+  body[data-tab=prompts] [data-tab=frames]{display:none}
+
+  /* ── prompts: the slate rail ── */
+  .prop{padding:.55rem .85rem;border-left:3px solid transparent;cursor:pointer}
+  .prop:hover{background:#1e1d21}
+  .prop.on{background:#232227;border-left-color:var(--amber)}
+  .prop .pt{font-size:.78rem}
+  .prop .pn{font:.62rem/1.7 var(--mono);color:var(--dim)}
+
+  /* ── prompts: the sheet ── */
+  .sheet{flex:1;overflow-y:auto;padding:.4rem 1.2rem 2rem;min-height:0}
+  .shot-ed{max-width:860px;padding:1.1rem 0;border-bottom:1px solid var(--line);
+           display:flex;flex-direction:column;gap:.55rem}
+  .shot-hd{display:flex;align-items:center;gap:.6rem}
+  .shot-ix{font:.66rem/1 var(--mono);color:var(--dim);min-width:1.4rem}
+  .slug{background:transparent;border:1px solid transparent;border-radius:3px;color:var(--fg);
+        font:600 .78rem/1 var(--mono);padding:.3rem .4rem;width:17rem}
+  .slug:hover{border-color:var(--line)}
+  .slug:focus{outline:0;border-color:var(--amber);background:#0d0c0f}
+  .go.sm{padding:.45rem .6rem;font-size:.66rem}
+  .made{font:.64rem/1 var(--mono);color:var(--dim)}
+  .refs{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center}
+  .ref{position:relative;line-height:0}
+  .ref img{width:56px;height:34px;object-fit:cover;border-radius:2px;border:1px solid var(--line);cursor:zoom-in}
+  .ref .rx{position:absolute;top:-6px;right:-6px;width:16px;height:16px;border-radius:50%;background:var(--bad);
+           color:#fff;border:0;font:600 10px/14px var(--mono);padding:0;display:none;text-align:center}
+  .ref:hover .rx{display:block}
+  .refpick{display:none;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:.4rem;padding:.5rem;
+           background:#0d0c0f;border:1px solid var(--line);border-radius:4px;max-height:220px;overflow-y:auto}
+  .refpick.open{display:grid}
+  .refpick img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:2px;cursor:pointer;
+               border:1px solid transparent;display:block}
+  .refpick img:hover{border-color:var(--amber)}
+  .shot-ed .strip{grid-template-columns:repeat(3,1fr)}
 </style>
 </head>
-<body>
+<body data-tab="frames">
 
-<aside class="rail">
+<aside class="rail" data-tab="frames">
   <h1>Crop Studio</h1>
+  <div class="tabs">
+    <button class="tab on" data-t="frames">Frames</button>
+    <button class="tab" data-t="prompts">Prompts</button>
+  </div>
   <button class="pick" id="pick">Choose folder…</button>
   <input type="text" id="dirin" placeholder="…or paste a path and hit return"
          style="margin:0 .85rem .6rem;width:calc(100% - 1.7rem);font-size:.66rem">
@@ -122,7 +168,7 @@
   <div class="roll" id="roll"></div>
 </aside>
 
-<main class="stage">
+<main class="stage" data-tab="frames">
   <div class="bar">
     <label>Default ratio</label>
     <select id="ratio">
@@ -164,7 +210,7 @@
   </div>
 </main>
 
-<aside class="side">
+<aside class="side" data-tab="frames">
   <h2>Picture</h2>
   <div class="facts" id="facts">—</div>
 
@@ -233,6 +279,57 @@
   <div class="tally" id="tally"></div>
   <button class="go" id="apply" disabled>Process folder</button>
   <div class="log" id="log" hidden></div>
+</aside>
+
+<aside class="rail" data-tab="prompts">
+  <h1>Crop Studio</h1>
+  <div class="tabs">
+    <button class="tab" data-t="frames">Frames</button>
+    <button class="tab on" data-t="prompts">Prompts</button>
+  </div>
+  <div class="dirpath">The slate. Ten properties, no folder to pick.</div>
+  <div class="roll" id="proll"></div>
+</aside>
+
+<main class="stage" data-tab="prompts">
+  <div class="bar">
+    <span class="facts" id="pbar">Pick a property.</span>
+    <div class="spacer"></div>
+    <button class="ghost" id="addshot" hidden>+ Add shot</button>
+  </div>
+  <div class="sheet" id="sheet">
+    <div class="empty" style="padding-top:4rem">Every still we plan to make, one property at a time.<br><br>
+    The prompt is the asset — each one is written fresh for the wide frame,<br>
+    saved to the spec regen.py reads, and logged to the ledger when it runs.</div>
+  </div>
+</main>
+
+<aside class="side" data-tab="prompts">
+  <h2>Property</h2>
+  <div class="facts" id="pfacts">—</div>
+
+  <h2>House look</h2>
+  <textarea id="plook" rows="3" placeholder="The property's style line — period, stock, grain. Reference for writing prompts; each prompt carries its own copy."></textarea>
+  <p class="note">Prompts are sent <b>as written</b> — the look line is not appended. Bake the stock
+  and the grain into every prompt so each one stands alone in the ledger.</p>
+
+  <h2>Generate <span class="facts" id="pkie">—</span></h2>
+  <p class="note">Write the frame <b>fresh</b> — never “recompose this exact scene.” Research the real
+  place; get the time of day and the light source right. The reference image carries cast and
+  wardrobe only, never the composition.</p>
+  <div class="row2">
+    <select id="pvars">
+      <option value="1">1 variant</option>
+      <option value="2" selected>2 variants</option>
+      <option value="3">3 variants</option>
+    </select>
+    <span class="facts" id="pcost" style="align-self:center">—</span>
+  </div>
+  <button class="go" id="genall" disabled>Generate property</button>
+  <p class="note">Nothing fires until you press it. Each frame is one 21:9 4K master (24 credits);
+  its prompt hits the ledger before the download. New pictures land in <b>_regen</b> — nothing is
+  ever overwritten.</p>
+  <div class="log" id="plog" hidden></div>
 </aside>
 
 <script>
@@ -534,9 +631,11 @@ $('#mkvid').onclick = () => {
 }
 
 post('/api/kie-status', {}).then((r) => {
+  KIE = r
   $('#kie').innerHTML = r.ready
     ? `<b>${Math.round(r.credits)}</b> credits · ${r.imageModel}`
     : 'offline — no KIE key'
+  $('#pkie').innerHTML = r.ready ? `<b>${Math.round(r.credits)}</b> credits · ${r.imageModel}` : 'offline — no KIE key'
   if (!r.ready) { $('#regen').disabled = true; $('#mkvid').disabled = true }
 })
 
@@ -559,7 +658,8 @@ $('#reseed').onclick = async () => {
 const go = (d) => { I = Math.max(0, Math.min(ITEMS.length - 1, I + d)); show() }
 
 document.addEventListener('keydown', (e) => {
-  if (e.target.matches('input,select')) return
+  // textarea included: typing a "w" into the prompt box must not set a verdict.
+  if (TAB !== 'frames' || e.target.matches('input,select,textarea')) return
   const k = e.key.toLowerCase()
   if (e.key === 'ArrowRight') { e.preventDefault(); go(1) }
   else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1) }
@@ -614,6 +714,262 @@ function save() {
       body: JSON.stringify({ dir: DIR, ratio: ratio(), items: ITEMS }),
     })
   }, 400)
+}
+
+// ── prompts tab ───────────────────────────────────────────────────────────────
+// A GUI over still-regen/specs/<property>.json — the same files regen.py runs,
+// so an edit here is an edit to the CLI's plan. The tab never spends a credit
+// on its own: every generation is a button Marco pressed.
+
+const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+const COST = 24 // credits per 21:9 4K master
+let TAB = 'frames', PROPS = [], PROP = null, SPEC = null, PSTILLS = [], PREGEN = [], PDIR = null
+let KIE = null, GENALL = false
+
+function setTab(t) {
+  TAB = t
+  document.body.dataset.tab = t
+  document.querySelectorAll('.tab').forEach((b) => b.classList.toggle('on', b.dataset.t === t))
+  if (t === 'prompts' && !PROPS.length) loadProps()
+}
+document.querySelectorAll('.tab').forEach((b) => (b.onclick = () => setTab(b.dataset.t)))
+if (qs.get('tab') === 'prompts') addEventListener('DOMContentLoaded', () => setTab('prompts'))
+
+async function loadProps() {
+  const r = await post('/api/props', {})
+  if (r.error) { $('#pbar').textContent = r.error; return }
+  PROPS = r.props
+  drawProps()
+}
+
+const titleOf = (p) => p.title ?? p.id.replace(/^11-\d\d-/, '').replace(/-/g, ' ')
+
+function drawProps() {
+  $('#proll').innerHTML = PROPS.map((p) => `
+    <div class="prop ${p.id === PROP ? 'on' : ''}" data-p="${p.id}">
+      <div class="pt">${esc(titleOf(p))}</div>
+      <div class="pn">${p.id} · ${p.shots} planned · ${p.stills} stills · ${p.generated} made</div>
+    </div>`).join('')
+  $('#proll').querySelectorAll('.prop').forEach((el) => (el.onclick = () => pickProp(el.dataset.p)))
+}
+
+async function pickProp(id) {
+  const r = await post('/api/spec', { prop: id })
+  if (r.error) { $('#pbar').textContent = r.error; return }
+  PROP = id; SPEC = r.spec; PSTILLS = r.stills; PREGEN = r.regen; PDIR = r.dir
+  drawProps(); drawSheet(); paintPSide()
+}
+
+// ── the sheet ──
+
+const variantsOf = (slug) => PREGEN.filter((f) => f.startsWith(slug + '-v'))
+const refPath = (r) => (r.startsWith('/') ? r : `${PDIR}/${r}`)
+
+function drawSheet() {
+  $('#addshot').hidden = !SPEC
+  $('#pbar').textContent = SPEC
+    ? `${titleOf({ id: PROP, title: SPEC.title })} — ${SPEC.stills.length} shots planned`
+    : PROP
+  if (!SPEC) {
+    $('#sheet').innerHTML = `
+      <div class="empty" style="padding-top:4rem">No shot list for ${esc(PROP)} yet.<br><br>
+        <button class="ghost" id="startspec">Start the shot list</button></div>`
+    $('#startspec').onclick = () => {
+      SPEC = { property: PROP, title: titleOf({ id: PROP }), look: '', stills: [] }
+      saveSpec(); drawSheet(); paintPSide()
+    }
+    return
+  }
+
+  $('#sheet').innerHTML = SPEC.stills.map((s, i) => `
+    <div class="shot-ed" data-i="${i}">
+      <div class="shot-hd">
+        <span class="shot-ix">${String(i + 1).padStart(2, '0')}</span>
+        <input class="slug" value="${esc(s.slug)}" spellcheck="false">
+        <div class="spacer"></div>
+        <span class="made">${variantsOf(s.slug).length ? variantsOf(s.slug).length + ' made' : ''}</span>
+        <button class="ghost rm">remove</button>
+        <button class="go alt sm gen">Generate</button>
+      </div>
+      <textarea class="p" rows="4" placeholder="What is this shot? Write the frame you want, fresh, for a wide anamorphic composition."></textarea>
+      <textarea class="n" rows="2" placeholder="What was wrong with the last one? Corrections ride along with the prompt."></textarea>
+      <div class="refs" data-refs="${i}"></div>
+      <div class="refpick" data-pick="${i}"></div>
+      <div class="strip" data-strip="${i}"></div>
+    </div>`).join('')
+
+  SPEC.stills.forEach((s, i) => {
+    const ed = $(`#sheet .shot-ed[data-i="${i}"]`)
+    ed.querySelector('.p').value = s.prompt ?? ''
+    ed.querySelector('.n').value = s.notes ?? ''
+    ed.querySelector('.slug').oninput = (e) => { s.slug = e.target.value.trim(); saveSpec(); paintPSide() }
+    ed.querySelector('.p').oninput = (e) => { s.prompt = e.target.value; saveSpec(); paintPSide() }
+    ed.querySelector('.n').oninput = (e) => { s.notes = e.target.value; saveSpec() }
+    ed.querySelector('.gen').onclick = (e) => genShot(i, e.target)
+    ed.querySelector('.rm').onclick = () => {
+      if (!confirm(`Remove "${s.slug}" from the plan? No pictures are touched.`)) return
+      SPEC.stills.splice(i, 1); saveSpec(); drawSheet(); paintPSide()
+    }
+    drawRefs(i); drawStrip(i)
+  })
+}
+
+function drawRefs(i) {
+  const s = SPEC.stills[i]
+  const box = $(`[data-refs="${i}"]`)
+  box.innerHTML = (s.refs ?? []).map((r, k) => `
+      <span class="ref" title="${esc(r)}">
+        <img src="/api/img?max=120&p=${encodeURIComponent(refPath(r))}">
+        <button class="rx" data-k="${k}">×</button>
+      </span>`).join('') +
+    `<button class="ghost" data-a="still">+ ref from stills</button>
+     <button class="ghost" data-a="file">+ ref from file…</button>`
+
+  box.querySelectorAll('.ref img').forEach((img, k) =>
+    (img.onclick = () => window.open('/api/img?p=' + encodeURIComponent(refPath(s.refs[k])))))
+  box.querySelectorAll('.rx').forEach((b) => (b.onclick = () => {
+    s.refs.splice(Number(b.dataset.k), 1); saveSpec(); drawRefs(i)
+  }))
+  box.querySelector('[data-a="still"]').onclick = () => togglePick(i)
+  box.querySelector('[data-a="file"]').onclick = async () => {
+    const r = await post('/api/pick-file', {})
+    if (r.cancelled || !r.file) return
+    ;(s.refs ??= []).push(r.file); saveSpec(); drawRefs(i)
+  }
+}
+
+function togglePick(i) {
+  const pick = $(`[data-pick="${i}"]`)
+  if (pick.classList.toggle('open') && !pick.innerHTML) {
+    pick.innerHTML = PSTILLS.length
+      ? PSTILLS.map((f) => `<img src="/api/img?max=200&p=${encodeURIComponent(`${PDIR}/${f}`)}" title="${esc(f)}">`).join('')
+      : '<span class="made" style="padding:.3rem">no stills on disk for this property</span>'
+    pick.querySelectorAll('img').forEach((img, k) => (img.onclick = () => {
+      ;(SPEC.stills[i].refs ??= []).push(PSTILLS[k])
+      saveSpec(); drawRefs(i); pick.classList.remove('open')
+    }))
+  }
+}
+
+function drawStrip(i) {
+  const s = SPEC.stills[i]
+  $(`[data-strip="${i}"]`).innerHTML = variantsOf(s.slug).map((f) => {
+    const p = `${PDIR}/_regen/${f}`
+    return `<figure><img src="/api/img?max=520&p=${encodeURIComponent(p)}" data-p="${encodeURIComponent(p)}">
+            <figcaption>${esc(f.replace(/\.png$/, ''))}</figcaption></figure>`
+  }).join('')
+  $(`[data-strip="${i}"]`).querySelectorAll('img').forEach((img) =>
+    (img.onclick = () => window.open('/api/img?p=' + img.dataset.p)))
+  const made = $(`#sheet .shot-ed[data-i="${i}"] .made`)
+  if (made) made.textContent = variantsOf(s.slug).length ? variantsOf(s.slug).length + ' made' : ''
+}
+
+// ── side panel ──
+
+function paintPSide() {
+  if (!PROP) return
+  const p = PROPS.find((x) => x.id === PROP)
+  const ready = SPEC?.stills.filter((s) => s.prompt?.trim()).length ?? 0
+  $('#pfacts').innerHTML = `<b>${esc(titleOf({ id: PROP, title: SPEC?.title }))}</b><br>
+    ${PROP}<br>${p?.stills ?? 0} stills on disk · ${PREGEN.length} generated<br>
+    ${SPEC?.stills.length ?? 0} shots planned · ${ready} with prompts`
+  $('#plook').value = SPEC?.look ?? ''
+  $('#genall').disabled = !ready || GENALL
+  paintCost()
+}
+
+function paintCost() {
+  const ready = SPEC?.stills.filter((s) => s.prompt?.trim()).length ?? 0
+  const v = Number($('#pvars').value)
+  $('#pcost').textContent = ready ? `≈ ${ready * v * COST} cr / property` : '—'
+}
+$('#pvars').onchange = paintCost
+$('#plook').oninput = () => { if (SPEC) { SPEC.look = $('#plook').value; saveSpec() } }
+
+$('#addshot').onclick = () => {
+  if (!SPEC) return
+  let n = SPEC.stills.length + 1, slug = `shot-${String(n).padStart(2, '0')}`
+  while (SPEC.stills.some((s) => s.slug === slug)) slug = `shot-${String(++n).padStart(2, '0')}`
+  SPEC.stills.push({ slug, refs: [], prompt: '' })
+  saveSpec(); drawSheet(); paintPSide()
+  const ed = $(`#sheet .shot-ed[data-i="${SPEC.stills.length - 1}"]`)
+  ed.scrollIntoView({ block: 'center' }); ed.querySelector('.slug').focus()
+}
+
+let specT
+function saveSpec() {
+  clearTimeout(specT)
+  specT = setTimeout(async () => {
+    if (!PROP || !SPEC) return
+    const r = await post('/api/spec-save', { prop: PROP, spec: SPEC })
+    if (r.error) plog(`! spec not saved: ${r.error}`)
+  }, 500)
+}
+
+function plog(m) {
+  const el = $('#plog'); el.hidden = false
+  el.textContent += (el.textContent ? '\n' : '') + m
+  el.scrollTop = el.scrollHeight
+}
+
+// ── generation — one credit spend per call, ledger first, nothing overwritten ──
+
+async function genOne(slug) {
+  const r = await post('/api/shot-generate', { prop: PROP, slug })
+  if (r.error) throw new Error(r.error)
+  PREGEN.push(r.name)
+  plog(`+ ${r.name}  ${r.w}×${r.h}`)
+  return r
+}
+
+async function genShot(i, btn) {
+  const s = SPEC.stills[i]
+  if (!s.prompt?.trim()) return alert('Write the prompt first.')
+  const v = Number($('#pvars').value)
+  await busy(btn, 'Generating…', async () => {
+    for (let k = 1; k <= v; k++) {
+      btn.textContent = `Generating ${k} / ${v}…`
+      await genOne(s.slug)
+      drawStrip(i)
+    }
+  })
+  refreshAfterGen()
+}
+
+$('#genall').onclick = async () => {
+  if (GENALL) { GENALL = false; $('#genall').textContent = 'Stopping after this one…'; return }
+  const jobs = SPEC.stills.map((s, i) => ({ s, i })).filter(({ s }) => s.prompt?.trim())
+  const v = Number($('#pvars').value)
+  if (!jobs.length) return
+  GENALL = true
+  const btn = $('#genall')
+  plog(`— generating ${jobs.length} shots × ${v} variants (~${jobs.length * v * COST} credits) —`)
+  let made = 0
+  for (const { s, i } of jobs) {
+    for (let k = 1; k <= v; k++) {
+      if (!GENALL) break
+      btn.textContent = `${s.slug} · ${k}/${v} — press to stop`
+      try {
+        await genOne(s.slug)
+        made++; drawStrip(i)
+      } catch (e) {
+        plog(`x ${s.slug}: ${e.message}`)
+      }
+    }
+    if (!GENALL) break
+  }
+  GENALL = false
+  btn.textContent = 'Generate property'
+  plog(`— done: ${made} pictures —`)
+  refreshAfterGen()
+}
+
+async function refreshAfterGen() {
+  const p = PROPS.find((x) => x.id === PROP)
+  if (p) p.generated = PREGEN.length
+  drawProps(); paintPSide()
+  const r = await post('/api/kie-status', {})
+  if (r.ready) { KIE = r; $('#pkie').innerHTML = `<b>${Math.round(r.credits)}</b> credits` }
 }
 
 $('#apply').onclick = async () => {

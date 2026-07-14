@@ -1,0 +1,301 @@
+{
+ "_fragment": {
+  "name": "flux_outpaint",
+  "description": "Flux.1 Fill dev outpaint (GGUF Q8_0). Derived from flux_fill_outpaint_example; UNETLoader swapped for UnetLoaderGGUF.",
+  "terminal": false,
+  "source": "ref-outpaint.json",
+  "inputs": {
+   "pad_image_for_outpainting_image": {
+    "type": "IMAGE",
+    "binds": "44.image"
+   }
+  },
+  "outputs": {
+   "image": {
+    "type": "IMAGE",
+    "from": "8",
+    "port": 0
+   }
+  },
+  "params": {
+   "load_clip_dual_clip_name1": {
+    "type": "STRING",
+    "binds": "34.clip_name1",
+    "default": "clip_l.safetensors"
+   },
+   "load_clip_dual_clip_name2": {
+    "type": "STRING",
+    "binds": "34.clip_name2",
+    "default": "t5xxl_fp16.safetensors"
+   },
+   "load_clip_dual_type": {
+    "type": "STRING",
+    "binds": "34.type",
+    "default": "flux"
+   },
+   "load_clip_dual_device": {
+    "type": "STRING",
+    "binds": "34.device",
+    "default": "default"
+   },
+   "load_diffusion_model_unet_name": {
+    "type": "STRING",
+    "binds": "31.unet_name",
+    "default": "flux1-fill-dev-Q8_0.gguf"
+   },
+   "clip_text_encode_positive_prompt_text": {
+    "type": "STRING",
+    "binds": "23.text",
+    "default": "beautiful scenery"
+   },
+   "load_vae_vae_name": {
+    "type": "STRING",
+    "binds": "32.vae_name",
+    "default": "ae.safetensors"
+   },
+   "fluxguidance_guidance": {
+    "type": "INT",
+    "binds": "26.guidance",
+    "default": 30
+   },
+   "differential_diffusion_strength": {
+    "type": "INT",
+    "binds": "39.strength",
+    "default": 1
+   },
+   "pad_image_for_outpainting_left": {
+    "type": "INT",
+    "binds": "44.left",
+    "default": 400
+   },
+   "pad_image_for_outpainting_top": {
+    "type": "INT",
+    "binds": "44.top",
+    "default": 0
+   },
+   "pad_image_for_outpainting_right": {
+    "type": "INT",
+    "binds": "44.right",
+    "default": 400
+   },
+   "pad_image_for_outpainting_bottom": {
+    "type": "INT",
+    "binds": "44.bottom",
+    "default": 400
+   },
+   "pad_image_for_outpainting_feathering": {
+    "type": "INT",
+    "binds": "44.feathering",
+    "default": 24
+   },
+   "inpaintmodelconditioning_noise_mask": {
+    "type": "BOOLEAN",
+    "binds": "38.noise_mask",
+    "default": false
+   },
+   "ksampler_seed": {
+    "type": "INT",
+    "binds": "3.seed",
+    "default": 164211176398261
+   },
+   "ksampler_steps": {
+    "type": "INT",
+    "binds": "3.steps",
+    "default": 20
+   },
+   "ksampler_cfg": {
+    "type": "INT",
+    "binds": "3.cfg",
+    "default": 1
+   },
+   "ksampler_sampler_name": {
+    "type": "STRING",
+    "binds": "3.sampler_name",
+    "default": "euler"
+   },
+   "ksampler_scheduler": {
+    "type": "STRING",
+    "binds": "3.scheduler",
+    "default": "normal"
+   },
+   "ksampler_denoise": {
+    "type": "INT",
+    "binds": "3.denoise",
+    "default": 1
+   }
+  }
+ },
+ "34": {
+  "inputs": {
+   "clip_name1": "clip_l.safetensors",
+   "clip_name2": "t5xxl_fp16.safetensors",
+   "type": "flux",
+   "device": "default"
+  },
+  "class_type": "DualCLIPLoader",
+  "_meta": {
+   "title": "Load CLIP (Dual)"
+  }
+ },
+ "31": {
+  "inputs": {
+   "unet_name": "flux1-fill-dev-Q8_0.gguf"
+  },
+  "class_type": "UnetLoaderGGUF",
+  "_meta": {
+   "title": "Load Diffusion Model (GGUF)"
+  }
+ },
+ "23": {
+  "inputs": {
+   "text": "beautiful scenery",
+   "clip": [
+    "34",
+    0
+   ]
+  },
+  "class_type": "CLIPTextEncode",
+  "_meta": {
+   "title": "CLIP Text Encode (Positive Prompt)"
+  }
+ },
+ "32": {
+  "inputs": {
+   "vae_name": "ae.safetensors"
+  },
+  "class_type": "VAELoader",
+  "_meta": {
+   "title": "Load VAE"
+  }
+ },
+ "46": {
+  "inputs": {
+   "conditioning": [
+    "23",
+    0
+   ]
+  },
+  "class_type": "ConditioningZeroOut",
+  "_meta": {
+   "title": "Conditioning Zero Out"
+  }
+ },
+ "26": {
+  "inputs": {
+   "guidance": 30,
+   "conditioning": [
+    "23",
+    0
+   ]
+  },
+  "class_type": "FluxGuidance",
+  "_meta": {
+   "title": "FluxGuidance"
+  }
+ },
+ "39": {
+  "inputs": {
+   "strength": 1,
+   "model": [
+    "31",
+    0
+   ]
+  },
+  "class_type": "DifferentialDiffusion",
+  "_meta": {
+   "title": "Differential Diffusion"
+  }
+ },
+ "44": {
+  "inputs": {
+   "left": 400,
+   "top": 0,
+   "right": 400,
+   "bottom": 400,
+   "feathering": 24,
+   "image": [
+    "17",
+    0
+   ]
+  },
+  "class_type": "ImagePadForOutpaint",
+  "_meta": {
+   "title": "Pad Image for Outpainting"
+  }
+ },
+ "8": {
+  "inputs": {
+   "samples": [
+    "3",
+    0
+   ],
+   "vae": [
+    "32",
+    0
+   ]
+  },
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "VAE Decode"
+  }
+ },
+ "38": {
+  "inputs": {
+   "noise_mask": false,
+   "positive": [
+    "26",
+    0
+   ],
+   "negative": [
+    "46",
+    0
+   ],
+   "vae": [
+    "32",
+    0
+   ],
+   "pixels": [
+    "44",
+    0
+   ],
+   "mask": [
+    "44",
+    1
+   ]
+  },
+  "class_type": "InpaintModelConditioning",
+  "_meta": {
+   "title": "InpaintModelConditioning"
+  }
+ },
+ "3": {
+  "inputs": {
+   "seed": 164211176398261,
+   "steps": 20,
+   "cfg": 1,
+   "sampler_name": "euler",
+   "scheduler": "normal",
+   "denoise": 1,
+   "model": [
+    "39",
+    0
+   ],
+   "positive": [
+    "38",
+    0
+   ],
+   "negative": [
+    "38",
+    1
+   ],
+   "latent_image": [
+    "38",
+    2
+   ]
+  },
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "KSampler"
+  }
+ }
+}

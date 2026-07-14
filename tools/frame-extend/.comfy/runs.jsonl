@@ -1,0 +1,4 @@
+{"ts": "2026-07-14T16:32:25+00:00", "cmd": "compose", "blueprint": "blueprints/extend_one.yaml", "written": ["blueprints/extend_one.compiled.json"]}
+{"ts": "2026-07-14T16:32:45+00:00", "cmd": "run", "workflow": "/Users/marco/websites/apr70-website/v10/tools/frame-extend/blueprints/extend_one.compiled.json", "prompt_id": "42911a72-68a6-497d-8c72-6004b9f673b9", "where": "local"}
+{"ts": "2026-07-14T16:35:28+00:00", "cmd": "run", "workflow": "/Users/marco/websites/apr70-website/v10/tools/frame-extend/blueprints/extend_one.compiled.json", "prompt_id": "6b1c2670-3287-40e8-918b-1ff1a4cc0b73", "where": "local"}
+{"ts": "2026-07-14T16:41:02+00:00", "cmd": "run", "workflow": "/Users/marco/websites/apr70-website/v10/tools/frame-extend/blueprints/extend_one.compiled.json", "prompt_id": "60fa40b5-ea37-47b6-85f3-0deb54e2b590", "where": "local"}

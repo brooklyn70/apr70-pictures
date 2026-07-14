@@ -1,0 +1,40 @@
+# Single-still smoke test: Flux.1 Fill dev (GGUF Q8_0) horizontal outpaint.
+# Geometry mirrors _ratio-2/extend-queue.json for 01-angib-01-stoop.jpg:
+#   source 2528x1696 -> target 3392x1696, padLeft 432, padRight 432.
+output_prefix: outputs/fluxfill
+
+pipeline:
+  - fragment: flux_outpaint
+    alias: ext
+    inputs:
+      pad_image_for_outpainting_image: $asset.01-angib-01-stoop.jpg
+    params:
+      # local weights
+      load_diffusion_model_unet_name: flux1-fill-dev-Q8_0.gguf
+      load_clip_dual_clip_name1: clip_l.safetensors
+      load_clip_dual_clip_name2: t5xxl_fp8_e4m3fn.safetensors
+      load_vae_vae_name: ae.safetensors
+
+      # pad geometry (from extend-queue.json)
+      pad_image_for_outpainting_left: 432
+      pad_image_for_outpainting_right: 432
+      pad_image_for_outpainting_top: 0
+      pad_image_for_outpainting_bottom: 0
+      pad_image_for_outpainting_feathering: 24
+
+      clip_text_encode_positive_prompt_text: >-
+        1980s Brooklyn brownstone stoop, weathered dark sandstone banister walls
+        framing both sides, parked cars along the curb and a chain link fence
+        across the street, warm late afternoon sunlight, 35mm color film still,
+        natural photographic grain, cinematic
+
+      # sampler settings carried over from the reference template
+      fluxguidance_guidance: 30
+      differential_diffusion_strength: 1
+      inpaintmodelconditioning_noise_mask: false
+      ksampler_seed: 70212310
+      ksampler_steps: 20
+      ksampler_cfg: 1
+      ksampler_sampler_name: euler
+      ksampler_scheduler: normal
+      ksampler_denoise: 1

@@ -1,0 +1,12 @@
+{
+  "assets": {
+    "01-angib-01-stoop.jpg": {
+      "cloud_name": "01-angib-01-stoop.jpg",
+      "pushed_at": "2026-07-14T16:32:20+00:00",
+      "sha256": "1604451a77498dee19b6f559b0151753efa266e58a7ab6aeb0c9b1ee126cb759",
+      "size": 1418364,
+      "where": "local"
+    }
+  },
+  "schema": "assets-lock/1"
+}

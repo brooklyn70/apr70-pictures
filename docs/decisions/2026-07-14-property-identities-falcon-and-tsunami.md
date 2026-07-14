@@ -47,27 +47,37 @@ only ones where the MOC names a *book* rather than the film — which is precise
 why they read like extra properties when you skim the tree, and why an agent
 scanning filenames invents an eleventh title.
 
-## 2. "TSUNAMI" is Sea Gate
+## 2. The film is SEA GATE. "TSUNAMI" is dead.
 
-Sea Gate's Final Draft scripts are still filed under a legacy working title:
+**SEA GATE is the canonical title.** Marco's ruling, 2026-07-14. It is the title
+of the film, the name of the property, and the slug in the CMS (`sea-gate`).
 
-    11.01 Active Properties/212-sea-gate/14-final-draft/TSUNAMI_feature_v01.fdx
-                                                        TSUNAMI_feature_v02.fdx
-                                                        TSUNAMI_feature_v03.fdx
+The property was formerly titled **TSUNAMI**, and an earlier note
+(`marco-notes-2026-06-15-direction-reset.md`) drew a deliberate distinction —
+film called TSUNAMI, town called Sea Gate, "keep the real place on the page."
+**That distinction is overruled.** The film and the town now share the name.
 
-The property is **Sea Gate** ("A private town at the end of Brooklyn, present
-day, high summer"). Its own `CANON.md` never uses the word *tsunami* — only the
-filenames do. An agent looking for Sea Gate's script by name will conclude it
-has none. It has three drafts.
+TSUNAMI has been eliminated from the property entirely — 46 files renamed and 54
+rewritten, including the three Final Draft title pages and the
+`gen_redharvest_*.py` generators (which still wrote `TSUNAMI_*.fdx` and would
+have resurrected the name on their next run):
+
+    11.01 Active Properties/212-sea-gate/14-final-draft/SEA_GATE_feature_v01.fdx
+                                                        SEA_GATE_feature_v02.fdx
+                                                        SEA_GATE_feature_v03.fdx   <- latest
+
+**If you find the word TSUNAMI anywhere, it is wrong. Change it.** Do not treat
+an older document as authority against this ruling; Marco makes the titles.
 
 ---
 
 ## Why this is written down
 
-Both mistakes are the same shape: **the file tree disagrees with the canon, and
+Both entries are the same shape: **the file tree disagrees with the canon, and
 the canon wins.** Nothing in the folder names tells you that `11-07` is source
-material rather than a property, or that `TSUNAMI_*.fdx` is Sea Gate. An agent
-that enumerates directories and believes them will report an eleventh property
-and a script-less Sea Gate — and both errors look perfectly reasonable.
+material rather than a property. Nothing told you the film had been retitled.
+An agent that enumerates directories and believes them will report an eleventh
+property and a script called TSUNAMI — and both errors look perfectly reasonable.
 
-Read the canon, not the folder names.
+Read the canon, not the folder names. And when Marco rules, that *is* the canon —
+an older file saying otherwise is a stale artifact, not a counter-argument.

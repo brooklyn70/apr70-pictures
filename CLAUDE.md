@@ -18,7 +18,7 @@
 5. `docs/architecture/v3-master-plan.md` — the director-approved architecture plan.
 6. `docs/decisions/2026-07-01-vms-lessons-and-cloud-migration.md` — **Vik Muniz build lessons (Supabase pooler/caching/R2/GEO laws) + the approved Supabase/Vercel/store migration plan.** Read before any DB, deploy, or data-layer work.
 7. `docs/decisions/2026-07-13-ten-properties-mayors-private.md` — **Slate count is ten.** Nine public; The Mayors stays in CMS with `publicSlate=false` until counsel clears. Read before any slate/count/Mayors copy or project visibility work — includes the restore recipe.
-8. `docs/decisions/2026-07-14-property-identities-falcon-and-tsunami.md` — **The file tree lies about two properties.** `11-07-maltese-falcon` is not a property: it is Da Hook's public-domain source material (Hammett). `TSUNAMI_*.fdx` is Sea Gate's script under a legacy working title. Read before walking SharedData folders, the vault's Active Properties, or the `projects` table.
+8. `docs/decisions/2026-07-14-property-identities-falcon-and-tsunami.md` — **Two names the file tree gets wrong.** `11-07-maltese-falcon` is not a property: it is Da Hook's public-domain source material (Hammett). And the film formerly called **TSUNAMI is now SEA GATE** — canonical, ruled by Marco; if you find the old name anywhere, it is wrong, change it. Read before walking SharedData folders, the vault's Active Properties, or the `projects` table.
 
 ---
 

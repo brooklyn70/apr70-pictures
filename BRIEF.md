@@ -1,5 +1,7 @@
 # BRIEF — apr70-pictures (v3 → V4 live on Vercel)
 
+**Current (2026-07-14):** Public slate = **ten properties** (nine on `/slate`; **The Mayors** private for legal counsel — row kept, `publicSlate=false`). Restore playbook: `docs/decisions/2026-07-13-ten-properties-mayors-private.md`. Staging on NAS ships `SITE_VERSION` v12 / branch `v11`.
+
 **Updated:** 2026-07-05 (Fable 5 orchestrated session)
 **Phase:** V4 SHIPPED TO VERCEL STAGING — https://apr70-web.vercel.app (Astro serverless) + https://apr70-cms-brooklyn70-brooklyn70s-projects.vercel.app (Payload → Supabase `apr70` ref rrxeqsryndjoivcsnkqq). NAS still serves apr70.com, untouched; DNS cutover deliberately NOT done.
 **What shipped (5 worktree branches merged to main):** (1) Global visitor-facing theme system — 5 designs via draggable ThemeControlIsland (design + logo assortment + font scale, localStorage, no-FOUC pre-paint); divisions unified (logo inside global theme, per-division skins dormant). (2) `/troupe` — APR 70 Troupe Presents No. 1, playbill block, spoiler-safe DRAFT copy, placeholder SVGs + PD ledger in vault. (3) Zine re-arrange — `/` = DISPATCH-masthead front door, `/news` joined Layout.astro, zineMasthead/zinePassage/zineSynopsis blocks, `/work` text-forward with 7 draft synopses, Sea Gate created, falcon→Da Hook, indicia numbered-never-dated. (4) Infra — DEPLOY_TARGET adapter switch, pool discipline, slim-projection SWR cache, S3-gated R2. (5) Copy bundle + n8n note in vault `11.05 V4 Launch/03-public-site/`.

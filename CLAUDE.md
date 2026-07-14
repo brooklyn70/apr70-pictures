@@ -1,7 +1,7 @@
 # CLAUDE.md — apr70-pictures (v3)
 
 **Authoritative working document for all agents working in this repo.**
-**Last updated:** 2026-05-13 (context handoff rule added)
+**Last updated:** 2026-07-14 (Mayors / ten-properties decision pointer)
 **Repo:** `brooklyn70/apr70-pictures`
 **Live (when shipped):** https://apr70.com
 **Staging:** https://staging-v3.apr70.com (pending DSM slot)
@@ -17,6 +17,7 @@
 4. `docs/architecture/` — schema + block library + integration specs.
 5. `docs/architecture/v3-master-plan.md` — the director-approved architecture plan.
 6. `docs/decisions/2026-07-01-vms-lessons-and-cloud-migration.md` — **Vik Muniz build lessons (Supabase pooler/caching/R2/GEO laws) + the approved Supabase/Vercel/store migration plan.** Read before any DB, deploy, or data-layer work.
+7. `docs/decisions/2026-07-13-ten-properties-mayors-private.md` — **Slate count is ten.** Nine public; The Mayors stays in CMS with `publicSlate=false` until counsel clears. Read before any slate/count/Mayors copy or project visibility work — includes the restore recipe.
 
 ---
 

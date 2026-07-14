@@ -1,85 +1,83 @@
 {
   "property": "11-01-angib",
   "title": "A Need Grows in Brooklyn",
-  "look": "1985 Brooklyn, 35mm anamorphic film still, natural photographic grain, shallow depth of field, cinematic, no text, no watermark, no logo",
-  "note": "11 distinct scenes deduped from 13 existing files (stoop and club each existed as near-duplicate variants). Each still is regenerated natively at 21:9 4K using the existing frame as an image reference, so cast and wardrobe carry over while the frame is composed for the wide ratio rather than extended into it.",
+  "canon": "Borough Park, Brooklyn, summer 1986. Marc is seventeen, sensitive, dreaming of acting at NYU, and gets pulled from petty mischief into the club-and-crime world of older dealers. Feature. NRC lead, (212) co-production. Live CMS canon, 2026-07-14.",
+  "look": "Documentary realism on heavy 35mm grain. The lighting law, from the canon: two worlds with two kinds of light. THE BLOCK is daylight — natural, warm, unstyled, sun doing the work. THE CLUBS are after dark — the only light in frame is the room's own. A frame belongs to one world or the other; it never borrows the other's light.",
+  "note": "Eleven scenes deduped from thirteen existing stills. Every shot is generated natively at 21:9 4K rather than outpainted into it — the extend path failed on exactly the frames that carried source defects (night-street's left bar, aftermath-block's baked-in pillarbox, the hero's sparkle watermark). Prompts are written to the Limelight standard: name the real place, state the light logic explicitly, describe the world rather than instructing the model to copy a picture. Refs carry cast and wardrobe ONLY; the prompt owns the composition. CAST CONTINUITY WARNING: the existing stills do not share one Marc — the hero portrait, the stoop boy, the boy under the El and the first-love boy are four different faces. Each shot below refs its own still, which preserves the status quo and no more. Picking a canonical Marc is Marco's call.",
   "stills": [
     {
       "slug": "hero-portrait",
       "refs": [
         "hero_a_need_grows_in_brooklyn_01.png"
       ],
-      "prompt": "Recompose this exact subject as a wide anamorphic cinematic frame. Black and white 35mm portrait of the same teenage boy, dark hair, open collar over a worn jacket, direct unguarded gaze into the lens. Keep his face identical. Place him off-centre; let the Brooklyn street fall away behind him into shallow-focus bokeh, parked sedans and brick facades. Monochrome only, no colour anywhere in the frame. Natural film grain, high contrast, cinematic. No text, no watermark, no logo, no sparkle."
+      "notes": "The source frame carries a Gemini sparkle watermark at bottom right. It must not survive into the regeneration. Use the reference for the boy's face and wardrobe only — nothing else in it is canon.",
+      "prompt": "Black and white 35mm portrait of Marc, seventeen, on his own block in Borough Park, Brooklyn, in the summer of 1986. A sensitive kid who wants to act, photographed straight on, close, his gaze direct and unguarded into the lens — a face that has not yet decided anything. Dark hair, open collar over a worn denim jacket, a t-shirt gone soft with washing. He stands in the middle of 44th Street on a bright summer afternoon; the block falls away behind him into shallow-focus bokeh — parked American sedans nose to tail along the curb, brick and limestone rowhouses, fire escapes, a corner awning. Daylight world: hard summer sun overhead, natural contrast, no styling, no fill. Monochrome only, silver-gelatin tonality, deep blacks and blown highlights. Wide anamorphic composition, place him off centre and let the street run out to the far edge. 35mm film still, heavy natural grain, cinematic. No text, no watermark, no sparkle, no logo."
     },
     {
       "slug": "stoop-italian-ice",
       "refs": [
-        "01-angib-01-stoop.jpg"
+        "01-angib-01-stoop-k2a.png"
       ],
-      "prompt": "Recompose this exact scene as a wide anamorphic cinematic frame. Two teenagers in 1985 Brooklyn sitting on a brownstone stoop sharing an Italian ice, the boy in a white Clash t-shirt with dark curly hair, the girl with teased blonde hair, a denim vest and neon jelly bracelets. Keep their faces, wardrobe and the intimate moment identical. Shot from inside the stoop looking out, dark sandstone banister walls framing both edges of the frame, parked 1980s sedans along the curb, chain link fence and street beyond. Warm late afternoon sunlight, 35mm anamorphic film still, natural grain, cinematic. No text, no watermark."
+      "notes": "Reference is for the two kids' faces, hair and wardrobe only. Build the frame fresh: the camera sits up inside the stoop looking out at the street, the sandstone banisters framing both edges.",
+      "prompt": "Two seventeen-year-olds sitting on a brownstone stoop on 44th Street, Borough Park, Brooklyn, late afternoon in the summer of 1986, sharing a paper cup of Italian ice with a flat wooden spoon between them. The boy has dark curly hair and a washed-out Clash t-shirt; the girl has teased blonde hair, a denim vest over a tank top, neon jelly bracelets stacked on both wrists. They are turned toward each other, absorbed, the whole block irrelevant to them. Camera is up inside the stoop looking out, so the carved sandstone banisters rise as dark masses framing the left and right edges of the frame and the street sits bright between them. Beyond: parked 1980s American sedans along the curb, chain link, the low brick of the block opposite. Daylight world — warm low sun coming down the street, natural summer light doing all the work, no fill, deep shadow inside the stoop and blown highlight out on the asphalt. Wide anamorphic composition, 35mm film still, heavy natural grain, shallow depth of field, cinematic. No text, no watermark."
     },
     {
       "slug": "limelight-club",
-      "refs": [
-        "01-angib-02-club.jpg"
-      ],
-      "prompt": "Recompose this exact scene as a wide anamorphic cinematic frame. Interior of a deconsecrated gothic stone church converted into a 1985 Manhattan nightclub. Soaring carved stone arches and a huge stained glass rose window above a packed crowd of young people in leather and denim. Coloured stage light cutting through heavy haze, velvet rope in the foreground. Keep the architecture and the crowd identical. Wide establishing composition, 35mm anamorphic film still, natural grain, cinematic. No text, no watermark."
+      "refs": [],
+      "notes": "This is the reference standard for the whole slate. It is the ledger prompt that worked, unchanged. The failure it corrects: an earlier frame lit the stained glass like DAYTIME. It is a nightclub. The glass is dark; every source of light is inside the room.",
+      "prompt": "Interior of the Limelight, New York, 1986 — the deconsecrated Gothic Revival Church of the Holy Communion in Chelsea, brownstone by Richard Upjohn, running as a nightclub. It is the middle of the night. The great stained glass rose window reads almost BLACK, unlit from outside, catching only cold blue streetlight and the odd stab of a laser; no daylight anywhere in the frame. The nave is packed with a downtown crowd in leather, denim and lace, dancing under carved stone arches and rib vaults that vanish into darkness overhead. The only light is the club's own: hard coloured beams and strobes raking through thick haze, a red wash across the crowd, a bar built along the wall where rows of liquor bottles stand against old marble crypts. Deep shadow, high contrast, hot practical highlights blowing out. Wide anamorphic composition, 35mm film still, heavy natural grain, cinematic. No text, no watermark."
     },
     {
       "slug": "club-dancefloor",
-      "refs": [
-        "angib-club.png"
-      ],
-      "prompt": "Recompose this exact scene as a wide anamorphic cinematic frame. A packed 1985 nightclub dance floor seen from behind the DJ booth, turntables and a crate of vinyl records in the immediate foreground, neon tubes in magenta and green slashing across the ceiling, dancers in denim and leather lit through thick haze. Keep the DJ booth and crowd identical. 35mm anamorphic film still, natural grain, cinematic. No text, no watermark."
+      "refs": [],
+      "notes": "Night world. Nothing in this frame is lit from outside the room.",
+      "prompt": "A packed nightclub dance floor in 1986, seen from behind the DJ booth looking out over the crowd. In the immediate foreground, close and slightly out of focus: two turntables, a mixer, a milk crate of vinyl, a hand on a record. Beyond them the floor is jammed with kids in denim, leather and lace, arms up, caught mid-beat. It is the middle of the night and the room is sealed — no window, no daylight, no exterior light of any kind. The only light is the club's own: neon tubes in magenta and green slashing across the ceiling, hard beams cutting through thick haze, a strobe catching bodies in fragments, hot practical highlights blowing out to white against deep crushed blacks. Wide anamorphic composition, 35mm film still, heavy natural grain, shallow depth of field, cinematic. No text, no watermark."
     },
     {
       "slug": "boy-under-el",
       "refs": [
         "01-boy-under-el.png"
       ],
-      "prompt": "Recompose this exact scene as a wide anamorphic cinematic frame. A teenager in a denim jacket standing alone in the middle of a Brooklyn street at dusk, beneath the steel girders of an elevated train trestle. Keep the figure's face and wardrobe identical. Storefronts and parked sedans receding down the block, warm sodium streetlights just coming on against a deep blue sky. 35mm anamorphic film still, natural grain, shallow depth of field, cinematic. No text, no watermark."
+      "notes": "Reference for the kid's face, hair and denim only. The El here is the real one — the elevated West End line over New Utrecht Avenue, a few blocks off Marc's block.",
+      "prompt": "A seventeen-year-old boy standing alone in the middle of the street at dusk, under the elevated train trestle on New Utrecht Avenue in Borough Park, Brooklyn, summer 1986. Long hair, denim jacket over a dark t-shirt, hands loose at his sides, looking off down the avenue at something out of frame — stranded, unhurried, seventeen. Above and behind him the steel girders and rivets of the El carry the track across the whole width of the frame. The avenue runs away behind him: storefronts with steel shutters half down, awnings, parked sedans, a long block receding into haze. Dusk world, the hinge between the two: the sky still holds cold blue light, the sodium streetlamps under the El have just come on warm orange, and the two colours meet on his face. Wide anamorphic composition, 35mm film still, heavy natural grain, shallow depth of field, cinematic. No text, no watermark."
     },
     {
       "slug": "stoop-block",
-      "refs": [
-        "02-stoop-block.png"
-      ],
-      "prompt": "Recompose this exact scene as a wide anamorphic cinematic frame. A 1985 Brooklyn block on a summer afternoon: neighbours of all ages sitting out on a brick brownstone stoop, leaning on the iron railing, talking across the sidewalk. Big American sedans parked nose to tail along the curb. Keep the people and the building identical. Bright natural daylight, 35mm anamorphic film still, natural grain, cinematic. No text, no watermark."
+      "refs": [],
+      "notes": "Daylight world. The block is the character — this is the establishing frame that says so.",
+      "prompt": "A Borough Park block on a hot summer afternoon in 1986: 44th Street, brick and limestone rowhouses shoulder to shoulder, and the whole block sitting out on the stoops. Neighbours of every age — old men in undershirts on folding chairs, women leaning on the iron railing talking across the sidewalk, kids on the steps, someone with a transistor radio. Big American sedans parked nose to tail down the curb, a fire hydrant, a sycamore throwing a broken shadow across the sidewalk. Nobody is posed and nobody is looking at the camera; it is an ordinary afternoon. Daylight world — high hard summer sun, natural contrast, blown sidewalk and deep doorway shadow, no fill light anywhere. Wide anamorphic composition, the block running out to both edges of the frame. 35mm film still, heavy natural grain, documentary realism, cinematic. No text, no watermark."
     },
     {
       "slug": "pizzeria-ninos",
-      "refs": [
-        "04-pizzaria-ninos.png"
-      ],
-      "prompt": "Recompose this exact scene as a wide anamorphic cinematic frame. A corner pizzeria in 1985 Brooklyn at blue hour, its windows glowing warm amber onto a wet sidewalk, a few figures inside and passers-by on the corner. Parked sedans along the curb, brick tenements above, deep blue dusk sky. Keep the storefront identical. 35mm anamorphic film still, natural grain, cinematic. No text, no watermark, no sparkle."
+      "refs": [],
+      "notes": "Nino's on Fort Hamilton Parkway is named in the canon. Blue hour is the one time the two worlds are allowed in the same frame: cold dusk outside, the shop's own warm light inside.",
+      "prompt": "Nino's, a corner pizzeria on Fort Hamilton Parkway in Borough Park, Brooklyn, at blue hour in the summer of 1986. Neon in the window, a lit sign over the door, the plate glass throwing a slab of warm amber light out across a wet sidewalk. Inside, seen through the glass: the counter, the ovens, a couple of figures leaning at a formica table, the flat bright glare of fluorescent tube light. Outside it is nearly night — deep blue sky over the rooflines, brick tenements above the shop, parked sedans along the curb, a payphone, the street already gone cold and dark. The shop's own light is the only warm thing in the frame. Wide anamorphic composition, 35mm film still, heavy natural grain, cinematic. No text, no watermark, no sparkle."
     },
     {
       "slug": "night-street",
-      "refs": [
-        "05-night-street.png"
-      ],
-      "prompt": "Recompose this exact scene as a wide anamorphic cinematic frame. A deserted Brooklyn street at night beneath an elevated train trestle, wet asphalt reflecting amber sodium streetlights, brick warehouses on both sides, fog hanging in the air, a single car far down the block. No people. Keep the street identical. 35mm anamorphic film still, natural grain, cinematic. No text, no watermark."
+      "refs": [],
+      "notes": "REGENERATED, not extended — the outpaint invented a receding fog-lit street against the brick and left a hard vertical seam on the left edge. There are no people in this frame. Sodium light only.",
+      "prompt": "A deserted Brooklyn street in the middle of the night, summer 1986, running under the steel of the elevated train trestle. The asphalt is wet and throws the streetlights back up in long amber smears. Brick warehouses and shuttered storefronts stand on both sides — steel roll-down gates, fire escapes, a faded painted advertisement high on a wall. Fog hangs under the El, and one car sits parked far down the block, small. Nobody is in the frame. Night world: the only light is sodium vapour streetlamp — hot amber pools directly under each lamp and near-black between them, the trestle overhead reading as pure silhouette. High contrast, deep crushed shadow. Wide anamorphic composition, the street running out to both edges. 35mm film still, heavy natural grain, cinematic. No text, no watermark."
     },
     {
       "slug": "first-love",
       "refs": [
         "07-first-love.png"
       ],
-      "prompt": "Recompose this exact scene as a wide anamorphic cinematic frame. A teenage couple sitting close together on a brownstone stoop at night, the boy in a denim jacket, the girl leaning into him, both laughing. Keep their faces and wardrobe identical. Carved stone banister, wet street and parked cars behind them, warm lit windows above, soft streetlight glow. 35mm anamorphic film still, natural grain, shallow depth of field, cinematic. No text, no watermark."
+      "notes": "Reference for the two faces, hair and wardrobe only. The canon kills her later; this frame must not know that yet — it is the warmest thing in the film.",
+      "prompt": "A teenage couple sitting close together on a brownstone stoop at night, Borough Park, Brooklyn, summer 1986. She has dark permed hair and is leaning into him, sharing one earbud of a Walkman; he wears a denim jacket over a white t-shirt, hair back off his face. Both of them are laughing at something small. They take up one side of the frame, low, and the stoop's carved stone banister runs beside them. Behind: the wet street, parked sedans, a row of stoops receding down the block, and warm lit windows in the rowhouses above. Night world, but the domestic kind, not the club's — warm sodium streetlight from off frame, spill from a window above, soft and low and unglamorous. Wide anamorphic composition, 35mm film still, heavy natural grain, shallow depth of field, cinematic. No text, no watermark."
     },
     {
       "slug": "aftermath-block",
-      "refs": [
-        "08-aftermath-block.png"
-      ],
-      "prompt": "Recompose this exact scene as a wide anamorphic cinematic frame. A derelict Brooklyn street the morning after, strewn with debris and toppled oil drums, an elevated train trestle overhead, boarded and burnt-out brick buildings receding down the block. No people. Cold overcast blue light, desaturated. Keep the street identical. 35mm anamorphic film still, natural grain, cinematic. No text, no watermark."
+      "refs": [],
+      "notes": "REGENERATED, not extended — the source still had black pillarbox bars baked into its own left and right edges, so the outpaint extended from black and left black gutters. Build the frame full-bleed, edge to edge. No black bars anywhere. No people.",
+      "prompt": "A Brooklyn street the morning after, summer 1986, under the elevated train trestle. The block is wrecked and abandoned: debris strewn across the asphalt, a toppled oil drum, a bicycle down on its side, broken glass glittering across the roadway, police tape strung slack between a signpost and a lamppost. Burnt-out and boarded brick buildings recede down the block, steel shutters buckled, a traffic light still cycling to nobody. Not one person in the frame. Cold overcast dawn — flat grey light with no sun in it, desaturated to almost nothing, the blue of early morning in the shadows. The picture fills the frame completely, edge to edge, corner to corner. Wide anamorphic composition, 35mm film still, heavy natural grain, cinematic. No text, no watermark, no black bars, no letterbox, no border."
     },
     {
       "slug": "street-dusk-walk",
-      "refs": [
-        "angib.jpg"
-      ],
-      "prompt": "Recompose this exact scene as a wide anamorphic cinematic frame. A lone figure walking away down the middle of a Brooklyn residential block at sunset, seen from behind. Bicycles chained to a signpost in the foreground, a corner grocery storefront, brownstone stoops and parked sedans lining the street, an elevated train bridge crossing the far end of the block. Keep the street and the walking figure identical. Warm golden low sun, 35mm anamorphic film still, natural grain, cinematic. No text, no watermark."
+      "refs": [],
+      "notes": "Seen from behind — no face, so no cast ref needed. This is the last frame of the film's grammar: the block, and a kid walking into it.",
+      "prompt": "A lone teenage figure walking away from camera down the middle of a Borough Park residential block at sunset, summer 1986, seen from behind — denim jacket, a bag hooked over one shoulder, unhurried. In the foreground, close: two bicycles chained to a signpost and a fire hydrant, rust on the chrome. The block runs away ahead of him — brownstone stoops, brick rowhouses, parked American sedans nose to tail, a corner grocery with a hand-painted awning, and at the far end the elevated train bridge crossing the street with a train just going over it. Daylight world at its last hour: low golden sun straight down the axis of the street, long shadows reaching back toward camera, warm haze, the sky burning out behind the El. Wide anamorphic composition. 35mm film still, heavy natural grain, cinematic. No text, no watermark."
     }
   ]
 }

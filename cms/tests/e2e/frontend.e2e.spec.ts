@@ -1,20 +1,27 @@
-import { test, expect, Page } from '@playwright/test'
+import { test, expect } from '@playwright/test'
 
-test.describe('Frontend', () => {
-  let page: Page
-
-  test.beforeAll(async ({ browser }, testInfo) => {
-    const context = await browser.newContext()
-    page = await context.newPage()
+/**
+ * CMS smoke test (v12, 2026-07-13). Replaces the Payload scaffold boilerplate,
+ * which asserted "Payload Blank Template" and had failed since the root page
+ * was renamed. This asserts what the CMS actually is: the internal debug
+ * surface at /, the admin at /admin, and a live REST API.
+ */
+test.describe('CMS', () => {
+  test('root debug surface is up and named', async ({ page }) => {
+    await page.goto('http://localhost:3000')
+    await expect(page).toHaveTitle(/APR 70 CMS/)
+    await expect(page.locator('h1').first()).toContainText('APR 70 CMS')
   })
 
-  test('can go on homepage', async ({ page }) => {
-    await page.goto('http://localhost:3000')
+  test('admin panel responds', async ({ page }) => {
+    const res = await page.goto('http://localhost:3000/admin')
+    expect(res?.status()).toBeLessThan(400)
+  })
 
-    await expect(page).toHaveTitle(/Payload Blank Template/)
-
-    const heading = page.locator('h1').first()
-
-    await expect(heading).toHaveText('Welcome to your new project.')
+  test('REST API serves the site settings', async ({ request }) => {
+    const res = await request.get('http://localhost:3000/api/globals/site-settings')
+    expect(res.status()).toBe(200)
+    const body = await res.json()
+    expect(body).toHaveProperty('brandKit')
   })
 })

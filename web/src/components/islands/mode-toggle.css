@@ -11,6 +11,10 @@
   padding: 0.3rem;
   margin-left: 0.35rem;
   line-height: 0;
+  /* The nav rows up on `baseline`, and an svg-only button with line-height 0
+     has a degenerate baseline, so the icon rode high of the links
+     (Marco 2026-07-13, v12). Centre it against the row instead. */
+  align-self: center;
   color: var(--fg-3);
   cursor: pointer;
   border-radius: 0;

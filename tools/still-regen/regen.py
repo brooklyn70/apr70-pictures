@@ -89,6 +89,11 @@ def upload(path, token):
     return res["data"]["downloadUrl"]
 
 
+def fetch(url, dest):
+    """Download a result image. The CDN 403s urllib's default user-agent."""
+    subprocess.run(["curl", "-sS", "-fL", "-o", dest, url], check=True)
+
+
 def generate(token, prompt, refs):
     payload = {"model": MODEL, "input": {
         "prompt": prompt, "image_input": refs,
@@ -174,7 +179,11 @@ def cmd_run(args):
             except RuntimeError as e:
                 print(f"  x {s['slug']} v{v}: {e}")
                 continue
-            urllib.request.urlretrieve(url, out)
+
+            # Log BEFORE downloading. The credit is already spent and the prompt
+            # already produced an image the moment generate() returns -- if the
+            # download then fails, losing the prompt is the exact failure this
+            # ledger exists to prevent.
             log({
                 "ts": time.strftime("%Y-%m-%dT%H:%M:%S"),
                 "property": args.property, "slug": s["slug"], "variant": v,
@@ -183,7 +192,13 @@ def cmd_run(args):
                 "task_id": tid, "source_url": url, "output": out,
                 "credits": CREDITS_PER_IMAGE,
             })
-            print(f"  + {os.path.basename(out)}")
+
+            try:
+                fetch(url, out)
+                print(f"  + {os.path.basename(out)}")
+            except Exception as e:
+                print(f"  ! {s['slug']} v{v} generated but download failed ({e})")
+                print(f"    prompt + url are in the ledger: {url}")
 
     print(f"\ncredits remaining: {credits(token):.0f}")
     print(f"prompts logged to: {LEDGER}")

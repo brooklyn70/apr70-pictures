@@ -630,14 +630,17 @@ $('#mkvid').onclick = () => {
   })
 }
 
-post('/api/kie-status', {}).then((r) => {
+function paintKie(r) {
   KIE = r
-  $('#kie').innerHTML = r.ready
-    ? `<b>${Math.round(r.credits)}</b> credits · ${r.imageModel}`
-    : 'offline — no KIE key'
-  $('#pkie').innerHTML = r.ready ? `<b>${Math.round(r.credits)}</b> credits · ${r.imageModel}` : 'offline — no KIE key'
+  const s = r.ready ? `<b>${Math.round(r.credits)}</b> credits · ${r.imageModel}` : 'offline — no KIE key'
+  $('#kie').innerHTML = s
+  $('#pkie').innerHTML = s
   if (!r.ready) { $('#regen').disabled = true; $('#mkvid').disabled = true }
-})
+  // the sheet may have rendered before the status arrived
+  document.querySelectorAll('.shot-ed .gen').forEach((b) => (b.disabled = !r.ready))
+  if (PROP) paintPSide()
+}
+post('/api/kie-status', {}).then(paintKie)
 
 // ── verdicts, nav, keys ───────────────────────────────────────────────────────
 const setVerdict = (v) => {
@@ -757,12 +760,18 @@ async function pickProp(id) {
   const r = await post('/api/spec', { prop: id })
   if (r.error) { $('#pbar').textContent = r.error; return }
   PROP = id; SPEC = r.spec; PSTILLS = r.stills; PREGEN = r.regen; PDIR = r.dir
+  // a hand-edited spec without a stills array must not brick the sheet
+  if (SPEC && !Array.isArray(SPEC.stills)) SPEC.stills = []
   drawProps(); drawSheet(); paintPSide()
 }
 
 // ── the sheet ──
 
-const variantsOf = (slug) => PREGEN.filter((f) => f.startsWith(slug + '-v'))
+// Anchored: a bare prefix test made "barn" claim barn-view's renders.
+const variantsOf = (slug) => {
+  const re = new RegExp(`^${slug}-v\\d+\\.png$`)
+  return PREGEN.filter((f) => re.test(f))
+}
 const refPath = (r) => (r.startsWith('/') ? r : `${PDIR}/${r}`)
 
 function drawSheet() {
@@ -781,22 +790,25 @@ function drawSheet() {
     return
   }
 
-  $('#sheet').innerHTML = SPEC.stills.map((s, i) => `
+  $('#sheet').innerHTML = SPEC.stills.map((s, i) => {
+    const made = variantsOf(s.slug).length
+    return `
     <div class="shot-ed" data-i="${i}">
       <div class="shot-hd">
         <span class="shot-ix">${String(i + 1).padStart(2, '0')}</span>
         <input class="slug" value="${esc(s.slug)}" spellcheck="false">
         <div class="spacer"></div>
-        <span class="made">${variantsOf(s.slug).length ? variantsOf(s.slug).length + ' made' : ''}</span>
+        <span class="made">${made ? made + ' made' : ''}</span>
         <button class="ghost rm">remove</button>
-        <button class="go alt sm gen">Generate</button>
+        <button class="go alt sm gen" ${KIE?.ready ? '' : 'disabled'}>Generate</button>
       </div>
       <textarea class="p" rows="4" placeholder="What is this shot? Write the frame you want, fresh, for a wide anamorphic composition."></textarea>
       <textarea class="n" rows="2" placeholder="What was wrong with the last one? Corrections ride along with the prompt."></textarea>
       <div class="refs" data-refs="${i}"></div>
       <div class="refpick" data-pick="${i}"></div>
       <div class="strip" data-strip="${i}"></div>
-    </div>`).join('')
+    </div>`
+  }).join('')
 
   SPEC.stills.forEach((s, i) => {
     const ed = $(`#sheet .shot-ed[data-i="${i}"]`)
@@ -874,16 +886,11 @@ function paintPSide() {
     ${PROP}<br>${p?.stills ?? 0} stills on disk · ${PREGEN.length} generated<br>
     ${SPEC?.stills.length ?? 0} shots planned · ${ready} with prompts`
   $('#plook').value = SPEC?.look ?? ''
-  $('#genall').disabled = !ready || GENALL
-  paintCost()
-}
-
-function paintCost() {
-  const ready = SPEC?.stills.filter((s) => s.prompt?.trim()).length ?? 0
+  $('#genall').disabled = !ready || GENALL || !KIE?.ready
   const v = Number($('#pvars').value)
   $('#pcost').textContent = ready ? `≈ ${ready * v * COST} cr / property` : '—'
 }
-$('#pvars').onchange = paintCost
+$('#pvars').onchange = paintPSide
 $('#plook').oninput = () => { if (SPEC) { SPEC.look = $('#plook').value; saveSpec() } }
 
 $('#addshot').onclick = () => {
@@ -897,13 +904,15 @@ $('#addshot').onclick = () => {
 }
 
 let specT
+async function saveSpecNow() {
+  clearTimeout(specT)
+  if (!PROP || !SPEC) return
+  const r = await post('/api/spec-save', { prop: PROP, spec: SPEC })
+  if (r.error) plog(`! spec not saved: ${r.error}`)
+}
 function saveSpec() {
   clearTimeout(specT)
-  specT = setTimeout(async () => {
-    if (!PROP || !SPEC) return
-    const r = await post('/api/spec-save', { prop: PROP, spec: SPEC })
-    if (r.error) plog(`! spec not saved: ${r.error}`)
-  }, 500)
+  specT = setTimeout(saveSpecNow, 500)
 }
 
 function plog(m) {
@@ -914,8 +923,10 @@ function plog(m) {
 
 // ── generation — one credit spend per call, ledger first, nothing overwritten ──
 
-async function genOne(slug) {
-  const r = await post('/api/shot-generate', { prop: PROP, slug })
+// The shot rides along in the request: the spec on disk can be a debounce
+// behind the textarea, and 24 credits must not be spent on a stale prompt.
+async function genOne(s) {
+  const r = await post('/api/shot-generate', { prop: PROP, slug: s.slug, shot: s })
   if (r.error) throw new Error(r.error)
   PREGEN.push(r.name)
   plog(`+ ${r.name}  ${r.w}×${r.h}`)
@@ -927,9 +938,10 @@ async function genShot(i, btn) {
   if (!s.prompt?.trim()) return alert('Write the prompt first.')
   const v = Number($('#pvars').value)
   await busy(btn, 'Generating…', async () => {
+    await saveSpecNow()
     for (let k = 1; k <= v; k++) {
       btn.textContent = `Generating ${k} / ${v}…`
-      await genOne(s.slug)
+      await genOne(s)
       drawStrip(i)
     }
   })
@@ -943,6 +955,7 @@ $('#genall').onclick = async () => {
   if (!jobs.length) return
   GENALL = true
   const btn = $('#genall')
+  await saveSpecNow()
   plog(`— generating ${jobs.length} shots × ${v} variants (~${jobs.length * v * COST} credits) —`)
   let made = 0
   for (const { s, i } of jobs) {
@@ -950,7 +963,7 @@ $('#genall').onclick = async () => {
       if (!GENALL) break
       btn.textContent = `${s.slug} · ${k}/${v} — press to stop`
       try {
-        await genOne(s.slug)
+        await genOne(s)
         made++; drawStrip(i)
       } catch (e) {
         plog(`x ${s.slug}: ${e.message}`)
@@ -968,8 +981,7 @@ async function refreshAfterGen() {
   const p = PROPS.find((x) => x.id === PROP)
   if (p) p.generated = PREGEN.length
   drawProps(); paintPSide()
-  const r = await post('/api/kie-status', {})
-  if (r.ready) { KIE = r; $('#pkie').innerHTML = `<b>${Math.round(r.credits)}</b> credits` }
+  paintKie(await post('/api/kie-status', {}))
 }
 
 $('#apply').onclick = async () => {

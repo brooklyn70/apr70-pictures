@@ -187,11 +187,21 @@ const download = (url, dest) =>
 const SHARED = '/Volumes/SharedData'
 const SPECS = path.join(__dir, '..', 'still-regen', 'specs')
 // On SharedData but not on the slate: the universe folder is a setting, not a
-// property, and holding is a parking lot. (11-07 is retired — Falcon is Da
-// Hook's source text, see docs/decisions/2026-07-14-property-identities-*.)
-const NOT_PROPERTIES = new Set(['11-06-la-dolce-vita-universe', '11-99-holding'])
+// property, and holding is a parking lot. 11-07 is retired — Falcon is Da
+// Hook's source text (docs/decisions/2026-07-14-property-identities-*) — and
+// listed here so a restore-from-backup can't put it back on the slate.
+const NOT_PROPERTIES = new Set([
+  '11-06-la-dolce-vita-universe',
+  '11-07-maltese-falcon',
+  '11-99-holding',
+])
 
-const stillsDirOf = (prop) => path.join(SHARED, prop, '02-stills')
+const validProp = (prop) => {
+  if (!/^11-\d{2}-[a-z0-9-]+$/.test(prop)) throw new Error(`not a property id: ${prop}`)
+  return prop
+}
+
+const stillsDirOf = (prop) => path.join(SHARED, validProp(prop), '02-stills')
 
 const listImages = (dir) => {
   try {
@@ -201,10 +211,7 @@ const listImages = (dir) => {
   }
 }
 
-const specPathOf = (prop) => {
-  if (!/^11-\d{2}-[a-z0-9-]+$/.test(prop)) throw new Error(`not a property id: ${prop}`)
-  return path.join(SPECS, `${prop}.json`)
-}
+const specPathOf = (prop) => path.join(SPECS, `${validProp(prop)}.json`)
 
 const readSpec = (prop) => {
   try {
@@ -212,6 +219,49 @@ const readSpec = (prop) => {
   } catch {
     return null
   }
+}
+
+/** One wide master, start to finish: compose the prompt, upload the refs, run
+ *  the model, ledger, download. Shared by /api/regen (Frames tab) and
+ *  /api/shot-generate (Prompts tab) so prompt assembly and the ledger can
+ *  never drift between the two.
+ *
+ *  The output name is reserved on disk BEFORE the model runs: picking the
+ *  v-number at download time let two concurrent generations of the same shot
+ *  choose the same name and silently overwrite each other. A missing ref is an
+ *  error, not a shrug — generating without it would spend the credits and lose
+ *  the cast/wardrobe continuity the ref exists to carry. */
+async function makeWideMaster({ token, prompt, notes, refFiles, outDir, base, ratio = '21:9', resolution = '4K', ledger }) {
+  const full = notes?.trim() ? `${prompt.trim()}\n\nCorrections that matter: ${notes.trim()}` : prompt.trim()
+  const refs = []
+  for (const p of refFiles) {
+    if (!fs.existsSync(p)) throw new Error(`reference not found: ${p}`)
+    refs.push(await kieUpload(p, token))
+  }
+
+  fs.mkdirSync(outDir, { recursive: true })
+  let n = 1
+  while (fs.existsSync(path.join(outDir, `${base}-v${n}.png`))) n++
+  const out = path.join(outDir, `${base}-v${n}.png`)
+  fs.writeFileSync(out, '') // reserve the name now
+
+  try {
+    const { taskId, url } = await kieRun(
+      IMAGE_MODEL,
+      { prompt: full, image_input: refs, aspect_ratio: ratio, resolution },
+      token,
+    )
+    logPrompt({ kind: 'image', model: IMAGE_MODEL, aspect_ratio: ratio, resolution,
+                prompt: full, notes: notes?.trim() || null, refs, taskId, url, output: out, ...ledger })
+    await download(url, out)
+  } catch (e) {
+    // failed before a picture landed — release the reserved name, keep the ledger line
+    try { if (fs.existsSync(out) && fs.statSync(out).size === 0) fs.unlinkSync(out) } catch {}
+    throw e
+  }
+
+  const m = await sharp(out).metadata()
+  return { out, name: path.basename(out), w: m.width, h: m.height }
 }
 
 // ── routes ────────────────────────────────────────────────────────────────────
@@ -326,29 +376,13 @@ const routes = {
     if (!prompt) throw new Error('prompt required')
 
     const src = path.join(dir, name)
-    const outDir = path.join(dir, '_regen')
-    fs.mkdirSync(outDir, { recursive: true })
-
-    const full = notes ? `${prompt}\n\nCorrections that matter: ${notes}` : prompt
-    const refs = useRef && fs.existsSync(src) ? [await kieUpload(src, token)] : []
-
-    const { taskId, url } = await kieRun(
-      IMAGE_MODEL,
-      { prompt: full, image_input: refs, aspect_ratio: ratio, resolution },
-      token,
-    )
-
-    const base = name.replace(IMG, '')
-    let n = 1
-    while (fs.existsSync(path.join(outDir, `${base}-v${n}.png`))) n++
-    const out = path.join(outDir, `${base}-v${n}.png`)
-
-    logPrompt({ kind: 'image', dir, source: name, model: IMAGE_MODEL, aspect_ratio: ratio,
-                resolution, prompt: full, notes: notes || null, refs, taskId, url, output: out })
-    await download(url, out)
-
-    const m = await sharp(out).metadata()
-    return { out, name: path.basename(out), w: m.width, h: m.height }
+    return makeWideMaster({
+      token, prompt, notes, ratio, resolution,
+      refFiles: useRef && fs.existsSync(src) ? [src] : [],
+      outDir: path.join(dir, '_regen'),
+      base: name.replace(IMG, ''),
+      ledger: { dir, source: name },
+    })
   },
 
   /** Drive a video from a chosen still. Seedance takes the still as its first frame, so the
@@ -443,53 +477,32 @@ const routes = {
     })
   },
 
-  /** Generate ONE variant of one shot from the spec. The client loops for more —
-   *  each call is one credit spend, one ledger line, one picture on disk.
+  /** Generate ONE variant of one shot. The client loops for more — each call is
+   *  one credit spend, one ledger line, one picture on disk.
    *
-   *  Nothing is overwritten: outputs land in 02-stills/_regen and the v-number
-   *  climbs past whatever is already there. Refs are named relative to the
-   *  property's stills folder, or absolute for a file picked from elsewhere;
-   *  they carry cast and wardrobe only — the prompt owns the composition. */
+   *  The client sends the shot as currently edited; the spec on disk may be a
+   *  500ms debounce behind the textarea, and generating from the stale file
+   *  would spend 24 credits on a prompt Marco already rewrote. The disk spec is
+   *  only the fallback. Refs are named relative to the property's stills
+   *  folder, or absolute for a file picked from elsewhere; they carry cast and
+   *  wardrobe only — the prompt owns the composition. */
   async 'POST /api/shot-generate'(body) {
-    const { prop, slug } = body
+    const { prop, slug, shot: sent } = body
     const token = await kieKey()
     if (!token) throw new Error('no KIE key')
-    const spec = readSpec(prop)
-    const shot = spec?.stills?.find((s) => s.slug === slug)
+    if (!/^[a-z0-9][a-z0-9-]*$/.test(slug ?? '')) throw new Error(`bad slug: "${slug}"`)
+    const shot = sent ?? readSpec(prop)?.stills?.find((s) => s.slug === slug)
     if (!shot) throw new Error(`no shot "${slug}" in ${prop}`)
     if (!shot.prompt?.trim()) throw new Error(`"${slug}" has no prompt yet`)
 
     const dir = stillsDirOf(prop)
-    const outDir = path.join(dir, '_regen')
-    fs.mkdirSync(outDir, { recursive: true })
-
-    const full = shot.notes?.trim()
-      ? `${shot.prompt.trim()}\n\nCorrections that matter: ${shot.notes.trim()}`
-      : shot.prompt.trim()
-
-    const refs = []
-    for (const r of shot.refs ?? []) {
-      const p = path.isAbsolute(r) ? r : path.join(dir, r)
-      if (fs.existsSync(p)) refs.push(await kieUpload(p, token))
-    }
-
-    const { taskId, url } = await kieRun(
-      IMAGE_MODEL,
-      { prompt: full, image_input: refs, aspect_ratio: '21:9', resolution: '4K' },
-      token,
-    )
-
-    let n = 1
-    while (fs.existsSync(path.join(outDir, `${slug}-v${n}.png`))) n++
-    const out = path.join(outDir, `${slug}-v${n}.png`)
-
-    logPrompt({ kind: 'image', property: prop, slug, dir, model: IMAGE_MODEL,
-                aspect_ratio: '21:9', resolution: '4K', prompt: full,
-                notes: shot.notes || null, refs, taskId, url, output: out })
-    await download(url, out)
-
-    const m = await sharp(out).metadata()
-    return { out, name: path.basename(out), w: m.width, h: m.height }
+    return makeWideMaster({
+      token, prompt: shot.prompt, notes: shot.notes,
+      refFiles: (shot.refs ?? []).map((r) => (path.isAbsolute(r) ? r : path.join(dir, r))),
+      outDir: path.join(dir, '_regen'),
+      base: slug,
+      ledger: { property: prop, slug, dir },
+    })
   },
 
   async 'POST /api/save-state'(body) {

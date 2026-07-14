@@ -34,7 +34,9 @@ LEDGER = os.path.join(LEDGER_DIR, "prompts.jsonl")
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SPECS = os.path.join(ROOT, "specs")
 
-OUT_SUBDIR = "4k-21x9"        # new folder inside each property's 02-stills/
+OUT_SUBDIR = "_regen"         # same folder Crop Studio's Prompt tab writes to, so the
+                              # exists-skip dedup and `crop` see BOTH tools' masters.
+                              # (4k-21x9/ holds the 2026-07-14 over-anchored throwaways.)
 MODEL = "nano-banana-pro"
 ASPECT = "21:9"
 RESOLUTION = "4K"
@@ -130,26 +132,36 @@ def outdir(prop):
     return os.path.join(SHARED, prop, "02-stills", OUT_SUBDIR)
 
 
+def planned(spec):
+    """Only shots that have a prompt. The Prompt tab persists placeholders with
+    prompt:'' while Marco drafts a list; sending an empty prompt to the model
+    would spend 24 credits on a blank guess."""
+    return [s for s in spec["stills"] if s.get("prompt", "").strip()]
+
+
 def cmd_plan(args):
     spec = load_spec(args.property)
-    n = len(spec["stills"]) * args.variants
+    shots = planned(spec)
+    n = len(shots) * args.variants
     print(f"property : {args.property}")
     print(f"model    : {MODEL} @ {ASPECT} {RESOLUTION}")
     print(f"output   : {outdir(args.property)}/   (new -- nothing overwritten)")
     print(f"ledger   : {LEDGER}")
-    print(f"stills   : {len(spec['stills'])} x {args.variants} variant(s) = {n} images")
+    print(f"stills   : {len(shots)} x {args.variants} variant(s) = {n} images"
+          + (f"   ({len(spec['stills']) - len(shots)} without prompts, skipped)" if len(shots) < len(spec["stills"]) else ""))
     print(f"cost     : {n * CREDITS_PER_IMAGE} credits")
     print()
-    for s in spec["stills"]:
+    for s in shots:
         refs = ", ".join(s.get("refs", [])) or "(no ref)"
         print(f"  {s['slug']:<34} refs: {refs}")
 
 
 def cmd_run(args):
     spec = load_spec(args.property)
+    shots = planned(spec)
     token = key()
     have = credits(token)
-    need = len(spec["stills"]) * args.variants * CREDITS_PER_IMAGE
+    need = len(shots) * args.variants * CREDITS_PER_IMAGE
     print(f"credits: {have:.0f} available, ~{need} needed")
     if need > have:
         sys.exit(f"ABORT: short {need - have:.0f} credits. Top up before running.")
@@ -158,7 +170,7 @@ def cmd_run(args):
     os.makedirs(dest, exist_ok=True)
     ref_cache = {}
 
-    for s in spec["stills"]:
+    for s in shots:
         refs = []
         for r in s.get("refs", []):
             src = os.path.join(SHARED, args.property, "02-stills", r)

@@ -1,0 +1,46 @@
+# Proof run: both side-bars of 01-angib-01-stoop, strip-based.
+# Each strip is 944x1696 (1.60MP) instead of the full 5.75MP frame.
+output_prefix: outputs/strip
+
+foreach:
+  - id: 01-angib-01-stoop-left
+    asset: $asset.strip-01-angib-01-stoop-left.png
+    pad_left: 432
+    pad_right: 0
+  - id: 01-angib-01-stoop-right
+    asset: $asset.strip-01-angib-01-stoop-right.png
+    pad_left: 0
+    pad_right: 432
+
+pipeline:
+  - fragment: flux_outpaint
+    alias: bar
+    inputs:
+      pad_image_for_outpainting_image: $item.asset
+    params:
+      load_diffusion_model_unet_name: flux1-fill-dev-Q8_0.gguf
+      load_clip_dual_clip_name1: clip_l.safetensors
+      load_clip_dual_clip_name2: t5xxl_fp8_e4m3fn.safetensors
+      load_vae_vae_name: ae.safetensors
+
+      pad_image_for_outpainting_left: $item.pad_left
+      pad_image_for_outpainting_right: $item.pad_right
+      pad_image_for_outpainting_top: 0
+      pad_image_for_outpainting_bottom: 0
+      pad_image_for_outpainting_feathering: 24
+
+      clip_text_encode_positive_prompt_text: >-
+        1980s Brooklyn brownstone stoop, weathered dark sandstone banister wall,
+        parked cars along the curb and a chain link fence across the street,
+        warm late afternoon sunlight, 35mm color film still, natural
+        photographic grain, cinematic
+
+      fluxguidance_guidance: 30
+      differential_diffusion_strength: 1
+      inpaintmodelconditioning_noise_mask: false
+      ksampler_seed: 70212310
+      ksampler_steps: 20
+      ksampler_cfg: 1
+      ksampler_sampler_name: euler
+      ksampler_scheduler: normal
+      ksampler_denoise: 1

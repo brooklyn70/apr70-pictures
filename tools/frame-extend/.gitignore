@@ -1,0 +1,18 @@
+# Source lives in fragments/, blueprints/*.yaml, strips.py and comfy.yaml.
+# Everything below is a build artifact or a large binary -- keep it out of git,
+# or the stop-hook auto-commit sweeps tens of MB of stills into the repo.
+
+# Source stills, generated context strips, KIE upload payloads
+assets/
+
+# Painted bars and composited frames
+outputs/
+
+# Machine-owned: asset push lock + run journal
+.comfy/
+
+# Compiled by `comfy workflow compose` from the blueprint
+blueprints/*.compiled.json
+
+# Written by `strips.py prep`
+plan.json

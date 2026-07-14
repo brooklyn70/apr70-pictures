@@ -1,0 +1,88 @@
+# Full batch: 18 side-bars across the 9 pending extend jobs.
+# Strip-based -- each generation is ~1.0-1.6MP instead of the 4.5-5.75MP full frame.
+# Prompts are per-frame; the bar continues the scene it sits beside.
+output_prefix: outputs/strip
+
+foreach:
+  # --- 01-angib-01-stoop-k2a: teens on a brownstone stoop, warm afternoon ---
+  - {id: 01-angib-01-stoop-k2a-left,  asset: $asset.strip-01-angib-01-stoop-k2a-left.png,  pad_left: 432, pad_right: 0,
+     prompt: "1980s Brooklyn brownstone stoop, weathered dark sandstone banister wall, parked cars along the curb, chain link fence across the street, warm late afternoon sunlight, 35mm color film still, natural grain"}
+  - {id: 01-angib-01-stoop-k2a-right, asset: $asset.strip-01-angib-01-stoop-k2a-right.png, pad_left: 0, pad_right: 432,
+     prompt: "1980s Brooklyn brownstone stoop, weathered dark sandstone banister wall, parked cars along the curb, chain link fence across the street, warm late afternoon sunlight, 35mm color film still, natural grain"}
+
+  # --- 01-angib-01-stoop: same scene, cooler grade ---
+  - {id: 01-angib-01-stoop-left,  asset: $asset.strip-01-angib-01-stoop-left.png,  pad_left: 432, pad_right: 0,
+     prompt: "1980s Brooklyn brownstone stoop, weathered dark sandstone banister wall, parked cars along the curb, chain link fence across the street, warm late afternoon sunlight, 35mm color film still, natural grain"}
+  - {id: 01-angib-01-stoop-right, asset: $asset.strip-01-angib-01-stoop-right.png, pad_left: 0, pad_right: 432,
+     prompt: "1980s Brooklyn brownstone stoop, weathered dark sandstone banister wall, parked cars along the curb, chain link fence across the street, warm late afternoon sunlight, 35mm color film still, natural grain"}
+
+  # --- 01-angib-02-club: gothic church turned nightclub ---
+  - {id: 01-angib-02-club-left,  asset: $asset.strip-01-angib-02-club-left.png,  pad_left: 432, pad_right: 0,
+     prompt: "interior of a gothic stone church converted into a 1980s nightclub, carved stone arches and pillars, stained glass, crowd dancing in colored stage light, haze, cinematic film still"}
+  - {id: 01-angib-02-club-right, asset: $asset.strip-01-angib-02-club-right.png, pad_left: 0, pad_right: 432,
+     prompt: "interior of a gothic stone church converted into a 1980s nightclub, carved stone arches and pillars, stained glass, crowd dancing in colored stage light, haze, cinematic film still"}
+
+  # --- 01-boy-under-el: street under the elevated tracks at dusk ---
+  - {id: 01-boy-under-el-left,  asset: $asset.strip-01-boy-under-el-left.png,  pad_left: 160, pad_right: 0,
+     prompt: "Brooklyn street beneath an elevated train trestle at dusk, steel girders overhead, storefronts, parked cars, warm sodium streetlights, 35mm film still, natural grain"}
+  - {id: 01-boy-under-el-right, asset: $asset.strip-01-boy-under-el-right.png, pad_left: 0, pad_right: 160,
+     prompt: "Brooklyn street beneath an elevated train trestle at dusk, steel girders overhead, storefronts, parked cars, warm sodium streetlights, 35mm film still, natural grain"}
+
+  # --- 05-night-street: empty wet street at night ---
+  - {id: 05-night-street-left,  asset: $asset.strip-05-night-street-left.png,  pad_left: 160, pad_right: 0,
+     prompt: "deserted Brooklyn street at night under an elevated train trestle, wet asphalt reflecting amber sodium streetlights, brick warehouses, fog, cinematic film still"}
+  - {id: 05-night-street-right, asset: $asset.strip-05-night-street-right.png, pad_left: 0, pad_right: 160,
+     prompt: "deserted Brooklyn street at night under an elevated train trestle, wet asphalt reflecting amber sodium streetlights, brick warehouses, fog, cinematic film still"}
+
+  # --- 07-first-love: couple on a stoop at night ---
+  - {id: 07-first-love-left,  asset: $asset.strip-07-first-love-left.png,  pad_left: 160, pad_right: 0,
+     prompt: "Brooklyn brownstone stoop at night, carved stone banister, wet street, parked cars, warm lit windows, soft streetlight glow, cinematic film still, natural grain"}
+  - {id: 07-first-love-right, asset: $asset.strip-07-first-love-right.png, pad_left: 0, pad_right: 160,
+     prompt: "Brooklyn brownstone stoop at night, carved stone banister, wet street, parked cars, warm lit windows, soft streetlight glow, cinematic film still, natural grain"}
+
+  # --- 08-aftermath-block: derelict street, cool grade ---
+  - {id: 08-aftermath-block-left,  asset: $asset.strip-08-aftermath-block-left.png,  pad_left: 160, pad_right: 0,
+     prompt: "derelict Brooklyn street strewn with debris and oil drums, elevated train trestle, boarded brick buildings, overcast cold blue light, desaturated cinematic film still"}
+  - {id: 08-aftermath-block-right, asset: $asset.strip-08-aftermath-block-right.png, pad_left: 0, pad_right: 160,
+     prompt: "derelict Brooklyn street strewn with debris and oil drums, elevated train trestle, boarded brick buildings, overcast cold blue light, desaturated cinematic film still"}
+
+  # --- angib: figure walking a Brooklyn block at sunset ---
+  - {id: angib-left,  asset: $asset.strip-angib-left.png,  pad_left: 160, pad_right: 0,
+     prompt: "Brooklyn residential block at sunset, brownstone facades and stoops, parked cars along the curb, corner grocery storefront, elevated train bridge in the distance, warm golden light, 35mm film still"}
+  - {id: angib-right, asset: $asset.strip-angib-right.png, pad_left: 0, pad_right: 160,
+     prompt: "Brooklyn residential block at sunset, brownstone facades and stoops, parked cars along the curb, corner grocery storefront, elevated train bridge in the distance, warm golden light, 35mm film still"}
+
+  # --- hero_a_need_grows_in_brooklyn_01: black and white portrait ---
+  - {id: hero_a_need_grows_in_brooklyn_01-left,  asset: $asset.strip-hero_a_need_grows_in_brooklyn_01-left.png,  pad_left: 119, pad_right: 0,
+     prompt: "black and white 35mm portrait, out of focus Brooklyn street background, parked car, brick facades, shallow depth of field bokeh, monochrome film grain, no color"}
+  - {id: hero_a_need_grows_in_brooklyn_01-right, asset: $asset.strip-hero_a_need_grows_in_brooklyn_01-right.png, pad_left: 0, pad_right: 119,
+     prompt: "black and white 35mm portrait, out of focus Brooklyn street background, parked car, brick facades, shallow depth of field bokeh, monochrome film grain, no color"}
+
+pipeline:
+  - fragment: flux_outpaint
+    alias: bar
+    inputs:
+      pad_image_for_outpainting_image: $item.asset
+    params:
+      load_diffusion_model_unet_name: flux1-fill-dev-Q8_0.gguf
+      load_clip_dual_clip_name1: clip_l.safetensors
+      load_clip_dual_clip_name2: t5xxl_fp8_e4m3fn.safetensors
+      load_vae_vae_name: ae.safetensors
+
+      pad_image_for_outpainting_left: $item.pad_left
+      pad_image_for_outpainting_right: $item.pad_right
+      pad_image_for_outpainting_top: 0
+      pad_image_for_outpainting_bottom: 0
+      pad_image_for_outpainting_feathering: 24
+
+      clip_text_encode_positive_prompt_text: $item.prompt
+
+      fluxguidance_guidance: 30
+      differential_diffusion_strength: 1
+      inpaintmodelconditioning_noise_mask: false
+      ksampler_seed: 70212310
+      ksampler_steps: 20
+      ksampler_cfg: 1
+      ksampler_sampler_name: euler
+      ksampler_scheduler: normal
+      ksampler_denoise: 1

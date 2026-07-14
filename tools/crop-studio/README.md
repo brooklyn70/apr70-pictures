@@ -5,12 +5,26 @@ aspect ratio, write the results back. Nothing in it is specific to apr70 — poi
 
 ```sh
 cd tools/crop-studio
-pnpm install          # once (sharp)
+pnpm install          # once (sharp) — on Windows use `pnpm install` too; sharp ships prebuilds
 node server.mjs       # opens http://localhost:5177
 ```
 
-Then **Choose folder…** (native macOS picker), or paste a path, or deep-link:
+Then paste a path, deep-link, or (macOS only) **Choose folder…**:
 `http://localhost:5177/?dir=/Volumes/SharedData/11-05-la-dolce-vita/02-stills`
+
+**Windows:** the native folder picker is macOS-only (`osascript`). Paste the folder path
+or deep-link `?dir=…`. If the stills live on the NAS, mount SharedData first and use that
+path (e.g. `Z:\11-01-angib\02-stills` or whatever drive letter your mount uses).
+
+**n8n extend queue:** Crop Studio writes `extend-queue.json` + canvas/mask pairs. There is
+not yet an n8n workflow that paints them. The REST key for the APEXX box
+(`http://100.67.28.106:5678`, label `cursor mac os` in n8n) is wired locally as
+`tools/crop-studio/.n8n.env` (gitignored). Pull it with:
+
+```sh
+ssh caruso70@100.67.28.106 \
+  "docker exec n8n-local-db psql -U n8nuser -d n8n -tAc \"SELECT \\\"apiKey\\\" FROM user_api_keys WHERE label='cursor mac os'\""
+```
 
 ## The idea
 

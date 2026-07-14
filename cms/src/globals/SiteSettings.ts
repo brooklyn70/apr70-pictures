@@ -279,7 +279,7 @@ export const SiteSettings: GlobalConfig = {
               label: 'Logo height (px)',
               min: 24,
               max: 72,
-              defaultValue: 34,
+              defaultValue: 64,
               admin: {
                 description:
                   'Height of the nav brand mark in pixels (24–72). Admin-set; there is no visitor control.',

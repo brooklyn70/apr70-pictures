@@ -47,7 +47,7 @@ const { chrome } = await fetchV9Chrome()
    CMS is unreachable. */
 const { settings } = await fetchSiteSettings()
 const kit = settings?.brandKit ?? {}
-const logoH = Math.min(72, Math.max(24, kit.logoHeight ?? 34))
+const logoH = Math.min(72, Math.max(24, kit.logoHeight ?? 64))
 const modeDefault = kit.modeDefault ?? 'system'
 const houseAccent = kit.accent ?? 'flame'
 const linkHover = kit.linkHover ?? 'accent'

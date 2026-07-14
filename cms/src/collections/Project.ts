@@ -144,7 +144,7 @@ export const Project: CollectionConfig = {
       label: 'Hero caption',
       admin: {
         description:
-          'caption under the hero photo-fold, before the credit. ==text== renders highlighted.',
+          'Caption under the hero photo-fold, before the credit. Scene/place line only — do not prefix the property title. ==text== renders highlighted.',
       },
     },
     {
@@ -152,7 +152,8 @@ export const Project: CollectionConfig = {
       type: 'text',
       label: 'Hero credit',
       admin: {
-        description: 'credit suffix for the hero (e.g. "AI-generated development frame, disclosed").',
+        description:
+          'Credit suffix after the caption (e.g. "AI-generated development frame"). One AI line only — never ", disclosed", never a property-title prefix on the hero caption.',
       },
     },
     {

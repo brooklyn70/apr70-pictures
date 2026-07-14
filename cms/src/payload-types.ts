@@ -292,11 +292,11 @@ export interface Project {
     note?: string | null;
   };
   /**
-   * caption under the hero photo-fold, before the credit. ==text== renders highlighted.
+   * Caption under the hero photo-fold, before the credit. Scene/place line only — do not prefix the property title. ==text== renders highlighted.
    */
   heroCaption?: string | null;
   /**
-   * credit suffix for the hero (e.g. "AI-generated development frame, disclosed").
+   * Credit suffix after the caption (e.g. "AI-generated development frame"). One AI line only — never ", disclosed", never a property-title prefix on the hero caption.
    */
   heroCredit?: string | null;
   /**
@@ -3038,7 +3038,7 @@ export interface SiteSetting {
     highlight?: ('flame' | 'amber' | 'sicilian-blue' | 'ink') | null;
   };
   /**
-   * Every string in the v11 site chrome: the Display panel labels, footer colophon, copyright, and nav links. Seeded from the vault chrome.md canon.
+   * Every string in the v12 site chrome: the Display panel labels, footer colophon, copyright, and nav links. Seeded from the vault chrome.md canon.
    */
   v9Chrome?: {
     /**
@@ -5279,7 +5279,7 @@ export interface TroupeProgram {
   createdAt?: string | null;
 }
 /**
- * Sections and SEO strings for / on the v11 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ * Sections and SEO strings for / on the v12 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "v9-home".
@@ -5449,7 +5449,7 @@ export interface V9Home {
                    */
                   provenance?: string | null;
                   /**
-                   * Meta line (e.g. "Feature · (212) Pictures · ==drafted== · the page →"). ==text== renders highlighted.
+                   * IGNORED on the public site. Billing comes only from Project.metaLine. Leave empty; do not edit. (Legacy seed field kept so re-seed clears stay compatible.)
                    */
                   meta?: string | null;
                   /**
@@ -5649,7 +5649,7 @@ export interface V9Home {
   createdAt?: string | null;
 }
 /**
- * Sections and SEO strings for /slate on the v11 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ * Sections and SEO strings for /slate on the v12 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "v9-slate".
@@ -5819,7 +5819,7 @@ export interface V9Slate {
                    */
                   provenance?: string | null;
                   /**
-                   * Meta line (e.g. "Feature · (212) Pictures · ==drafted== · the page →"). ==text== renders highlighted.
+                   * IGNORED on the public site. Billing comes only from Project.metaLine. Leave empty; do not edit. (Legacy seed field kept so re-seed clears stay compatible.)
                    */
                   meta?: string | null;
                   /**
@@ -6019,7 +6019,7 @@ export interface V9Slate {
   createdAt?: string | null;
 }
 /**
- * Sections and SEO strings for /craft on the v11 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ * Sections and SEO strings for /craft on the v12 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "v9-craft".
@@ -6189,7 +6189,7 @@ export interface V9Craft {
                    */
                   provenance?: string | null;
                   /**
-                   * Meta line (e.g. "Feature · (212) Pictures · ==drafted== · the page →"). ==text== renders highlighted.
+                   * IGNORED on the public site. Billing comes only from Project.metaLine. Leave empty; do not edit. (Legacy seed field kept so re-seed clears stay compatible.)
                    */
                   meta?: string | null;
                   /**
@@ -6389,7 +6389,7 @@ export interface V9Craft {
   createdAt?: string | null;
 }
 /**
- * Sections and SEO strings for /methods on the v11 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ * Sections and SEO strings for /methods on the v12 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "v9-methods".
@@ -6559,7 +6559,7 @@ export interface V9Method {
                    */
                   provenance?: string | null;
                   /**
-                   * Meta line (e.g. "Feature · (212) Pictures · ==drafted== · the page →"). ==text== renders highlighted.
+                   * IGNORED on the public site. Billing comes only from Project.metaLine. Leave empty; do not edit. (Legacy seed field kept so re-seed clears stay compatible.)
                    */
                   meta?: string | null;
                   /**
@@ -6759,7 +6759,7 @@ export interface V9Method {
   createdAt?: string | null;
 }
 /**
- * Sections and SEO strings for /contact on the v11 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ * Sections and SEO strings for /contact on the v12 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "v9-contact".
@@ -6929,7 +6929,7 @@ export interface V9Contact {
                    */
                   provenance?: string | null;
                   /**
-                   * Meta line (e.g. "Feature · (212) Pictures · ==drafted== · the page →"). ==text== renders highlighted.
+                   * IGNORED on the public site. Billing comes only from Project.metaLine. Leave empty; do not edit. (Legacy seed field kept so re-seed clears stay compatible.)
                    */
                   meta?: string | null;
                   /**

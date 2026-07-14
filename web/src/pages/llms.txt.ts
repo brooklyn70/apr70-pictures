@@ -39,7 +39,7 @@ export const GET: APIRoute = async () => {
     '- Scripts are written by people; Marco Caruso is the author of record.',
     '- Images and motion are machine-generated under studio direction and labeled where they appear.',
     '- Archival imagery is public domain only, verified, dated, and credited.',
-    '- Two further properties travel only inside private materials (eleven on the working slate in all).',
+    '- One further property travels only inside private materials while legal counsel review completes (ten on the working slate in all).',
     '',
     `For the full text version see ${canonical('/llms-full.txt')}.`,
     '',

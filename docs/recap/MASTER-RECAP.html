@@ -104,10 +104,10 @@
 
 <header>
   <div class="col">
-    <p class="kicker">APR 70 PICTURES · <b>MASTER RECAP</b> · THE LIVING DOCUMENT · CURRENT VERSION: V10 · UPDATED 2026-07-13 · <b>LIVE AT STAGING.APR70.COM</b></p>
+    <p class="kicker">APR 70 PICTURES · <b>MASTER RECAP</b> · THE LIVING DOCUMENT · CURRENT VERSION: V12 · UPDATED 2026-07-13 · <b>LIVE AT STAGING.APR70.COM</b></p>
     <h1>The honest, Payload-driven, Futura-branded best of APR 70.</h1>
     <p class="standfirst">Divisions that sell, a Founding Roll that acts, images from SharedData only, and a site whose privacy and rights claims survive inspection.</p>
-    <span class="verdict">LIVE AT KIMASERVER:8080 · STAGING.APR70.COM UNTOUCHED · ROLLBACK ONE COMMAND</span>
+    <span class="verdict">LIVE AT STAGING.APR70.COM · V12 CURRENT · ROLLBACK ONE COMMAND</span>
   </div>
 </header>
 
@@ -164,7 +164,7 @@
     <h3>Governing documents</h3>
     <table>
       <tr><th>Document</th><th>What it is</th></tr>
-      <tr><td class="doc"><a href="file:///Users/marco/websites/master-prompt-v10.md">master-prompt-v10.md</a><span class="path">~/websites/master-prompt-v10.md</span></td><td>The brief this run executed. The goal line, the laws, the DoD.</td></tr>
+      <tr><td class="doc"><a href="file:///Users/marco/websites/master-prompt-v12.md">master-prompt-v12.md</a><span class="path">~/websites/master-prompt-v12.md</span></td><td>The brief the current shipped surface executed. The goal line, the laws, the DoD.</td></tr>
       <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.14%20V10%20Build/00%20V10%20Feedback.md">00 V10 Feedback</a><span class="path">vault · 11.14 V10 Build/</span></td><td>Your feedback, locked before the run.</td></tr>
       <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.14%20V10%20Build/00%20V10%20Change%20Register.md">00 V10 Change Register</a><span class="path">vault · 11.14 V10 Build/</span></td><td><span class="tag hot">READ FIRST</span> Every feedback + catalog item mapped done / deferred / refused, plus the open flags awaiting your ruling.</td></tr>
       <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.13%20V10%20Catalog/V10-Best-of-Catalog.md">V10 Best-of Catalog</a><span class="path">vault · 11.13 V10 Catalog/</span></td><td>The blueprint that decided what v10 is.</td></tr>
@@ -200,7 +200,7 @@
       <tr><th>Document</th><th>What counsel gets from it</th></tr>
       <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.14%20V10%20Build/05-ip-copyright/copyright-posture-research.md">Copyright posture research</a><span class="path">vault · 05-ip-copyright/</span></td><td><span class="tag hot">COUNSEL</span> Fixation vs registration for unfinished drafts (17 U.S.C. § 102, USCO Circular 1); PD-derivative scope for the Hammett titles; the <b>USCO registration checklist</b> with forms, GRUW group-registration option for up to ten unpublished works, current fees, and portal links.</td></tr>
       <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.14%20V10%20Build/05-ip-copyright/site-rights-language-drafts.md">Site rights language drafts</a><span class="path">vault · 05-ip-copyright/</span></td><td><span class="tag hot">COUNSEL</span> The exact notices now live: "Original works reserved.", the /methods Rights row, both PD provenance patterns with verified dates (Red Harvest PD 2025, Maltese Falcon PD 2026). Counsel confirms or red-lines.</td></tr>
-      <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.14%20V10%20Build/00%20V10%20Change%20Register.md">Change register · flags</a><span class="path">vault · 11.14 V10 Build/</span></td><td>The eleven-properties count question and anything else counsel should see stated plainly.</td></tr>
+      <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.14%20V10%20Build/00%20V10%20Change%20Register.md">Change register · flags</a><span class="path">vault · 11.14 V10 Build/</span></td><td>Open counsel-facing flags. The properties count is closed at <b>ten</b> (nine public; The Mayors private while legal counsel review completes).</td></tr>
     </table>
 
     <h3>The bench (design only, not product)</h3>
@@ -221,7 +221,7 @@
       <div class="act"><b>The admin</b><p><a href="http://kimaserver:8080/admin">kimaserver:8080/admin</a> (or localhost:3000/admin in dev) · login caruso@apr70.com · password = <code>PAYLOAD_SEED_PASSWORD</code> in the NAS <code>/volume1/apps/apr70-pictures/.env</code>.</p></div>
       <div class="act"><b>Your brand controls</b><p>Admin → Globals → Site Settings → <b>Brand Kit</b>: logo, logo height, accent, rollover, highlight, default mode. Refresh the site and it wears the change.</p></div>
       <div class="act"><b>The Roll's names</b><p>Admin → Collections → <b>Founding Roll</b>. Emails and notes are visible only to you.</p></div>
-      <div class="act"><b>LIVE — the public site</b><p><a href="https://staging.apr70.com/">staging.apr70.com</a> serves <b>v10</b> as of 2026-07-13, with a valid certificate. The old v4 monolith still runs on the NAS at <code>:3000</code> as a fallback — rolling back means pointing the <code>apr70-staging</code> reverse-proxy rule back to port 3000.</p></div>
+      <div class="act"><b>LIVE — the public site</b><p><a href="https://staging.apr70.com/">staging.apr70.com</a> serves <b>v12</b> as of 2026-07-13 evening, with a valid certificate. Rollback via <code>deploy-v10-to-nas.sh --rollback</code> (or point the <code>apr70-staging</code> reverse-proxy rule back to the prior stack).</p></div>
       <div class="act"><b>LIVE — the front door</b><p><a href="https://apr70.com/">apr70.com</a> serves the holding page (source: <code>v10/holding/</code>), Web Station root <code>/volume1/web/apr70/</code>. Self-contained: zero third-party requests. The page it replaced leaked every visitor's IP to Google Fonts.</p></div>
       <div class="act"><b>⚠️ www.apr70.com is broken</b><p>Its DNS A record points at <code>127.0.0.1</code> — for anyone on the internet, that is their own machine. It is why <code>www</code> could never be validated onto the TLS certificate. Fix the A record at Namecheap to <code>68.174.247.189</code>; until then <code>www</code> must be left OUT of any cert request or the whole issuance fails.</p></div>
       <div class="act"><b>Undo everything on the NAS</b><p><code>bash ~/websites/apr70-website/_deploy/deploy-v10-to-nas.sh --rollback</code> restores git, database, media, images from today's backup.</p></div>
@@ -251,9 +251,9 @@ cd ~/websites/apr70-website/v10/web && pnpm dev   # Astro on :4321</pre>
     <ol class="queue">
       <li>Walk <a href="http://kimaserver:8080/">the preview</a> in both modes; change something in Brand Kit and watch the site wear it.</li>
       <li>Open <a href="../transaction-ideas/transaction-ideas.html">the bench</a>; say yes or no to each of the four.</li>
-      <li>Rule the register flags: the eleven-properties count, Jobs's homepage-strip dissent, the LADV and Sea Gate gallery trims, the Shadowmaster and U Bruculinu meta lines.</li>
-      <li>Take the <a href="#lawyer">lawyer packet</a> to IP counsel when you're ready; the USCO checklist inside is drafted and waiting.</li>
-      <li>When the preview satisfies you, run the go-live runbook and staging.apr70.com becomes v10.</li>
+      <li>Rule the remaining register flags: Jobs's homepage-strip dissent, the LADV and Sea Gate gallery trims. (Properties count closed at ten; Shadowmaster / U Bruculinu billing resolved.)</li>
+      <li>Take the <a href="#lawyer">lawyer packet</a> to IP counsel when you're ready; the USCO checklist inside is drafted and waiting. The Mayors stays off the public slate until that review clears.</li>
+      <li>Local v13 prep closed the ten-count and admin re-drift traps; deploy when ready so staging matches.</li>
     </ol>
     <p class="note">The Roll ships empty on purpose. Number one on the Founding Roll of APR 70 Pictures is still unclaimed, and it will never be reissued. That seems like something a founder should hand out himself.</p>
   </div>
@@ -277,8 +277,8 @@ cd ~/websites/apr70-website/v10/web && pnpm dev   # Astro on :4321</pre>
 
 <footer>
   <div class="col">
-    <p>Guardrails held the whole run: no spend, nothing published, no one contacted, no images generated, money never moved, staging untouched and verified. Sources of truth: branch <code>v10</code> of the apr70-pictures repository, the SharedData media library, and the vault paper trail under 11.14 V10 Build. This page makes zero external requests and sets its own type in Futura, Newsreader, Fraunces, and Courier Prime, the same stack the site serves.</p>
-    <p class="copy">© 2026 APR 70 PICTURES. ORIGINAL WORKS RESERVED. · MASTER RECAP · LIVING DOCUMENT · LAST UPDATED 2026-07-13 · FABLE 5</p>
+    <p>Guardrails held the whole run: no spend, nothing published, no one contacted, no images generated, money never moved. Sources of truth: branch <code>v11</code> of the apr70-pictures repository (site version constant <code>v12</code>), the SharedData media library, and the vault paper trail under 11.14 V10 Build / 11.12 V9 Build copy. This page makes zero external requests and sets its own type in Futura, Newsreader, Fraunces, and Courier Prime, the same stack the site serves.</p>
+    <p class="copy">© 2026 APR 70 PICTURES. ORIGINAL WORKS RESERVED. · MASTER RECAP · LIVING DOCUMENT · LAST UPDATED 2026-07-13 · GROK 4.5 AUDIT FIXES</p>
   </div>
 </footer>
 

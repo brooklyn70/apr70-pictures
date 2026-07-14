@@ -13,4 +13,4 @@
  * migration, not a label change, and it buys nothing: they are invisible in
  * the admin UI except in the address bar.
  */
-export const SITE_VERSION = 'v11'
+export const SITE_VERSION = 'v12'

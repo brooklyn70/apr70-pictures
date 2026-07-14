@@ -258,7 +258,10 @@ export const V9SlateListBlock: Block = {
         {
           name: 'meta',
           type: 'text',
-          admin: { description: 'Meta line (e.g. "Feature · (212) Pictures · ==drafted== · the page →"). ==text== renders highlighted.' },
+          admin: {
+            description:
+              'IGNORED on the public site. Billing comes only from Project.metaLine. Leave empty; do not edit. (Legacy seed field kept so re-seed clears stay compatible.)',
+          },
         },
         {
           name: 'dev',

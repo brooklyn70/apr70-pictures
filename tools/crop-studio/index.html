@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Crop Studio</title>
+<style>
+  :root{
+    --bg:#111012; --panel:#171619; --line:#2a292e; --fg:#f0eeea; --dim:#8b8781;
+    --amber:#E85D04; --imax:#077082; --bad:#c8452a; --warn:#b8860b; --ok:#2f6b4f;
+    --mono:ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 ui-sans-serif,system-ui,sans-serif;
+       height:100vh;display:grid;grid-template-columns:280px 1fr 300px;overflow:hidden}
+  button{font:inherit;cursor:pointer}
+
+  /* ── left: the roll ── */
+  .rail{background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+  .rail h1{font:600 .78rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--amber);
+           margin:0;padding:1rem 1rem .85rem;border-bottom:1px solid var(--line)}
+  .pick{margin:.85rem;padding:.6rem;background:transparent;color:var(--fg);border:1px dashed var(--line);border-radius:4px}
+  .pick:hover{border-color:var(--amber);color:var(--amber)}
+  .dirpath{font:.66rem/1.4 var(--mono);color:var(--dim);padding:0 .85rem .6rem;word-break:break-all}
+  .roll{overflow-y:auto;flex:1;min-height:0}
+  .shot{display:flex;gap:.6rem;align-items:center;padding:.5rem .85rem;border-left:3px solid transparent;cursor:pointer}
+  .shot:hover{background:#1e1d21}
+  .shot.on{background:#232227;border-left-color:var(--amber)}
+  .shot img{width:56px;height:34px;object-fit:cover;border-radius:2px;background:#000;flex:none}
+  .shot .nm{font:.68rem/1.3 var(--mono);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
+  .dot{width:7px;height:7px;border-radius:50%;flex:none}
+  .d-crop{background:var(--amber)} .d-extend{background:var(--imax)}
+  .d-native{background:var(--dim)} .d-skip{background:#3a3940}
+
+  /* ── centre: the frame ── */
+  .stage{display:flex;flex-direction:column;min-width:0;min-height:0}
+  .bar{display:flex;align-items:center;gap:.5rem;padding:.6rem .9rem;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .bar label{font:.66rem/1 var(--mono);color:var(--dim);text-transform:uppercase;letter-spacing:.06em}
+  select,input[type=text]{background:#1e1d21;color:var(--fg);border:1px solid var(--line);border-radius:3px;
+                          padding:.35rem .5rem;font:.75rem/1 var(--mono)}
+  input[type=range]{accent-color:var(--amber);width:110px}
+  .spacer{flex:1}
+  .canvas{flex:1;overflow:auto;background:#0a090b;display:grid;place-items:center;padding:1.5rem;min-height:0}
+  .holder{position:relative;line-height:0;flex:none}
+  .holder img{display:block;max-width:none;user-select:none;-webkit-user-drag:none}
+  .veil{position:absolute;inset:0;background:rgba(6,6,8,.72);pointer-events:none}
+  .rect{position:absolute;outline:1px solid rgba(255,255,255,.95);box-shadow:0 0 0 9999px rgba(6,6,8,.72);cursor:move}
+  .rect .grid{position:absolute;inset:0;pointer-events:none;opacity:.5}
+  .rect .grid i{position:absolute;background:rgba(255,255,255,.55)}
+  .h{position:absolute;width:12px;height:12px;background:var(--amber);border-radius:50%;border:2px solid #111}
+  .h[data-c=nw]{left:-6px;top:-6px;cursor:nwse-resize}   .h[data-c=ne]{right:-6px;top:-6px;cursor:nesw-resize}
+  .h[data-c=sw]{left:-6px;bottom:-6px;cursor:nesw-resize} .h[data-c=se]{right:-6px;bottom:-6px;cursor:nwse-resize}
+  .h[data-c=n]{left:50%;top:-6px;margin-left:-6px;cursor:ns-resize}
+  .h[data-c=s]{left:50%;bottom:-6px;margin-left:-6px;cursor:ns-resize}
+  .h[data-c=w]{left:-6px;top:50%;margin-top:-6px;cursor:ew-resize}
+  .h[data-c=e]{right:-6px;top:50%;margin-top:-6px;cursor:ew-resize}
+  .tag{position:absolute;top:-26px;left:0;font:.66rem/1 var(--mono);color:#fff;background:rgba(0,0,0,.75);
+       padding:.3rem .45rem;border-radius:3px;white-space:nowrap}
+  /* extend preview: the picture sits inside a bigger frame; the pads are what gets painted */
+  .pad{position:absolute;outline:2px dashed var(--imax);background:
+       repeating-linear-gradient(45deg,rgba(7,112,130,.22) 0 8px,transparent 8px 16px);pointer-events:none}
+  .empty{color:var(--dim);font:.8rem/1.6 var(--mono);text-align:center}
+  .ratiodesc{padding:.55rem .9rem;border-bottom:1px solid var(--line);font-size:.76rem;line-height:1.5;color:var(--dim);background:#141317}
+  .ratiodesc b{color:var(--amber);font:600 .7rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;margin-right:.4rem}
+  .note b{color:var(--fg);font-weight:600}
+
+  /* ── right: the verdict ── */
+  .side{background:var(--panel);border-left:1px solid var(--line);padding:1rem;overflow-y:auto;display:flex;flex-direction:column;gap:1rem}
+  .side h2{font:600 .68rem/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin:0}
+  .facts{font:.72rem/1.7 var(--mono);color:var(--dim)}
+  .facts b{color:var(--fg);font-weight:600}
+  .verdicts{display:grid;gap:.35rem}
+  .v{padding:.55rem .6rem;background:#1e1d21;border:1px solid var(--line);border-radius:4px;color:var(--fg);text-align:left;
+     font:.75rem/1.3 var(--mono);display:flex;justify-content:space-between;align-items:center;gap:.5rem}
+  .v:hover{border-color:var(--dim)}
+  .v kbd{font:.62rem/1 var(--mono);color:var(--dim);border:1px solid var(--line);border-radius:2px;padding:.2rem .3rem}
+  .v.on{border-color:var(--amber);color:var(--amber);background:#241a12}
+  .v.on[data-v=extend]{border-color:var(--imax);color:var(--imax);background:#102225}
+  .v.on[data-v=native]{border-color:var(--dim);color:var(--fg);background:#232227}
+  .keep{font:600 .8rem/1 var(--mono);padding:.5rem .6rem;border-radius:4px;text-align:center}
+  .keep.ok{background:var(--ok);color:#fff} .keep.warn{background:var(--warn);color:#fff} .keep.bad{background:var(--bad);color:#fff}
+  .note{font-size:.72rem;line-height:1.5;color:var(--dim);border-left:2px solid var(--line);padding-left:.6rem;margin:0}
+  .note.alarm{border-color:var(--bad);color:var(--fg)}
+  .go{padding:.7rem;background:var(--amber);color:#120a04;border:0;border-radius:4px;font:600 .8rem/1 var(--mono);
+      text-transform:uppercase;letter-spacing:.06em}
+  .go:disabled{opacity:.4;cursor:not-allowed}
+  .ghost{padding:.5rem;background:transparent;color:var(--dim);border:1px solid var(--line);border-radius:4px;font:.72rem/1 var(--mono)}
+  .ghost:hover{color:var(--fg);border-color:var(--dim)}
+  .tally{font:.68rem/1.7 var(--mono);color:var(--dim)}
+  .tally span{color:var(--fg)}
+  .log{font:.66rem/1.5 var(--mono);color:var(--dim);white-space:pre-wrap;max-height:180px;overflow:auto;
+       background:#0d0c0f;border:1px solid var(--line);border-radius:4px;padding:.5rem}
+</style>
+</head>
+<body>
+
+<aside class="rail">
+  <h1>Crop Studio</h1>
+  <button class="pick" id="pick">Choose folder…</button>
+  <input type="text" id="dirin" placeholder="…or paste a path and hit return"
+         style="margin:0 .85rem .6rem;width:calc(100% - 1.7rem);font-size:.66rem">
+  <div class="dirpath" id="dirpath">No folder open.</div>
+  <div class="roll" id="roll"></div>
+</aside>
+
+<main class="stage">
+  <div class="bar">
+    <label>Ratio</label>
+    <select id="ratio">
+      <optgroup label="APR 70 house ratios">
+        <option value="2.39" data-d="Scope. Full-bleed heroes only — the moment the site inhales.">2.39 : 1 — Scope · HERO</option>
+        <option value="2" selected data-d="Univisium. The ratio streaming actually delivers in: The Crown, Ozark, Severance, Mindhunter. Stills, grid cards, slate rows, moodboard — the workhorse.">2.00 : 1 — Univisium · EVERYTHING ELSE</option>
+      </optgroup>
+      <optgroup label="Other cinema">
+        <option value="2.2" data-d="Todd-AO. The true 70mm ratio — the one the company is named after. Kept for reference; too close to 2.00 to read as a deliberate contrast on a page.">2.20 : 1 — Todd-AO 70mm</option>
+        <option value="1.85" data-d="US theatrical flat. What most non-scope films are projected at. Only 4% wider than television, so it reads as 16:9 to most eyes.">1.85 : 1 — Theatrical flat</option>
+      </optgroup>
+      <optgroup label="Broadcast &amp; square">
+        <option value="1.7778" data-d="Television. The broadcast ratio, and the one this site deliberately left behind. Here for exports that need it — YouTube, OG cards, slide decks.">16 : 9 — Television (1.78)</option>
+        <option value="1.5" data-d="3:2. The 35mm still-photography frame. Not a motion ratio.">3 : 2 — 35mm still</option>
+        <option value="1" data-d="Square. Avatars, marks, social tiles.">1 : 1 — Square</option>
+      </optgroup>
+      <optgroup label="Phone / vertical">
+        <option value="0.8" data-d="4:5. The phone portrait frame — Instagram feed. The sane choice if you ever art-direct a mobile hero; 9:16 is usually too tall for anything but full-screen.">4 : 5 — Phone portrait</option>
+        <option value="0.5625" data-d="9:16. Full-screen vertical — Reels, Stories, TikTok. Payload will NOT generate this for you; it only ever preserves aspect.">9 : 16 — Vertical / Reels</option>
+      </optgroup>
+    </select>
+    <label>Zoom</label>
+    <input type="range" id="zoom" min="20" max="200" value="100">
+    <span class="facts" id="zoomv">fit</span>
+    <button class="ghost" id="fit">Fit</button>
+    <label>Grid</label>
+    <select id="grid">
+      <option value="phi">Phi</option>
+      <option value="thirds">Thirds</option>
+      <option value="none">None</option>
+    </select>
+    <div class="spacer"></div>
+    <span class="facts" id="counter"></span>
+  </div>
+  <div class="ratiodesc" id="ratiodesc"></div>
+  <div class="canvas" id="canvas">
+    <div class="empty" id="empty">Choose a folder to begin.<br><br>← → move &nbsp;·&nbsp; C crop &nbsp;·&nbsp; E extend &nbsp;·&nbsp; N native &nbsp;·&nbsp; S skip &nbsp;·&nbsp; R auto-frame</div>
+  </div>
+</main>
+
+<aside class="side">
+  <h2>Picture</h2>
+  <div class="facts" id="facts">—</div>
+
+  <h2>Verdict</h2>
+  <div class="verdicts">
+    <button class="v" data-v="crop">Crop to ratio <kbd>C</kbd></button>
+    <button class="v" data-v="extend">Extend — paint it wider <kbd>E</kbd></button>
+    <button class="v" data-v="native">Native — do not touch <kbd>N</kbd></button>
+    <button class="v" data-v="skip">Skip <kbd>S</kbd></button>
+  </div>
+  <div class="keep" id="keep">—</div>
+  <p class="note" id="advice"></p>
+  <button class="ghost" id="reseed">Re-run auto-frame <kbd>R</kbd></button>
+  <p class="note">Auto-frame is libvips' <b>attention</b> heuristic — it weights edges, saturation
+  and skin tones to find the busiest region. It is a starting point, not a cinematographer.
+  This throws away your rectangle and puts its guess back.</p>
+
+  <h2>Output</h2>
+  <input type="text" id="outname" placeholder="_ratio-2">
+  <div class="tally" id="tally"></div>
+  <button class="go" id="apply" disabled>Process folder</button>
+  <div class="log" id="log" hidden></div>
+</aside>
+
+<script>
+const $ = (s) => document.querySelector(s)
+let DIR = null, ITEMS = [], I = 0, SCALE = 1, FIT = true
+
+const ratio = () => Number($('#ratio').value)
+const cur = () => ITEMS[I]
+
+// ── loading ───────────────────────────────────────────────────────────────────
+$('#pick').onclick = async () => {
+  const r = await (await fetch('/api/pick-folder', { method: 'POST' })).json()
+  if (r.cancelled || !r.dir) return
+  await scan(r.dir)
+}
+
+$('#dirin').onkeydown = (e) => {
+  if (e.key === 'Enter' && e.target.value.trim()) scan(e.target.value.trim().replace(/\/$/, ''))
+}
+// deep-link a folder: /?dir=/path/to/pictures
+const qs = new URLSearchParams(location.search)
+if (qs.get('dir')) addEventListener('DOMContentLoaded', () => scan(qs.get('dir')))
+
+async function scan(dir) {
+  $('#dirpath').textContent = 'Reading…'
+  const r = await (await fetch('/api/scan', {
+    method: 'POST', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ dir, ratio: ratio() }),
+  })).json()
+  if (r.error) { $('#dirpath').textContent = r.error; return }
+  DIR = r.dir; ITEMS = r.items; I = 0
+  $('#dirpath').textContent = `${DIR}  ·  ${ITEMS.length} pictures`
+  $('#outname').placeholder = `_ratio-${ratio()}`
+  $('#apply').disabled = !ITEMS.length
+  $('#empty').hidden = true
+  drawRoll(); show()
+}
+
+// ── the roll ──────────────────────────────────────────────────────────────────
+function drawRoll() {
+  $('#roll').innerHTML = ITEMS.map((it, i) => `
+    <div class="shot ${i === I ? 'on' : ''}" data-i="${i}">
+      <span class="dot d-${it.verdict}"></span>
+      <img src="/api/img?max=120&p=${encodeURIComponent(DIR + '/' + it.name)}" alt="">
+      <span class="nm">${it.name}</span>
+    </div>`).join('')
+  $('#roll').querySelectorAll('.shot').forEach((el) => {
+    el.onclick = () => { I = +el.dataset.i; show() }
+  })
+}
+
+// ── the frame ─────────────────────────────────────────────────────────────────
+function show() {
+  const it = cur(); if (!it) return
+  $('#counter').textContent = `${I + 1} / ${ITEMS.length}`
+  $('#roll').querySelectorAll('.shot').forEach((el, i) => {
+    el.classList.toggle('on', i === I)
+    el.querySelector('.dot').className = `dot d-${ITEMS[i].verdict}`
+  })
+
+  const box = $('#canvas').clientWidth - 60, boxH = $('#canvas').clientHeight - 60
+  if (FIT) SCALE = Math.min(box / it.w, boxH / it.h, 1)
+  $('#zoom').value = Math.round(SCALE * 100)
+  $('#zoomv').textContent = FIT ? 'fit' : Math.round(SCALE * 100) + '%'
+
+  const dw = it.w * SCALE, dh = it.h * SCALE
+  const src = `/api/img?max=2000&p=${encodeURIComponent(DIR + '/' + it.name)}`
+
+  $('#canvas').innerHTML = `
+    <div class="holder" id="holder" style="width:${dw}px;height:${dh}px">
+      <img src="${src}" style="width:${dw}px;height:${dh}px">
+    </div>`
+
+  const holder = $('#holder')
+  if (it.verdict === 'native' || it.verdict === 'skip') {
+    // nothing to frame — show the picture whole
+  } else if (it.verdict === 'extend') {
+    drawExtend(holder, it, dw, dh)
+  } else {
+    drawRect(holder, it)
+  }
+  paintSide()
+}
+
+/** The extend preview: the picture inside the wider frame it is going to become.
+    The hatched pads are exactly what a model will be asked to paint. */
+function drawExtend(holder, it, dw, dh) {
+  const t = ratio()
+  const [cw, ch] = it.w / it.h > t ? [it.w, Math.round(it.w / t)] : [Math.round(it.h * t), it.h]
+  const s = Math.min(($('#canvas').clientWidth - 80) / cw, ($('#canvas').clientHeight - 80) / ch, 1)
+  const L = Math.round((cw - it.w) / 2), T = Math.round((ch - it.h) / 2)
+
+  holder.style.width = cw * s + 'px'; holder.style.height = ch * s + 'px'
+  holder.innerHTML = `
+    <div class="pad" style="inset:0"></div>
+    <img src="/api/img?max=2000&p=${encodeURIComponent(DIR + '/' + it.name)}"
+         style="position:absolute;left:${L * s}px;top:${T * s}px;width:${it.w * s}px;height:${it.h * s}px">
+    <div class="tag" style="color:#7fd4e2">extend → ${cw} × ${ch} px · paint ${(100 - (it.w * it.h) / (cw * ch) * 100).toFixed(0)}% of the frame</div>`
+}
+
+function drawRect(holder, it) {
+  const g = $('#grid').value
+  const grid = g === 'none' ? '' : `<div class="grid">${gridLines(g)}</div>`
+  const el = document.createElement('div')
+  el.className = 'rect'
+  el.innerHTML = grid + ['nw','n','ne','e','se','s','sw','w'].map((c) => `<div class="h" data-c="${c}"></div>`).join('') +
+                 `<div class="tag" id="tag"></div>`
+  holder.appendChild(el)
+  place(el, it)
+  wire(el, it, holder)
+}
+
+const gridLines = (kind) => {
+  const p = kind === 'phi' ? [38.2, 61.8] : [33.33, 66.67]
+  return p.map((v) => `<i style="left:${v}%;top:0;width:1px;height:100%"></i>`).join('') +
+         p.map((v) => `<i style="top:${v}%;left:0;height:1px;width:100%"></i>`).join('')
+}
+
+function place(el, it) {
+  el.style.left = it.rect.x * SCALE + 'px'
+  el.style.top = it.rect.y * SCALE + 'px'
+  el.style.width = it.rect.w * SCALE + 'px'
+  el.style.height = it.rect.h * SCALE + 'px'
+  const tag = el.querySelector('#tag')
+  if (tag) tag.textContent = `${Math.round(it.rect.w)} × ${Math.round(it.rect.h)} px`
+}
+
+/** Drag to move, handles to resize. The ratio is locked: resizing solves for the other axis,
+    and the rectangle is clamped inside the picture so it can never sample empty space. */
+function wire(el, it, holder) {
+  const t = ratio()
+  let mode = null, sx = 0, sy = 0, start = null
+
+  const down = (e, m) => {
+    e.preventDefault(); e.stopPropagation()
+    mode = m; sx = e.clientX; sy = e.clientY; start = { ...it.rect }
+    window.addEventListener('mousemove', move)
+    window.addEventListener('mouseup', up)
+  }
+
+  const move = (e) => {
+    const dx = (e.clientX - sx) / SCALE, dy = (e.clientY - sy) / SCALE
+    let { x, y, w, h } = start
+
+    if (mode === 'move') {
+      x = start.x + dx; y = start.y + dy
+    } else {
+      // drive width off the horizontal drag (or the vertical one for pure n/s), derive height
+      let nw = w
+      if (mode.includes('e')) nw = w + dx
+      else if (mode.includes('w')) nw = w - dx
+      else if (mode === 'n') nw = (h - dy) * t
+      else if (mode === 's') nw = (h + dy) * t
+
+      nw = Math.max(64, Math.min(nw, it.w, it.h * t))
+      const nh = nw / t
+
+      // anchor the corner opposite the one being dragged
+      x = mode.includes('w') ? start.x + (w - nw) : start.x
+      y = mode.includes('n') ? start.y + (h - nh) : mode === 's' ? start.y : start.y + (h - nh) / 2
+      if (mode === 'e' || mode === 'w') y = start.y + (h - nh) / 2
+      w = nw; h = nh
+    }
+
+    x = Math.max(0, Math.min(x, it.w - w))
+    y = Math.max(0, Math.min(y, it.h - h))
+    it.rect = { x, y, w, h }
+    place(el, it)
+    paintSide()
+  }
+
+  const up = () => {
+    mode = null
+    window.removeEventListener('mousemove', move)
+    window.removeEventListener('mouseup', up)
+    save()
+  }
+
+  el.addEventListener('mousedown', (e) => down(e, 'move'))
+  el.querySelectorAll('.h').forEach((h) => h.addEventListener('mousedown', (e) => down(e, h.dataset.c)))
+}
+
+// ── verdict panel ─────────────────────────────────────────────────────────────
+function paintSide() {
+  const it = cur(); if (!it) return
+  const t = ratio()
+  const kept = it.verdict === 'crop' ? (it.rect.w * it.rect.h) / (it.w * it.h) * 100 : 100
+
+  $('#facts').innerHTML = `
+    <b>${it.name}</b><br>
+    ${it.w} × ${it.h} px &nbsp;·&nbsp; ${it.ratio} : 1 &nbsp;·&nbsp; ${it.format}<br>
+    ${(it.bytes / 1e6).toFixed(1)} MB`
+
+  document.querySelectorAll('.v').forEach((b) => b.classList.toggle('on', b.dataset.v === it.verdict))
+
+  const keep = $('#keep')
+  if (it.verdict === 'crop') {
+    keep.textContent = `${kept.toFixed(0)}% of the picture kept · ${Math.round(it.rect.w)} × ${Math.round(it.rect.h)}`
+    keep.className = 'keep ' + (kept < 55 ? 'bad' : kept < 78 ? 'warn' : 'ok')
+  } else {
+    keep.textContent = it.verdict === 'extend' ? 'nothing lost — painted wider' : it.verdict === 'native' ? 'untouched' : 'skipped'
+    keep.className = 'keep ' + (it.verdict === 'skip' ? 'warn' : 'ok')
+  }
+
+  // advice, not rules — every one of these is overrulable
+  const a = $('#advice'); a.className = 'note'; a.textContent = ''
+  if (it.archival) { a.className = 'note alarm'; a.textContent = 'The filename carries a pre-1936 date — this looks like an archival document. Records are not film frames; cropping one mutilates it.' }
+  else if (it.ratio < 0.95) { a.className = 'note alarm'; a.textContent = 'Portrait. Forcing it wide throws away most of the picture. Extend it, or leave it native.' }
+  else if (it.ratio > 3.0) { a.className = 'note alarm'; a.textContent = 'A strip or a panorama, not a frame.' }
+  else if (it.verdict === 'crop' && kept < 55) { a.className = 'note alarm'; a.textContent = 'This crop guts the picture. Extending it instead costs you nothing.' }
+  else if (it.verdict === 'crop' && it.rect.w < 1920) { a.textContent = `Crops to ${Math.round(it.rect.w)}px wide — under the 1920 tier, so it would be upscaled downstream.` }
+
+  const n = (v) => ITEMS.filter((x) => x.verdict === v).length
+  $('#tally').innerHTML = `crop <span>${n('crop')}</span> · extend <span>${n('extend')}</span> · native <span>${n('native')}</span> · skip <span>${n('skip')}</span>`
+}
+
+// ── verdicts, nav, keys ───────────────────────────────────────────────────────
+const setVerdict = (v) => {
+  const it = cur(); if (!it) return
+  it.verdict = v
+  show(); save()
+}
+document.querySelectorAll('.v').forEach((b) => (b.onclick = () => setVerdict(b.dataset.v)))
+
+$('#reseed').onclick = async () => {
+  const it = cur(); if (!it) return
+  const r = await (await fetch('/api/reseed', {
+    method: 'POST', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ dir: DIR, name: it.name, ratio: ratio() }),
+  })).json()
+  it.rect = r.rect; it.verdict = 'crop'; show(); save()
+}
+
+const go = (d) => { I = Math.max(0, Math.min(ITEMS.length - 1, I + d)); show() }
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.matches('input,select')) return
+  const k = e.key.toLowerCase()
+  if (e.key === 'ArrowRight') { e.preventDefault(); go(1) }
+  else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1) }
+  else if (k === 'c') setVerdict('crop')
+  else if (k === 'e') setVerdict('extend')
+  else if (k === 'n') setVerdict('native')
+  else if (k === 's') setVerdict('skip')
+  else if (k === 'r') $('#reseed').click()
+  else if (k === 'g') { const g = $('#grid'); g.selectedIndex = (g.selectedIndex + 1) % g.length; show() }
+  else if (e.key === 'Enter') { e.preventDefault(); go(1) }
+})
+
+// ── ratio / zoom ──────────────────────────────────────────────────────────────
+function describeRatio() {
+  const o = $('#ratio').selectedOptions[0]
+  $('#ratiodesc').innerHTML = `<b>${o.textContent.split('—')[1]?.trim() ?? o.textContent}</b>${o.dataset.d ?? ''}`
+}
+describeRatio()
+
+$('#ratio').onchange = async () => {
+  describeRatio()
+  $('#outname').placeholder = `_ratio-${ratio()}`
+  if (!DIR) return
+  // re-seed every rectangle the editor has not personally moved
+  for (const it of ITEMS) {
+    if (it.verdict !== 'crop') continue
+    const r = await (await fetch('/api/reseed', {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ dir: DIR, name: it.name, ratio: ratio() }),
+    })).json()
+    it.rect = r.rect
+  }
+  show(); save()
+}
+$('#grid').onchange = show
+$('#zoom').oninput = () => { FIT = false; SCALE = $('#zoom').value / 100; show() }
+$('#fit').onclick = () => { FIT = true; show() }
+
+// ── persist + apply ───────────────────────────────────────────────────────────
+let saveT
+function save() {
+  clearTimeout(saveT)
+  saveT = setTimeout(() => {
+    if (!DIR) return
+    fetch('/api/save-state', {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ dir: DIR, ratio: ratio(), items: ITEMS }),
+    })
+  }, 400)
+}
+
+$('#apply').onclick = async () => {
+  $('#apply').disabled = true
+  $('#apply').textContent = 'Working…'
+  const r = await (await fetch('/api/apply', {
+    method: 'POST', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ dir: DIR, outName: $('#outname').value.trim() || $('#outname').placeholder, ratio: ratio(), items: ITEMS }),
+  })).json()
+
+  const log = $('#log'); log.hidden = false
+  if (r.error) { log.textContent = 'ERROR: ' + r.error }
+  else {
+    const c = (a) => r.done.filter((d) => d.action === a).length
+    log.textContent =
+      `→ ${r.outDir}\n\n` +
+      `cropped  ${c('CROP')}\nextended ${c('EXTEND')}\nnative   ${c('NATIVE')}\nskipped  ${c('SKIP')}\nerrors   ${c('ERROR')}\n` +
+      (c('EXTEND') ? `\nextend-queue.json written —\ncanvas + mask per picture, ready to paint.\n` : '') +
+      r.done.filter((d) => d.action === 'ERROR').map((d) => `\n! ${d.name}: ${d.error}`).join('')
+  }
+  $('#apply').disabled = false
+  $('#apply').textContent = 'Process folder'
+}
+</script>
+</body>
+</html>

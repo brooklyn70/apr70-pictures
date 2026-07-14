@@ -1,0 +1,13 @@
+{
+  "name": "crop-studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Standalone ratio crop/extend instrument. Open any folder, frame every picture, write the results back.",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "sharp": "0.34.2"
+  }
+}

@@ -140,12 +140,14 @@
   .made{font:.64rem/1 var(--mono);color:var(--dim)}
   .refs{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center}
   .ref{position:relative;line-height:0}
-  .ref img{width:56px;height:34px;object-fit:cover;border-radius:2px;border:1px solid var(--line);cursor:zoom-in}
+  .ref img{width:180px;height:110px;object-fit:cover;border-radius:3px;border:1px solid var(--line);cursor:zoom-in}
+  .ref .rn{font:.62rem/1.5 var(--mono);color:var(--dim);padding-top:.2rem;max-width:180px;
+           overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .ref .rx{position:absolute;top:-6px;right:-6px;width:16px;height:16px;border-radius:50%;background:var(--bad);
            color:#fff;border:0;font:600 10px/14px var(--mono);padding:0;display:none;text-align:center}
   .ref:hover .rx{display:block}
-  .refpick{display:none;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:.4rem;padding:.5rem;
-           background:#0d0c0f;border:1px solid var(--line);border-radius:4px;max-height:220px;overflow-y:auto}
+  .refpick{display:none;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:.5rem;padding:.5rem;
+           background:#0d0c0f;border:1px solid var(--line);border-radius:4px;max-height:340px;overflow-y:auto}
   .refpick.open{display:grid}
   .refpick img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:2px;cursor:pointer;
                border:1px solid transparent;display:block}
@@ -831,8 +833,9 @@ function drawRefs(i) {
   const box = $(`[data-refs="${i}"]`)
   box.innerHTML = (s.refs ?? []).map((r, k) => `
       <span class="ref" title="${esc(r)}">
-        <img src="/api/img?max=120&p=${encodeURIComponent(refPath(r))}">
+        <img src="/api/img?max=400&p=${encodeURIComponent(refPath(r))}">
         <button class="rx" data-k="${k}">×</button>
+        <div class="rn">${esc(r.split('/').pop())}</div>
       </span>`).join('') +
     `<button class="ghost" data-a="still">+ ref from stills</button>
      <button class="ghost" data-a="file">+ ref from file…</button>`
@@ -854,7 +857,7 @@ function togglePick(i) {
   const pick = $(`[data-pick="${i}"]`)
   if (pick.classList.toggle('open') && !pick.innerHTML) {
     pick.innerHTML = PSTILLS.length
-      ? PSTILLS.map((f) => `<img src="/api/img?max=200&p=${encodeURIComponent(`${PDIR}/${f}`)}" title="${esc(f)}">`).join('')
+      ? PSTILLS.map((f) => `<img src="/api/img?max=400&p=${encodeURIComponent(`${PDIR}/${f}`)}" title="${esc(f)}">`).join('')
       : '<span class="made" style="padding:.3rem">no stills on disk for this property</span>'
     pick.querySelectorAll('img').forEach((img, k) => (img.onclick = () => {
       ;(SPEC.stills[i].refs ??= []).push(PSTILLS[k])

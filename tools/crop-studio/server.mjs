@@ -5,11 +5,17 @@
  * The machine seeds each frame with a saliency-aware guess so you are correcting, not composing.
  * Results are written back into a subfolder of wherever the pictures came from.
  *
- * Three verdicts per picture:
+ * Four verdicts per picture:
  *   CROP    — drag the rectangle. A pure crop at native resolution; nothing is resampled.
- *   EXTEND  — the picture is too tight to crop without gutting it, so widen it instead.
- *             Writes a padded canvas + an outpaint mask; feed those to KIE, Comfy, or
- *             Photoshop's generative fill. Nothing is invented here, and nothing is lost.
+ *   REGEN   — the picture is too tight to crop, and it was generated in the first place,
+ *             so there is no negative to protect. Re-make it wide instead of inventing its
+ *             margins: one native 21:9 4K pass composes FOR the frame. This is the answer
+ *             almost every time. Comment on what was wrong and shoot it again.
+ *   VIDEO   — drive a clip from an approved still; it becomes the first frame.
+ *   EXTEND  — outpaint the margins. Kept only for a picture that genuinely cannot be
+ *             re-made. It is slow enough to be a last resort: a 12B model spent ~3 hours
+ *             inventing side-bars for nine stills, and they still only guessed at what the
+ *             edge pixels implied. Extend if you have a weekend to wait.
  *   NATIVE  — never touch it. Archival maps, engravings, period photographs: records, not frames.
  *
  *   node server.mjs           → http://localhost:5177
@@ -79,6 +85,99 @@ async function seedRect(file, w, h, ratio) {
   }
 }
 
+// ── KIE ───────────────────────────────────────────────────────────────────────
+//
+// Regenerating beats extending. These stills are generated: there is no negative
+// to preserve, so widening one by outpainting is repair work on material we can
+// simply re-make -- and it shows. A native 21:9 pass *composes* for the wide
+// frame; an outpaint can only guess at its margins from the edge pixels.
+//
+// The 6336x2688 master is a superset: 2.39, 2.00 and 16:9 are all crops of it.
+
+const KIE_UPLOAD = 'https://kieai.redpandaai.co/api/file-stream-upload' // NB: different host to the API
+const KIE_CREATE = 'https://api.kie.ai/api/v1/jobs/createTask'
+const KIE_STATUS = 'https://api.kie.ai/api/v1/jobs/recordInfo?taskId='
+const IMAGE_MODEL = 'nano-banana-pro'
+const VIDEO_MODEL = 'bytedance/seedance-2'
+const LEDGER = path.join(
+  process.env.HOME,
+  'vault/11 Active/apr70-still-prompts/prompts.jsonl',
+)
+
+let _key = null
+const kieKey = () =>
+  (_key ??= new Promise((resolve) => {
+    execFile(
+      'op',
+      ['item', 'get', 'Kie.ai API-key', '--vault', 'API', '--fields', 'token', '--reveal'],
+      (err, stdout) => resolve(err ? null : stdout.trim()),
+    )
+  }))
+
+/** Append-only. The original stills' prompts are gone because an agent called the
+ *  API directly and never wrote them down; that must not happen twice. Logged
+ *  BEFORE the download, because by then the credit is spent and the image exists. */
+const logPrompt = (entry) => {
+  try {
+    fs.mkdirSync(path.dirname(LEDGER), { recursive: true })
+    fs.appendFileSync(LEDGER, JSON.stringify({ ts: new Date().toISOString(), ...entry }) + '\n')
+  } catch (e) {
+    console.error('  ! ledger write failed:', e.message)
+  }
+}
+
+const kieUpload = (file, token) =>
+  new Promise((resolve, reject) => {
+    // curl, not fetch: KIE's upload endpoint 403s on a hand-rolled multipart body.
+    execFile(
+      'curl',
+      ['-sS', '-X', 'POST', KIE_UPLOAD, '-H', `Authorization: Bearer ${token}`,
+       '-F', `file=@${file}`, '-F', 'uploadPath=apr70/studio',
+       '-F', `fileName=${path.basename(file).replace(/\s+/g, '_')}`],
+      { maxBuffer: 1e7 },
+      (err, stdout) => {
+        if (err) return reject(err)
+        try {
+          const r = JSON.parse(stdout)
+          r.success ? resolve(r.data.downloadUrl) : reject(new Error(r.msg || 'upload failed'))
+        } catch (e) {
+          reject(e)
+        }
+      },
+    )
+  })
+
+async function kieRun(model, input, token) {
+  const res = await fetch(KIE_CREATE, {
+    method: 'POST',
+    headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
+    body: JSON.stringify({ model, input }),
+  }).then((r) => r.json())
+  if (res.code !== 200) throw new Error(res.msg || 'createTask failed')
+
+  const taskId = res.data.taskId
+  for (let i = 0; i < 200; i++) {
+    await new Promise((r) => setTimeout(r, 6000))
+    const d = await fetch(KIE_STATUS + taskId, {
+      headers: { authorization: `Bearer ${token}` },
+    })
+      .then((r) => r.json())
+      .then((r) => r.data)
+    if (d.state === 'success') {
+      const urls = JSON.parse(d.resultJson).resultUrls || []
+      return { taskId, url: urls[0] }
+    }
+    if (d.state === 'fail') throw new Error(d.failMsg || 'generation failed')
+  }
+  throw new Error('timed out')
+}
+
+const download = (url, dest) =>
+  new Promise((resolve, reject) =>
+    // curl again: the result CDN 403s a default user-agent.
+    execFile('curl', ['-sS', '-fL', '-o', dest, url], (err) => (err ? reject(err) : resolve(dest))),
+  )
+
 // ── routes ────────────────────────────────────────────────────────────────────
 
 const routes = {
@@ -147,6 +246,15 @@ const routes = {
         verdict: prev?.verdict ?? (archival || r < 0.95 || r > 3.0 ? 'native' : 'crop'),
         rect: prev?.rect ?? (await seedRect(file, meta.width, meta.height, target)),
         seeded: !prev,
+        prompt: prev?.prompt ?? null,
+        notes: prev?.notes ?? null,
+        motion: prev?.motion ?? null,
+        regens: fs.existsSync(path.join(dir, '_regen'))
+          ? fs.readdirSync(path.join(dir, '_regen')).filter((f) => f.startsWith(name.replace(IMG, '') + '-v'))
+          : [],
+        video: fs.existsSync(path.join(dir, '_video', `${name.replace(IMG, '')}.mp4`))
+          ? `${name.replace(IMG, '')}.mp4`
+          : null,
       })
     }
     return { dir, items }
@@ -159,6 +267,84 @@ const routes = {
     return { rect: await seedRect(file, m.width, m.height, ratio) }
   },
 
+  /** Is the KIE key reachable? The UI hides regen/video rather than offering dead buttons. */
+  async 'POST /api/kie-status'() {
+    const token = await kieKey()
+    if (!token) return { ready: false, reason: '1Password: `op` could not read Kie.ai API-key' }
+    const r = await fetch('https://api.kie.ai/api/v1/chat/credit', {
+      headers: { authorization: `Bearer ${token}` },
+    }).then((x) => x.json())
+    return { ready: true, credits: r.data, imageModel: IMAGE_MODEL, videoModel: VIDEO_MODEL }
+  },
+
+  /** Regenerate a still natively at the wide master ratio.
+   *
+   *  `notes` is the whole point: the old frame is a starting point to learn from, not a
+   *  thing to reproduce. Say what was wrong with it ("the club is a NIGHT club -- the
+   *  stained glass should be dark") and the next pass fixes it. The reference image is
+   *  passed only to carry cast and wardrobe, never to pin the composition. */
+  async 'POST /api/regen'(body) {
+    const { dir, name, prompt, notes, useRef = true, ratio = '21:9', resolution = '4K' } = body
+    const token = await kieKey()
+    if (!token) throw new Error('no KIE key')
+    if (!prompt) throw new Error('prompt required')
+
+    const src = path.join(dir, name)
+    const outDir = path.join(dir, '_regen')
+    fs.mkdirSync(outDir, { recursive: true })
+
+    const full = notes ? `${prompt}\n\nCorrections that matter: ${notes}` : prompt
+    const refs = useRef && fs.existsSync(src) ? [await kieUpload(src, token)] : []
+
+    const { taskId, url } = await kieRun(
+      IMAGE_MODEL,
+      { prompt: full, image_input: refs, aspect_ratio: ratio, resolution },
+      token,
+    )
+
+    const base = name.replace(IMG, '')
+    let n = 1
+    while (fs.existsSync(path.join(outDir, `${base}-v${n}.png`))) n++
+    const out = path.join(outDir, `${base}-v${n}.png`)
+
+    logPrompt({ kind: 'image', dir, source: name, model: IMAGE_MODEL, aspect_ratio: ratio,
+                resolution, prompt: full, notes: notes || null, refs, taskId, url, output: out })
+    await download(url, out)
+
+    const m = await sharp(out).metadata()
+    return { out, name: path.basename(out), w: m.width, h: m.height }
+  },
+
+  /** Drive a video from a chosen still. Seedance takes the still as its first frame, so the
+   *  video *starts* exactly on the picture Marco approved and moves from there. 21:9 matches
+   *  the master, so the hero and its video are the same frame. Audio off: this plays muted
+   *  behind a poster on the property page. */
+  async 'POST /api/video'(body) {
+    const { dir, name, motion, duration = 6, resolution = '1080p' } = body
+    const token = await kieKey()
+    if (!token) throw new Error('no KIE key')
+    if (!motion) throw new Error('describe what happens in the video')
+
+    const src = path.join(dir, name)
+    if (!fs.existsSync(src)) throw new Error(`no such picture: ${name}`)
+    const outDir = path.join(dir, '_video')
+    fs.mkdirSync(outDir, { recursive: true })
+
+    const first = await kieUpload(src, token)
+    const { taskId, url } = await kieRun(
+      VIDEO_MODEL,
+      { prompt: motion, first_frame_url: first, duration: Number(duration),
+        resolution, aspect_ratio: '21:9', generate_audio: false },
+      token,
+    )
+
+    const out = path.join(outDir, `${name.replace(IMG, '')}.mp4`)
+    logPrompt({ kind: 'video', dir, source: name, model: VIDEO_MODEL, duration, resolution,
+                aspect_ratio: '21:9', prompt: motion, taskId, url, output: out })
+    await download(url, out)
+    return { out, name: path.basename(out), bytes: fs.statSync(out).size }
+  },
+
   async 'POST /api/save-state'(body) {
     const { dir, ratio, items } = body
     fs.writeFileSync(
@@ -168,7 +354,13 @@ const routes = {
           defaultRatio: ratio,
           savedAt: new Date().toISOString(),
           items: Object.fromEntries(
-            items.map((i) => [i.name, { verdict: i.verdict, target: i.target, rect: i.rect }]),
+            items.map((i) => [
+              i.name,
+              // prompt + notes persist: the notes are what you learned from looking at the
+              // last generation, and they are worth more than the picture they replaced.
+              { verdict: i.verdict, target: i.target, rect: i.rect,
+                prompt: i.prompt ?? null, notes: i.notes ?? null, motion: i.motion ?? null },
+            ]),
           ),
         },
         null,
@@ -314,6 +506,17 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(500)
       return res.end()
     }
+  }
+
+  // Stream a generated video back to the sheet.
+  if (url.pathname === '/api/vid') {
+    const p = url.searchParams.get('p')
+    if (!p || !fs.existsSync(p)) {
+      res.writeHead(404)
+      return res.end()
+    }
+    res.writeHead(200, { 'content-type': 'video/mp4', 'content-length': fs.statSync(p).size })
+    return fs.createReadStream(p).pipe(res)
   }
 
   const key = `${req.method} ${url.pathname}`

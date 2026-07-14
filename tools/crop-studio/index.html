@@ -65,6 +65,7 @@
 
   /* ── right: the verdict ── */
   .side{background:var(--panel);border-left:1px solid var(--line);padding:1rem;overflow-y:auto;display:flex;flex-direction:column;gap:1rem}
+  .side > *{flex-shrink:0}
   .side h2{font:600 .68rem/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin:0}
   .facts{font:.72rem/1.7 var(--mono);color:var(--dim)}
   .facts b{color:var(--fg);font-weight:600}
@@ -89,6 +90,25 @@
   .tally span{color:var(--fg)}
   .log{font:.66rem/1.5 var(--mono);color:var(--dim);white-space:pre-wrap;max-height:180px;overflow:auto;
        background:#0d0c0f;border:1px solid var(--line);border-radius:4px;padding:.5rem}
+
+  /* ── studio: regenerate, comment, video ── */
+  .v.slow{opacity:.55;font-size:.7rem}                 /* extend is a last resort, and looks like one */
+  .v.slow:hover{opacity:1}
+  .v.on[data-v=regen]{border-color:var(--ok);color:#8ee6a8;background:#12241a}
+  /* the sidebar is a flex column: without flex-shrink:0 it squashes every textarea to one line */
+  textarea{width:100%;background:#0d0c0f;border:1px solid var(--line);border-radius:4px;color:var(--fg);
+           padding:.5rem;font:.72rem/1.55 var(--mono);resize:vertical;flex-shrink:0;field-sizing:content}
+  textarea:focus{outline:0;border-color:var(--amber)}
+  .chk{display:flex;gap:.45rem;align-items:flex-start;font-size:.7rem;line-height:1.45;color:var(--dim)}
+  .chk input{margin-top:.15rem}
+  .go.alt{background:var(--imax);color:#eafcff}
+  .go.busy{opacity:.6;pointer-events:none}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:.35rem}
+  .strip{display:grid;grid-template-columns:1fr 1fr;gap:.35rem}
+  .strip figure{margin:0;position:relative}
+  .strip img{width:100%;border-radius:3px;border:1px solid var(--line);display:block;cursor:zoom-in}
+  .strip figcaption{font:.62rem/1.4 var(--mono);color:var(--dim);padding-top:.15rem}
+  #vidbox video{width:100%;border-radius:4px;border:1px solid var(--line);display:block}
 </style>
 </head>
 <body>
@@ -170,9 +190,10 @@
   <h2>Verdict</h2>
   <div class="verdicts">
     <button class="v" data-v="crop">Crop to ratio <kbd>C</kbd></button>
-    <button class="v" data-v="extend">Extend — paint it wider <kbd>E</kbd></button>
+    <button class="v" data-v="regen">Regenerate wide <kbd>W</kbd></button>
     <button class="v" data-v="native">Native — do not touch <kbd>N</kbd></button>
     <button class="v" data-v="skip">Skip <kbd>S</kbd></button>
+    <button class="v slow" data-v="extend">Extend — if you have a weekend to wait <kbd>E</kbd></button>
   </div>
   <div class="keep" id="keep">—</div>
   <p class="note" id="advice"></p>
@@ -180,6 +201,32 @@
   <p class="note">Auto-frame is libvips' <b>attention</b> heuristic — it weights edges, saturation
   and skin tones to find the busiest region. It is a starting point, not a cinematographer.
   This throws away your rectangle and puts its guess back.</p>
+
+  <h2>Regenerate <span class="facts" id="kie">—</span></h2>
+  <p class="note">These pictures were generated. There is no negative to protect, so a frame that
+  is too tight to crop should be <b>re-made wide</b>, not have its margins invented. One 21:9 4K
+  pass composes <i>for</i> the frame; everything else crops out of it.</p>
+  <textarea id="prompt" rows="5" placeholder="What is this shot? Describe the frame you want — not the one you have."></textarea>
+  <textarea id="notes" rows="3" placeholder="What was wrong with the last one? e.g. “the Limelight is a NIGHT club — the stained glass must read black, lit only by lasers and haze.”"></textarea>
+  <label class="chk"><input type="checkbox" id="useref" checked> Feed the old frame in — for cast and wardrobe only, never to pin the composition</label>
+  <button class="go alt" id="regen">Regenerate wide</button>
+  <div class="strip" id="regens"></div>
+
+  <h2>Video</h2>
+  <p class="note">Drives a clip from this still — it becomes the <b>first frame</b>, so the video
+  starts exactly on the picture you approved. 21:9, silent, for the top of the property page.</p>
+  <textarea id="motion" rows="3" placeholder="What happens in the video? Describe the MOVE, not the scene: “she lifts the spoon, he glances up, a car slides past behind them; slow push in.”"></textarea>
+  <div class="row2">
+    <select id="vdur">
+      <option value="5">5s</option><option value="6" selected>6s</option>
+      <option value="8">8s</option><option value="10">10s</option>
+    </select>
+    <select id="vres">
+      <option value="720p">720p</option><option value="1080p" selected>1080p</option><option value="4k">4K</option>
+    </select>
+  </div>
+  <button class="go alt" id="mkvid">Make video from this still</button>
+  <div id="vidbox"></div>
 
   <h2>Output</h2>
   <input type="text" id="outname" placeholder="_frames">
@@ -190,6 +237,9 @@
 
 <script>
 const $ = (s) => document.querySelector(s)
+const post = (u, body) =>
+  fetch(u, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) })
+    .then((r) => r.json())
 let DIR = null, ITEMS = [], I = 0, SCALE = 1, FIT = true
 
 // The toolbar ratio is only the DEFAULT for pictures that have not been given one.
@@ -414,14 +464,81 @@ function paintSide() {
   // advice, not rules — every one of these is overrulable
   const a = $('#advice'); a.className = 'note'; a.textContent = ''
   if (it.archival) { a.className = 'note alarm'; a.textContent = 'The filename carries a pre-1936 date — this looks like an archival document. Records are not film frames; cropping one mutilates it.' }
-  else if (it.ratio < 0.95) { a.className = 'note alarm'; a.textContent = 'Portrait. Forcing it wide throws away most of the picture. Extend it, or leave it native.' }
+  else if (it.ratio < 0.95) { a.className = 'note alarm'; a.textContent = 'Portrait. Forcing it wide throws away most of the picture. Regenerate it wide, or leave it native.' }
   else if (it.ratio > 3.0) { a.className = 'note alarm'; a.textContent = 'A strip or a panorama, not a frame.' }
-  else if (it.verdict === 'crop' && kept < 55) { a.className = 'note alarm'; a.textContent = 'This crop guts the picture. Extending it instead costs you nothing.' }
+  else if (it.verdict === 'crop' && kept < 55) { a.className = 'note alarm'; a.textContent = 'This crop guts the picture. Regenerate it wide instead — it was generated, so there is nothing here to preserve.' }
   else if (it.verdict === 'crop' && it.rect.w < 1920) { a.textContent = `Crops to ${Math.round(it.rect.w)}px wide — under the 1920 tier, so it would be upscaled downstream.` }
 
+  // studio fields follow the picture
+  $('#prompt').value = it.prompt ?? ''
+  $('#notes').value = it.notes ?? ''
+  $('#motion').value = it.motion ?? ''
+
+  $('#regens').innerHTML = (it.regens ?? []).map((f) => {
+    const p = `${DIR}/_regen/${f}`
+    return `<figure><img src="/api/img?max=520&p=${encodeURIComponent(p)}" onclick="window.open('/api/img?p=${encodeURIComponent(p)}')">
+            <figcaption>${f.replace(/\.png$/, '')}</figcaption></figure>`
+  }).join('')
+
+  $('#vidbox').innerHTML = it.video
+    ? `<video controls loop muted playsinline src="/api/vid?p=${encodeURIComponent(`${DIR}/_video/${it.video}`)}"></video>`
+    : ''
+
   const n = (v) => ITEMS.filter((x) => x.verdict === v).length
-  $('#tally').innerHTML = `crop <span>${n('crop')}</span> · extend <span>${n('extend')}</span> · native <span>${n('native')}</span> · skip <span>${n('skip')}</span>`
+  $('#tally').innerHTML = `crop <span>${n('crop')}</span> · regen <span>${n('regen')}</span> · native <span>${n('native')}</span> · skip <span>${n('skip')}</span> · extend <span>${n('extend')}</span>`
 }
+
+// ── studio: regenerate, comment, video ────────────────────────────────────────
+// The notes box is the real instrument. The old frame is something to learn from, not to
+// reproduce: say what it got wrong and the next pass fixes it.
+const bind = (id, field) => ($(id).oninput = () => { const it = cur(); if (it) { it[field] = $(id).value; save() } })
+bind('#prompt', 'prompt'); bind('#notes', 'notes'); bind('#motion', 'motion')
+
+async function busy(btn, label, fn) {
+  const was = btn.textContent
+  btn.classList.add('busy'); btn.textContent = label
+  try { await fn() } catch (e) { alert(e.message) }
+  btn.classList.remove('busy'); btn.textContent = was
+}
+
+$('#regen').onclick = () => {
+  const it = cur(); if (!it) return
+  if (!$('#prompt').value.trim()) return alert('Describe the frame you want first.')
+  busy($('#regen'), 'Generating — 21:9 4K…', async () => {
+    const r = await post('/api/regen', {
+      dir: DIR, name: it.name,
+      prompt: $('#prompt').value.trim(),
+      notes: $('#notes').value.trim() || null,
+      useRef: $('#useref').checked,
+    })
+    if (r.error) throw new Error(r.error)
+    it.regens = [...(it.regens ?? []), r.name]
+    it.verdict = 'regen'
+    show(); save()
+  })
+}
+
+$('#mkvid').onclick = () => {
+  const it = cur(); if (!it) return
+  if (!$('#motion').value.trim()) return alert('Describe what happens in the video first.')
+  busy($('#mkvid'), 'Filming — this takes a few minutes…', async () => {
+    const r = await post('/api/video', {
+      dir: DIR, name: it.name,
+      motion: $('#motion').value.trim(),
+      duration: $('#vdur').value, resolution: $('#vres').value,
+    })
+    if (r.error) throw new Error(r.error)
+    it.video = r.name
+    show(); save()
+  })
+}
+
+post('/api/kie-status', {}).then((r) => {
+  $('#kie').innerHTML = r.ready
+    ? `<b>${Math.round(r.credits)}</b> credits · ${r.imageModel}`
+    : 'offline — no KIE key'
+  if (!r.ready) { $('#regen').disabled = true; $('#mkvid').disabled = true }
+})
 
 // ── verdicts, nav, keys ───────────────────────────────────────────────────────
 const setVerdict = (v) => {
@@ -429,7 +546,9 @@ const setVerdict = (v) => {
   it.verdict = v
   show(); save()
 }
-document.querySelectorAll('.v').forEach((b) => (b.onclick = () => setVerdict(b.dataset.v)))
+// [data-v] only — the ratio buttons are also .v, and binding them here silently clobbered
+// their setTarget handler and set the verdict to undefined instead.
+document.querySelectorAll('.v[data-v]').forEach((b) => (b.onclick = () => setVerdict(b.dataset.v)))
 
 $('#reseed').onclick = async () => {
   const it = cur(); if (!it) return
@@ -447,6 +566,7 @@ document.addEventListener('keydown', (e) => {
   else if (k === '1') setTarget(2.39)
   else if (k === '2') setTarget(2)
   else if (k === 'c') setVerdict('crop')
+  else if (k === 'w') setVerdict('regen')
   else if (k === 'e') setVerdict('extend')
   else if (k === 'n') setVerdict('native')
   else if (k === 's') setVerdict('skip')

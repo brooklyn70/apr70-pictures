@@ -7,9 +7,7 @@
   "stills": [
     {
       "slug": "hero-portrait",
-      "refs": [
-        "hero_a_need_grows_in_brooklyn_01.png"
-      ],
+      "refs": [],
       "notes": "The source frame carries a Gemini sparkle watermark at bottom right. It must not survive into the regeneration. Use the reference for the boy's face and wardrobe only — nothing else in it is canon.",
       "prompt": "Black and white 35mm portrait of Marc, seventeen, on his own block in Borough Park, Brooklyn, in the summer of 1986. A sensitive kid who wants to act, photographed straight on, close, his gaze direct and unguarded into the lens — a face that has not yet decided anything. Dark hair, open collar over a worn denim jacket, a t-shirt gone soft with washing. He stands in the middle of 44th Street on a bright summer afternoon; the block falls away behind him into shallow-focus bokeh — parked American sedans nose to tail along the curb, brick and limestone rowhouses, fire escapes, a corner awning. Daylight world: hard summer sun overhead, natural contrast, no styling, no fill. Monochrome only, silver-gelatin tonality, deep blacks and blown highlights. Wide anamorphic composition, place him off centre and let the street run out to the far edge. 35mm film still, heavy natural grain, cinematic. No text, no watermark, no sparkle, no logo."
     },
@@ -18,8 +16,8 @@
       "refs": [
         "01-angib-01-stoop-k2a.png"
       ],
-      "notes": "Reference is for the two kids' faces, hair and wardrobe only. Build the frame fresh: the camera sits up inside the stoop looking out at the street, the sandstone banisters framing both edges.",
-      "prompt": "Two seventeen-year-olds sitting on a brownstone stoop on 44th Street, Borough Park, Brooklyn, late afternoon in the summer of 1986, sharing a paper cup of Italian ice with a flat wooden spoon between them. The boy has dark curly hair and a washed-out Clash t-shirt; the girl has teased blonde hair, a denim vest over a tank top, neon jelly bracelets stacked on both wrists. They are turned toward each other, absorbed, the whole block irrelevant to them. Camera is up inside the stoop looking out, so the carved sandstone banisters rise as dark masses framing the left and right edges of the frame and the street sits bright between them. Beyond: parked 1980s American sedans along the curb, chain link, the low brick of the block opposite. Daylight world — warm low sun coming down the street, natural summer light doing all the work, no fill, deep shadow inside the stoop and blown highlight out on the asphalt. Wide anamorphic composition, 35mm film still, heavy natural grain, shallow depth of field, cinematic. No text, no watermark."
+      "notes": "Reference is for the two kids' faces, hair and wardrobe only. Build the frame fresh: the camera sits up inside the stoop looking out at the street.",
+      "prompt": "Two seventeen-year-olds sitting on a brick row house stoop on 44th Street, Borough Park, Brooklyn, late afternoon in the summer of 1986, sharing a paper cup of Italian ice with a flat wooden spoon between them. The boy has dark curly hair and a washed-out iron maiden t-shirt, a cigarette in one hand; the girl has teased blonde hair, a denim vest over a tank top, silver bracelets stacked on both wrists. They are turned toward each other, absorbed, the whole block irrelevant to them. Camera is up inside the stoop looking out, so the brick banisters rise as dark masses framing the left and right edges of the frame and the street sits bright between them. Beyond: parked 1970s and 80s American sedans along the curb, chain link, the low brick of the block opposite. Daylight world — warm low sun coming down the street, natural summer light doing all the work, no fill, deep shadow inside the stoop and blown highlight out on the asphalt. Wide anamorphic composition, 35mm film still, heavy natural grain, shallow depth of field, cinematic. No text, no watermark."
     },
     {
       "slug": "limelight-club",

@@ -84,7 +84,8 @@ export const SiteSettings: GlobalConfig = {
       type: 'collapsible',
       label: 'Brand Identity',
       admin: {
-        description: 'Site-wide favicon and navigation logos. Upload SVG or PNG to Media first.',
+        description:
+          'Site-wide favicon and navigation logos. Each picker lists the whole tagged library — search, pick, or swap in place; no need to remove first. New files: add them in Media (or inline here) and TAG them (Media Kind: Logo/Favicon) or the pickers will not list them.',
         initCollapsed: true,
       },
       fields: [
@@ -93,7 +94,7 @@ export const SiteSettings: GlobalConfig = {
           fields: [
             {
               name: 'favicon',
-              type: 'upload',
+              type: 'relationship',
               relationTo: 'media',
               label: 'Favicon',
               admin: {
@@ -107,7 +108,7 @@ export const SiteSettings: GlobalConfig = {
             },
             {
               name: 'faviconDark',
-              type: 'upload',
+              type: 'relationship',
               relationTo: 'media',
               label: 'Favicon (dark tab bars)',
               admin: {
@@ -123,7 +124,7 @@ export const SiteSettings: GlobalConfig = {
         },
         {
           name: 'appleTouchIcon',
-          type: 'upload',
+          type: 'relationship',
           relationTo: 'media',
           label: 'Apple touch icon',
           admin: {
@@ -139,7 +140,7 @@ export const SiteSettings: GlobalConfig = {
           fields: [
             {
               name: 'navLogoLight',
-              type: 'upload',
+              type: 'relationship',
               relationTo: 'media',
               label: 'Nav Logo (Light theme)',
               admin: {
@@ -152,7 +153,7 @@ export const SiteSettings: GlobalConfig = {
             },
             {
               name: 'navLogoDark',
-              type: 'upload',
+              type: 'relationship',
               relationTo: 'media',
               label: 'Nav Logo (Dark theme)',
               admin: {
@@ -201,7 +202,7 @@ export const SiteSettings: GlobalConfig = {
             },
             {
               name: 'favicon212',
-              type: 'upload',
+              type: 'relationship',
               relationTo: 'media',
               label: '(212) favicon',
               admin: { width: '50%' },
@@ -222,7 +223,7 @@ export const SiteSettings: GlobalConfig = {
             },
             {
               name: 'favicon310',
-              type: 'upload',
+              type: 'relationship',
               relationTo: 'media',
               label: '(310) favicon',
               admin: { width: '50%' },
@@ -243,7 +244,7 @@ export const SiteSettings: GlobalConfig = {
             },
             {
               name: 'faviconNrc',
-              type: 'upload',
+              type: 'relationship',
               relationTo: 'media',
               label: 'NRC favicon',
               admin: { width: '50%' },

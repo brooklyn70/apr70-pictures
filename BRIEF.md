@@ -1,6 +1,52 @@
 # BRIEF — apr70-pictures (v3 → V4 live on Vercel)
 
-**Current (2026-07-14 ~4:15pm, Fable 5 — Prompt tab session):** Crop Studio got its
+**Current (2026-07-18 ~4pm, Fable 5 — v13 chrome pass):** **v13 SHIPPED.** Three Marco
+rulings executed: (1) header nav restyled to the route line's exact marquee look (mono face,
+accent superscript indices 01–04, no underline; active = ink) — edits in `v9.css`,
+`themes/marquee.css`, `V9Layout.astro`; route line kept on the front page as the zine's
+contents device. (2) Mode-toggle alignment fixed at the ROOT (`.v9-nav` was
+`align-items: baseline`; svg-only button has no baseline — row centres now, old nudge
+deleted from `mode-toggle.css`). (3) Property galleries: new **cinema view** in
+`FilmstripSlideshow.tsx` — full browser-width overlay (portal, z-100, scroll lock), PLAY
+slideshow @4.5s, manual move pauses, ESC/× close, focus restore; open via expand button or
+the picture's middle third. Browser-verified both modes on dev (nav zoom shots, autoplay
+counter advance, ESC). `SITE_VERSION` → v13. Voice ruling: site keeps the studio "we";
+founder already disclosed in JSON-LD; no copy touched (recommended one founder's line for
+/methods or /contact — Marco's call, pasteable in /admin). **Light Law recorded**
+(`tools/still-regen/LIGHT-LAW.md` + TASKS Phase 9): next stills pass regenerates ALL
+properties, prompts derived from the SCRIPT with scene citations, natural/found light,
+less Hollywood — LDV worst offender, goes first. Preflight 0, astro check 8 errors all
+pre-existing. MASTER-RECAP ledger has the v13 row (shots not refreshed — visual QA rides
+Marco's next pass).
+
+**Current (2026-07-16 ~11:50am, Opus 4.8 — still-gen wave):** **ALL NINE remaining property
+shot-lists authored AND generated.** 9 specs (6 shots each, Limelight voice) in
+`tools/still-regen/specs/` — sea-gate, shadowmaster (v2 treatment won), the-mayors (6 eras),
+alpha-yy, cleopatra, da-hook (Falcon→Red Hook 1970), la-dolce-vita, movement, u-brucculinu.
+**108/108 masters verified on disk** at 6336×2688 (21:9 4K native) in each property's
+`02-stills/_regen/`, prompts.json copied beside them, `reference-manifest.md` (ref vs AI
+classification) in every `02-stills/`. Ledger: 134 entries in vault `apr70-still-prompts/prompts.jsonl`.
+~2,616 credits spent, 12,482 remain. Run regen with `/opt/homebrew/bin/python3.14` (framework
+3.14 + brew 3.12 have broken SSL). KIE throws transient "plan"/"internal" errors under
+concurrency — rerun the property, exists-skip fills gaps. **ANGIB SHIPPED TOO** — Marco ruled casting 2026-07-16 (canonical Marc = marc-labeled real
+photos + hero-portrait-v5 direction; Sunny = Chrissy files; Boo Boo + Housie Mousie = corner-boys
+shot, NEW 13th shot). 26/26 masters in angib `_regen/`, border-swept clean, hero/corner-boys/stoop
+visually verified. **STORY WAVE SHIPPED (same day, ~5-7pm):** Marco ruled the Story Law (tools/still-regen/STORY-LAW.md —
+every shot pushes the story; alpha-yy hero image is the canonical example). All 10 specs got 5-6 appended
+story shots (Mayors got 11 press frames, one per administration 1950→2026), his named beats verbatim
+(joy-ride, hospital slap, LAX custody, Buenos Aires, Siena crypt, Michelangelo's/Enrico, after-the-job
+catwalk, Nova + the avatar that can't refuse). **264/264 masters verified, zero defects.** VIDEO: model
+ruled bytedance/seedance-2-fast @ 720p 6s (270 cr; first frame must be ≤6000px — downscale to 3168x1344;
+full seedance-2 1080p = 612 cr for upgrades). Fleet of 9 story-frame clips + Mayors' 1080p blackout test
+clip → each {prop}/02-stills/_regen/_video/, ledgered. FLEET COMPLETE 9/9, 0 fails, 1,782 cr.
+Final balance 6,122 credits. Fleet script: session scratchpad video-fleet.py (rebuildable from ledger). **Marco rulings queue:**
+cleopatra one-face
+(01-cleo-k2a) + reigns-reset flag, da-hook B&W vs color, mayors 2026 faceless/Mamdani,
+movement seven-faces canon, u-brucculinu spelling + Santo/Elena faces, LDV webp cast
+supersedes pngs. Stale `.claude/.context-meter` (16.5MB) was hard-blocking agent Bash —
+reset; Stop-hook reset needs a look.
+
+**Previous (2026-07-14 ~4:15pm, Fable 5 — Prompt tab session):** Crop Studio got its
 **Prompts tab** (ten-property shot-list desk over `tools/still-regen/specs/`, per-shot
 generate, ledger-before-download, `_regen/` output) — built, browser-verified, code-reviewed
 (8 findings, all fixed: stale-prompt race, v-number collision, regen.py folder unified to

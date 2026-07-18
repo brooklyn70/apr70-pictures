@@ -246,12 +246,20 @@ const panelLabels = {
           />
         </a>
         <nav class="v9-nav" aria-label="Primary">
-          {navLinks.map((link) => (
+          {/* v13: the header nav wears the routeline look — mono super index
+              on every route except home, matching the 01–04 strip on the
+              front page (Marco 2026-07-18). */}
+          {navLinks.map((link, i) => (
             <a
               class="v9-nav__link"
               href={link.href}
               aria-current={(link.href === '/' ? path === '/' : path.startsWith(link.href)) ? 'page' : undefined}
             >
+              {link.href !== '/' && (
+                <span class="v9-nav__index" aria-hidden="true">
+                  {String(navLinks.slice(0, i).filter((l) => l.href !== '/').length + 1).padStart(2, '0')}
+                </span>
+              )}
               {link.label}
             </a>
           ))}

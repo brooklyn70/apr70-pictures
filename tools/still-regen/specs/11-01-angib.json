@@ -3,21 +3,25 @@
   "title": "A Need Grows in Brooklyn",
   "canon": "Borough Park, Brooklyn, summer 1986. Marc is seventeen, sensitive, dreaming of acting at NYU, and gets pulled from petty mischief into the club-and-crime world of older dealers. Feature. NRC lead, (212) co-production. Live CMS canon, 2026-07-14.",
   "look": "Documentary realism on heavy 35mm grain. The lighting law, from the canon: two worlds with two kinds of light. THE BLOCK is daylight — natural, warm, unstyled, sun doing the work. THE CLUBS are after dark — the only light in frame is the room's own. A frame belongs to one world or the other; it never borrows the other's light.",
-  "note": "Eleven scenes deduped from thirteen existing stills. Every shot is generated natively at 21:9 4K rather than outpainted into it — the extend path failed on exactly the frames that carried source defects (night-street's left bar, aftermath-block's baked-in pillarbox, the hero's sparkle watermark). Prompts are written to the Limelight standard: name the real place, state the light logic explicitly, describe the world rather than instructing the model to copy a picture. Refs carry cast and wardrobe ONLY; the prompt owns the composition. CAST CONTINUITY WARNING: the existing stills do not share one Marc — the hero portrait, the stoop boy, the boy under the El and the first-love boy are four different faces. Each shot below refs its own still, which preserves the status quo and no more. Picking a canonical Marc is Marco's call.",
+  "note": "2026-07-16 STORY SHOTS APPENDED (Story Law, STORY-LAW.md): six new frames after corner-boys, each built so a stranger can read WHAT IS HAPPENING and what it costs — mined from canon v6 fountain + gauntlet mining docs. The spine: Mousie's dusk Caddy pull-up (Marco's named 'joy ride' beat, canon C1), the P.S. 131 schoolyard beatdown that severs Marc from Sunny (canon C34), Cheyenne picking Marc alone through the Limelight ropes (canon 1328), the ART-of-boosting lesson (canon 1512-1552), Francine's news in the parked car — 'Marc, your friend... Sunny died' (canon 2601), and the memorial on Sunny's stoop (aftermath, canon 2637). No existing shot touched. Frank Gee and Francine remain UNCAST — candidates exist in 02-stills (frank-ice-cream-truck.jpg, MammaModella.jpg) but need Marco's ruling. Eleven scenes deduped from thirteen existing stills. Every shot is generated natively at 21:9 4K rather than outpainted into it — the extend path failed on exactly the frames that carried source defects (night-street's left bar, aftermath-block's baked-in pillarbox, the hero's sparkle watermark). Prompts are written to the Limelight standard: name the real place, state the light logic explicitly, describe the world rather than instructing the model to copy a picture. Refs carry cast and wardrobe ONLY; the prompt owns the composition. CASTING RULED 2026-07-16 (Marco): canonical Marc = the marc-labeled real photos in 02-stills (CU-marc.jpg is the face anchor) plus hero-portrait-v5.png as the approved generated direction. The part of Sunny is played by the Chrissy-labeled files (blonde). Boo Boo (boo-boo.jpg) and Housie Mousie (housie-mousie.jpg) are Marc's friends — see the corner-boys shot. Every Marc shot now refs the same face.",
   "stills": [
     {
       "slug": "hero-portrait",
-      "refs": [],
-      "notes": "The source frame carries a Gemini sparkle watermark at bottom right. It must not survive into the regeneration. Use the reference for the boy's face and wardrobe only — nothing else in it is canon.",
-      "prompt": "Black and white 35mm portrait of Marc, seventeen, on his own block in Borough Park, Brooklyn, in the summer of 1986. A sensitive kid who wants to act, photographed straight on, close, his gaze direct and unguarded into the lens — a face that has not yet decided anything. Dark hair, open collar over a worn denim jacket, a t-shirt gone soft with washing. He stands in the middle of 44th Street on a bright summer afternoon; the block falls away behind him into shallow-focus bokeh — parked American sedans nose to tail along the curb, brick and limestone rowhouses, fire escapes, a corner awning. Daylight world: hard summer sun overhead, natural contrast, no styling, no fill. Monochrome only, silver-gelatin tonality, deep blacks and blown highlights. Wide anamorphic composition, place him off centre and let the street run out to the far edge. 35mm film still, heavy natural grain, cinematic. No text, no watermark, no sparkle, no logo."
+      "refs": [
+        "CU-marc.jpg",
+        "hero-portrait-v5.png"
+      ],
+      "notes": "CANONICAL MARC RULED 2026-07-16: the marc-labeled real photos in 02-stills are the face. hero-portrait-v5 is the approved direction ('pretty good') — carry its face, curls and denim-over-band-tee wardrobe into a fresh stab at this composition. Refs carry face and wardrobe only; the prompt owns the frame.",
+      "prompt": "Black and white 35mm portrait of Marc, seventeen, in Borough Park, Brooklyn, in the summer of 1986. Photographed straight on, close, his gaze direct and unguarded into the lens — a face that has not yet decided anything. Dark curly hair, a worn denim jacket, an Iron Maiden t-shirt gone soft with washing. He stands in the middle of 44th Street on a bright summer afternoon; the block falls away behind him into shallow-focus bokeh — the West End Line elevated can be seen behind him bridging the frame. Parked American sedans from the 70s and early 80s, not all new- are parked along the curb. Brick rowhouses, each has a front gate with garden: bushe and shrubs, a strairway going downstairs and wide stoop going to the main floor, all madke of brick. the banisters are brick. the stairs themselves are large slate blocks. houses built in 1910. two story homes. the El in the background is on New Utrecht Avenue. Daylight world: hard summer sun overhead, natural contrast, no styling, no fill. Monochrome only, silver-gelatin tonality, deep blacks and blown highlights. Wide anamorphic composition, place him off centre and let the street run out to the far edge. 35mm film still, heavy natural grain, cinematic. No text, no watermark, no sparkle, no logo."
     },
     {
       "slug": "stoop-italian-ice",
       "refs": [
-        "01-angib-01-stoop-k2a.png"
+        "CU-marc.jpg",
+        "ChrissyFace.jpg"
       ],
-      "notes": "Reference is for the two kids' faces, hair and wardrobe only. Build the frame fresh: the camera sits up inside the stoop looking out at the street.",
-      "prompt": "Two seventeen-year-olds sitting on a brick row house stoop on 44th Street, Borough Park, Brooklyn, late afternoon in the summer of 1986, sharing a paper cup of Italian ice with a flat wooden spoon between them. The boy has dark curly hair and a washed-out iron maiden t-shirt, a cigarette in one hand; the girl has teased blonde hair, a denim vest over a tank top, silver bracelets stacked on both wrists. They are turned toward each other, absorbed, the whole block irrelevant to them. Camera is up inside the stoop looking out, so the brick banisters rise as dark masses framing the left and right edges of the frame and the street sits bright between them. Beyond: parked 1970s and 80s American sedans along the curb, chain link, the low brick of the block opposite. Daylight world — warm low sun coming down the street, natural summer light doing all the work, no fill, deep shadow inside the stoop and blown highlight out on the asphalt. Wide anamorphic composition, 35mm film still, heavy natural grain, shallow depth of field, cinematic. No text, no watermark."
+      "notes": "Casting ruled 2026-07-16: Marc from the marc-labeled real photos; the part of Sunny is played by the Chrissy-labeled files. Refs carry the two faces, hair and wardrobe only. Build the frame fresh: the camera sits up inside the stoop looking out at the street.",
+      "prompt": "Marc is seventeen, Sunny sixteen. Sitting on a row house stoop on 44th Street, Borough Park, Brooklyn, late afternoon in the summer of 1986, sharing a paper cup of Italian ice with a flat wooden spoon between them. The boy has dark curly hair and a washed-out iron maiden t-shirt, a cigarette in one hand; the girl has teased blonde hair, a denim vest over a tank top, silver bracelets stacked on both wrists. They are turned toward the camera, caught by the photographer sharing affection. Camera is up inside the stoop looking out, in front of them the street sits bright between them. Beyond: parked 1960s and 1970's American cars along the curb, out to the corner of fort hamilton parkway and new utrecht avenue, a busy intersecton. Daylight world — warm low sun coming down the street, natural summer light doing all the work, no fill, deep shadow inside the stoop and blown highlight out on the asphalt. Wide anamorphic composition, 35mm film still, heavy natural grain, shallow depth of field, cinematic. No text, no watermark."
     },
     {
       "slug": "limelight-club",
@@ -34,9 +38,10 @@
     {
       "slug": "boy-under-el",
       "refs": [
-        "01-boy-under-el.png"
+        "CU-marc.jpg",
+        "hero-portrait-v5.png"
       ],
-      "notes": "Reference for the kid's face, hair and denim only. The El here is the real one — the elevated West End line over New Utrecht Avenue, a few blocks off Marc's block.",
+      "notes": "Canonical Marc refs (ruled 2026-07-16) replace the old per-still face. Face, curls and denim only. The El here is the real one — the elevated West End line over New Utrecht Avenue, a few blocks off Marc's block.",
       "prompt": "A seventeen-year-old boy standing alone in the middle of the street at dusk, under the elevated train trestle on New Utrecht Avenue in Borough Park, Brooklyn, summer 1986. Long hair, denim jacket over a dark t-shirt, hands loose at his sides, looking off down the avenue at something out of frame — stranded, unhurried, seventeen. Above and behind him the steel girders and rivets of the El carry the track across the whole width of the frame. The avenue runs away behind him: storefronts with steel shutters half down, awnings, parked sedans, a long block receding into haze. Dusk world, the hinge between the two: the sky still holds cold blue light, the sodium streetlamps under the El have just come on warm orange, and the two colours meet on his face. Wide anamorphic composition, 35mm film still, heavy natural grain, shallow depth of field, cinematic. No text, no watermark."
     },
     {
@@ -60,10 +65,11 @@
     {
       "slug": "first-love",
       "refs": [
-        "07-first-love.png"
+        "CU-marc.jpg",
+        "ChrissyFace.jpg"
       ],
-      "notes": "Reference for the two faces, hair and wardrobe only. The canon kills her later; this frame must not know that yet — it is the warmest thing in the film.",
-      "prompt": "A teenage couple sitting close together on a brownstone stoop at night, Borough Park, Brooklyn, summer 1986. She has dark permed hair and is leaning into him, sharing one earbud of a Walkman; he wears a denim jacket over a white t-shirt, hair back off his face. Both of them are laughing at something small. They take up one side of the frame, low, and the stoop's carved stone banister runs beside them. Behind: the wet street, parked sedans, a row of stoops receding down the block, and warm lit windows in the rowhouses above. Night world, but the domestic kind, not the club's — warm sodium streetlight from off frame, spill from a window above, soft and low and unglamorous. Wide anamorphic composition, 35mm film still, heavy natural grain, shallow depth of field, cinematic. No text, no watermark."
+      "notes": "Casting ruled 2026-07-16: Marc canonical, Sunny played by the Chrissy files — she is blonde, not dark-permed; prompt corrected to match. The canon kills her later; this frame must not know that yet — it is the warmest thing in the film.",
+      "prompt": "A teenage couple sitting close together on a brownstone stoop at night, Borough Park, Brooklyn, summer 1986. She has teased blonde hair and is leaning into him, sharing one earbud of a Walkman; he wears a denim jacket over a white t-shirt, hair back off his face. Both of them are laughing at something small. They take up one side of the frame, low, and the stoop's carved stone banister runs beside them. Behind: the wet street, parked sedans, a row of stoops receding down the block, and warm lit windows in the rowhouses above. Night world, but the domestic kind, not the club's — warm sodium streetlight from off frame, spill from a window above, soft and low and unglamorous. Wide anamorphic composition, 35mm film still, heavy natural grain, shallow depth of field, cinematic. No text, no watermark."
     },
     {
       "slug": "aftermath-block",
@@ -76,6 +82,78 @@
       "refs": [],
       "notes": "Seen from behind — no face, so no cast ref needed. This is the last frame of the film's grammar: the block, and a kid walking into it.",
       "prompt": "A lone teenage figure walking away from camera down the middle of a Borough Park residential block at sunset, summer 1986, seen from behind — denim jacket, a bag hooked over one shoulder, unhurried. In the foreground, close: two bicycles chained to a signpost and a fire hydrant, rust on the chrome. The block runs away ahead of him — brownstone stoops, brick rowhouses, parked American sedans nose to tail, a corner grocery with a hand-painted awning, and at the far end the elevated train bridge crossing the street with a train just going over it. Daylight world at its last hour: low golden sun straight down the axis of the street, long shadows reaching back toward camera, warm haze, the sky burning out behind the El. Wide anamorphic composition. 35mm film still, heavy natural grain, cinematic. No text, no watermark."
+    },
+    {
+      "slug": "under-the-el",
+      "refs": [
+        "CU-marc.jpg",
+        "hero-portrait-v5.png"
+      ],
+      "prompt": "A seventeen-year-old boy standing alone in the middle of the street at midday, under the elevated train trestle on New Utrecht Avenue in Borough Park, Brooklyn, summer 1986. Medium shot. Long hair, denim jacket over a dark t-shirt, hands loose at his sides, looking off behind the camera, at something out of frame. He is unhurried, seventeen. Above and behind him the steel girders and rivets of the El carry the track across the whole width of the frame. The avenue runs away behind him: storefronts with steel shutters half down, awnings, parked sedans, a long block receding into haze. The sky bright blue light, the shadows cast under the El form a pattern on the street, and across his face. Wide anamorphic composition, 35mm film still, heavy natural grain, shallow depth of field, cinematic. No text, no watermark.",
+      "notes": "ref is the face of the seventeen year old. longer hair. Iron maiden shirt."
+    },
+    {
+      "slug": "corner-boys",
+      "refs": [
+        "CU-marc.jpg",
+        "boo-boo.jpg",
+        "housie-mousie.jpg"
+      ],
+      "notes": "NEW SHOT, casting ruled 2026-07-16: Boo Boo is one of Marc's friends — the stocky dark-haired kid mid-laugh in boo-boo.jpg; Housie Mousie is the third boy. Refs carry the three faces, hair and builds only; the corner and the light belong to the prompt. Boo Boo's energy is the engine of the frame — loud, mid-story, all hands.",
+      "prompt": "Three teenage boys holding down the corner outside a small grocery on 44th Street and Fort Hamilton Parkway, Borough Park, Brooklyn, on a hot summer afternoon in 1986. Marc, seventeen, dark curls and a denim jacket over a band t-shirt, leans against the store's brick corner with a paper cup of Italian ice. Beside him a stocky dark-haired kid is mid-story, mouth open, both hands up in the air making his point; the third boy is doubled over laughing against a parked sedan. The grocery behind them: a hand-painted awning, milk crates stacked by the door, a rack of newspapers, an open doorway going back into the dark of the store. A fire hydrant, chained bicycles, big American sedans nose to tail at the curb. Daylight world — hard summer sun overhead, natural contrast, blown sidewalk and deep awning shadow, no styling, no fill. Wide anamorphic composition, the corner anchoring one side and the block running out the other. 35mm film still, heavy natural grain, documentary realism, cinematic. No text, no watermark."
+    },
+    {
+      "slug": "joy-ride",
+      "refs": [
+        "housie-mousie.jpg",
+        "CU-marc.jpg"
+      ],
+      "notes": "STORY SHOT 2026-07-16, Marco's named beat. Canon C1 (fountain 585-650): 'a nightclub on wheels pulls up to the curb... all bass, all chrome' — Mousie's Caddy stops in front of the store at DUSK and he throws Marc and Sal in; the other boys back away. The quote marks on 'joy ride' carry the menace: this ride ends in an armed robbery at the Marlboro Projects. Refs carry Housie Mousie's face and Marc's face/wardrobe only; the Caddy, the corner and the dusk belong to the prompt. What is happening must read cold: kids are being taken, and one boy is deciding.",
+      "prompt": "Dusk on 44th Street, Borough Park, Brooklyn, summer 1986, outside the corner grocery. A chromed-out late-seventies Cadillac — a nightclub on wheels, all bass and all chrome, windows down, music you can see in the way the kids flinch — has swung hard against the curb, engine running, both curbside doors hanging open. The driver, a wiry wild-eyed man in his twenties in an open shirt, is half out of the car, one arm shoving a skinny teenage boy through the passenger door; another boy is already inside, face pale against the glass. At the rear door stands Marc, seventeen, dark curls and a denim jacket over a band t-shirt, one hand on the chrome door frame, body caught exactly between getting in and backing away. Farther up the sidewalk three more boys retreat toward the grocery, one pulling another by the sleeve. Milk crates by the store door, a fire hydrant, parked sedans nose to tail. Dusk world, the hinge between the two: the sky still holds cold blue light, the sodium streetlamps have just come on warm orange, and the Cadillac's brake lights burn hottest of all, throwing red up the boys' legs. Wide anamorphic composition, the Caddy owning one side of the frame and the retreating kids the other. 35mm film still, heavy natural grain, cinematic. No text, no watermark."
+    },
+    {
+      "slug": "schoolyard-beatdown",
+      "refs": [
+        "CU-marc.jpg",
+        "ChrissyFace.jpg",
+        "housie-mousie.jpg"
+      ],
+      "notes": "STORY SHOT 2026-07-16. Canon C34 (fountain 1585-1670): the first kiss around the corner of the U-shaped P.S. 131 schoolyard, interrupted — Mousie slams Marc into the wall and beats him savagely in front of Sunny; 'The beating wasn't the thing. Beatings heal. It was Sunny seeing me on the ground.' The turning-point trauma that severs Marc from Sunny. Frame the aftermath, not the punch: the boy down, the girl at his side, the man walking away unhurried. Refs carry the three faces and wardrobe only.",
+      "prompt": "The concrete schoolyard of P.S. 131 on Fort Hamilton Parkway, Borough Park, Brooklyn, late on a summer afternoon in 1986, in the corner where the U-shaped brick school building meets the chain-link fence. Marc, seventeen, dark curls, denim jacket, is down on the ground against the brick wall, face bloodied and swelling, hands coming up to cover it. Sunny, sixteen, teased blonde hair, denim vest over a tank top, is crouched at his side, crying, one hand on his shoulder, looking after the man who did it. And walking away across the empty yard, back to camera, already done with it: a wiry wild-eyed man pulling a haggard woman along by the wrist, unhurried, as if nothing happened. Handball court lines painted on the asphalt, a deflated ball against the fence. Daylight world at full force — hard low summer sun raking across the yard, the chain-link throwing long diamond shadows over the boy and the girl, no fill, no mercy in the light. Wide anamorphic composition, the couple small against the wall on one side, the walking man carrying the menace out the far edge. 35mm film still, heavy natural grain, documentary realism, cinematic. No text, no watermark."
+    },
+    {
+      "slug": "velvet-rope",
+      "refs": [
+        "CU-marc.jpg",
+        "hero-portrait-v5.png"
+      ],
+      "notes": "STORY SHOT 2026-07-16. Canon 1328 (mining act2): 'Cheyenne picks Marc — alone — through the ropes' at the Limelight; Murder and Frank adopt him inside. The threshold crossing into Act II. The frame must show selection, not a nightclub: one kid chosen, everyone else left on the sidewalk. Night world — the only light is the club's own spilling from the doorway. Marc refs carry face and wardrobe only; Cheyenne and the crowd belong to the prompt.",
+      "prompt": "The sidewalk outside the Limelight, New York, 1986 — the deconsecrated Gothic Revival brownstone church on Sixth Avenue at 20th Street, running as a nightclub. Middle of the night. A huge doorman in a long coat has unhooked the velvet rope and holds it open, his other hand beckoning exactly one person: Marc, seventeen, dark curls, denim jacket over a band t-shirt, stepping forward out of the waiting crowd — too young, chosen anyway, glancing back over his shoulder at the boys he is leaving on the pavement. Behind him the line of downtown nightlife in leather, lace and denim presses against the stanchions, and his three friends stand flat-footed at the front of it, not chosen, watching him go. Night world: no daylight anywhere; the only light is the club's own — warm gold spilling down the stone steps from the open Gothic doorway, the cold blue of a streetlamp at the frame's edge, faces lit only where the doorway light reaches them. The church facade rises into darkness above. Wide anamorphic composition, the open rope and the doorway on one side, the left-behind crowd running out the other. 35mm film still, heavy natural grain, cinematic. No text, no watermark."
+    },
+    {
+      "slug": "art-of-boosting",
+      "refs": [
+        "CU-marc.jpg"
+      ],
+      "notes": "STORY SHOT 2026-07-16. Canon 1512-1552 (mining act2): Frank and Murder school Marc in the 'ART' of boosting — the first errand; 'he's a natural' (1588). The boost circuit is T.S.S./G.N.C./Toys-R-Us. The frame must read as theft in progress with a teacher: the kid mid-lift, the older man watching the registers, not the kid. Interior world lit by the room's own fluorescents, no daylight. Frank Gee is UNCAST — frank-ice-cream-truck.jpg exists in 02-stills as a candidate but needs Marco's ruling; until then the prompt owns his look.",
+      "prompt": "Inside a T.S.S. discount department store in Brooklyn, summer 1986, deep in a housewares aisle. Marc, seventeen, dark curls, is sliding a boxed Walkman flat under his open denim jacket, chin down, movements small and practiced — but his eyes are up, checking. One step behind him at the head of the aisle stands an older man in his mid-twenties, leather jacket over a silk shirt, gold chain, a shopping basket with two cheap items for cover hanging from one hand; he is not watching Marc at all — he is watching the convex security mirror and the registers, calm as a man teaching. Tall shelves of stock run away behind them, a sale banner sagging, an empty checkout lane far off. Interior world: flat fluorescent tube light from the ceiling is the only light in the frame, no window, no daylight, greenish and even, deep shadow only under the shelf lips. Wide anamorphic composition, the aisle running out to the far edge, the mirror a small hot circle in the upper corner. 35mm film still, heavy natural grain, documentary realism, cinematic. No text, no watermark."
+    },
+    {
+      "slug": "the-news",
+      "refs": [
+        "CU-marc.jpg"
+      ],
+      "notes": "STORY SHOT 2026-07-16. Canon 2601 (INT. CAR - DAY): the strange quiet, then Francine — 'Marc, your friend... Sunny died.' Drunk driver; hemophilia; he missed the funeral because he was out partying. The loss lands in a parked car in ordinary daylight — the cruelty is that the block outside looks like any other afternoon. Marc ref carries face and wardrobe only. Francine is UNCAST — MammaModella.jpg exists in 02-stills as a candidate but needs Marco's ruling; until then the prompt owns her.",
+      "prompt": "Inside a parked American sedan on 44th Street, Borough Park, Brooklyn, on a bright summer afternoon in 1986, shot through the windshield from the hood. Marc's mother sits at the wheel, mid-forties, dark hair pinned up, a working woman's blouse, both hands still on the wheel of the parked car, her face turned to her son, having just said the thing that cannot be unsaid. Marc, seventeen, dark curls, denim jacket, is coming apart in the passenger seat — folded forward, one fist against his mouth, eyes wrecked, the first second of a grief that has nowhere to go inside a car. Behind them through the rear window the block goes on being ordinary: stoops, parked cars, a kid crossing with a grocery bag, hard summer sun. Daylight world at its cruelest — high natural light through the glass, sun flare on the windshield edge, the interior half in shadow, no styling, no fill. Wide anamorphic composition, the two of them held in the frame of the windshield with the indifferent street burning bright behind. 35mm film still, heavy natural grain, shallow depth of field, cinematic. No text, no watermark."
+    },
+    {
+      "slug": "sunnys-stoop",
+      "refs": [
+        "CU-marc.jpg",
+        "hero-portrait-v5.png"
+      ],
+      "notes": "STORY SHOT 2026-07-16. Canon 2637 (INT. SUNNY'S HOUSE - DAY) and the missed funeral (2601-2635): the aftermath on the block. The frame is the block-memorial grammar of 1986 — candles and flowers on the stoop rail — with Marc across the street, unable to cross. A stranger reads it instantly: someone died in that house, and the boy who cannot approach is why the frame exists. No signs, no written cards — candles and flowers only, per the no-text law. Marc refs carry face and wardrobe only.",
+      "prompt": "A rowhouse stoop on 44th Street, Borough Park, Brooklyn, on a flat overcast summer morning in 1986, turned into a sidewalk memorial: votive candles in glass burned down to different heights on the steps, bunches of carnations and roses wedged into the iron stoop railing, a teddy bear against the bottom step, wax run down the slate. The front door at the top of the stoop is shut, curtains drawn in the parlour window. Across the street, small in the frame, stands Marc, seventeen, dark curls, denim jacket, hands jammed in his pockets, facing the stoop but rooted at the far curb between two parked sedans — a boy who has walked here and cannot cross the last thirty feet. An old woman in black passes along the memorial sidewalk without stopping. Daylight world drained of its warmth: even grey overcast light, no sun, no shadows, the candle flames the only warm points in the frame. Wide anamorphic composition, the memorial stoop heavy on one side and the boy alone and small on the other, the width of the street between them. 35mm film still, heavy natural grain, documentary realism, cinematic. No text, no watermark."
     }
   ]
 }

@@ -103,6 +103,19 @@ AI = authoring + theme-design assistant (no visitor chat). Design: `docs/archite
 
 ---
 
+## Phase 9 — Stills regen under the Light Law (NEW, 2026-07-18)
+
+Marco's ruling 2026-07-18: the stills get done ONCE MORE, all properties.
+Laws: `tools/still-regen/LIGHT-LAW.md` (prompts derive from the SCRIPT — the
+source of truth, not freehand prompt-writing; lighting naturalistic/found,
+less Hollywood — L.A. Dolce Vita is the worst offender) + STORY-LAW.md + Limelight.
+
+- [ ] [p9] [claude] Rewrite every spec's prompts FROM THE SCRIPT, scene citations quoted beside each prompt (Light Law §1).
+- [ ] [p9] [claude] Regen pass, all ten properties, natural/available light only (Light Law §2). LDV first.
+- [ ] [p9] [requires-gui] Marco reviews regen frames against script/treatment before any swap into CMS media.
+
+---
+
 ## Done
 
 (Completed tasks moved here with date.)

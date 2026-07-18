@@ -85,7 +85,9 @@
     justify-content: space-between;
     gap: 0.6rem;
   }
-  .v9-nav__link { letter-spacing: 0.14em; }
+  /* Five display-face routes at 375: drop the supers, tighten the face. */
+  .v9-nav__link { letter-spacing: 0.02em; font-size: 0.9rem; }
+  .v9-nav__index { display: none; }
 }
 .v9-brand {
   display: inline-flex;
@@ -104,28 +106,44 @@
 .v9-nav {
   margin-left: auto;
   display: flex;
-  align-items: baseline;
+  /* Center, not baseline: the mode toggle is an svg-only button with no text
+     baseline, so `baseline` shoved it off the row no matter how it was nudged
+     (Marco, three times through v12). Links share one type size, so centering
+     them is baseline-equivalent — and the icon finally sits level. */
+  align-items: center;
   gap: clamp(0.9rem, 2.4vw, 2rem);
   overflow-x: auto;
   scrollbar-width: none;
 }
 .v9-nav::-webkit-scrollbar { display: none; }
+/* v13: the header wears the routeline's clothes (Marco 2026-07-18 — "I like
+   the look of the lower one"). Display face + mono super index, no underline;
+   the active route shows in accent ink instead. */
 .v9-nav__link {
-  font-family: var(--font-mono);
-  font-size: var(--v9-micro);
-  letter-spacing: 0.22em;
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.1rem);
+  font-weight: 500;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--fg-3);
+  color: var(--fg-2);
   white-space: nowrap;
   padding-block: 0.35rem;
-  border-bottom: 2px solid transparent;
   transition: color var(--dur-quick) var(--ease-out);
 }
-.v9-nav__link:hover { color: var(--fg-1); }
-.v9-nav__link[aria-current='page'] {
+.v9-nav__link:hover { color: var(--accent); }
+.v9-nav__link[aria-current='page'],
+.v9-nav__link[aria-current='page'] .v9-nav__index {
   color: var(--accent);
-  border-bottom-color: var(--accent);
+}
+.v9-nav__index {
+  font-family: var(--font-mono);
+  font-size: var(--v9-micro);
+  letter-spacing: 0.2em;
+  color: var(--fg-4);
+  vertical-align: super;
+  margin-right: 0.4em;
+  transition: color var(--dur-quick) var(--ease-out);
 }
 
 /* ---- Footer ---- */

@@ -8,13 +8,14 @@
   appearance: none;
   background: transparent;
   border: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 0.3rem;
   margin-left: 0.35rem;
   line-height: 0;
-  /* The nav rows up on `baseline`, and an svg-only button with line-height 0
-     has a degenerate baseline, so the icon rode high of the links
-     (Marco 2026-07-13, v12). Centre it against the row instead. */
-  align-self: center;
+  /* v13: the nav itself centers its row now (see .v9-nav) — the baseline
+     workaround that kept failing is gone at the source. */
   color: var(--fg-3);
   cursor: pointer;
   border-radius: 0;
@@ -38,8 +39,8 @@
 /* NB: no `display` here. `.mode-toggle svg` (0,1,1) would outrank the
    `.mode-toggle__sun` hide rule (0,1,0) and paint both icons at once. */
 .mode-toggle svg {
-  width: 17px;
-  height: 17px;
+  width: 18px;
+  height: 18px;
 }
 
 /* Show the sun in the dark (the light you can turn on), the moon in the light.

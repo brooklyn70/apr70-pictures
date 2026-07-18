@@ -238,21 +238,23 @@ body::after {
   backdrop-filter: none;
   border-bottom: var(--rule-hairline);
 }
+/* v13: the header nav wears the ROUTELINE's exact clothes (Marco 2026-07-18,
+   "I like the look of the lower one") — mono face, accent index supers, and
+   no underline; the active route reads in ink instead. Keep these four rules
+   in lockstep with the route-line block below. */
 .v9-nav__link {
-  /* v10 F2: nav is set in the house display face (Futura), not mono */
-  font-family: var(--font-display);
-  font-weight: 500;
+  font-family: var(--font-mono);
+  font-weight: 400;
   font-size: var(--text-xs);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: var(--color-neutral);
   transition: color var(--dur-micro) cubic-bezier(0.16, 1, 0.3, 1);
 }
 .v9-nav__link:hover { color: var(--color-hover); }
-.v9-nav__link[aria-current='page'] {
-  color: var(--color-ink);
-  border-bottom-color: var(--color-accent);
-  border-bottom-width: 1px;
-}
+.v9-nav__link[aria-current='page'] { color: var(--color-ink); }
+/* Indices hold their accent ink everywhere, exactly like the route line. */
+.v9-nav__link[aria-current='page'] .v9-nav__index,
+.v9-nav__index { color: var(--color-accent); }
 .v9-brand__mark { transition: height var(--dur-short) cubic-bezier(0.16, 1, 0.3, 1); }
 
 /* ---------- photographic folds — GRADIENT LAW (v8 values) ----------

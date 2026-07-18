@@ -144,3 +144,68 @@
   .fs__bar { flex-wrap: wrap; }
   .fs__caption { flex-basis: 100%; order: 3; }
 }
+
+/* ---- The middle third opens the cinema (v13) ---- */
+.fs__zone--open { left: 33%; width: 34%; cursor: zoom-in; }
+.fs__btn--expand { font-size: 1rem; }
+.fs__btn--play {
+  width: auto;
+  padding-inline: 0.7rem;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+}
+
+/* ============================================================
+   Cinema view (v13) — "not full screen, but at least browser
+   width" (Marco 2026-07-18). A fixed overlay on the house scrim;
+   the picture spans the full viewport width at its own aspect,
+   height-capped so the control bar always stays on screen.
+   Deliberately NOT the Fullscreen API — the browser stays.
+   ============================================================ */
+.fs-cinema {
+  position: fixed;
+  inset: 0;
+  z-index: 100; /* over the sticky header (60) */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: color-mix(in srgb, var(--bg-0) 96%, transparent);
+  backdrop-filter: blur(10px);
+  outline: none;
+  animation: fs-frame-in var(--dur-slow) var(--ease-out);
+}
+.fs-cinema__stage {
+  position: relative;
+  width: 100%;
+  touch-action: pan-y;
+}
+.fs-cinema__slide { display: none; }
+.fs-cinema__slide[data-active='true'] {
+  display: block;
+  animation: fs-frame-in var(--dur-slow) var(--ease-out);
+}
+.fs-cinema__slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Browser width always; tall frames letterbox inside the full-width box
+     rather than shrink it, so the stage never loses the edge-to-edge read. */
+  max-height: calc(100svh - 7rem);
+  object-fit: contain;
+}
+.fs-cinema__bar {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding: 0.7rem clamp(1rem, 3vw, 2rem) 0;
+}
+.fs-cinema__close { margin-left: auto; flex: none; }
+@media (prefers-reduced-motion: reduce) {
+  .fs-cinema,
+  .fs-cinema__slide[data-active='true'] { animation: none; }
+}
+@media (max-width: 719px) {
+  .fs-cinema__bar { flex-wrap: wrap; }
+  .fs-cinema__bar .fs__caption { order: 4; flex-basis: 100%; }
+}

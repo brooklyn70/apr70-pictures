@@ -1,6 +1,7 @@
 import './filmstrip-slideshow.css'
 
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 
 /**
  * FilmstripSlideshow (v9) — one frame at a time on the film stock. Used by
@@ -8,7 +9,10 @@ import { useEffect, useRef, useState } from 'react'
  *
  * Progressive enhancement: the SSR pass (and any visitor without JS) gets the
  * plain v9-framegrid; after mount the same items re-render as the filmstrip.
- * Never autoplays. Arrow keys work while the region has focus; touch swipes
+ * Inline it never autoplays; the v13 CINEMA VIEW (expand button, or click the
+ * middle of the picture) is the one place a slideshow can be switched on —
+ * full browser width, PLAY advances every 4.5s, any manual move stops it,
+ * ESC or the close button exits. Arrow keys work while the region has focus; touch swipes
  * via pointer events; under prefers-reduced-motion transitions are cuts
  * (handled in CSS — the .v9 reduced-motion rule zeroes the fade).
  *
@@ -67,16 +71,70 @@ function Capline({ item }: { item: FilmstripItem }) {
 export default function FilmstripSlideshow({ items, label }: Props) {
   const [enhanced, setEnhanced] = useState(false)
   const [index, setIndex] = useState(0)
+  /* v13 cinema view: an overlay at full browser WIDTH (not the Fullscreen
+     API — Marco 2026-07-18: "not full screen, but at least browser width"),
+     with the one optional slideshow (autoplay) the site has. */
+  const [cinema, setCinema] = useState(false)
+  const [playing, setPlaying] = useState(false)
   const touch = useRef<{ id: number; x: number } | null>(null)
+  const expandRef = useRef<HTMLButtonElement | null>(null)
+  const cinemaRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     if (items.length > 1) setEnhanced(true)
   }, [items.length])
 
+  /* The slideshow proper. Only runs in cinema; any manual move stops it. */
+  useEffect(() => {
+    if (!playing || !cinema) return
+    const t = window.setInterval(() => {
+      setIndex((i) => (i + 1) % items.length)
+    }, 4500)
+    return () => window.clearInterval(t)
+  }, [playing, cinema, items.length])
+
+  /* Cinema chrome: scroll lock, window-level keys (the overlay may not hold
+     focus), focus in on open / back to the expand button on close. */
+  useEffect(() => {
+    if (!cinema) return
+    const prevOverflow = document.documentElement.style.overflow
+    document.documentElement.style.overflow = 'hidden'
+    cinemaRef.current?.focus()
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setPlaying(false)
+        setCinema(false)
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault()
+        setPlaying(false)
+        setIndex((i) => (i + 1) % items.length)
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault()
+        setPlaying(false)
+        setIndex((i) => (i - 1 + items.length) % items.length)
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.documentElement.style.overflow = prevOverflow
+      window.removeEventListener('keydown', onKey)
+      expandRef.current?.focus()
+    }
+  }, [cinema, items.length])
+
   if (!items.length) return null
 
   const count = items.length
   const go = (next: number) => setIndex(((next % count) + count) % count)
+  const manualGo = (next: number) => {
+    setPlaying(false)
+    go(next)
+  }
+  const openCinema = () => setCinema(true)
+  const closeCinema = () => {
+    setPlaying(false)
+    setCinema(false)
+  }
 
   /* No-JS / SSR / single-frame form: the plain grid. */
   if (!enhanced) {
@@ -109,6 +167,7 @@ export default function FilmstripSlideshow({ items, label }: Props) {
   const active = items[index]
 
   const onKeyDown = (e: React.KeyboardEvent) => {
+    if (cinema) return // the window-level handler owns the keys while open
     if (e.key === 'ArrowRight') {
       e.preventDefault()
       go(index + 1)
@@ -128,6 +187,13 @@ export default function FilmstripSlideshow({ items, label }: Props) {
     touch.current = null
     const dx = e.clientX - t.x
     if (Math.abs(dx) > 40) go(index + (dx < 0 ? 1 : -1))
+  }
+  const onPointerUpCinema = (e: React.PointerEvent) => {
+    const t = touch.current
+    if (!t || t.id !== e.pointerId) return
+    touch.current = null
+    const dx = e.clientX - t.x
+    if (Math.abs(dx) > 40) manualGo(index + (dx < 0 ? 1 : -1))
   }
 
   return (
@@ -184,6 +250,16 @@ export default function FilmstripSlideshow({ items, label }: Props) {
           aria-hidden="true"
           onClick={() => go(index + 1)}
         />
+        {/* v13: the middle third — previously "left alone" — now opens the
+            cinema view. The labeled expand button below is the accessible
+            path; this is the mouse affordance (cursor: zoom-in). */}
+        <button
+          type="button"
+          className="fs__zone fs__zone--open"
+          tabIndex={-1}
+          aria-hidden="true"
+          onClick={openCinema}
+        />
       </div>
 
       <div className="fs__bar">
@@ -203,6 +279,16 @@ export default function FilmstripSlideshow({ items, label }: Props) {
             onClick={() => go(index + 1)}
           >
             &rarr;
+          </button>
+          <button
+            type="button"
+            ref={expandRef}
+            className="fs__btn fs__btn--expand"
+            aria-label="Open cinema view"
+            aria-haspopup="dialog"
+            onClick={openCinema}
+          >
+            &#x2922;
           </button>
         </div>
         <span className="fs__counter" aria-live="polite">
@@ -225,6 +311,103 @@ export default function FilmstripSlideshow({ items, label }: Props) {
           />
         ))}
       </div>
+
+      {cinema &&
+        createPortal(
+          <div
+            className="fs-cinema"
+            role="dialog"
+            aria-modal="true"
+            aria-label={label}
+            ref={cinemaRef}
+            tabIndex={-1}
+          >
+            <div
+              className="fs-cinema__stage"
+              onPointerDown={onPointerDown}
+              onPointerUp={onPointerUpCinema}
+              onPointerCancel={() => (touch.current = null)}
+            >
+              {items.map((it, i) => (
+                <div
+                  key={i}
+                  className="fs-cinema__slide"
+                  data-active={i === index ? 'true' : undefined}
+                  aria-hidden={i !== index}
+                >
+                  <img
+                    src={it.src}
+                    srcSet={it.srcset}
+                    sizes="100vw"
+                    width={it.width}
+                    height={it.height}
+                    alt={it.alt}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              ))}
+              <button
+                type="button"
+                className="fs__zone fs__zone--prev"
+                tabIndex={-1}
+                aria-hidden="true"
+                onClick={() => manualGo(index - 1)}
+              />
+              <button
+                type="button"
+                className="fs__zone fs__zone--next"
+                tabIndex={-1}
+                aria-hidden="true"
+                onClick={() => manualGo(index + 1)}
+              />
+            </div>
+
+            <div className="fs-cinema__bar">
+              <div className="fs__nav">
+                <button
+                  type="button"
+                  className="fs__btn"
+                  aria-label="Previous frame"
+                  onClick={() => manualGo(index - 1)}
+                >
+                  &larr;
+                </button>
+                <button
+                  type="button"
+                  className="fs__btn"
+                  aria-label="Next frame"
+                  onClick={() => manualGo(index + 1)}
+                >
+                  &rarr;
+                </button>
+                <button
+                  type="button"
+                  className="fs__btn fs__btn--play"
+                  aria-pressed={playing}
+                  onClick={() => setPlaying((p) => !p)}
+                >
+                  {playing ? 'Pause' : 'Play'}
+                </button>
+              </div>
+              <span className="fs__counter" aria-live="polite">
+                {String(index + 1).padStart(2, '0')} / {String(count).padStart(2, '0')}
+              </span>
+              <div className="fs__caption">
+                <Capline item={active} />
+              </div>
+              <button
+                type="button"
+                className="fs__btn fs-cinema__close"
+                aria-label="Close cinema view"
+                onClick={closeCinema}
+              >
+                &times;
+              </button>
+            </div>
+          </div>,
+          document.body,
+        )}
     </section>
   )
 }

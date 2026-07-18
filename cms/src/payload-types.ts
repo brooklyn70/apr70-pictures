@@ -257,6 +257,14 @@ export interface Project {
   subtitle?: string | null;
   status?: ('development' | 'production' | 'released' | 'optioned') | null;
   year?: string | null;
+  /**
+   * when the story is set (e.g. "1977"). Renders with Story place as the small mono line under the title on /work/<slug> — leave blank to hide.
+   */
+  storyYear?: string | null;
+  /**
+   * where the story is set (e.g. "Brooklyn"). Renders as "1977 · Brooklyn" under the title on /work/<slug> — leave blank to hide.
+   */
+  storyPlace?: string | null;
   heroImage?: (number | null) | Media;
   /**
    * the full public logline — shown under the title on /work/<slug> and on the /slate list.
@@ -1355,6 +1363,8 @@ export interface ProjectsSelect<T extends boolean = true> {
   subtitle?: T;
   status?: T;
   year?: T;
+  storyYear?: T;
+  storyPlace?: T;
   heroImage?: T;
   logline?: T;
   shortLogline?: T;

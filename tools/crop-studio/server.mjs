@@ -298,16 +298,51 @@ const routes = {
       .filter((f) => IMG.test(f) && !f.startsWith('.') && !f.startsWith('._'))
       .sort()
 
-    const items = []
-    for (const name of names) {
-      const file = path.join(dir, name)
-      let meta
-      try {
-        meta = await sharp(file).metadata()
-      } catch {
-        continue
+    // Opening the consolidated 929-picture folder over SMB cost ~2.5 minutes in sequential
+    // sharp reads. Two fixes: dimensions cache keyed on size+mtime (a reopen touches no
+    // pixels), and a 16-wide pool for whatever the cache misses.
+    const META_CACHE = path.join(dir, '.crop-studio-meta.json')
+    const cache = (() => {
+      try { return JSON.parse(fs.readFileSync(META_CACHE, 'utf8')) } catch { return {} }
+    })()
+    const stats = new Map(names.map((n) => {
+      try { return [n, fs.statSync(path.join(dir, n))] } catch { return [n, null] }
+    }))
+    const fresh = (n) => {
+      const st = stats.get(n), c = cache[n]
+      return st && c && c.size === st.size && c.mtimeMs === st.mtimeMs ? c : null
+    }
+
+    const metas = new Array(names.length)
+    let next = 0
+    let cacheDirty = false
+    await Promise.all(Array.from({ length: 16 }, async () => {
+      while (next < names.length) {
+        const i = next++
+        const name = names[i]
+        const hit = fresh(name)
+        if (hit) { metas[i] = hit; continue }
+        try {
+          const m = await sharp(path.join(dir, name)).metadata()
+          const st = stats.get(name)
+          metas[i] = { width: m.width, height: m.height, format: m.format,
+                       size: st?.size ?? 0, mtimeMs: st?.mtimeMs ?? 0 }
+          cache[name] = metas[i]
+          cacheDirty = true
+        } catch {
+          metas[i] = null
+        }
       }
-      if (!meta.width || !meta.height) continue
+    }))
+    if (cacheDirty) {
+      try { fs.writeFileSync(META_CACHE, JSON.stringify(cache)) } catch {}
+    }
+
+    const items = []
+    for (const [idx, name] of names.entries()) {
+      const file = path.join(dir, name)
+      const meta = metas[idx]
+      if (!meta?.width || !meta?.height) continue
 
       const prev = saved.items?.[name]
       const r = meta.width / meta.height
@@ -318,6 +353,20 @@ const routes = {
       // on the whole folder meant running it twice and picking one output or the other.
       const target = prev?.target ?? ratio
 
+      // Saliency at scan time was fine for a 60-still folder and unusable for the 929-file
+      // consolidated one (one attention pass per picture ≈ minutes of wall clock). New
+      // pictures open with a centred rect and `seedPending`; the client runs the real
+      // saliency pass the first time a picture is actually shown.
+      const [cw, ch] = meta.width / meta.height > target
+        ? [Math.round(meta.height * target), meta.height]
+        : [meta.width, Math.round(meta.width / target)]
+      const centred = {
+        x: Math.max(0, Math.round((meta.width - cw) / 2)),
+        y: Math.max(0, Math.round((meta.height - ch) / 2)),
+        w: Math.min(cw, meta.width),
+        h: Math.min(ch, meta.height),
+      }
+
       items.push({
         name,
         w: meta.width,
@@ -325,13 +374,13 @@ const routes = {
         ratio: +r.toFixed(3),
         target,
         format: meta.format,
-        bytes: fs.statSync(file).size,
+        bytes: stats.get(name)?.size ?? fs.statSync(file).size,
         archival,
         // A picture already wider than the target, or a strip, or a portrait, is a warning —
         // not a rule. The editor overrules any of it.
         verdict: prev?.verdict ?? (archival || r < 0.95 || r > 3.0 ? 'native' : 'crop'),
-        rect: prev?.rect ?? (await seedRect(file, meta.width, meta.height, target)),
-        seeded: !prev,
+        rect: prev?.rect ?? centred,
+        seedPending: !prev?.rect,
         prompt: prev?.prompt ?? null,
         notes: prev?.notes ?? null,
         motion: prev?.motion ?? null,
@@ -505,6 +554,36 @@ const routes = {
     })
   },
 
+  /** Cull the marked pictures. Nothing is ever rm'd: files move to _trash/ inside the
+   *  folder, so a wrong checkbox is a drag back in Finder, not a loss. Name collisions
+   *  in _trash get a numeric suffix — a cull must never overwrite an earlier cull. */
+  async 'POST /api/delete'(body) {
+    const { dir, names } = body
+    if (!dir || !fs.existsSync(dir)) throw new Error(`no such folder: ${dir}`)
+    if (!Array.isArray(names) || !names.length) throw new Error('nothing marked')
+    const trash = path.join(dir, '_trash')
+    fs.mkdirSync(trash, { recursive: true })
+
+    const moved = []
+    const failed = []
+    for (const name of names) {
+      // names come from the client's item list, but never trust a path segment
+      if (name.includes('/') || name.includes('..')) { failed.push({ name, error: 'bad name' }); continue }
+      const src = path.join(dir, name)
+      if (!fs.existsSync(src)) { failed.push({ name, error: 'not found' }); continue }
+      let dest = path.join(trash, name)
+      let n = 1
+      while (fs.existsSync(dest)) dest = path.join(trash, name.replace(IMG, '') + `.${++n}` + path.extname(name))
+      try {
+        fs.renameSync(src, dest)
+        moved.push(name)
+      } catch (e) {
+        failed.push({ name, error: String(e.message).slice(0, 120) })
+      }
+    }
+    return { trash, moved, failed }
+  },
+
   async 'POST /api/save-state'(body) {
     const { dir, ratio, items } = body
     fs.writeFileSync(
@@ -546,7 +625,9 @@ const routes = {
       const ratio = it.target // per picture, not per pass
 
       try {
-        if (it.verdict === 'skip') {
+        if (it.verdict === 'skip' || it.verdict === 'delete') {
+          // delete is handled by /api/delete before processing — but if a marked picture
+          // is still here, refusing to crop it beats guessing.
           done.push({ name: it.name, action: 'SKIP' })
           continue
         }
@@ -660,7 +741,10 @@ const server = http.createServer(async (req, res) => {
     try {
       const pipe = max ? sharp(p).resize(max, max, { fit: 'inside', withoutEnlargement: true }).jpeg({ quality: 88 }) : sharp(p)
       const buf = await pipe.toBuffer()
-      res.writeHead(200, { 'content-type': max ? 'image/jpeg' : 'image/png', 'cache-control': 'no-cache' })
+      // Thumbnails cache for a day: with 900+ pictures in the consolidated folder, re-reading
+      // every original off the NAS on each roll redraw made scrolling unusable. Originals
+      // (no max) stay uncached — they are what you inspect after a regen.
+      res.writeHead(200, { 'content-type': max ? 'image/jpeg' : 'image/png', 'cache-control': max ? 'max-age=86400' : 'no-cache' })
       return res.end(buf)
     } catch {
       res.writeHead(500)

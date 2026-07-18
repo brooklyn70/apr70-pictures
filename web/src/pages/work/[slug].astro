@@ -66,6 +66,14 @@ const ring = slate.length > 1 && idx >= 0
 const prev = ring ? slate[(idx - 1 + slate.length) % slate.length] : null
 const next = ring ? slate[(idx + 1) % slate.length] : null
 
+// ── Story setting meta (v13 deferred touch) ──────────────────────────────────
+// "1977 · Brooklyn" — small mono line under the title. Either half may be
+// blank; the line renders only when at least one is present.
+const storySetting = [project.storyYear, project.storyPlace]
+  .map((s) => (typeof s === 'string' ? s.trim() : ''))
+  .filter(Boolean)
+  .join(' · ')
+
 // ── Quote ────────────────────────────────────────────────────────────────────
 const quote = project.pageQuote?.quote ?? null
 const quoteCite = project.pageQuote?.cite ?? null
@@ -110,6 +118,7 @@ const jsonLd = [propertyJsonLd(project), breadcrumbJsonLd(project)]
   <header class="v9-col v9-prophead">
     {project.metaLine && <p class="v9-prophead__meta" set:html={renderInline(project.metaLine)} />}
     <h1 class="v9-prophead__title">{title}</h1>
+    {storySetting && <p class="v9-prophead__setting">{storySetting}</p>}
     {project.logline && <p class="v9-prophead__logline" set:html={renderInline(project.logline)} />}
     {
       project.provenance && (

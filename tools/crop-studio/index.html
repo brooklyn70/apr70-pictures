@@ -30,6 +30,10 @@
   .dot{width:7px;height:7px;border-radius:50%;flex:none}
   .d-crop{background:var(--amber)} .d-extend{background:var(--imax)}
   .d-native{background:var(--dim)} .d-skip{background:#3a3940}
+  .d-regen{background:var(--ok)} .d-delete{background:var(--bad)}
+  .shot .cull{margin:0;flex:none;accent-color:var(--bad)}
+  .shot.del .nm{color:var(--bad);text-decoration:line-through;opacity:.75}
+  .shot.del img{opacity:.4}
 
   /* ── centre: the frame ── */
   .stage{display:flex;flex-direction:column;min-width:0;min-height:0}
@@ -84,6 +88,7 @@
   .go{padding:.7rem;background:var(--amber);color:#120a04;border:0;border-radius:4px;font:600 .8rem/1 var(--mono);
       text-transform:uppercase;letter-spacing:.06em}
   .go:disabled{opacity:.4;cursor:not-allowed}
+  .go.danger{background:var(--bad);color:#fff}
   .ghost{padding:.5rem;background:transparent;color:var(--dim);border:1px solid var(--line);border-radius:4px;font:.72rem/1 var(--mono)}
   .ghost:hover{color:var(--fg);border-color:var(--dim)}
   .tally{font:.68rem/1.7 var(--mono);color:var(--dim)}
@@ -208,7 +213,7 @@
   </div>
   <div class="ratiodesc" id="ratiodesc"></div>
   <div class="canvas" id="canvas">
-    <div class="empty" id="empty">Choose a folder to begin.<br><br>← → move &nbsp;·&nbsp; C crop &nbsp;·&nbsp; E extend &nbsp;·&nbsp; N native &nbsp;·&nbsp; S skip &nbsp;·&nbsp; R auto-frame</div>
+    <div class="empty" id="empty">Choose a folder to begin.<br><br>← → move &nbsp;·&nbsp; C crop &nbsp;·&nbsp; E extend &nbsp;·&nbsp; N native &nbsp;·&nbsp; S skip &nbsp;·&nbsp; D delete &nbsp;·&nbsp; R auto-frame</div>
   </div>
 </main>
 
@@ -241,6 +246,7 @@
     <button class="v" data-v="regen">Regenerate wide <kbd>W</kbd></button>
     <button class="v" data-v="native">Native — do not touch <kbd>N</kbd></button>
     <button class="v" data-v="skip">Skip <kbd>S</kbd></button>
+    <button class="v" data-v="delete">Delete — cull it <kbd>D</kbd></button>
     <button class="v slow" data-v="extend">Extend — if you have a weekend to wait <kbd>E</kbd></button>
   </div>
   <div class="keep" id="keep">—</div>
@@ -280,6 +286,9 @@
   <input type="text" id="outname" placeholder="_frames">
   <div class="tally" id="tally"></div>
   <button class="go" id="apply" disabled>Process folder</button>
+  <button class="go danger" id="purge" disabled>Nothing marked to delete</button>
+  <p class="note">Deleted pictures move to <b>_trash</b> inside the folder — nothing is ever
+  erased. A wrong checkbox is a drag back in Finder, not a loss.</p>
   <div class="log" id="log" hidden></div>
 </aside>
 
@@ -396,13 +405,25 @@ async function scan(dir) {
 // ── the roll ──────────────────────────────────────────────────────────────────
 function drawRoll() {
   $('#roll').innerHTML = ITEMS.map((it, i) => `
-    <div class="shot ${i === I ? 'on' : ''}" data-i="${i}">
+    <div class="shot ${i === I ? 'on' : ''} ${it.verdict === 'delete' ? 'del' : ''}" data-i="${i}">
+      <input type="checkbox" class="cull" title="Mark for deletion" ${it.verdict === 'delete' ? 'checked' : ''}>
       <span class="dot d-${it.verdict}"></span>
-      <img src="/api/img?max=120&p=${encodeURIComponent(DIR + '/' + it.name)}" alt="">
+      <img loading="lazy" src="/api/img?max=120&p=${encodeURIComponent(DIR + '/' + it.name)}" alt="">
       <span class="nm">${it.name}</span>
     </div>`).join('')
   $('#roll').querySelectorAll('.shot').forEach((el) => {
     el.onclick = () => { I = +el.dataset.i; show() }
+  })
+  // The checkbox is the fast cull: tick without leaving the list, untick restores the
+  // verdict the picture had before it was condemned.
+  $('#roll').querySelectorAll('.cull').forEach((cb) => {
+    cb.onclick = (e) => {
+      e.stopPropagation()
+      const it = ITEMS[+cb.closest('.shot').dataset.i]
+      if (cb.checked) { it.prevVerdict = it.verdict; it.verdict = 'delete' }
+      else it.verdict = it.prevVerdict && it.prevVerdict !== 'delete' ? it.prevVerdict : 'crop'
+      show(); save()
+    }
   })
 }
 
@@ -412,8 +433,17 @@ function show() {
   $('#counter').textContent = `${I + 1} / ${ITEMS.length}`
   $('#roll').querySelectorAll('.shot').forEach((el, i) => {
     el.classList.toggle('on', i === I)
+    el.classList.toggle('del', ITEMS[i].verdict === 'delete')
     el.querySelector('.dot').className = `dot d-${ITEMS[i].verdict}`
+    el.querySelector('.cull').checked = ITEMS[i].verdict === 'delete'
   })
+
+  // Saliency runs the first time a picture is shown, not at scan — a 900-file folder
+  // opens in seconds and only the frames you actually visit pay for the attention pass.
+  if (it.seedPending && it.verdict === 'crop') {
+    it.seedPending = false
+    reseedRect(it).then(() => { if (cur() === it) show() }).catch(() => {})
+  }
 
   const box = $('#canvas').clientWidth - 60, boxH = $('#canvas').clientHeight - 60
   if (FIT) SCALE = Math.min(box / it.w, boxH / it.h, 1)
@@ -429,7 +459,7 @@ function show() {
     </div>`
 
   const holder = $('#holder')
-  if (it.verdict === 'native' || it.verdict === 'skip') {
+  if (it.verdict === 'native' || it.verdict === 'skip' || it.verdict === 'delete') {
     // nothing to frame — show the picture whole
   } else if (it.verdict === 'extend') {
     drawExtend(holder, it, dw, dh)
@@ -556,8 +586,10 @@ function paintSide() {
     keep.textContent = `${kept.toFixed(0)}% of the picture kept · ${Math.round(it.rect.w)} × ${Math.round(it.rect.h)}`
     keep.className = 'keep ' + (kept < 55 ? 'bad' : kept < 78 ? 'warn' : 'ok')
   } else {
-    keep.textContent = it.verdict === 'extend' ? 'nothing lost — painted wider' : it.verdict === 'native' ? 'untouched' : 'skipped'
-    keep.className = 'keep ' + (it.verdict === 'skip' ? 'warn' : 'ok')
+    keep.textContent = it.verdict === 'extend' ? 'nothing lost — painted wider'
+      : it.verdict === 'native' ? 'untouched'
+      : it.verdict === 'delete' ? 'marked — moves to _trash' : 'skipped'
+    keep.className = 'keep ' + (it.verdict === 'skip' ? 'warn' : it.verdict === 'delete' ? 'bad' : 'ok')
   }
 
   // advice, not rules — every one of these is overrulable
@@ -584,7 +616,10 @@ function paintSide() {
     : ''
 
   const n = (v) => ITEMS.filter((x) => x.verdict === v).length
-  $('#tally').innerHTML = `crop <span>${n('crop')}</span> · regen <span>${n('regen')}</span> · native <span>${n('native')}</span> · skip <span>${n('skip')}</span> · extend <span>${n('extend')}</span>`
+  $('#tally').innerHTML = `crop <span>${n('crop')}</span> · regen <span>${n('regen')}</span> · native <span>${n('native')}</span> · skip <span>${n('skip')}</span> · extend <span>${n('extend')}</span> · delete <span>${n('delete')}</span>`
+  const marked = n('delete')
+  $('#purge').disabled = !marked
+  $('#purge').textContent = marked ? `Move ${marked} to _trash` : 'Nothing marked to delete'
 }
 
 // ── studio: regenerate, comment, video ────────────────────────────────────────
@@ -675,6 +710,7 @@ document.addEventListener('keydown', (e) => {
   else if (k === 'e') setVerdict('extend')
   else if (k === 'n') setVerdict('native')
   else if (k === 's') setVerdict('skip')
+  else if (k === 'd') setVerdict('delete')
   else if (k === 'r') $('#reseed').click()
   else if (k === 'g') { const g = $('#grid'); g.selectedIndex = (g.selectedIndex + 1) % g.length; show() }
   else if (e.key === 'Enter') { e.preventDefault(); go(1) }
@@ -985,6 +1021,32 @@ async function refreshAfterGen() {
   if (p) p.generated = PREGEN.length
   drawProps(); paintPSide()
   paintKie(await post('/api/kie-status', {}))
+}
+
+$('#purge').onclick = async () => {
+  const marked = ITEMS.filter((x) => x.verdict === 'delete')
+  if (!marked.length) return
+  if (!confirm(`Move ${marked.length} picture${marked.length > 1 ? 's' : ''} to _trash? Nothing is erased — drag them back from _trash to undo.`)) return
+  $('#purge').disabled = true
+  $('#purge').textContent = 'Moving…'
+  const r = await post('/api/delete', { dir: DIR, names: marked.map((x) => x.name) })
+  const log = $('#log'); log.hidden = false
+  if (r.error) { log.textContent = 'ERROR: ' + r.error; paintSide(); return }
+  const gone = new Set(r.moved)
+  ITEMS = ITEMS.filter((x) => !gone.has(x.name))
+  I = Math.max(0, Math.min(I, ITEMS.length - 1))
+  $('#dirpath').textContent = `${DIR}  ·  ${ITEMS.length} pictures`
+  $('#apply').disabled = !ITEMS.length
+  log.textContent = `→ ${r.trash}\n\nmoved   ${r.moved.length}\n` +
+    (r.failed.length ? r.failed.map((f) => `! ${f.name}: ${f.error}`).join('\n') : '')
+  drawRoll()
+  if (ITEMS.length) show()
+  else {
+    $('#canvas').innerHTML = '<div class="empty">Folder culled empty.</div>'
+    $('#purge').textContent = 'Nothing marked to delete'
+    $('#tally').textContent = ''
+  }
+  save()
 }
 
 $('#apply').onclick = async () => {

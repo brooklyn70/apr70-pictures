@@ -112,7 +112,9 @@ less Hollywood — L.A. Dolce Vita is the worst offender) + STORY-LAW.md + Limel
 
 - [x] [p9] [claude] Rewrite every spec's prompts FROM THE SCRIPT, scene citations quoted beside each prompt (Light Law §1). DONE 2026-07-18 — `specs-light-law/`, 10 specs × 8 shots.
 - [x] [p9] [claude] Regen pass, all ten properties, natural/available light only (Light Law §2). DONE 2026-07-18 — 80 masters in `02-stills/_light-law/`, 1,960 credits, balance 4,162.
-- [ ] [p9] [requires-gui] **THE GATE:** Marco reviews specs (scene citations in notes[]) + `_light-law/` frames, culls, answers the per-spec rulings queues — only picks move to CMS media.
+- [ ] [p9] [requires-gui] **THE GATE:** Marco reviews specs (scene citations in notes[]) + the Light Law frames, culls, answers the per-spec rulings queues — only picks move to CMS media. NOTE 2026-07-18: all property media now lives FLAT in `/Volumes/SharedData/11-00-property-images/` (+ `11-00-property-videos/`) — open THAT folder in Crop Studio; the light-law frames are the `*-may2-*` / `*-ayy2-*` style names. `_manifest.csv` in the folder maps every new name to its original path.
+- [ ] [p9] [claude] After the cull: decide whether Crop Studio's Prompts tab + regen.py should write NEW generations into the flat folder (they still target `11-XX/02-stills/_regen/`, which would recreate per-property subfolders). Spec refs already repointed to the flat folder (2026-07-18).
+- [ ] [p9] [requires-gui] Marco fills the new `storyYear` / `storyPlace` fields per property in /admin (renders as "1977 · Brooklyn" under the title on /work/<slug>; blank = line omitted).
 
 ---
 

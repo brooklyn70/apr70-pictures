@@ -1,6 +1,29 @@
 # BRIEF — apr70-pictures (v3 → V4 live on Vercel)
 
-**Current (2026-07-18 ~6:30pm, Fable 5 — Light Law fleet + AI Mark + admin pickers):**
+**Current (2026-07-18 ~7:45pm, Fable 5 — media consolidation + Crop Studio cull + filmatlas touches):**
+**ALL PROPERTY MEDIA CONSOLIDATED FLAT.** Every image/video from the eleven `11-XX-*`
+property trees on SharedData (929 images + 29 videos, from 02-stills, _light-law, _ratio-*,
+ref/, moodboards, 10-web, source folders — everything) moved on the NAS itself into
+`/Volumes/SharedData/11-00-property-images/` and `11-00-property-videos/`, renamed to
+`<prop>-NN-<slug>-vNN.ext` (`angib-`, `alphayy-`, `cleopatra-`, `dahook-`, `ldv-`,
+`movement-`, `seagate-`, `shadowmaster-`, `mayors-`, `brucculinu-`; heroes are
+`<prop>-hero-NN`; same-name files across subfolders became -v01/-v02…). `_manifest.csv`
+in the images folder maps every new name → original path (full undo). Emptied dirs removed;
+docs/decks/scripts stayed put. **Crop Studio grew a cull feature:** checkbox per picture in
+the roll + `D` verdict + "Move N to _trash" — files move to `_trash/` inside the folder,
+never rm'd. Scan now lazy-seeds saliency and caches dimensions
+(`.crop-studio-meta.json`): the 929-file folder opens in ~3.5s warm (was 2.5 min).
+Browser-verified end to end. **Spec refs repointed:** all 194 refs in `specs/` +
+`specs-light-law/` rewritten to absolute flat-folder paths via the manifest (0 dangling).
+NOTE: Prompts-tab/regen.py OUTPUT still targets `11-XX/02-stills/_regen/` — decide at the
+review gate whether new generations land flat (TASKS p9). **Filmatlas touches shipped:**
+`storyYear`/`storyPlace` on Project (+migration `20260718_231500_story_meta`, additive,
+runs at next deploy) rendering "1977 · Brooklyn" under property titles; scroll-progress
+rail on /craft (native scroll-timeline + IO fallback, no GSAP dep added); ≥1920px token
+bump in v9.css (col 72→80rem + display clamp nudge; marquee override handled inside the
+block). Preflight 0, astro check 8 pre-existing.
+
+**Previous (2026-07-18 ~6:30pm, Fable 5 — Light Law fleet + AI Mark + admin pickers):**
 **LIGHT LAW CAMPAIGN COMPLETE, NOTHING SWAPPED INTO THE SITE.** Ten from-scratch shot lists
 (8 shots each) authored from the scripts/canon with scene citations quoted per shot
 (`tools/still-regen/specs-light-law/`); 80 masters at 6336×2688 in each property's

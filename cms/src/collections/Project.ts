@@ -64,6 +64,26 @@ export const Project: CollectionConfig = {
       admin: { position: 'sidebar' },
     },
     {
+      name: 'storyYear',
+      type: 'text',
+      label: 'Story year',
+      admin: {
+        position: 'sidebar',
+        description:
+          'when the story is set (e.g. "1977"). Renders with Story place as the small mono line under the title on /work/<slug> — leave blank to hide.',
+      },
+    },
+    {
+      name: 'storyPlace',
+      type: 'text',
+      label: 'Story place',
+      admin: {
+        position: 'sidebar',
+        description:
+          'where the story is set (e.g. "Brooklyn"). Renders as "1977 · Brooklyn" under the title on /work/<slug> — leave blank to hide.',
+      },
+    },
+    {
       name: 'heroImage',
       type: 'upload',
       relationTo: 'media',

@@ -16,6 +16,7 @@ import * as migration_20260713_222007_division_brand_and_favicons from './202607
 import * as migration_20260713_dispatch_switch from './20260713_dispatch_switch';
 import * as migration_20260714_frame_ratio from './20260714_frame_ratio';
 import * as migration_20260718_201112_ai_mark from './20260718_201112_ai_mark';
+import * as migration_20260718_231500_story_meta from './20260718_231500_story_meta';
 
 export const migrations = [
   {
@@ -107,5 +108,10 @@ export const migrations = [
     up: migration_20260718_201112_ai_mark.up,
     down: migration_20260718_201112_ai_mark.down,
     name: '20260718_201112_ai_mark'
+  },
+  {
+    up: migration_20260718_231500_story_meta.up,
+    down: migration_20260718_231500_story_meta.down,
+    name: '20260718_231500_story_meta'
   },
 ];

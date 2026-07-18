@@ -12,4 +12,95 @@ const description = page?.seoDescription ?? NAP.description
 
 <V9Layout title={title} description={description}>
   <SectionRenderer sections={page?.sections} />
+
+  {/* v13 deferred touch: the reading rail. A hairline on the right edge —
+      accent fill tracks scroll progress, one tick per section lights as the
+      fill passes it. Fill: native CSS scroll timeline (v9.css) with the
+      script below as the no-support / reduced-motion fallback; ticks are
+      script-placed (section offsets aren't knowable in CSS). Decorative:
+      aria-hidden, no pointer events, absent under 720px and without JS the
+      bare hairline still degrades gracefully. */}
+  <div class="v9-craftrail" data-craftrail aria-hidden="true">
+    <div class="v9-craftrail__track">
+      <div class="v9-craftrail__fill" data-craftrail-fill></div>
+    </div>
+  </div>
+
+  <script is:inline>
+    ;(function () {
+      var rail = document.querySelector('[data-craftrail]')
+      var fill = document.querySelector('[data-craftrail-fill]')
+      var main = document.getElementById('main')
+      if (!rail || !fill || !main) return
+
+      var track = fill.parentElement
+      var reduced =
+        window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      /* The CSS scroll timeline owns the fill unless unsupported or reduced
+         motion dropped it (see v9.css) — then this script drives it. */
+      var cssFill =
+        !reduced &&
+        typeof CSS !== 'undefined' &&
+        CSS.supports &&
+        CSS.supports('animation-timeline: scroll()')
+
+      /* The page's sections are main's children — minus the rail itself and
+         this script, which the slot puts inside main too. */
+      var sections = Array.prototype.filter.call(main.children, function (el) {
+        return el !== rail && el.tagName !== 'SCRIPT' && el.offsetHeight > 0
+      })
+
+      function maxScroll() {
+        return Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
+      }
+
+      /* One tick per section, placed at the scroll fraction where the fill's
+         edge meets the section top — so a tick lights exactly as the fill
+         reaches it. */
+      var ticks = []
+      function placeTicks() {
+        var max = maxScroll()
+        sections.forEach(function (el, i) {
+          var t = ticks[i]
+          if (!t) {
+            t = document.createElement('span')
+            t.className = 'v9-craftrail__tick'
+            track.appendChild(t)
+            ticks[i] = t
+          }
+          var at = Math.min(el.getBoundingClientRect().top + window.scrollY, max)
+          t.dataset.at = String(at)
+          t.style.top = (at / max) * 100 + '%'
+        })
+      }
+
+      var raf = 0
+      function update() {
+        raf = 0
+        var y = window.scrollY
+        if (!cssFill) {
+          fill.style.setProperty('--craftrail-p', String(Math.min(1, y / maxScroll())))
+        }
+        for (var i = 0; i < ticks.length; i++) {
+          ticks[i].classList.toggle('is-past', y >= Number(ticks[i].dataset.at) - 1)
+        }
+        /* A page shorter than the viewport has no progress to show. */
+        rail.style.display =
+          document.documentElement.scrollHeight > window.innerHeight * 1.2 ? '' : 'none'
+      }
+      function schedule() {
+        if (!raf) raf = requestAnimationFrame(update)
+      }
+      function remeasure() {
+        placeTicks()
+        schedule()
+      }
+
+      window.addEventListener('scroll', schedule, { passive: true })
+      window.addEventListener('resize', remeasure)
+      /* Images and fonts move the section offsets as they land. */
+      window.addEventListener('load', remeasure)
+      remeasure()
+    })()
+  </script>
 </V9Layout>

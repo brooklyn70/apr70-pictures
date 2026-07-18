@@ -11,11 +11,14 @@
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 ui-sans-serif,system-ui,sans-serif;
-       height:100vh;display:grid;grid-template-columns:280px 1fr 300px;overflow:hidden}
+       height:100vh;display:grid;grid-template-columns:var(--railw,280px) 1fr 300px;overflow:hidden}
   button{font:inherit;cursor:pointer}
 
   /* ── left: the roll ── */
-  .rail{background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+  .rail{background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0;
+        position:relative}
+  .railgrip{position:absolute;top:0;right:-3px;width:7px;height:100%;cursor:col-resize;z-index:6}
+  .railgrip:hover,.railgrip.dragging{background:linear-gradient(90deg,transparent 2px,var(--amber) 2px,var(--amber) 4px,transparent 4px)}
   .rail h1{font:600 .78rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--amber);
            margin:0;padding:1rem 1rem .85rem;border-bottom:1px solid var(--line)}
   .pick{margin:.85rem;padding:.6rem;background:transparent;color:var(--fg);border:1px dashed var(--line);border-radius:4px}
@@ -36,7 +39,19 @@
   .shot.del img{opacity:.4}
 
   /* ── centre: the frame ── */
-  .stage{display:flex;flex-direction:column;min-width:0;min-height:0}
+  .stage{display:flex;flex-direction:column;min-width:0;min-height:0;position:relative}
+  /* the info card floats over the picture's bottom-left; pointer-events off so it
+     never steals a drag from the crop rectangle underneath it */
+  .info{position:absolute;left:1.1rem;bottom:1.1rem;max-width:min(460px,60%);z-index:4;pointer-events:none;
+        background:rgba(10,9,11,.9);border:1px solid var(--line);border-radius:6px;
+        padding:.65rem .8rem;font:.68rem/1.65 var(--mono);color:var(--dim);
+        backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+  .info b{color:var(--fg);font-weight:600;word-break:break-all}
+  .info .mk{color:var(--amber)}
+  .info .og{color:var(--imax);word-break:break-all}
+  .info .pr{display:block;margin-top:.3rem;padding-top:.3rem;border-top:1px solid var(--line);
+            color:var(--dim);font-style:italic;overflow:hidden;display:-webkit-box;
+            -webkit-line-clamp:4;-webkit-box-orient:vertical}
   .bar{display:flex;align-items:center;gap:.5rem;padding:.6rem .9rem;border-bottom:1px solid var(--line);flex-wrap:wrap}
   .bar label{font:.66rem/1 var(--mono);color:var(--dim);text-transform:uppercase;letter-spacing:.06em}
   select,input[type=text]{background:#1e1d21;color:var(--fg);border:1px solid var(--line);border-radius:3px;
@@ -208,13 +223,15 @@
       <option value="thirds">Thirds</option>
       <option value="none">None</option>
     </select>
+    <button class="ghost" id="infobtn" title="Toggle the picture info card (I)">Info</button>
     <div class="spacer"></div>
     <span class="facts" id="counter"></span>
   </div>
   <div class="ratiodesc" id="ratiodesc"></div>
   <div class="canvas" id="canvas">
-    <div class="empty" id="empty">Choose a folder to begin.<br><br>← → move &nbsp;·&nbsp; C crop &nbsp;·&nbsp; E extend &nbsp;·&nbsp; N native &nbsp;·&nbsp; S skip &nbsp;·&nbsp; D delete &nbsp;·&nbsp; R auto-frame</div>
+    <div class="empty" id="empty">Choose a folder to begin.<br><br>← → move &nbsp;·&nbsp; C crop &nbsp;·&nbsp; E extend &nbsp;·&nbsp; N native &nbsp;·&nbsp; S skip &nbsp;·&nbsp; D delete &nbsp;·&nbsp; R auto-frame &nbsp;·&nbsp; I info</div>
   </div>
+  <div class="info" id="info" hidden></div>
 </main>
 
 <aside class="side" data-tab="frames">
@@ -467,6 +484,7 @@ function show() {
     drawRect(holder, it)
   }
   paintSide()
+  renderInfo()
 }
 
 /** The extend preview: the picture inside the wider frame it is going to become.
@@ -712,6 +730,7 @@ document.addEventListener('keydown', (e) => {
   else if (k === 's') setVerdict('skip')
   else if (k === 'd') setVerdict('delete')
   else if (k === 'r') $('#reseed').click()
+  else if (k === 'i') toggleInfo()
   else if (k === 'g') { const g = $('#grid'); g.selectedIndex = (g.selectedIndex + 1) % g.length; show() }
   else if (e.key === 'Enter') { e.preventDefault(); go(1) }
 })
@@ -743,6 +762,88 @@ $('#setall').onclick = async () => {
 $('#grid').onchange = show
 $('#zoom').oninput = () => { FIT = false; SCALE = $('#zoom').value / 100; show() }
 $('#fit').onclick = () => { FIT = true; show() }
+
+// ── resizable roll ────────────────────────────────────────────────────────────
+// The consolidated names are long; 280px truncated every one of them. Drag the
+// rail's right edge; the width persists per browser.
+const RAILKEY = 'cropstudio.railw'
+{
+  const saved = Number(localStorage.getItem(RAILKEY))
+  if (saved) document.documentElement.style.setProperty('--railw', saved + 'px')
+}
+document.querySelectorAll('.rail').forEach((rail) => {
+  const grip = document.createElement('div')
+  grip.className = 'railgrip'
+  rail.appendChild(grip)
+  grip.addEventListener('mousedown', (e) => {
+    e.preventDefault()
+    grip.classList.add('dragging')
+    const clamp = (x) => Math.max(200, Math.min(640, x))
+    const move = (ev) => document.documentElement.style.setProperty('--railw', clamp(ev.clientX) + 'px')
+    const up = (ev) => {
+      grip.classList.remove('dragging')
+      localStorage.setItem(RAILKEY, String(clamp(ev.clientX)))
+      window.removeEventListener('mousemove', move)
+      window.removeEventListener('mouseup', up)
+      if (DIR && TAB === 'frames') show() // re-fit the canvas to the new stage width
+    }
+    window.addEventListener('mousemove', move)
+    window.addEventListener('mouseup', up)
+  })
+})
+
+// ── the info card ─────────────────────────────────────────────────────────────
+// Name, size, provenance, and — where the ledger or the file's own bytes can
+// prove it — which model made the picture. Toggle with I; state persists.
+let INFO = localStorage.getItem('cropstudio.info') !== '0'
+const infoEsc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+
+function renderInfo() {
+  const el = $('#info'), it = cur()
+  $('#infobtn').style.color = INFO ? 'var(--amber)' : ''
+  $('#infobtn').style.borderColor = INFO ? 'var(--amber)' : ''
+  if (!INFO || !it || !DIR) { el.hidden = true; return }
+  el.hidden = false
+
+  const m = it.meta
+  let html = `<b>${infoEsc(it.name)}</b><br>` +
+    `${it.w} × ${it.h} px · ${it.ratio} : 1 · ${(it.bytes / 1e6).toFixed(1)} MB · ${infoEsc(it.format)}` +
+    (m?.hasAlpha ? ' · alpha' : '')
+  if (m === undefined && !it.metaLoading) {
+    it.metaLoading = true
+    post('/api/meta', { dir: DIR, name: it.name }).then((r) => {
+      it.metaLoading = false
+      it.meta = r.error ? null : r
+      if (cur() === it) renderInfo()
+    })
+  }
+  if (m === undefined) html += `<br>reading metadata…`
+  else if (m) {
+    if (m.original) html += `<br>was <span class="og">${infoEsc(m.original)}</span>`
+    const mk = m.maker
+    if (mk?.certainty === 'ledger') {
+      html += `<br>made by <span class="mk">${infoEsc(mk.model)}</span>` +
+        (mk.resolution ? ` · ${infoEsc(mk.resolution)} ${infoEsc(mk.aspect_ratio ?? '')}` : '') +
+        (mk.ts ? ` · ${infoEsc(String(mk.ts).slice(0, 10))}` : '') + ` · from the ledger`
+      if (mk.prompt) html += `<span class="pr">${infoEsc(mk.prompt)}</span>`
+    } else if (mk) {
+      // headline a real generator name; C2PA/parameters chunks are evidence, not makers
+      const named = mk.model ?? (mk.sniffed ?? []).find((s) => !/C2PA|parameters|embedded/.test(s)) ?? mk.sniffed?.[0] ?? '?'
+      html += `<br>likely <span class="mk">${infoEsc(named)}</span>` +
+        (mk.sniffed?.length ? ` · fingerprints: ${infoEsc(mk.sniffed.join(', '))}` : '') + ` · best guess`
+    } else {
+      html += `<br>maker unknown — not in the ledger, no fingerprints in the file`
+    }
+  }
+  el.innerHTML = html
+}
+
+const toggleInfo = () => {
+  INFO = !INFO
+  localStorage.setItem('cropstudio.info', INFO ? '1' : '0')
+  renderInfo()
+}
+$('#infobtn').onclick = toggleInfo
 
 // ── persist + apply ───────────────────────────────────────────────────────────
 let saveT

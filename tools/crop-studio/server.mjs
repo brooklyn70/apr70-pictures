@@ -178,6 +178,89 @@ const download = (url, dest) =>
     execFile('curl', ['-sS', '-fL', '-o', dest, url], (err) => (err ? reject(err) : resolve(dest))),
   )
 
+// ── provenance ────────────────────────────────────────────────────────────────
+//
+// "Which AI made it" is answerable for real, not guessed: every generation this
+// studio (or regen.py) ever ran is a line in the ledger with its model and
+// prompt, and the consolidated folder's _manifest.csv maps each renamed file
+// back to the original path the ledger knew it by. Chain the two and most
+// pictures carry their birth certificate. Files from outside the pipeline fall
+// back to sniffing the metadata bytes and the original filename's dialect.
+
+let _ledgerCache = { mtime: -1, byPath: new Map() }
+function ledgerByPath() {
+  let st
+  try { st = fs.statSync(LEDGER) } catch { return _ledgerCache.byPath }
+  if (st.mtimeMs !== _ledgerCache.mtime) {
+    const byPath = new Map()
+    try {
+      for (const line of fs.readFileSync(LEDGER, 'utf8').split('\n')) {
+        if (!line.trim()) continue
+        try {
+          const e = JSON.parse(line)
+          if (e.output) byPath.set(e.output, e) // later lines win: latest word on a re-run
+        } catch {}
+      }
+    } catch {}
+    _ledgerCache = { mtime: st.mtimeMs, byPath }
+  }
+  return _ledgerCache.byPath
+}
+
+const _manifestCache = new Map() // dir -> { mtime, byName }
+function manifestOf(dir) {
+  const file = path.join(dir, '_manifest.csv')
+  let st
+  try { st = fs.statSync(file) } catch { return null }
+  const hit = _manifestCache.get(dir)
+  if (hit?.mtime === st.mtimeMs) return hit.byName
+  const byName = new Map()
+  try {
+    const lines = fs.readFileSync(file, 'utf8').split('\n').slice(1)
+    for (const line of lines) {
+      // two plain paths, no quoting needed — the move planner never emits commas in paths
+      const c = line.indexOf(',')
+      if (c > 0) byName.set(path.basename(line.slice(0, c)), line.slice(c + 1).trim())
+    }
+  } catch {}
+  _manifestCache.set(dir, { mtime: st.mtimeMs, byName })
+  return byName
+}
+
+/** What the original filename's dialect says about its maker. */
+function nameDialect(orig) {
+  const b = path.basename(orig ?? '')
+  if (/^caruso1970_/.test(b) || /_[0-9a-f]{8}-[0-9a-f]{4}-/.test(b)) return 'Midjourney (filename dialect)'
+  if (/_0\d{4}_\./.test(b)) return 'ComfyUI (frame-counter dialect)'
+  if (orig?.includes('/_light-law/') || orig?.includes('/_regen/')) return 'nano-banana-pro (KIE campaign folder)'
+  return null
+}
+
+const SNIFF_MARKS = [
+  ['c2pa', 'C2PA content credentials'], ['Midjourney', 'Midjourney'],
+  ['DALL', 'OpenAI DALL·E'], ['openai', 'OpenAI'], ['GPT-4o', 'OpenAI'],
+  ['Stable Diffusion', 'Stable Diffusion'], ['ComfyUI', 'ComfyUI'],
+  ['invokeai', 'InvokeAI'], ['Adobe Firefly', 'Adobe Firefly'],
+  ['Google', 'Google'], ['parameters', 'SD-style parameters chunk'],
+  ['"prompt"', 'embedded prompt json'],
+]
+
+/** Scan the first 64KB raw (PNG text chunks sit right after the header) plus any
+ *  exif/xmp sharp hands back, for generator fingerprints. */
+function sniffBytes(file, meta) {
+  const marks = new Set()
+  try {
+    const fd = fs.openSync(file, 'r')
+    const buf = Buffer.alloc(65536)
+    const n = fs.readSync(fd, buf, 0, buf.length, 0)
+    fs.closeSync(fd)
+    const hay = [buf.subarray(0, n).toString('latin1'),
+                 meta.exif?.toString('latin1') ?? '', meta.xmp?.toString('latin1') ?? ''].join('\n')
+    for (const [needle, label] of SNIFF_MARKS) if (hay.includes(needle)) marks.add(label)
+  } catch {}
+  return [...marks]
+}
+
 // ── the slate ─────────────────────────────────────────────────────────────────
 //
 // The Prompt tab does not browse folders: the ten properties are known. Their
@@ -552,6 +635,41 @@ const routes = {
       base: slug,
       ledger: { property: prop, slug, dir },
     })
+  },
+
+  /** Everything knowable about one picture: dimensions and bytes, where it lived
+   *  before the consolidation, and which model made it — ledger first (certain),
+   *  metadata/filename sniff second (best guess, labelled as such). */
+  async 'POST /api/meta'(body) {
+    const { dir, name } = body
+    if (name?.includes('/') || name?.includes('..')) throw new Error('bad name')
+    const file = path.join(dir, name)
+    if (!dir || !name || !fs.existsSync(file)) throw new Error(`no such picture: ${name}`)
+
+    const st = fs.statSync(file)
+    const meta = await sharp(file).metadata()
+    const original = manifestOf(dir)?.get(name) ?? null
+    const originalAbs = original ? path.join('/Volumes/SharedData', original) : null
+
+    const ledger = ledgerByPath()
+    const entry = ledger.get(file) ?? (originalAbs && ledger.get(originalAbs)) ?? null
+    const sniffed = sniffBytes(file, meta)
+    const dialect = nameDialect(original ?? name)
+
+    return {
+      name,
+      w: meta.width, h: meta.height, format: meta.format,
+      bytes: st.size, modified: st.mtime,
+      space: meta.space, hasAlpha: !!meta.hasAlpha, density: meta.density ?? null,
+      original,
+      maker: entry
+        ? { certainty: 'ledger', model: entry.model, ts: entry.ts,
+            aspect_ratio: entry.aspect_ratio ?? null, resolution: entry.resolution ?? null,
+            prompt: entry.prompt ?? null, notes: entry.notes ?? null }
+        : dialect || sniffed.length
+          ? { certainty: 'guess', model: dialect, sniffed }
+          : null,
+    }
   },
 
   /** Cull the marked pictures. Nothing is ever rm'd: files move to _trash/ inside the

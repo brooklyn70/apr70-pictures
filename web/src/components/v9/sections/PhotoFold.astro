@@ -7,7 +7,7 @@
  */
 import type { V9Section } from '../../../lib/payload'
 import { renderInline } from '../../../lib/v9/inline'
-import { frameFromMedia, focalPosition, SIZES_FULLBLEED } from '../media'
+import { frameFromMedia, focalPosition, isAiFrameText, SIZES_FULLBLEED } from '../media'
 
 type PhotoFoldData = Extract<V9Section, { blockType: 'photoFold' }>
 const section = Astro.props.section as PhotoFoldData
@@ -15,6 +15,7 @@ const section = Astro.props.section as PhotoFoldData
 const frame = frameFromMedia(section.image)
 const hasWords = Boolean(section.heading || section.kicker)
 const hasCaption = Boolean(section.caption || section.credit)
+const aiFrame = isAiFrameText(section.caption, section.credit)
 ---
 
 {
@@ -24,7 +25,7 @@ const hasCaption = Boolean(section.caption || section.credit)
       aria-label={section.heading ?? section.caption ?? 'Photograph'}
     >
       {frame ? (
-        <div class="v9-photofold__frame">
+        <div class="v9-photofold__frame" data-ai-frame={aiFrame ? 'true' : undefined}>
           <img
             src={frame.src}
             srcset={frame.srcset}

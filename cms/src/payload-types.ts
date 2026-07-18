@@ -3043,7 +3043,18 @@ export interface SiteSetting {
     highlight?: ('flame' | 'amber' | 'sicilian-blue' | 'ink') | null;
   };
   /**
-   * Every string in the v12 site chrome: the Display panel labels, footer colophon, copyright, and nav links. Seeded from the vault chrome.md canon.
+   * Stamps a visible disclosure mark on AI-generated frames, on top of the caption line. Newsroom practice: the label rides the picture itself, so a screenshot or a share carries the disclosure with it. A frame counts as AI when its caption/credit line contains "AI-generated" — the same line the Methods ledger promises. Archival photographs are never stamped.
+   */
+  aiMark?: {
+    enabled?: boolean | null;
+    style?: ('corner' | 'diagonal') | null;
+    /**
+     * Keep it short; renders in the mono face.
+     */
+    text?: string | null;
+  };
+  /**
+   * Every string in the v13 site chrome: the Display panel labels, footer colophon, copyright, and nav links. Seeded from the vault chrome.md canon.
    */
   v9Chrome?: {
     /**
@@ -5284,7 +5295,7 @@ export interface TroupeProgram {
   createdAt?: string | null;
 }
 /**
- * Sections and SEO strings for / on the v12 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ * Sections and SEO strings for / on the v13 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "v9-home".
@@ -5654,7 +5665,7 @@ export interface V9Home {
   createdAt?: string | null;
 }
 /**
- * Sections and SEO strings for /slate on the v12 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ * Sections and SEO strings for /slate on the v13 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "v9-slate".
@@ -6024,7 +6035,7 @@ export interface V9Slate {
   createdAt?: string | null;
 }
 /**
- * Sections and SEO strings for /craft on the v12 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ * Sections and SEO strings for /craft on the v13 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "v9-craft".
@@ -6394,7 +6405,7 @@ export interface V9Craft {
   createdAt?: string | null;
 }
 /**
- * Sections and SEO strings for /methods on the v12 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ * Sections and SEO strings for /methods on the v13 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "v9-methods".
@@ -6764,7 +6775,7 @@ export interface V9Method {
   createdAt?: string | null;
 }
 /**
- * Sections and SEO strings for /contact on the v12 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ * Sections and SEO strings for /contact on the v13 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "v9-contact".
@@ -7724,6 +7735,13 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         accent?: T;
         linkHover?: T;
         highlight?: T;
+      };
+  aiMark?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        text?: T;
       };
   v9Chrome?:
     | T

@@ -54,6 +54,13 @@ type Props = {
 const focalPos = (it: FilmstripItem) =>
   `${typeof it.focalX === 'number' ? it.focalX : 50}% ${typeof it.focalY === 'number' ? it.focalY : 50}%`
 
+/* AI mark (v13): the caption/credit disclosure line is the single source of
+   truth for whether a frame is machine-generated. See isAiFrameText in
+   ../v9/media.ts — duplicated here because the island must stay self-contained
+   for hydration. Keep the regex in lockstep. */
+const isAi = (it: FilmstripItem) =>
+  /ai[\s-]?generated/i.test(`${it.caption ?? ''} ${it.captionHtml ?? ''} ${it.credit ?? ''}`)
+
 function Capline({ item }: { item: FilmstripItem }) {
   if (!item.caption && !item.captionHtml && !item.credit) return null
   return (
@@ -142,7 +149,7 @@ export default function FilmstripSlideshow({ items, label }: Props) {
       <div className="v9-framegrid" aria-label={label}>
         {items.map((it, i) => (
           <figure key={i} className={it.wide ? 'v9-frame v9-frame--wide' : 'v9-frame'}>
-            <div className="v9-frame__box">
+            <div className="v9-frame__box" data-ai-frame={isAi(it) ? 'true' : undefined}>
               <img
                 src={it.src}
                 srcSet={it.srcset}
@@ -216,6 +223,7 @@ export default function FilmstripSlideshow({ items, label }: Props) {
             key={i}
             className="fs__slide"
             data-active={i === index ? 'true' : undefined}
+            data-ai-frame={isAi(it) ? 'true' : undefined}
             aria-hidden={i !== index}
           >
             {/* Natural aspect, no crop — objectPosition would be inert here. */}
@@ -333,6 +341,7 @@ export default function FilmstripSlideshow({ items, label }: Props) {
                   key={i}
                   className="fs-cinema__slide"
                   data-active={i === index ? 'true' : undefined}
+                  data-ai-frame={isAi(it) ? 'true' : undefined}
                   aria-hidden={i !== index}
                 >
                   <img

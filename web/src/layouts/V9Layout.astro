@@ -47,6 +47,15 @@ const { chrome } = await fetchV9Chrome()
    CMS is unreachable. */
 const { settings } = await fetchSiteSettings()
 const kit = settings?.brandKit ?? {}
+
+/* AI mark (v13): when enabled, the body carries the style + text and the
+   frame renderers decide per-frame (caption carries "AI-generated") whether
+   the stamp applies. CSS does the rest — see "AI mark" in v9.css. */
+const aiMark = settings?.aiMark?.enabled ? settings.aiMark : null
+const aiMarkStyle = aiMark ? (aiMark.style ?? 'corner') : undefined
+const aiMarkText = aiMark
+  ? `--ai-mark-text: "${(aiMark.text || 'APR 70 · AI GEN').replace(/["\\]/g, '')}"`
+  : undefined
 const logoH = Math.min(72, Math.max(24, kit.logoHeight ?? 64))
 const modeDefault = kit.modeDefault ?? 'system'
 const houseAccent = kit.accent ?? 'flame'
@@ -227,7 +236,7 @@ const panelLabels = {
       <script is:inline type="application/ld+json" set:html={JSON.stringify(block)} />
     ))}
   </head>
-  <body class="v9">
+  <body class="v9" data-ai-mark={aiMarkStyle} style={aiMarkText}>
     <header class="v9-header">
       <div class="v9-col v9-header__row">
         <a class="v9-brand" href="/" aria-label={NAP.name}>

@@ -893,3 +893,40 @@
   }
   .v9 { scroll-behavior: auto; }
 }
+
+/* ---- AI mark (v13) ----
+   The on-image disclosure stamp. Armed by Site Settings -> AI Mark: the body
+   carries data-ai-mark (corner|diagonal) + --ai-mark-text; renderers flag the
+   frames whose caption/credit carries the "AI-generated" line with
+   data-ai-frame. Fixed inks over photography (same law as the scrim):
+   the stamp rides the picture, not the theme. */
+body[data-ai-mark] [data-ai-frame] { position: relative; }
+body[data-ai-mark] [data-ai-frame]::after {
+  content: var(--ai-mark-text, "APR 70 \00B7 AI GEN");
+  position: absolute;
+  z-index: 3;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+}
+body[data-ai-mark='corner'] [data-ai-frame]::after {
+  right: 0.6rem;
+  bottom: 0.6rem;
+  padding: 0.28rem 0.5rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  color: rgb(255 255 255 / 0.85);
+  background: rgb(10 9 8 / 0.55);
+  backdrop-filter: blur(2px);
+}
+body[data-ai-mark='diagonal'] [data-ai-frame]::after {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-24deg);
+  font-size: clamp(0.8rem, 2.4vw, 1.5rem);
+  letter-spacing: 0.5em;
+  padding-left: 0.5em; /* optically re-centre the trailing tracking */
+  color: rgb(255 255 255 / 0.32);
+  text-shadow: 0 0 16px rgb(10 9 8 / 0.45);
+}

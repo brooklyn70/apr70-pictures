@@ -358,6 +358,48 @@ export const SiteSettings: GlobalConfig = {
       ],
     },
 
+    // ── AI mark (v13) — the on-image disclosure stamp ────────────────────────
+    {
+      name: 'aiMark',
+      type: 'group',
+      label: 'AI Mark (on-image stamp)',
+      admin: {
+        description:
+          'Stamps a visible disclosure mark on AI-generated frames, on top of the caption line. Newsroom practice: the label rides the picture itself, so a screenshot or a share carries the disclosure with it. A frame counts as AI when its caption/credit line contains "AI-generated" — the same line the Methods ledger promises. Archival photographs are never stamped.',
+      },
+      fields: [
+        {
+          name: 'enabled',
+          type: 'checkbox',
+          label: 'Stamp AI frames',
+          defaultValue: false,
+        },
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'style',
+              type: 'select',
+              label: 'Style',
+              defaultValue: 'corner',
+              options: [
+                { label: 'Corner tag — small, bottom-right', value: 'corner' },
+                { label: 'Diagonal band — across the frame, newsroom style', value: 'diagonal' },
+              ],
+              admin: { width: '50%' },
+            },
+            {
+              name: 'text',
+              type: 'text',
+              label: 'Mark text',
+              defaultValue: 'APR 70 · AI GEN',
+              admin: { width: '50%', description: 'Keep it short; renders in the mono face.' },
+            },
+          ],
+        },
+      ],
+    },
+
     // ── v9 chrome strings (seeded from 02-copy/chrome.md) ────────────────────
     {
       name: 'v9Chrome',

@@ -80,6 +80,15 @@ export type TroupeProgramData = {
   credits?: string | null
 }
 
+/** The AI mark (v13) — Site Settings → AI Mark. When enabled, frames whose
+ *  caption/credit carries the "AI-generated" disclosure line get a visible
+ *  on-image stamp (corner tag or diagonal band). Archival photos never match. */
+export type AiMarkSettings = {
+  enabled?: boolean | null
+  style?: 'corner' | 'diagonal' | null
+  text?: string | null
+}
+
 export type SiteSettingsData = {
   brandLabel?: string | null
   legalEntity?: string | null
@@ -104,6 +113,7 @@ export type SiteSettingsData = {
   navLogoLight?: Media | number | null
   navLogoDark?: Media | number | null
   brandKit?: BrandKitData | null
+  aiMark?: AiMarkSettings | null
 }
 
 export type DivisionGlobalData = {

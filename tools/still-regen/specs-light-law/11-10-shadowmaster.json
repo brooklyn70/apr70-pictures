@@ -1,0 +1,57 @@
+{
+  "property": "11-10-shadowmaster",
+  "title": "Shadowmaster",
+  "canon": "Los Angeles, present day, one step past now (setting ruled by Marco 2026-07-13). Elite gamers, the Shadow Masters, command real human avatars through concealed earpieces and body-cams in high-stakes staged scenarios: underground poker, urban war games, an Old West shootout. The avatars are people, not pixels, held by debts and contracts, and they can defy the voice, pitting strategy against free will. NRC feature first; (310) co-production because it is set in LA.",
+  "look": "Cold neon and warm panic: beautiful interfaces, ugly rooms. Two cities stacked, the chair and the board: control hubs are climate-controlled, elevated and server-cooled blue; street level is sodium vapor, sun-bleach and dying fluorescent. Never postcard LA, always the working city: card parlours, container yards, backlots, parking structures. The signature cut is the Operator's mouth moving and a stranger across the city doing the thing.",
+  "note": "Light Law pass 2026-07-18 — prompts from shadow-masters-treatment-v2.pdf",
+  "stills": [
+    {
+      "slug": "shm2-earpiece-at-dawn",
+      "refs": [],
+      "notes": "Treatment p.1, Character Dynamics — Avatars: \"Some are motivated by money, while others are coerced participants with their own survival instincts.\" Location gap filled by 12c-drafts braindump 2026-07-13 (Piece housing: \"three mattresses, storage unit, car\"). Why: what the money costs, in one look at the device at dawn — the coercion the premise names, held in a palm. No cast established; refless.",
+      "prompt": "Interior of a converted garage behind a house in Pacoima, the San Fernando Valley, Los Angeles, present day, one step past now, just after sunrise. A Piece in his thirties, home from a night game, sits on the edge of one of three mattresses on the floor, a fold of cash on the blanket beside him. He has just pulled the flesh-toned earpiece from his ear and holds it in his open palm, looking at it too long. Behind him his young daughter sleeps under a coat. Low sun through the single dust-hazed east window falls hard and warm across the cash and his hands; the back of the garage stays cool and dark; a greenish fluorescent tube left on over the sink mixes against the sun. Full-bleed frame, no letterbox, no borders. No text, no watermark, no logo."
+    },
+    {
+      "slug": "shm2-hand-over-the-cards",
+      "refs": [],
+      "notes": "Treatment p.2, Scenario A — Underground Poker: \"One might ignore an order if they sense a hidden threat or a betrayal.\" and \"lit by flickering neon and lots of movement in the shadows.\" Relocated Brooklyn to LA per Marco's 2026-07-13 setting ruling (Commerce card room per braindump location candidates). Why: the old spec owns the obedience push (poker-all-in); this is its counter-moment — the refusal held as a look across the felt.",
+      "prompt": "Interior of a back-room card parlour behind a shuttered storefront in Commerce, Los Angeles, present day, one step past now, deep in the night. At the worn green felt, a seasoned player in her fifties presses her palm flat over her hole cards, head tilted a fraction toward the flesh-toned earpiece, and holds the stare of the man across the table — she has been ordered to bet, and she is not moving. The other players have gone still around the pot. One low tungsten pendant over the felt is the only real light, hot on her hand and the cards, dying fast at the walls; a broken neon sign outside the barred transom stutters pink across her cheek. Cigarette haze hangs in the pendant's cone. Full-bleed frame, no letterbox, no borders. No text, no watermark, no logo."
+    },
+    {
+      "slug": "shm2-refusal-in-the-yard",
+      "refs": [],
+      "notes": "Treatment p.2, Scenario B — War Games: \"A team member could refuse to follow a reckless order, jeopardizing the entire squad.\" Relocated from the Philadelphia waterfront to the Port of LA per the 2026-07-13 setting ruling. Why: the old spec's war-game shot is the squad in motion; this is the human hinge inside it — two squadmates at the point of breaking, an order becoming a plea.",
+      "prompt": "Exterior, a container aisle at the Port of Los Angeles, night, present day, one step past now. Mid-match, a young operative has stopped dead, laser rifle hanging slack on its sling, both hands at his ears pulling the earpiece free, face wet and past pretending. His squad leader has him by the vest with both fists, forehead nearly touching his, caught somewhere between an order and a plea, while the other three hold the shadow line behind them. The yard's high-mast floodlights throw hard sodium-orange pools with long black gaps between them; the two men stand at the edge of a pool so half of each face falls into dark; marine haze softens the far cranes. Full-bleed frame, no letterbox, no borders. No text, no watermark, no logo."
+    },
+    {
+      "slug": "shm2-hand-on-the-glass",
+      "refs": [],
+      "notes": "Treatment p.1, Structure: \"Alliances are tested, betrayals unfold, and the distinction between gamer and avatar blurs.\" Also Series Overview: \"Gamers operate from isolated control hubs.\" Why: the blur as a single gesture — an Operator's fingertips on the glass over the paused face of the stranger he moved all night. No cast established; refless.",
+      "prompt": "Interior of a private Operator booth on an unmarked floor of a downtown Los Angeles tower, present day, one step past now, the middle of the night. The match is over and the feed is paused. An Operator in his thirties, headset pushed down around his neck, leans into the monitor wall with his fingertips resting on the glass, over the frozen frame of his avatar's face — a stranger he has moved all night like a piece on a board. His own face, inches from the screen, is doing something no leaderboard measures. The paused feed's cold blue-white is the only light in the windowless room, pooling on his hand and jaw; one amber standby LED glows on the deck behind him. Full-bleed frame, no letterbox, no borders. No text, no watermark, no logo."
+    },
+    {
+      "slug": "shm2-untouched-face",
+      "refs": [],
+      "notes": "12c-drafts braindump 2026-07-13 (treatment gap — spectator class): \"Spectator class: rich, bored, betting. Recurring sting: cut from sweating Piece to untouched face.\" Why: the property's signature sting compressed into one frame, with a second guest who cannot watch supplying the human crack. Violence stays on the screen only as a face, never shown.",
+      "prompt": "Interior of a private screening room in a Bel Air house, Los Angeles, present day, one step past now, night. A live hunt plays on the full wall: the sweating, terrified face of a Piece fills the screen mid-run. Inches from it, an older spectator in evening dress watches with a champagne coupe held perfectly level, her face untouched, lit only by the feed. A step behind her, a younger guest has turned fully away from the screen, hand pressed over her mouth, eyes shut. The wall of light is the room's only source, blue-white and enormous, throwing the two women as bright faces against darkness; low aisle lights glow amber along the floor. Full-bleed frame, no letterbox, no borders. No text, no watermark, no logo."
+    },
+    {
+      "slug": "shm2-nova-photograph",
+      "refs": [],
+      "notes": "12c-drafts braindump 2026-07-13, Marco locks — Protagonist: \"Young LA woman. Native. Tough. Abandoned by her parents.\" Why: Nova's wound in one still moment, the night side of the climb. Nova has no ruled face, so the identical verbatim description block from the prior spec is reused; refless pending Marco's casting ruling.",
+      "prompt": "Interior of a one-room apartment in El Sereno, Los Angeles, present day, one step past now, late night. Nova — a Los Angeles-born woman in her early twenties, wiry and self-contained, sharp dark eyes, black hair pulled back tight, a fine scar through one eyebrow — sits on the floor with her back against the bed, knees up, holding a single creased photograph of a small girl between two parents. Her rigs and monitors stand dark behind her; she has not turned them on. Her face is set hard and one tear has gotten through anyway. Sodium streetlight through the blinds stripes warm orange across the wall and the photograph; the small white bulb over the stove is the only other light, cold at the room's edge. Full-bleed frame, no letterbox, no borders. No text, no watermark, no logo."
+    },
+    {
+      "slug": "shm2-her-husbands-voice",
+      "refs": [],
+      "notes": "12c-drafts braindump 2026-07-13, Moral atrocity: \"a rich husband hunts his wife and kills her in cold blood as sport under the game alibi.\" Why: the recognition, not the killing — the moment she knows the voice calling the hunt. Non-graphic; the hunter and all violence stay off frame. Distinct from the prior spec's nova-loses-the-hunt, which lives in Nova's booth.",
+      "prompt": "Exterior, between stacked shipping containers at the San Pedro terminal, Port of Los Angeles, night, present day, one step past now. A woman in her forties in torn expensive clothes is pressed flat against the cold steel, mid-hunt, one hand clamped over her own mouth to kill the sound of her breathing — and her eyes have just flooded, because the voice in her earpiece calling the hunt is her husband's. Her free hand is rising toward the device as if to tear it out. A high-mast floodlight two aisles over throws a hard-edged wedge of sodium-orange past her hiding place, leaving her in the black gap beside it; a drone's searchlight sweeps the haze far overhead. Nothing else moves. Full-bleed frame, no letterbox, no borders. No text, no watermark, no logo."
+    },
+    {
+      "slug": "shm2-after-high-noon",
+      "refs": [],
+      "notes": "Treatment p.2, Scenario C — Old West Showdown: \"A high-noon standoff could become a chaotic free-for-all when plans unravel.\" With Themes p.2: \"the moral and psychological complexities of controlling another human being.\" Why: the old spec owns the duel itself; this is its aftermath — two strangers who nearly hurt each other for someone else's game, the game layer visible in the resetting crew.",
+      "prompt": "Exterior, a standing Western-town street on a Burbank studio backlot, Los Angeles, present day, one step past now, just past noon. The free-for-all is over. On the boardwalk steps outside the saloon facade, a Piece in a sheriff's costume sits with his hat in his two shaking hands, eyes down and wet; beside him, still in duster and gun belt, sits the man he was ordered to draw on, one hand resting on the sheriff's shoulder. Out in the street, crew in modern clothes reset props in the glare. Hard white California sun stands straight overhead, shadows short and black; the two men sit in the awning's deep shade while the street behind them burns bright to blown-out. Full-bleed frame, no letterbox, no borders. No text, no watermark, no logo."
+    }
+  ]
+}

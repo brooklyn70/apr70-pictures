@@ -34,13 +34,23 @@ LEDGER = os.path.join(LEDGER_DIR, "prompts.jsonl")
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SPECS = os.path.join(ROOT, "specs")
 
-OUT_SUBDIR = "_regen"         # same folder Crop Studio's Prompt tab writes to, so the
+OUT_SUBDIR = "_regen"         # default; same folder Crop Studio's Prompt tab writes to, so the
                               # exists-skip dedup and `crop` see BOTH tools' masters.
                               # (4k-21x9/ holds the 2026-07-14 over-anchored throwaways.)
-MODEL = "nano-banana-pro"
+                              # Campaigns override with --out (e.g. _light-law).
 ASPECT = "21:9"
 RESOLUTION = "4K"
-CREDITS_PER_IMAGE = 24
+
+# Model registry (v13, Light Law pass). Each entry: credits per 4K image and how
+# the createTask payload wants its reference images. gpt-image-2 splits t2i/i2i
+# into two model ids; pick by whether the shot carries refs.
+#   nano-banana-pro          24 cr  refs via "image_input"
+#   gpt-image-2              16 cr  refs via "input_urls" (image-to-image id)
+MODELS = {
+    "nano-banana-pro": {"credits": 24},
+    "gpt-image-2": {"credits": 16},
+}
+DEFAULT_MODEL = "nano-banana-pro"
 
 UPLOAD_URL = "https://kieai.redpandaai.co/api/file-stream-upload"
 CREATE_URL = "https://api.kie.ai/api/v1/jobs/createTask"
@@ -96,10 +106,17 @@ def fetch(url, dest):
     subprocess.run(["curl", "-sS", "-fL", "-o", dest, url], check=True)
 
 
-def generate(token, prompt, refs):
-    payload = {"model": MODEL, "input": {
-        "prompt": prompt, "image_input": refs,
-        "aspect_ratio": ASPECT, "resolution": RESOLUTION}}
+def generate(token, prompt, refs, model=DEFAULT_MODEL):
+    if model == "gpt-image-2":
+        mid = "gpt-image-2-image-to-image" if refs else "gpt-image-2-text-to-image"
+        inp = {"prompt": prompt, "aspect_ratio": ASPECT, "resolution": RESOLUTION}
+        if refs:
+            inp["input_urls"] = refs
+    else:
+        mid = model
+        inp = {"prompt": prompt, "image_input": refs,
+               "aspect_ratio": ASPECT, "resolution": RESOLUTION}
+    payload = {"model": mid, "input": inp}
     res = api(CREATE_URL, token, payload)
     if res.get("code") != 200:
         raise RuntimeError(f"createTask: {res.get('msg')}")
@@ -123,13 +140,13 @@ def log(entry):
         fh.write(json.dumps(entry) + "\n")
 
 
-def load_spec(prop):
-    with open(os.path.join(SPECS, f"{prop}.json")) as fh:
+def load_spec(prop, specdir="specs"):
+    with open(os.path.join(ROOT, specdir, f"{prop}.json")) as fh:
         return json.load(fh)
 
 
-def outdir(prop):
-    return os.path.join(SHARED, prop, "02-stills", OUT_SUBDIR)
+def outdir(prop, sub=OUT_SUBDIR):
+    return os.path.join(SHARED, prop, "02-stills", sub)
 
 
 def planned(spec):
@@ -140,16 +157,18 @@ def planned(spec):
 
 
 def cmd_plan(args):
-    spec = load_spec(args.property)
+    spec = load_spec(args.property, args.specdir)
     shots = planned(spec)
     n = len(shots) * args.variants
+    per = MODELS[args.model]["credits"]
     print(f"property : {args.property}")
-    print(f"model    : {MODEL} @ {ASPECT} {RESOLUTION}")
-    print(f"output   : {outdir(args.property)}/   (new -- nothing overwritten)")
+    print(f"model    : {args.model} @ {ASPECT} {RESOLUTION}")
+    print(f"specdir  : {args.specdir}")
+    print(f"output   : {outdir(args.property, args.out)}/   (new -- nothing overwritten)")
     print(f"ledger   : {LEDGER}")
     print(f"stills   : {len(shots)} x {args.variants} variant(s) = {n} images"
           + (f"   ({len(spec['stills']) - len(shots)} without prompts, skipped)" if len(shots) < len(spec["stills"]) else ""))
-    print(f"cost     : {n * CREDITS_PER_IMAGE} credits")
+    print(f"cost     : {n * per} credits")
     print()
     for s in shots:
         refs = ", ".join(s.get("refs", [])) or "(no ref)"
@@ -157,16 +176,17 @@ def cmd_plan(args):
 
 
 def cmd_run(args):
-    spec = load_spec(args.property)
+    spec = load_spec(args.property, args.specdir)
     shots = planned(spec)
+    per = MODELS[args.model]["credits"]
     token = key()
     have = credits(token)
-    need = len(shots) * args.variants * CREDITS_PER_IMAGE
+    need = len(shots) * args.variants * per
     print(f"credits: {have:.0f} available, ~{need} needed")
     if need > have:
         sys.exit(f"ABORT: short {need - have:.0f} credits. Top up before running.")
 
-    dest = outdir(args.property)
+    dest = outdir(args.property, args.out)
     os.makedirs(dest, exist_ok=True)
     ref_cache = {}
 
@@ -187,7 +207,7 @@ def cmd_run(args):
                 print(f"  = {os.path.basename(out)} exists, skipping")
                 continue
             try:
-                tid, url = generate(token, s["prompt"], refs)
+                tid, url = generate(token, s["prompt"], refs, args.model)
             except RuntimeError as e:
                 print(f"  x {s['slug']} v{v}: {e}")
                 continue
@@ -199,10 +219,10 @@ def cmd_run(args):
             log({
                 "ts": time.strftime("%Y-%m-%dT%H:%M:%S"),
                 "property": args.property, "slug": s["slug"], "variant": v,
-                "model": MODEL, "aspect_ratio": ASPECT, "resolution": RESOLUTION,
+                "model": args.model, "aspect_ratio": ASPECT, "resolution": RESOLUTION,
                 "prompt": s["prompt"], "refs": s.get("refs", []),
                 "task_id": tid, "source_url": url, "output": out,
-                "credits": CREDITS_PER_IMAGE,
+                "credits": per,
             })
 
             try:
@@ -218,7 +238,7 @@ def cmd_run(args):
 
 def cmd_crop(args):
     from PIL import Image
-    src = outdir(args.property)
+    src = outdir(args.property, args.out)
     dest = os.path.join(SHARED, args.property, "02-stills",
                         f"crop-{args.ratio}".replace(".", "_"))
     os.makedirs(dest, exist_ok=True)
@@ -246,8 +266,12 @@ if __name__ == "__main__":
         s = sub.add_parser(name)
         s.add_argument("property")
         s.add_argument("--variants", type=int, default=1)
+        s.add_argument("--model", choices=sorted(MODELS), default=DEFAULT_MODEL)
+        s.add_argument("--specdir", default="specs")
+        s.add_argument("--out", default=OUT_SUBDIR)
     c = sub.add_parser("crop")
     c.add_argument("property")
     c.add_argument("--ratio", type=float, required=True)
+    c.add_argument("--out", default=OUT_SUBDIR)
     a = p.parse_args()
     {"plan": cmd_plan, "run": cmd_run, "crop": cmd_crop}[a.cmd](a)

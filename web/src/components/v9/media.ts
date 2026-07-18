@@ -45,3 +45,10 @@ export const SIZES_FULLBLEED = '100vw'
 export const SIZES_GRID = '(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 33vw'
 
 export const focalPosition = (f: Frame): string => `${f.focalX}% ${f.focalY}%`
+
+/** AI mark (v13): a frame counts as AI-generated when its caption/credit line
+ *  carries the disclosure phrase — the same line the Methods ledger promises.
+ *  This is deliberately the ONLY source of truth (no separate flag to drift):
+ *  archival photographs never carry the phrase, so they can never be stamped. */
+export const isAiFrameText = (...parts: Array<string | null | undefined>): boolean =>
+  /ai[\s-]?generated/i.test(parts.filter(Boolean).join(' '))

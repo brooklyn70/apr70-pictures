@@ -12,9 +12,10 @@ import * as migration_20260710_v9_content_model from './20260710_v9_content_mode
 import * as migration_20260712_171318_v10_brand_kit_founding_roll from './20260712_171318_v10_brand_kit_founding_roll';
 import * as migration_20260712_173039_v10_founding_roll_block from './20260712_173039_v10_founding_roll_block';
 import * as migration_20260713_213517_troupe_switch from './20260713_213517_troupe_switch';
-import * as migration_20260714_frame_ratio from './20260714_frame_ratio';
 import * as migration_20260713_222007_division_brand_and_favicons from './20260713_222007_division_brand_and_favicons';
 import * as migration_20260713_dispatch_switch from './20260713_dispatch_switch';
+import * as migration_20260714_frame_ratio from './20260714_frame_ratio';
+import * as migration_20260718_201112_ai_mark from './20260718_201112_ai_mark';
 
 export const migrations = [
   {
@@ -95,11 +96,16 @@ export const migrations = [
   {
     up: migration_20260713_dispatch_switch.up,
     down: migration_20260713_dispatch_switch.down,
-    name: '20260713_dispatch_switch'
+    name: '20260713_dispatch_switch',
   },
   {
     up: migration_20260714_frame_ratio.up,
     down: migration_20260714_frame_ratio.down,
-    name: '20260714_frame_ratio'
+    name: '20260714_frame_ratio',
+  },
+  {
+    up: migration_20260718_201112_ai_mark.up,
+    down: migration_20260718_201112_ai_mark.down,
+    name: '20260718_201112_ai_mark'
   },
 ];

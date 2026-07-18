@@ -1,6 +1,24 @@
 # BRIEF — apr70-pictures (v3 → V4 live on Vercel)
 
-**Current (2026-07-18 ~4pm, Fable 5 — v13 chrome pass):** **v13 SHIPPED.** Three Marco
+**Current (2026-07-18 ~6:30pm, Fable 5 — Light Law fleet + AI Mark + admin pickers):**
+**LIGHT LAW CAMPAIGN COMPLETE, NOTHING SWAPPED INTO THE SITE.** Ten from-scratch shot lists
+(8 shots each) authored from the scripts/canon with scene citations quoted per shot
+(`tools/still-regen/specs-light-law/`); 80 masters at 6336×2688 in each property's
+`02-stills/_light-law/`. Total spend 1,960 credits (~$9.80), balance 4,162. Marco ruled
+mid-run that prompts need his oversight — so the REVIEW GATE IS THE NEXT STEP: he reads
+specs (each notes[] quotes its scene) + frames, culls, then picks go to CMS. Agents left
+per-property rulings queues in their spec notes (angib uncast parts, alpha-yy Argentinian.jpg,
+cleo Brooklyn-vs-LA, da-hook B&W, ubr spelling/faces/treatment-vs-deck, movement seven-faces).
+**Provider A/B ruled:** gpt-image-2 (16cr) caps at 3696×1584 and its safety filter refused a
+cast-ref shot — nano-banana-pro (24cr, native 6336×2688) stays the fleet model; regen.py now
+takes --model/--specdir/--out. **AI MARK live on staging** (Site Settings → AI Mark; corner
+tag ON, diagonal band available; keys off the caption's "AI-generated" line so archival
+photos can never be stamped). **Deploy lesson ENCODED:** the ai_mark deploy broke staging
+(cms queried columns before migrating — down ~25 min, recovered via seed-profile migrate);
+deploy-v10-to-nas.sh now runs migrations as step 5c before up. **Admin pickers fixed:** the
+eight Site Settings brand fields are relationship pickers now (browse whole tagged library,
+swap in place, no remove-first); Marco's untagged sprockets logo (media id 96 on NAS) was
+invisible to the filtered pickers — tagged 'logo'. New uploads MUST get a Media Kind tag. **v13 SHIPPED.** Three Marco
 rulings executed: (1) header nav restyled to the route line's exact marquee look (mono face,
 accent superscript indices 01–04, no underline; active = ink) — edits in `v9.css`,
 `themes/marquee.css`, `V9Layout.astro`; route line kept on the front page as the zine's

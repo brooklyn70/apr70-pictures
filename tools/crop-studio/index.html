@@ -84,8 +84,16 @@
   .note b{color:var(--fg);font-weight:600}
 
   /* ── right: the verdict ── */
-  .side{background:var(--panel);border-left:1px solid var(--line);padding:1rem;overflow-y:auto;display:flex;flex-direction:column;gap:1rem;position:relative}
-  .side > *{flex-shrink:0}
+  /* Drag the pane past ~500px and the sections re-flow into two columns (ratio
+     beside verdict, regenerate beside video + output) so everything is on screen
+     at once; drag it narrow and they stack again. The .cols class is set by the
+     resize code — a container query can't restyle the container itself. */
+  .side{background:var(--panel);border-left:1px solid var(--line);padding:1rem;overflow-y:auto;position:relative;
+        display:grid;grid-template-columns:minmax(0,1fr);gap:1.1rem 1.4rem;align-content:start}
+  .side.cols{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .side.cols .sec.wide{grid-column:1/-1}
+  .sec{display:flex;flex-direction:column;gap:1rem;min-width:0}
+  .sec > *{flex-shrink:0}
   .side h2{font:600 .68rem/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin:0}
   .facts{font:.72rem/1.7 var(--mono);color:var(--dim)}
   .facts b{color:var(--fg);font-weight:600}
@@ -237,78 +245,88 @@
 </main>
 
 <aside class="side" data-tab="frames">
-  <h2>Picture</h2>
-  <div class="facts" id="facts">—</div>
+  <section class="sec wide">
+    <h2>Picture</h2>
+    <div class="facts" id="facts">—</div>
+  </section>
 
-  <h2>This picture's ratio</h2>
-  <div class="verdicts">
-    <button class="v r" data-r="2.39">Hero &mdash; 2.39 scope <kbd>1</kbd></button>
-    <button class="v r" data-r="2">Standard &mdash; 2.00 <kbd>2</kbd></button>
-  </div>
-  <select id="itemratio" style="width:100%">
-    <option value="2.39">2.39 : 1 — Scope · HERO</option>
-    <option value="2">2.00 : 1 — Univisium · standard</option>
-    <option value="2.2">2.20 : 1 — Todd-AO 70mm</option>
-    <option value="1.85">1.85 : 1 — Theatrical flat</option>
-    <option value="1.7778">16 : 9 — Television</option>
-    <option value="1.5">3 : 2</option>
-    <option value="1">1 : 1</option>
-    <option value="0.8">4 : 5 — Phone portrait</option>
-    <option value="0.5625">9 : 16 — Vertical</option>
-  </select>
-  <p class="note">Set per picture. A folder holds heroes and standards together &mdash; you no
-  longer have to run it twice and pick one output or the other.</p>
-
-  <h2>Verdict</h2>
-  <div class="verdicts">
-    <button class="v" data-v="crop">Crop to ratio <kbd>C</kbd></button>
-    <button class="v" data-v="regen">Regenerate wide <kbd>W</kbd></button>
-    <button class="v" data-v="native">Native — do not touch <kbd>N</kbd></button>
-    <button class="v" data-v="skip">Skip <kbd>S</kbd></button>
-    <button class="v" data-v="delete">Delete — cull it <kbd>D</kbd></button>
-    <button class="v slow" data-v="extend">Extend — if you have a weekend to wait <kbd>E</kbd></button>
-  </div>
-  <div class="keep" id="keep">—</div>
-  <p class="note" id="advice"></p>
-  <button class="ghost" id="reseed">Re-run auto-frame <kbd>R</kbd></button>
-  <p class="note">Auto-frame is libvips' <b>attention</b> heuristic — it weights edges, saturation
-  and skin tones to find the busiest region. It is a starting point, not a cinematographer.
-  This throws away your rectangle and puts its guess back.</p>
-
-  <h2>Regenerate <span class="facts" id="kie">—</span></h2>
-  <p class="note">These pictures were generated. There is no negative to protect, so a frame that
-  is too tight to crop should be <b>re-made wide</b>, not have its margins invented. One 21:9 4K
-  pass composes <i>for</i> the frame; everything else crops out of it.</p>
-  <textarea id="prompt" rows="5" placeholder="What is this shot? Describe the frame you want — not the one you have."></textarea>
-  <textarea id="notes" rows="3" placeholder="What was wrong with the last one? e.g. “the Limelight is a NIGHT club — the stained glass must read black, lit only by lasers and haze.”"></textarea>
-  <label class="chk"><input type="checkbox" id="useref" checked> Feed the old frame in — for cast and wardrobe only, never to pin the composition</label>
-  <button class="go alt" id="regen">Regenerate wide</button>
-  <div class="strip" id="regens"></div>
-
-  <h2>Video</h2>
-  <p class="note">Drives a clip from this still — it becomes the <b>first frame</b>, so the video
-  starts exactly on the picture you approved. 21:9, silent, for the top of the property page.</p>
-  <textarea id="motion" rows="3" placeholder="What happens in the video? Describe the MOVE, not the scene: “she lifts the spoon, he glances up, a car slides past behind them; slow push in.”"></textarea>
-  <div class="row2">
-    <select id="vdur">
-      <option value="5">5s</option><option value="6" selected>6s</option>
-      <option value="8">8s</option><option value="10">10s</option>
+  <section class="sec">
+    <h2>This picture's ratio</h2>
+    <div class="verdicts">
+      <button class="v r" data-r="2.39">Hero &mdash; 2.39 scope <kbd>1</kbd></button>
+      <button class="v r" data-r="2">Standard &mdash; 2.00 <kbd>2</kbd></button>
+    </div>
+    <select id="itemratio" style="width:100%">
+      <option value="2.39">2.39 : 1 — Scope · HERO</option>
+      <option value="2">2.00 : 1 — Univisium · standard</option>
+      <option value="2.2">2.20 : 1 — Todd-AO 70mm</option>
+      <option value="1.85">1.85 : 1 — Theatrical flat</option>
+      <option value="1.7778">16 : 9 — Television</option>
+      <option value="1.5">3 : 2</option>
+      <option value="1">1 : 1</option>
+      <option value="0.8">4 : 5 — Phone portrait</option>
+      <option value="0.5625">9 : 16 — Vertical</option>
     </select>
-    <select id="vres">
-      <option value="720p">720p</option><option value="1080p" selected>1080p</option><option value="4k">4K</option>
-    </select>
-  </div>
-  <button class="go alt" id="mkvid">Make video from this still</button>
-  <div id="vidbox"></div>
+    <p class="note">Set per picture. A folder holds heroes and standards together &mdash; you no
+    longer have to run it twice and pick one output or the other.</p>
+    <button class="ghost" id="reseed">Re-run auto-frame <kbd>R</kbd></button>
+    <p class="note">Auto-frame is libvips' <b>attention</b> heuristic — it weights edges, saturation
+    and skin tones to find the busiest region. It is a starting point, not a cinematographer.
+    This throws away your rectangle and puts its guess back.</p>
+  </section>
 
-  <h2>Output</h2>
-  <input type="text" id="outname" placeholder="_frames">
-  <div class="tally" id="tally"></div>
-  <button class="go" id="apply" disabled>Process folder</button>
-  <button class="go danger" id="purge" disabled>Nothing marked to delete</button>
-  <p class="note">Deleted pictures move to <b>_trash</b> inside the folder — nothing is ever
-  erased. A wrong checkbox is a drag back in Finder, not a loss.</p>
-  <div class="log" id="log" hidden></div>
+  <section class="sec">
+    <h2>Verdict</h2>
+    <div class="verdicts">
+      <button class="v" data-v="crop">Crop to ratio <kbd>C</kbd></button>
+      <button class="v" data-v="regen">Regenerate wide <kbd>W</kbd></button>
+      <button class="v" data-v="native">Native — do not touch <kbd>N</kbd></button>
+      <button class="v" data-v="skip">Skip <kbd>S</kbd></button>
+      <button class="v" data-v="delete">Delete — cull it <kbd>D</kbd></button>
+      <button class="v slow" data-v="extend">Extend — if you have a weekend to wait <kbd>E</kbd></button>
+    </div>
+    <div class="keep" id="keep">—</div>
+    <p class="note" id="advice"></p>
+  </section>
+
+  <section class="sec">
+    <h2>Regenerate <span class="facts" id="kie">—</span></h2>
+    <p class="note">These pictures were generated. There is no negative to protect, so a frame that
+    is too tight to crop should be <b>re-made wide</b>, not have its margins invented. One 21:9 4K
+    pass composes <i>for</i> the frame; everything else crops out of it.</p>
+    <textarea id="prompt" rows="5" placeholder="What is this shot? Describe the frame you want — not the one you have."></textarea>
+    <textarea id="notes" rows="3" placeholder="What was wrong with the last one? e.g. “the Limelight is a NIGHT club — the stained glass must read black, lit only by lasers and haze.”"></textarea>
+    <label class="chk"><input type="checkbox" id="useref" checked> Feed the old frame in — for cast and wardrobe only, never to pin the composition</label>
+    <button class="go alt" id="regen">Regenerate wide</button>
+    <div class="strip" id="regens"></div>
+  </section>
+
+  <section class="sec">
+    <h2>Video</h2>
+    <p class="note">Drives a clip from this still — it becomes the <b>first frame</b>, so the video
+    starts exactly on the picture you approved. 21:9, silent, for the top of the property page.</p>
+    <textarea id="motion" rows="3" placeholder="What happens in the video? Describe the MOVE, not the scene: “she lifts the spoon, he glances up, a car slides past behind them; slow push in.”"></textarea>
+    <div class="row2">
+      <select id="vdur">
+        <option value="5">5s</option><option value="6" selected>6s</option>
+        <option value="8">8s</option><option value="10">10s</option>
+      </select>
+      <select id="vres">
+        <option value="720p">720p</option><option value="1080p" selected>1080p</option><option value="4k">4K</option>
+      </select>
+    </div>
+    <button class="go alt" id="mkvid">Make video from this still</button>
+    <div id="vidbox"></div>
+
+    <h2>Output</h2>
+    <input type="text" id="outname" placeholder="_frames">
+    <div class="tally" id="tally"></div>
+    <button class="go" id="apply" disabled>Process folder</button>
+    <button class="go danger" id="purge" disabled>Nothing marked to delete</button>
+    <p class="note">Deleted pictures move to <b>_trash</b> inside the folder — nothing is ever
+    erased. A wrong checkbox is a drag back in Finder, not a loss.</p>
+    <div class="log" id="log" hidden></div>
+  </section>
 </aside>
 
 <aside class="rail" data-tab="prompts">
@@ -335,31 +353,37 @@
 </main>
 
 <aside class="side" data-tab="prompts">
-  <h2>Property</h2>
-  <div class="facts" id="pfacts">—</div>
+  <section class="sec wide">
+    <h2>Property</h2>
+    <div class="facts" id="pfacts">—</div>
+  </section>
 
-  <h2>House look</h2>
-  <textarea id="plook" rows="3" placeholder="The property's style line — period, stock, grain. Reference for writing prompts; each prompt carries its own copy."></textarea>
-  <p class="note">Prompts are sent <b>as written</b> — the look line is not appended. Bake the stock
-  and the grain into every prompt so each one stands alone in the ledger.</p>
+  <section class="sec">
+    <h2>House look</h2>
+    <textarea id="plook" rows="3" placeholder="The property's style line — period, stock, grain. Reference for writing prompts; each prompt carries its own copy."></textarea>
+    <p class="note">Prompts are sent <b>as written</b> — the look line is not appended. Bake the stock
+    and the grain into every prompt so each one stands alone in the ledger.</p>
+  </section>
 
-  <h2>Generate <span class="facts" id="pkie">—</span></h2>
-  <p class="note">Write the frame <b>fresh</b> — never “recompose this exact scene.” Research the real
-  place; get the time of day and the light source right. The reference image carries cast and
-  wardrobe only, never the composition.</p>
-  <div class="row2">
-    <select id="pvars">
-      <option value="1">1 variant</option>
-      <option value="2" selected>2 variants</option>
-      <option value="3">3 variants</option>
-    </select>
-    <span class="facts" id="pcost" style="align-self:center">—</span>
-  </div>
-  <button class="go" id="genall" disabled>Generate property</button>
-  <p class="note">Nothing fires until you press it. Each frame is one 21:9 4K master (24 credits);
-  its prompt hits the ledger before the download. New pictures land in <b>_regen</b> — nothing is
-  ever overwritten.</p>
-  <div class="log" id="plog" hidden></div>
+  <section class="sec">
+    <h2>Generate <span class="facts" id="pkie">—</span></h2>
+    <p class="note">Write the frame <b>fresh</b> — never “recompose this exact scene.” Research the real
+    place; get the time of day and the light source right. The reference image carries cast and
+    wardrobe only, never the composition.</p>
+    <div class="row2">
+      <select id="pvars">
+        <option value="1">1 variant</option>
+        <option value="2" selected>2 variants</option>
+        <option value="3">3 variants</option>
+      </select>
+      <span class="facts" id="pcost" style="align-self:center">—</span>
+    </div>
+    <button class="go" id="genall" disabled>Generate property</button>
+    <p class="note">Nothing fires until you press it. Each frame is one 21:9 4K master (24 credits);
+    its prompt hits the ledger before the download. New pictures land in <b>_regen</b> — nothing is
+    ever overwritten.</p>
+    <div class="log" id="plog" hidden></div>
+  </section>
 </aside>
 
 <script>
@@ -783,7 +807,10 @@ function makeResizable(panes, { cssvar, key, min, max, fromRight }) {
     grip.addEventListener('mousedown', (e) => {
       e.preventDefault()
       grip.classList.add('dragging')
-      const move = (ev) => document.documentElement.style.setProperty(cssvar, widthAt(ev) + 'px')
+      const move = (ev) => {
+        document.documentElement.style.setProperty(cssvar, widthAt(ev) + 'px')
+        if (fromRight) sideCols() // the side pane may cross the two-column threshold mid-drag
+      }
       const up = (ev) => {
         grip.classList.remove('dragging')
         localStorage.setItem(key, String(widthAt(ev)))
@@ -798,6 +825,12 @@ function makeResizable(panes, { cssvar, key, min, max, fromRight }) {
 }
 makeResizable([...document.querySelectorAll('.rail')], { cssvar: '--railw', key: 'cropstudio.railw', min: 200, max: 640, fromRight: false })
 makeResizable([...document.querySelectorAll('.side')], { cssvar: '--sidew', key: 'cropstudio.sidew', min: 260, max: 960, fromRight: true })
+
+// two-column side pane past ~500px — re-checked live while dragging
+const sideCols = () =>
+  document.querySelectorAll('.side').forEach((s) => s.classList.toggle('cols', s.getBoundingClientRect().width >= 500))
+sideCols()
+window.addEventListener('resize', sideCols)
 
 // ── the info card ─────────────────────────────────────────────────────────────
 // Name, size, provenance, and — where the ledger or the file's own bytes can

@@ -11,13 +11,14 @@
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 ui-sans-serif,system-ui,sans-serif;
-       height:100vh;display:grid;grid-template-columns:var(--railw,280px) 1fr 300px;overflow:hidden}
+       height:100vh;display:grid;grid-template-columns:var(--railw,280px) 1fr var(--sidew,300px);overflow:hidden}
   button{font:inherit;cursor:pointer}
 
   /* ── left: the roll ── */
   .rail{background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0;
         position:relative}
   .railgrip{position:absolute;top:0;right:-3px;width:7px;height:100%;cursor:col-resize;z-index:6}
+  .railgrip.left{right:auto;left:-3px}
   .railgrip:hover,.railgrip.dragging{background:linear-gradient(90deg,transparent 2px,var(--amber) 2px,var(--amber) 4px,transparent 4px)}
   .rail h1{font:600 .78rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--amber);
            margin:0;padding:1rem 1rem .85rem;border-bottom:1px solid var(--line)}
@@ -83,7 +84,7 @@
   .note b{color:var(--fg);font-weight:600}
 
   /* ── right: the verdict ── */
-  .side{background:var(--panel);border-left:1px solid var(--line);padding:1rem;overflow-y:auto;display:flex;flex-direction:column;gap:1rem}
+  .side{background:var(--panel);border-left:1px solid var(--line);padding:1rem;overflow-y:auto;display:flex;flex-direction:column;gap:1rem;position:relative}
   .side > *{flex-shrink:0}
   .side h2{font:600 .68rem/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin:0}
   .facts{font:.72rem/1.7 var(--mono);color:var(--dim)}
@@ -124,7 +125,8 @@
   .go.alt{background:var(--imax);color:#eafcff}
   .go.busy{opacity:.6;pointer-events:none}
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:.35rem}
-  .strip{display:grid;grid-template-columns:1fr 1fr;gap:.35rem}
+  /* auto-fill: a widened side pane shows more regen frames per row, not bigger ones */
+  .strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.35rem}
   .strip figure{margin:0;position:relative}
   .strip img{width:100%;border-radius:3px;border:1px solid var(--line);display:block;cursor:zoom-in}
   .strip figcaption{font:.62rem/1.4 var(--mono);color:var(--dim);padding-top:.15rem}
@@ -763,34 +765,39 @@ $('#grid').onchange = show
 $('#zoom').oninput = () => { FIT = false; SCALE = $('#zoom').value / 100; show() }
 $('#fit').onclick = () => { FIT = true; show() }
 
-// ── resizable roll ────────────────────────────────────────────────────────────
-// The consolidated names are long; 280px truncated every one of them. Drag the
-// rail's right edge; the width persists per browser.
-const RAILKEY = 'cropstudio.railw'
-{
-  const saved = Number(localStorage.getItem(RAILKEY))
-  if (saved) document.documentElement.style.setProperty('--railw', saved + 'px')
-}
-document.querySelectorAll('.rail').forEach((rail) => {
-  const grip = document.createElement('div')
-  grip.className = 'railgrip'
-  rail.appendChild(grip)
-  grip.addEventListener('mousedown', (e) => {
-    e.preventDefault()
-    grip.classList.add('dragging')
-    const clamp = (x) => Math.max(200, Math.min(640, x))
-    const move = (ev) => document.documentElement.style.setProperty('--railw', clamp(ev.clientX) + 'px')
-    const up = (ev) => {
-      grip.classList.remove('dragging')
-      localStorage.setItem(RAILKEY, String(clamp(ev.clientX)))
-      window.removeEventListener('mousemove', move)
-      window.removeEventListener('mouseup', up)
-      if (DIR && TAB === 'frames') show() // re-fit the canvas to the new stage width
-    }
-    window.addEventListener('mousemove', move)
-    window.addEventListener('mouseup', up)
+// ── resizable side panes ──────────────────────────────────────────────────────
+// The consolidated names are long and the monitor is huge: both flanks drag.
+// The roll's grip is on its right edge, the verdict pane's on its left; each
+// width persists per browser. The centre column takes whatever is left.
+function makeResizable(panes, { cssvar, key, min, max, fromRight }) {
+  const saved = Number(localStorage.getItem(key))
+  if (saved) document.documentElement.style.setProperty(cssvar, saved + 'px')
+  const widthAt = (ev) => {
+    const x = fromRight ? window.innerWidth - ev.clientX : ev.clientX
+    return Math.max(min, Math.min(max, x))
+  }
+  panes.forEach((pane) => {
+    const grip = document.createElement('div')
+    grip.className = 'railgrip' + (fromRight ? ' left' : '')
+    pane.appendChild(grip)
+    grip.addEventListener('mousedown', (e) => {
+      e.preventDefault()
+      grip.classList.add('dragging')
+      const move = (ev) => document.documentElement.style.setProperty(cssvar, widthAt(ev) + 'px')
+      const up = (ev) => {
+        grip.classList.remove('dragging')
+        localStorage.setItem(key, String(widthAt(ev)))
+        window.removeEventListener('mousemove', move)
+        window.removeEventListener('mouseup', up)
+        if (DIR && TAB === 'frames') show() // re-fit the canvas to the new stage width
+      }
+      window.addEventListener('mousemove', move)
+      window.addEventListener('mouseup', up)
+    })
   })
-})
+}
+makeResizable([...document.querySelectorAll('.rail')], { cssvar: '--railw', key: 'cropstudio.railw', min: 200, max: 640, fromRight: false })
+makeResizable([...document.querySelectorAll('.side')], { cssvar: '--sidew', key: 'cropstudio.sidew', min: 260, max: 960, fromRight: true })
 
 // ── the info card ─────────────────────────────────────────────────────────────
 // Name, size, provenance, and — where the ledger or the file's own bytes can

@@ -208,7 +208,7 @@ const dispatchInauguralIssue = {
     legal:
       'APR 70 LLC · 1063 Jackson Avenue PH G · Long Island City, NY 11101 · EIN 41-4120354 · NY DOS ID 7827718',
     type:
-      'Set in FUTURA STD (Paul Renner, 1927) for display and BARLOW (Jeremy Tribby, 2017) for text. Slates in SHARE TECH MONO. Composed and pressed in Long Island City, NY.',
+      'Set in JOST (Owen Earl, 2017) for display and BARLOW (Jeremy Tribby, 2017) for text. Slates in SHARE TECH MONO. Composed and pressed in Long Island City, NY.',
     baseline: 'PRECISE. PURPOSEFUL. BUILT TO LAST.',
   },
 }

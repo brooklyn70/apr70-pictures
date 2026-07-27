@@ -1,16 +1,8 @@
 <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <style>
-      @font-face {
-        font-family: 'Futura';
-        font-weight: 700;
-        src: local('Futura Bold'), local('Futura-Bold'), local('FuturaBT-Bold'), local('Century Gothic Bold'), local('Century Gothic');
-      }
-      @font-face {
-        font-family: 'Futura';
-        font-weight: 400;
-        src: local('Futura Book'), local('Futura-Book'), local('FuturaBT-Book'), local('Century Gothic'), local('Trebuchet MS');
-      }
+      
+      
     </style>
   </defs>
   <rect width="256" height="256" fill="#001628"/>
@@ -38,13 +30,5 @@
   <rect x="240" y="198" width="10" height="7.07" rx="1.5" fill="#FFFFFF"/>
   <rect x="6" y="216" width="10" height="7.07" rx="1.5" fill="#FFFFFF"/>
   <rect x="240" y="216" width="10" height="7.07" rx="1.5" fill="#FFFFFF"/>
-  <text
-    x="128" y="148"
-    font-family="Futura, 'Century Gothic', 'Trebuchet MS', Arial, sans-serif"
-    font-size="96"
-    font-weight="400"
-    fill="#FFFFFF"
-    text-anchor="middle"
-    letter-spacing="0.06em"
-  >70</text>
+  <g fill="#FFFFFF"><path d="M74.0 88.47999999999999H108.84800000000001L80.33600000000001 148.0H88.88000000000001L121.04 80.8H74.0Z"/><path d="M139.28 114.4Q139.28 108.544 140.43200000000002 103.6Q141.584 98.656 143.792 95.056Q146.0 91.45599999999999 149.12 89.488Q152.24 87.52 156.08 87.52Q160.01600000000002 87.52 163.08800000000002 89.488Q166.16 91.45599999999999 168.368 95.056Q170.576 98.656 171.728 103.6Q172.88 108.544 172.88 114.4Q172.88 120.256 171.728 125.2Q170.576 130.144 168.368 133.744Q166.16 137.344 163.08800000000002 139.312Q160.01600000000002 141.28 156.08 141.28Q152.24 141.28 149.12 139.312Q146.0 137.344 143.792 133.744Q141.584 130.144 140.43200000000002 125.2Q139.28 120.256 139.28 114.4ZM131.12 114.4Q131.12 124.48 134.288 132.256Q137.456 140.032 143.072 144.496Q148.688 148.96 156.08 148.96Q163.472 148.96 169.08800000000002 144.496Q174.704 140.032 177.872 132.256Q181.04 124.48 181.04 114.4Q181.04 104.32 177.872 96.544Q174.704 88.768 169.08800000000002 84.304Q163.472 79.84 156.08 79.84Q148.688 79.84 143.072 84.304Q137.456 88.768 134.288 96.544Q131.12 104.32 131.12 114.4Z"/></g>
 </svg>

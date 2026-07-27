@@ -13,7 +13,7 @@ import { test, expect, type Page } from '@playwright/test'
  *  - property ring prev/next on /work/<slug>
  *  - Founding Roll fold present with a working form surface
  *  - scrollbars visually hidden while scrolling still works
- *  - Futura Std actually loaded as the display face
+ *  - Jost actually loaded as the display face
  */
 
 const SITE = process.env.PUBLIC_SITE_URL || 'http://localhost:4321'
@@ -229,17 +229,17 @@ test.describe('chrome', () => {
     await page.waitForFunction(() => window.scrollY > 200)
   })
 
-  test('Futura Std is the loaded display face', async ({ page }) => {
+  test('Jost is the loaded display face', async ({ page }) => {
     await page.goto(`${SITE}/`)
-    await page.evaluate(() => document.fonts.load('16px "Futura Std"'))
-    await page.waitForFunction(() => document.fonts.check('16px "Futura Std"'))
-    const loaded = await page.evaluate(() => document.fonts.check('16px "Futura Std"'))
+    await page.evaluate(() => document.fonts.load('16px "Jost"'))
+    await page.waitForFunction(() => document.fonts.check('16px "Jost"'))
+    const loaded = await page.evaluate(() => document.fonts.check('16px "Jost"'))
     expect(loaded).toBe(true)
     const navFont = await page.evaluate(() => {
       const el = document.querySelector('.v9-nav__link')
       return el ? getComputedStyle(el).fontFamily : ''
     })
-    expect(navFont).toContain('Futura Std')
+    expect(navFont).toContain('Jost')
   })
 })
 

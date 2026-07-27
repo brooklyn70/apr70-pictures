@@ -44,7 +44,7 @@ const APR_BRAND_COLORS = {
  * Mega Scale display toggle for the Lexical inline toolbar.
  *
  * A single `mega` value maps to the `[data-display="mega"]` CSS selector
- * in tokens.css (clamp(3.5rem, 15vw, 18rem), Futura Std Bold, leading-crush).
+ * in tokens.css (clamp(3.5rem, 15vw, 18rem), Jost Bold, leading-crush).
  *
  * This is an inline-level toggle: editors select a text run and click
  * "Mega" in the toolbar — the text escalates to cinema/editorial display scale

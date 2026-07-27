@@ -248,20 +248,19 @@ const panelLabels = {
           />
         </a>
         <nav class="v9-nav" aria-label="Primary">
-          {/* v13: the header nav wears the routeline look — mono super index
-              on every route except home, matching the 01–04 strip on the
-              front page (Marco 2026-07-18). */}
-          {navLinks.map((link, i) => (
+          {/* v13: the header nav wears the routeline look — mono super index,
+              matching the 01–04 strip on the front page (Marco 2026-07-18).
+              Home is not a header link (Marco 2026-07-27) — the brand mark is
+              the way home; the footer nav keeps the full list. */}
+          {navLinks.filter((link) => link.href !== '/').map((link, i) => (
             <a
               class="v9-nav__link"
               href={link.href}
-              aria-current={(link.href === '/' ? path === '/' : path.startsWith(link.href)) ? 'page' : undefined}
+              aria-current={path.startsWith(link.href) ? 'page' : undefined}
             >
-              {link.href !== '/' && (
-                <span class="v9-nav__index" aria-hidden="true">
-                  {String(navLinks.slice(0, i).filter((l) => l.href !== '/').length + 1).padStart(2, '0')}
-                </span>
-              )}
+              <span class="v9-nav__index" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
               {link.label}
             </a>
           ))}
@@ -283,6 +282,12 @@ const panelLabels = {
 
     <footer class="v9-footer">
       <div class="v9-col">
+        {/* Footer brand (Marco 2026-07-27): same admin-driven marks as the nav,
+            theme-swapped by the shared [data-mark-ink] rules, house-scale. */}
+        <a class="v9-footer__brand" href="/" aria-label={NAP.name}>
+          <img class="v9-footer__mark" data-mark-ink="light" src={markLight} alt="" aria-hidden="true" />
+          <img class="v9-footer__mark" data-mark-ink="dark" src={markDark} alt="" aria-hidden="true" />
+        </a>
         <nav class="v9-footer__nav" aria-label="Footer">
           {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
         </nav>

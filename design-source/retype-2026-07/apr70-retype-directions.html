@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>APR 70 — Retype 2026 · Four Brand Directions</title>
+<!-- INTERNAL DESIGN REVIEW DOCUMENT — never ships publicly. Remote fonts are
+     acceptable here (colophon law binds the public site, not the studio). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Oswald:wght@300;400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Marcellus&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#0d0b09; --card:#161310; --card2:#1d1915; --rule:#2e2822;
+    --ink:#f0ece5; --muted:#a89f92; --neutral:#7a7268;
+    --orange:#E85D04; --amber:#824B07; --imax:#077082; --navy:#001F3F; --grey:#c8c8c8;
+    --light-bg:#FAFAF8; --light-fg:#1A1A1A;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:'Newsreader',Georgia,serif;line-height:1.6;padding:0 0 6rem}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 clamp(1.25rem,4vw,3rem)}
+  header.masthead{padding:4rem 0 2.5rem;border-bottom:1px solid var(--rule);margin-bottom:3rem}
+  .eyebrow{font-family:'Courier Prime',monospace;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--neutral)}
+  header.masthead h1{font-family:'Jost',sans-serif;font-weight:300;font-size:clamp(2rem,5vw,3.4rem);text-transform:uppercase;letter-spacing:.02em;margin:.75rem 0 .5rem}
+  header.masthead h1 b{color:var(--orange);font-weight:500}
+  .standfirst{max-width:62ch;color:var(--muted);font-size:1.05rem}
+  nav.toc{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.5rem}
+  nav.toc a{font-family:'Courier Prime',monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);text-decoration:none;border:1px solid var(--rule);padding:.45rem .9rem;border-radius:2px}
+  nav.toc a:hover{border-color:var(--orange);color:var(--orange)}
+
+  section.dir{margin:4.5rem 0;border:1px solid var(--rule);border-radius:4px;overflow:hidden}
+  .dir-head{padding:2rem clamp(1.25rem,3vw,2.5rem);background:var(--card);border-bottom:1px solid var(--rule)}
+  .dir-head .no{font-family:'Courier Prime',monospace;color:var(--orange);font-size:.8rem;letter-spacing:.2em}
+  .dir-head h2{font-size:clamp(1.6rem,3.5vw,2.6rem);margin:.4rem 0 .6rem;text-transform:uppercase}
+  .dir-head p{max-width:70ch;color:var(--muted)}
+  .dir-body{padding:clamp(1.25rem,3vw,2.5rem)}
+  h3.block{font-family:'Courier Prime',monospace;font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:var(--neutral);border-top:1px solid var(--rule);padding-top:1.4rem;margin:2.6rem 0 1.2rem}
+  h3.block:first-child{border-top:none;margin-top:0;padding-top:0}
+
+  .spec{display:grid;grid-template-columns:1fr;gap:1.1rem}
+  .spec-row{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:1rem;align-items:baseline;border-bottom:1px dashed var(--rule);padding-bottom:1rem}
+  .spec-row .meta{font-family:'Courier Prime',monospace;font-size:.66rem;letter-spacing:.06em;color:var(--neutral);text-align:right}
+  @media(max-width:700px){.spec-row{grid-template-columns:1fr}.spec-row .meta{text-align:left}}
+
+  pre.css{background:#0a0908;border:1px solid var(--rule);border-radius:3px;padding:1.1rem 1.3rem;overflow-x:auto;font-family:'Courier Prime',monospace;font-size:.78rem;line-height:1.55;color:#cfc8bd}
+
+  .logo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
+  .swatch{border:1px solid var(--rule);border-radius:3px;padding:2.2rem 1.6rem;display:flex;flex-direction:column;gap:1.6rem;align-items:flex-start;justify-content:center;min-height:180px}
+  .swatch.dark{background:#0a0a0a;color:#fff}
+  .swatch.light{background:var(--light-bg);color:var(--light-fg)}
+  .swatch .tag{font-family:'Courier Prime',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;opacity:.45}
+  .sprocketed{display:inline-flex;align-items:center;gap:.7em}
+  .sprk{display:inline-flex;flex-direction:column;gap:3px}
+  .sprk i{width:4px;height:4px;border-radius:50%;background:var(--orange);display:block}
+
+  .fav-strip{display:flex;gap:1.2rem;align-items:flex-end;flex-wrap:wrap}
+  .fav{display:flex;flex-direction:column;gap:.45rem;align-items:center}
+  .fav .box{background:#000;color:#fff;display:flex;align-items:center;justify-content:center;border-radius:18%;border:1px solid var(--rule)}
+  .fav small{font-family:'Courier Prime',monospace;font-size:.6rem;color:var(--neutral)}
+
+  .stationery{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.4rem;align-items:start}
+  .sheet{background:var(--light-bg);color:var(--light-fg);aspect-ratio:8.5/11;border-radius:2px;padding:9% 10%;position:relative;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+  .sheet .foot{position:absolute;left:10%;right:10%;bottom:7%;font-size:.5rem;letter-spacing:.08em;display:flex;justify-content:space-between;opacity:.65}
+  .cardpair{display:flex;flex-direction:column;gap:1.2rem}
+  .bizcard{aspect-ratio:3.5/2;border-radius:3px;padding:7% 8%;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 8px 22px rgba(0,0,0,.5)}
+  .bizcard.front{background:#0a0a0a;color:#fff}
+  .bizcard.back{background:var(--light-bg);color:var(--light-fg)}
+  .cap{font-family:'Courier Prime',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--neutral);margin-top:.6rem}
+
+  /* ───────── DIRECTION 1 · CONTINUITY (Jost) ───────── */
+  .d1 .t-display{font-family:'Jost',sans-serif;font-weight:300;font-size:clamp(2.6rem,6vw,4.6rem);letter-spacing:.005em;text-transform:uppercase;line-height:1.04}
+  .d1 .t-h1{font-family:'Jost',sans-serif;font-weight:500;font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:.01em;text-transform:uppercase;line-height:1.1}
+  .d1 .t-h2{font-family:'Jost',sans-serif;font-weight:400;font-size:1.45rem;letter-spacing:.04em;text-transform:uppercase}
+  .d1 .t-sub{font-family:'Jost',sans-serif;font-weight:500;font-size:.95rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .d1 .t-body{font-family:'Newsreader',serif;font-weight:400;font-size:1.05rem;max-width:60ch}
+  .d1 .t-cap{font-family:'Courier Prime',monospace;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--neutral)}
+  .d1 .t-ui{font-family:'Jost',sans-serif;font-weight:500;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;border:1px solid var(--orange);color:var(--orange);padding:.55rem 1.1rem;display:inline-block}
+  .d1 .wordmark{font-family:'Jost',sans-serif;font-weight:500;letter-spacing:.18em;font-size:1.5rem}
+  .d1 .wordmark small{display:block;font-weight:400;font-size:.55rem;letter-spacing:.62em;margin-top:.3em;opacity:.8}
+  .d1 .shortmark{font-family:'Jost',sans-serif;font-weight:500;letter-spacing:.14em;font-size:1.9rem}
+  .d1 .mono{font-family:'Jost',sans-serif;font-weight:500;font-size:1.6rem;letter-spacing:.02em}
+
+  /* ───────── DIRECTION 2 · PHOTOPLAY DECO (Josefin Sans) ───────── */
+  .d2 .t-display{font-family:'Josefin Sans',sans-serif;font-weight:300;font-size:clamp(2.6rem,6vw,4.6rem);letter-spacing:.06em;text-transform:uppercase;line-height:1.06}
+  .d2 .t-h1{font-family:'Josefin Sans',sans-serif;font-weight:400;font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:.08em;text-transform:uppercase}
+  .d2 .t-h2{font-family:'Josefin Sans',sans-serif;font-weight:400;font-size:1.4rem;letter-spacing:.12em;text-transform:uppercase}
+  .d2 .t-sub{font-family:'Josefin Sans',sans-serif;font-weight:600;font-size:.9rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+  .d2 .t-body{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.18rem;max-width:60ch}
+  .d2 .t-cap{font-family:'Josefin Sans',sans-serif;font-weight:300;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--neutral)}
+  .d2 .t-ui{font-family:'Josefin Sans',sans-serif;font-weight:600;font-size:.78rem;letter-spacing:.24em;text-transform:uppercase;border:1px solid var(--orange);color:var(--orange);padding:.55rem 1.1rem;display:inline-block}
+  .d2 .wordmark{font-family:'Josefin Sans',sans-serif;font-weight:300;letter-spacing:.24em;font-size:1.5rem}
+  .d2 .wordmark small{display:block;font-weight:400;font-size:.55rem;letter-spacing:.7em;margin-top:.35em;opacity:.8}
+  .d2 .shortmark{font-family:'Josefin Sans',sans-serif;font-weight:300;letter-spacing:.2em;font-size:1.9rem}
+  .d2 .mono{font-family:'Josefin Sans',sans-serif;font-weight:300;font-size:1.6rem;letter-spacing:.05em}
+
+  /* ───────── DIRECTION 3 · TRADE PAPER (Oswald) ───────── */
+  .d3 .t-display{font-family:'Oswald',sans-serif;font-weight:500;font-size:clamp(2.8rem,6.5vw,5rem);letter-spacing:.01em;text-transform:uppercase;line-height:1}
+  .d3 .t-h1{font-family:'Oswald',sans-serif;font-weight:500;font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:.02em;text-transform:uppercase}
+  .d3 .t-h2{font-family:'Oswald',sans-serif;font-weight:400;font-size:1.5rem;letter-spacing:.05em;text-transform:uppercase}
+  .d3 .t-sub{font-family:'Oswald',sans-serif;font-weight:600;font-size:.85rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .d3 .t-body{font-family:'Source Serif 4',serif;font-weight:400;font-size:1.02rem;max-width:62ch}
+  .d3 .t-cap{font-family:'Oswald',sans-serif;font-weight:300;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--neutral)}
+  .d3 .t-ui{font-family:'Oswald',sans-serif;font-weight:600;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;background:var(--orange);color:#0a0a0a;padding:.55rem 1.2rem;display:inline-block}
+  .d3 .wordmark{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.1em;font-size:1.6rem}
+  .d3 .wordmark small{display:block;font-weight:400;font-size:.55rem;letter-spacing:.5em;margin-top:.3em;opacity:.8}
+  .d3 .shortmark{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.06em;font-size:2rem}
+  .d3 .mono{font-family:'Oswald',sans-serif;font-weight:600;font-size:1.7rem;letter-spacing:0}
+
+  /* ───────── DIRECTION 4 · MARQUEE CLASSICAL (Marcellus) ───────── */
+  .d4 .t-display{font-family:'Marcellus',serif;font-size:clamp(2.4rem,5.5vw,4.2rem);letter-spacing:.08em;text-transform:uppercase;line-height:1.12}
+  .d4 .t-h1{font-family:'Marcellus',serif;font-size:clamp(1.7rem,3.8vw,2.6rem);letter-spacing:.1em;text-transform:uppercase}
+  .d4 .t-h2{font-family:'Marcellus',serif;font-size:1.4rem;letter-spacing:.12em;text-transform:uppercase}
+  .d4 .t-sub{font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:1.05rem;color:var(--muted)}
+  .d4 .t-body{font-family:'Newsreader',serif;font-weight:400;font-size:1.05rem;max-width:60ch}
+  .d4 .t-cap{font-family:'Courier Prime',monospace;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--neutral)}
+  .d4 .t-ui{font-family:'Marcellus',serif;font-size:.85rem;letter-spacing:.22em;text-transform:uppercase;border:1px solid var(--orange);color:var(--orange);padding:.55rem 1.1rem;display:inline-block}
+  .d4 .wordmark{font-family:'Marcellus',serif;letter-spacing:.2em;font-size:1.5rem}
+  .d4 .wordmark small{display:block;font-family:'Fraunces',serif;font-style:italic;font-size:.68rem;letter-spacing:.3em;margin-top:.35em;opacity:.8}
+  .d4 .shortmark{font-family:'Marcellus',serif;letter-spacing:.16em;font-size:1.9rem}
+  .d4 .mono{font-family:'Marcellus',serif;font-size:1.6rem;letter-spacing:.04em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">APR 70 Pictures · Brand Retype · 2026-07-27 · Internal review — ballot rules</p>
+  <h1>The classics never go out of <b>style</b></h1>
+  <p class="standfirst">Four complete type systems, all free/open-source (SIL OFL — zero licensing exposure, self-hostable
+  under the colophon law). Direction 1 is the continuity pick — the geometric spirit of the old face, kept.
+  Directions 2–4 are genuinely different voices: Deco New York, trade-paper condensed, prestige classical.
+  Every direction shows the full hierarchy, the logo system dark + light, favicons, letterhead, and card.</p>
+  <nav class="toc">
+    <a href="#d1">1 · Continuity</a>
+    <a href="#d2">2 · Photoplay Deco</a>
+    <a href="#d3">3 · Trade Paper</a>
+    <a href="#d4">4 · Marquee Classical</a>
+  </nav>
+</header>
+
+<!-- ═══════════════════════ DIRECTION 1 ═══════════════════════ -->
+<section class="dir d1" id="d1">
+  <div class="dir-head">
+    <span class="no">DIRECTION 01 · THE CONTINUITY PICK — ALREADY LIVE ON APR70.COM</span>
+    <h2 style="font-family:'Jost',sans-serif;font-weight:300;letter-spacing:.03em">Continuity — Jost</h2>
+    <p><b>Jost</b> (display) · <b>Newsreader</b> (text) · <b>Courier Prime</b> (mono/meta). Jost is an open-source
+    revival of 1920s German geometric sans design — the same Bauhaus lineage as the retired face. At the weights the
+    brand actually uses (Light/Book/Medium caps, wide-tracked), the difference is nearly invisible. The whole v10
+    system, the holding page, and every existing layout survive unchanged. Lowest risk, zero re-design cost;
+    the emergency swap this morning already proved it on the live page.</p>
+  </div>
+  <div class="dir-body">
+    <h3 class="block">Type hierarchy</h3>
+    <div class="spec">
+      <div class="spec-row"><div class="t-display">Content Classics</div><div class="meta">Display · Jost 300 · clamp(2.6–4.6rem) · ls .005em · caps</div></div>
+      <div class="spec-row"><div class="t-h1">A Slate Built to Last</div><div class="meta">H1 · Jost 500 · 1.8–2.8rem · ls .01em · caps</div></div>
+      <div class="spec-row"><div class="t-h2">Development &amp; Production</div><div class="meta">H2 · Jost 400 · 1.45rem · ls .04em · caps</div></div>
+      <div class="spec-row"><div class="t-sub">New Renaissance Cinema</div><div class="meta">Subhead · Jost 500 · .95rem · ls .14em · caps</div></div>
+      <div class="spec-row"><div class="t-body">We develop and produce content classics — pictures built to be watched again in thirty years, not scrolled past in thirty seconds. High craft, no CGI, a live orchestra in the room.</div><div class="meta">Body · Newsreader 400 · 1.05rem · lh 1.6</div></div>
+      <div class="spec-row"><div class="t-cap">Long Island City · Est. Scene 001</div><div class="meta">Caption · Courier Prime 400 · .72rem · ls .16em</div></div>
+      <div class="spec-row"><div><span class="t-ui">View the slate</span></div><div class="meta">UI · Jost 500 · .8rem · ls .2em</div></div>
+    </div>
+
+    <h3 class="block">Tokens (CSS)</h3>
+<pre class="css">--font-display: 'Jost', 'Century Gothic', sans-serif;      /* 300/400/500/700, variable 100–900 */
+--font-body:    'Newsreader', 'Iowan Old Style', serif;     /* variable 400–600 + italic */
+--font-mono:    'Courier Prime', 'Courier New', monospace;
+/* display caps: ls .005–.04em · subheads: ls .14em · UI: ls .2em */</pre>
+
+    <h3 class="block">Logo system</h3>
+    <div class="logo-grid">
+      <div class="swatch dark"><span class="tag">Primary wordmark · dark</span>
+        <span class="sprocketed"><span class="sprk"><i></i><i></i><i></i><i></i></span><span class="wordmark">APR 70<small>PICTURES</small></span><span class="sprk"><i></i><i></i><i></i><i></i></span></span>
+      </div>
+      <div class="swatch light"><span class="tag">Primary wordmark · light</span>
+        <span class="sprocketed"><span class="sprk"><i></i><i></i><i></i><i></i></span><span class="wordmark">APR 70<small>PICTURES</small></span><span class="sprk"><i></i><i></i><i></i><i></i></span></span>
+      </div>
+      <div class="swatch dark"><span class="tag">Short + monogram</span>
+        <span class="shortmark">APR 70</span>
+        <span class="mono" style="border:2px solid var(--orange);padding:.25em .45em">70</span>
+      </div>
+    </div>
+    <p class="cap">Sprocket-dot rails carry over — the film DNA survives the retype. Monogram: “70” in the frame.</p>
+
+    <h3 class="block">Favicon set (16 / 32 / 180)</h3>
+    <div class="fav-strip">
+      <div class="fav"><div class="box" style="width:16px;height:16px;font-family:'Jost',sans-serif;font-weight:600;font-size:9px">70</div><small>16</small></div>
+      <div class="fav"><div class="box" style="width:32px;height:32px;font-family:'Jost',sans-serif;font-weight:600;font-size:16px">70</div><small>32</small></div>
+      <div class="fav"><div class="box" style="width:48px;height:48px;font-family:'Jost',sans-serif;font-weight:500;font-size:23px">70</div><small>48</small></div>
+      <div class="fav"><div class="box" style="width:90px;height:90px;font-family:'Jost',sans-serif;font-weight:500;font-size:42px;color:var(--orange)">70</div><small>180 (@½)</small></div>
+    </div>
+
+    <h3 class="block">Stationery</h3>
+    <div class="stationery">
+      <div><div class="sheet">
+        <span class="sprocketed" style="transform:scale(.8);transform-origin:left top"><span class="sprk"><i></i><i></i><i></i><i></i></span><span class="wordmark" style="font-family:'Jost',sans-serif;font-weight:500;letter-spacing:.18em;font-size:1.1rem">APR 70<small style="display:block;font-weight:400;font-size:.42rem;letter-spacing:.62em;margin-top:.3em;opacity:.8">PICTURES</small></span></span>
+        <div class="foot"><span>APR 70 PICTURES LLC · LONG ISLAND CITY, NY</span><span>APR70.COM</span></div>
+      </div><p class="cap">Letterhead · US Letter</p></div>
+      <div class="cardpair">
+        <div class="bizcard front"><span class="sprocketed"><span class="sprk"><i></i><i></i><i></i></span><span style="font-family:'Jost',sans-serif;font-weight:500;letter-spacing:.18em;font-size:1rem">APR 70<small style="display:block;font-weight:400;font-size:.4rem;letter-spacing:.62em;margin-top:.3em;opacity:.8">PICTURES</small></span></span>
+          <div style="font-family:'Courier Prime',monospace;font-size:.55rem;letter-spacing:.14em">THE CLASSICS NEVER GO OUT OF STYLE.</div></div>
+        <div class="bizcard back"><div style="font-family:'Jost',sans-serif;font-weight:500;font-size:.9rem;letter-spacing:.06em">Marco Caruso<div style="font-weight:400;font-size:.62rem;letter-spacing:.18em;color:#777;margin-top:.2em">FOUNDER</div></div>
+          <div style="font-family:'Courier Prime',monospace;font-size:.55rem;letter-spacing:.1em">INFO@APR70.COM · APR70.COM<br>LONG ISLAND CITY · NEW YORK</div></div>
+        <p class="cap">Business card · 3.5 × 2 in · front / back</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ DIRECTION 2 ═══════════════════════ -->
+<section class="dir d2" id="d2">
+  <div class="dir-head">
+    <span class="no">DIRECTION 02 · NEW SYSTEM</span>
+    <h2 style="font-family:'Josefin Sans',sans-serif;font-weight:300;letter-spacing:.08em">Photoplay Deco — Josefin Sans</h2>
+    <p><b>Josefin Sans</b> (display) · <b>Cormorant Garamond</b> (text) · Josefin Light (meta). Geometric like the old
+    face, but tilted twenty years earlier: 1920s Deco, elegant small x-height, vintage title-card energy. This is the
+    Kaufman-Astoria / silent-photoplay New York — Chrysler Building lobby, not Bauhaus classroom. The Cormorand
+    old-style serif underneath gives it a literary, program-notes warmth. Premium, austere, unmistakably cinema.</p>
+  </div>
+  <div class="dir-body">
+    <h3 class="block">Type hierarchy</h3>
+    <div class="spec">
+      <div class="spec-row"><div class="t-display">Content Classics</div><div class="meta">Display · Josefin Sans 300 · ls .06em · caps</div></div>
+      <div class="spec-row"><div class="t-h1">A Slate Built to Last</div><div class="meta">H1 · Josefin Sans 400 · ls .08em · caps</div></div>
+      <div class="spec-row"><div class="t-h2">Development &amp; Production</div><div class="meta">H2 · Josefin Sans 400 · ls .12em · caps</div></div>
+      <div class="spec-row"><div class="t-sub">New Renaissance Cinema</div><div class="meta">Subhead · Josefin Sans 600 · ls .22em · caps</div></div>
+      <div class="spec-row"><div class="t-body">We develop and produce content classics — pictures built to be watched again in thirty years, not scrolled past in thirty seconds. High craft, no CGI, a live orchestra in the room.</div><div class="meta">Body · Cormorant Garamond 500 · 1.18rem</div></div>
+      <div class="spec-row"><div class="t-cap">Long Island City · Est. Scene 001</div><div class="meta">Caption · Josefin Sans 300 · ls .2em</div></div>
+      <div class="spec-row"><div><span class="t-ui">View the slate</span></div><div class="meta">UI · Josefin Sans 600 · ls .24em</div></div>
+    </div>
+    <h3 class="block">Tokens (CSS)</h3>
+<pre class="css">--font-display: 'Josefin Sans', 'Century Gothic', sans-serif;  /* variable 100–700 + italic */
+--font-body:    'Cormorant Garamond', 'Iowan Old Style', serif; /* variable 300–700 + italic */
+--font-mono:    'Courier Prime', monospace;  /* keep for sluglines if wanted */
+/* display caps: ls .06–.12em · subheads: ls .22em · UI: ls .24em */</pre>
+    <h3 class="block">Logo system</h3>
+    <div class="logo-grid">
+      <div class="swatch dark"><span class="tag">Primary wordmark · dark</span>
+        <span class="sprocketed"><span class="sprk"><i></i><i></i><i></i><i></i></span><span class="wordmark">APR 70<small>PICTURES</small></span><span class="sprk"><i></i><i></i><i></i><i></i></span></span></div>
+      <div class="swatch light"><span class="tag">Primary wordmark · light</span>
+        <span class="sprocketed"><span class="sprk"><i></i><i></i><i></i><i></i></span><span class="wordmark">APR 70<small>PICTURES</small></span><span class="sprk"><i></i><i></i><i></i><i></i></span></span></div>
+      <div class="swatch dark"><span class="tag">Short + monogram</span>
+        <span class="shortmark">APR 70</span>
+        <span class="mono" style="border:2px double var(--orange);padding:.28em .5em">70</span></div>
+    </div>
+    <p class="cap">Monogram sits in a Deco double-rule frame; sprocket rails stay.</p>
+    <h3 class="block">Favicon set</h3>
+    <div class="fav-strip">
+      <div class="fav"><div class="box" style="width:16px;height:16px;font-family:'Josefin Sans',sans-serif;font-weight:600;font-size:9px">70</div><small>16</small></div>
+      <div class="fav"><div class="box" style="width:32px;height:32px;font-family:'Josefin Sans',sans-serif;font-weight:600;font-size:15px">70</div><small>32</small></div>
+      <div class="fav"><div class="box" style="width:48px;height:48px;font-family:'Josefin Sans',sans-serif;font-weight:400;font-size:22px">70</div><small>48</small></div>
+      <div class="fav"><div class="box" style="width:90px;height:90px;font-family:'Josefin Sans',sans-serif;font-weight:300;font-size:40px;color:var(--orange)">70</div><small>180 (@½)</small></div>
+    </div>
+    <h3 class="block">Stationery</h3>
+    <div class="stationery">
+      <div><div class="sheet">
+        <div style="text-align:center"><span class="wordmark" style="font-family:'Josefin Sans',sans-serif;font-weight:300;letter-spacing:.24em;font-size:1.05rem">APR 70<small style="display:block;font-weight:400;font-size:.42rem;letter-spacing:.7em;margin-top:.35em;opacity:.8">PICTURES</small></span>
+        <div style="border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:.8em auto 0;width:38%;height:3px"></div></div>
+        <div class="foot"><span>APR 70 PICTURES LLC · LONG ISLAND CITY, NY</span><span>APR70.COM</span></div>
+      </div><p class="cap">Letterhead · centered Deco lockup</p></div>
+      <div class="cardpair">
+        <div class="bizcard front" style="align-items:center;text-align:center;justify-content:center;gap:.6em"><span style="font-family:'Josefin Sans',sans-serif;font-weight:300;letter-spacing:.24em;font-size:1.05rem">APR 70<small style="display:block;font-weight:400;font-size:.4rem;letter-spacing:.7em;margin-top:.35em;opacity:.8">PICTURES</small></span>
+          <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.7rem">The classics never go out of style.</div></div>
+        <div class="bizcard back"><div style="font-family:'Josefin Sans',sans-serif;font-weight:400;font-size:.9rem;letter-spacing:.1em">MARCO CARUSO<div style="font-weight:300;font-size:.6rem;letter-spacing:.24em;color:#777;margin-top:.2em">FOUNDER</div></div>
+          <div style="font-family:'Josefin Sans',sans-serif;font-weight:300;font-size:.58rem;letter-spacing:.12em">INFO@APR70.COM · APR70.COM<br>LONG ISLAND CITY · NEW YORK</div></div>
+        <p class="cap">Business card · centered front, Deco rules</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ DIRECTION 3 ═══════════════════════ -->
+<section class="dir d3" id="d3">
+  <div class="dir-head">
+    <span class="no">DIRECTION 03 · NEW SYSTEM</span>
+    <h2 style="font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:.02em">Trade Paper — Oswald</h2>
+    <p><b>Oswald</b> (display, condensed) · <b>Source Serif 4</b> (text) · Oswald Light (meta). The other New York:
+    the trades. Variety mastheads, one-sheet billing blocks, Alternate Gothic pressroom muscle. Condensed caps stack
+    tall and hit hard — this is the loudest and most modern-editorial of the four, closest to A24/Neon poster
+    energy while staying period-correct. Body text in a sturdy transitional serif keeps the broadsheet register.</p>
+  </div>
+  <div class="dir-body">
+    <h3 class="block">Type hierarchy</h3>
+    <div class="spec">
+      <div class="spec-row"><div class="t-display">Content Classics</div><div class="meta">Display · Oswald 500 · ls .01em · caps</div></div>
+      <div class="spec-row"><div class="t-h1">A Slate Built to Last</div><div class="meta">H1 · Oswald 500 · ls .02em · caps</div></div>
+      <div class="spec-row"><div class="t-h2">Development &amp; Production</div><div class="meta">H2 · Oswald 400 · ls .05em · caps</div></div>
+      <div class="spec-row"><div class="t-sub">New Renaissance Cinema</div><div class="meta">Subhead · Oswald 600 · ls .18em · caps</div></div>
+      <div class="spec-row"><div class="t-body">We develop and produce content classics — pictures built to be watched again in thirty years, not scrolled past in thirty seconds. High craft, no CGI, a live orchestra in the room.</div><div class="meta">Body · Source Serif 4 · 1.02rem</div></div>
+      <div class="spec-row"><div class="t-cap">Long Island City · Est. Scene 001</div><div class="meta">Caption · Oswald 300 · ls .16em</div></div>
+      <div class="spec-row"><div><span class="t-ui">View the slate</span></div><div class="meta">UI · Oswald 600 · filled block</div></div>
+    </div>
+    <h3 class="block">Tokens (CSS)</h3>
+<pre class="css">--font-display: 'Oswald', 'Arial Narrow', sans-serif;        /* 300–700 */
+--font-body:    'Source Serif 4', Georgia, serif;             /* variable, opsz */
+--font-mono:    'Courier Prime', monospace;
+/* display: tight ls .01–.05em · billing lines: ls .18em · UI: solid blocks */</pre>
+    <h3 class="block">Logo system</h3>
+    <div class="logo-grid">
+      <div class="swatch dark"><span class="tag">Primary wordmark · dark</span>
+        <span class="sprocketed"><span class="sprk"><i></i><i></i><i></i><i></i></span><span class="wordmark">APR 70<small>PICTURES</small></span><span class="sprk"><i></i><i></i><i></i><i></i></span></span></div>
+      <div class="swatch light"><span class="tag">Primary wordmark · light</span>
+        <span class="sprocketed"><span class="sprk"><i></i><i></i><i></i><i></i></span><span class="wordmark">APR 70<small>PICTURES</small></span><span class="sprk"><i></i><i></i><i></i><i></i></span></span></div>
+      <div class="swatch dark"><span class="tag">Short + monogram</span>
+        <span class="shortmark">APR 70</span>
+        <span class="mono" style="background:var(--orange);color:#0a0a0a;padding:.22em .45em">70</span></div>
+    </div>
+    <p class="cap">Monogram flips to a solid orange plate — pressroom stamp.</p>
+    <h3 class="block">Favicon set</h3>
+    <div class="fav-strip">
+      <div class="fav"><div class="box" style="width:16px;height:16px;font-family:'Oswald',sans-serif;font-weight:600;font-size:10px;background:var(--orange);color:#000">70</div><small>16</small></div>
+      <div class="fav"><div class="box" style="width:32px;height:32px;font-family:'Oswald',sans-serif;font-weight:600;font-size:18px;background:var(--orange);color:#000">70</div><small>32</small></div>
+      <div class="fav"><div class="box" style="width:48px;height:48px;font-family:'Oswald',sans-serif;font-weight:600;font-size:26px;background:var(--orange);color:#000">70</div><small>48</small></div>
+      <div class="fav"><div class="box" style="width:90px;height:90px;font-family:'Oswald',sans-serif;font-weight:600;font-size:48px;background:var(--orange);color:#000">70</div><small>180 (@½)</small></div>
+    </div>
+    <h3 class="block">Stationery</h3>
+    <div class="stationery">
+      <div><div class="sheet">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start"><span style="font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.1em;font-size:1.15rem">APR 70<small style="display:block;font-weight:400;font-size:.42rem;letter-spacing:.5em;margin-top:.25em;opacity:.8">PICTURES</small></span><span style="font-family:'Oswald',sans-serif;font-weight:300;font-size:.5rem;letter-spacing:.2em;text-align:right;opacity:.7">EST. LIC, NY<br>APR70.COM</span></div>
+        <div class="foot"><span>APR 70 PICTURES LLC · LONG ISLAND CITY, NY</span><span>INFO@APR70.COM</span></div>
+      </div><p class="cap">Letterhead · masthead left, colophon right</p></div>
+      <div class="cardpair">
+        <div class="bizcard front"><span style="font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.1em;font-size:1.15rem">APR 70<small style="display:block;font-weight:400;font-size:.42rem;letter-spacing:.5em;margin-top:.25em;opacity:.8">PICTURES</small></span>
+          <div style="font-family:'Oswald',sans-serif;font-weight:300;font-size:.52rem;letter-spacing:.18em">THE CLASSICS NEVER GO OUT OF STYLE.</div></div>
+        <div class="bizcard back"><div style="font-family:'Oswald',sans-serif;font-weight:500;font-size:.95rem;letter-spacing:.04em">MARCO CARUSO<div style="font-weight:300;font-size:.6rem;letter-spacing:.2em;color:#777;margin-top:.2em">FOUNDER</div></div>
+          <div style="font-family:'Source Serif 4',serif;font-size:.6rem">info@apr70.com · apr70.com<br>Long Island City, New York</div></div>
+        <p class="cap">Business card · billing-block hierarchy</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ DIRECTION 4 ═══════════════════════ -->
+<section class="dir d4" id="d4">
+  <div class="dir-head">
+    <span class="no">DIRECTION 04 · NEW SYSTEM</span>
+    <h2 style="font-family:'Marcellus',serif;letter-spacing:.08em">Marquee Classical — Marcellus</h2>
+    <p><b>Marcellus</b> (display, lapidary Roman caps) · <b>Newsreader</b> (text) · <b>Fraunces italic</b> (voice/accents).
+    The prestige register: inscriptional capitals in the Trajan tradition — the face of every studio-era epic main
+    title — but drawn as a modern open-source Roman. Reads as the oldest and most austere of the four: carved stone,
+    live orchestra, roadshow engagement. Fraunces italic underneath supplies the human, editorial counter-voice
+    the caps need.</p>
+  </div>
+  <div class="dir-body">
+    <h3 class="block">Type hierarchy</h3>
+    <div class="spec">
+      <div class="spec-row"><div class="t-display">Content Classics</div><div class="meta">Display · Marcellus · ls .08em · caps</div></div>
+      <div class="spec-row"><div class="t-h1">A Slate Built to Last</div><div class="meta">H1 · Marcellus · ls .1em · caps</div></div>
+      <div class="spec-row"><div class="t-h2">Development &amp; Production</div><div class="meta">H2 · Marcellus · ls .12em · caps</div></div>
+      <div class="spec-row"><div class="t-sub">stories across generations, told by hand</div><div class="meta">Voice · Fraunces italic 400 · 1.05rem</div></div>
+      <div class="spec-row"><div class="t-body">We develop and produce content classics — pictures built to be watched again in thirty years, not scrolled past in thirty seconds. High craft, no CGI, a live orchestra in the room.</div><div class="meta">Body · Newsreader 400 · 1.05rem</div></div>
+      <div class="spec-row"><div class="t-cap">Long Island City · Est. Scene 001</div><div class="meta">Caption · Courier Prime · ls .16em</div></div>
+      <div class="spec-row"><div><span class="t-ui">View the slate</span></div><div class="meta">UI · Marcellus · ls .22em</div></div>
+    </div>
+    <h3 class="block">Tokens (CSS)</h3>
+<pre class="css">--font-display: 'Marcellus', 'Times New Roman', serif;   /* single weight — hierarchy by size+ls */
+--font-voice:   'Fraunces', serif;                        /* italic accents, variable */
+--font-body:    'Newsreader', 'Iowan Old Style', serif;
+--font-mono:    'Courier Prime', monospace;
+/* Marcellus ships one weight: scale and letterspacing do the ranking */</pre>
+    <h3 class="block">Logo system</h3>
+    <div class="logo-grid">
+      <div class="swatch dark"><span class="tag">Primary wordmark · dark</span>
+        <span class="sprocketed"><span class="sprk"><i></i><i></i><i></i><i></i></span><span class="wordmark">APR 70<small>Pictures</small></span><span class="sprk"><i></i><i></i><i></i><i></i></span></span></div>
+      <div class="swatch light"><span class="tag">Primary wordmark · light</span>
+        <span class="sprocketed"><span class="sprk"><i></i><i></i><i></i><i></i></span><span class="wordmark">APR 70<small>Pictures</small></span><span class="sprk"><i></i><i></i><i></i><i></i></span></span></div>
+      <div class="swatch dark"><span class="tag">Short + monogram</span>
+        <span class="shortmark">APR 70</span>
+        <span class="mono" style="border:1px solid var(--orange);outline:1px solid var(--orange);outline-offset:3px;padding:.25em .5em">70</span></div>
+    </div>
+    <p class="cap">Monogram in a double-hairline plaque — engraved, not printed.</p>
+    <h3 class="block">Favicon set</h3>
+    <div class="fav-strip">
+      <div class="fav"><div class="box" style="width:16px;height:16px;font-family:'Marcellus',serif;font-size:9px">70</div><small>16</small></div>
+      <div class="fav"><div class="box" style="width:32px;height:32px;font-family:'Marcellus',serif;font-size:16px">70</div><small>32</small></div>
+      <div class="fav"><div class="box" style="width:48px;height:48px;font-family:'Marcellus',serif;font-size:24px">70</div><small>48</small></div>
+      <div class="fav"><div class="box" style="width:90px;height:90px;font-family:'Marcellus',serif;font-size:44px;color:var(--orange)">70</div><small>180 (@½)</small></div>
+    </div>
+    <h3 class="block">Stationery</h3>
+    <div class="stationery">
+      <div><div class="sheet">
+        <div style="text-align:center"><span style="font-family:'Marcellus',serif;letter-spacing:.2em;font-size:1.05rem">APR 70<small style="display:block;font-family:'Fraunces',serif;font-style:italic;font-size:.5rem;letter-spacing:.3em;margin-top:.3em;opacity:.8">Pictures</small></span></div>
+        <div class="foot"><span>APR 70 PICTURES LLC · LONG ISLAND CITY, NY</span><span>APR70.COM</span></div>
+      </div><p class="cap">Letterhead · engraved center crest</p></div>
+      <div class="cardpair">
+        <div class="bizcard front" style="align-items:center;text-align:center;justify-content:center;gap:.5em"><span style="font-family:'Marcellus',serif;letter-spacing:.2em;font-size:1.05rem">APR 70<small style="display:block;font-family:'Fraunces',serif;font-style:italic;font-size:.5rem;letter-spacing:.3em;margin-top:.3em;opacity:.85">Pictures</small></span></div>
+        <div class="bizcard back"><div style="font-family:'Marcellus',serif;font-size:.95rem;letter-spacing:.08em">MARCO CARUSO<div style="font-family:'Fraunces',serif;font-style:italic;font-size:.62rem;color:#777;margin-top:.2em">Founder</div></div>
+          <div style="font-family:'Newsreader',serif;font-size:.6rem">info@apr70.com · apr70.com<br>Long Island City, New York</div></div>
+        <p class="cap">Business card · engraver's card</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer style="margin-top:4rem;border-top:1px solid var(--rule);padding-top:1.5rem">
+  <p class="eyebrow">Rule by checkbox on the ballot — apr70-brand-retype-ballot-2026-07-27.md (embedded on Home).
+  Production assets (outlined SVGs, print PDFs, favicon .ico/.png set) are built for the winning direction only.</p>
+</footer>
+
+</div>
+</body>
+</html>

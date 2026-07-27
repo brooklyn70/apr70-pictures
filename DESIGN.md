@@ -1,11 +1,12 @@
 ---
-version: alpha
+version: canon-2026-07-27
 name: APR 70 Pictures
 description: >
   Visual identity for APR 70 LLC, a New York film and television production
   company founded by Marc Andrew Caruso in 2026. Three divisions share one
-  visual DNA: film-sprocket geometry, Italian Modernist typography
-  (Futura + Barlow), and the discipline of Vignelli and Munari. This is the
+  visual DNA: true-gauge film-perforation geometry, Italian Modernist
+  typography (Jost + Barlow; the prior commercial geometric retired for licensing 2026-07-27),
+  and the discipline of Vignelli and Munari. This is the
   portable canonical spec for v3 (Astro + Payload). Token keys map 1:1 to
   the Lexical Color Injector plugin (data-color="212-amber" etc.).
   Precise, purposeful, built to last.
@@ -46,30 +47,30 @@ colors:
   muted: "#888888"
 
 typography:
-  # Display — Futura Std Bold, all-caps, tight tracking, crushed leading
+  # Display — Jost Bold (SIL OFL), all-caps, tight tracking, crushed leading
   hero:
-    fontFamily: Futura Std
+    fontFamily: Jost
     fontSize: 8rem
     fontWeight: 700
     lineHeight: 0.85
     letterSpacing: -0.02em
 
   h1:
-    fontFamily: Futura Std
+    fontFamily: Jost
     fontSize: 4rem
     fontWeight: 700
     lineHeight: 1.0
     letterSpacing: -0.02em
 
   h2:
-    fontFamily: Futura Std
+    fontFamily: Jost
     fontSize: 3rem
     fontWeight: 700
     lineHeight: 1.15
     letterSpacing: -0.02em
 
   h3:
-    fontFamily: Futura Std
+    fontFamily: Jost
     fontSize: 2rem
     fontWeight: 500
     lineHeight: 1.15
@@ -199,7 +200,7 @@ This file is portable. Any agent — Claude, Gemini, Cursor, a logo generator, a
 
 APR 70 is Italian Modernist discipline applied to a film company. The reference set is Massimo Vignelli's transit maps, Bruno Munari's children's books, Saul Bass's title sequences, and the physical artifact of 35mm film itself. The world is black. The grid is 8px. The corners are square. The cursor is a crosshair, not a pointer — this is a viewfinder.
 
-The company is structured as three specialized divisions under one holding entity. Each division has its own focus, its own assigned color, and (post-v3 launch) its own logo. The shared DNA is non-negotiable: Futura headings, Barlow body, sprocket-perforated rails, the same set of motion curves. The variation is the accent color, the named "city" identity, and the editorial inflection of the work each division produces.
+The company is structured as three specialized divisions under one holding entity. Each division has its own focus, its own assigned color, and (post-v3 launch) its own logo. The shared DNA is non-negotiable: Jost headings, Barlow body, sprocket-perforated rails, the same set of motion curves. The variation is the accent color, the named "city" identity, and the editorial inflection of the work each division produces.
 
 The name "APR 70" is not an acronym. It is a mark referencing April 1970, a date rooted in the founder's Sicilian heritage. The numeric form was chosen for international clarity; the cadence was chosen for cinematic weight.
 
@@ -250,11 +251,11 @@ The palette is anchored by pure black and pure white. Everything else is a delib
 
 ## Typography
 
-Two voices: Futura Std Bold for display, Barlow 300 for body. Mono is Share Tech Mono — only for filmstrip keycodes and slate metadata.
+Two voices: Jost Bold for display, Barlow 300 for body. Mono is Share Tech Mono — only for filmstrip keycodes and slate metadata.
 
-**Futura Std** is the display voice across all three divisions. Bold (700) for primary headings, Medium (500) for tertiary, Heavy (900) reserved for the rare massive page-anchor display ("SLATE", "CRAFT OF CONSTRAINT"). Condensed Bold / ExtraBold exists for stencil-like production-slate treatments.
+**Jost** (SIL OFL, self-hosted variable — the house geometric since the 2026-07-27 retype; the prior commercial face is retired and quarantined) is the display voice across all three divisions. Bold (700) for primary headings, Medium (500) for tertiary, Heavy (900) reserved for the rare massive page-anchor display ("SLATE", "CRAFT OF CONSTRAINT"). There is no condensed cut; condensed slots tighten tracking instead.
 
-**Barlow** is the body voice. Default weight is 300 — light. This is intentional and counterintuitive: combined with generous line-height (1.7–1.8) and the all-caps Futura headings above, the lightness produces editorial calm, not weakness. UI labels rise to 500 or 600. Never use Barlow Bold for body text.
+**Barlow** is the body voice. Default weight is 300 — light. This is intentional and counterintuitive: combined with generous line-height (1.7–1.8) and the all-caps Jost headings above, the lightness produces editorial calm, not weakness. UI labels rise to 500 or 600. Never use Barlow Bold for body text.
 
 **Tracking is a primary expressive tool.** Eyebrow micro-label at `0.4em` is the widest. All-caps display headlines tighten to `-0.02em`. Body is exactly `0` tracked. Mono keycodes at `0.55em` — they read as artifact, not text.
 
@@ -274,7 +275,7 @@ Content max-width is 1200px, centered. Horizontal padding is a fluid clamp: `cla
 
 **No backdrop-filter blur.** Ever. If text needs legibility over imagery, dim the image with a black overlay at 40–70%, do not blur.
 
-**No rounded corners.** Default radius is 0. The single exception is the sprocket perforation: 2px corner radius on the 13×9px sprocket hole.
+**No rounded corners.** Default radius is 0. The single exception is the film perforation, which is never a decorative rectangle: perfs are drawn at true SMPTE gauge — BH-1866 (2.794×1.854 mm, flat edges, curved sides; the camera-negative hole and the wordmark's punch) or KS-1870 (2.794×1.981 mm, 0.25 mm corner radius; print stock, used in strip/band devices) — at true pitch (4.740/4.750 mm). Dimension source: the Perf & Pitch research library (design-source/retype-2026-07/research/).
 
 **Hairline borders.** 1px in low-opacity white `rgba(255,255,255,0.08)` on dark surfaces, low-opacity ink on light. Rule strength steps up to `rgba(255,255,255,0.20)` on hover.
 
@@ -361,23 +362,38 @@ APR 70 operates three specialized divisions. Each shares the parent visual DNA b
 
 ## Logo System
 
-### Parent brand (existing)
+### Parent brand — CANON (ruled 2026-07-27)
 
-The APR 70 parent mark exists in 35+ SVG variants (carried forward from v2). The system covers full lockups, primary marks, monograms, and favicons in black, white, and sprocket-color variants. Treat these as canonical until a v3 logo refresh is explicitly commissioned.
+The canonical mark is **"The Punch"**: APR 70 in outlined Jost Bold with a single
+true-scale BH-1866 perforation as the full stop, punch in the division accent
+(orange at the apex). Companion marks: the APR 70 / PICTURES lockup, the "70"
+monogram in the double hairline box (Jost 500), and the Jost-tile favicon system
+(70 · 212 · 310 · NRC; apex black, 212 amber, 310 imax, NRC navy). All letterforms
+are outlined vector paths — no live text, no font references, ever.
+
+Production kit (canonical source): `SharedData/10-01-logos/2026-brand-jost-punch/`
+— 40 wordmarks + 8 monograms + 32 favicon tiles (×5 PNG sizes + .ico) in every
+brand color, stationery (letterhead classic / 70 mm / 35 mm band · cards d4 /
+seventy / strip — on band pieces the wordmark rides INSIDE the frame area between
+the perf rows), regenerable via `design-source/retype-2026-07/tools/gen_brand.py`.
+The full kit is loaded in Payload media (kind/division-tagged, thumbnailed).
+
+The 35+ Jost-era SVG variants are ARCHIVED (research only, never ship):
+`SharedData/10-01-logos/_ARCHIVED-futura-era-brand-2026-07-27-DO-NOT-USE/`.
 
 ### Division logos (to be designed)
 
 The three divisions currently *do not* have their own logos. They are referenced in code via the `--div-{n}-color` and `--div-{n}-label` CSS custom properties in `tokens.css`. The brief below establishes creative direction for division logos that:
 
-1. Share the parent APR 70 visual DNA (sprocket geometry, Futura, hard edges)
+1. Share the parent APR 70 visual DNA (true-gauge perf geometry, Jost, hard edges)
 2. Express each division's distinct editorial focus
 3. Read as siblings — same family, distinct identities — not as separate companies
 
 ### Logo brief — universal direction
 
 **Shared constraints across all three divisions:**
-- **Geometry:** Must reference the sprocket — either literally (perforations as a structural element) or abstractly (rectangular negative space at regular intervals).
-- **Typography:** Futura Std Bold or Heavy. Tight tracking on the wordmark (`-0.02em`). No script. No serif. No "creative" hand-drawn letterforms.
+- **Geometry:** Must reference the perforation — drawn at true gauge (BH-1866 or KS-1870, true pitch) when literal, or as rectangular negative space at regular intervals when abstract. Never a decorative dot.
+- **Typography:** Jost Bold or Heavy, outlined to paths in deliverables. Tight tracking on the wordmark (`-0.02em`). No script. No serif. No "creative" hand-drawn letterforms.
 - **Composition:** Built on the 8px grid. Hard-edged. The only permitted curvature is a 2px corner radius on sprocket-style perforations.
 - **Reproducibility:** Must work at 24px favicon size, at 1200px hero scale, and as a single-color etching on letterhead. Test at all three before finalizing.
 - **Dual mode:** Each logo must read correctly on both `#000000` (dark) and `#FAFAF8` (light) surfaces. Provide both treatments.
@@ -386,7 +402,7 @@ The three divisions currently *do not* have their own logos. They are referenced
 
 ### (212) Pictures — Logo direction
 
-**Mark concept.** Parenthetical area-code lockup: `( 212 ) PICTURES`. The parentheses are oversized, set in Futura Heavy, with the numerals slightly inset. Beneath or beside, the word "PICTURES" sits at half the cap-height of the numerals, tracked at `0.2em`. The composition reads as a label on a film canister — utilitarian, archival, industrial.
+**Mark concept.** Parenthetical area-code lockup: `( 212 ) PICTURES`. The parentheses are oversized, set in Jost Heavy, with the numerals slightly inset. Beneath or beside, the word "PICTURES" sits at half the cap-height of the numerals, tracked at `0.2em`. The composition reads as a label on a film canister — utilitarian, archival, industrial.
 
 **Sprocket integration.** A row of three to five sprocket perforations sits either above or below the wordmark, in `212-amber`. The perforations are the connective tissue to the parent APR 70 mark.
 
@@ -414,9 +430,9 @@ The three divisions currently *do not* have their own logos. They are referenced
 
 **Mark concept.** NRC is the only division without a numeric/parenthetical anchor — it carries the proper name. Two options to develop in parallel:
 
-**Option A (recommended for primary):** The full wordmark `NEW RENAISSANCE CINEMA` set in Futura Std Heavy, all-caps, tight-tracked, on three stacked lines (one word per line) or a single justified line. A single sprocket row sits beneath, in `nrc-grey`, providing the family link.
+**Option A (recommended for primary):** The full wordmark `NEW RENAISSANCE CINEMA` set in Jost Heavy, all-caps, tight-tracked, on three stacked lines (one word per line) or a single justified line. A single sprocket row sits beneath, in `nrc-grey`, providing the family link.
 
-**Option B (recommended for monogram / favicon):** The monogram `NRC` in Futura Heavy with each letter inset into its own sprocket-frame rectangle — three sprocket-edged squares that read as a triptych. Compact, square, works at 24px.
+**Option B (recommended for monogram / favicon):** The monogram `NRC` in Jost Heavy with each letter inset into its own sprocket-frame rectangle — three sprocket-edged squares that read as a triptych. Compact, square, works at 24px.
 
 **Color treatments.**
 - Primary: White wordmark on black, `nrc-grey` sprockets.

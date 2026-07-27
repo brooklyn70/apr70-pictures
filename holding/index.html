@@ -29,14 +29,16 @@
 
      SELF-CONTAINED BY LAW. Zero external requests: fonts are served from
      this directory, the grain is inline SVG. The page this replaced pulled
-     a Futura stand-in from fonts.googleapis.com — which handed Google the
+     its display face from fonts.googleapis.com — which handed Google the
      IP of every visitor to apr70.com. That is the exact P0 privacy leak
      v10 was built to close, and it is not coming back in through the lobby.
+
+     DISPLAY FACE: Jost (OFL, self-hosted variable, 2026-07-27). The prior
+     commercial geometric sans is retired from the entire brand system;
+     only open-licensed faces ship from this domain.
      ══════════════════════════════════════════════════════════════════ */
 
-  @font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Light.woff2') format('woff2');  font-weight: 300; font-display: swap; }
-  @font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Book.woff2') format('woff2');   font-weight: 400; font-display: swap; }
-  @font-face { font-family: 'Futura Std'; src: url('fonts/FuturaStd-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+  @font-face { font-family: 'Jost'; src: url('fonts/Jost-variable.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
   @font-face { font-family: 'Newsreader'; src: url('fonts/Newsreader-normal-400-600.woff2') format('woff2'); font-weight: 400 600; font-display: swap; }
   @font-face { font-family: 'Courier Prime'; src: url('fonts/CourierPrime-normal-400.woff2') format('woff2'); font-weight: 400; font-display: swap; }
 
@@ -47,7 +49,7 @@
     --muted:   oklch(74% 0.010 65);
     --ink:     oklch(94% 0.010 75);
     --accent:  oklch(64% 0.185 42);   /* 212 Sicilian Orange — the house flame */
-    --display: 'Futura Std', Futura, 'Century Gothic', sans-serif;
+    --display: 'Jost', 'Century Gothic', sans-serif;
     --body:    'Newsreader', 'Iowan Old Style', Georgia, serif;
     --mono:    'Courier Prime', 'Courier New', monospace;
   }

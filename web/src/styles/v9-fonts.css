@@ -1,66 +1,25 @@
 /* ============================================================
    V10 FONTS — self-hosted, no third-party requests (colophon law).
-   Futura Std (HOUSE DISPLAY FACE — logo, nav, headlines, division
-   labels; Marco 2026-07-12), Newsreader (text, variable 400-600),
-   Courier Prime (slugs / timecode / typed meta), Fraunces retained
-   for editorial serif accents. Futura woff2 converted from the
-   FuturaStd OTFs on SharedData 10-02-fonts; served from /fonts.
+   Jost (HOUSE DISPLAY FACE — logo, nav, headlines, division
+   labels; OFL variable, replaced the prior commercial geometric
+   sans 2026-07-27 — that face is retired from the brand system),
+   Newsreader (text, variable 400-600), Courier Prime (slugs /
+   timecode / typed meta), Fraunces retained for editorial serif
+   accents. All served from /fonts.
    ============================================================ */
 
 @font-face {
-  font-family: 'Futura Std';
-  src: url('/fonts/FuturaStd-Light.woff2') format('woff2');
-  font-weight: 300;
+  font-family: 'Jost';
+  src: url('/fonts/Jost-variable.woff2') format('woff2');
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Futura Std';
-  src: url('/fonts/FuturaStd-Book.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Futura Std';
-  src: url('/fonts/FuturaStd-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Futura Std';
-  src: url('/fonts/FuturaStd-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Futura Std';
-  src: url('/fonts/FuturaStd-BoldOblique.woff2') format('woff2');
-  font-weight: 700;
+  font-family: 'Jost';
+  src: url('/fonts/Jost-italic-variable.woff2') format('woff2');
+  font-weight: 100 900;
   font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Futura Std';
-  src: url('/fonts/FuturaStd-Heavy.woff2') format('woff2');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Futura Std Condensed';
-  src: url('/fonts/FuturaStd-CondensedBold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Futura Std Condensed';
-  src: url('/fonts/FuturaStd-CondensedExtraBd.woff2') format('woff2');
-  font-weight: 900;
-  font-style: normal;
   font-display: swap;
 }
 

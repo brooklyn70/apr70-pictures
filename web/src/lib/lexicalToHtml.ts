@@ -78,7 +78,7 @@ export function richTextLexicalToHtml(data: SerializedEditorState | null | undef
         }
 
         // Mega Scale toggle — emit data-display="mega" for the tokens.css
-        // [data-display="mega"] selector (clamp(3.5rem, 15vw, 18rem) Futura Bold).
+        // [data-display="mega"] selector (clamp(3.5rem, 15vw, 18rem) display Bold).
         // Wraps outermost so the display-scale box is the layout root.
         if (nodeData.display === 'mega') {
           html = `<span data-display="mega">${html}</span>`

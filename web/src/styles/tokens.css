@@ -5,7 +5,7 @@
 
    v10: the Google Fonts @import (Barlow / Share Tech Mono) is GONE —
    it was the P0 privacy leak contradicting the zero-third-party claim.
-   All faces are self-hosted; the Futura faces live in v9-fonts.css.
+   All faces are self-hosted; the display faces live in v9-fonts.css.
    ============================================================ */
 
 /* ---------- ROOT TOKENS ---------- */
@@ -55,8 +55,8 @@
   --muted:  #888888;
 
   /* TYPE FAMILIES */
-  --font-display:   'Futura Std', Futura, 'Trebuchet MS', Impact, 'Arial Black', sans-serif;
-  --font-condensed: 'Futura Std Condensed', 'Futura Std', 'Arial Narrow', sans-serif;
+  --font-display:   'Jost', 'Trebuchet MS', Impact, 'Arial Black', sans-serif;
+  --font-condensed: 'Jost', 'Arial Narrow', sans-serif;
   --font-body:      'Barlow', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-mono:      'Share Tech Mono', 'Courier New', ui-monospace, monospace;
 

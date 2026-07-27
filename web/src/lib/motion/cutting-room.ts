@@ -104,7 +104,7 @@ const cuttingRoomMotion: ThemeMotion = ({ gsap, SplitText }: MotionApi) => {
     }
   }
 
-  // ── 1 · NAMEPLATE composes: Futura specimen letters CUT in frame by frame ───
+  // ── 1 · NAMEPLATE composes: display-face specimen letters CUT in frame by frame ───
   if (!composeDone) {
     composeDone = true
     const splashPresent = !!document.querySelector('.apr-splash')

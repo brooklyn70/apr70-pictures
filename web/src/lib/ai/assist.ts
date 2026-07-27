@@ -26,7 +26,7 @@ const PALETTE = `Locked brand palette (never invent colors outside this set):
 - 310 IMAX #077082, 310 Sicilian Blue #0077B6
 - NRC Grey #c8c8c8, NRC Navy #001F3F
 - Light mode surface #FAFAF8 / ink #1A1A1A
-Type (v10 house system): Futura Std (display — structural headings, nav, logo,
+Type (v10 house system): Jost (display — structural headings, nav, logo,
 division labels, upright), Newsreader (body text), Courier Prime (mono — code
 labels, timecode, sluglines), Fraunces (editorial serif accent — pull quotes,
 block quotations, CTA buttons, always italic).

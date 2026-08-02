@@ -1,3 +1,3 @@
 {
-  "install": "corepack enable && pnpm install"
+  "install": "corepack enable && corepack prepare pnpm@10.33.0 --activate && pnpm -C cms install && pnpm -C web install"
 }

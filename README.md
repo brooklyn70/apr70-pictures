@@ -33,6 +33,18 @@ docker compose up --build
 
 Edge nginx listens on **8080** by default (`http://localhost:8080`). Public site is proxied from the `web` service; `/admin`, `/api`, and `/_next` go to Payload (Next.js).
 
+## Git remotes
+
+- **GitHub (hub for Cloud Agents + Vercel):** `origin` → `brooklyn70/apr70-pictures`
+- **NAS mirror:** `nas` → `caruso@100.69.2.30:GitRepos/apr70-pictures.git`
+- Cloud Agent / GitHub merges do **not** update the NAS. After merging to `main`:
+
+```bash
+./scripts/mirror-to-nas.sh
+```
+
+Media (`cms/media/`, PD masters) stays on the shares / object storage — this script only mirrors git.
+
 ## Status
 
 Phase 2 scaffold in progress: Astro (`web/`) and Payload 3 + Next (`cms/`) are present; stack compose at repo root.

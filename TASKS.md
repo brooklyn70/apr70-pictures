@@ -118,6 +118,18 @@ less Hollywood — L.A. Dolce Vita is the worst offender) + STORY-LAW.md + Limel
 
 ---
 
+## Phase 10 — Place posters, BL plates, i18n (NEW, 2026-08-21)
+
+Decision: `docs/decisions/2026-08-21-place-poster-skill-and-bl-pd.md`.
+Skill: `.claude/skills/place-poster/SKILL.md` (image recipe, not site chrome).
+
+- [x] [p10] [claude] Adopt the 50:50 exhibition place-poster prompt as a house skill (PD-first, no people, AI Mark, Marco gate).
+- [ ] [p10] [requires-gui] Curate 6–12 British Library Mechanical Curator plates (`biglam/british-library-book-images`, `plates`/`medium` only) that match property *places*; ledger into `web/public/pd/credits.json` before any generation.
+- [ ] [p10] [gemini] First place-poster pass from existing ledger stills (Abbott El, Brooklyn piers, Sea Gate aerial/gate, Taormina/Rocca, Venice gondolas). Marco culls; only picks to CMS.
+- [ ] [p10] [claude] **i18n next pass:** Portuguese, Italian, French, German on staging/apr70.com (VMS is en/pt). Payload has no locales yet. Do not invent translated copy; wait for Marco's English text pass, then Payload `localization` + Astro locale routing.
+
+---
+
 ## Done
 
 (Completed tasks moved here with date.)

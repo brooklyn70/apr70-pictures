@@ -15,8 +15,8 @@ and `tools/still-regen/` than to `tokens.css`.
 
 House rules that still apply:
 
-- Locked palette and Futura/Barlow/Share Tech Mono stay on **chrome**. Serif
-  type and photo-extracted greens live **inside the poster artwork**.
+- Locked palette and Jost / Newsreader / Courier Prime stay on **chrome**.
+  Serif type and photo-extracted greens live **inside the poster artwork**.
 - SPEC §5: PD first; never AI people/characters. This recipe is landscapes
   and architecture only.
 - AI Mark on staging: the lower half is machine-made even when the upper half

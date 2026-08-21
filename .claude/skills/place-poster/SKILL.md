@@ -14,9 +14,10 @@ description: >
 # Place poster (apr70)
 
 This is an **image-generation recipe**, not a website-layout skill. Site chrome
-stays Futura / Barlow / Share Tech Mono on the locked token palette. These
-posters are artwork: print editions, DISPATCH plates, Troupe playbills, or
-property "sense of place" stills. They do not replace 21:9 cinema masters.
+stays Jost (display), Newsreader (body), and Courier Prime (meta) on the
+locked token palette. These posters are artwork: print editions, DISPATCH
+plates, Troupe playbills, or property "sense of place" stills. They do not
+replace 21:9 cinema masters.
 
 Marco reviews every frame before it enters CMS. Do not ship unreviewed
 generations to staging.

@@ -121,11 +121,11 @@ less Hollywood — L.A. Dolce Vita is the worst offender) + STORY-LAW.md + Limel
 ## Phase 10 — Place posters, BL plates, i18n (NEW, 2026-08-21)
 
 Decision: `docs/decisions/2026-08-21-place-poster-skill-and-bl-pd.md`.
-Skill: `.claude/skills/place-poster/SKILL.md` (image recipe, not site chrome).
+Skill: `.claude/skills/place-poster/SKILL.md`. Engine: prettymaps (OSM). Wrapper: `tools/place-poster/`.
 
-- [x] [p10] [claude] Adopt the 50:50 exhibition place-poster prompt as a house skill (PD-first, no people, AI Mark, Marco gate).
-- [ ] [p10] [requires-gui] Curate 6–12 British Library Mechanical Curator plates (`biglam/british-library-book-images`, `plates`/`medium` only) that match property *places*; ledger into `web/public/pd/credits.json` before any generation.
-- [ ] [p10] [gemini] First place-poster pass from existing ledger stills (Abbott El, Brooklyn piers, Sea Gate aerial/gate, Taormina/Rocca, Venice gondolas). Marco culls; only picks to CMS.
+- [x] [p10] [claude] Adopt place-poster as a house skill; engine is https://github.com/marceloprates/prettymaps (AGPL, not vendored).
+- [ ] [p10] [requires-gui] First prettymaps pass: Red Hook, Sea Gate, LIC, Taormina, Venice. Marco culls; only picks to CMS. Credit OSM + prettymaps on every figure.
+- [ ] [p10] [requires-gui] Optional photo half: curate 6–12 British Library Mechanical Curator plates (`plates`/`medium` only) into `web/public/pd/credits.json`.
 - [ ] [p10] [claude] **i18n next pass:** Portuguese, Italian, French, German on staging/apr70.com (VMS is en/pt). Payload has no locales yet. Do not invent translated copy; wait for Marco's English text pass, then Payload `localization` + Astro locale routing.
 
 ---

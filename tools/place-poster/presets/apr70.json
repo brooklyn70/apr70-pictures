@@ -1,0 +1,67 @@
+{
+  "layers": {
+    "perimeter": {},
+    "streets": {
+      "width": {
+        "motorway": 5,
+        "trunk": 5,
+        "primary": 4.5,
+        "secondary": 4,
+        "tertiary": 3.5,
+        "residential": 3,
+        "service": 2,
+        "footway": 1
+      }
+    },
+    "building": {
+      "tags": { "building": true }
+    },
+    "water": {
+      "tags": { "natural": ["water", "bay"] }
+    },
+    "sea": {},
+    "green": {
+      "tags": {
+        "landuse": ["grass", "forest"],
+        "natural": ["wood", "wetland"],
+        "leisure": ["park", "garden"]
+      }
+    }
+  },
+  "style": {
+    "perimeter": { "fill": false, "lw": 0, "zorder": 0 },
+    "background": { "fc": "#FAFAF8", "zorder": -1 },
+    "green": {
+      "fc": "#6B7F5A",
+      "ec": "#2F3737",
+      "lw": 0.6,
+      "zorder": 1
+    },
+    "water": {
+      "fc": "#077082",
+      "ec": "#001F3F",
+      "lw": 0.6,
+      "zorder": 2
+    },
+    "sea": {
+      "fc": "#077082",
+      "ec": "#001F3F",
+      "lw": 0.6,
+      "zorder": 2
+    },
+    "streets": {
+      "fc": "#1A1A1A",
+      "ec": "#333333",
+      "lw": 0,
+      "zorder": 4
+    },
+    "building": {
+      "palette": ["#333333", "#824B07"],
+      "ec": "#1A1A1A",
+      "lw": 0.4,
+      "zorder": 5
+    }
+  },
+  "circle": false,
+  "radius": 800
+}

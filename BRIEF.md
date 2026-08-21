@@ -1,18 +1,12 @@
 # BRIEF — apr70-pictures (v3 → V4 live on Vercel)
 
-**Current (2026-08-21, Grok 4.6 — place-poster skill + BL PD + i18n parked):**
-The 50:50 exhibition-poster prompt is **in as an image skill**, not a website-design
-skill. House copy: `.claude/skills/place-poster/SKILL.md`. Decision:
-`docs/decisions/2026-08-21-place-poster-skill-and-bl-pd.md`. British Library
-Mechanical Curator plates (`biglam/british-library-book-images`) are **clear to
-reuse** under the existing PD ledger law (filter plates/medium, drop unknown and
-post-1900 dates, no bulk ingest, quiet credit + AI Mark on derivatives). Existing
-`credits.json` place stills (Abbott, Sea Gate, Sicily, Venice, Brooklyn piers) are
-the first source set; radio-studio portraits are out. Lost git link is most likely
-[photo-distill](https://github.com/yangcodingmaster/photo-distill) (craft) or
-[ai-editorial-print-studio](https://github.com/liuzihe849-png/ai-editorial-print-studio)
-(pipeline) — neither is a drop-in. **i18n (PT/IT/FR/DE) parked** as TASKS Phase 10;
-VMS is en/pt; Payload has `locale: null`. No frames generated this pass.
+**Current (2026-08-21, Grok 4.6 — place-poster engine is prettymaps):**
+The lost poster git is [marceloprates/prettymaps](https://github.com/marceloprates/prettymaps).
+House skill `.claude/skills/place-poster/` now calls that library (AGPL: pip install,
+do not vendor) plus `tools/place-poster/render.py` and `presets/apr70.json`. OSM +
+prettymaps credit is mandatory on every figure. Optional PD photo half still allowed
+via the ledger. Chrome is Jost / Newsreader / Courier Prime. **i18n (PT/IT/FR/DE)
+parked** as TASKS Phase 10. No frames culled into CMS this pass.
 
 **Previous (2026-07-18 ~7:45pm, Fable 5 — media consolidation + Crop Studio cull + filmatlas touches):**
 **ALL PROPERTY MEDIA CONSOLIDATED FLAT.** Every image/video from the eleven `11-XX-*`

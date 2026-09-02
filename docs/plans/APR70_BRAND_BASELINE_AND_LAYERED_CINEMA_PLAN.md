@@ -70,7 +70,7 @@ Captured 2026-09-02 (Marco watching), all three artefacts under one stamp:
 | Code | tag `restore/v13-2026-09-02` on `6a6fa4a` (2026-07-27 "Nav: drop Home link from header; footer brand mark added"), pushed to `origin` and `nas` | `git tag -l restore/*`; both remotes report `[new tag]`; NAS HEAD re-read as `6a6fa4a` at capture |
 | Database | `/volume1/apps/apr70-pictures/_deploy-backup-v10-2026-09-02/nasdb-before.pgc` (`pg_dump -Fc apr70_cms` from `apr70v3-postgres-1`), 1,182,098 bytes, plus `RESTORE-POINT.md` beside it. File name follows the deploy script's rollback convention | `pg_restore -l` lists 2,831 catalog entries |
 | Media | `/volume1/SharedData/_snapshots/10-10-cms-media-live-v13-2026-09-02/` (`rsync -a` on the NAS) | 429 source files, 429 snapshot files, 264 MB |
-| Branch protection | GitHub Settings for `main`: Marco flips it (walkthrough given in session) | pending Marco |
+| Branch protection | GitHub classic branch protection rule on `main` (force pushes and deletion blocked, no PR requirement so the deploy script and Stop hook keep pushing) | created by Marco 2026-09-02; verified on the Settings page, "currently applies to 1 branch" |
 
 Note on rollback interplay: `deploy-v10-to-nas.sh --rollback` restores the newest `_deploy-backup-v10-*` dump. Until the next deploy writes a newer folder, that is this one, which is the DB as of 2026-09-02, so a rollback before the next deploy is a no-op restore. The next deploy creates its own newer folder and takes precedence.
 

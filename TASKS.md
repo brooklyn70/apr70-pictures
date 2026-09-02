@@ -134,13 +134,14 @@ Skill: `.claude/skills/place-poster/SKILL.md`. Engine: prettymaps (OSM). Wrapper
 
 Plan: `docs/plans/APR70_BRAND_BASELINE_AND_LAYERED_CINEMA_PLAN.md` (rulings in §G.1).
 
-- [ ] [p11] [claude] **Restore point** (plan §A.4): annotated tag `restore/v13-2026-09-02` on `6a6fa4a` (the SHA the NAS runs), push tags to origin + nas; NAS `pg_dump -Fc` into the `_deploy-backup-v10-*` convention; media snapshot of `10-10-cms-media-live`; stamp recorded in the MASTER-RECAP v13 row. Marco enables GitHub branch protection on `main`.
+- [x] [p11] [claude] **Restore point** (plan §A.4) DONE 2026-09-02: tag `restore/v13-2026-09-02` on `6a6fa4a` pushed to origin + nas; `_deploy-backup-v10-2026-09-02/nasdb-before.pgc` on the NAS (pg_restore -l OK); media snapshot `SharedData/_snapshots/10-10-cms-media-live-v13-2026-09-02/` (429/429); stamp in the MASTER-RECAP v13 row.
+- [ ] [p11] [requires-gui] Marco enables GitHub branch protection on `main` (no force push, no deletion).
 - [ ] [p11] [claude] **Hooks**: Stop hook skips subagent stops and never adds untracked files; context meter keyed by session id (plan §A.6).
 - [ ] [p11] [claude] **Brand housekeeping** (ships as `v14` with the POC or on its own): repoint the `V9Layout.astro` logo fallback pair and `web/public/favicon.svg` to Punch-kit files; copy `web/public/brand/apr70-logos/` to the NAS archive path in plan §B.3, verify, then `git rm`; delete broken media row 209; brand-kit seed step (idempotent, kind + division tags) from `10-01-logos/2026-brand-jost-punch/`. Keep the 14 legacy media rows until after the POC review.
 - [ ] [p11] [claude] **Layered-cinema POC on `/`** (plan §C): five Astro layers, one GSAP ScrollTrigger island on `client:visible`, `themes/layered.css` scoped under `html[data-design="layered"]`, `?design=layered` flag + Site Settings `layeredDesignPreview` switch (OFF by default), `layeredFold` section fed by Payload media, PD ledger plate in the gate. Reduced-motion static, both modes, 375/1440 screenshots, six-URL check. Bump `SITE_VERSION` to `v14`, ledger row + shots.
 - [ ] [p11] [requires-gui] Marco reviews the POC on staging (`?design=layered`, both modes, phone). Go / reshape / kill before any second route.
 - [ ] [p11] [claude] After the Light Law cull: swap approved stills into the gate (Payload relationship only).
-- [ ] [p11] [claude] i18n groundwork, English-only, after Marco's text pass (plan §F.2 phases 1-2): AI Mark stored flag (both files), `lang` / `inLanguage` / hreflang scaffolding, locale-keyed fetch cache, Payload `localization` + per-field `localized: true`, migration rehearsed on a NAS dump, seed locale loop. Open: translator (Marco), go-live sequencing (Marco).
+- [ ] [p11] [claude] i18n groundwork, English-only, after Marco's text pass (plan §F.2 phases 1-2): AI Mark stored flag (both files), `lang` / `inLanguage` / hreflang scaffolding, locale-keyed fetch cache, Payload `localization` + per-field `localized: true`, migration rehearsed on a NAS dump, seed locale loop. RULED 2026-09-02: go-live ships English first, languages after; first translation round by Claude (VMS precedent), Marco signs off each locale before it ships. Translated copy canonised at `11.12 V9 Build/02-copy/<locale>/` only after sign-off.
 
 ---
 

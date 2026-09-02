@@ -61,7 +61,20 @@ The authoritative version is `SITE_VERSION = 'v13'` in `cms/src/siteVersion.ts:1
 
 So a restore is only complete when all three are captured together and labelled with the same stamp.
 
-### A.4 Proposed non-destructive restore-point procedure (not executed)
+### A.4 Restore-point procedure. EXECUTED 2026-09-02 on Marco's go
+
+Captured 2026-09-02 (Marco watching), all three artefacts under one stamp:
+
+| Artefact | Where | Verified |
+|---|---|---|
+| Code | tag `restore/v13-2026-09-02` on `6a6fa4a` (2026-07-27 "Nav: drop Home link from header; footer brand mark added"), pushed to `origin` and `nas` | `git tag -l restore/*`; both remotes report `[new tag]`; NAS HEAD re-read as `6a6fa4a` at capture |
+| Database | `/volume1/apps/apr70-pictures/_deploy-backup-v10-2026-09-02/nasdb-before.pgc` (`pg_dump -Fc apr70_cms` from `apr70v3-postgres-1`), 1,182,098 bytes, plus `RESTORE-POINT.md` beside it. File name follows the deploy script's rollback convention | `pg_restore -l` lists 2,831 catalog entries |
+| Media | `/volume1/SharedData/_snapshots/10-10-cms-media-live-v13-2026-09-02/` (`rsync -a` on the NAS) | 429 source files, 429 snapshot files, 264 MB |
+| Branch protection | GitHub Settings for `main`: Marco flips it (walkthrough given in session) | pending Marco |
+
+Note on rollback interplay: `deploy-v10-to-nas.sh --rollback` restores the newest `_deploy-backup-v10-*` dump. Until the next deploy writes a newer folder, that is this one, which is the DB as of 2026-09-02, so a rollback before the next deploy is a no-op restore. The next deploy creates its own newer folder and takes precedence.
+
+The procedure as proposed before execution:
 
 1. Annotated tag on the deployed SHA, not on HEAD by default: `git tag -a restore/v13-2026-09-02 <deployed-sha> -m "v13 restore point: code + nasdb + media snapshot 2026-09-02"`, pushed with `git push origin --tags` and `git push nas --tags`. Naming follows the existing `archive/*` namespace convention but uses `restore/` so the intent is unambiguous.
 2. DB pairing: on the NAS, `docker exec apr70v3-postgres pg_dump -U postgres -Fc apr70 > /volume1/apps/.../_deploy-backup-v10-<STAMP>/nasdb-restore-v13.pgc` using the same folder convention the deploy script already writes, so `--rollback` can find it. Record the stamp in the tag message.
@@ -985,8 +998,8 @@ What is explicitly not decided here: who translates, and whether the switcher li
 | 7 | Restore point: annotated tag `restore/v13-2026-09-02` on `6a6fa4a`, GitHub branch protection on `main`, paired NAS dump and media snapshot; no release branch | A.4 stands |
 | 8 | The 07-27 passes stay under `v13` with today's ledger note; the POC bump is `v14` | A.5 files list applies at `v14` |
 | 9 | Change the Stop hook: skip subagent stops, never add untracked files | Phase 11, alongside the A.6 meter fix |
-| 10 | Vault canon path for translations is `11.12 V9 Build/02-copy/<locale>/`; who translates is still open | F.2 phase 3 waits on the translator decision |
-| 11 | Open: whether the apr70.com go-live flip waits for the four languages or ships in English first | see the note under this table |
+| 10 | Vault canon path for translations is `11.12 V9 Build/02-copy/<locale>/`. Translator for the first round: Claude (the Vik Muniz Studio en/pt precedent), with Marco as the reviewing human who signs off every locale before it ships | F.2 phase 3: AI first draft in the admin locale tab, canonised in the vault only after Marco's sign-off |
+| 11 | RULED "after": apr70.com goes live in English first; PT / IT / FR / DE are built on staging and released one at a time later | F.2 phasing stands; i18n is off the go-live critical path |
 | 12 | Rights status label adopted for every D source (text at the top of D); Nate Herk takeaway recorded in D.9 | done |
 
 Clarifications on 10 and 11, for the record. "Who translates" means the person or service that produces the Portuguese, Italian, French, and German text: Marco himself, a human translator or agency, or an AI first draft that a named human reviews and signs off. Agents will not invent translated copy under any option; the choice decides cost, turnaround, and who is accountable for the words. Question 11 is about sequencing only: apr70.com currently serves the holding page, and at some point its DNS or proxy rule flips to the full site. "Before" means that flip waits until the four languages exist; "after" means the full site goes live in English and the languages are added on staging and released one at a time later. The recommendation is "after", because the English text pass, the schema migration, and the translations are each weeks of work and none of them improves the English site.

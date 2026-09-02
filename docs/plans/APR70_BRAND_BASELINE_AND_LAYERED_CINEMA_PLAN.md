@@ -222,7 +222,7 @@ No moves performed — proposals only, for Marco's approval.
 
 | Source | Proposed destination | Reason | Confidence |
 |---|---|---|---|
-| `web/public/brand/apr70-logos/` (223 files) | `~/websites/_archive/apr70-website-v10-brand-apr70-logos-frozen-2026-09-02/` | Duplicate Futura-era brand tree already superseded by `2026-brand-jost-punch/`; zero code references found (`grep -rl "brand/apr70-logos"` empty in web/src, cms/src). Sibling copy of what SharedData already archived. | 0.85 |
+| `web/public/brand/apr70-logos/` (202 tracked files) | RULED 2026-09-02: the NAS, not the Mac. `/Volumes/SharedData/10-01-logos/_ARCHIVED-futura-era-brand-2026-07-27-DO-NOT-USE/web-public-brand-apr70-logos-frozen-2026-09-02/` (copy there first, verify the copy, then `git rm` in the repo) | Duplicate Futura-era brand tree already superseded by `2026-brand-jost-punch/`; zero code references found (`grep -rl "brand/apr70-logos"` empty in web/src, cms/src). Sibling copy of what SharedData already archived. | 0.85 |
 | `web/public/logos/` (20 files, `apr70_logo_full/primary_*`) | Do NOT archive yet — hold at `~/websites/_archive/apr70-website-v10-web-public-logos-frozen-YYYY-MM-DD/` only after confirmation | This is the live nav-mark fallback in `V9Layout.astro:106-107` and is unreferenced by any Payload seed script. Flag for Marco: confirm `navLogoDark`/`navLogoLight` are set in Payload admin before touching this — if unset, this IS the current production logo. | 0.3 (do not archive without Marco's check) |
 | `web/public/favicon.ico`, `web/public/favicon.svg` | Replace in place with canonical `favicon-70_black.ico` / `favicon-70_black.svg` from `2026-brand-jost-punch/favicons/`, rather than archive-only | Both are last-resort fallbacks; `favicon.svg` is literally the stock Astro starter mark, not an APR 70 asset — a defect (dead scaffolding), not something to merely file away. Flag for Marco: this is a fix, not an archive action. | 0.7 (identification) / n/a (action is out of scope for archive-only task) |
 | `web/public/brand/dispatch-favicon.svg` | `~/websites/_archive/apr70-website-v10-dispatch-favicon-frozen-2026-09-02/` OR flag for Marco (unclear intended use) | Zero references found anywhere including inside `dispatch-image-slot.js` and `dispatch.astro`. Provenance/intended use unclear — flag for Marco rather than assume archival is correct; could be a planned-but-unshipped feature. | 0.4 |
@@ -603,6 +603,8 @@ What waits on the cull: any property frame inside the gate on `/work/<slug>`, an
 
 ## D. Inspiration-source evaluation matrix
 
+**Rights status (ruled by Marco, 2026-09-02), applies to every source below:** unverified external reference. This source may inform original APR 70 design thinking, but neither source code, visual assets, copy, nor proprietary implementation may be imported or replicated until the exact asset/component licence and commercial-use terms have been verified and recorded. The safe default is: look, describe, and rebuild an original APR 70-specific interpretation from first principles. Do not copy source, distinctive artwork, type assets, templates, motion curves as a packaged asset, or third-party dependencies until the exact project/component licence has been checked and documented. No internal licence record exists for any of the nine sources.
+
 Evaluated as inspiration and implementation-pattern references only, against the APR 70 design system: Astro + React islands, GSAP core + ScrollTrigger as the ONLY motion library, transform/opacity-only animation, no drop shadows/blur/rounded corners/gradients, locked palette, Jost/Barlow/Share Tech Mono, zero third-party runtime requests, vanilla CSS tokens (no Tailwind), anti-icon system, golden-age-cinema/Vignelli-Munari-Bass restraint. Nothing below is an asset to copy.
 
 ---
@@ -749,10 +751,10 @@ Evaluated as inspiration and implementation-pattern references only, against the
 3. **Avoid:**
    - Treat any specific technique claim from this source with caution — no actual transcript or caption text was retrievable; the description was mostly affiliate-marketing boilerplate ("my playbook for growing a $1M AI agency..."), and the content summary above came from a third-party auto-summarizer, not a direct quote.
    - It is general Fable/Claude-prompting advice, not a GSAP, Astro, or cinema-design-specific resource — low direct applicability to the APR70 visual/motion system.
-4. **Best use:** Not used as a design or code reference; at most a process-workflow pointer, and only after human viewing confirms the auto-summary is accurate.
+4. **Best use:** QA-review workflow. **Takeaway supplied by Marco (2026-09-02), the one-line brief for agents:** use real references to define the feel, then give Fable a tightly scoped one-shot brief with reusable rules, mobile checks, and screenshot-based verification, so it builds an original, polished system rather than generic "AI website" decoration. The video frames the workflow around real design references, layered scroll effects, reusable skills, mobile checks, and screenshot verification; chapters cover avoiding AI slop, finding inspiration, cloning a competitor's feel, one-shot prompting, and design principles. This maps onto the house tooling already in place: `hallmark` and `impeccable` (feel and critique), `visual-verify-loop` (screenshot verification), the E.3 checklist (reusable rules), and the C.6 single-route POC (tight one-shot scope).
 5. **Licensing/dependency concerns:** N/A (not a code or design asset); standard YouTube ToS applies to any reuse of clips or transcript text.
 6. **Confidence:** 0.35 — no real transcript was retrievable; conclusions rest on metadata plus an unverified third-party summary.
-7. **Next action:** Not evaluated in full — Marco to watch and supply the actual takeaway if the `/scroll-craft`-style workflow idea is worth adopting; do not act on the auto-summary alone.
+7. **Next action:** Resolved. Marco supplied the takeaway (item 4); the POC session prompt in the next-steps list already follows it (single route, reusable rules, mobile checks, screenshots).
 
 ---
 
@@ -969,6 +971,25 @@ What is explicitly not decided here: who translates, and whether the switcher li
 12. **References you own or license.** Which of the D-matrix sources, if any, do you hold a licence for, and is there a takeaway from the Nate Herk video the agents could not watch?
 
 ---
+
+### G.1 Rulings (Marco, 2026-09-02, same day)
+
+| # | Ruling | Consequence |
+|---|---|---|
+| 1 | Yes: `/` first, behind `?design=layered` on staging, off by default, gated by a Site Settings switch | C.5 and C.6 stand as written; TASKS Phase 11 |
+| 2 | Yes: build the POC now with PD ledger plates in the image plane; swap approved stills in after the Light Law cull | C.7 stands; the cull is not a blocker for the POC |
+| 3 | Yes: the Punch kit is canonical for nav, favicons, holding page, print; repoint the `web/public/logos/` fallback pair to Punch files | housekeeping task in Phase 11 |
+| 4 | Archive `web/public/brand/apr70-logos/` to the NAS, not the Mac | B.3 destination updated above |
+| 5 | Delete broken media row 209; keep the 14 legacy rows until after the POC review | Phase 11 |
+| 6 | Commission a small idempotent brand-kit seed step | closes the three-layer gap in B.5 item 7 |
+| 7 | Restore point: annotated tag `restore/v13-2026-09-02` on `6a6fa4a`, GitHub branch protection on `main`, paired NAS dump and media snapshot; no release branch | A.4 stands |
+| 8 | The 07-27 passes stay under `v13` with today's ledger note; the POC bump is `v14` | A.5 files list applies at `v14` |
+| 9 | Change the Stop hook: skip subagent stops, never add untracked files | Phase 11, alongside the A.6 meter fix |
+| 10 | Vault canon path for translations is `11.12 V9 Build/02-copy/<locale>/`; who translates is still open | F.2 phase 3 waits on the translator decision |
+| 11 | Open: whether the apr70.com go-live flip waits for the four languages or ships in English first | see the note under this table |
+| 12 | Rights status label adopted for every D source (text at the top of D); Nate Herk takeaway recorded in D.9 | done |
+
+Clarifications on 10 and 11, for the record. "Who translates" means the person or service that produces the Portuguese, Italian, French, and German text: Marco himself, a human translator or agency, or an AI first draft that a named human reviews and signs off. Agents will not invent translated copy under any option; the choice decides cost, turnaround, and who is accountable for the words. Question 11 is about sequencing only: apr70.com currently serves the holding page, and at some point its DNS or proxy rule flips to the full site. "Before" means that flip waits until the four languages exist; "after" means the full site goes live in English and the languages are added on staging and released one at a time later. The recommendation is "after", because the English text pass, the schema migration, and the translations are each weeks of work and none of them improves the English site.
 
 ## H. Closing note: what this session touched, and what it did not
 

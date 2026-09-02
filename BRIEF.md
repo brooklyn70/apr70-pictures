@@ -1,7 +1,7 @@
 # BRIEF — apr70-pictures (v13 on the NAS: staging.apr70.com = full site, apr70.com = holding page)
 
 **Current (2026-09-02, Fable 5.1 — discovery + header corrections):** brand baseline, layered-cinema brief, and PT/IT/FR/DE discovery are in `docs/plans/APR70_BRAND_BASELINE_AND_LAYERED_CINEMA_PLAN.md` (restore point A, identity inventory + archive manifest B, five-layer POC brief C, reference matrix D, skill + checklists E, i18n phasing F, 12 questions G).
-Plan §A.2 stale-header corrections APPLIED on Marco's go (this header, CLAUDE.md hosting lines, umbrella README, deploy-script final line, Vercel runbook status, RECAP v13 note). Vercel/Supabase are not the production path; the V4 block below is history.
+Plan §A.2 stale-header corrections APPLIED on Marco's go (this header, CLAUDE.md hosting lines, umbrella README, deploy-script final line, Vercel runbook status, RECAP v13 note). Vercel/Supabase are not the production path; the V4 block below is history. **Marco's rulings recorded in plan §G.1 and queued as TASKS Phase 11:** POC on `/` behind `?design=layered` (build now with PD plates), Punch kit canonical, brand dir archives to the NAS, restore tag on `6a6fa4a`, next bump is `v14`, Stop hook to skip subagent stops, rights-status label on every external reference. Open: translator, and whether go-live waits for languages.
 
 **Current (2026-08-21, Grok 4.6 — place-poster engine is prettymaps):**
 The lost poster git is [marceloprates/prettymaps](https://github.com/marceloprates/prettymaps).

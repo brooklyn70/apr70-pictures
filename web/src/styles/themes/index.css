@@ -12,3 +12,10 @@
    disk. marquee.css is the only theme that has ever existed here.
    ============================================================ */
 @import './marquee.css';
+
+/* Layered-cinema design skin (POC, 2026-09-02, Marco's ruling plan §G.1):
+   a sibling of marquee, scoped entirely under html[data-design="layered"].
+   Inert unless the pre-paint stamp in V9Layout sets that attribute from
+   localStorage apr70-design (written by ?design=layered, cleared by
+   ?design=marquee). Imported AFTER marquee so its scoped rules win. */
+@import './layered.css';

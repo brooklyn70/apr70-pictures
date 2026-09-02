@@ -1,0 +1,40 @@
+---
+/**
+ * Layer 3 — projector beam / light cone. One directional reveal (division
+ * accent to transparent) clipped to a cone from the top-left corner, with
+ * two sparse grain tiles as dust that cross-fade on a 40 s opacity loop.
+ * Light mode reads it as a wash of afternoon light (accent at 8 percent over
+ * paper). At 375px the cone becomes a top-edge wash. Under reduced motion
+ * the cone is static and the dust does not drift.
+ * Layered-cinema POC (2026-09-02): hidden until html[data-design="layered"].
+ */
+---
+
+<div class="v9lg-beam" data-layer="beam" aria-hidden="true">
+  <div class="v9lg-beam__cone">
+    <svg class="v9lg-beam__dust v9lg-beam__dust--a" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+      <defs>
+        <filter id="v9lg-dust-f" x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.4" numOctaves="1" seed="7" stitchTiles="stitch" />
+          <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 9 -7" />
+        </filter>
+        <pattern id="v9lg-dust-p" width="240" height="240" patternUnits="userSpaceOnUse">
+          <rect width="240" height="240" filter="url(#v9lg-dust-f)" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#v9lg-dust-p)" />
+    </svg>
+    <svg class="v9lg-beam__dust v9lg-beam__dust--b" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+      <defs>
+        <filter id="v9lg-dust-f2" x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.4" numOctaves="1" seed="19" stitchTiles="stitch" />
+          <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 9 -7" />
+        </filter>
+        <pattern id="v9lg-dust-p2" width="240" height="240" patternUnits="userSpaceOnUse">
+          <rect width="240" height="240" filter="url(#v9lg-dust-f2)" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#v9lg-dust-p2)" />
+    </svg>
+  </div>
+</div>

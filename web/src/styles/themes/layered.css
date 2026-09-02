@@ -1,0 +1,347 @@
+/* ============================================================
+   LAYERED — the layered-cinema design skin (POC, 2026-09-02).
+   Marco's ruling (plan §G.1): first route is /, exposed behind
+   ?design=layered on staging, OFF by default. Every rule in this
+   file is scoped under html[data-design="layered"]; with the
+   attribute absent the file is inert and the marquee design is
+   untouched. The nav, routeline, footer, and every other route are
+   never selected here (the marquee footgun: chrome rules live in
+   v9.css AND marquee.css; this file touches neither).
+
+   Host: the vh100 photoFold on / (PhotoFold.astro stamps
+   data-layered-host and emits the layers, hidden). Five layers,
+   back to front: grain, title card, beam, gate (the existing frame),
+   rail. Transform and opacity only; no shadows, no blur, no radius
+   beyond the sprocket, gradients only as directional reveals.
+   Both modes via the existing data-theme ramps. Mobile-first.
+   ============================================================ */
+
+html[data-design="layered"] {
+  --v9lg-perf: 24px;                       /* perf band height (5 mm) */
+  --v9lg-pitch: 22.8px;                    /* 4.75 mm at 4.8 px/mm */
+  --v9lg-grain: 0.05;                      /* white grain on black */
+  --v9lg-stroke: rgba(255, 255, 255, 0.08);/* hairline silhouette */
+  --v9lg-hole: rgba(255, 255, 255, 0.10);  /* perforation ink */
+  --v9lg-beam: color-mix(in oklch, var(--accent) 22%, transparent);
+  --v9lg-dust: 0.10;
+}
+@media (min-width: 720px) {
+  html[data-design="layered"] {
+    --v9lg-perf: 32px;
+    --v9lg-pitch: 30.4px;                  /* 4.75 mm at 6.4 px/mm */
+  }
+}
+/* House Lights: ink grain on paper, low-opacity ink hairlines, the beam as
+   a wash of afternoon light. Same two hooks marquee.css uses. */
+html[data-design="layered"][data-theme="light"] {
+  --v9lg-grain: 0.035;
+  --v9lg-stroke: rgba(26, 26, 26, 0.10);
+  --v9lg-hole: rgba(26, 26, 26, 0.10);
+  --v9lg-beam: color-mix(in oklch, var(--accent) 8%, transparent);
+  --v9lg-dust: 0.05;
+}
+@media (prefers-color-scheme: light) {
+  html[data-design="layered"]:not([data-theme="dark"]) {
+    --v9lg-grain: 0.035;
+    --v9lg-stroke: rgba(26, 26, 26, 0.10);
+    --v9lg-hole: rgba(26, 26, 26, 0.10);
+    --v9lg-beam: color-mix(in oklch, var(--accent) 8%, transparent);
+    --v9lg-dust: 0.05;
+  }
+}
+
+/* ---- The stage ---- */
+html[data-design="layered"] [data-layered-host] {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  row-gap: 0;
+  min-height: max(30rem, calc(100svh - 7.5rem));
+  padding-block: var(--s-6) calc(var(--v9lg-perf) + var(--s-6));
+  background: var(--bg-0);
+}
+@media (min-width: 720px) {
+  html[data-design="layered"] [data-layered-host] {
+    padding-block: var(--s-7);
+  }
+}
+
+/* Layer wrappers ship hidden; only the attribute un-hides them. Tailwind's
+   preflight makes [hidden] !important, so this must be too. */
+html[data-design="layered"] [data-layered-host] .v9lg-back[hidden],
+html[data-design="layered"] [data-layered-host] .v9lg-front[hidden],
+html[data-design="layered"] [data-layered-host] .v9lg-gate__perf[hidden],
+html[data-design="layered"] [data-layered-host] .v9lg-rail__perf--h[hidden] {
+  display: block !important;
+}
+/* The rail carries both orientations; one row along the bottom under 720px,
+   the vertical strip on the right edge from 720px. Same specificity as the
+   un-hide above so the orientation, not the source order, decides. */
+html[data-design="layered"] [data-layered-host] .v9lg-rail__perf--v[hidden] {
+  display: none !important;
+}
+@media (min-width: 720px) {
+  html[data-design="layered"] [data-layered-host] .v9lg-rail__perf--v[hidden] {
+    display: block !important;
+  }
+  html[data-design="layered"] [data-layered-host] .v9lg-rail__perf--h[hidden] {
+    display: none !important;
+  }
+}
+/* SVG strokes stay one device hairline whatever the viewBox scale. */
+html[data-design="layered"] .v9lg-title__svg rect,
+html[data-design="layered"] .v9lg-title__svg line,
+html[data-design="layered"] .v9lg-title__svg polyline,
+html[data-design="layered"] .v9lg-title__svg text {
+  vector-effect: non-scaling-stroke;
+}
+html[data-design="layered"] [data-layered-host] .v9lg-back,
+html[data-design="layered"] [data-layered-host] .v9lg-front {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+html[data-design="layered"] [data-layered-host] .v9lg-back { z-index: 0; }
+html[data-design="layered"] [data-layered-host] .v9lg-front { z-index: 2; }
+
+/* ---- Layer 1: grain / atmospheric field ---- */
+html[data-design="layered"] .v9lg-grain {
+  position: absolute;
+  inset: 0;
+  background: var(--bg-0);
+}
+html[data-design="layered"] .v9lg-grain__tile {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: var(--v9lg-grain);
+}
+@media (prefers-reduced-motion: no-preference) {
+  html[data-design="layered"] .v9lg-grain__tile {
+    animation: v9lg-flicker 0.5s steps(1, end) infinite;
+  }
+}
+@keyframes v9lg-flicker {
+  0%   { opacity: var(--v9lg-grain); }
+  17%  { opacity: calc(var(--v9lg-grain) - 0.02); }
+  34%  { opacity: calc(var(--v9lg-grain) + 0.01); }
+  51%  { opacity: calc(var(--v9lg-grain) - 0.01); }
+  68%  { opacity: calc(var(--v9lg-grain) + 0.005); }
+  85%  { opacity: calc(var(--v9lg-grain) - 0.015); }
+  100% { opacity: var(--v9lg-grain); }
+}
+
+/* ---- Layer 2: title-card silhouette (respects the column) ---- */
+html[data-design="layered"] .v9lg-title {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--v9lg-stroke);
+  will-change: transform, opacity;
+}
+html[data-design="layered"] .v9lg-title__svg {
+  width: min(var(--v9-col) + 2 * var(--s-8), 100%);
+  height: 100%;
+  overflow: visible;
+}
+
+/* ---- Layer 3: projector beam (full bleed) ---- */
+html[data-design="layered"] .v9lg-beam {
+  position: absolute;
+  inset: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+html[data-design="layered"] .v9lg-beam__cone {
+  position: absolute;
+  inset: 0;
+  /* directional reveal only: accent to transparent, top edge down (375px) */
+  background: linear-gradient(180deg, var(--v9lg-beam) 0%, transparent 70%);
+  clip-path: polygon(0 0, 100% 0, 100% 44%, 0 64%);
+}
+@media (min-width: 720px) {
+  html[data-design="layered"] .v9lg-beam__cone {
+    /* the cone: apex at the top-left corner, opening toward the gate */
+    background: linear-gradient(135deg, var(--v9lg-beam) 0%, transparent 66%);
+    clip-path: polygon(0 0, 100% 34%, 100% 100%, 34% 100%);
+  }
+}
+html[data-design="layered"] .v9lg-beam__dust {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: var(--v9lg-dust);
+}
+html[data-design="layered"] .v9lg-beam__dust--b { opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  html[data-design="layered"] .v9lg-beam__dust--a {
+    animation: v9lg-dust-a 40s linear infinite;
+  }
+  html[data-design="layered"] .v9lg-beam__dust--b {
+    animation: v9lg-dust-b 40s linear infinite;
+  }
+}
+@keyframes v9lg-dust-a {
+  0%, 100% { opacity: var(--v9lg-dust); }
+  50%      { opacity: 0; }
+}
+@keyframes v9lg-dust-b {
+  0%, 100% { opacity: 0; }
+  50%      { opacity: var(--v9lg-dust); }
+}
+
+/* ---- Layer 4: the image plane in a gate (respects the column) ---- */
+html[data-design="layered"] [data-layered-host] .v9lg-gate {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  will-change: transform, opacity;
+}
+@media (min-width: 720px) {
+  html[data-design="layered"] [data-layered-host] .v9lg-gate {
+    width: min(var(--v9-col), 100%);
+  }
+}
+html[data-design="layered"] [data-layered-host] .v9lg-gate__perf {
+  width: 100%;
+  height: var(--v9lg-perf);
+  fill: var(--v9lg-hole);
+}
+/* The frame keeps its markup and its scrim law; only the box changes:
+   1.85:1 in the gate, a hairline around it, and vertical slack on the
+   picture so the gate-vs-negative offset never shows the bed. */
+html[data-design="layered"] [data-layered-host] .v9-photofold__frame {
+  aspect-ratio: 1.85 / 1;
+  height: auto;
+  border: 1px solid var(--v9lg-stroke);
+}
+html[data-design="layered"] [data-layered-host] .v9-photofold__frame img {
+  scale: 1.12;
+  will-change: transform;
+}
+/* At 375 the 1.85 window is too short to carry the headline over the
+   picture; the overlay leaves absolute positioning and the frame grows to
+   fit the words, which still sit on the scrim (gradient law holds). */
+@media (max-width: 719px) {
+  html[data-design="layered"] [data-layered-host] .v9-photofold__overlay {
+    position: static;
+    padding-inline: var(--s-4);
+  }
+  html[data-design="layered"] [data-layered-host] .v9-photofold__heading {
+    font-size: clamp(2rem, 9vw, 2.5rem);
+  }
+}
+
+/* ---- Layer 5: sprocket rail (full bleed edge) ---- */
+html[data-design="layered"] .v9lg-rail {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--v9lg-perf);
+  will-change: transform;
+}
+html[data-design="layered"] .v9lg-rail__perf {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: var(--v9lg-hole);
+}
+html[data-design="layered"] .v9lg-rail__track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -2px;
+  height: 2px;
+  background: var(--rule);
+}
+html[data-design="layered"] .v9lg-rail__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleX(var(--v9lg-p, 0));
+  transform-origin: left;
+}
+html[data-design="layered"] .v9lg-rail__keys {
+  position: absolute;
+  left: var(--v9-gutter);
+  bottom: calc(100% + var(--s-2));
+  display: flex;
+  gap: var(--v9lg-pitch);
+  font-family: var(--font-mono);
+  font-size: var(--type-micro);
+  letter-spacing: var(--track-strip);
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--fg-4);
+  will-change: transform;
+}
+@media (min-width: 720px) {
+  html[data-design="layered"] .v9lg-rail {
+    left: auto;
+    top: 0;
+    bottom: 0;
+    right: calc(var(--v9-gutter) / 2 - var(--v9lg-perf) / 2);
+    width: var(--v9lg-perf);
+    height: auto;
+  }
+  html[data-design="layered"] .v9lg-rail__track {
+    left: -2px;
+    right: auto;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    height: auto;
+  }
+  html[data-design="layered"] .v9lg-rail__fill {
+    transform: scaleY(var(--v9lg-p, 0));
+    transform-origin: top;
+  }
+  html[data-design="layered"] .v9lg-rail__keys {
+    left: auto;
+    right: calc(100% + var(--s-2));
+    top: var(--s-7);
+    bottom: auto;
+    flex-direction: column;
+    writing-mode: vertical-rl;
+  }
+}
+/* Fill: the native scroll timeline where supported (page progress, as the
+   /craft rail), else the LayerRail script maps --v9lg-p directly. */
+@supports (animation-timeline: scroll()) {
+  html[data-design="layered"] .v9lg-rail__fill {
+    animation: v9lg-fill-x linear both;
+    animation-timeline: scroll(root block);
+  }
+  @media (min-width: 720px) {
+    html[data-design="layered"] .v9lg-rail__fill {
+      animation-name: v9lg-fill-y;
+    }
+  }
+}
+@keyframes v9lg-fill-x {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes v9lg-fill-y {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-design="layered"] .v9lg-rail__fill { animation: none !important; }
+}
+
+/* The controller island needs a box for client:visible to observe. */
+html[data-design="layered"] .v9lg-controller {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 1px;
+  height: 1px;
+}

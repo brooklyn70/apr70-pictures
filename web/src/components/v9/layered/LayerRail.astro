@@ -1,0 +1,56 @@
+---
+/**
+ * Layer 5 — filmstrip / sprocket rail. An edge rail of BH-1866 perforations
+ * at true pitch (PerfRow), a 2px accent fill that tracks page progress, and
+ * keycodes in Share Tech Mono at the filmstrip tracking. Vertical on the
+ * right edge from 720px; one horizontal row along the bottom of the fold at
+ * 375px. Fill: native CSS scroll timeline (themes/layered.css) with the
+ * inline script below as the no-support / reduced-motion fallback, the same
+ * pattern as the /craft reading rail. Keycode advance (one frame per step)
+ * is the island's job; without it the strip is simply static.
+ * Layered-cinema POC (2026-09-02): hidden until html[data-design="layered"].
+ */
+import PerfRow from './PerfRow.astro'
+
+const KEYCODES = ['APR 70', 'KN 0001', '212', '310', 'NRC', 'KN 0002']
+---
+
+<div class="v9lg-rail" data-layer="rail" data-layered-rail aria-hidden="true">
+  <PerfRow id="v9lg-rail-v" vertical class="v9lg-rail__perf v9lg-rail__perf--v" />
+  <PerfRow id="v9lg-rail-h" class="v9lg-rail__perf v9lg-rail__perf--h" />
+  <div class="v9lg-rail__track">
+    <div class="v9lg-rail__fill" data-layered-fill></div>
+  </div>
+  <div class="v9lg-rail__keys" data-layer="keycodes">
+    {KEYCODES.map((k) => <span class="v9lg-rail__key">{k}</span>)}
+  </div>
+</div>
+
+<script is:inline>
+  ;(function () {
+    var doc = document.documentElement
+    if (doc.getAttribute('data-design') !== 'layered') return
+    var fill = document.querySelector('[data-layered-fill]')
+    if (!fill) return
+    var reduced =
+      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    var cssFill =
+      !reduced &&
+      typeof CSS !== 'undefined' &&
+      CSS.supports &&
+      CSS.supports('animation-timeline: scroll()')
+    if (cssFill) return
+    var raf = 0
+    function update() {
+      raf = 0
+      var max = Math.max(1, doc.scrollHeight - window.innerHeight)
+      fill.style.setProperty('--v9lg-p', String(Math.min(1, window.scrollY / max)))
+    }
+    function onScroll() {
+      if (!raf) raf = window.requestAnimationFrame(update)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    update()
+  })()
+</script>

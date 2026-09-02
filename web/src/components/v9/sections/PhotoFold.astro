@@ -8,6 +8,12 @@
 import type { V9Section } from '../../../lib/payload'
 import { renderInline } from '../../../lib/v9/inline'
 import { frameFromMedia, focalPosition, isAiFrameText, SIZES_FULLBLEED } from '../media'
+import LayerGrain from '../layered/LayerGrain.astro'
+import LayerTitleCard from '../layered/LayerTitleCard.astro'
+import LayerBeam from '../layered/LayerBeam.astro'
+import LayerRail from '../layered/LayerRail.astro'
+import PerfRow from '../layered/PerfRow.astro'
+import LayeredParallaxIsland from '../../islands/LayeredParallaxIsland'
 
 type PhotoFoldData = Extract<V9Section, { blockType: 'photoFold' }>
 const section = Astro.props.section as PhotoFoldData
@@ -16,6 +22,19 @@ const frame = frameFromMedia(section.image)
 const hasWords = Boolean(section.heading || section.kicker)
 const hasCaption = Boolean(section.caption || section.credit)
 const aiFrame = isAiFrameText(section.caption, section.credit)
+
+/* Layered-cinema POC (2026-09-02, plan §C / §G.1): the vh100 fold on / is
+   the host for the five-layer composition. The section still comes from
+   Payload (rule 1); this only adds the layers around the SAME frame, all
+   shipped hidden. themes/layered.css un-hides and composes them under
+   html[data-design="layered"], which the pre-paint stamp sets from
+   localStorage (the switch is client-side, so SSR cannot know it and must
+   always emit the layers). With the attribute absent the extra markup is
+   display:none and the marquee fold renders exactly as before. */
+const path = Astro.url.pathname.replace(/\/$/, '') || '/'
+const layered = Boolean(section.vh100 && frame && path === '/')
+const GateTag = layered ? 'div' : Fragment
+const gateProps = layered ? { class: 'v9lg-gate', 'data-layer': 'gate' } : {}
 ---
 
 {
@@ -23,8 +42,18 @@ const aiFrame = isAiFrameText(section.caption, section.credit)
     <section
       class={section.vh100 ? 'v9-photofold v9-photofold--vh100' : 'v9-photofold'}
       aria-label={section.heading ?? section.caption ?? 'Photograph'}
+      data-layered-host={layered ? 'true' : undefined}
     >
+      {layered && (
+        <div class="v9lg-back" hidden aria-hidden="true">
+          <LayerGrain />
+          <LayerTitleCard />
+          <LayerBeam />
+        </div>
+      )}
       {frame ? (
+        <GateTag {...gateProps}>
+        {layered && <PerfRow id="v9lg-gate-top" class="v9lg-gate__perf" />}
         <div class="v9-photofold__frame" data-ai-frame={aiFrame ? 'true' : undefined}>
           <img
             src={frame.src}
@@ -52,6 +81,8 @@ const aiFrame = isAiFrameText(section.caption, section.credit)
             </div>
           )}
         </div>
+        {layered && <PerfRow id="v9lg-gate-bottom" class="v9lg-gate__perf" />}
+        </GateTag>
       ) : (
         <div class="v9-col">
           {section.kicker && <p class="v9-prophead__meta">{section.kicker}</p>}
@@ -61,6 +92,12 @@ const aiFrame = isAiFrameText(section.caption, section.credit)
             ) : (
               <h2 class="v9-textfold__heading">{section.heading}</h2>
             ))}
+        </div>
+      )}
+      {layered && (
+        <div class="v9lg-front" hidden aria-hidden="true">
+          <LayerRail />
+          <LayeredParallaxIsland client:visible />
         </div>
       )}
       {frame && hasCaption && (

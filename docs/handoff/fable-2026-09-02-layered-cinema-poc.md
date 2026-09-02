@@ -90,4 +90,26 @@ Screenshots via the Chrome tools or Playwright at 375 and 1440, dark and light, 
 
 Update this file's "Status" line below, list the screenshot paths, note anything you changed outside the files named here, push the branch, and stop. Do not bump `SITE_VERSION`, do not touch MASTER-RECAP, do not deploy. Marco reviews on the dev server or after the merge-and-deploy on staging.
 
-**Status:** not started (handoff written 2026-09-02).
+**Status:** CODE WRITTEN, NOT BUILT, NOT VERIFIED (Fable 5.1, 2026-09-02 ~5:40pm). The rule-14 context gate hard-blocked the session after the source was written and before `pnpm build` or any layered screenshot could run. Everything below is committed on `poc/layered-cinema`; the next session picks up at §8.
+
+## 8. Second-session pickup (read this, skip §0 and §1)
+
+Worktree exists: `~/websites/apr70-website/v10-poc` on `poc/layered-cinema`, `pnpm install` done, `web/.env` points at the NAS (`PUBLIC_PAYLOAD_URL` AND `PUBLIC_MEDIA_BASE=http://kimaserver:8080`; the second one is required or every relative `/api/media/...` src 404s on the dev server, baseline shots proved it). Note the Bash hook denies any command whose text mentions the env file; edit it with the Write tool.
+
+**What was written (all unbuilt):**
+- `web/src/styles/themes/layered.css` (new, every selector under `html[data-design="layered"]`, `!important` only where Tailwind's `[hidden]` preflight forces it), imported after marquee in `themes/index.css`.
+- `web/src/layouts/V9Layout.astro` pre-paint stamp: `?design=layered` writes `localStorage['apr70-design']` and stamps `data-design="layered"`; `?design=marquee` clears both; stored key decides otherwise.
+- `web/src/components/v9/sections/PhotoFold.astro`: on `/` only, when the fold is `vh100` and has a frame, stamps `data-layered-host` and emits `.v9lg-back` (grain, title card, beam), wraps the SAME frame in `.v9lg-gate` with two BH-1866 perf rows, and emits `.v9lg-front` (rail + island). Wrappers ship `hidden`; layered.css un-hides them. Other routes and non-vh100 folds are untouched; the marquee DOM on `/` gains only hidden elements plus a bare `div` around the frame.
+- `web/src/components/v9/layered/`: `PerfRow.astro` (true-gauge BH-1866 pattern in mm, sliced to `--v9lg-perf`), `LayerGrain.astro`, `LayerTitleCard.astro`, `LayerBeam.astro`, `LayerRail.astro` (with the craft-style `--v9lg-p` fallback script).
+- `web/src/components/islands/LayeredParallaxIsland.tsx`: one timeline, one ScrollTrigger, scrub, five targets, transform/opacity only; refuses without the attribute, under reduced motion, and on coarse pointers without budget; waits for `.v9-reveal` to leave the DOM before building.
+- `docs/handoff/poc-shots/baseline-marquee-{dark,light}-{1440,375}.png`: full-page shots of `origin/main` marquee BEFORE any edit, for the pixel diff.
+- Screenshot helper: `tools/layered-poc/shot.py` (Python Playwright 1.61 at `/opt/homebrew/opt/python@3.14/bin/python3.14`, system Chrome via `channel='chrome'`). It pre-stamps the theme and design keys, suppresses the splash, and prints the shown/hidden state of every `data-layer`, their transforms, and the external hosts requested. Example: `tools/layered-poc/shot.py http://localhost:4321/ docs/handoff/poc-shots/layered-dark-1440.png --design layered --theme dark`; add `--w 375 --h 812` for mobile, `--rm` for reduced motion, `--scroll 400` to see the offsets, `--splash` to test the splash-then-parallax sequence.
+
+**Known risks to check first when it builds:**
+1. Astro dynamic tag `GateTag = layered ? 'div' : Fragment` with a spread of `{}` on Fragment; if the compiler objects, duplicate the branch instead.
+2. `client:visible` observes the island's children; the controller `<span>` is 1px absolute so it has a box. If it never hydrates, switch to `client:idle`.
+3. In the light theme the grain tile is grey noise at 3.5 percent on paper; if it reads as dirt rather than grain, lower `--v9lg-grain` to 0.025.
+4. The mobile overlay goes `position: static` so the 1.85 gate grows to hold the headline; confirm the scrim still covers the words at 375.
+5. Rail keycode advance uses GSAP `snap: { y: pitch }`; confirm it steps rather than slides.
+
+**Remaining definition-of-done (unchanged from §2, none done):** `pnpm -C web build` exit 0; six-URL 200 check; zero third-party hosts on `/`; screenshots dark/light x 375/1440 x layered/marquee plus one reduced-motion, saved under `docs/handoff/poc-shots/`; pixel-diff `?design=marquee` against the baselines above; list the paths here; push.

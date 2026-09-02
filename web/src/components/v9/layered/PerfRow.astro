@@ -1,0 +1,72 @@
+---
+/**
+ * PerfRow — one row of BH-1866 perforations drawn at true gauge, zero JS.
+ * Hole 2.794 x 1.854 mm (flat long edges, semicircular short sides), pitch
+ * 4.75 mm, on a 5 mm band. The SVG is authored in millimetres and sliced so
+ * the band height in CSS (--v9lg-perf) sets the scale: 32px = 6.4 px/mm,
+ * 24px = 4.8 px/mm. Horizontal rows run the film left-to-right (holes stand
+ * tall); the vertical rail runs it top-to-bottom (holes lie flat).
+ * Layered-cinema POC (2026-09-02): hidden until html[data-design="layered"].
+ */
+interface Props {
+  id: string
+  vertical?: boolean
+  class?: string
+}
+const { id, vertical = false, class: cls } = Astro.props
+const HOLE_W = 2.794
+const HOLE_H = 1.854
+const PITCH = 4.75
+const BAND = 5
+const R = HOLE_H / 2
+---
+
+{
+  vertical ? (
+    <svg
+      class={cls}
+      hidden
+      aria-hidden="true"
+      viewBox={`0 0 ${BAND} 2000`}
+      preserveAspectRatio="xMidYMin slice"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <pattern id={id} width={BAND} height={PITCH} patternUnits="userSpaceOnUse">
+          <rect
+            x={(BAND - HOLE_W) / 2}
+            y={(PITCH - HOLE_H) / 2}
+            width={HOLE_W}
+            height={HOLE_H}
+            rx={R}
+            ry={R}
+          />
+        </pattern>
+      </defs>
+      <rect width={BAND} height="2000" fill={`url(#${id})`} />
+    </svg>
+  ) : (
+    <svg
+      class={cls}
+      hidden
+      aria-hidden="true"
+      viewBox={`0 0 2000 ${BAND}`}
+      preserveAspectRatio="xMinYMid slice"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <pattern id={id} width={PITCH} height={BAND} patternUnits="userSpaceOnUse">
+          <rect
+            x={(PITCH - HOLE_H) / 2}
+            y={(BAND - HOLE_W) / 2}
+            width={HOLE_H}
+            height={HOLE_W}
+            rx={R}
+            ry={R}
+          />
+        </pattern>
+      </defs>
+      <rect width="2000" height={BAND} fill={`url(#${id})`} />
+    </svg>
+  )
+}

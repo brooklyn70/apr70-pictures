@@ -194,6 +194,21 @@ const panelLabels = {
         var theme = read('apr70-theme')
         if (theme === 'dark' || theme === 'light') doc.setAttribute('data-theme', theme)
         else if (theme === 'system') doc.removeAttribute('data-theme')
+
+        /* Layered-cinema POC (2026-09-02, plan §G.1): a second root attribute,
+           data-design="layered", from localStorage apr70-design. No visitor
+           dial: ?design=layered writes the key (the investor link), ?design=marquee
+           clears it. With neither the stored key decides; default is absent. */
+        var design = null
+        try { design = new URLSearchParams(window.location.search).get('design') } catch (e) {}
+        if (design === 'layered') {
+          try { localStorage.setItem('apr70-design', 'layered') } catch (e) {}
+        } else if (design === 'marquee') {
+          try { localStorage.removeItem('apr70-design') } catch (e) {}
+        }
+        if (design === 'layered' || (design !== 'marquee' && read('apr70-design') === 'layered')) {
+          doc.setAttribute('data-design', 'layered')
+        }
       })()
     </script>
     {/* Favicon: division icon → site icon (Payload) → the static file. The dark

@@ -1,0 +1,46 @@
+---
+/**
+ * Layer 2 — title-card / marquee silhouette. The "70" monogram in outlined
+ * Jost inside a double-hairline box, with two rules and a chevron pair:
+ * geometry only (rules, chevrons, gauge), no ornament. Hairline stroke ramps
+ * flip with the theme via --v9lg-stroke. Sits behind the gate; the parallax
+ * offset between the two is what reveals it on scroll.
+ * Layered-cinema POC (2026-09-02): hidden until html[data-design="layered"].
+ */
+---
+
+<div class="v9lg-title" data-layer="title" aria-hidden="true">
+  <svg
+    class="v9lg-title__svg"
+    viewBox="0 0 1200 720"
+    preserveAspectRatio="xMidYMid meet"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke">
+      <rect x="24.5" y="24.5" width="1151" height="671" />
+      <rect x="36.5" y="36.5" width="1127" height="647" />
+      <line x1="60" y1="120.5" x2="1140" y2="120.5" />
+      <line x1="60" y1="600.5" x2="1140" y2="600.5" />
+      <polyline points="72,84 84,96 72,108" />
+      <polyline points="1128,84 1116,96 1128,108" />
+      <polyline points="72,612 84,624 72,636" />
+      <polyline points="1128,612 1116,624 1128,636" />
+    </g>
+    <text
+      class="v9lg-title__mark"
+      x="1128"
+      y="618"
+      text-anchor="end"
+      font-family="'Jost', 'Century Gothic', sans-serif"
+      font-weight="700"
+      font-size="560"
+      letter-spacing="-0.02em"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1"
+      vector-effect="non-scaling-stroke"
+    >
+      70
+    </text>
+  </svg>
+</div>

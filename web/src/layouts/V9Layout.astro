@@ -103,8 +103,10 @@ const faviconHref = divisionFavicon || siteFavicon || '/favicon.svg'
    mark (shown on dark paper) = the CMS "Nav Logo (Dark theme)" upload;
    data-mark-ink='dark' is the dark mark for House Lights = "Nav Logo (Light
    theme)". Static /logos files remain the fallback. */
-const markLight = resolveMediaUrl(settings?.navLogoDark) || '/logos/apr70_logo_full_white.svg'
-const markDark = resolveMediaUrl(settings?.navLogoLight) || '/logos/apr70_logo_full_black.svg'
+/* Fallback pair = the same Punch files the live Site Settings carry (2026-09-02, Marco's
+   ruling: the Punch kit is canonical; the Futura-named apr70_logo_* SVGs are archived). */
+const markLight = resolveMediaUrl(settings?.navLogoDark) || '/logos/wordmark_white_punch-blue.svg'
+const markDark = resolveMediaUrl(settings?.navLogoLight) || '/logos/wordmark_black_punch-orange.svg'
 const baseNavLinks =
   chrome.navLinks && chrome.navLinks.length > 0
     ? chrome.navLinks

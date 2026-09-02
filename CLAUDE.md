@@ -19,7 +19,7 @@
 6. `docs/decisions/2026-07-01-vms-lessons-and-cloud-migration.md` — **Vik Muniz build lessons (Supabase pooler/caching/R2/GEO laws) + the approved Supabase/Vercel/store migration plan.** Read before any DB, deploy, or data-layer work.
 7. `docs/decisions/2026-07-13-ten-properties-mayors-private.md` — **Slate count is ten.** Nine public; The Mayors stays in CMS with `publicSlate=false` until counsel clears. Read before any slate/count/Mayors copy or project visibility work — includes the restore recipe.
 8. `docs/decisions/2026-07-14-property-identities-falcon-and-tsunami.md` — **Two names the file tree gets wrong.** `11-07-maltese-falcon` is not a property: it is Da Hook's public-domain source material (Hammett). And the film formerly called **TSUNAMI is now SEA GATE** — canonical, ruled by Marco; if you find the old name anywhere, it is wrong, change it. Read before walking SharedData folders, the vault's Active Properties, or the `projects` table.
-9. `docs/decisions/2026-08-21-place-poster-skill-and-bl-pd.md` — **Place posters vs site chrome.** The 50:50 exhibition-poster recipe is an image skill (`.claude/skills/place-poster/`), not a layout skill. British Library Mechanical Curator plates are PD-clear with ledger filters. i18n (PT/IT/FR/DE) is parked, not built.
+9. `docs/decisions/2026-08-21-place-poster-skill-and-bl-pd.md` — **Place posters vs site chrome.** Engine is prettymaps (OSM). Skill: `.claude/skills/place-poster/`. Wrapper: `tools/place-poster/`. i18n (PT/IT/FR/DE) is parked, not built.
 
 ---
 

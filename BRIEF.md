@@ -1,5 +1,8 @@
 # BRIEF — apr70-pictures (v3 → V4 live on Vercel)
 
+**Current (2026-09-02, Fable 5.1 — discovery only, nothing applied):** brand baseline, layered-cinema brief, and PT/IT/FR/DE discovery are in `docs/plans/APR70_BRAND_BASELINE_AND_LAYERED_CINEMA_PLAN.md` (restore point A, identity inventory + archive manifest B, five-layer POC brief C, reference matrix D, skill + checklists E, i18n phasing F, 12 questions G).
+Header above is stale: staging is `staging.apr70.com` on the NAS, apr70.com is the holding page, Vercel is not the production path (plan §A.2 has the one-line corrections; not applied).
+
 **Current (2026-08-21, Grok 4.6 — place-poster skill + BL PD + i18n parked):**
 The 50:50 exhibition-poster prompt is **in as an image skill**, not a website-design
 skill. House copy: `.claude/skills/place-poster/SKILL.md`. Decision:

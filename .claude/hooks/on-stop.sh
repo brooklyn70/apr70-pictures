@@ -1,82 +1,90 @@
 #!/usr/bin/env bash
 # Claude Code Stop hook for apr70-pictures.
 #
-# Runs automatically at the end of every Claude Code session in this repo.
-# Goal: no human reminders to push or update handoffs. The hook does:
-#   1. If there are uncommitted changes, commit them with an auto-generated
-#      message that names the touched files.
-#   2. Push the current branch to origin.
-#   3. Append a session-end note to BRIEF.md (if missing, leave alone).
+# Fires every time the main agent finishes a turn (not only at "session end"),
+# so it must be quiet and safe to run many times. Rewritten 2026-09-02 on Marco's
+# ruling after a day of noise commits ("auto: stop-hook BRIEF note" x6) and an
+# untracked .cursor/mcp.json swept into history:
+#   1. Commit ONLY tracked, modified files (git add -u). Never untracked files.
+#   2. No BRIEF.md auto-note. BRIEF.md is written by the agent, by hand (rule 11).
+#   3. Push only when the branch is ahead of its upstream.
+#   4. Remove this session's context meter (keyed by session_id; see context-meter.sh).
+#   5. Skip entirely when the hook input says stop_hook_active (re-entry guard).
 #
 # Note: Marco's user-level ~/.claude/settings.json has disableAllHooks: true.
 # This project re-enables them at the project level via .claude/settings.json.
-# To turn off auto-commit/push for this repo, set disableAllHooks: true in
-# the project settings (and this hook will simply not run).
-#
-# Designed to fail gracefully — if anything goes wrong, the hook prints a
-# warning and exits 0 so the agent doesn't see a failed-hook error in the UI.
+# Designed to fail gracefully: warnings, exit 0.
 
 set -uo pipefail
 
+INPUT=$(cat 2>/dev/null || echo "{}")
+read -r ACTIVE SID < <(printf '%s' "$INPUT" | python3 -c '
+import sys, json
+try:
+    d = json.load(sys.stdin)
+except Exception:
+    d = {}
+print("1" if d.get("stop_hook_active") else "0", d.get("session_id") or "")
+' 2>/dev/null || echo "0 ")
+
+if [ "${ACTIVE:-0}" = "1" ]; then
+  exit 0
+fi
+
 cd "$(dirname "$0")/../.." || exit 0
 
-# Bail if we're not in a git repo (e.g. someone moved the script).
 if ! git rev-parse --git-dir >/dev/null 2>&1; then
   echo "[on-stop] not a git repo; skipping"
   exit 0
 fi
 
-# Bail on detached HEAD — let the human decide.
 BRANCH=$(git symbolic-ref --short HEAD 2>/dev/null || echo "")
 if [ -z "$BRANCH" ]; then
-  echo "[on-stop] detached HEAD; skipping auto-push"
+  echo "[on-stop] detached HEAD; skipping"
   exit 0
 fi
 
-# 1) Auto-commit if there are changes.
-if [ -n "$(git status --porcelain)" ]; then
-  TOUCHED=$(git status --porcelain | awk '{print $2}' | head -5 | paste -sd', ' -)
-  COUNT=$(git status --porcelain | wc -l | tr -d ' ')
+# A rebase or merge in progress belongs to a human or an agent mid-operation.
+GIT_DIR=$(git rev-parse --git-dir)
+if [ -d "$GIT_DIR/rebase-merge" ] || [ -d "$GIT_DIR/rebase-apply" ] || [ -f "$GIT_DIR/MERGE_HEAD" ]; then
+  echo "[on-stop] rebase/merge in progress; skipping"
+  exit 0
+fi
+
+# 1) Commit tracked changes only.
+if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
+  TOUCHED=$(git status --porcelain --untracked-files=no | awk '{print $2}' | head -5 | paste -sd', ' -)
+  COUNT=$(git status --porcelain --untracked-files=no | wc -l | tr -d ' ')
   MORE=""
-  if [ "$COUNT" -gt 5 ]; then
-    MORE=" (+$((COUNT - 5)) more)"
-  fi
-  MSG="auto: session end — touched ${TOUCHED}${MORE}"
-  echo "[on-stop] committing: $MSG"
-  git add -A
-  if ! git commit -m "$MSG" >/dev/null 2>&1; then
-    echo "[on-stop] commit failed; skipping push"
-    exit 0
-  fi
-fi
-
-# 2) Push (only if upstream is configured).
-if git rev-parse --abbrev-ref --symbolic-full-name "@{u}" >/dev/null 2>&1; then
-  if git push origin "$BRANCH" 2>&1 | tail -3; then
-    echo "[on-stop] pushed $BRANCH to origin"
+  [ "$COUNT" -gt 5 ] && MORE=" (+$((COUNT - 5)) more)"
+  MSG="auto: stop-hook commit — ${TOUCHED}${MORE}"
+  git add -u
+  if git commit -q -m "$MSG" >/dev/null 2>&1; then
+    echo "[on-stop] committed: $MSG"
   else
-    echo "[on-stop] push failed; commit retained locally"
+    echo "[on-stop] commit failed; leaving the tree as is"
   fi
-else
-  echo "[on-stop] no upstream for $BRANCH; skipping push"
+fi
+UNTRACKED=$(git status --porcelain | grep -c '^??' || true)
+[ "$UNTRACKED" -gt 0 ] && echo "[on-stop] $UNTRACKED untracked path(s) left alone (never auto-added)"
+
+# 2) Push only when ahead.
+if git rev-parse --abbrev-ref --symbolic-full-name "@{u}" >/dev/null 2>&1; then
+  AHEAD=$(git rev-list --count "@{u}..HEAD" 2>/dev/null || echo 0)
+  if [ "${AHEAD:-0}" -gt 0 ]; then
+    if git push -q origin "$BRANCH" 2>/dev/null; then
+      echo "[on-stop] pushed $BRANCH ($AHEAD commit(s))"
+    else
+      echo "[on-stop] push failed (behind remote?); commits retained locally"
+    fi
+  fi
 fi
 
-# 3) Reset context meter for next session.
-rm -f .claude/.context-meter
-
-# 4) Append a session note to BRIEF.md if it exists.
-if [ -f BRIEF.md ]; then
-  TS=$(date -u +"%Y-%m-%d %H:%M UTC")
-  printf "\n## Auto-stop note (%s)\n\n- Branch: %s\n- Tip: %s\n" \
-    "$TS" "$BRANCH" "$(git rev-parse --short HEAD 2>/dev/null || echo unknown)" \
-    >> BRIEF.md
-  # If anything got appended and BRIEF.md isn't already part of the just-made
-  # commit, make a tiny follow-up commit just for the BRIEF line.
-  if [ -n "$(git status --porcelain BRIEF.md)" ]; then
-    git add BRIEF.md
-    git commit -m "auto: stop-hook BRIEF note" >/dev/null 2>&1 || true
-    git push origin "$BRANCH" 2>&1 | tail -1 || true
-  fi
+# 3) Drop this session's context meter.
+if [ -n "${SID:-}" ]; then
+  rm -f ".claude/.context-meter-${SID}"
+else
+  rm -f .claude/.context-meter
 fi
 
 exit 0

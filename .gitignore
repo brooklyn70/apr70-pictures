@@ -38,6 +38,7 @@ Thumbs.db
 # Hook state (transient, session-local)
 .claude-session-*
 .claude/.context-meter
+.claude/.context-meter-*
 
 # nginx secrets
 nginx/.htpasswd*

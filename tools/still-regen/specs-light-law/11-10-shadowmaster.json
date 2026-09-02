@@ -3,7 +3,7 @@
   "title": "Shadowmaster",
   "canon": "Los Angeles, present day, one step past now (setting ruled by Marco 2026-07-13). Elite gamers, the Shadow Masters, command real human avatars through concealed earpieces and body-cams in high-stakes staged scenarios: underground poker, urban war games, an Old West shootout. The avatars are people, not pixels, held by debts and contracts, and they can defy the voice, pitting strategy against free will. NRC feature first; (310) co-production because it is set in LA.",
   "look": "Cold neon and warm panic: beautiful interfaces, ugly rooms. Two cities stacked, the chair and the board: control hubs are climate-controlled, elevated and server-cooled blue; street level is sodium vapor, sun-bleach and dying fluorescent. Never postcard LA, always the working city: card parlours, container yards, backlots, parking structures. The signature cut is the Operator's mouth moving and a stranger across the city doing the thing.",
-  "note": "Light Law pass 2026-07-18 — prompts from shadow-masters-treatment-v2.pdf",
+  "note": "Light Law pass 2026-07-18 — prompts from shadow-masters-treatment-v2.pdf RULINGS 2026-09-02 (Marco): Nova's look — a young Elizabeth Taylor / Ava Gardner TYPE: dark hair, pale skin, strong brows, 1950s studio-portrait bone structure, violet-dark eyes. Describe the type in the prompt; never use a photograph of either actress as a ref and never ask the model for their likeness by name (no real-person likeness law).",
   "stills": [
     {
       "slug": "shm2-earpiece-at-dawn",

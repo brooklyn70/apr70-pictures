@@ -20,7 +20,7 @@ Dashiell Hammett's novel, now public domain. Da Hook relocates it to Red Hook,
 Brooklyn, in the fall of 1970.
 
 The vault already encodes this and should be trusted over the folder name:
-`11.01 Active Properties/212-da-hook/01 MOC - The Maltese Falcon.md` names the
+`11.01 Active Properties/nrc-212-da-hook/01 MOC - The Maltese Falcon.md` names the
 project as `[[00 Project - Da Hook]]`, and lists the characters as Hammett's —
 Sam Spade, Brigid O'Shaughnessy, Joel Cairo, Kasper Gutman.
 
@@ -39,8 +39,8 @@ Hammett**, and each carries its source text as a separate MOC:
 
 | Property | Source text (public domain) | MOC in the vault |
 |---|---|---|
-| Da Hook | *The Maltese Falcon* | `212-da-hook/01 MOC - The Maltese Falcon.md` |
-| Sea Gate | *Red Harvest* | `212-sea-gate/01 MOC - Red Harvest.md` |
+| Da Hook | *The Maltese Falcon* | `nrc-212-da-hook/01 MOC - The Maltese Falcon.md` |
+| Sea Gate | *Red Harvest* | `nrc-212-sea-gate/01 MOC - Red Harvest.md` |
 
 Every other property's MOC is named for the property itself. These two are the
 only ones where the MOC names a *book* rather than the film — which is precisely
@@ -62,7 +62,7 @@ rewritten, including the three Final Draft title pages and the
 `gen_redharvest_*.py` generators (which still wrote `TSUNAMI_*.fdx` and would
 have resurrected the name on their next run):
 
-    11.01 Active Properties/212-sea-gate/14-final-draft/SEA_GATE_feature_v01.fdx
+    11.01 Active Properties/nrc-212-sea-gate/14-final-draft/SEA_GATE_feature_v01.fdx
                                                         SEA_GATE_feature_v02.fdx
                                                         SEA_GATE_feature_v03.fdx   <- latest
 

@@ -44,3 +44,12 @@ From a Mac with Tailscale to apr70-nas: `./scripts/mirror-to-nas.sh`
 
 ### Optional env
 `web/` has a dev-gated AI studio needing `ANTHROPIC_API_KEY` and `PUBLIC_ENABLE_STUDIO=true`; not required to run the site.
+
+## Mailbird MCP (local email access)
+
+You have a local MCP server named `mailbird` (Mailbird Next on this Mac).
+- Endpoint is loopback-only; Mailbird must be open with Wingman MCP enabled.
+- Write actions are OFF — read/search/list/attachments only.
+- Prefer mailbird tools for inbox triage across accounts in Mailbird.
+- For invoices/quotes: search_conversations with from:/subject: (e.g. subject:invoice, from:bhphoto), then get_message / list_attachments / get_attachment_content.
+- Never print or log the bearer token. Token lives in 1Password: op://API/Mailbird token Mac/token.

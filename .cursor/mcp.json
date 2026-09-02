@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "comfyui": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "COMFYUI_URL=https://comfy.renaissancecinema.com/",
+        "ghcr.io/shawnrushefsky/comfyui-mcp:latest"
+      ]
+    }
+  }
+}

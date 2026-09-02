@@ -129,3 +129,12 @@ This file should stay under 200 lines. Older context lives in `docs/architecture
 
 ## Working style
 Follow my global prompting rules in `~/.claude/CLAUDE.md` (outcome-first; act when you have enough; prove-it before calling something done; human go on anything irreversible; no standing "explain your reasoning" line). Invoke **"assess and stop"** or **"act when you have enough"** to set the dial.
+
+## Mailbird MCP (local email access)
+
+You have a local MCP server named `mailbird` (Mailbird Next on this Mac).
+- Endpoint is loopback-only; Mailbird must be open with Wingman MCP enabled.
+- Write actions are OFF — read/search/list/attachments only.
+- Prefer mailbird tools for inbox triage across accounts in Mailbird.
+- For invoices/quotes: search_conversations with from:/subject: (e.g. subject:invoice, from:bhphoto), then get_message / list_attachments / get_attachment_content.
+- Never print or log the bearer token. Token lives in 1Password: op://API/Mailbird token Mac/token.

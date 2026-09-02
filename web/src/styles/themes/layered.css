@@ -69,26 +69,34 @@ html[data-design="layered"] [data-layered-host] {
   }
 }
 
-/* Layer wrappers ship hidden; only the attribute un-hides them. Tailwind's
-   preflight makes [hidden] !important, so this must be too. */
-html[data-design="layered"] [data-layered-host] .v9lg-back[hidden],
-html[data-design="layered"] [data-layered-host] .v9lg-front[hidden],
-html[data-design="layered"] [data-layered-host] .v9lg-gate__perf[hidden],
-html[data-design="layered"] [data-layered-host] .v9lg-rail__perf--h[hidden] {
-  display: block !important;
+/* Layer wrappers ship display:none from this (unlayered) rule and only the
+   design attribute shows them. NOT the hidden attribute: Tailwind v4 puts
+   [hidden]{display:none!important} inside @layer base, and an !important
+   declaration in a layer outranks an !important declaration outside every
+   layer, so no un-hide rule here could ever win (verified 2026-09-02, the
+   wrappers stayed display:none under ?design=layered). */
+[data-layered-host] .v9lg-back,
+[data-layered-host] .v9lg-front,
+[data-layered-host] .v9lg-gate__perf,
+[data-layered-host] .v9lg-rail__perf--h,
+[data-layered-host] .v9lg-rail__perf--v {
+  display: none;
+}
+html[data-design="layered"] [data-layered-host] .v9lg-back,
+html[data-design="layered"] [data-layered-host] .v9lg-front,
+html[data-design="layered"] [data-layered-host] .v9lg-gate__perf,
+html[data-design="layered"] [data-layered-host] .v9lg-rail__perf--h {
+  display: block;
 }
 /* The rail carries both orientations; one row along the bottom under 720px,
    the vertical strip on the right edge from 720px. Same specificity as the
-   un-hide above so the orientation, not the source order, decides. */
-html[data-design="layered"] [data-layered-host] .v9lg-rail__perf--v[hidden] {
-  display: none !important;
-}
+   show rule above so the orientation, not the source order, decides. */
 @media (min-width: 720px) {
-  html[data-design="layered"] [data-layered-host] .v9lg-rail__perf--v[hidden] {
-    display: block !important;
+  html[data-design="layered"] [data-layered-host] .v9lg-rail__perf--v {
+    display: block;
   }
-  html[data-design="layered"] [data-layered-host] .v9lg-rail__perf--h[hidden] {
-    display: none !important;
+  html[data-design="layered"] [data-layered-host] .v9lg-rail__perf--h {
+    display: none;
   }
 }
 /* SVG strokes stay one device hairline whatever the viewBox scale. */
@@ -227,10 +235,13 @@ html[data-design="layered"] [data-layered-host] .v9-photofold__frame img {
 }
 /* At 375 the 1.85 window is too short to carry the headline over the
    picture; the overlay leaves absolute positioning and the frame grows to
-   fit the words, which still sit on the scrim (gradient law holds). */
+   fit the words, which still sit on the scrim (gradient law holds).
+   relative, not static: the img and scrim are absolute and would paint over
+   in-flow static text (verified 2026-09-02, the headline vanished at 375). */
 @media (max-width: 719px) {
   html[data-design="layered"] [data-layered-host] .v9-photofold__overlay {
-    position: static;
+    position: relative;
+    z-index: 1;
     padding-inline: var(--s-4);
   }
   html[data-design="layered"] [data-layered-host] .v9-photofold__heading {

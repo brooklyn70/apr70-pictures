@@ -45,7 +45,7 @@ const gateProps = layered ? { class: 'v9lg-gate', 'data-layer': 'gate' } : {}
       data-layered-host={layered ? 'true' : undefined}
     >
       {layered && (
-        <div class="v9lg-back" hidden aria-hidden="true">
+        <div class="v9lg-back" aria-hidden="true">
           <LayerGrain />
           <LayerTitleCard />
           <LayerBeam />
@@ -95,7 +95,7 @@ const gateProps = layered ? { class: 'v9lg-gate', 'data-layer': 'gate' } : {}
         </div>
       )}
       {layered && (
-        <div class="v9lg-front" hidden aria-hidden="true">
+        <div class="v9lg-front" aria-hidden="true">
           <LayerRail />
           <LayeredParallaxIsland client:visible />
         </div>

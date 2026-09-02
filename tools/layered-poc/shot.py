@@ -55,7 +55,8 @@ with sync_playwright() as pw:
       design: document.documentElement.getAttribute('data-design'),
       theme: document.documentElement.getAttribute('data-theme'),
       host: !!document.querySelector('[data-layered-host]'),
-      layers: [...document.querySelectorAll('[data-layer]')].map(e => e.dataset.layer + ':' + (getComputedStyle(e).display !== 'none' ? 'shown' : 'hidden')),
+      layers: [...document.querySelectorAll('[data-layer]')].map(e => e.dataset.layer + ':' + (e.getClientRects().length ? 'shown' : 'hidden')),
+      island: [...document.querySelectorAll('astro-island[client="visible"]')].map(e => e.hasAttribute('ssr') ? 'not-hydrated' : 'hydrated'),
       transforms: [...document.querySelectorAll('[data-layer]')].map(e => e.dataset.layer + '=' + getComputedStyle(e).transform),
       storedDesign: (()=>{try{return localStorage.getItem('apr70-design')}catch(e){return null}})(),
     })""")

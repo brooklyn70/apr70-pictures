@@ -676,10 +676,20 @@ const routes = {
    *  folder, so a wrong checkbox is a drag back in Finder, not a loss. Name collisions
    *  in _trash get a numeric suffix — a cull must never overwrite an earlier cull. */
   async 'POST /api/delete'(body) {
-    const { dir, names } = body
+    const { dir, names, mode = 'trash' } = body
     if (!dir || !fs.existsSync(dir)) throw new Error(`no such folder: ${dir}`)
     if (!Array.isArray(names) || !names.length) throw new Error('nothing marked')
-    const trash = path.join(dir, '_trash')
+    // mode 'archive' (2026-09-02): the NAS archive share instead of _trash. Files land in
+    // 90-archive/<this folder's name>/ so a cull from 11-00-property-images is findable
+    // later. ARCHIVE_ROOT overrides the share path (e.g. a Windows drive letter).
+    let trash
+    if (mode === 'archive') {
+      const root = process.env.ARCHIVE_ROOT || '/Volumes/SharedData/90-archive'
+      if (!fs.existsSync(root)) throw new Error(`archive share not mounted: ${root}`)
+      trash = path.join(root, path.basename(dir))
+    } else {
+      trash = path.join(dir, '_trash')
+    }
     fs.mkdirSync(trash, { recursive: true })
 
     const moved = []
@@ -693,7 +703,15 @@ const routes = {
       let n = 1
       while (fs.existsSync(dest)) dest = path.join(trash, name.replace(IMG, '') + `.${++n}` + path.extname(name))
       try {
-        fs.renameSync(src, dest)
+        try {
+          fs.renameSync(src, dest)
+        } catch (e) {
+          // Cross-device (SharedData share to another share, or Windows drive letters):
+          // rename fails with EXDEV, so copy then remove, never leaving two copies behind.
+          if (e.code !== 'EXDEV') throw e
+          fs.copyFileSync(src, dest)
+          fs.unlinkSync(src)
+        }
         moved.push(name)
       } catch (e) {
         failed.push({ name, error: String(e.message).slice(0, 120) })

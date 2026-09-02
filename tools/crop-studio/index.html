@@ -323,7 +323,10 @@
     <div class="tally" id="tally"></div>
     <button class="go" id="apply" disabled>Process folder</button>
     <button class="go danger" id="purge" disabled>Nothing marked to delete</button>
-    <p class="note">Deleted pictures move to <b>_trash</b> inside the folder — nothing is ever
+    <button class="go alt" id="archive" disabled>Nothing marked to archive</button>
+    <p class="note">Marked pictures (<kbd>D</kbd> or the checkbox) go one of two ways:
+    <b>Move to _trash</b> keeps them inside this folder; <b>Archive</b> moves them to the NAS
+    archive share, <b>SharedData/90-archive/&lt;this folder's name&gt;/</b>. Nothing is ever
     erased. A wrong checkbox is a drag back in Finder, not a loss.</p>
     <div class="log" id="log" hidden></div>
   </section>
@@ -664,6 +667,8 @@ function paintSide() {
   const marked = n('delete')
   $('#purge').disabled = !marked
   $('#purge').textContent = marked ? `Move ${marked} to _trash` : 'Nothing marked to delete'
+  $('#archive').disabled = !marked
+  $('#archive').textContent = marked ? `Archive ${marked} to 90-archive` : 'Nothing marked to archive'
 }
 
 // ── studio: regenerate, comment, video ────────────────────────────────────────
@@ -743,10 +748,17 @@ const go = (d) => { I = Math.max(0, Math.min(ITEMS.length - 1, I + d)); show() }
 
 document.addEventListener('keydown', (e) => {
   // textarea included: typing a "w" into the prompt box must not set a verdict.
-  if (TAB !== 'frames' || e.target.matches('input,select,textarea')) return
+  if (TAB !== 'frames') return
+  // The roll's cull checkboxes keep focus after a tick; arrows must still walk the
+  // roll from there (Marco, 2026-09-02). Text fields and selects keep their own keys.
+  const onCheckbox = e.target.matches('input[type=checkbox]')
+  if (!onCheckbox && e.target.matches('input,select,textarea')) return
+  const isArrow = e.key.startsWith('Arrow')
+  if (onCheckbox && !isArrow) return
   const k = e.key.toLowerCase()
-  if (e.key === 'ArrowRight') { e.preventDefault(); go(1) }
-  else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1) }
+  // Right / Down = next picture, Left / Up = previous (the roll runs top to bottom).
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); go(1) }
+  else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); go(-1) }
   else if (k === '1') setTarget(2.39)
   else if (k === '2') setTarget(2)
   else if (k === 'c') setVerdict('crop')
@@ -1164,13 +1176,19 @@ async function refreshAfterGen() {
   paintKie(await post('/api/kie-status', {}))
 }
 
-$('#purge').onclick = async () => {
+// Two destinations for the marked pictures, one mover. 'trash' = _trash inside the
+// folder (the original cull); 'archive' = the NAS archive share, 90-archive/<folder>.
+const cullMarked = async (mode) => {
   const marked = ITEMS.filter((x) => x.verdict === 'delete')
   if (!marked.length) return
-  if (!confirm(`Move ${marked.length} picture${marked.length > 1 ? 's' : ''} to _trash? Nothing is erased — drag them back from _trash to undo.`)) return
+  const where = mode === 'archive' ? 'the NAS archive (SharedData/90-archive)' : '_trash'
+  const undo = mode === 'archive' ? 'drag them back from 90-archive to undo' : 'drag them back from _trash to undo'
+  if (!confirm(`Move ${marked.length} picture${marked.length > 1 ? 's' : ''} to ${where}? Nothing is erased — ${undo}.`)) return
+  const btn = $(mode === 'archive' ? '#archive' : '#purge')
   $('#purge').disabled = true
-  $('#purge').textContent = 'Moving…'
-  const r = await post('/api/delete', { dir: DIR, names: marked.map((x) => x.name) })
+  $('#archive').disabled = true
+  btn.textContent = 'Moving…'
+  const r = await post('/api/delete', { dir: DIR, names: marked.map((x) => x.name), mode })
   const log = $('#log'); log.hidden = false
   if (r.error) { log.textContent = 'ERROR: ' + r.error; paintSide(); return }
   const gone = new Set(r.moved)
@@ -1185,10 +1203,13 @@ $('#purge').onclick = async () => {
   else {
     $('#canvas').innerHTML = '<div class="empty">Folder culled empty.</div>'
     $('#purge').textContent = 'Nothing marked to delete'
+    $('#archive').textContent = 'Nothing marked to archive'
     $('#tally').textContent = ''
   }
   save()
 }
+$('#purge').onclick = () => cullMarked('trash')
+$('#archive').onclick = () => cullMarked('archive')
 
 $('#apply').onclick = async () => {
   $('#apply').disabled = true

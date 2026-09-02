@@ -51,6 +51,36 @@ Everything lands in one output folder, and `frames.json` records what each file 
 | **Native** | `N` | Never touch it. Archival maps, engravings, period photographs are records, not film frames — a crop mutilates them. Auto-flagged when the filename carries a pre-1936 date, but you can set it on anything. |
 
 `S` skips. `R` re-seeds the rectangle from saliency. `G` cycles the grid (phi / thirds / off).
+`D` marks a picture for the cull (same as its checkbox in the roll).
+
+**Walking the roll:** `→` / `↓` next picture, `←` / `↑` previous, `Enter` next. The arrows work
+from the roll's checkboxes too (2026-09-02), so tick, arrow, tick.
+
+## Two ways out for a culled picture
+
+Marked pictures (`D` / checkbox) leave the folder by one of two buttons under Output:
+
+| Button | Where the files go | Use it for |
+|---|---|---|
+| **Move N to _trash** | `_trash/` inside the folder | the fast cull; drag back in Finder to undo |
+| **Archive N to 90-archive** | `/Volumes/SharedData/90-archive/<folder name>/` (the NAS archive share; `ARCHIVE_ROOT` env overrides) | frames worth keeping as record but not in the working roll |
+
+Nothing is ever erased by either. Name collisions get a numeric suffix.
+
+## How a picture gets to Payload (and the site)
+
+There is no "send to site" button, on purpose: the CMS is the gate. The path is:
+
+1. Give the picture a keep verdict: `C` crop, `E` extend, or `N` native. `S` skip leaves it in
+   the folder but out of the output; `D` culls it.
+2. **Process folder** writes the kept frames to the output folder (`_frames` by default)
+   with `frames.json` beside them (`frameRatio` per file, matching `Media.frameRatio`).
+3. Upload the output frames in Payload `/admin` → Media, with a **Media Kind** tag (photo)
+   and the division / property tags, then attach them to the property's gallery. Or hand the
+   output folder to an agent: "upload `_frames` for <property> to Payload with tags".
+
+A "pick" flag that writes `picks.json` for bulk upload is on the list (TASKS Phase 11); today
+the keep verdicts plus Process folder are the pick.
 `←` `→` move through the roll. Decisions persist to `.crop-studio.json` in the folder, so you can
 walk away mid-pass and come back.
 

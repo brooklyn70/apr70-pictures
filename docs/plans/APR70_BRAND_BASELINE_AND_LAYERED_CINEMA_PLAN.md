@@ -1,6 +1,6 @@
 # APR 70 — Brand baseline, layered-cinema brief, and i18n discovery plan
 
-**Date:** 2026-09-02 · **Author:** Claude Fable 5.1 (discovery session, read-only) · **Status:** planning document, nothing applied
+**Date:** 2026-09-02 · **Author:** Claude Fable 5.1 (discovery session, read-only) · **Status:** planning document. Applied afterwards on Marco's go (same day): the A.2 header corrections and a ledger note under v13; everything else remains proposal
 **Source prompt:** `~/websites/apr70-discovery-prompt-brand-baseline-layered-cinema-2026-09-02.md`
 **Scope:** discovery, baseline preservation, and planning only. No visual or copy change, no logo replacement, no asset move or re-tag on disk or in Payload, no package install, no migration or seed, no NAS access, no push, merge, or deploy. The only repo files this session wrote are this plan and the two-line pointer at the top of `BRIEF.md`. The repo's Stop hook made four auto-commits during the session (see the closing note in section H); none was pushed.
 
@@ -33,7 +33,7 @@ Notes on the remote branches: `v10` and `v11` survive only on the NAS remote (an
 
 The authoritative version is `SITE_VERSION = 'v13'` in `cms/src/siteVersion.ts:16`. That constant is the only place a version number is written by law (comment block in the same file, Marco 2026-07-13). Every other surface that echoes a version:
 
-| Surface | What it says | Agrees with `v13`? | Proposed one-line correction (NOT applied) |
+| Surface | What it says (at discovery) | Agrees with `v13`? | Correction (APPLIED 2026-09-02 on Marco's go, same session, except rows marked "leave" or "none") |
 |---|---|---|---|
 | `cms/src/siteVersion.ts` | `'v13'` | authoritative | none |
 | `docs/recap/MASTER-RECAP.html` Version ledger | `v13 CURRENT 2026-07-18`; rows `v12.2` and `v12.1` dated 2026-07-27 sit below it and postdate it; `v13` row notes "shots not refreshed"; footer says `LAST UPDATED 2026-07-13` | partially. The constant was never bumped for the 07-27 Futura takedown (v12.1) and Punch wordmark (v12.2) passes, so "v13" now covers three shipped states | append a ledger row (or a note under v13) that the 07-27 passes shipped under the unchanged `v13` constant; refresh footer date and shots |
@@ -41,7 +41,7 @@ The authoritative version is `SITE_VERSION = 'v13'` in `cms/src/siteVersion.ts:1
 | `BRIEF.md:118` | "Phase: V4 SHIPPED TO VERCEL STAGING" | historical block; keep as history, mark as such | prefix the block with `**Historical (July V4 Vercel experiment, not the production path):**` |
 | `CLAUDE.md:1` header | `CLAUDE.md — apr70-pictures (v3)` | stale label ("v3" is the architecture generation name, not the site version) | `# CLAUDE.md — apr70-pictures (v3 architecture, site version lives in cms/src/siteVersion.ts)` |
 | `CLAUDE.md` `Staging:` line | `https://staging-v3.apr70.com (pending DSM slot)` | wrong; live staging is `https://staging.apr70.com` since the 2026-07-13 proxy flip | `**Staging:** https://staging.apr70.com (full v10 stack, NAS Docker project apr70v3)` |
-| `CLAUDE.md` `Hosting:` line | `/volume1/apps/apr70-v3` | path name disagrees with the prompt's `/volume1/apps/apr70-pictures`; not verified this session (NAS untouched) | verify on the next NAS session, then correct one of the two |
+| `CLAUDE.md` `Hosting:` line | `/volume1/apps/apr70-v3` | wrong. Verified read-only over SSH 2026-09-02: the stack is at `/volume1/apps/apr70-pictures` (an `/volume1/apps/apr70` folder also exists, contents not inspected) | `/volume1/apps/apr70-pictures` (APPLIED 2026-09-02) |
 | `CLAUDE.md` `Live (when shipped):` | `https://apr70.com` | apr70.com serves the holding page today | `**Live:** https://apr70.com (one-screen holding page from v10/holding/ until the go-live flip)` |
 | `../README.md` folder table | `branch v10`, `staging.apr70.com -> monolith on port 3000 until Marco runs the go-live runbook` | stale on both counts (branch is `main`; staging is the v10 stack) | change `branch v10` to `branch main`; NAS quick facts line to `staging.apr70.com -> v10 stack (proxy flipped 2026-07-13)` |
 | `holding/index.html:34` | a code comment cites "v10" as the privacy-law origin | not a version claim | none |
@@ -55,7 +55,7 @@ The authoritative version is `SITE_VERSION = 'v13'` in `cms/src/siteVersion.ts:1
 
 `v13` is a site-version string, not a git ref. A "restore to v13" today means three independent things:
 
-1. **Code**: a commit SHA on `main`. The v13 chrome pass deployed to staging on 2026-07-18; the Futura takedown and Punch wordmark commits (2026-07-27, for example `d7b9a35` "Logo takedown pass 2") shipped after it under the same constant. The exact SHA currently checked out on the NAS was not read this session (NAS untouched); it is whatever the last run of `deploy-v10-to-nas.sh` fetched and checked out. HEAD `e9a6fc4` is the current end of `main` and differs from the NAS only by docs commits since the last deploy (to verify on the NAS with `git -C /volume1/apps/... rev-parse HEAD`).
+1. **Code**: a commit SHA on `main`. The v13 chrome pass deployed to staging on 2026-07-18; the Futura takedown and Punch wordmark commits (2026-07-27, for example `d7b9a35` "Logo takedown pass 2") shipped after it under the same constant. Read-only over SSH after the discovery pass (2026-09-02, on Marco's go): the NAS checkout at `/volume1/apps/apr70-pictures` is at commit `6a6fa4a`. That is the SHA a `restore/v13-*` tag should sit on (A.4), not HEAD; HEAD carries only docs commits since that deploy.
 2. **Database**: the deploy script dumps the NAS Postgres before every deploy to `$NASREPO/_deploy-backup-v10-$STAMP/nasdb-before.pgc` (`deploy-v10-to-nas.sh:43,113`) and `--rollback` restores the newest such dump (`:76-78`). The local dump used for a DB push lands in `/tmp/apr70-$BRANCH-$STAMP.pgc` and is piped to `/tmp/apr70-$BRANCH.pgc` on the NAS (`:157-158`). These are custom-format `pg_dump -Fc` files. They are the only DB restore points that exist; there is no scheduled dump.
 3. **Media**: `/Volumes/SharedData/10-10-cms-media-live/` (the Payload upload directory, mounted into the CMS container) is not versioned and not covered by the deploy backup. A DB dump restored against a media directory that has since gained or lost files yields dangling rows (one such row already exists: media id 209 `favicon-nrc_white_512.png`, see B.4).
 
@@ -973,6 +973,7 @@ What is explicitly not decided here: who translates, and whether the switcher li
 ## H. Closing note: what this session touched, and what it did not
 
 - Written: this file (`docs/plans/APR70_BRAND_BASELINE_AND_LAYERED_CINEMA_PLAN.md`, new directory) and a two-line Current entry at the top of `BRIEF.md`.
+- Applied afterwards on Marco's explicit go (same session): the A.2 corrections to `BRIEF.md` (header, historical V4 block label), `CLAUDE.md` (header, Live, Staging, Hosting path), `../README.md` (branch, staging line), `../_deploy/deploy-v10-to-nas.sh` (final message text only), `docs/decisions/2026-07-05-vercel-supabase-runbook.md` (status line), and a ledger note plus footer date in `docs/recap/MASTER-RECAP.html`. One read-only SSH `ls` and `git rev-parse` on the NAS to verify the stack path and deployed SHA. Then commit and push of `main` on Marco's instruction.
 - Not changed: any production-facing code, any asset on disk or in Payload, any media row, any content, git remote state (nothing pushed), the NAS, any deployment, any dependency.
 - Read-only checks run: `git status`, `git tag`, `git branch -a`, the six-URL curl check from the v13 handoff (all 200, AI Mark corner present), `apr70.com` 200. `pnpm astro check` was not run (not required).
 - Repo Stop hook activity during the session (triggered by subagent stops, not by hand): `0855c47` "auto: session end — touched AGENTS.md, CLAUDE.md, docs/decisions/2026-07-14-property-identities-falcon-and-tsunami.md, .cursor/mcp.json" committed the pre-existing working-tree modifications and the untracked `.cursor/mcp.json` (a ComfyUI MCP launcher with a public URL, no secret); `942a307`, `8da6491`, and `11913bb` "auto: stop-hook BRIEF note" each appended an Auto-stop note block to `BRIEF.md`. `main` is 4 ahead of `origin/main` at the time of writing; nothing was pushed. Whether those auto-commits are wanted is Marco's call; they are reversible locally.

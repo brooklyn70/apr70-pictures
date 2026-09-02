@@ -1,6 +1,6 @@
 # Vercel + Supabase + R2 cutover runbook (v3)
 
-**Date:** 2026-07-05 · **Status:** code ready on `v4-infra`; awaiting provisioning (Marco's hands for billing/DNS).
+**Date:** 2026-07-05 · **Status:** SUPERSEDED for production (2026-09-02). The July V4 Vercel/Supabase deploy was an experiment; DNS never moved. Production is the NAS stack (`staging.apr70.com` = v10, `apr70.com` = holding page). Reference only. Original status: code ready on `v4-infra`; awaiting provisioning (Marco's hands for billing/DNS).
 **Plan of record:** `docs/decisions/2026-07-01-vms-lessons-and-cloud-migration.md` (the 8 VMS laws apply to every step below).
 **Prime directive:** the NAS stack stays running and untouched through all of this — it is the rollback path and becomes staging after cutover.
 

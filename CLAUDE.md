@@ -1,11 +1,11 @@
-# CLAUDE.md — apr70-pictures (v3)
+# CLAUDE.md — apr70-pictures (v3 architecture; the site version lives in `cms/src/siteVersion.ts`)
 
 **Authoritative working document for all agents working in this repo.**
 **Last updated:** 2026-08-21 (place-poster skill + BL PD decision)
 **Repo:** `brooklyn70/apr70-pictures`
-**Live (when shipped):** https://apr70.com
-**Staging:** https://staging-v3.apr70.com (pending DSM slot)
-**Hosting:** Synology NAS (DSM Reverse Proxy → Docker stack at `/volume1/apps/apr70-v3`)
+**Live:** https://apr70.com (one-screen holding page from `v10/holding/` until the go-live flip)
+**Staging:** https://staging.apr70.com (full v10 stack, NAS Docker project `apr70v3`; proxy flipped 2026-07-13). Vercel/Supabase are NOT the production path.
+**Hosting:** Synology NAS (DSM Reverse Proxy → Docker project `apr70v3` at `/volume1/apps/apr70-pictures`, verified 2026-09-02)
 
 ---
 

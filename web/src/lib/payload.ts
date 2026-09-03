@@ -390,10 +390,30 @@ export function resolveMediaSrcset(media: Media | null | undefined): string | un
   if (!sizes) return undefined
 
   const entries: string[] = []
+  let widest = 0
   for (const key of ['thumb', 'card', 'hero']) {
     const size = sizes[key]
     const url = resolveMediaUrl(size)
-    if (url && size?.width) entries.push(`${url} ${size.width}w`)
+    if (url && size?.width) {
+      entries.push(`${url} ${size.width}w`)
+      widest = Math.max(widest, size.width)
+    }
+  }
+  // Originals just under 1920 wide (pier.jpg, bar.jpg are 1919) never get a hero tier, so
+  // without this the widest candidate is 1024 and a full-screen fold on a 2x phone upscales 3x.
+  // Only when no hero tier exists, and never a PNG or anything wider than 2400: the 5376px
+  // PNG masters are 30MB each and a cover-crop sizes hint would happily pick them (seen 2026-09-03).
+  const original = resolveMediaUrl(media)
+  const isPng = typeof media?.mimeType === 'string' && /png/i.test(media.mimeType)
+  if (
+    original &&
+    !isPng &&
+    !sizes.hero?.url &&
+    typeof media?.width === 'number' &&
+    media.width > widest &&
+    media.width <= 2400
+  ) {
+    entries.push(`${original} ${media.width}w`)
   }
   return entries.length ? entries.join(', ') : undefined
 }

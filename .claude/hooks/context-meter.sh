@@ -9,10 +9,34 @@
 set -uo pipefail
 
 INPUT=$(cat 2>/dev/null || echo "")
-BYTES=$(printf '%s' "$INPUT" | wc -c | tr -d ' ')
-SID=$(printf '%s' "$INPUT" | python3 -c 'import sys,json
-try: print(json.load(sys.stdin).get("session_id") or "")
-except Exception: print("")' 2>/dev/null || echo "")
+# Count only text that lands in context. Image payloads (PDF pages, PNG reads)
+# arrive as base64 blobs that would bill ~1MB for a 7-page PDF (bitten
+# 2026-09-02) while costing the model a few K tokens. Any one call is also
+# capped at 64KB: Claude Code truncates single tool results well below that.
+read -r SID BYTES < <(printf '%s' "$INPUT" | python3 -c '
+import sys, json
+raw = sys.stdin.read()
+try:
+    d = json.loads(raw)
+except Exception:
+    print("-", min(len(raw), 65536)); sys.exit()
+CAP = 65536
+def walk(v):
+    if isinstance(v, str):
+        # base64 image data: long, no whitespace
+        if len(v) > 2048 and " " not in v and "\n" not in v:
+            return 0
+        return len(v)
+    if isinstance(v, dict):
+        if v.get("type") == "image" or "base64" in str(v.get("source", {}).get("type", "")):
+            return 0
+        return sum(walk(x) for k, x in v.items() if k not in ("session_id", "cwd", "transcript_path"))
+    if isinstance(v, list):
+        return sum(walk(x) for x in v)
+    return 0
+print(d.get("session_id") or "-", min(walk(d), CAP))
+' 2>/dev/null || echo "- 0")
+[ "$SID" = "-" ] && SID=""
 
 HOOK_DIR="$(dirname "$0")"
 if [ -n "$SID" ]; then

@@ -56,7 +56,11 @@ export default function LogoRevealIsland() {
     startedRef.current = true
 
     const done = () => setPlay(false) // unmounts + removes overlay from DOM
-    const safetyTimer = window.setTimeout(done, 4000) // hard stop
+    // Phones: the same reveal at about half the length (~1.3s instead of ~2.5s). The page is
+    // ready in well under 200ms; the splash was the whole wait on a first visit (measured 2026-09-03).
+    const quick = window.matchMedia('(pointer: coarse)').matches
+    const k = quick ? 0.5 : 1
+    const safetyTimer = window.setTimeout(done, quick ? 2200 : 4000) // hard stop
 
     const wrapper = wrapperRef.current
     const svg = svgRef.current
@@ -81,8 +85,8 @@ export default function LogoRevealIsland() {
     })
 
     // Phase 1: dissolve in (~0.6s)
-    tl.to(wrapper, { opacity: 1, duration: 0.6, ease: 'power2.out' })
-    tl.to({}, { duration: 0.15 })
+    tl.to(wrapper, { opacity: 1, duration: 0.6 * k, ease: 'power2.out' })
+    tl.to({}, { duration: 0.15 * k })
 
     // Phase 2: sprocket elevator, bottom to top (~0.75s)
     HOLE_PAIRS.forEach(([a, b], i) => {
@@ -92,23 +96,23 @@ export default function LogoRevealIsland() {
       tl.to(
         {},
         {
-          duration: 0.08,
+          duration: 0.08 * k,
           onStart: () => {
             elA?.setAttribute('fill', color)
             elB?.setAttribute('fill', color)
           },
         },
-        '+=0.07',
+        `+=${0.07 * k}`,
       )
     })
 
-    tl.to({}, { duration: 0.15 })
+    tl.to({}, { duration: 0.15 * k })
 
     // Phase 3: cinematic blur out (~0.7s) — total ~2.5s
     tl.to(wrapper, {
       filter: 'blur(12px)',
       opacity: 0,
-      duration: 0.7,
+      duration: 0.7 * k,
       ease: 'power3.in',
     })
 

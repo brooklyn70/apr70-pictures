@@ -277,6 +277,24 @@ const panelLabels = {
         </nav>
       </div>
     </header>
+    <script is:inline>
+      /* Phones: hide the sticky header on scroll-down, bring it back on scroll-up. */
+      (function () {
+        var mq = window.matchMedia('(max-width: 719px)');
+        var h = document.querySelector('.v9-header');
+        if (!h) return;
+        var last = window.scrollY, hidden = false, ticking = false;
+        function tick() {
+          ticking = false;
+          var y = window.scrollY, d = y - last;
+          if (!mq.matches || y < 120) { if (hidden) { h.classList.remove('is-hidden'); hidden = false; } last = y; return; }
+          if (d > 6 && !hidden) { h.classList.add('is-hidden'); hidden = true; }
+          else if (d < -6 && hidden) { h.classList.remove('is-hidden'); hidden = false; }
+          if (Math.abs(d) > 6) last = y;
+        }
+        window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(tick); } }, { passive: true });
+      })();
+    </script>
 
     <main id="main">
       <slot />

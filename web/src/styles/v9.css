@@ -75,6 +75,18 @@
   gap: clamp(0.75rem, 3vw, 2.5rem);
   padding-block: 0.7rem;
 }
+/* Phones: the header leaves on scroll-down and returns on scroll-up (script in V9Layout),
+   so 96px of chrome is not pinned over every screen. Transform only. */
+@media (max-width: 719px) {
+  .v9-header { transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1); }
+  .v9-header.is-hidden { transform: translateY(-100%); }
+  /* 44px tap targets without changing the type: padding, negative margin keeps the row height. */
+  .v9-header .v9-nav .v9-nav__link { padding-block: 0.75rem; margin-block: -0.45rem; }
+  .v9-header .mode-toggle { min-width: 44px; min-height: 44px; margin-block: -8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .v9-header { transition: none; }
+}
 /* Mobile: brand on its own row, the five routes on a full-width second row —
    nothing clips at 375. */
 @media (max-width: 719px) {
@@ -253,9 +265,10 @@
 }
 /* House ratios. Scope for full-bleed; 2.00:1 (the streaming ratio) for everything else.
    The masters are cut to these, so cover has nothing left to crop and nothing to letterbox.
-   OPEN: mobile. Scope at 375px is a 157px band, too thin to carry a headline, so the phone
-   holds a gentler 2:1 and cover trims the sides — steer it with the media doc's focal point. */
-.v9-photofold__frame { aspect-ratio: 2 / 1; }
+   Phones (2026-09-03): a 2:1 band at 375px is 187px, a postage stamp after a full-screen
+   hero. The phone holds 4:5 and cover trims the sides; the media doc's focal point steers
+   the crop, and PhotoFold's sizes hint asks for a tier wide enough for that crop. */
+.v9-photofold__frame { aspect-ratio: 4 / 5; }
 @media (min-width: 720px) {
   .v9-photofold__frame { aspect-ratio: 2.39 / 1; }
 }

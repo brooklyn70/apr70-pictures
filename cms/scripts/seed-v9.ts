@@ -39,7 +39,16 @@ if (APPLY === DRY) {
   process.exit(1)
 }
 
-const COPY_DIR = '/Users/marco/vault/10 Work/11 APR70 Pictures/11.12 V9 Build/02-copy'
+// The V9 Build folder left the live vault on 2026-07-25 (archived to SharedData). The canon is
+// edited there now (rule 16, third layer). Override with V9_COPY_DIR; else the vault path if it
+// still exists, else the archive.
+const COPY_DIR_CANDIDATES = [
+  process.env.V9_COPY_DIR,
+  '/Users/marco/vault/10 Work/11 APR70 Pictures/11.12 V9 Build/02-copy',
+  '/Users/marco/Volumes/SharedData/00-01-vault-media/_vault-archive/2026-07-25-apr70-website-builds/11.12 V9 Build/02-copy',
+  '/Volumes/SharedData/00-01-vault-media/_vault-archive/2026-07-25-apr70-website-builds/11.12 V9 Build/02-copy',
+].filter((d): d is string => Boolean(d))
+const COPY_DIR = COPY_DIR_CANDIDATES.find((d) => fs.existsSync(d)) ?? COPY_DIR_CANDIDATES[0]
 const MEDIA_SOURCES = [
   '/Users/marco/websites/apr70-v8/site',
   '/Users/marco/websites/apr70-v9/site-media',

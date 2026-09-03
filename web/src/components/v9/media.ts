@@ -42,6 +42,10 @@ export function frameFromMedia(input: unknown): Frame | null {
  * Full-bleed frames are the viewport; grid cards are a column of it.
  */
 export const SIZES_FULLBLEED = '100vw'
+/** Cover crops on phones need width for the CROP, not the viewport: a 2.39:1 still filling a
+ *  100vh fold at 375x812 shows a slice 812*2.39 = 1940 CSS px wide; a 4:5 fold shows 300vw. */
+export const SIZES_COVER_VH100 = '(max-width: 719px) calc(100vh * 2.4), 100vw'
+export const SIZES_COVER_TALL = '(max-width: 719px) 300vw, 100vw'
 export const SIZES_GRID = '(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 33vw'
 
 export const focalPosition = (f: Frame): string => `${f.focalX}% ${f.focalY}%`

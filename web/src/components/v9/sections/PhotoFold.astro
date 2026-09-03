@@ -7,7 +7,7 @@
  */
 import type { V9Section } from '../../../lib/payload'
 import { renderInline } from '../../../lib/v9/inline'
-import { frameFromMedia, focalPosition, isAiFrameText, SIZES_FULLBLEED } from '../media'
+import { frameFromMedia, focalPosition, isAiFrameText, SIZES_COVER_VH100, SIZES_COVER_TALL } from '../media'
 
 type PhotoFoldData = Extract<V9Section, { blockType: 'photoFold' }>
 const section = Astro.props.section as PhotoFoldData
@@ -29,7 +29,7 @@ const aiFrame = isAiFrameText(section.caption, section.credit)
           <img
             src={frame.src}
             srcset={frame.srcset}
-            sizes={SIZES_FULLBLEED}
+            sizes={section.vh100 ? SIZES_COVER_VH100 : SIZES_COVER_TALL}
             width={frame.width}
             height={frame.height}
             alt={frame.alt}

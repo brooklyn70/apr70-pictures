@@ -44,6 +44,9 @@ const galleryItems: FilmstripItem[] = (project.gallery ?? []).flatMap((item) => 
   return [
     {
       src: frame.src,
+      srcset: frame.srcset,
+      width: frame.width,
+      height: frame.height,
       alt: frame.alt || item.caption || `${title} development frame`,
       caption: item.caption ?? null,
       captionHtml: item.caption ? renderInline(item.caption) : null,

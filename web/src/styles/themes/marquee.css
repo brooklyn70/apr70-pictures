@@ -56,7 +56,7 @@
   --font-body:    'Newsreader', 'Iowan Old Style', serif;
   --font-mono:    'Courier Prime', 'Courier New', monospace;
 
-  --text-xs:   0.75rem;
+  --text-xs:   0.75rem; /* phones: 0.8125rem, see the 719px block below */
   --text-sm:   0.875rem;
   --text-md:   1.0625rem;
   --text-lg:   1.3125rem;
@@ -663,3 +663,9 @@ html.js .v9 .reveal.is-in {
 :root[data-highlight='amber']         { --highlight-color: var(--pal-amber); }
 :root[data-highlight='sicilian-blue'] { --highlight-color: var(--pal-blue); }
 :root[data-highlight='ink']           { --highlight-color: var(--color-ink); }
+
+/* Phones: the letterspaced mono (nav labels, kickers, caplines, meta) was 12px, the hardest
+   text on the site at arm's length. 13px floor, tracking unchanged. */
+@media (max-width: 719px) {
+  :root { --text-xs: 0.8125rem; }
+}

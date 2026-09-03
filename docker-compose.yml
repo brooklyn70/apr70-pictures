@@ -26,6 +26,9 @@ services:
     build:
       context: ./cms
       dockerfile: Dockerfile
+      # Build steps use the host network: the NAS daemon runs with iptables off, so build
+      # containers have no outbound DNS and `apk add` fails (deploy aborted twice, 2026-09-03).
+      network: host
       target: runner
     restart: unless-stopped
     depends_on:
@@ -49,6 +52,9 @@ services:
     build:
       context: ./cms
       dockerfile: Dockerfile
+      # Build steps use the host network: the NAS daemon runs with iptables off, so build
+      # containers have no outbound DNS and `apk add` fails (deploy aborted twice, 2026-09-03).
+      network: host
       target: seeder
     depends_on:
       postgres:
@@ -65,6 +71,9 @@ services:
     build:
       context: ./cms
       dockerfile: Dockerfile
+      # Build steps use the host network: the NAS daemon runs with iptables off, so build
+      # containers have no outbound DNS and `apk add` fails (deploy aborted twice, 2026-09-03).
+      network: host
       target: seeder
     depends_on:
       postgres:
@@ -88,6 +97,9 @@ services:
     build:
       context: ./web
       dockerfile: Dockerfile
+      # Build steps use the host network: the NAS daemon runs with iptables off, so build
+      # containers have no outbound DNS and `apk add` fails (deploy aborted twice, 2026-09-03).
+      network: host
     restart: unless-stopped
     depends_on:
       cms:

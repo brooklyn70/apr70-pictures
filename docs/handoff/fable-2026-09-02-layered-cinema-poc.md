@@ -141,3 +141,20 @@ Worktree exists: `~/websites/apr70-website/v10-poc` on `poc/layered-cinema`, `pn
 **Changed outside the files named in §8:** `.claude/hooks/context-meter.sh` (the meter billed a 7-page PDF Read as 1MB of context because it counted base64 image payloads; it now skips image blobs and caps one call at 64KB, otherwise this session would have been gate-blocked at its second tool call), `tools/layered-poc/shot.py` (exec bit; shown/hidden now uses `getClientRects()`, a child of a `display:none` parent reports its own display; prints island hydration), `web/src/components/v9/layered/PerfRow.astro` (`hidden` attrs removed).
 
 **Hand back:** review on the dev server (`pnpm -C web dev`, then `/?design=layered`, `/?design=marquee` to clear) or merge to `main` and deploy as `v14` with the housekeeping after `pnpm preflight` and Marco's go.
+
+## 10. Overnight, 2026-09-03: parallax scrolling, done as defined
+
+**Read this first in the morning.** Marco killed the depth sketch (pinned, scaling) and defined the target: the page scrolls normally and three or four layers translate at different rates, no zoom. Two things were done overnight.
+
+**1. Research and the eight sites, re-studied.**
+- `docs/handoff/research/01-parallax-definition.md` and `02-photographic-diorama-parallax.md`: Perplexity (sonar-pro) briefs with sources. The math: for a layer with rate r, translateY = s x (1 - r), s = how far the section has scrolled. Background 0.2 to 0.6, subject near 0.9, foreground never past 1.3. No pin, no scale. Firewatch's site is the canonical photographic example.
+- Nate's aiautomationsociety.ai hero, measured: three flat plates at 0.69, 0.83, 1.0 of the page, translate only, Lenis smoothing, no pointer response.
+- Of the eight original sites, only two carry real parallax scrolling: Aceternity's "Parallax Grid Scroll" (a photo grid, columns at 0.94 and 1.06, not cinematic) and **21st.dev, osmosupply's "Parallax Scrolling"**: one photograph split into sky, mountain, and ground-plus-figure at about 0.18, 0.35, and 0.88 of the page, with the title between the planes at 0.67, on GSAP ScrollTrigger plus Lenis. That is the useful one. transitions.dev, originkit, orbs, beautifului, component.gallery, agentation: nothing that qualifies.
+
+**2. The recreation (original implementation, nothing copied).** `~/websites/apr70-website/_sketches/parallax-2026-09-03/` (outside the repo, 12MB of plates). Run `serve.sh`, open `http://127.0.0.1:4400/`. Recording `apr70-parallax.mp4`, contact sheet `sheet.jpg`, reference frames in `reference/`.
+- Hero: the pier still in six planes at 0.20 (sky and sea), 0.34 (fireworks), 0.55 (ferris wheel), 0.68 (headline, between the wheel and the woman), 0.88 (the woman), 1.00 (railing strip). Measured in Chrome: each plane moves exactly its declared px per 100px of scroll.
+- Down the page: bar, Rome, Brooklyn folds each at 0.48 (room or street), 0.72 (type), 0.86 to 0.88 (subject), with a statement line between folds in normal flow. "Brooklyn, before it was a brand." is the last fold.
+- Mechanics: GSAP ScrollTrigger scrub on translateY only, ScrollSmoother at 0.9 for the glide, plates extended with mirrored bleed so slow layers never show an edge, reduced motion turns it all off. No pin, no scale, no pointer.
+- Not done: mobile pass, light mode, Payload wiring, production-quality fills behind the subjects (the current fills are borrowed texture; Nano Banana or a hand plate replaces them).
+
+**Kill or keep is Marco's call in the morning.** If keep: production plates, then the same integration path as before (scoped theme behind the switch, build, screenshots, pixel diff).

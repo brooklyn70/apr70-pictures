@@ -41,3 +41,7 @@ A second attempt (a standalone sketch, not in the site: each still cut into phot
 **Kept from the sketch:** the headline "Brooklyn, before it was a brand." goes on the existing site (NRC / U Bruculinu). Nothing else.
 
 **Next (Marco sets the goal in the morning):** research filed under the handoff, all eight original reference sites re-studied for real parallax-scrolling examples, and any useful one recreated as an original implementation with the plates already cut.
+
+## Final ruling, 2026-09-03 morning: the parallax recreation is killed too. The marquee site stays.
+
+Marco: "kill it, you did not grasp the concept and i failed at giving you proper examples. we'll stick with the current version and continue updating that." The branch `poc/layered-cinema` is closed as a design direction. What survives from it for `main`: the Tailwind cascade notes, the context-meter fix, the screenshot helper, and the line "Brooklyn, before it was a brand." Everything visual is discarded. Work continues on the marquee design, mobile first.

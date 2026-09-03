@@ -31,3 +31,13 @@ For design work, the finish line is Marco recognising the direction, not the bui
 ## What survives regardless
 
 The exposure mechanism (`?design=layered` / `?design=marquee`, `localStorage['apr70-design']`, the pre-paint stamp), the scoped theme file pattern, the island guard pattern (reduced motion, coarse pointer, splash wait), the screenshot helper, and the proof that the switch costs the marquee design zero pixels. The five layer components are disposable.
+
+## Addendum, same night: the depth sketch was killed too
+
+A second attempt (a standalone sketch, not in the site: each still cut into photographic plates, sections pinned, subjects scaling toward the viewer, pointer parallax, GSAP ScrollSmoother) was shown as a screen recording and killed. Marco: "you miss the whole parallax point that the images move as you scroll, not the same image, three or four layers that don't zoom or any of that." Ruled slop.
+
+**What parallax scrolling means here, so it is never misread again:** the page scrolls normally, nothing pins, nothing zooms, nothing scales. Three to five layers translate vertically at different rates relative to the scroll (background around 0.3 to 0.6 of scroll, subject near 0.9 to 1.0, foreground up to about 1.2, never past 1.3), which is what makes a photograph read as a diorama. Firewatch's game site is the canonical photographic example; Nate Herk's aiautomationsociety.ai hero is the reference Marco pointed at (three flat plates with rates 0.31, 0.17, 0 on Lenis smooth scroll, scroll-driven only, no pointer response).
+
+**Kept from the sketch:** the headline "Brooklyn, before it was a brand." goes on the existing site (NRC / U Bruculinu). Nothing else.
+
+**Next (Marco sets the goal in the morning):** research filed under the handoff, all eight original reference sites re-studied for real parallax-scrolling examples, and any useful one recreated as an original implementation with the plates already cut.

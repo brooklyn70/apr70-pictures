@@ -111,3 +111,13 @@ cd web && pnpm dev
 # → http://localhost:4321/dev/theme-studio   (preview division skins)
 # → http://localhost:4321/dev/ai-studio      (author copy / design a theme)
 ```
+
+
+## Cascade traps found while building the layered-cinema POC (2026-09-02)
+
+Two CSS facts that cost a session each. Both verified in Chrome on the dev server, evidence in `docs/handoff/fable-2026-09-02-layered-cinema-poc.md` §9.
+
+1. **The `hidden` attribute cannot be un-hidden by site CSS.** Tailwind v4 (`@import "tailwindcss"` in `global.css`) declares `[hidden]{display:none !important}` inside `@layer base`. An `!important` declaration inside a cascade layer outranks an `!important` declaration outside every layer, so `.x[hidden]{display:block !important}` in a theme file loses no matter its specificity or source order. Toggle visibility with a plain unlayered `display` rule keyed on a class or a root attribute (`html[data-design="layered"] .x`), never with `hidden` plus an override. This also keeps the master plan's no-`!important` rule intact.
+2. **A `position: static` element paints under absolutely positioned siblings.** When an overlay leaves `position: absolute` to grow in flow (the mobile PhotoFold case), give it `position: relative; z-index: 1`, or the `img` and scrim that stay absolute paint on top of the text.
+
+Probe note for screenshot tooling: a child of a `display:none` ancestor still reports its own `display` from `getComputedStyle`; test visibility with `getClientRects().length`.

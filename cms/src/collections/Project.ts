@@ -159,6 +159,15 @@ export const Project: CollectionConfig = {
       ],
     },
     {
+      name: 'heroLine',
+      type: 'text',
+      label: 'Hero line',
+      admin: {
+        description:
+          'One line set over the hero photo-fold on /work/<slug>, light ink on the scrim (e.g. "Brooklyn, before it was a brand."). Short, period-ended. Project pages only; the home folds carry none.',
+      },
+    },
+    {
       name: 'heroCaption',
       type: 'text',
       label: 'Hero caption',

@@ -143,6 +143,13 @@
 @media (max-width: 719px) {
   .fs__bar { flex-wrap: wrap; }
   .fs__caption { flex-basis: 100%; order: 3; }
+  /* Phones (2026-09-03): 44px controls. Arrows and PLAY sit on the 13px mono floor; the
+     sprocket dots keep their size but sit on a 44px pitch with a hit area to match. */
+  .fs__btn { min-width: 44px; height: 44px; }
+  .fs__btn:not(.fs__btn--expand) { font-size: 13px; }
+  .fs__dots { gap: calc(44px - 0.55rem); }
+  .fs__dot { position: relative; }
+  .fs__dot::before { content: ''; position: absolute; inset: calc((44px - 0.55rem) / -2); }
 }
 
 /* ---- The middle third opens the cinema (v13) ---- */

@@ -12,6 +12,9 @@
 }
 @media (max-width: 40rem) {
   .v9-roll__row { grid-template-columns: 1fr; }
+  /* Phones (2026-09-03): 44px fields, a checkbox you can see. */
+  .v9-roll__input { min-height: 44px; }
+  .v9-roll__consent input { width: 20px; height: 20px; flex: none; }
 }
 .v9-roll__field {
   display: flex;

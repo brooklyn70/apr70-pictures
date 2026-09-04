@@ -304,6 +304,10 @@ export interface Project {
     note?: string | null;
   };
   /**
+   * One line set over the hero photo-fold on /work/<slug>, light ink on the scrim (e.g. "Brooklyn, before it was a brand."). Short, period-ended. Project pages only; the home folds carry none.
+   */
+  heroLine?: string | null;
+  /**
    * Caption under the hero photo-fold, before the credit. Scene/place line only — do not prefix the property title. ==text== renders highlighted.
    */
   heroCaption?: string | null;
@@ -1378,6 +1382,7 @@ export interface ProjectsSelect<T extends boolean = true> {
         cite?: T;
         note?: T;
       };
+  heroLine?: T;
   heroCaption?: T;
   heroCredit?: T;
   requestBody?: T;
@@ -3064,7 +3069,7 @@ export interface SiteSetting {
     text?: string | null;
   };
   /**
-   * Every string in the v13 site chrome: the Display panel labels, footer colophon, copyright, and nav links. Seeded from the vault chrome.md canon.
+   * Every string in the v14 site chrome: the Display panel labels, footer colophon, copyright, and nav links. Seeded from the vault chrome.md canon.
    */
   v9Chrome?: {
     /**
@@ -5305,7 +5310,7 @@ export interface TroupeProgram {
   createdAt?: string | null;
 }
 /**
- * Sections and SEO strings for / on the v13 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ * Sections and SEO strings for / on the v14 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "v9-home".
@@ -5675,7 +5680,7 @@ export interface V9Home {
   createdAt?: string | null;
 }
 /**
- * Sections and SEO strings for /slate on the v13 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ * Sections and SEO strings for /slate on the v14 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "v9-slate".
@@ -6045,7 +6050,7 @@ export interface V9Slate {
   createdAt?: string | null;
 }
 /**
- * Sections and SEO strings for /craft on the v13 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ * Sections and SEO strings for /craft on the v14 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "v9-craft".
@@ -6415,7 +6420,7 @@ export interface V9Craft {
   createdAt?: string | null;
 }
 /**
- * Sections and SEO strings for /methods on the v13 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ * Sections and SEO strings for /methods on the v14 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "v9-methods".
@@ -6785,7 +6790,7 @@ export interface V9Method {
   createdAt?: string | null;
 }
 /**
- * Sections and SEO strings for /contact on the v13 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
+ * Sections and SEO strings for /contact on the v14 site. Reorder, edit, or add sections freely; the page renders this stack top to bottom.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "v9-contact".

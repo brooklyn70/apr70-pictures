@@ -105,6 +105,13 @@ const jsonLd = [propertyJsonLd(project), breadcrumbJsonLd(project)]
             style={`object-position: ${focalPosition(hero)}`}
           />
           <div class="v9-scrim" aria-hidden="true" />
+          {project.heroLine && (
+            <div class="v9-photofold__overlay">
+              <div class="v9-photofold__overlay-inner">
+                <p class="v9-photofold__heading">{project.heroLine}</p>
+              </div>
+            </div>
+          )}
         </div>
         {(project.heroCaption || project.heroCredit) && (
           <div class="v9-col">

@@ -330,6 +330,7 @@ async function main(): Promise<void> {
         ? { quote: kv(quote, 'quote'), cite: kv(quote, 'cite'), note: kv(quote, 'note') ?? null }
         : undefined,
       heroImage,
+      heroLine: fold ? (kv(fold, 'h1') ?? null) : null,
       heroCaption,
       heroCredit,
       gallery,

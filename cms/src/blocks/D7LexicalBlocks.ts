@@ -14,6 +14,7 @@ export const structureDividerBlock: Block = {
     {
       name: 'label',
       type: 'text',
+      localized: true,
       label: 'Divider label',
       admin: {
         description: 'Text shown between the two rules. Leave blank for a plain rule.',
@@ -29,6 +30,7 @@ export const buttonBlock: Block = {
     {
       name: 'label',
       type: 'text',
+      localized: true,
       label: 'Button label',
     },
     {
@@ -65,6 +67,7 @@ export const accentTextBlock: Block = {
     {
       name: 'text',
       type: 'textarea',
+      localized: true,
       label: 'Accent text content',
       admin: {
         description: 'Styled block with an accent-color left border.',

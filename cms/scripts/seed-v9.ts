@@ -24,11 +24,22 @@
  * Run from cms/:
  *   pnpm seed:v9:dry     (npx tsx scripts/seed-v9.ts --dry-run)
  *   pnpm seed:v9:apply   (npx tsx scripts/seed-v9.ts --apply)
+ *
+ * Languages (added 2026-09-07 with Payload localization):
+ *   --locale=<code>  seed one locale's copy. Default `en`, which reads the
+ *                    English canon at COPY_DIR exactly as it always has. Any
+ *                    other locale reads COPY_DIR/<code>/ (the vault canon path
+ *                    ruled in plan §G.1 row 10) and writes into that locale's
+ *                    tab; the run aborts if that directory does not exist,
+ *                    rather than quietly seeding English into a foreign tab.
+ *   pnpm seed:v9:apply -- --locale=pt
  */
 
 import 'dotenv/config'
 import fs from 'fs'
 import path from 'path'
+
+import { SITE_LOCALE_CODES, DEFAULT_LOCALE } from '../src/locales.js'
 
 // ── CLI + safety guards ──────────────────────────────────────────────────────
 
@@ -36,6 +47,16 @@ const APPLY = process.argv.includes('--apply')
 const DRY = process.argv.includes('--dry-run')
 if (APPLY === DRY) {
   console.error('seed-v9: pass exactly one of --dry-run or --apply. No changes made.')
+  process.exit(1)
+}
+
+const localeArg = process.argv.find((a) => a.startsWith('--locale='))
+const LOCALE = localeArg ? localeArg.slice('--locale='.length) : DEFAULT_LOCALE
+if (!(SITE_LOCALE_CODES as string[]).includes(LOCALE)) {
+  console.error(
+    `seed-v9: unknown locale "${LOCALE}". Known locales: ${SITE_LOCALE_CODES.join(', ')} ` +
+      '(edit src/locales.ts to add one). No changes made.',
+  )
   process.exit(1)
 }
 
@@ -48,7 +69,9 @@ const COPY_DIR_CANDIDATES = [
   '/Users/marco/Volumes/SharedData/00-01-vault-media/_vault-archive/2026-07-25-apr70-website-builds/11.12 V9 Build/02-copy',
   '/Volumes/SharedData/00-01-vault-media/_vault-archive/2026-07-25-apr70-website-builds/11.12 V9 Build/02-copy',
 ].filter((d): d is string => Boolean(d))
-const COPY_DIR = COPY_DIR_CANDIDATES.find((d) => fs.existsSync(d)) ?? COPY_DIR_CANDIDATES[0]
+const COPY_DIR_EN = COPY_DIR_CANDIDATES.find((d) => fs.existsSync(d)) ?? COPY_DIR_CANDIDATES[0]
+// English is the canon root; every other locale is a subdirectory of it.
+const COPY_DIR = LOCALE === DEFAULT_LOCALE ? COPY_DIR_EN : path.join(COPY_DIR_EN, LOCALE)
 const MEDIA_SOURCES = [
   '/Users/marco/websites/apr70-v8/site',
   '/Users/marco/websites/apr70-v9/site-media',
@@ -167,6 +190,15 @@ async function main(): Promise<void> {
     process.exit(1)
   }
 
+  if (!fs.existsSync(COPY_DIR)) {
+    console.error(
+      `seed-v9: copy canon for locale "${LOCALE}" not found at ${COPY_DIR}.\n` +
+        'Translated copy is canonised per locale (plan §G.1 row 10); create that directory ' +
+        'with the same file names as the English canon first. No changes made.',
+    )
+    process.exit(1)
+  }
+
   const read = (rel: string): CopyDoc =>
     parseCopy(fs.readFileSync(path.join(COPY_DIR, rel), 'utf8'))
 
@@ -234,6 +266,7 @@ async function main(): Promise<void> {
       collection: 'media',
       data: { alt: alt || filename, mediaKind: 'photo' },
       filePath,
+      locale: LOCALE,
     })
     summary.mediaCreated.push(src)
     mediaIds.set(src, doc.id)
@@ -355,7 +388,7 @@ async function main(): Promise<void> {
     }
 
     if (existing) {
-      if (!DRY) await payload.update({ collection: 'projects', id: existing.id, data })
+      if (!DRY) await payload.update({ collection: 'projects', id: existing.id, data, locale: LOCALE })
       projectIds.set(slug, existing.id)
       summary.projectsUpdated.push(
         existing.slug === slug ? slug : `${existing.slug} → ${slug} (slug normalized)`,
@@ -363,7 +396,7 @@ async function main(): Promise<void> {
     } else if (DRY) {
       summary.projectsCreated.push(`${slug} (would create)`)
     } else {
-      const doc2 = await payload.create({ collection: 'projects', data })
+      const doc2 = await payload.create({ collection: 'projects', data, locale: LOCALE })
       projectIds.set(slug, doc2.id)
       summary.projectsCreated.push(slug)
     }
@@ -376,7 +409,12 @@ async function main(): Promise<void> {
     if (v9Slugs.has(proj.slug)) continue
     if (proj.publicSlate !== false) {
       if (!DRY) {
-        await payload.update({ collection: 'projects', id: proj.id, data: { publicSlate: false } })
+        await payload.update({
+          collection: 'projects',
+          id: proj.id,
+          data: { publicSlate: false },
+          locale: LOCALE,
+        })
       }
       summary.projectsHidden.push(proj.slug)
     }
@@ -493,7 +531,7 @@ async function main(): Promise<void> {
       seoDescription: doc.frontmatter.description ?? null,
       sections,
     }
-    if (!DRY) await payload.updateGlobal({ slug, data })
+    if (!DRY) await payload.updateGlobal({ slug, data, locale: LOCALE })
     summary.globalsUpdated.push(`${slug} (${sections.length} sections)`)
   }
 
@@ -519,7 +557,7 @@ async function main(): Promise<void> {
       copyright: kv(footer, 'copyright'),
       navLinks: groups(footer, 'href').map((g) => ({ href: g.href, label: g.label })),
     }
-    if (!DRY) await payload.updateGlobal({ slug: 'site-settings', data: { v9Chrome } })
+    if (!DRY) await payload.updateGlobal({ slug: 'site-settings', data: { v9Chrome }, locale: LOCALE })
     summary.globalsUpdated.push(`site-settings.v9Chrome (${v9Chrome.navLinks.length} nav links)`)
   }
 
@@ -527,6 +565,8 @@ async function main(): Promise<void> {
   const mode = DRY ? 'DRY RUN (no writes)' : 'APPLIED'
   console.log(`\nseed-v9 — ${mode}`)
   console.log('────────────────────────────────────────────')
+  console.log(`locale           : ${LOCALE}`)
+  console.log(`copy canon       : ${COPY_DIR}`)
   console.log(`media uploaded   : ${summary.mediaCreated.length}`)
   for (const m of summary.mediaCreated) console.log(`  + ${m}`)
   console.log(`media existing   : ${summary.mediaExisting}`)

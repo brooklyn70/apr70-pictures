@@ -10,6 +10,7 @@ export const QuotesBlock: Block = {
     {
       name: 'heading',
       type: 'textarea',
+      localized: true,
     },
     {
       name: 'layout',
@@ -30,11 +31,13 @@ export const QuotesBlock: Block = {
         {
           name: 'quote',
           type: 'textarea',
+          localized: true,
           required: true,
         },
         {
           name: 'attribution',
           type: 'text',
+          localized: true,
         },
       ],
     },

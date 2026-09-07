@@ -15,6 +15,7 @@ export const DividerBlock: Block = {
     {
       name: 'label',
       type: 'text',
+      localized: true,
       admin: {
         description:
           'Text shown between the two rules (e.g. "Structure", "// DIVISIONS"). Leave blank for a plain rule.',

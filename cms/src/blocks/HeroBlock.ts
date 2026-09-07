@@ -15,6 +15,7 @@ export const HeroBlock: Block = {
     {
       name: 'heading',
       type: 'textarea',
+      localized: true,
       required: true,
       admin: {
         description: 'Hero headline text. Line breaks are intentional.',
@@ -23,6 +24,7 @@ export const HeroBlock: Block = {
     {
       name: 'subtext',
       type: 'text',
+      localized: true,
       admin: {
         description: 'Smaller subtext below the heading.',
       },
@@ -174,10 +176,12 @@ export const HeroBlock: Block = {
         {
           name: 'title',
           type: 'text',
+          localized: true,
         },
         {
           name: 'subtext',
           type: 'text',
+          localized: true,
         },
       ],
     },

@@ -317,3 +317,47 @@ Then IT, FR, DE the same way, one at a time, each gated on Marco's read.
 audience is Brazilian, the change is `pt` → `pt-BR` in `cms/src/locales.ts` (which
 changes the URL prefix to `/pt-br/`) plus the territory map in
 `web/src/lib/i18n/paths.ts`. Cheap to change now, expensive once URLs are indexed.
+
+---
+
+## Translation drafts
+
+`cms/scripts/translate-locale.ts` is the replayable first-draft translation
+pipeline: it reads the LIVE v10 site surface (the five v9 page globals with their
+`sections` blocks, Site Settings' localized fields, all ten Projects, and every
+Media `alt`) in English via the Payload local API, sends it to `claude-opus-5`
+one document at a time (media alts batched ~50 per request), and writes the
+translated strings back into the target locale's tab — never touching English,
+never touching any other locale.
+
+```sh
+pnpm -C cms translate:extract -- --locale=pt   # dry read: snapshot English into docs/i18n/drafts/en.snapshot.json
+pnpm -C cms translate:draft -- --locale=pt     # calls claude-opus-5: writes docs/i18n/drafts/pt.json
+pnpm -C cms translate:apply -- --locale=pt --apply   # writes the draft into the pt locale tabs (idempotent; add --force to overwrite)
+```
+
+`extract` and `draft` never write to the database. `apply` with no `--apply` flag
+is a dry run that only prints field counts; with `--apply` it writes, skipping any
+field that already carries a non-empty value in the target locale unless `--force`
+is also passed. Field discovery walks Payload's own resolved field config (not a
+hardcoded list), so it tracks `docs/i18n/localized-fields.md` automatically as
+fields change.
+
+**`docs/i18n/drafts/<locale>.json` is the replayable artefact for staging.** It is
+the exact input `apply` uses — commit it, and a fresh `apply --force` run
+reproduces the same locale tabs on any database (rehearsal, staging, or after a
+restore) without calling the model again.
+
+**The sign-off gate:** a draft's field values are a first pass. Nothing in
+`docs/i18n/drafts/` or in the locale tabs it fills is public — the public site
+only serves a locale once it is ticked in **Site Settings → Languages → Enabled
+locales**, a separate, deliberate, human step. Before that tick, Marco reads the
+generated `docs/i18n/review/<locale>-<date>.md` (every field as an EN/PT pair,
+grouped by page in site order) and corrects any line, either directly in the
+admin's locale tab or by editing `drafts/<locale>.json` and re-running `apply`
+with `--force`.
+
+**The vault canon path `11.12 V9 Build/02-copy/<locale>/`** (referenced in "What
+remains for Phase 3" above) is populated only *after* Marco's sign-off, and by a
+human/agent action separate from this pipeline — `translate-locale.ts` writes to
+the CMS database and to `docs/i18n/drafts/`, never to the vault.

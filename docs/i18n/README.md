@@ -361,3 +361,54 @@ with `--force`.
 remains for Phase 3" above) is populated only *after* Marco's sign-off, and by a
 human/agent action separate from this pipeline — `translate-locale.ts` writes to
 the CMS database and to `docs/i18n/drafts/`, never to the vault.
+
+### Generating the review doc
+
+`tools/i18n-review/build-review.py` (python3, stdlib only) turns a locale's draft
+into the sign-off doc — the generator behind `docs/i18n/review/pt-2026-09-07.md`
+and the it/fr/de drafts below:
+
+```sh
+python3 tools/i18n-review/build-review.py --locale=it   # writes docs/i18n/review/it-<date>.md
+python3 tools/i18n-review/build-review.py --locale=fr
+python3 tools/i18n-review/build-review.py --locale=de
+```
+
+It reads `docs/i18n/drafts/en.snapshot.json` + `docs/i18n/drafts/<locale>.json`
+and reproduces the PT doc's structure exactly (same header shape, Contents, page
+order, field paths, media-alt table) for any locale in `LOCALE_META`. One
+improvement over the hand-authored PT doc: the handful of true `richText`
+(Lexical) fields — e.g. `layout.1.rightBody` on some Projects — are rendered as
+actual plain text instead of a `*(rich text — see admin)*` placeholder. Verified
+against the hand-made PT doc: running the generator for `pt` and diffing against
+`docs/i18n/review/pt-2026-09-07.md` shows identical field paths, identical order,
+identical section headings, and an identical media-alt row count — the only
+diffs are the header wording and the three now-rendered richText fields.
+
+### it / fr / de first drafts (2026-09-07)
+
+Produced the same way as the PT draft above, in the rehearsal Postgres, then
+applied and verified: `translate:apply --apply` wrote all 618/618 fields for
+each locale; a dry re-run afterward showed it/fr each with **one or two**
+fields still reporting "would write" rather than "skip" —
+`site-settings.aiMark.text` (and, for `fr` only, also `troupe.navLabel`) —
+because the translated string is identical to that field's static Payload
+`defaultValue` ("APR 70 · AI GEN" / "Troupe" is also standard French), and
+`apply`'s idempotency check cannot tell "never translated" from "translated to
+the untranslatable default." This is pre-existing behavior (PT has the same
+`aiMark.text` gap) — not a regression, and not a content problem, since the
+value written both times is correct. `de` had no coincidental matches: dry
+re-run showed 618/618 skipped, fully idempotent. After all three applies, a
+fresh `translate:extract` (locale is irrelevant, extract always reads `en`)
+diffed content-identical (order-independent) against a snapshot taken before
+this run — English is untouched.
+
+| locale | requests | input tokens | output tokens | cost @ $5/M in, $25/M out |
+|---|---|---|---|---|
+| pt | 21 | 37,934 | 38,588 | $1.15 |
+| it | 21 | 38,165 | 40,260 | $1.20 |
+| fr | 21 | 38,270 | 39,215 | $1.17 |
+| de | 21 | 38,207 | 45,115 | $1.32 |
+
+Review docs: `docs/i18n/review/it-2026-09-07.md`, `fr-2026-09-07.md`,
+`de-2026-09-07.md`. Draft artefacts: `docs/i18n/drafts/{it,fr,de}.json`.

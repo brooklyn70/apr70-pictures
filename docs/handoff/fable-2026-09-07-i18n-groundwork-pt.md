@@ -11,10 +11,13 @@
 4. Portuguese: `cms/scripts/translate-locale.ts` (`translate:extract|draft|apply --locale=pt`), replayable draft `docs/i18n/drafts/pt.json` (618 fields, claude-opus-5), sign-off doc `docs/i18n/review/pt-2026-09-07.md`. English proven untouched.
 5. Verification: `docs/i18n/web-verification-2026-09-07.md`, `docs/i18n/pt-verification-2026-09-07.md` + screenshots; mobile header wrap fix for longer locale labels.
 
-## Marco's calls (open)
-- `pt` vs `pt-BR` for the URL/og:locale (content was drafted in pt-BR usage). Cheap now, expensive after indexing.
-- Switcher placement: header end + footer row (as built) or elsewhere.
-- Read and sign off `docs/i18n/review/pt-2026-09-07.md`; corrections go in the admin PT tab or in `drafts/pt.json` + `translate:apply --force`.
+## Marco's rulings (2026-09-07, evening)
+- **pt-BR:** URL prefix stays `/pt/`; `htmlLang`, hreflang, `inLanguage` are `pt-BR`, `og:locale` is `pt_BR` (`cms/src/locales.ts`, `web/src/lib/i18n/paths.ts`).
+- **Switcher stays** where it is: header end + footer row.
+- **All four locales drafted:** pt, it, fr, de, each 618 fields on `claude-opus-5` (about $1.15-1.32 per locale), applied to the rehearsal DB, English proven untouched after every apply. Replayable drafts in `docs/i18n/drafts/<code>.json`; sign-off docs `docs/i18n/review/<code>-2026-09-07.md` (generator `tools/i18n-review/build-review.py --locale=<code>`).
+
+## Still open
+- Sign off each review doc; corrections go in the admin locale tab or in `drafts/<code>.json` + `translate:apply --locale=<code> --apply --force`.
 - The `/work/[slug]` hero fold never emitted `data-ai-frame`; left as is (pre-existing), needs a ruling.
 
 ## Deploy order when ruled (do not run without Marco's go)

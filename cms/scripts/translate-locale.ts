@@ -297,7 +297,32 @@ async function runExtract(): Promise<void> {
 
 // ── draft ───────────────────────────────────────────────────────────────
 
-const SYSTEM_PROMPT = `You are the house translator for APR 70 Pictures, an independent New York film and television studio with three divisions: (212) Pictures, (310) Pictures, and New Renaissance Cinema. Translate the JSON values from English into Brazilian Portuguese for the studio's public website. Register: cinematic, spare, confident, editorial — the voice of a studio's title cards and programme notes, never marketing copy. Keep every key and the structure identical. Do not translate: the names 'APR 70 Pictures', '(212) Pictures', '(310) Pictures', 'New Renaissance Cinema', 'AI Mark', film and property titles, people's names, place names that are proper nouns (Red Hook, Sea Gate, Long Island City, Taormina, Modica, Venice keep their Portuguese exonyms only where a standard one exists, e.g. Veneza), keycodes and short uppercase codes, numbers, dates, URLs, email addresses, HTML/markup, placeholders. Preserve line breaks, punctuation tokens, en/em dashes and middots. Prefer Brazilian Portuguese spelling and usage (pt-BR). Output ONLY the JSON object.`
+const LANGUAGES: Record<string, { name: string; usage: string; exonym: string }> = {
+  pt: {
+    name: 'Brazilian Portuguese',
+    usage: '${LANG.usage}',
+    exonym: '${LANG.exonym}',
+  },
+  it: {
+    name: 'Italian',
+    usage: 'Use standard Italian as written in Italy; formal register without the Lei address (the site speaks to a general public, not to one reader).',
+    exonym: 'keep their Italian exonyms only where a standard one exists, e.g. Venezia, New York stays New York',
+  },
+  fr: {
+    name: 'French',
+    usage: 'Use standard French as written in France, with French typographic conventions (espace before : ; ? ! as non-breaking where possible, guillemets « » for quotations).',
+    exonym: 'keep their French exonyms only where a standard one exists, e.g. Venise, New York stays New York',
+  },
+  de: {
+    name: 'German',
+    usage: 'Use standard German as written in Germany (new orthography, ß where correct); address the public in the formal Sie only where the original addresses the reader directly.',
+    exonym: 'keep their German exonyms only where a standard one exists, e.g. Venedig, New York stays New York',
+  },
+}
+const LANG = LANGUAGES[LOCALE]
+if (!LANG) fail(`no translator guidance for locale '${LOCALE}' (known: ${Object.keys(LANGUAGES).join(', ')}). No changes made.`)
+
+const SYSTEM_PROMPT = `You are the house translator for APR 70 Pictures, an independent New York film and television studio with three divisions: (212) Pictures, (310) Pictures, and New Renaissance Cinema. Translate the JSON values from English into ${LANG.name} for the studio's public website. Register: cinematic, spare, confident, editorial — the voice of a studio's title cards and programme notes, never marketing copy. Keep every key and the structure identical. Do not translate: the names 'APR 70 Pictures', '(212) Pictures', '(310) Pictures', 'New Renaissance Cinema', 'AI Mark', film and property titles, people's names, place names that are proper nouns (Red Hook, Sea Gate, Long Island City, Taormina, Modica, Venice ${LANG.exonym}), keycodes and short uppercase codes, numbers, dates, URLs, email addresses, HTML/markup, placeholders. Preserve line breaks, punctuation tokens, en/em dashes and middots. ${LANG.usage} Output ONLY the JSON object.`
 
 type UsageTotals = { requests: number; inputTokens: number; outputTokens: number }
 

@@ -53,13 +53,13 @@ export function stripLocale(pathname: string): string {
 
 /**
  * `og:locale` wants `language_TERRITORY`, not a bare language tag. The
- * territories below are the obvious European defaults; APR 70 is a US studio,
- * so English is en_US. If Marco wants Brazilian Portuguese the change is
- * `pt` -> `pt_BR` here AND a `pt-BR` htmlLang in cms/src/locales.ts.
+ * territories below: APR 70 is a US studio, so English is en_US; Portuguese is
+ * Brazilian (ruled 2026-09-07), paired with the `pt-BR` htmlLang in
+ * cms/src/locales.ts. The URL prefix stays the bare `/pt/`.
  */
 const OG_TERRITORY: Record<SiteLocale, string> = {
   en: 'en_US',
-  pt: 'pt_PT',
+  pt: 'pt_BR', // Marco 2026-09-07: Brazilian Portuguese; URL prefix stays /pt/
   it: 'it_IT',
   fr: 'fr_FR',
   de: 'de_DE',

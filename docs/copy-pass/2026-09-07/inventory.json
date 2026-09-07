@@ -1,0 +1,2360 @@
+{
+  "generated": "2026-09-07",
+  "source": "docs/i18n/drafts/en.snapshot.json",
+  "excluded": "media:* (image alt text; not reader-visible copy)",
+  "slate_order": [
+    "a-need-grows-in-brooklyn",
+    "la-dolce-vita",
+    "sea-gate",
+    "alpha-yy",
+    "da-hook",
+    "the-movement",
+    "cleopatra",
+    "shadowmaster",
+    "u-bruculinu",
+    "mayors"
+  ],
+  "docs": [
+    {
+      "key": "v9-home:v9-home",
+      "page": "Home",
+      "route": "/",
+      "kind": "page",
+      "private": false,
+      "fields": [
+        {
+          "path": "seoTitle",
+          "kind": "text",
+          "before": "APR 70 Pictures \u00b7 The classics never go out of style"
+        },
+        {
+          "path": "seoDescription",
+          "kind": "text",
+          "before": "APR 70 Pictures is a film and television studio in Long Island City, New York. Human-written scripts, classic storytelling discipline, machine craft below the line, disclosed. Ten properties on the working slate."
+        },
+        {
+          "path": "sections.0.kicker",
+          "kind": "text",
+          "before": "An entertainment company \u00b7 Long Island City, NY"
+        },
+        {
+          "path": "sections.0.heading",
+          "kind": "text",
+          "before": "The classics never go out of style."
+        },
+        {
+          "path": "sections.0.caption",
+          "kind": "text",
+          "before": "From the working slate \u00b7 ==L.A. Dolce Vita== \u00b7 Santa Monica Pier, night"
+        },
+        {
+          "path": "sections.0.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "sections.1.links.0.label",
+          "kind": "text",
+          "before": "Slate"
+        },
+        {
+          "path": "sections.1.links.1.label",
+          "kind": "text",
+          "before": "Craft"
+        },
+        {
+          "path": "sections.1.links.2.label",
+          "kind": "text",
+          "before": "Methods"
+        },
+        {
+          "path": "sections.1.links.3.label",
+          "kind": "text",
+          "before": "Contact"
+        },
+        {
+          "path": "sections.2.sceneSlug",
+          "kind": "text",
+          "before": "INT. THE IDEA - NIGHT"
+        },
+        {
+          "path": "sections.2.heading",
+          "kind": "text",
+          "before": "There is an audience that still wants a story."
+        },
+        {
+          "path": "sections.2.lede",
+          "kind": "text",
+          "before": "They have been waiting for stories told with craft: written by hand, finished on the page, and worth handing to the next generation. APR 70 Pictures exists to serve that audience."
+        },
+        {
+          "path": "sections.2.body",
+          "kind": "text",
+          "before": "We operate on a simple conviction: the greatest art is born inside clear boundaries. Old Hollywood worked under hard rules about what could be shown, and it answered with subtext, atmosphere, and ingenious writing. Filmmakers mastered visual storytelling and narrative economy. We bring that discipline back to street level, in film, television, stage, and radio, whole.\n\nHere the story does the heavy lifting. Drama over information. Subtext over statement. A face held long enough to matter."
+        },
+        {
+          "path": "sections.3.caption",
+          "kind": "text",
+          "before": "From the working slate \u00b7 ==L.A. Dolce Vita== \u00b7 Via del Corso, morning"
+        },
+        {
+          "path": "sections.3.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "sections.4.sceneSlug",
+          "kind": "text",
+          "before": "INT. THE CRAFT - CONTINUOUS"
+        },
+        {
+          "path": "sections.4.heading",
+          "kind": "text",
+          "before": "The craft of constraint."
+        },
+        {
+          "path": "sections.4.body",
+          "kind": "text",
+          "before": "We keep one line from Mamet taped to the wall: the audience tunes in to watch drama. We look to the humanity of Capra, the visual rigor of Bergman, the restless intelligence of Welles and the Mercury Theatre. Then we run that spirit through Brooklyn and Los Angeles: real neighborhoods, real faces, real stakes."
+        },
+        {
+          "path": "sections.4.quote",
+          "kind": "text",
+          "before": "The enemy of art is the absence of limitations."
+        },
+        {
+          "path": "sections.4.cite",
+          "kind": "text",
+          "before": "Orson Welles"
+        },
+        {
+          "path": "sections.4.moreLabel",
+          "kind": "text",
+          "before": "Principles of the craft \u2192"
+        },
+        {
+          "path": "sections.5.caption",
+          "kind": "text",
+          "before": "From the working slate \u00b7 ==L.A. Dolce Vita== \u00b7 Sunset Blvd, 2 AM"
+        },
+        {
+          "path": "sections.5.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "sections.6.sceneSlug",
+          "kind": "text",
+          "before": "INT. THE COMPANY - DAY"
+        },
+        {
+          "path": "sections.6.heading",
+          "kind": "text",
+          "before": "Written by people. Finished on the page."
+        },
+        {
+          "path": "sections.6.body",
+          "kind": "text",
+          "before": "APR 70 is one writer-producer and a working slate of **ten properties**: three features drafted, a ten-episode season on the page, and more in development. Nine titles are public on the [slate](/slate), each with its own page; one travels only inside private materials while legal counsel review completes. The scripts are written by people. The machine works below the line, on frames like the ones on this site, and it is disclosed wherever it works."
+        },
+        {
+          "path": "sections.6.moreLabel",
+          "kind": "text",
+          "before": "How we work \u2192"
+        },
+        {
+          "path": "sections.7.sceneSlug",
+          "kind": "text",
+          "before": "EXT. THE OPEN INTERNET - 2026"
+        },
+        {
+          "path": "sections.7.heading",
+          "kind": "text",
+          "before": "Built for how stories reach people now."
+        },
+        {
+          "path": "sections.7.body",
+          "kind": "text",
+          "before": "Stories reach their audiences over the open internet now: direct, worldwide, and on the viewer's own clock. APR 70 is built for that world. The slate develops in public view on this site, the audience finds it through search, through AI answers, and on X, and the pages themselves go out one reader at a time. 2026 and 2027 belong to the studios that meet people where they already are, carrying work worth their attention."
+        },
+        {
+          "path": "sections.8.sceneSlug",
+          "kind": "text",
+          "before": "INT. THE SLATE - NIGHT"
+        },
+        {
+          "path": "sections.8.heading",
+          "kind": "text",
+          "before": "On the page now."
+        },
+        {
+          "path": "sections.9.rows.0.logline",
+          "kind": "text",
+          "before": "Borough Park, the summer of 1986."
+        },
+        {
+          "path": "sections.9.rows.1.logline",
+          "kind": "text",
+          "before": "Los Angeles and Rome, ten days in February."
+        },
+        {
+          "path": "sections.9.rows.2.logline",
+          "kind": "text",
+          "before": "A private town at the end of Brooklyn."
+        },
+        {
+          "path": "sections.10.divisions.0.blurb",
+          "kind": "text",
+          "before": "New York television at street level, built from the five boroughs."
+        },
+        {
+          "path": "sections.10.divisions.1.blurb",
+          "kind": "text",
+          "before": "Television for audiences who travel, staged out of Los Angeles."
+        },
+        {
+          "path": "sections.10.divisions.2.blurb",
+          "kind": "text",
+          "before": "Feature films built for permanence."
+        },
+        {
+          "path": "sections.11.body",
+          "kind": "text",
+          "before": "[The whole slate: ten properties \u2192](/slate)"
+        },
+        {
+          "path": "sections.12.sceneSlug",
+          "kind": "text",
+          "before": "INT. THE READING - NIGHT"
+        },
+        {
+          "path": "sections.12.heading",
+          "kind": "text",
+          "before": "Read the pages."
+        },
+        {
+          "path": "sections.12.body",
+          "kind": "text",
+          "before": "Scripts, synopses, and episode grids are shared privately, on request. If you produce, represent, or finance work like this, ask. The reply comes from the writer."
+        },
+        {
+          "path": "sections.12.linkLabel",
+          "kind": "text",
+          "before": "Request materials"
+        }
+      ]
+    },
+    {
+      "key": "v9-slate:v9-slate",
+      "page": "Slate",
+      "route": "/slate",
+      "kind": "page",
+      "private": false,
+      "fields": [
+        {
+          "path": "seoTitle",
+          "kind": "text",
+          "before": "The Slate \u00b7 APR 70 Pictures"
+        },
+        {
+          "path": "seoDescription",
+          "kind": "text",
+          "before": "The APR 70 Pictures working slate; ten properties, features, series, and documentary work in development. Nine public, each with its own page. One held privately while legal counsel review completes. Materials shared privately, on request."
+        },
+        {
+          "path": "sections.0.caption",
+          "kind": "text",
+          "before": "From the working slate \u00b7 ==L.A. Dolce Vita== \u00b7 East L.A. \u00b7 the scandal breaks"
+        },
+        {
+          "path": "sections.0.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "sections.1.sceneSlug",
+          "kind": "text",
+          "before": "INT. THE SLATE - NIGHT"
+        },
+        {
+          "path": "sections.1.heading",
+          "kind": "text",
+          "before": "Ten properties. The facts of each."
+        },
+        {
+          "path": "sections.1.body",
+          "kind": "text",
+          "before": "The slate runs **ten properties**. Nine are on this page, and each has a page of its own: the setting, the frames, the facts. One travels only inside private materials while legal counsel review completes. A slate is a promise; a script is a fact. We list the facts, and the pages themselves are shared privately."
+        },
+        {
+          "path": "sections.1.quote",
+          "kind": "text",
+          "before": "Write with the door closed, rewrite with the door open."
+        },
+        {
+          "path": "sections.1.cite",
+          "kind": "text",
+          "before": "Stephen King"
+        },
+        {
+          "path": "sections.2.rows.0.logline",
+          "kind": "text",
+          "before": "In the summer of 1986 on a Borough Park block, a sensitive 17-year-old who dreams of acting at NYU is pulled from petty mischief into the seductive club-and-crime world of older dealers, losing his innocence, his first love, and ultimately his life to the casual violence of his neighborhood."
+        },
+        {
+          "path": "sections.2.rows.1.logline",
+          "kind": "text",
+          "before": "When a presidential candidate is caught via live stream with a mysterious woman, the ensuing scandal unravels fifteen years of secrets: a journalist's vanished fianc\u00e9e, his hidden daughter, and a crime family's plan to claim her as heir."
+        },
+        {
+          "path": "sections.2.rows.2.logline",
+          "kind": "text",
+          "before": "A private town at the end of Brooklyn, present day, high summer."
+        },
+        {
+          "path": "sections.2.rows.2.provenance",
+          "kind": "text",
+          "before": "After Dashiell Hammett's *Red Harvest* (1929); the novel is public domain"
+        },
+        {
+          "path": "sections.2.rows.3.logline",
+          "kind": "text",
+          "before": "In the underworld of Staten Island, two reckless enforcers collect debts through savage work and coded prison-gang demands, until a final betrayal forces them to confront the cost of their chaotic existence."
+        },
+        {
+          "path": "sections.2.rows.4.logline",
+          "kind": "text",
+          "before": "Red Hook, Brooklyn, the fall of 1970."
+        },
+        {
+          "path": "sections.2.rows.4.provenance",
+          "kind": "text",
+          "before": "After Dashiell Hammett's *The Maltese Falcon* (1930); the novel is public domain"
+        },
+        {
+          "path": "sections.2.rows.5.logline",
+          "kind": "text",
+          "before": "Seven international students, recruited into a secret class by clues to a campus bomb, are trained through covert missions, never suspecting that every mission serves the hidden consortium they believe they are fighting."
+        },
+        {
+          "path": "sections.2.rows.6.logline",
+          "kind": "text",
+          "before": "A divorced Sicilian-Brooklyn woman scraping by in Los Angeles wakes after every sleep into a different version of her own life in the same city, and must master her shifting reigns before a rival who travels the same way collapses every version of her into the one he can own."
+        },
+        {
+          "path": "sections.2.rows.7.logline",
+          "kind": "text",
+          "before": "In a televised hybrid of esports and live-action drama, elite gamers called the Shadow Masters command real-life human avatars through high-stakes scenarios. Their avatars may defy orders when survival, greed, or conscience takes over, pitting strategy against free will."
+        },
+        {
+          "path": "sections.2.rows.8.logline",
+          "kind": "text",
+          "before": "An expatriate returns to his ancestral Sicily in the 1970s seeking a quiet life. The land, and its people, will not let him be quiet."
+        },
+        {
+          "path": "sections.3.sceneSlug",
+          "kind": "text",
+          "before": "INT. THREE TRADITIONS - CONTINUOUS"
+        },
+        {
+          "path": "sections.3.heading",
+          "kind": "text",
+          "before": "Three traditions, one hand."
+        },
+        {
+          "path": "sections.3.body",
+          "kind": "text",
+          "before": "APR 70 Pictures is one writer-producer working in three traditions. (212) Pictures is the New York work: crime, drama, and documentary built from the five boroughs. (310) Pictures is the long-form work made for audiences who travel, political thrillers and science fiction staged out of Los Angeles and beyond. New Renaissance Cinema is the feature work, films built to last rather than to fill a release window. A property wears the tradition that fits it best, and when a feature reaches beyond one coast its territory division joins as co-production. Three traditions, one standard."
+        },
+        {
+          "path": "sections.4.divisions.0.blurb",
+          "kind": "text",
+          "before": "New York television at street level, built from the five boroughs."
+        },
+        {
+          "path": "sections.4.divisions.1.blurb",
+          "kind": "text",
+          "before": "Television for audiences who travel, staged out of Los Angeles."
+        },
+        {
+          "path": "sections.4.divisions.2.blurb",
+          "kind": "text",
+          "before": "Feature films built for permanence."
+        },
+        {
+          "path": "sections.5.body",
+          "kind": "text",
+          "before": "One property travels only inside private materials while legal counsel review completes. Where a property builds on a public-domain novel, the source and its status are stated above; everything on this slate references the novels alone, and full loglines for those titles travel in private materials only. Synopses, scripts, and episode grids are shared privately, on request, under the usual courtesies. Everything on this page is presented for private reading rather than public evaluation, and \"drafted\" means a working draft exists on the page; it is a status, not a delivery representation."
+        },
+        {
+          "path": "sections.6.sceneSlug",
+          "kind": "text",
+          "before": "INT. THE READING - NIGHT"
+        },
+        {
+          "path": "sections.6.heading",
+          "kind": "text",
+          "before": "Ask for the pages."
+        },
+        {
+          "path": "sections.6.body",
+          "kind": "text",
+          "before": "If you produce, represent, or finance work like this, request what you'd like to read and it will come from the writer, privately."
+        },
+        {
+          "path": "sections.6.linkLabel",
+          "kind": "text",
+          "before": "Request materials"
+        }
+      ]
+    },
+    {
+      "key": "v9-craft:v9-craft",
+      "page": "Craft",
+      "route": "/craft",
+      "kind": "page",
+      "private": false,
+      "fields": [
+        {
+          "path": "seoTitle",
+          "kind": "text",
+          "before": "The Craft \u00b7 APR 70 Pictures"
+        },
+        {
+          "path": "seoDescription",
+          "kind": "text",
+          "before": "The craft of constraint; APR 70's working principles, and the storytellers who proved that powerful work comes from deliberate choices inside clear boundaries."
+        },
+        {
+          "path": "sections.0.caption",
+          "kind": "text",
+          "before": "From the working slate \u00b7 ==A Need Grows in Brooklyn== \u00b7 Borough Park, summer 1986"
+        },
+        {
+          "path": "sections.0.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "sections.1.sceneSlug",
+          "kind": "text",
+          "before": "INT. THE PRINCIPLES - NIGHT"
+        },
+        {
+          "path": "sections.1.heading",
+          "kind": "text",
+          "before": "The greatest art is born inside clear boundaries."
+        },
+        {
+          "path": "sections.1.lede",
+          "kind": "text",
+          "before": "We draw enduring wisdom from the storytellers who defined their art through discipline, vision, and creative restraint."
+        },
+        {
+          "path": "sections.1.body",
+          "kind": "text",
+          "before": "Their insight is simple and unfashionable: powerful storytelling arises from deliberate choices within clear boundaries. Old Hollywood worked under hard rules about what could be shown, and it answered with subtext, atmosphere, and ingenious writing. That discipline built the pictures people still watch, still quote, and still hand to their children.\n\nThese principles guide every project we develop, from limited series to features and beyond, as we build a studio dedicated to narratives of moral complexity, human resilience, and lasting impact: heroism with open eyes, ambiguity with a conscience, in the real neighborhoods of Brooklyn, Los Angeles, and beyond."
+        },
+        {
+          "path": "sections.2.quote",
+          "kind": "text",
+          "before": "What is drama, after all, but life with the dull bits cut out."
+        },
+        {
+          "path": "sections.2.cite",
+          "kind": "text",
+          "before": "Alfred Hitchcock"
+        },
+        {
+          "path": "sections.2.note",
+          "kind": "text",
+          "before": "Hitchcock/Truffaut, 1962 interviews"
+        },
+        {
+          "path": "sections.3.caption",
+          "kind": "text",
+          "before": "The audience we still write for \u00b7 Grauman's Egyptian Theatre, Hollywood, May 14, 1926"
+        },
+        {
+          "path": "sections.3.credit",
+          "kind": "text",
+          "before": "Archival photograph \u00b7 public domain (published pre-1931) \u00b7 via Wikimedia Commons"
+        },
+        {
+          "path": "sections.4.sceneSlug",
+          "kind": "text",
+          "before": "INT. WHAT IT MEANS HERE - NIGHT"
+        },
+        {
+          "path": "sections.4.heading",
+          "kind": "text",
+          "before": "Restraint, repeated, becomes a signature."
+        },
+        {
+          "path": "sections.4.body",
+          "kind": "text",
+          "before": "In practice: stories that can be shared across generations. Drama over information. Subtext over statement. The camera earns its movement; the cut earns its place. We would rather hold a face for four seconds than cut three times to prove we were there.\n\nThe classics never go out of style. They just need storytellers brave enough to tell them."
+        },
+        {
+          "path": "sections.4.moreLabel",
+          "kind": "text",
+          "before": "See what we're telling \u2192"
+        }
+      ]
+    },
+    {
+      "key": "v9-methods:v9-methods",
+      "page": "Methods",
+      "route": "/methods",
+      "kind": "page",
+      "private": false,
+      "fields": [
+        {
+          "path": "seoTitle",
+          "kind": "text",
+          "before": "Methods \u00b7 APR 70 Pictures"
+        },
+        {
+          "path": "seoDescription",
+          "kind": "text",
+          "before": "How APR 70 works; scripts written by people, images and motion machine-generated and disclosed wherever they appear. The full authorship discipline."
+        },
+        {
+          "path": "sections.0.sceneSlug",
+          "kind": "text",
+          "before": "INT. THE WORKSHOP - DAY"
+        },
+        {
+          "path": "sections.0.heading",
+          "kind": "text",
+          "before": "Written by people. Rendered by machines. Labeled, always."
+        },
+        {
+          "path": "sections.0.lede",
+          "kind": "text",
+          "before": "Everyone deserves to know which parts of our work a machine touched. So we tell you, here and in every caption."
+        },
+        {
+          "path": "sections.0.body",
+          "kind": "text",
+          "before": "The short version: the writing is human, the below-the-line image work is machine-generated under our direction, and the two keep their own names."
+        },
+        {
+          "path": "sections.1.quote",
+          "kind": "text",
+          "before": "My job is to care about and be responsible for every frame of every movie I make."
+        },
+        {
+          "path": "sections.1.cite",
+          "kind": "text",
+          "before": "Sidney Lumet"
+        },
+        {
+          "path": "sections.1.note",
+          "kind": "text",
+          "before": "Making Movies, 1995"
+        },
+        {
+          "path": "sections.2.ariaLabel",
+          "kind": "text",
+          "before": "The disclosure ledger"
+        },
+        {
+          "path": "sections.2.rows.0.term",
+          "kind": "text",
+          "before": "Scripts"
+        },
+        {
+          "path": "sections.2.rows.0.definition",
+          "kind": "text",
+          "before": "**Written by people.** Marco Caruso is the author of record; the drafting passes are his. Software assists the way a research library and a patient line editor assist: coverage, continuity checks, notes. The process is logged per script."
+        },
+        {
+          "path": "sections.2.rows.1.term",
+          "kind": "text",
+          "before": "Images & motion"
+        },
+        {
+          "path": "sections.2.rows.1.definition",
+          "kind": "text",
+          "before": "**Machine-generated under our direction, and labeled where they appear**, including every development frame on this site. We work on our own machines and, where the frame demands more, with rented cloud models. Either way the label is the same: AI-generated, disclosed, and kept plainly apart from photography."
+        },
+        {
+          "path": "sections.2.rows.2.term",
+          "kind": "text",
+          "before": "Likenesses"
+        },
+        {
+          "path": "sections.2.rows.2.definition",
+          "kind": "text",
+          "before": "**Archetypes only, invented faces only.** Everything on this site and in our materials depicts invented people. Real performers and real public figures appear nowhere in generated work."
+        },
+        {
+          "path": "sections.2.rows.3.term",
+          "kind": "text",
+          "before": "Archival imagery"
+        },
+        {
+          "path": "sections.2.rows.3.definition",
+          "kind": "text",
+          "before": "**Public domain only, verified and credited.** When a page carries an archival photograph or map, its date and public-domain basis are stated in the caption. Every archival image comes from the open record, credited to its source."
+        },
+        {
+          "path": "sections.2.rows.4.term",
+          "kind": "text",
+          "before": "This site"
+        },
+        {
+          "path": "sections.2.rows.4.definition",
+          "kind": "text",
+          "before": "**Static pages, hand-set type, nothing watching you.** The fonts are served from this site, and the pages leave you alone: zero cookies, zero analytics, zero third-party requests, verified 2026-07-12. A request for materials is an email to the writer, person to person."
+        },
+        {
+          "path": "sections.2.rows.5.term",
+          "kind": "text",
+          "before": "One story"
+        },
+        {
+          "path": "sections.2.rows.5.definition",
+          "kind": "text",
+          "before": "Machine work is credited as machine work, handwork as handwork, and the reader and the partner hear the same account. **One story, told to everyone.**"
+        },
+        {
+          "path": "sections.2.rows.6.term",
+          "kind": "text",
+          "before": "Why it matters"
+        },
+        {
+          "path": "sections.2.rows.6.definition",
+          "kind": "text",
+          "before": "Because trust is the only asset a small studio owns outright. And because the work we sell, the writing, must stand as human work, plainly and provably."
+        },
+        {
+          "path": "sections.2.rows.7.term",
+          "kind": "text",
+          "before": "Rights"
+        },
+        {
+          "path": "sections.2.rows.7.definition",
+          "kind": "text",
+          "before": "**Original works reserved; public texts stay public.** APR 70 Pictures reserves its original works: the screenplays, characters, scenes, and development materials made here. Where a property builds on a public-domain novel, the page names that source, gives its date, and credits it as free for everyone to use. APR 70 reserves only the new expression it adds on top."
+        },
+        {
+          "path": "sections.3.caption",
+          "kind": "text",
+          "before": "One motion test, four frames \u00b7 a below-the-line process exhibit"
+        },
+        {
+          "path": "sections.3.credit",
+          "kind": "text",
+          "before": "AI-generated, like everything machine-made here"
+        },
+        {
+          "path": "sections.4.sceneSlug",
+          "kind": "text",
+          "before": "INT. THE POINT - CONTINUOUS"
+        },
+        {
+          "path": "sections.4.heading",
+          "kind": "text",
+          "before": "Constraint again, just newer tools."
+        },
+        {
+          "path": "sections.4.body",
+          "kind": "text",
+          "before": "The craft of constraint continues past the writing desk. Working under a disclosure rule is a boundary like any other, and boundaries are where our best work comes from. The machine gets the busywork below the line. The people keep the story."
+        },
+        {
+          "path": "sections.4.moreLabel",
+          "kind": "text",
+          "before": "The slate \u2192"
+        }
+      ]
+    },
+    {
+      "key": "v9-contact:v9-contact",
+      "page": "Contact",
+      "route": "/contact",
+      "kind": "page",
+      "private": false,
+      "fields": [
+        {
+          "path": "seoTitle",
+          "kind": "text",
+          "before": "Contact \u00b7 APR 70 Pictures"
+        },
+        {
+          "path": "seoDescription",
+          "kind": "text",
+          "before": "Request materials from APR 70 Pictures. Scripts, synopses, and episode grids shared privately with producers, representatives, and financiers."
+        },
+        {
+          "path": "sections.0.sceneSlug",
+          "kind": "text",
+          "before": "INT. THE DESK - NIGHT"
+        },
+        {
+          "path": "sections.0.heading",
+          "kind": "text",
+          "before": "The reply comes from the writer."
+        },
+        {
+          "path": "sections.0.lede",
+          "kind": "text",
+          "before": "APR 70 Pictures is Marco Caruso, a writer-producer in Long Island City, New York, after thirty-five years behind the camera in television news and documentary. The slate is his, page by page."
+        },
+        {
+          "path": "sections.0.body",
+          "kind": "text",
+          "before": "You reach the writer directly here. If you produce, represent, or finance scripted work and want to read something on the slate, write and say who you are, what you would like to read, and in what capacity you are asking. The pages go out privately, person to person."
+        },
+        {
+          "path": "sections.0.linkLabel",
+          "kind": "text",
+          "before": "caruso@apr70.com"
+        },
+        {
+          "path": "sections.1.quote",
+          "kind": "text",
+          "before": "You see? We give people these little pieces of time. And they keep them forever."
+        },
+        {
+          "path": "sections.1.cite",
+          "kind": "text",
+          "before": "James Stewart"
+        },
+        {
+          "path": "sections.1.note",
+          "kind": "text",
+          "before": "quoted by Peter Bogdanovich, Pieces of Time, 1973"
+        },
+        {
+          "path": "sections.2.sceneSlug",
+          "kind": "text",
+          "before": "INT. THE DOOR - CONTINUOUS"
+        },
+        {
+          "path": "sections.2.heading",
+          "kind": "text",
+          "before": "Working with us."
+        },
+        {
+          "path": "sections.2.body",
+          "kind": "text",
+          "before": "**The reading goes one way: from our pages to your desk.** Unsolicited scripts, treatments, loglines, and story ideas sent to this address are deleted unread. That protects your ideas as much as ours.\n\n**Every role here is currently filled by the writer.** A one-writer company posts jobs only when a production staffs up, and when that happens the roles will be listed on this page first.\n\n**Working professionals are welcome to introduce themselves.** If you act, shoot, cut, score, or produce: one short note with your role, credits, and a link, please, with the note itself as the whole package. When a production needs what you do, the reply comes from the writer."
+        },
+        {
+          "path": "sections.2.ariaLabel",
+          "kind": "text",
+          "before": "Working with APR 70"
+        },
+        {
+          "path": "sections.3.caption",
+          "kind": "text",
+          "before": "From the working slate \u00b7 ==L.A. Dolce Vita== \u00b7 Route 66, dusk"
+        },
+        {
+          "path": "sections.3.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "sections.4.sceneSlug",
+          "kind": "text",
+          "before": "INT. THE ROLL - NIGHT"
+        },
+        {
+          "path": "sections.4.heading",
+          "kind": "text",
+          "before": "The Founding Roll."
+        },
+        {
+          "path": "sections.4.body",
+          "kind": "text",
+          "before": "Before the first picture ships, APR 70 keeps a roll of the people who wanted it made. Ask to be named and the next number is yours: the numbers start low, stay yours, and are never reissued. The roll is free. When the work ships, the people on it hear from the writer first."
+        },
+        {
+          "path": "sections.4.submitLabel",
+          "kind": "text",
+          "before": "Take a number"
+        },
+        {
+          "path": "sections.4.successNote",
+          "kind": "text",
+          "before": "You are on the roll."
+        }
+      ]
+    },
+    {
+      "key": "site-settings:site-settings",
+      "page": "Site chrome",
+      "route": "(every page)",
+      "kind": "page",
+      "private": false,
+      "fields": [
+        {
+          "path": "tagline",
+          "kind": "text",
+          "before": "APR 70 Pictures. Three divisions. One vision."
+        },
+        {
+          "path": "aiMark.text",
+          "kind": "text",
+          "before": "APR 70 \u00b7 AI GEN"
+        },
+        {
+          "path": "v9Chrome.displayLabel",
+          "kind": "text",
+          "before": "Display"
+        },
+        {
+          "path": "v9Chrome.panelTitle",
+          "kind": "text",
+          "before": "Display"
+        },
+        {
+          "path": "v9Chrome.themeLabel",
+          "kind": "text",
+          "before": "Theme"
+        },
+        {
+          "path": "v9Chrome.themePremiere",
+          "kind": "text",
+          "before": "Marquee night"
+        },
+        {
+          "path": "v9Chrome.themeMatinee",
+          "kind": "text",
+          "before": "House lights"
+        },
+        {
+          "path": "v9Chrome.themeLateshow",
+          "kind": "text",
+          "before": "System"
+        },
+        {
+          "path": "v9Chrome.scaleLabel",
+          "kind": "text",
+          "before": "Type size"
+        },
+        {
+          "path": "v9Chrome.logoLabel",
+          "kind": "text",
+          "before": "Logo size"
+        },
+        {
+          "path": "v9Chrome.topLabel",
+          "kind": "text",
+          "before": "Back to top"
+        },
+        {
+          "path": "v9Chrome.prevLabel",
+          "kind": "text",
+          "before": "Previous property"
+        },
+        {
+          "path": "v9Chrome.nextLabel",
+          "kind": "text",
+          "before": "Next property"
+        },
+        {
+          "path": "v9Chrome.slateReturn",
+          "kind": "text",
+          "before": "The whole slate"
+        },
+        {
+          "path": "v9Chrome.cta",
+          "kind": "text",
+          "before": "Request materials \u2192"
+        },
+        {
+          "path": "v9Chrome.colophon",
+          "kind": "text",
+          "before": "APR 70 PICTURES, Long Island City, New York. Established 2026. A small, stubborn film and television studio with ten properties on the working slate. Every image on this site is an APR 70 development frame, AI-generated and labeled where it appears, or a verified public-domain photograph or map, dated and credited. The scripts are written by people. The site sets its own type in Jost, Newsreader, Fraunces, and Courier Prime, serves its own fonts, and leaves you alone: zero cookies, zero trackers, zero third-party requests. Verified 2026-07-27."
+        },
+        {
+          "path": "v9Chrome.copyright",
+          "kind": "text",
+          "before": "\u00a9 2026 APR 70 Pictures. Made in New York City."
+        },
+        {
+          "path": "v9Chrome.navLinks.0.label",
+          "kind": "text",
+          "before": "Home"
+        },
+        {
+          "path": "v9Chrome.navLinks.1.label",
+          "kind": "text",
+          "before": "Slate"
+        },
+        {
+          "path": "v9Chrome.navLinks.2.label",
+          "kind": "text",
+          "before": "Craft"
+        },
+        {
+          "path": "v9Chrome.navLinks.3.label",
+          "kind": "text",
+          "before": "Methods"
+        },
+        {
+          "path": "v9Chrome.navLinks.4.label",
+          "kind": "text",
+          "before": "Contact"
+        },
+        {
+          "path": "dispatch.navLabel",
+          "kind": "text",
+          "before": "Dispatch"
+        },
+        {
+          "path": "troupe.navLabel",
+          "kind": "text",
+          "before": "Troupe"
+        }
+      ]
+    },
+    {
+      "key": "projects:a-need-grows-in-brooklyn",
+      "page": "A Need Grows in Brooklyn",
+      "route": "/work/a-need-grows-in-brooklyn",
+      "kind": "property",
+      "private": false,
+      "fields": [
+        {
+          "path": "subtitle",
+          "kind": "text",
+          "before": "NRC lead \u00b7 (212) co-production \u00b7 Feature"
+        },
+        {
+          "path": "logline",
+          "kind": "text",
+          "before": "In the summer of 1986 on a Borough Park block, a sensitive 17-year-old who dreams of acting at NYU is pulled from petty mischief into the seductive club-and-crime world of older dealers, losing his innocence, his first love, and ultimately his life to the casual violence of his neighborhood."
+        },
+        {
+          "path": "shortLogline",
+          "kind": "text",
+          "before": "Borough Park, the summer of 1986."
+        },
+        {
+          "path": "metaLine",
+          "kind": "text",
+          "before": "Feature \u00b7 New Renaissance Cinema with (212) Pictures \u00b7 ==drafted=="
+        },
+        {
+          "path": "bodyProse",
+          "kind": "text",
+          "before": "A neighborhood story told in documentary realism: the stoops of 44th Street, Nino's neon at Fort Hamilton Parkway, the block in daylight and the clubs after dark. Two worlds with two kinds of light, and a boy moving between them. Written from lived memory of the place and the years."
+        },
+        {
+          "path": "pageQuote.quote",
+          "kind": "text",
+          "before": "Everything is copy."
+        },
+        {
+          "path": "pageQuote.cite",
+          "kind": "text",
+          "before": "Nora Ephron"
+        },
+        {
+          "path": "heroLine",
+          "kind": "text",
+          "before": "Brooklyn, before it was a brand."
+        },
+        {
+          "path": "heroCaption",
+          "kind": "text",
+          "before": "Borough Park, summer 1986"
+        },
+        {
+          "path": "heroCredit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "requestBody",
+          "kind": "text",
+          "before": "The feature is drafted. Script and synopsis are shared privately, on request. Say who you are and in what capacity you are asking, and the reply comes from the writer."
+        },
+        {
+          "path": "synopsis",
+          "kind": "text",
+          "before": "Summer of \u201986, Brooklyn. Marc is seventeen, dreaming of NYU and running with a crew of neighborhood bad boys \u2014 basement D&D, midnight ball under the El, the club that won\u2019t let them in. Shot in documentary realism on heavy 35mm grain, the block itself is the character: older dealers adopt Marc, teach him the \"art\" of the fast life, and he proves a natural even as bodies drop around him and the crew just shrugs. Act by act the bill comes due \u2014 a hospital, an arrest, the news that his first love is dead \u2014 and a full redemption is staged right up to the instant a gun slides off a dashboard and ends him. The dominoes were falling from the opening frame."
+        },
+        {
+          "path": "gallery.0.caption",
+          "kind": "text",
+          "before": "The stoop, one lemon ice, one wooden spoon"
+        },
+        {
+          "path": "gallery.0.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.1.caption",
+          "kind": "text",
+          "before": "The club where the altar was"
+        },
+        {
+          "path": "gallery.1.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.2.caption",
+          "kind": "text",
+          "before": "Nino's, 44th & Fort Hamilton Parkway"
+        },
+        {
+          "path": "gallery.2.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.3.caption",
+          "kind": "text",
+          "before": "Under the El, night"
+        },
+        {
+          "path": "gallery.3.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.4.caption",
+          "kind": "text",
+          "before": "The borough entire \u00b7 bird's-eye view of Brooklyn, George Welch for the Brooklyn Daily Eagle, 1897"
+        },
+        {
+          "path": "gallery.4.credit",
+          "kind": "text",
+          "before": "Public domain \u00b7 The New York Public Library, Map Division"
+        },
+        {
+          "path": "pitchDeck.note",
+          "kind": "text",
+          "before": "Deck canon complete; the visual deck is shared privately. Investor conversations happen in person \u2014 write to the offices."
+        },
+        {
+          "path": "layout.0.kicker",
+          "kind": "text",
+          "before": "NRC lead \u00b7 (212) co-production \u00b7 Feature"
+        },
+        {
+          "path": "layout.0.body",
+          "kind": "text",
+          "before": "Summer 1986, 44th Street and Fort Hamilton Parkway, Borough Park, Brooklyn. Marc, a sensitive 17-year-old who dreams of studying acting at NYU, runs with a crew of neighborhood boys: basement Dungeons & Dragons, midnight basketball under the El, petty mischief outside the deli. Semi-autobiographical and shot in documentary realism \u2014 heavy 35mm grain, available light, the El train as structural negative space \u2014 the season watches its block as closely as its people. The neighborhood is a character. Nothing is cleaned up.\n\nThe opening arc (Episodes 1\u20134) establishes the crew, the corner, and the two poles of Marc's summer: Sunny, the girl who shares his NYU dream, and the adult world of the club that won't let the boys in. The block's casual violence arrives early \u2014 the belligerent Housie Mousie forces Marc and Sal into a night of robbery and crack \u2014 and when Mousie savagely beats Marc at the exact moment of his first kiss with Sunny, humiliation drives Marc away from her for good.\n\nIn the middle arc (Episodes 5\u20138) the club opens to Marc alone. Older dealers Frank Gee and Mike Murder adopt him, teach him the \"art\" of boosting, and expose him to Magic Mike's PCP kitchen. Marc proves a natural; the fast life escalates even as bodies drop around him \u2014 Mousie thrown off a roof, the innocent Jordan killed just walking by \u2014 and Marc internalizes the crew's shrug: life goes on.\n\nThe final arc (Episodes 9\u201310) collects the bill. A cocaine-and-crack panic lands Marc in a hospital and a desperate promise to God. The club is busted, Marc is arrested, and his mother delivers the news that Sunny is dead. Plea deal, Shock Camp, letters to Millie, a clean HIV test, NYU plans together \u2014 a redemption fully staged before Dave Dirt's gun slides off a dashboard and fires, killing Marc instantly. The dominoes were falling from the first episode."
+        }
+      ]
+    },
+    {
+      "key": "projects:la-dolce-vita",
+      "page": "L.A. Dolce Vita",
+      "route": "/work/la-dolce-vita",
+      "kind": "property",
+      "private": false,
+      "fields": [
+        {
+          "path": "subtitle",
+          "kind": "text",
+          "before": "Limited Series"
+        },
+        {
+          "path": "logline",
+          "kind": "text",
+          "before": "When a presidential candidate is caught via live stream with a mysterious woman, the ensuing scandal unravels fifteen years of secrets: a journalist's vanished fianc\u00e9e, his hidden daughter, and a crime family's plan to claim her as heir."
+        },
+        {
+          "path": "shortLogline",
+          "kind": "text",
+          "before": "Los Angeles and Rome, ten days in February."
+        },
+        {
+          "path": "metaLine",
+          "kind": "text",
+          "before": "Series \u00b7 (310) Pictures \u00b7 ==pilot + nine on the page=="
+        },
+        {
+          "path": "bodyProse",
+          "kind": "text",
+          "before": "Ten episodes, ten days of Carnevale, zero flashbacks. A neo-noir family drama run between two worlds, wildfire-scarred Los Angeles and an Italy that never quite lets go, in amber and teal, at the speed of a scandal. The pilot and nine episodes are on the page."
+        },
+        {
+          "path": "pageQuote.quote",
+          "kind": "text",
+          "before": "A tip from Lubitsch: Let the audience add up two plus two. They'll love you forever."
+        },
+        {
+          "path": "pageQuote.cite",
+          "kind": "text",
+          "before": "Billy Wilder"
+        },
+        {
+          "path": "pageQuote.note",
+          "kind": "text",
+          "before": "Conversations with Wilder, 1999"
+        },
+        {
+          "path": "heroLine",
+          "kind": "text",
+          "before": "Two cities, ten days, one scandal."
+        },
+        {
+          "path": "heroCaption",
+          "kind": "text",
+          "before": "Santa Monica Pier, night"
+        },
+        {
+          "path": "heroCredit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "requestBody",
+          "kind": "text",
+          "before": "The pilot, the season, and the episode grid are shared privately, on request. Say who you are and in what capacity you are asking, and the reply comes from the writer."
+        },
+        {
+          "path": "synopsis",
+          "kind": "text",
+          "before": "A journalist arrives in Los Angeles at the worst possible moment, chasing corruption and celebrity rot, only to find his long-lost love at the center of his own investigation \u2014 and their secret daughter caught between him and a dynasty that wants her for its throne. One live-stream scandal detonates fifteen years of buried history, pulling a vanished fiancee, a hidden heir, and a crime family\u2019s succession plot into a single web of power, legacy, and redemption. Neo-noir on 35mm, scored like an opera, played for keeps."
+        },
+        {
+          "path": "gallery.0.caption",
+          "kind": "text",
+          "before": "Carnevale, Venice, night one"
+        },
+        {
+          "path": "gallery.0.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.1.caption",
+          "kind": "text",
+          "before": "The Olivetti, Via del Corso, morning"
+        },
+        {
+          "path": "gallery.1.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.2.caption",
+          "kind": "text",
+          "before": "Michelangelo's on Sunset, the ring"
+        },
+        {
+          "path": "gallery.2.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.3.caption",
+          "kind": "text",
+          "before": "Backstage, the scandal breaks"
+        },
+        {
+          "path": "gallery.3.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.4.caption",
+          "kind": "text",
+          "before": "Mr. D'z, Route 66, Kingman"
+        },
+        {
+          "path": "gallery.4.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.5.caption",
+          "kind": "text",
+          "before": "Sunset Blvd, 2 AM"
+        },
+        {
+          "path": "gallery.5.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.6.caption",
+          "kind": "text",
+          "before": "The other city \u00b7 La Nuova Topografia di Roma, Giambattista Nolli, 1748 (sheet 5 of 12)"
+        },
+        {
+          "path": "gallery.6.credit",
+          "kind": "text",
+          "before": "Public domain, 1748 engraving \u00b7 scan via Wikimedia Commons"
+        },
+        {
+          "path": "pitchDeck.note",
+          "kind": "text",
+          "before": "Deck canon complete; the visual deck is shared privately. Investor conversations happen in person \u2014 write to the offices."
+        },
+        {
+          "path": "layout.0.heading",
+          "kind": "text",
+          "before": "L.A. Dolce Vita"
+        },
+        {
+          "path": "layout.0.subtext",
+          "kind": "text",
+          "before": "Limited Series"
+        },
+        {
+          "path": "layout.1.leftHeading",
+          "kind": "text",
+          "before": "Overview"
+        },
+        {
+          "path": "layout.1.rightBody",
+          "kind": "richtext",
+          "before": "A journalist arrives in Los Angeles at the worst possible time -- uncovering corruption and celebrity excess, only to find his long-lost love at the center of his investigation, their secret daughter caught between him and his corrupt father's empire.\n\nWhen a presidential candidate is caught via live stream with a mysterious woman, the ensuing scandal unravels fifteen years of secrets. A journalist's vanished fiancee, his hidden daughter, and a crime family's plan to claim her as heir converge in a web of power, legacy, and redemption.",
+          "before_texts": [
+            "A journalist arrives in Los Angeles at the worst possible time -- uncovering corruption and celebrity excess, only to find his long-lost love at the center of his investigation, their secret daughter caught between him and his corrupt father's empire.",
+            "When a presidential candidate is caught via live stream with a mysterious woman, the ensuing scandal unravels fifteen years of secrets. A journalist's vanished fiancee, his hidden daughter, and a crime family's plan to claim her as heir converge in a web of power, legacy, and redemption."
+          ],
+          "tree": {
+            "root": {
+              "type": "root",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "text": "A journalist arrives in Los Angeles at the worst possible time -- uncovering corruption and celebrity excess, only to find his long-lost love at the center of his investigation, their secret daughter caught between him and his corrupt father's empire.",
+                      "type": "text",
+                      "version": 1
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "text": "When a presidential candidate is caught via live stream with a mysterious woman, the ensuing scandal unravels fifteen years of secrets. A journalist's vanished fiancee, his hidden daughter, and a crime family's plan to claim her as heir converge in a web of power, legacy, and redemption.",
+                      "type": "text",
+                      "version": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "projects:sea-gate",
+      "page": "Sea Gate",
+      "route": "/work/sea-gate",
+      "kind": "property",
+      "private": false,
+      "fields": [
+        {
+          "path": "subtitle",
+          "kind": "text",
+          "before": "Episodic"
+        },
+        {
+          "path": "logline",
+          "kind": "text",
+          "before": "A private town at the end of Brooklyn, present day, high summer."
+        },
+        {
+          "path": "shortLogline",
+          "kind": "text",
+          "before": "A private town at the end of Brooklyn."
+        },
+        {
+          "path": "provenance",
+          "kind": "text",
+          "before": "After Dashiell Hammett's *Red Harvest* (1929), in the US public domain since 2025; the novel is free for everyone. Original screenplay \u00a9 2026 APR 70 Pictures."
+        },
+        {
+          "path": "metaLine",
+          "kind": "text",
+          "before": "Feature \u00b7 New Renaissance Cinema with (212) Pictures \u00b7 ==drafted=="
+        },
+        {
+          "path": "bodyProse",
+          "kind": "text",
+          "before": "Sea Gate is real: a private gated community at the western tip of Coney Island, with its own police force, its own rules, and one road in. The picture is set there in the present day, in high summer. Daylight noir, the carnival boardwalk hard against silent gated wealth. The full logline and synopsis travel in private materials."
+        },
+        {
+          "path": "pageQuote.quote",
+          "kind": "text",
+          "before": "One must not put a loaded rifle on the stage if no one is thinking of firing it."
+        },
+        {
+          "path": "pageQuote.cite",
+          "kind": "text",
+          "before": "Anton Chekhov"
+        },
+        {
+          "path": "pageQuote.note",
+          "kind": "text",
+          "before": "letter, 1889"
+        },
+        {
+          "path": "heroLine",
+          "kind": "text",
+          "before": "A private town, one road in."
+        },
+        {
+          "path": "heroCaption",
+          "kind": "text",
+          "before": "Where the city stops"
+        },
+        {
+          "path": "heroCredit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "requestBody",
+          "kind": "text",
+          "before": "The feature is drafted. The full logline, synopsis, and script travel privately. Say who you are and in what capacity you are asking, and the reply comes from the writer."
+        },
+        {
+          "path": "synopsis",
+          "kind": "text",
+          "before": "Sea Gate is a private, gated town at the western tip of Coney Island \u2014 its own armed police, its own board that decides who belongs, the boardwalk\u2019s screams a hundred feet from the fence. Investigator Jim Lang comes through the gate to meet the engineer who can prove tens of millions in storm-recovery money vanished, and finds him drowned in a condemned basement, a dry life vest just out of reach. Lang stays, and works the exhausted truce among the three men who touched the money until it cracks into open war \u2014 falling, along the way, for the title-office secretary who keeps the tally of his dead. His last move makes the wall eat itself; spending himself so she walks out clean, he goes into the gunfire and doesn\u2019t come back."
+        },
+        {
+          "path": "gallery.0.caption",
+          "kind": "text",
+          "before": "A foot of water, a dry life vest"
+        },
+        {
+          "path": "gallery.0.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.1.caption",
+          "kind": "text",
+          "before": "Mary, in the Coney Island neon"
+        },
+        {
+          "path": "gallery.1.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.2.caption",
+          "kind": "text",
+          "before": "The lighthouse over the rooftops"
+        },
+        {
+          "path": "gallery.2.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.3.caption",
+          "kind": "text",
+          "before": "The carnival, seen from the quiet end"
+        },
+        {
+          "path": "gallery.3.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.4.caption",
+          "kind": "text",
+          "before": "The town on paper \u00b7 bird's-eye view of Sea Gate, Norton Point Land Co. auction prospectus, 1900"
+        },
+        {
+          "path": "gallery.4.credit",
+          "kind": "text",
+          "before": "Public domain \u00b7 The New York Public Library, Map Division"
+        },
+        {
+          "path": "gallery.5.caption",
+          "kind": "text",
+          "before": "The peninsula before the town \u00b7 Gravesend & Coney Island, G.W. Bromley & E. Robinson atlas plate, 1880"
+        },
+        {
+          "path": "gallery.5.credit",
+          "kind": "text",
+          "before": "Public domain \u00b7 The New York Public Library, Map Division"
+        },
+        {
+          "path": "pitchDeck.note",
+          "kind": "text",
+          "before": "Deck canon complete; the visual deck is shared privately. Investor conversations happen in person \u2014 write to the offices."
+        },
+        {
+          "path": "layout.0.kicker",
+          "kind": "text",
+          "before": "(212) \u00b7 Episodic"
+        },
+        {
+          "path": "layout.0.logline",
+          "kind": "text",
+          "before": "Jim Lang's whistleblower client drowned in a foot of water. Inside Brooklyn's private town, fraud investigator Lang stays to turn its rulers against one another over the stolen storm-recovery millions \u2026 until the only way to walk the woman he loves out clean is to spend himself in the war he built."
+        },
+        {
+          "path": "layout.0.body",
+          "kind": "text",
+          "before": "Sea Gate, Brooklyn. A private gated town at the western tip of Coney Island. It has its own armed police and a board that decides who belongs... and who doesn't. High summer, beach season. The boardwalk carnival screams are a hundred feet from the fence. Even the biggest city in America stops at a boom gate. Behind the wall the streets are silent, rich, and storm-scarred.\n\nInvestigator Jim Lang comes through the gate to meet Dave Connell, the Association engineer who can prove tens of millions in storm-recovery money vanished through shell contractors. Connell is drowned in a condemned basement before they speak, a dry life vest on a nail just out of reach. Lang, an ex-NYPD cop who testified against his own precinct, stays. J.B. Ball, the patriarch who built the Association and lost it, becomes his reluctant employer. Lang works the exhausted truce among the three men who touched the money: Chief Vanning of the private police, board president and Albany fixer Oliver Niles, and speculator Chick Williams. A planted word, a swapped envelope, a posed body \u2026 the truce cracks into open war.\n\nMary Dwight, the sharp title-office secretary who keeps the tally of his dead, becomes the love neither planned; Pete Falcone's boardwalk clam stand is the Brooklyn he left behind. As the bodies drop, Lang finds he likes the work, the blood-simple slide Mary tries to pull him back from. His last turn makes the wall eat itself: the board cuts its private army loose, the NYPD rolls through the gate, and the gate's own cops burn down the men who fed them. Vanning falls. Lang, spending himself so Mary walks out clean, goes into the gunfire and does not come back. The last image is hers: Mary in the Coney Island neon, Jim's hat too big, headed for her sister Lena and the baby, up the other side of the tide."
+        }
+      ]
+    },
+    {
+      "key": "projects:alpha-yy",
+      "page": "Alpha YY",
+      "route": "/work/alpha-yy",
+      "kind": "property",
+      "private": false,
+      "fields": [
+        {
+          "path": "subtitle",
+          "kind": "text",
+          "before": "Television Series / Feature Film"
+        },
+        {
+          "path": "logline",
+          "kind": "text",
+          "before": "In the underworld of Staten Island, two reckless enforcers collect debts through savage work and coded prison-gang demands, until a final betrayal forces them to confront the cost of their chaotic existence."
+        },
+        {
+          "path": "metaLine",
+          "kind": "text",
+          "before": "Feature \u00b7 New Renaissance Cinema with (212) Pictures \u00b7 ==drafted=="
+        },
+        {
+          "path": "bodyProse",
+          "kind": "text",
+          "before": "Two men, one route: Staten Island to Little Italy and back, collections all the way. Brutal work laced with black comedy, loyalties shifting under coded demands from inside the walls, until the last job turns. The script began as longhand pages mailed out of prison, and it keeps that voice. Drafted, in three on-screen chapters."
+        },
+        {
+          "path": "pageQuote.quote",
+          "kind": "text",
+          "before": "I believe that the common man is as apt a subject for tragedy in its highest sense as kings were."
+        },
+        {
+          "path": "pageQuote.cite",
+          "kind": "text",
+          "before": "Arthur Miller"
+        },
+        {
+          "path": "pageQuote.note",
+          "kind": "text",
+          "before": "Tragedy and the Common Man, 1949"
+        },
+        {
+          "path": "heroLine",
+          "kind": "text",
+          "before": "Staten Island to Little Italy, collecting."
+        },
+        {
+          "path": "heroCaption",
+          "kind": "text",
+          "before": "The ferry, night"
+        },
+        {
+          "path": "heroCredit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "requestBody",
+          "kind": "text",
+          "before": "The feature is drafted. Script and synopsis are shared privately, on request. Say who you are and in what capacity you are asking, and the reply comes from the writer."
+        },
+        {
+          "path": "synopsis",
+          "kind": "text",
+          "before": "Mike and Dario are volatile enforcers working Staten Island and Little Italy as muscle for loan sharks \u2014 their days a blend of routine violence, black comedy, music, and personal entanglement. The episodic collection work escalates as coded \"kites\" from prison gangs, basement summons, and warnings from higher up pull the pair toward something bigger and darker. Loyalty, narcissism, and the banality of violence run underneath the profane banter, until a sudden, lethal betrayal suggests the reckless life may finally have caught up with them."
+        },
+        {
+          "path": "gallery.0.caption",
+          "kind": "text",
+          "before": "Mike and Big Trouble"
+        },
+        {
+          "path": "gallery.0.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.1.caption",
+          "kind": "text",
+          "before": "The lot, winter dusk"
+        },
+        {
+          "path": "gallery.1.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "pitchDeck.note",
+          "kind": "text",
+          "before": "Deck canon complete; the visual deck is shared privately. Investor conversations happen in person \u2014 write to the offices."
+        },
+        {
+          "path": "layout.0.heading",
+          "kind": "text",
+          "before": "Alpha YY"
+        },
+        {
+          "path": "layout.0.subtext",
+          "kind": "text",
+          "before": "Television Series / Feature Film"
+        },
+        {
+          "path": "layout.1.leftHeading",
+          "kind": "text",
+          "before": "Overview"
+        },
+        {
+          "path": "layout.1.rightBody",
+          "kind": "richtext",
+          "before": "Street-level mob enforcement. Staten Island to Little Italy -- violence punctuated by the ordinary.\n\nThe mundane texture of enforcement work. Close observation of loyalty, fear, and routine. What it costs to be the person who shows up when someone else gives the order.\n\nThe project exists as both a (212) Pictures television series and a New Renaissance Cinema standalone feature film.",
+          "before_texts": [
+            "Street-level mob enforcement. Staten Island to Little Italy -- violence punctuated by the ordinary.",
+            "The mundane texture of enforcement work. Close observation of loyalty, fear, and routine. What it costs to be the person who shows up when someone else gives the order.",
+            "The project exists as both a (212) Pictures television series and a New Renaissance Cinema standalone feature film."
+          ],
+          "tree": {
+            "root": {
+              "type": "root",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "text": "Street-level mob enforcement. Staten Island to Little Italy -- violence punctuated by the ordinary.",
+                      "type": "text",
+                      "version": 1
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "text": "The mundane texture of enforcement work. Close observation of loyalty, fear, and routine. What it costs to be the person who shows up when someone else gives the order.",
+                      "type": "text",
+                      "version": 1
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "text": "The project exists as both a (212) Pictures television series and a New Renaissance Cinema standalone feature film.",
+                      "type": "text",
+                      "version": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "projects:da-hook",
+      "page": "Da Hook",
+      "route": "/work/da-hook",
+      "kind": "property",
+      "private": false,
+      "fields": [
+        {
+          "path": "subtitle",
+          "kind": "text",
+          "before": "Episodic"
+        },
+        {
+          "path": "logline",
+          "kind": "text",
+          "before": "Red Hook, Brooklyn, the fall of 1970."
+        },
+        {
+          "path": "provenance",
+          "kind": "text",
+          "before": "After Dashiell Hammett's *The Maltese Falcon* (1930), in the US public domain since 2026; the novel is free for everyone. Original screenplay \u00a9 2026 APR 70 Pictures."
+        },
+        {
+          "path": "metaLine",
+          "kind": "text",
+          "before": "Feature \u00b7 New Renaissance Cinema with (212) Pictures \u00b7 ==in development=="
+        },
+        {
+          "path": "bodyProse",
+          "kind": "text",
+          "before": "Red Hook in the fall of 1970: the piers emptying crate by crate under containerization, the Knicks' first championship banner fresh at the Garden, and across the harbor the World Trade Center's steel climbing higher every week. Work disappears, heroin arrives, and the neighborhood watches both happen. The picture lives in that season, early-seventies austerity with nothing sentimental about it. The full logline and synopsis travel in private materials."
+        },
+        {
+          "path": "pageQuote.quote",
+          "kind": "text",
+          "before": "I long ago convinced myself that the listener is the best casting agent, and casting director and wardrobe master in the world."
+        },
+        {
+          "path": "pageQuote.cite",
+          "kind": "text",
+          "before": "Norman Corwin"
+        },
+        {
+          "path": "pageQuote.note",
+          "kind": "text",
+          "before": "Transom interview, 2001"
+        },
+        {
+          "path": "heroLine",
+          "kind": "text",
+          "before": "The piers empty, the towers rise."
+        },
+        {
+          "path": "heroCaption",
+          "kind": "text",
+          "before": "The piers, dawn, fall 1970"
+        },
+        {
+          "path": "heroCredit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "requestBody",
+          "kind": "text",
+          "before": "In development. The full logline, synopsis, and pages travel privately. Say who you are and in what capacity you are asking, and the reply comes from the writer."
+        },
+        {
+          "path": "synopsis",
+          "kind": "text",
+          "before": "The World Trade Center has just opened across the harbor, the piers are emptying out beneath it, and a season clock ticks behind every episode. An unreadable marine-claims man takes a tail job from a frightened client whose story is a lie; that night his partner is shot dead near the docks, and the man she named dies the same night, same caliber. A scented fixer, a patient collector, and a dying ship\u2019s captain all converge on a legendary lost prize that proves false when it finally changes hands. Left with three murders and a police clock, he does the arithmetic and hands her over \u2014 because when a man\u2019s partner is killed, he\u2019s supposed to do something about it."
+        },
+        {
+          "path": "gallery.0.caption",
+          "kind": "text",
+          "before": "The bar on the corner, open late"
+        },
+        {
+          "path": "gallery.0.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.1.caption",
+          "kind": "text",
+          "before": "The street that ends at the water"
+        },
+        {
+          "path": "gallery.1.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.2.caption",
+          "kind": "text",
+          "before": "The Hook before the towers \u00b7 Red Hook & Gowanus, M. Dripps, 1869"
+        },
+        {
+          "path": "gallery.2.credit",
+          "kind": "text",
+          "before": "Public domain \u00b7 The New York Public Library, Map Division"
+        },
+        {
+          "path": "gallery.3.caption",
+          "kind": "text",
+          "before": "The working waterfront, pier by pier \u00b7 Atlantic Basin, G.M. Hopkins & Co., 1880"
+        },
+        {
+          "path": "gallery.3.credit",
+          "kind": "text",
+          "before": "Public domain \u00b7 The New York Public Library, Map Division"
+        },
+        {
+          "path": "pitchDeck.note",
+          "kind": "text",
+          "before": "Deck canon complete; the visual deck is shared privately. Investor conversations happen in person \u2014 write to the offices."
+        },
+        {
+          "path": "layout.0.kicker",
+          "kind": "text",
+          "before": "(212) \u00b7 Episodic"
+        },
+        {
+          "path": "layout.0.logline",
+          "kind": "text",
+          "before": "In the Brooklyn spring of 1973, as the city rides the Knicks toward a championship and the Red Hook piers die under the brand-new towers, an investigator whose partner is murdered over a legendary lost prize follows a lying client to the only end his code allows... turning in the woman he loves."
+        },
+        {
+          "path": "layout.0.body",
+          "kind": "text",
+          "before": "Brooklyn, spring 1973. The World Trade Center has just opened across the harbor, the Red Hook piers are emptying out beneath it, and the Knicks are driving toward their second NBA title... a season clock ticking behind every episode. Here an unreadable investigator and his partner take a tail job from a frightened client whose story is a lie. That night the partner is shot dead near the docks; the man she named dies the same night, same caliber. The police want the investigator for both.\n\nThe client sheds her cover story but not her secrets. A scented fixer offers five thousand dollars for a legendary lost prize, and a vast, patient collector who has hunted it for years arrives with a silent young gunman and a history speech that turns the prize into myth. A dying ship's captain delivers the prize. At the exchange it proves false... flour and weevils where a fortune should be. The collector composes himself and starts again.\n\nLeft with three murders and a police clock, the investigator does the arithmetic: the client killed his partner on night one. He lays out his reasons, seven of them, and hands her over, because when a man's partner is killed he does something about it. The El starts again. The city cheers a title. He goes back to the desk.\n\nLimited streaming series with a parallel radio series. Register: French Connection austerity, documentary grit, monochrome discipline."
+        }
+      ]
+    },
+    {
+      "key": "projects:the-movement",
+      "page": "The Movement",
+      "route": "/work/the-movement",
+      "kind": "property",
+      "private": false,
+      "fields": [
+        {
+          "path": "subtitle",
+          "kind": "text",
+          "before": "Series"
+        },
+        {
+          "path": "logline",
+          "kind": "text",
+          "before": "Seven international students, recruited into a secret class by clues to a campus bomb, are trained through covert missions, never suspecting that every mission serves the hidden consortium they believe they are fighting."
+        },
+        {
+          "path": "metaLine",
+          "kind": "text",
+          "before": "Series \u00b7 (212) Pictures \u00b7 ==in development=="
+        },
+        {
+          "path": "bodyProse",
+          "kind": "text",
+          "before": "A one-hour conspiracy drama set in present-day New York: seven gifted outsiders, a professor who chose them, and a curriculum that is never what it claims to be. The A-plot runs through City Hall, where a mayoral race is being quietly bent. The city is the campus, and the campus is the board."
+        },
+        {
+          "path": "pageQuote.quote",
+          "kind": "text",
+          "before": "All of us who do creative work, we get into it because we have good taste."
+        },
+        {
+          "path": "pageQuote.cite",
+          "kind": "text",
+          "before": "Ira Glass"
+        },
+        {
+          "path": "pageQuote.note",
+          "kind": "text",
+          "before": "on storytelling, 2009"
+        },
+        {
+          "path": "heroLine",
+          "kind": "text",
+          "before": "The city is the campus."
+        },
+        {
+          "path": "heroCaption",
+          "kind": "text",
+          "before": "The reading room, 3 AM"
+        },
+        {
+          "path": "heroCredit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "requestBody",
+          "kind": "text",
+          "before": "In development. Materials are shared privately, on request. Say who you are and in what capacity you are asking, and the reply comes from the writer."
+        },
+        {
+          "path": "synopsis",
+          "kind": "text",
+          "before": "It\u2019s an election year in New York, and the city\u2019s most popular mayor since La Guardia faces a billionaire councilman with bottomless money and nothing else \u2014 and no one can see the invisible society steering him. On a crowded campus that same week, seven gifted international students trace a phantom bomb to a class that appears on no schedule, taught by an ambiguous mentor who has groomed young elites for thirty years. Each episode is a \"righteous\" training mission that secretly bends the election one way; as a hard-boiled reporter and an honest D.A. circle the rumor of a \"movement,\" the seven end the season bonded, blooded, and quietly suspicious of the hand that feeds them."
+        },
+        {
+          "path": "gallery.0.caption",
+          "kind": "text",
+          "before": "Seven, crossing at dawn"
+        },
+        {
+          "path": "gallery.0.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.1.caption",
+          "kind": "text",
+          "before": "The blocks that decide elections \u00b7 Ward 2, G.W. Bromley & Co. atlas of New York, 1879"
+        },
+        {
+          "path": "gallery.1.credit",
+          "kind": "text",
+          "before": "Public domain \u00b7 NYPL scan via Wikimedia Commons"
+        },
+        {
+          "path": "pitchDeck.note",
+          "kind": "text",
+          "before": "Deck canon complete; the visual deck is shared privately. Investor conversations happen in person \u2014 write to the offices."
+        },
+        {
+          "path": "layout.0.kicker",
+          "kind": "text",
+          "before": "(212) \u00b7 Series"
+        },
+        {
+          "path": "layout.0.logline",
+          "kind": "text",
+          "before": "Seven gifted international students, recruited into a secret class by clues to a campus bomb, are trained through covert missions to defend New York's mayoral election \u2014 never suspecting that every mission serves the hidden consortium they believe they are fighting."
+        },
+        {
+          "path": "layout.0.body",
+          "kind": "text",
+          "before": "It is an election year in New York City, and everybody is paying attention. Incumbent Mayor Grace Camarda \u2014 the most popular leader the city has elected since La Guardia, and the first woman to hold the office \u2014 faces self-made billionaire City Councilman Ben Gilman, a man with bottomless money and nothing else. What the city cannot see is the hand behind him: the Unknown Global Consortium (UGC), the invisible society that has steered the world's economy for centuries.\n\nOn a crowded campus that same week, seven gifted international students \u2014 among them Jamie Penn, a senator's son and the only American, and Appolonia Lopez Callas, a Basque weapons expert and born leader \u2014 receive clues that a bomb has been planted somewhere on the grounds. Told to trust no authority, they trace it together to the Lab for International Specialists, a class that appears on no schedule. The bomb is fictitious; finding it wins them their seats under the Professor, an ambiguous mentor who has groomed young elites for over thirty years \u2014 and who secretly serves the UGC.\n\nSeason One runs on two clocks. Each episode is a training mission \u2014 a crime, a crisis, an infiltration, the quiet steering of a real event \u2014 that the seven are assured is righteous. When one of their own reveals a personal tie to the Mayor, the team throws itself into the race to defend democracy from Gilman's money. But every mission secretly bends the election his way. As a hard-boiled reporter and an honest District Attorney circle the rumor of a \"movement,\" and Jamie learns his own father graduated the Lab and broke with the Professor, doubt takes root. Camarda wins the vote \u2014 and Gilman is installed as her deputy. Either way, the UGC wins. The seven end the season bonded, blooded, and quietly suspicious of the hand that feeds them."
+        }
+      ]
+    },
+    {
+      "key": "projects:cleopatra",
+      "page": "Cleopatra",
+      "route": "/work/cleopatra",
+      "kind": "property",
+      "private": false,
+      "fields": [
+        {
+          "path": "subtitle",
+          "kind": "text",
+          "before": "Limited Series"
+        },
+        {
+          "path": "logline",
+          "kind": "text",
+          "before": "A divorced Sicilian-Brooklyn woman scraping by in Los Angeles wakes after every sleep into a different version of her own life in the same city, and must master her shifting reigns before a rival who travels the same way collapses every version of her into the one he can own."
+        },
+        {
+          "path": "metaLine",
+          "kind": "text",
+          "before": "Series \u00b7 (310) Pictures \u00b7 ==in development=="
+        },
+        {
+          "path": "bodyProse",
+          "kind": "text",
+          "before": "One woman, many lives, the same face in every mirror. A sci-fi drama that stays at street level: Brooklyn roots, Sicilian family, Los Angeles light, and every morning a different world wearing the same address. The tells are small and concrete: a flicked cigarette lands standing on end, a phone answers with her own voice, d\u00e9j\u00e0 vu that will not close."
+        },
+        {
+          "path": "pageQuote.quote",
+          "kind": "text",
+          "before": "Every character should want something, even if it is only a glass of water."
+        },
+        {
+          "path": "pageQuote.cite",
+          "kind": "text",
+          "before": "Kurt Vonnegut"
+        },
+        {
+          "path": "pageQuote.note",
+          "kind": "text",
+          "before": "Bagombo Snuff Box, 1999"
+        },
+        {
+          "path": "heroLine",
+          "kind": "text",
+          "before": "A new life every morning, same address."
+        },
+        {
+          "path": "heroCaption",
+          "kind": "text",
+          "before": "Cleo, Brooklyn, before sleep"
+        },
+        {
+          "path": "heroCredit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "requestBody",
+          "kind": "text",
+          "before": "In development. Materials are shared privately, on request. Say who you are and in what capacity you are asking, and the reply comes from the writer."
+        },
+        {
+          "path": "synopsis",
+          "kind": "text",
+          "before": "Cleo Modica is a thirty-five-year-old overworked social worker and single mother \u2014 Sicilian-American, raised in Brooklyn, marooned in L.A. \u2014 until a glitch in reality sends her consciousness sliding into her parallel self somewhere new each time she sleeps, memories intact, language and family rewritten. She wakes in Sicily as her brother\u2019s girlfriend, in Poland as a woman a reclusive ex-con recognizes, in Tokyo as the wife of a kinder version of her ex \u2014 mastering the jump as she goes. Beneath the family drama runs a conspiracy threatening to collapse the walls between realities, and an impossible choice that will remake not just her life but the shape of existence."
+        },
+        {
+          "path": "gallery.0.caption",
+          "kind": "text",
+          "before": "The same woman, Modica"
+        },
+        {
+          "path": "gallery.0.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.1.caption",
+          "kind": "text",
+          "before": "The same woman, Tokyo"
+        },
+        {
+          "path": "gallery.1.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.2.caption",
+          "kind": "text",
+          "before": "The glitch: a cigarette stands on end"
+        },
+        {
+          "path": "gallery.2.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.3.caption",
+          "kind": "text",
+          "before": "The call: she is in two places at once"
+        },
+        {
+          "path": "gallery.3.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "pitchDeck.note",
+          "kind": "text",
+          "before": "Deck canon complete; the visual deck is shared privately. Investor conversations happen in person \u2014 write to the offices."
+        },
+        {
+          "path": "layout.0.heading",
+          "kind": "text",
+          "before": "L'Odissea di Cleopatra"
+        },
+        {
+          "path": "layout.0.subtext",
+          "kind": "text",
+          "before": "Limited Series"
+        },
+        {
+          "path": "layout.1.leftHeading",
+          "kind": "text",
+          "before": "Overview"
+        },
+        {
+          "path": "layout.1.rightBody",
+          "kind": "richtext",
+          "before": "A Los Angeles social worker wakes in a different version of her life every time she sleeps. As she gains control over the jumps, she discovers an unseen war across dimensions -- and that she may be the key to salvation or destruction.\n\nEach night brings a new world, a new life, new consequences. She begins to see patterns -- threads connecting versions of herself across infinite possibilities. Someone or something is orchestrating these jumps. And she is not the only consciousness aware of the war being waged across dimensions.",
+          "before_texts": [
+            "A Los Angeles social worker wakes in a different version of her life every time she sleeps. As she gains control over the jumps, she discovers an unseen war across dimensions -- and that she may be the key to salvation or destruction.",
+            "Each night brings a new world, a new life, new consequences. She begins to see patterns -- threads connecting versions of herself across infinite possibilities. Someone or something is orchestrating these jumps. And she is not the only consciousness aware of the war being waged across dimensions."
+          ],
+          "tree": {
+            "root": {
+              "type": "root",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "text": "A Los Angeles social worker wakes in a different version of her life every time she sleeps. As she gains control over the jumps, she discovers an unseen war across dimensions -- and that she may be the key to salvation or destruction.",
+                      "type": "text",
+                      "version": 1
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "text": "Each night brings a new world, a new life, new consequences. She begins to see patterns -- threads connecting versions of herself across infinite possibilities. Someone or something is orchestrating these jumps. And she is not the only consciousness aware of the war being waged across dimensions.",
+                      "type": "text",
+                      "version": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "projects:shadowmaster",
+      "page": "Shadowmaster",
+      "route": "/work/shadowmaster",
+      "kind": "property",
+      "private": false,
+      "fields": [
+        {
+          "path": "subtitle",
+          "kind": "text",
+          "before": "Feature first, series spawn to (310)"
+        },
+        {
+          "path": "logline",
+          "kind": "text",
+          "before": "In a televised hybrid of esports and live-action drama, elite gamers called the Shadow Masters command real-life human avatars through high-stakes scenarios. Their avatars may defy orders when survival, greed, or conscience takes over, pitting strategy against free will."
+        },
+        {
+          "path": "metaLine",
+          "kind": "text",
+          "before": "Feature \u00b7 New Renaissance Cinema with (310) Pictures \u00b7 ==in development=="
+        },
+        {
+          "path": "bodyProse",
+          "kind": "text",
+          "before": "The player has the strategy; the avatar has the body, and a conscience the player never planned for. A series about command, obedience, and the moment a human being stops taking direction, staged inside the biggest game show on earth."
+        },
+        {
+          "path": "pageQuote.quote",
+          "kind": "text",
+          "before": "To be an artist means never to avert one's eyes."
+        },
+        {
+          "path": "pageQuote.cite",
+          "kind": "text",
+          "before": "Akira Kurosawa"
+        },
+        {
+          "path": "pageQuote.note",
+          "kind": "text",
+          "before": "Something Like an Autobiography, 1983"
+        },
+        {
+          "path": "heroLine",
+          "kind": "text",
+          "before": "The player has the plan. The body has a conscience."
+        },
+        {
+          "path": "heroCaption",
+          "kind": "text",
+          "before": "After the match"
+        },
+        {
+          "path": "heroCredit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "requestBody",
+          "kind": "text",
+          "before": "In development. Materials are shared privately, on request. Say who you are and in what capacity you are asking, and the reply comes from the writer."
+        },
+        {
+          "path": "synopsis",
+          "kind": "text",
+          "before": "In a televised competition, elite gamers \u2014 the Shadow Masters \u2014 run isolated situation rooms, issuing real-time commands through concealed earpieces to human avatars dropped into underground poker dens, urban war games, and Old West shootouts. The catch that drives the drama: the avatars are people, not pixels \u2014 cardsharps, operatives, gunslingers, some in it for money, some coerced \u2014 and in a crisis they may obey, defy, or cut a side deal. Flashbacks expose the debts and loyalties that make every avatar unpredictable, while the gamers\u2019 own rivalries and vendettas escalate toward a finale where the line between player and avatar disappears."
+        },
+        {
+          "path": "gallery.0.caption",
+          "kind": "text",
+          "before": "The player and the avatar, both in frame"
+        },
+        {
+          "path": "gallery.0.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "pitchDeck.note",
+          "kind": "text",
+          "before": "Deck canon complete; the visual deck is shared privately. Investor conversations happen in person \u2014 write to the offices."
+        },
+        {
+          "path": "layout.0.kicker",
+          "kind": "text",
+          "before": "NRC \u00b7 Feature first, series spawn to (310)"
+        },
+        {
+          "path": "layout.0.logline",
+          "kind": "text",
+          "before": "In a televised hybrid of esports and live-action drama, elite gamers \u2014 the \"Shadow Masters\" \u2014 command real-life human avatars through high-stakes scenarios (underground poker, urban war games, Old West shootouts), but their avatars may defy orders when survival, greed, or conscience takes over \u2014 pitting strategy against free will."
+        },
+        {
+          "path": "layout.0.body",
+          "kind": "text",
+          "before": "Shadowmaster is a fully scripted series fusing esports and live-action drama. In a televised competition, elite gamers \u2014 the Shadow Masters \u2014 operate from isolated control hubs, situation rooms wired with monitoring feeds, issuing real-time commands to human avatars in the field through concealed earpieces and body cams. Each contest drops the avatars into a high-stakes scenario: underground poker dens, urban war games, Old West shootouts.\n\nThe catch that drives the drama: the avatars are people, not pixels. Cardsharps with criminal pasts, trained operatives, gunslingers, bounty hunters, and sheriffs \u2014 some mercenaries in it for the money, others coerced participants running on survival instinct. Each hears their gamer through a closed mic, but in moments of crisis may obey or defy: sensing a double-cross, refusing a reckless order, cutting a side deal. Flashbacks reveal the secrets, debts, and loyalties that make every avatar unpredictable \u2014 and give the show its emotional weight.\n\nBehind the screens, the gamer roster is a study in playstyles: the Hotshot Bluffer, brash and charismatic, built for high-risk reads and aggressive bluffs; the Calculating Tactician, methodical and command-oriented, most exposed when a human's panic or conscience breaks the plan; the Underdog Hacker, the scrappy fan-favorite wildcard who wins on ingenuity, not resources. Their rivalries, alliances, and vendettas evolve as monetary and reputational stakes mount \u2014 while online personas mask real-world vulnerabilities.\n\nEach 8\u201310 episode season explores new scenarios and expands ongoing arcs, building toward a multi-scenario finale where the line between gamer and avatar blurs."
+        },
+        {
+          "path": "layout.0.note",
+          "kind": "text",
+          "before": "Based on a concept by Stefano Corti; written by Marc Caruso."
+        }
+      ]
+    },
+    {
+      "key": "projects:u-bruculinu",
+      "page": "U Bruculinu",
+      "route": "/work/u-bruculinu",
+      "kind": "property",
+      "private": false,
+      "fields": [
+        {
+          "path": "subtitle",
+          "kind": "text",
+          "before": "Feature, probable"
+        },
+        {
+          "path": "logline",
+          "kind": "text",
+          "before": "An expatriate returns to his ancestral Sicily in the 1970s seeking a quiet life. The land, and its people, will not let him be quiet."
+        },
+        {
+          "path": "metaLine",
+          "kind": "text",
+          "before": "Feature \u00b7 New Renaissance Cinema \u00b7 ==in development=="
+        },
+        {
+          "path": "bodyProse",
+          "kind": "text",
+          "before": "*U Bruculinu* is Sicilian for \"the Brooklyn one,\" which is what the village will call him no matter how long he stays. Inland Sicily, the early seventies: stone terraces, long memories, and a homecoming that has to be earned in a place that never actually knew him."
+        },
+        {
+          "path": "pageQuote.quote",
+          "kind": "text",
+          "before": "If there's a book that you want to read, but it hasn't been written yet, then you must write it."
+        },
+        {
+          "path": "pageQuote.cite",
+          "kind": "text",
+          "before": "Toni Morrison"
+        },
+        {
+          "path": "pageQuote.note",
+          "kind": "text",
+          "before": "Ohio Arts Council address, 1981"
+        },
+        {
+          "path": "heroLine",
+          "kind": "text",
+          "before": "Home to a village that never knew him."
+        },
+        {
+          "path": "heroCaption",
+          "kind": "text",
+          "before": "The road up"
+        },
+        {
+          "path": "heroCredit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "requestBody",
+          "kind": "text",
+          "before": "In development. Materials are shared privately, on request. Say who you are and in what capacity you are asking, and the reply comes from the writer."
+        },
+        {
+          "path": "synopsis",
+          "kind": "text",
+          "before": "He is U Bruculinu \u2014 \"the Brooklyn man\" \u2014 the returning exile, at once of this land and a stranger to it. Around him stand the local strongman who decides what is permitted, and the sister whose kinship binds him to the village and everything it expects. A sun-worn world of old customs, old power, and family obligation closes in: the quiet he came for is the one thing it will not grant him. Original expression inspired by the premise of The Quiet Man \u2014 not a remake."
+        },
+        {
+          "path": "gallery.0.caption",
+          "kind": "text",
+          "before": "The piazza, late afternoon"
+        },
+        {
+          "path": "gallery.0.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.1.caption",
+          "kind": "text",
+          "before": "The one reason to stay"
+        },
+        {
+          "path": "gallery.1.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "gallery.2.caption",
+          "kind": "text",
+          "before": "The town settles it the old way"
+        },
+        {
+          "path": "gallery.2.credit",
+          "kind": "text",
+          "before": "AI-generated development frame"
+        },
+        {
+          "path": "pitchDeck.note",
+          "kind": "text",
+          "before": "Deck canon complete; the visual deck is shared privately. Investor conversations happen in person \u2014 write to the offices."
+        },
+        {
+          "path": "layout.0.kicker",
+          "kind": "text",
+          "before": "NRC \u00b7 Feature, probable"
+        },
+        {
+          "path": "layout.0.body",
+          "kind": "text",
+          "before": "An expatriate returns to his ancestral Sicily in the 1970s seeking a quiet life, only to find that the land \u2014 and its people \u2014 will not let him be quiet.\n\nHe is U Bruculinu \u2014 \"the Brooklyn man\" \u2014 the returning exile, at once of this land and a stranger to it. Around him stand U Capo, the local strongman, the old order that decides what is permitted; and A Sorella, the sister, the kinship tie binding him to the village and its expectations.\n\nA sun-worn village world of old customs, old power, and family obligation \u2014 quiet sought, quiet refused."
+        }
+      ]
+    },
+    {
+      "key": "projects:mayors",
+      "page": "The Mayors",
+      "route": "/work/mayors",
+      "kind": "property",
+      "private": true,
+      "fields": [
+        {
+          "path": "subtitle",
+          "kind": "text",
+          "before": "Documentary series, 11 episodes"
+        },
+        {
+          "path": "synopsis",
+          "kind": "text",
+          "before": "Eleven administrations, seventy-five years, one long argument about who killed New York City. Shot cinema verite \u2014 archival footage against contemporary faces \u2014 the series juxtaposes the prosperous, safer city of the fifties against the one outside your window now, era by era, from Impellitteri\u2019s post-war heights to Mamdani\u2019s socialist dream. Our method is muckraking, not hysteria: cause and effect, names and consequences, no narrator telling you what to think. It ends where it began, in reverse \u2014 a broken city handed to one more immigrant mayor, filmed as it happens. This is the report."
+        },
+        {
+          "path": "gallery.0.caption",
+          "kind": "text",
+          "before": "Vincent Impellitteri \u00b7 1950\u20131953"
+        },
+        {
+          "path": "gallery.0.credit",
+          "kind": "text",
+          "before": "Wikimedia Commons"
+        },
+        {
+          "path": "gallery.1.caption",
+          "kind": "text",
+          "before": "Robert F. Wagner Jr. \u00b7 1954\u20131965"
+        },
+        {
+          "path": "gallery.1.credit",
+          "kind": "text",
+          "before": "Library of Congress"
+        },
+        {
+          "path": "gallery.2.caption",
+          "kind": "text",
+          "before": "John V. Lindsay \u00b7 1966\u20131973"
+        },
+        {
+          "path": "gallery.2.credit",
+          "kind": "text",
+          "before": "Library of Congress"
+        },
+        {
+          "path": "gallery.3.caption",
+          "kind": "text",
+          "before": "Abraham Beame \u00b7 1974\u20131977"
+        },
+        {
+          "path": "gallery.3.credit",
+          "kind": "text",
+          "before": "Library of Congress"
+        },
+        {
+          "path": "gallery.4.caption",
+          "kind": "text",
+          "before": "Ed Koch \u00b7 1978\u20131989"
+        },
+        {
+          "path": "gallery.4.credit",
+          "kind": "text",
+          "before": "Wikimedia Commons"
+        },
+        {
+          "path": "gallery.5.caption",
+          "kind": "text",
+          "before": "David N. Dinkins \u00b7 1990\u20131993"
+        },
+        {
+          "path": "gallery.5.credit",
+          "kind": "text",
+          "before": "Wikimedia Commons"
+        },
+        {
+          "path": "gallery.6.caption",
+          "kind": "text",
+          "before": "Rudolph W. Giuliani \u00b7 1994\u20132001"
+        },
+        {
+          "path": "gallery.6.credit",
+          "kind": "text",
+          "before": "Wikimedia Commons"
+        },
+        {
+          "path": "gallery.7.caption",
+          "kind": "text",
+          "before": "Michael R. Bloomberg \u00b7 2002\u20132013"
+        },
+        {
+          "path": "gallery.7.credit",
+          "kind": "text",
+          "before": "Wikimedia Commons"
+        },
+        {
+          "path": "gallery.8.caption",
+          "kind": "text",
+          "before": "Zohran Mamdani \u00b7 2026\u2013"
+        },
+        {
+          "path": "gallery.8.credit",
+          "kind": "text",
+          "before": "Wikimedia Commons"
+        },
+        {
+          "path": "gallery.9.caption",
+          "kind": "text",
+          "before": "MOOD BOARD"
+        },
+        {
+          "path": "gallery.9.credit",
+          "kind": "text",
+          "before": "Composite of verified public-domain images \u2014 see the PD image ledger."
+        },
+        {
+          "path": "pitchDeck.note",
+          "kind": "text",
+          "before": "Deck canon complete; the visual deck is shared privately. Investor conversations happen in person \u2014 write to the offices."
+        },
+        {
+          "path": "layout.0.kicker",
+          "kind": "text",
+          "before": "(212) \u00b7 Documentary series, 11 episodes"
+        },
+        {
+          "path": "layout.0.body",
+          "kind": "text",
+          "before": "Over seventy-five years, eleven mayors governed New York City. This eleven-episode documentary series reveals how their decisions, policies, power grabs, their corruption, and their ideology transformed America's greatest city from the American Dream to socialist experiment.\n\nThe blessing and curse of our Metropolis is time. Twenty years approximately. That's how long it takes the city to put on a new face; where glass towers replace brick, where streets change directions, turn into bus and bike lanes or cease to exist altogether and our sidewalks, well they turn into bedrooms for our guests. Everything changes. Nothing remains the same. A blessing and a curse indeed. For native New Yorkers, we watch as \"progress\" marches us towards oblivion. In the fifties, the city was prosperous, safer, and cleaner, and the American dream was still alive if you sweat and bled for it. By seventies Brooklyn, that city was a memory \u2014 like the Dodgers and Luna Park. Episode by episode, the family's first-hand accounts juxtapose the city of the past against the city of the present: from Vincent Impellitteri's post-war baseline through Wagner, Lindsay, Beame's fiscal collapse, Koch, Dinkins, Giuliani \u2014 the one Republican exception, who punched back \u2014 Bloomberg, de Blasio, and the indicted Eric Adams. Behind them all looms Robert Moses, the master builder who ruled over many mayors, tore down neighborhoods, displaced thousands of families, and built the roads, bridges, parks, and projects the city still lives with.\n\nThe method is muckraking journalism \u2014 forensic, not hysterical: cause and effect, names and consequences. Shot cin\u00e9ma v\u00e9rit\u00e9 with archival material and contemporary interviews \u2014 a Ric Burns homage, but not so liberal \u2014 each era rendered in its own visual grammar. No narrator tells you what to think; every episode asks what they were trying to achieve, what actually happened, who benefited, and who paid the price.\n\nThe series ends where it began, in reverse: Zohran Mamdani, the city's first Democratic Socialist mayor \u2014 himself an immigrant \u2014 inherits a broken city, and Episode 11 films his first hundred days as they unfold. Who killed New York City? This is the autopsy report."
+        }
+      ]
+    }
+  ],
+  "field_count": 412,
+  "doc_count": 16,
+  "word_count": 8222
+}

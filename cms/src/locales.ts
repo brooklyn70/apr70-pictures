@@ -12,7 +12,7 @@
  */
 export const SITE_LOCALES = [
   { code: 'en', label: 'English', htmlLang: 'en', keycode: 'EN' },
-  { code: 'pt', label: 'Português', htmlLang: 'pt-BR', keycode: 'PT' }, // Marco 2026-09-07: URL stays /pt/, tags say Brazilian,
+  { code: 'pt', label: 'Português', htmlLang: 'pt-BR', keycode: 'PT' }, // Marco 2026-09-07: URL stays /pt/, tags say Brazilian
   { code: 'it', label: 'Italiano', htmlLang: 'it', keycode: 'IT' },
   { code: 'fr', label: 'Français', htmlLang: 'fr', keycode: 'FR' },
   { code: 'de', label: 'Deutsch', htmlLang: 'de', keycode: 'DE' },

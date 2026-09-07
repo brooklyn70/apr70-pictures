@@ -128,3 +128,192 @@ reverses cleanly. Payload's generator does not write that data move — it was a
 hand and proved against a fresh copy of the live database in both directions with zero
 values lost. Do not regenerate this migration without re-reading
 `migration-rehearsal-2026-09-07.md` first.
+
+---
+
+## i18n web side
+
+Proof for everything below: `docs/i18n/web-verification-2026-09-07.md`.
+
+### Routing — middleware rewrite, not per-locale page files
+
+English is unprefixed and every other locale is prefixed:
+
+```
+/slate              en      /pt/slate           pt
+/work/sea-gate      en      /it/work/sea-gate   it
+```
+
+Pages live **once** under `web/src/pages/`. There is no `[locale]` segment and no
+duplicated page file. `web/src/middleware.ts` does the whole job: if the first path
+segment is a site locale AND that locale is enabled, it sets `context.locals.locale`
+and rewrites the request to the unprefixed path with `next(url)`. Everything else gets
+`locals.locale = 'en'` and passes through untouched.
+
+Astro's `i18n` block is configured as `routing: 'manual'` — the mode Astro documents
+for middleware-driven routing. It disables Astro's own i18n middleware and generates no
+locale-prefixed routes, so it declares intent without fighting the middleware. Its
+`locales` list is imported from `cms/src/locales.ts`, never retyped. Two consequences
+worth knowing:
+
+- **Read the locale from `Astro.locals.locale`, never `Astro.currentLocale`.** By the
+  time a page renders, the URL has already been rewritten to the unprefixed path, so
+  anything deriving a locale from `Astro.url` is unreliable. `locals.unprefixedPath`
+  carries the path without the prefix, which is what canonical, hreflang and the
+  switcher build their URLs from.
+- The `locales` list in `astro.config.mjs` says which codes **exist**, not which are
+  **public**. The public gate is Site Settings, read at request time.
+
+Skipped by the middleware, so they can never be locale-routed: `/api`, `/_astro`,
+`/_image`, `/_actions`, `/_server-islands`, `/admin`, `/media`, and anything whose path
+ends in a file extension (which covers `robots.txt`, `sitemap.xml`, `llms.txt`, fonts
+and images).
+
+`/en/slate` is deliberately a 404. English is unprefixed; one page has one URL.
+
+### The gate
+
+`web/src/lib/i18n/enabled.ts` resolves the enabled set from
+`SiteSettings.enabledLocales`. A missing or empty field reads as `['en']`, so the web
+side worked correctly before the CMS migration landed and still would if the field
+ever went away. English is always present and always first, and the list is returned in
+`cms/src/locales.ts` order.
+
+A request for a locale that is not enabled gets no rewrite, so no route matches, so the
+site's existing 404 answers — the same 404 `/nope` gets. Nothing special was added.
+
+The switcher, the hreflang alternates and the sitemap all read the same resolved list,
+so they cannot disagree with what actually routes.
+
+**Dev-only override.** `I18N_FORCE_ENABLED=en,pt` pretends Site Settings has those
+locales enabled, so prefixed routes can be exercised locally before anything is
+translated:
+
+```sh
+I18N_FORCE_ENABLED=en,pt PUBLIC_PAYLOAD_URL=http://localhost:3002 pnpm -C web dev
+```
+
+It **must never be set in production**. Site Settings is the real gate; this variable
+would put a half-translated locale in front of a visitor. It is deliberately not a
+`PUBLIC_*` variable, so it is read server-side only and never reaches the client
+bundle.
+
+### Content fetching and cache keys
+
+Every fetch helper in `web/src/lib/payload.ts` takes an optional
+`locale: SiteLocale = 'en'`. For a non-default locale it appends
+`&locale=<code>&fallback-locale=en` to the Payload REST URL; **for English it appends
+nothing**, so an English request builds character-for-character the URL it built before
+i18n existed and the live English path is provably unchanged.
+
+Every cache key carries the locale — the SWR cache, the slim-projection list cache and
+the single-flight map:
+
+```
+global:v9-slate:d2:en        global:v9-slate:d2:pt
+col:projects:v9slate:en      col:projects:v9slate:pt
+doc:projects:sea-gate:en     doc:projects:sea-gate:pt
+```
+
+Without this the first Portuguese request would poison the English cache for the whole
+TTL. Pages pass `Astro.locals.locale` into their fetches; Astro section components read
+`Astro.locals.locale` directly rather than threading a prop through
+`SectionRenderer`.
+
+### Links
+
+`web/src/lib/i18n/paths.ts` exports `localePath(locale, path)`. It prefixes internal
+paths for non-default locales, preserves query and hash, collapses double slashes, and
+returns external, `mailto:`, fragment-only and relative hrefs untouched — so any href
+can be piped through it. **For English it is the identity function.**
+
+Every internal link the site renders goes through it: nav, footer nav, both wordmark
+home links, the route line, the slate list rows, the division strip, the division-page
+slate rows, text-fold links, the request CTA, the property prev/next ring, the
+`/contact?re=<slug>` return, and the `/slate` redirects on `/work/[slug]`. External and
+`mailto:` links are untouched. `llms.txt` stays English-only by design.
+
+### Switcher
+
+`web/src/components/v9/LanguageSwitcher.astro` — mono keycodes, `EN · PT · IT`, in the
+Share Tech Mono keycode idiom already used by the nav super index and the footer route
+row. No flags, no icons, no new colour tokens, zero JavaScript. The current locale is
+marked `aria-current="true"` and takes the accent ink. Each entry is an `<a>` with
+`hreflang` and `lang`, pointing at `localePath(code, unprefixedPath)` so the switch
+lands on the same page in the other language.
+
+Mounted in **two** places, both from `V9Layout.astro`: the header nav beside the mode
+toggle, and the footer nav row. Its accessible name is `chrome.languageLabel` (a new
+optional Site Settings chrome string) falling back to "Language".
+
+It renders **nothing at all** — no wrapper, no separator, no whitespace — while only
+one locale is enabled, so today's markup is untouched until Marco ticks a second
+locale. Its CSS lives in `web/src/styles/v9.css` (not a scoped `<style>`, which Astro
+would inject into every page even when the component renders nothing) and uses only
+existing tokens, so both modes come for free.
+
+Element choice: a `<span role="group">`, not a `<nav>`, because both mount points are
+already inside a `<nav>` landmark.
+
+### SEO
+
+- `<html lang>` from `htmlLangFor(locale)`. The hardcoded `lang="en"` is gone.
+- `<link rel="alternate" hreflang="…">` for every **enabled** locale plus `x-default`
+  pointing at English, absolute URLs via `canonical()`.
+- Per-locale `<link rel="canonical">` — `/pt/slate` is canonical for itself.
+- `<meta property="og:locale">` (`en_US`, `pt_PT`, …; the territory map lives in
+  `paths.ts`).
+- `inLanguage` on the WebSite and CreativeWork JSON-LD. It is deliberately **not** on
+  Organization or BreadcrumbList, where schema.org does not define it.
+- `sitemap.xml` enumerates the prefixed URLs and gives every `<url>` an
+  `<xhtml:link rel="alternate" hreflang>` child per enabled locale plus `x-default`.
+- `robots.txt` unchanged.
+- `llms.txt` stays English — one canonical machine story — and gains a single
+  `- Languages: …` line, only once a second locale is actually enabled.
+
+### The AI Mark
+
+`isAiFrame(media, caption, credit)` in `web/src/components/v9/media.ts` now reads the
+stored `Media.aiFrame` flag **first** and falls back to the old English caption regex,
+so nothing stamped today loses its stamp. The duplicate predicate in
+`FilmstripSlideshow.tsx` matches; keep the two in lockstep. Every caller passes the
+media object through, and both gallery mappers (`MoodGrid.astro`, `work/[slug].astro`)
+put `aiFrame` on the island's items.
+
+Known gap, unchanged by this work: the hero photo-fold on `/work/[slug]` renders no
+`data-ai-frame` at all — it never did. Adding one would change today's English HTML, so
+it was left alone. Worth a separate ruling.
+
+### Hardcoded English
+
+`web/src/lib/i18n/dictionary.ts` holds the small set of strings that are **not**
+CMS-sourced: the entity description, the division names, the five page labels and three
+division-page labels `llms.txt` uses, the switcher's accessible name, and the
+Display-panel fallbacks in `ThemeControlIsland.tsx`. `en` is fully populated with the
+existing English values; every other locale is an empty object that falls back to
+English field by field, including inside nested groups.
+
+**No translated copy has been invented.** Filling those entries is the reviewed step in
+Phase 3 (plan §G.1 row 10: Claude drafts, Marco signs off). Anything editorial belongs
+in the Payload locale tab, not here.
+
+### What remains for Phase 3
+
+1. Draft the Portuguese copy in the admin's PT tab; Marco reads every page in both
+   modes; canonise at `11.12 V9 Build/02-copy/pt/`; `pnpm -C cms seed:v9:apply -- --locale=pt`.
+2. Fill the `pt` entry in `web/src/lib/i18n/dictionary.ts` with the same signed-off
+   words (description, division names, page labels, "Language", the three mode names).
+3. Set `chrome.languageLabel` in Site Settings if "Language" is not wanted.
+4. Tick **pt** in Site Settings → Languages → Public languages. That single checkbox
+   turns on the routes, the switcher, the hreflang alternates and the sitemap
+   entries — no deploy.
+5. Never set `I18N_FORCE_ENABLED` on the NAS.
+
+Then IT, FR, DE the same way, one at a time, each gated on Marco's read.
+
+### One decision for Marco
+
+`pt` is plain Portuguese (`htmlLang: 'pt'`, `og:locale: pt_PT`), not `pt-BR`. If the
+audience is Brazilian, the change is `pt` → `pt-BR` in `cms/src/locales.ts` (which
+changes the URL prefix to `/pt-br/`) plus the territory map in
+`web/src/lib/i18n/paths.ts`. Cheap to change now, expensive once URLs are indexed.

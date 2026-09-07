@@ -4,6 +4,7 @@
  * body paragraphs, optional pull quote, optional "more" route and inline link.
  */
 import type { V9Section } from '../../../lib/payload'
+import { localePath } from '../../../lib/i18n/paths'
 import { renderInline, renderParagraphs } from '../../../lib/v9/inline'
 
 type TextFoldData = Extract<V9Section, { blockType: 'textFold' }>
@@ -11,6 +12,9 @@ const section = Astro.props.section as TextFoldData
 
 const bodyHtml = renderParagraphs(section.body)
 const classes = section.tight ? 'v9-section v9-section--tight' : 'v9-section'
+
+/* i18n: internal links carry the locale prefix on prefixed pages. */
+const locale = Astro.locals.locale
 ---
 
 <section class={classes} aria-label={section.ariaLabel ?? section.heading ?? undefined}>
@@ -44,13 +48,13 @@ const classes = section.tight ? 'v9-section v9-section--tight' : 'v9-section'
     {
       section.linkHref && section.linkLabel && (
         <p class="v9-prose">
-          <a href={section.linkHref}>{section.linkLabel}</a>
+          <a href={localePath(locale, section.linkHref)}>{section.linkLabel}</a>
         </p>
       )
     }
     {
       section.moreHref && section.moreLabel && (
-        <a class="v9-more" href={section.moreHref}>
+        <a class="v9-more" href={localePath(locale, section.moreHref)}>
           {section.moreLabel}
         </a>
       )

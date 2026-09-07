@@ -202,6 +202,46 @@
   transition: color var(--dur-quick) var(--ease-out);
 }
 .v9-footer__nav a:hover { color: var(--fg-1); }
+
+/* ---- Language switcher (i18n, 2026-09-07) ----
+   Mono keycodes in the house idiom — the same Share Tech Mono clothes as the
+   nav super index and the footer route row. No flags, no icons, no new colour
+   tokens: --fg-3/--fg-4 at rest, --accent for the current locale, so both
+   Marquee Night and House Lights are covered by the existing ramps. The whole
+   block is inert until a second locale is enabled (the component renders
+   nothing at all with one). */
+.v9-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(0.4rem, 1.2vw, 0.7rem);
+  font-family: var(--font-mono);
+  font-size: var(--v9-micro);
+  letter-spacing: 0.2em;
+}
+.v9-lang__code {
+  color: var(--fg-4);
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color var(--dur-quick) var(--ease-out);
+}
+.v9-lang__code:hover { color: var(--accent); }
+.v9-lang__code[aria-current='true'] { color: var(--accent); }
+/* Middot between entries, drawn by CSS so the markup stays links only. */
+.v9-lang__code + .v9-lang__code::before {
+  content: '\00b7';
+  margin-right: clamp(0.4rem, 1.2vw, 0.7rem);
+  color: var(--fg-4);
+  letter-spacing: 0;
+}
+.v9-lang--footer .v9-lang__code { color: var(--fg-3); }
+.v9-lang--footer .v9-lang__code:hover,
+.v9-lang--footer .v9-lang__code[aria-current='true'] { color: var(--accent); }
+/* Phones: 44px tap targets without changing the row height, the same trick the
+   header links and footer routes use above. */
+@media (max-width: 719px) {
+  .v9-lang__code { display: inline-block; padding-block: 0.75rem; margin-block: -0.6rem; }
+}
 .v9-footer__colophon {
   max-width: var(--v9-measure);
   font-size: 0.85rem;

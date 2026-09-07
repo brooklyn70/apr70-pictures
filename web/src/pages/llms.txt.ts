@@ -1,14 +1,39 @@
 import type { APIRoute } from 'astro'
-import { fetchV9SlateProjects } from '../lib/payload'
+import { fetchV9SlateProjects, fetchSiteSettings } from '../lib/payload'
 import { plainText } from '../lib/v9/inline'
 import { NAP, SITE_URL, canonical, V9_PAGES, DIVISION_PAGES } from '../lib/v9/site'
+import { SITE_LOCALES } from 'site-locales'
+import { resolveEnabledLocales } from '../lib/i18n/enabled'
+import { localePath } from '../lib/i18n/paths'
 
 /**
  * /llms.txt — the curated, LLM-readable site summary (llmstxt.org shape),
  * built live from Payload so it never drifts from the pages.
+ *
+ * i18n: this file stays ENGLISH. Machines get one canonical story, in the
+ * language the studio writes in; a per-locale llms.txt would be four more
+ * surfaces to keep in sync for no reader. The one addition is a Languages
+ * line naming the prefixes, and it only appears once a second locale is
+ * actually enabled — while the site is English-only the file is byte-identical
+ * to what it served before.
  */
 export const GET: APIRoute = async () => {
   const { slate } = await fetchV9SlateProjects()
+  const { settings } = await fetchSiteSettings()
+
+  const enabled = resolveEnabledLocales(settings?.enabledLocales)
+  const languagesLine =
+    enabled.length > 1
+      ? [
+          `- Languages: ` +
+            enabled
+              .map((code) => {
+                const meta = SITE_LOCALES.find((l) => l.code === code)
+                return `${meta?.label ?? code} at ${canonical(localePath(code, '/'))}`
+              })
+              .join('; '),
+        ]
+      : []
 
   const lines: string[] = [
     `# ${NAP.name}`,
@@ -20,6 +45,7 @@ export const GET: APIRoute = async () => {
     `- Divisions: ${NAP.divisions.join('; ')}`,
     `- Contact: ${NAP.email}`,
     `- Site: ${SITE_URL}`,
+    ...languagesLine,
     '',
     '## Pages',
     '',

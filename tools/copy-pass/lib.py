@@ -8,8 +8,18 @@ side effects). Anthropic seats are WRITE-ONLY here too: Claude writes, Claude ne
 import json, os, pathlib, time, urllib.request, urllib.error
 
 OUT = pathlib.Path(__file__).resolve().parents[2] / "docs/copy-pass/2026-09-07"
+OUT2 = OUT / "v2"                      # round 2 (2026-09-07, second draft)
 LEDGER = OUT / "spend.json"
 ABORT_AT = 4.50
+
+def use_round2():
+    """Switch the ledger and abort line to round 2. Round 1's spend.json is never touched.
+    Round 2 has its own hard limit of $2.50 (Marco, 2026-09-07)."""
+    global LEDGER, ABORT_AT
+    OUT2.mkdir(parents=True, exist_ok=True)
+    LEDGER = OUT2 / "spend.json"
+    ABORT_AT = 2.50
+    return LEDGER
 
 OR_URL = "https://openrouter.ai/api/v1/chat/completions"
 XAI_URL = "https://api.x.ai/v1/chat/completions"

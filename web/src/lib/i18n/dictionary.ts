@@ -65,7 +65,29 @@ const EN: Dictionary = {
 
 /** Structure only. Do not fill these in without Marco's signed-off translation. */
 const OVERRIDES: Partial<Record<SiteLocale, Partial<Dictionary>>> = {
-  pt: {},
+  // pt: DRAFT 2026-09-07 (Claude, pt-BR), pending Marco's sign-off with the
+  // rest of the Portuguese pass (docs/i18n/review/pt-2026-09-07.md). Not public
+  // until `pt` is enabled in Site Settings.
+  pt: {
+    siteDescription:
+      'A APR 70 Pictures é um estúdio independente de cinema e televisão em Long Island City, Nova York. Roteiros escritos por pessoas, narrativa clássica, métodos de produção modernos, com imagens geradas por máquina identificadas onde quer que apareçam.',
+    pages: {
+      '/': 'Início',
+      '/slate': 'Slate',
+      '/craft': 'Ofício',
+      '/methods': 'Métodos',
+      '/contact': 'Contato',
+    },
+    languageLabel: 'Idioma',
+    display: {
+      displayLabel: 'Exibição',
+      panelTitle: 'Exibição',
+      themeLabel: 'Tema',
+      themeDark: 'Noite de marquise',
+      themeLight: 'Luzes da sala',
+      themeSystem: 'Sistema',
+    },
+  },
   it: {},
   fr: {},
   de: {},

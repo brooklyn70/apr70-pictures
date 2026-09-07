@@ -109,7 +109,16 @@
     flex-basis: 100%;
     justify-content: space-between;
     gap: 0.6rem;
+    /* i18n (2026-09-07): longer labels (PT "MÉTODOS", "CONTATO") plus the
+       language keycodes overflowed the single row at 375 and clipped the
+       switcher to "P". Let the row wrap: the routes keep the first line, the
+       switcher + mode toggle drop to a second line, right-aligned. English
+       with one locale never wraps, so today's layout is unchanged. */
+    flex-wrap: wrap;
+    row-gap: 0.35rem;
+    overflow-x: visible;
   }
+  .v9-header .v9-lang { margin-left: auto; }
   /* Five display-face routes at 375: drop the supers, tighten the face. */
   .v9-nav__link { letter-spacing: 0.02em; font-size: 0.9rem; }
   .v9-nav__index { display: none; }

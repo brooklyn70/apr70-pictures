@@ -1,6 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
 import { SITE_VERSION } from '../siteVersion'
+import { SITE_LOCALES, DEFAULT_LOCALE } from '../locales'
 
 /**
  * The house colour vocabulary. Free-form hex is deliberately impossible: every
@@ -73,6 +74,7 @@ export const SiteSettings: GlobalConfig = {
     {
       name: 'tagline',
       type: 'text',
+      localized: true,
       label: 'Tagline',
       admin: {
         description: 'Short sub-headline used in meta descriptions and the footer.',
@@ -392,11 +394,48 @@ export const SiteSettings: GlobalConfig = {
             {
               name: 'text',
               type: 'text',
+              localized: true,
               label: 'Mark text',
               defaultValue: 'APR 70 · AI GEN',
               admin: { width: '50%', description: 'Keep it short; renders in the mono face.' },
             },
           ],
+        },
+      ],
+    },
+
+    // ── Languages (i18n groundwork) ──────────────────────────────────────────
+    // Translating a locale and publishing it are two different decisions. Every
+    // locale in locales.ts always exists in the admin as a tab; only the ones
+    // ticked here are routable on the public site. English is not removable.
+    {
+      type: 'collapsible',
+      label: 'Languages',
+      admin: {
+        description:
+          'Which languages the public site serves. A locale can be translated in the admin long before it is ticked here — that is how a language ships only once Marco has read every page of it.',
+        initCollapsed: true,
+      },
+      fields: [
+        {
+          name: 'enabledLocales',
+          type: 'select',
+          hasMany: true,
+          label: 'Public languages',
+          defaultValue: [DEFAULT_LOCALE],
+          required: true,
+          options: SITE_LOCALES.map((l) => ({ label: l.label, value: l.code })),
+          validate: (value: unknown) => {
+            const codes = Array.isArray(value) ? (value as string[]) : []
+            if (!codes.includes(DEFAULT_LOCALE)) {
+              return 'English cannot be removed — it is the default locale and the fallback for every other language.'
+            }
+            return true
+          },
+          admin: {
+            description:
+              'Locales that are routable on the public site. A locale can be translated in the admin without being enabled. English cannot be removed.',
+          },
         },
       ],
     },
@@ -416,12 +455,14 @@ export const SiteSettings: GlobalConfig = {
             {
               name: 'displayLabel',
               type: 'text',
+              localized: true,
               label: 'Display button label',
               admin: { description: 'The header button that opens the Display panel.', width: '50%' },
             },
             {
               name: 'panelTitle',
               type: 'text',
+              localized: true,
               label: 'Panel title',
               admin: { description: 'Title at the top of the Display panel.', width: '50%' },
             },
@@ -430,6 +471,7 @@ export const SiteSettings: GlobalConfig = {
         {
           name: 'themeLabel',
           type: 'text',
+          localized: true,
           label: 'Theme control label',
           admin: { description: 'Label over the three theme choices.' },
         },
@@ -439,18 +481,21 @@ export const SiteSettings: GlobalConfig = {
             {
               name: 'themePremiere',
               type: 'text',
+              localized: true,
               label: 'Theme 1 name',
               admin: { description: 'Display name of the premiere (dark) theme.', width: '33%' },
             },
             {
               name: 'themeMatinee',
               type: 'text',
+              localized: true,
               label: 'Theme 2 name',
               admin: { description: 'Display name of the matinee (light) theme.', width: '33%' },
             },
             {
               name: 'themeLateshow',
               type: 'text',
+              localized: true,
               label: 'Theme 3 name',
               admin: { description: 'Display name of the late-show theme.', width: '33%' },
             },
@@ -462,12 +507,14 @@ export const SiteSettings: GlobalConfig = {
             {
               name: 'scaleLabel',
               type: 'text',
+              localized: true,
               label: 'Type size label',
               admin: { description: 'Label for the type-size control.', width: '50%' },
             },
             {
               name: 'logoLabel',
               type: 'text',
+              localized: true,
               label: 'Logo size label',
               admin: { description: 'Label for the logo-size control.', width: '50%' },
             },
@@ -479,18 +526,21 @@ export const SiteSettings: GlobalConfig = {
             {
               name: 'topLabel',
               type: 'text',
+              localized: true,
               label: 'Back-to-top label',
               admin: { description: 'The back-to-top control.', width: '33%' },
             },
             {
               name: 'prevLabel',
               type: 'text',
+              localized: true,
               label: 'Previous property label',
               admin: { description: 'Prev arrow on /work/<slug> pages.', width: '33%' },
             },
             {
               name: 'nextLabel',
               type: 'text',
+              localized: true,
               label: 'Next property label',
               admin: { description: 'Next arrow on /work/<slug> pages.', width: '33%' },
             },
@@ -502,12 +552,14 @@ export const SiteSettings: GlobalConfig = {
             {
               name: 'slateReturn',
               type: 'text',
+              localized: true,
               label: 'Slate return label',
               admin: { description: 'The "back to the whole slate" link on property pages.', width: '50%' },
             },
             {
               name: 'cta',
               type: 'text',
+              localized: true,
               label: 'Header CTA',
               admin: { description: 'The header call to action (e.g. "Request materials →").', width: '50%' },
             },
@@ -516,11 +568,13 @@ export const SiteSettings: GlobalConfig = {
         {
           name: 'colophon',
           type: 'textarea',
+          localized: true,
           admin: { description: 'The footer colophon paragraph (studio, disclosure, typography, privacy).' },
         },
         {
           name: 'copyright',
           type: 'text',
+          localized: true,
           admin: { description: 'The footer copyright line (e.g. "© 2026 APR 70 Pictures.").' },
         },
         {
@@ -531,7 +585,7 @@ export const SiteSettings: GlobalConfig = {
           admin: { description: 'The site navigation, in order (Home / Slate / Craft / Methods / Contact).' },
           fields: [
             { name: 'href', type: 'text', required: true },
-            { name: 'label', type: 'text', required: true },
+            { name: 'label', type: 'text', localized: true, required: true },
           ],
         },
       ],
@@ -575,6 +629,7 @@ export const SiteSettings: GlobalConfig = {
         {
           name: 'navLabel',
           type: 'text',
+          localized: true,
           label: 'Nav label',
           defaultValue: 'Dispatch',
           admin: {
@@ -607,6 +662,7 @@ export const SiteSettings: GlobalConfig = {
         {
           name: 'navLabel',
           type: 'text',
+          localized: true,
           label: 'Nav label',
           defaultValue: 'Troupe',
           admin: {

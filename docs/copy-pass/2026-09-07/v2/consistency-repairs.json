@@ -1,0 +1,10 @@
+[
+  {
+    "doc": "v9-home:v9-home",
+    "path": "sections.2.lede",
+    "issue": "drift",
+    "why": "v2 restored BEFORE's \"They have been waiting\". Riskin named the v1 cut of that phrase as a win: \"It cut the sob. Waiting is a feeling you did not earn.\" S1's cut is kept, the regression is not.",
+    "from": "They have been waiting for stories told with craft: written by hand, finished on the page, and worth handing to the next generation.",
+    "to": "They want stories told with craft: written by hand, finished on the page, and worth handing to the next generation."
+  }
+]

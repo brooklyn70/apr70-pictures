@@ -28,11 +28,13 @@ import V9Layout from '../layouts/V9Layout.astro'
 import { fetchSiteSettings, fetchTroupeProgram, resolveMediaUrl } from '../lib/payload'
 import { renderInline } from '../lib/v9/inline'
 import { NAP } from '../lib/v9/site'
+import { localePath } from '../lib/i18n/paths'
 
-const { settings } = await fetchSiteSettings()
+const locale = Astro.locals.locale
+const { settings } = await fetchSiteSettings(locale)
 const published = settings?.troupe?.enabled === true
 
-const { programme } = published ? await fetchTroupeProgram() : { programme: null }
+const { programme } = published ? await fetchTroupeProgram(locale) : { programme: null }
 
 const audioSrc = resolveMediaUrl(programme?.audio as never)
 const posterSrc = resolveMediaUrl(programme?.poster as never)
@@ -82,7 +84,7 @@ const description = live
             There is no programme on the air right now. The APR 70 Troupe performs when
             there is something finished to perform — voices first, pictures after.
           </p>
-          <a class="v9-more" href="/slate">The whole slate →</a>
+          <a class="v9-more" href={localePath(locale, '/slate')}>The whole slate →</a>
         </div>
       </section>
     ) : (
@@ -149,7 +151,7 @@ const description = live
               {programme?.credits && (
                 <p class="v9-capline trp-credits" set:html={renderInline(programme.credits)} />
               )}
-              <a class="v9-more" href="/slate">The whole slate →</a>
+              <a class="v9-more" href={localePath(locale, '/slate')}>The whole slate →</a>
             </div>
           </section>
         )}

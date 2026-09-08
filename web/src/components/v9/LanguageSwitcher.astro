@@ -1,0 +1,52 @@
+---
+/**
+ * LanguageSwitcher — mono keycodes in the house idiom: EN · PT · IT.
+ *
+ * No flags, no icons, no new colours, zero JavaScript. It wears the same
+ * Share Tech Mono keycode clothes as the nav's super index and the footer
+ * route row (styles live in styles/v9.css under "Language switcher", using
+ * only existing tokens, so both modes come for free).
+ *
+ * It renders NOTHING — no wrapper, no separator, no whitespace — while only
+ * one locale is enabled, so today's English markup is untouched until Marco
+ * ticks a second locale in Site Settings.
+ */
+import { SITE_LOCALES, htmlLangFor, type SiteLocale } from 'site-locales'
+import { localePath } from '../../lib/i18n/paths'
+
+interface Props {
+  /** The ENABLED locales, in canonical order (see lib/i18n/enabled.ts). */
+  locales: SiteLocale[]
+  /** The locale this page is being served in. */
+  current: SiteLocale
+  /** The request path WITHOUT a locale prefix — each entry re-prefixes it. */
+  path: string
+  /** chrome.languageLabel from the CMS; falls back to the dictionary. */
+  label: string
+  /** Which mount this is. Only affects spacing/size, never the colours. */
+  place?: 'header' | 'footer'
+}
+
+const { locales, current, path, label, place = 'header' } = Astro.props
+
+/** Canonical order, filtered to what is enabled. */
+const entries = SITE_LOCALES.filter((l) => locales.includes(l.code))
+---
+
+{
+  entries.length > 1 && (
+    <span class={`v9-lang v9-lang--${place}`} role="group" aria-label={label}>
+      {entries.map((l) => (
+        <a
+          class="v9-lang__code"
+          href={localePath(l.code, path)}
+          hreflang={htmlLangFor(l.code)}
+          lang={htmlLangFor(l.code)}
+          aria-current={l.code === current ? 'true' : undefined}
+        >
+          {l.keycode}
+        </a>
+      ))}
+    </span>
+  )
+}

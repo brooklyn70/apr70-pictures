@@ -1,0 +1,10 @@
+[
+  {
+    "doc": "v9-home:v9-home",
+    "path": "sections.7.body",
+    "issue": "drift",
+    "quote": "2026, 2027",
+    "why": "BEFORE carries ['2026', '2027']; v2 does not.",
+    "fix": ""
+  }
+]

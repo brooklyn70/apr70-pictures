@@ -1,0 +1,1192 @@
+{
+  "_meta": {
+    "model": "claude-opus-5",
+    "date": "2026-09-07",
+    "sourceSnapshotHash": "79284771ebdde89a",
+    "docCount": 222,
+    "fieldCount": 618,
+    "requests": 21,
+    "inputTokens": 38270,
+    "outputTokens": 39215
+  },
+  "v9-home:v9-home": {
+    "seoTitle": "APR 70 Pictures · Les classiques ne se démodent jamais",
+    "seoDescription": "APR 70 Pictures est un studio de cinéma et de télévision installé à Long Island City, New York. Des scénarios écrits par des humains, la discipline du récit classique, la machine au service de la technique, en toute transparence. Dix propriétés au programme de travail.",
+    "sections.0.kicker": "Une maison de divertissement · Long Island City, NY",
+    "sections.0.heading": "Les classiques ne se démodent jamais.",
+    "sections.0.caption": "Au programme de travail · ==L.A. Dolce Vita== · Santa Monica Pier, nuit",
+    "sections.0.credit": "Image de développement générée par IA",
+    "sections.1.links.0.label": "Programme",
+    "sections.1.links.1.label": "Métier",
+    "sections.1.links.2.label": "Méthodes",
+    "sections.1.links.3.label": "Contact",
+    "sections.2.sceneSlug": "INT. L'IDÉE - NUIT",
+    "sections.2.heading": "Il existe un public qui veut encore une histoire.",
+    "sections.2.lede": "Il attend des histoires racontées avec métier : écrites à la main, achevées sur la page, et dignes d'être transmises à la génération suivante. APR 70 Pictures existe pour ce public.",
+    "sections.2.body": "Nous travaillons avec une conviction simple : le plus grand art naît à l'intérieur de limites claires. Le vieil Hollywood œuvrait sous des règles sévères quant à ce qui pouvait être montré, et il a répondu par le sous-texte, l'atmosphère et une écriture ingénieuse. Les cinéastes ont maîtrisé le récit visuel et l'économie narrative. Nous ramenons cette discipline au ras du trottoir, au cinéma, à la télévision, à la scène et à la radio, sans rien retrancher.\n\nIci, c'est l'histoire qui porte la charge. Le drame plutôt que l'information. Le sous-texte plutôt que la déclaration. Un visage tenu assez longtemps pour compter.",
+    "sections.3.caption": "Au programme de travail · ==L.A. Dolce Vita== · Via del Corso, matin",
+    "sections.3.credit": "Image de développement générée par IA",
+    "sections.4.sceneSlug": "INT. LE MÉTIER - CONTINU",
+    "sections.4.heading": "Le métier de la contrainte.",
+    "sections.4.body": "Nous gardons une phrase de Mamet punaisée au mur : le public vient voir du drame. Nous regardons vers l'humanité de Capra, la rigueur visuelle de Bergman, l'intelligence inquiète de Welles et du Mercury Theatre. Puis nous faisons passer cet esprit par Brooklyn et Los Angeles : de vrais quartiers, de vrais visages, de vrais enjeux.",
+    "sections.4.quote": "L'ennemi de l'art, c'est l'absence de limites.",
+    "sections.4.cite": "Orson Welles",
+    "sections.4.moreLabel": "Principes du métier →",
+    "sections.5.caption": "Au programme de travail · ==L.A. Dolce Vita== · Sunset Blvd, 2 h du matin",
+    "sections.5.credit": "Image de développement générée par IA",
+    "sections.6.sceneSlug": "INT. LA MAISON - JOUR",
+    "sections.6.heading": "Écrit par des personnes. Achevé sur la page.",
+    "sections.6.body": "APR 70, c'est un auteur-producteur et un programme de travail de **dix propriétés** : trois longs métrages rédigés, une saison de dix épisodes sur la page, et d'autres en développement. Neuf titres sont publics au [programme](/slate), chacun avec sa propre page ; un seul ne circule que dans des documents privés, le temps que l'examen juridique s'achève. Les scénarios sont écrits par des personnes. La machine travaille en dessous de la ligne, sur des images comme celles de ce site, et sa présence est signalée partout où elle intervient.",
+    "sections.6.moreLabel": "Notre façon de travailler →",
+    "sections.7.sceneSlug": "EXT. L'INTERNET OUVERT - 2026",
+    "sections.7.heading": "Conçu pour la façon dont les histoires atteignent le public aujourd'hui.",
+    "sections.7.body": "Les histoires atteignent désormais leur public par l'internet ouvert : en direct, dans le monde entier, à l'heure choisie par le spectateur. APR 70 est bâti pour ce monde. Le programme se développe à la vue de tous sur ce site, le public le trouve par la recherche, par les réponses des IA et sur X, et les pages elles-mêmes circulent un lecteur à la fois. 2026 et 2027 appartiendront aux studios qui vont chercher les gens là où ils se trouvent déjà, avec des œuvres qui méritent leur attention.",
+    "sections.8.sceneSlug": "INT. LE PROGRAMME - NUIT",
+    "sections.8.heading": "Sur la page, maintenant.",
+    "sections.9.rows.0.logline": "Borough Park, l'été 1986.",
+    "sections.9.rows.1.logline": "Los Angeles et Rome, dix jours de février.",
+    "sections.9.rows.2.logline": "Une ville privée au bout de Brooklyn.",
+    "sections.10.divisions.0.blurb": "La télévision new-yorkaise au ras du trottoir, bâtie à partir des cinq boroughs.",
+    "sections.10.divisions.1.blurb": "De la télévision pour un public qui voyage, mise en scène depuis Los Angeles.",
+    "sections.10.divisions.2.blurb": "Des longs métrages bâtis pour durer.",
+    "sections.11.body": "[Tout le programme : dix propriétés →](/slate)",
+    "sections.12.sceneSlug": "INT. LA LECTURE - NUIT",
+    "sections.12.heading": "Lire les pages.",
+    "sections.12.body": "Scénarios, synopsis et grilles d'épisodes se partagent en privé, sur demande. Si vous produisez, représentez ou financez ce genre de travail, demandez. La réponse vient de l'auteur.",
+    "sections.12.linkLabel": "Demander les documents"
+  },
+  "v9-slate:v9-slate": {
+    "seoTitle": "Le Slate · APR 70 Pictures",
+    "seoDescription": "Le slate en cours d'APR 70 Pictures ; dix propriétés, longs métrages, séries et travaux documentaires en développement. Neuf publiques, chacune avec sa propre page. Une conservée en privé le temps que l'examen du conseil juridique s'achève. Documents communiqués en privé, sur demande.",
+    "sections.0.caption": "Extrait du slate en cours · ==L.A. Dolce Vita== · East L.A. · le scandale éclate",
+    "sections.0.credit": "Image de développement générée par IA",
+    "sections.1.sceneSlug": "INT. LE SLATE - NUIT",
+    "sections.1.heading": "Dix propriétés. Les faits de chacune.",
+    "sections.1.body": "Le slate compte **dix propriétés**. Neuf figurent sur cette page, et chacune dispose de sa propre page : le décor, les images, les faits. Une seule ne circule qu'au sein de documents privés, le temps que l'examen du conseil juridique s'achève. Un slate est une promesse ; un scénario est un fait. Nous listons les faits, et les pages elles-mêmes sont communiquées en privé.",
+    "sections.1.quote": "Écrire porte fermée, réécrire porte ouverte.",
+    "sections.1.cite": "Stephen King",
+    "sections.2.rows.0.logline": "À l'été 1986, dans une rue de Borough Park, un garçon sensible de 17 ans qui rêve de jouer la comédie à NYU passe des menus larcins au monde séduisant des clubs et du crime des dealers plus âgés, et perd son innocence, son premier amour et finalement sa vie dans la violence ordinaire de son quartier.",
+    "sections.2.rows.1.logline": "Lorsqu'un candidat à la présidence est surpris en direct avec une femme mystérieuse, le scandale qui s'ensuit défait quinze ans de secrets : la fiancée disparue d'un journaliste, sa fille cachée, et le projet d'une famille criminelle de la revendiquer comme héritière.",
+    "sections.2.rows.2.logline": "Une ville privée au bout de Brooklyn, aujourd'hui, en plein été.",
+    "sections.2.rows.2.provenance": "D'après *Red Harvest* de Dashiell Hammett (1929) ; le roman est dans le domaine public",
+    "sections.2.rows.3.logline": "Dans le milieu de Staten Island, deux exécuteurs sans mesure recouvrent des dettes à coups de travail sauvage et d'exigences codées venues des gangs de prison, jusqu'à ce qu'une ultime trahison les force à mesurer le prix de leur existence chaotique.",
+    "sections.2.rows.4.logline": "Red Hook, Brooklyn, l'automne 1970.",
+    "sections.2.rows.4.provenance": "D'après *The Maltese Falcon* de Dashiell Hammett (1930) ; le roman est dans le domaine public",
+    "sections.2.rows.5.logline": "Sept étudiants étrangers, recrutés dans une classe secrète par les indices d'une bombe sur le campus, sont formés au fil de missions clandestines, sans jamais soupçonner que chaque mission sert le consortium caché qu'ils croient combattre.",
+    "sections.2.rows.6.logline": "Une Sicilienne de Brooklyn, divorcée et sans le sou à Los Angeles, s'éveille après chaque sommeil dans une version différente de sa propre vie, dans la même ville, et doit maîtriser ses règnes changeants avant qu'un rival qui voyage de la même manière ne réduise toutes ces versions à celle qu'il peut posséder.",
+    "sections.2.rows.7.logline": "Dans un hybride télévisé d'esport et de fiction en prises de vues réelles, des joueurs d'élite appelés les Shadow Masters dirigent des avatars humains réels à travers des scénarios à haut risque. Leurs avatars peuvent désobéir lorsque la survie, la cupidité ou la conscience l'emportent, opposant la stratégie au libre arbitre.",
+    "sections.2.rows.8.logline": "Un expatrié revient dans sa Sicile ancestrale, dans les années 1970, en quête d'une vie tranquille. La terre, et ses habitants, ne le laisseront pas tranquille.",
+    "sections.3.sceneSlug": "INT. TROIS TRADITIONS - CONTINU",
+    "sections.3.heading": "Trois traditions, une seule main.",
+    "sections.3.body": "APR 70 Pictures, c'est un seul auteur-producteur travaillant dans trois traditions. (212) Pictures, c'est le travail new-yorkais : crime, drame et documentaire nés des cinq arrondissements. (310) Pictures, c'est le format long destiné aux publics qui voyagent, thrillers politiques et science-fiction mis en scène depuis Los Angeles et au-delà. New Renaissance Cinema, c'est le long métrage, des films faits pour durer plutôt que pour remplir une fenêtre de sortie. Une propriété porte la tradition qui lui convient le mieux, et lorsqu'un long métrage dépasse une seule côte, sa division territoriale s'y joint en coproduction. Trois traditions, une seule exigence.",
+    "sections.4.divisions.0.blurb": "La télévision new-yorkaise au ras du trottoir, née des cinq arrondissements.",
+    "sections.4.divisions.1.blurb": "La télévision pour les publics qui voyagent, mise en scène depuis Los Angeles.",
+    "sections.4.divisions.2.blurb": "Des longs métrages faits pour durer.",
+    "sections.5.body": "Une propriété ne circule qu'au sein de documents privés, le temps que l'examen du conseil juridique s'achève. Lorsqu'une propriété s'appuie sur un roman du domaine public, la source et son statut sont indiqués ci-dessus ; tout ce qui figure sur ce slate ne renvoie qu'aux romans seuls, et les loglines complètes de ces titres ne circulent que dans les documents privés. Synopsis, scénarios et grilles d'épisodes sont communiqués en privé, sur demande, selon les usages. Tout ce qui figure sur cette page est présenté pour une lecture privée et non pour une évaluation publique, et « rédigé » signifie qu'un état de travail existe sur la page ; c'est un statut, non un engagement de livraison.",
+    "sections.6.sceneSlug": "INT. LA LECTURE - NUIT",
+    "sections.6.heading": "Demandez les pages.",
+    "sections.6.body": "Si vous produisez, représentez ou financez ce type de travail, demandez ce que vous souhaitez lire : cela viendra de l'auteur, en privé.",
+    "sections.6.linkLabel": "Demander les documents"
+  },
+  "v9-craft:v9-craft": {
+    "seoTitle": "L'artisanat · APR 70 Pictures",
+    "seoDescription": "L'artisanat de la contrainte ; les principes de travail d'APR 70, et les conteurs qui ont prouvé qu'une œuvre puissante naît de choix délibérés à l'intérieur de limites nettes.",
+    "sections.0.caption": "Extrait de l'ardoise de travail · ==A Need Grows in Brooklyn== · Borough Park, été 1986",
+    "sections.0.credit": "Image de développement générée par IA",
+    "sections.1.sceneSlug": "INT. LES PRINCIPES - NUIT",
+    "sections.1.heading": "Le plus grand art naît à l'intérieur de limites nettes.",
+    "sections.1.lede": "Nous puisons une sagesse durable chez les conteurs qui ont défini leur art par la discipline, la vision et la retenue créatrice.",
+    "sections.1.body": "Leur intuition est simple et démodée : la puissance d'un récit naît de choix délibérés à l'intérieur de limites nettes. Le vieux Hollywood travaillait sous des règles dures quant à ce qui pouvait être montré, et il a répondu par le sous-texte, l'atmosphère et une écriture ingénieuse. Cette discipline a bâti les films que l'on regarde encore, que l'on cite encore, et que l'on transmet encore à ses enfants.\n\nCes principes guident chaque projet que nous développons, des séries limitées aux longs métrages et au-delà, tandis que nous bâtissons un studio voué aux récits de complexité morale, de résilience humaine et d'empreinte durable : l'héroïsme les yeux ouverts, l'ambiguïté avec une conscience, dans les quartiers réels de Brooklyn, de Los Angeles et d'ailleurs.",
+    "sections.2.quote": "Qu'est-ce que le drame, après tout, sinon la vie dont on a coupé les passages ennuyeux.",
+    "sections.2.cite": "Alfred Hitchcock",
+    "sections.2.note": "Hitchcock/Truffaut, entretiens de 1962",
+    "sections.3.caption": "Le public pour lequel nous écrivons encore · Grauman's Egyptian Theatre, Hollywood, 14 mai 1926",
+    "sections.3.credit": "Photographie d'archives · domaine public (publiée avant 1931) · via Wikimedia Commons",
+    "sections.4.sceneSlug": "INT. CE QUE CELA SIGNIFIE ICI - NUIT",
+    "sections.4.heading": "La retenue, répétée, devient une signature.",
+    "sections.4.body": "En pratique : des histoires qui se transmettent d'une génération à l'autre. Le drame plutôt que l'information. Le sous-texte plutôt que la déclaration. La caméra mérite son mouvement ; la coupe mérite sa place. Nous préférons tenir un visage quatre secondes que couper trois fois pour prouver que nous étions là.\n\nLes classiques ne se démodent jamais. Il leur faut seulement des conteurs assez courageux pour les raconter.",
+    "sections.4.moreLabel": "Voyez ce que nous racontons →"
+  },
+  "v9-methods:v9-methods": {
+    "seoTitle": "Méthodes · APR 70 Pictures",
+    "seoDescription": "Comment travaille APR 70 : des scénarios écrits par des personnes, des images et des mouvements générés par la machine et signalés partout où ils apparaissent. La discipline d'auctorialité, en entier.",
+    "sections.0.sceneSlug": "INT. L'ATELIER - JOUR",
+    "sections.0.heading": "Écrit par des personnes. Rendu par des machines. Signalé, toujours.",
+    "sections.0.lede": "Chacun mérite de savoir quelles parties de notre travail une machine a touchées. Nous le disons donc ici, et dans chaque légende.",
+    "sections.0.body": "En bref : l'écriture est humaine, le travail d'image en aval est généré par la machine sous notre direction, et chacun des deux garde son nom.",
+    "sections.1.quote": "Mon travail consiste à me soucier de chaque image de chaque film que je fais, et à en être responsable.",
+    "sections.1.cite": "Sidney Lumet",
+    "sections.1.note": "Making Movies, 1995",
+    "sections.2.ariaLabel": "Le registre des divulgations",
+    "sections.2.rows.0.term": "Scénarios",
+    "sections.2.rows.0.definition": "**Écrits par des personnes.** Marco Caruso en est l'auteur officiel ; les versions successives sont les siennes. Le logiciel assiste comme assistent une bibliothèque de recherche et un patient correcteur : synopsis de lecture, vérifications de continuité, notes. Le processus est consigné pour chaque scénario.",
+    "sections.2.rows.1.term": "Images et mouvement",
+    "sections.2.rows.1.definition": "**Générés par la machine sous notre direction, et signalés là où ils apparaissent**, y compris chaque image de développement sur ce site. Nous travaillons sur nos propres machines et, quand l'image l'exige, avec des modèles loués dans le nuage. Dans les deux cas, la mention est la même : généré par IA, divulgué, et tenu clairement à l'écart de la photographie.",
+    "sections.2.rows.2.term": "Ressemblances",
+    "sections.2.rows.2.definition": "**Des archétypes seulement, des visages inventés seulement.** Tout ce qui figure sur ce site et dans nos documents représente des personnes inventées. Aucun interprète réel, aucune figure publique réelle n'apparaît dans le travail généré.",
+    "sections.2.rows.3.term": "Images d'archives",
+    "sections.2.rows.3.definition": "**Domaine public uniquement, vérifié et crédité.** Lorsqu'une page porte une photographie ou une carte d'archives, sa date et son appartenance au domaine public sont indiquées dans la légende. Chaque image d'archives provient du fonds public et est créditée à sa source.",
+    "sections.2.rows.4.term": "Ce site",
+    "sections.2.rows.4.definition": "**Des pages statiques, une typographie composée à la main, rien qui vous observe.** Les polices sont servies depuis ce site, et les pages vous laissent tranquille : zéro cookie, zéro analytique, zéro requête tierce, vérifié le 2026-07-12. Une demande de documents, c'est un courriel à l'auteur, de personne à personne.",
+    "sections.2.rows.5.term": "Un seul récit",
+    "sections.2.rows.5.definition": "Le travail machine est crédité comme travail machine, le travail manuel comme travail manuel, et le lecteur comme le partenaire entendent la même version. **Un seul récit, dit à tout le monde.**",
+    "sections.2.rows.6.term": "Pourquoi cela compte",
+    "sections.2.rows.6.definition": "Parce que la confiance est le seul bien qu'un petit studio possède en propre. Et parce que ce que nous vendons, l'écriture, doit tenir comme travail humain, clairement et de manière démontrable.",
+    "sections.2.rows.7.term": "Droits",
+    "sections.2.rows.7.definition": "**Œuvres originales réservées ; les textes publics restent publics.** APR 70 Pictures réserve ses œuvres originales : les scénarios, personnages, scènes et documents de développement réalisés ici. Lorsqu'une propriété s'appuie sur un roman du domaine public, la page nomme cette source, en donne la date et la crédite comme libre d'usage pour tous. APR 70 ne réserve que l'expression nouvelle qu'elle ajoute par-dessus.",
+    "sections.3.caption": "Un essai de mouvement, quatre images · pièce de procédé en aval",
+    "sections.3.credit": "Généré par IA, comme tout ce qui est fait par la machine ici",
+    "sections.4.sceneSlug": "INT. LA POINTE - CONTINU",
+    "sections.4.heading": "La contrainte encore, avec des outils plus récents.",
+    "sections.4.body": "L'art de la contrainte se poursuit au-delà de la table d'écriture. Travailler sous une règle de divulgation est une limite comme une autre, et c'est des limites que naît notre meilleur travail. La machine prend la besogne en aval. Les personnes gardent l'histoire.",
+    "sections.4.moreLabel": "L'ardoise →"
+  },
+  "v9-contact:v9-contact": {
+    "seoTitle": "Contact · APR 70 Pictures",
+    "seoDescription": "Demandez des documents à APR 70 Pictures. Scénarios, synopsis et grilles d'épisodes transmis en privé aux producteurs, aux agents et aux financiers.",
+    "sections.0.sceneSlug": "INT. LE BUREAU - NUIT",
+    "sections.0.heading": "La réponse vient de l'auteur.",
+    "sections.0.lede": "APR 70 Pictures, c'est Marco Caruso, auteur-producteur à Long Island City, New York, après trente-cinq ans derrière la caméra dans l'information télévisée et le documentaire. Le catalogue est le sien, page après page.",
+    "sections.0.body": "Vous joignez l'auteur directement ici. Si vous produisez, représentez ou financez de la fiction et souhaitez lire un titre du catalogue, écrivez en précisant qui vous êtes, ce que vous aimeriez lire et à quel titre vous le demandez. Les pages circulent en privé, de personne à personne.",
+    "sections.0.linkLabel": "caruso@apr70.com",
+    "sections.1.quote": "Vous voyez ? Nous offrons aux gens ces petits fragments de temps. Et ils les gardent pour toujours.",
+    "sections.1.cite": "James Stewart",
+    "sections.1.note": "cité par Peter Bogdanovich, Pieces of Time, 1973",
+    "sections.2.sceneSlug": "INT. LA PORTE - CONTINU",
+    "sections.2.heading": "Travailler avec nous.",
+    "sections.2.body": "**La lecture va dans un seul sens : de nos pages à votre bureau.** Les scénarios, traitements, synopsis et idées d'histoires envoyés à cette adresse sans sollicitation sont supprimés sans être lus. Cela protège vos idées autant que les nôtres.\n\n**Chaque poste est aujourd'hui occupé par l'auteur.** Une société d'un seul auteur ne publie d'offres que lorsqu'une production se dote d'une équipe ; le cas échéant, les postes seront annoncés ici en premier.\n\n**Les professionnels en activité sont invités à se présenter.** Si vous jouez, filmez, montez, composez ou produisez : une note brève avec votre fonction, vos crédits et un lien, s'il vous plaît, la note tenant lieu de dossier complet. Lorsqu'une production aura besoin de ce que vous faites, la réponse viendra de l'auteur.",
+    "sections.2.ariaLabel": "Travailler avec APR 70",
+    "sections.3.caption": "Extrait du catalogue en cours · ==L.A. Dolce Vita== · Route 66, crépuscule",
+    "sections.3.credit": "Image de développement générée par IA",
+    "sections.4.sceneSlug": "INT. LE REGISTRE - NUIT",
+    "sections.4.heading": "Le Registre fondateur.",
+    "sections.4.body": "Avant la sortie du premier film, APR 70 tient un registre de celles et ceux qui ont voulu le voir exister. Demandez à y figurer et le numéro suivant vous revient : les numéros commencent bas, restent les vôtres et ne sont jamais réattribués. Le registre est gratuit. Quand l'œuvre sortira, celles et ceux qui y figurent auront des nouvelles de l'auteur en premier.",
+    "sections.4.submitLabel": "Prendre un numéro",
+    "sections.4.successNote": "Vous figurez au registre."
+  },
+  "site-settings:site-settings": {
+    "tagline": "APR 70 Pictures. Trois divisions. Une vision.",
+    "aiMark.text": "APR 70 · AI GEN",
+    "v9Chrome.displayLabel": "Affichage",
+    "v9Chrome.panelTitle": "Affichage",
+    "v9Chrome.themeLabel": "Thème",
+    "v9Chrome.themePremiere": "Nuit d'enseigne",
+    "v9Chrome.themeMatinee": "Feux de salle",
+    "v9Chrome.themeLateshow": "Système",
+    "v9Chrome.scaleLabel": "Corps du texte",
+    "v9Chrome.logoLabel": "Taille du logo",
+    "v9Chrome.topLabel": "Retour en haut",
+    "v9Chrome.prevLabel": "Propriété précédente",
+    "v9Chrome.nextLabel": "Propriété suivante",
+    "v9Chrome.slateReturn": "Tout le catalogue",
+    "v9Chrome.cta": "Demander le dossier →",
+    "v9Chrome.colophon": "APR 70 PICTURES, Long Island City, New York. Fondée en 2026. Un studio de cinéma et de télévision, petit et obstiné, avec dix propriétés au catalogue en cours. Chaque image de ce site est une image de développement APR 70, générée par IA et signalée comme telle là où elle apparaît, ou bien une photographie ou une carte du domaine public vérifiée, datée et créditée. Les scénarios sont écrits par des humains. Le site compose ses propres caractères en Jost, Newsreader, Fraunces et Courier Prime, héberge ses polices et vous laisse tranquille : zéro cookie, zéro traceur, zéro requête tierce. Vérifié le 2026-07-27.",
+    "v9Chrome.copyright": "© 2026 APR 70 Pictures. Réalisé à New York.",
+    "v9Chrome.navLinks.0.label": "Accueil",
+    "v9Chrome.navLinks.1.label": "Catalogue",
+    "v9Chrome.navLinks.2.label": "Métier",
+    "v9Chrome.navLinks.3.label": "Méthodes",
+    "v9Chrome.navLinks.4.label": "Contact",
+    "dispatch.navLabel": "Bulletin",
+    "troupe.navLabel": "Troupe"
+  },
+  "projects:sea-gate": {
+    "subtitle": "Série",
+    "logline": "Une ville privée à l'extrémité de Brooklyn, aujourd'hui, au cœur de l'été.",
+    "shortLogline": "Une ville privée à l'extrémité de Brooklyn.",
+    "provenance": "D'après *Red Harvest* de Dashiell Hammett (1929), dans le domaine public américain depuis 2025 ; le roman appartient à tous. Scénario original © 2026 APR 70 Pictures.",
+    "metaLine": "Long métrage · New Renaissance Cinema avec (212) Pictures · ==écrit==",
+    "bodyProse": "Sea Gate existe : une communauté privée et fermée à la pointe ouest de Coney Island, avec sa propre police, ses propres règles, et une seule route pour y entrer. Le film s'y déroule aujourd'hui, au cœur de l'été. Un film noir en plein jour, la fête foraine du boardwalk butant contre une richesse close et silencieuse. Le logline complet et le synopsis circulent en documents privés.",
+    "pageQuote.quote": "Il ne faut pas poser un fusil chargé sur la scène si personne ne songe à s'en servir.",
+    "pageQuote.cite": "Anton Tchekhov",
+    "pageQuote.note": "lettre, 1889",
+    "heroLine": "Une ville privée, une seule route pour y entrer.",
+    "heroCaption": "Là où la ville s'arrête",
+    "heroCredit": "Image de développement générée par IA",
+    "requestBody": "Le long métrage est écrit. Le logline complet, le synopsis et le scénario circulent en privé. Dites qui vous êtes et à quel titre vous écrivez : la réponse viendra de l'auteur.",
+    "synopsis": "Sea Gate est une ville privée et fermée à la pointe ouest de Coney Island — sa propre police armée, son propre conseil qui décide qui en est, les cris du boardwalk à trente mètres de la clôture. L'enquêteur Jim Lang franchit la grille pour rencontrer l'ingénieur capable de prouver que des dizaines de millions d'aides à la reconstruction se sont évaporés, et le trouve noyé dans un sous-sol condamné, un gilet de sauvetage sec hors de portée. Lang reste, et travaille la trêve épuisée entre les trois hommes qui ont touché à l'argent jusqu'à ce qu'elle éclate en guerre ouverte — tombant, chemin faisant, amoureux de la secrétaire du bureau des titres qui tient le compte de ses morts. Son dernier coup fait que le mur se dévore lui-même ; se dépensant pour qu'elle sorte indemne, il entre dans la fusillade et n'en revient pas.",
+    "gallery.0.caption": "Trente centimètres d'eau, un gilet de sauvetage sec",
+    "gallery.0.credit": "Image de développement générée par IA",
+    "gallery.1.caption": "Mary, dans les néons de Coney Island",
+    "gallery.1.credit": "Image de développement générée par IA",
+    "gallery.2.caption": "Le phare au-dessus des toits",
+    "gallery.2.credit": "Image de développement générée par IA",
+    "gallery.3.caption": "La fête foraine, vue du bout tranquille",
+    "gallery.3.credit": "Image de développement générée par IA",
+    "gallery.4.caption": "La ville sur le papier · vue à vol d'oiseau de Sea Gate, prospectus de vente aux enchères de la Norton Point Land Co., 1900",
+    "gallery.4.credit": "Domaine public · The New York Public Library, Map Division",
+    "gallery.5.caption": "La péninsule avant la ville · Gravesend & Coney Island, planche d'atlas G.W. Bromley & E. Robinson, 1880",
+    "gallery.5.credit": "Domaine public · The New York Public Library, Map Division",
+    "pitchDeck.note": "Le dossier est complet ; sa version visuelle se partage en privé. Les conversations avec les investisseurs se tiennent en personne — écrivez aux bureaux.",
+    "layout.0.kicker": "(212) · Série",
+    "layout.0.logline": "Le client lanceur d'alerte de Jim Lang s'est noyé dans trente centimètres d'eau. Dans la ville privée de Brooklyn, l'enquêteur en fraude reste pour dresser les maîtres des lieux les uns contre les autres, autour des millions d'aides à la reconstruction détournés… jusqu'à ce que le seul moyen de faire sortir indemne la femme qu'il aime soit de se dépenser lui-même dans la guerre qu'il a bâtie.",
+    "layout.0.body": "Sea Gate, Brooklyn. Une ville privée et fermée à la pointe ouest de Coney Island. Elle a sa propre police armée et un conseil qui décide qui en est... et qui n'en est pas. Plein été, saison de plage. Les cris de la fête foraine du boardwalk sont à trente mètres de la clôture. Même la plus grande ville d'Amérique s'arrête à une barrière. Derrière le mur, les rues sont silencieuses, riches, marquées par la tempête.\n\nL'enquêteur Jim Lang franchit la grille pour rencontrer Dave Connell, l'ingénieur de l'Association capable de prouver que des dizaines de millions d'aides à la reconstruction se sont évaporés via des sociétés-écrans. Connell est noyé dans un sous-sol condamné avant qu'ils ne se parlent, un gilet de sauvetage sec pendu à un clou, hors de portée. Lang, ancien du NYPD qui a témoigné contre son propre commissariat, reste. J.B. Ball, le patriarche qui a bâti l'Association et l'a perdue, devient son employeur à contrecœur. Lang travaille la trêve épuisée entre les trois hommes qui ont touché à l'argent : le chef Vanning, de la police privée, le président du conseil et arrangeur d'Albany Oliver Niles, et le spéculateur Chick Williams. Un mot glissé, une enveloppe échangée, un corps mis en scène… la trêve éclate en guerre ouverte.\n\nMary Dwight, la secrétaire acérée du bureau des titres qui tient le compte de ses morts, devient l'amour que ni l'un ni l'autre n'avait prévu ; le stand à palourdes de Pete Falcone, sur le boardwalk, c'est le Brooklyn qu'il a quitté. À mesure que les corps tombent, Lang découvre qu'il aime ce travail, cette pente de sang dont Mary essaie de le tirer. Son dernier coup fait que le mur se dévore lui-même : le conseil lâche son armée privée, le NYPD franchit la grille, et les flics de la grille abattent les hommes qui les nourrissaient. Vanning tombe. Lang, se dépensant pour que Mary sorte indemne, entre dans la fusillade et n'en revient pas. La dernière image est la sienne : Mary dans les néons de Coney Island, le chapeau de Jim trop grand pour elle, en route vers sa sœur Lena et le bébé, de l'autre côté de la marée."
+  },
+  "projects:u-bruculinu": {
+    "subtitle": "Long métrage, probable",
+    "logline": "Un expatrié revient dans la Sicile de ses ancêtres, dans les années 1970, en quête d'une vie tranquille. La terre, et ses habitants, ne le laisseront pas tranquille.",
+    "metaLine": "Long métrage · New Renaissance Cinema · ==en développement==",
+    "bodyProse": "*U Bruculinu* signifie en sicilien « celui de Brooklyn » : c'est ainsi que le village l'appellera, quelle que soit la durée de son séjour. La Sicile intérieure, au début des années soixante-dix : terrasses de pierre, mémoires longues, et un retour au pays qu'il faut mériter dans un lieu qui ne l'a jamais connu.",
+    "pageQuote.quote": "S'il existe un livre que vous voulez lire, mais qui n'a pas encore été écrit, alors vous devez l'écrire.",
+    "pageQuote.cite": "Toni Morrison",
+    "pageQuote.note": "Discours devant l'Ohio Arts Council, 1981",
+    "heroLine": "De retour dans un village qui ne l'a jamais connu.",
+    "heroCaption": "La route qui monte",
+    "heroCredit": "Image de développement générée par IA",
+    "requestBody": "En développement. Les documents sont communiqués en privé, sur demande. Dites qui vous êtes et à quel titre vous écrivez : la réponse viendra de l'auteur.",
+    "synopsis": "Il est U Bruculinu — « l'homme de Brooklyn » — l'exilé de retour, à la fois de cette terre et étranger à elle. Autour de lui se tiennent le notable local qui décide de ce qui est permis, et la sœur dont la parenté le lie au village et à tout ce qu'il attend de lui. Un monde brûlé de soleil, fait de coutumes anciennes, de pouvoirs anciens et d'obligations familiales, se referme sur lui : la tranquillité qu'il était venu chercher est la seule chose qu'on ne lui accordera pas. Œuvre originale inspirée par la prémisse de The Quiet Man — non un remake.",
+    "gallery.0.caption": "La piazza, en fin d'après-midi",
+    "gallery.0.credit": "Image de développement générée par IA",
+    "gallery.1.caption": "La seule raison de rester",
+    "gallery.1.credit": "Image de développement générée par IA",
+    "gallery.2.caption": "Le village règle cela à l'ancienne",
+    "gallery.2.credit": "Image de développement générée par IA",
+    "pitchDeck.note": "Le canon du dossier est achevé ; le dossier visuel est communiqué en privé. Les échanges avec les investisseurs ont lieu en personne — écrivez aux bureaux.",
+    "layout.0.kicker": "NRC · Long métrage, probable",
+    "layout.0.body": "Un expatrié revient dans la Sicile de ses ancêtres, dans les années 1970, en quête d'une vie tranquille, pour découvrir que la terre — et ses habitants — ne le laisseront pas tranquille.\n\nIl est U Bruculinu — « l'homme de Brooklyn » — l'exilé de retour, à la fois de cette terre et étranger à elle. Autour de lui se tiennent U Capo, le notable local, l'ordre ancien qui décide de ce qui est permis ; et A Sorella, la sœur, le lien de parenté qui l'attache au village et à ses attentes.\n\nUn monde villageois brûlé de soleil, fait de coutumes anciennes, de pouvoirs anciens et d'obligations familiales — tranquillité cherchée, tranquillité refusée."
+  },
+  "projects:shadowmaster": {
+    "subtitle": "Long métrage d'abord, série dérivée vers (310)",
+    "logline": "Dans un hybride télévisé d'esport et de fiction en prises de vues réelles, des joueurs d'élite appelés les Shadow Masters commandent des avatars humains bien réels à travers des scénarios à haut risque. Ces avatars peuvent désobéir dès que la survie, la cupidité ou la conscience prend le dessus, opposant la stratégie au libre arbitre.",
+    "metaLine": "Long métrage · New Renaissance Cinema avec (310) Pictures · ==en développement==",
+    "bodyProse": "Au joueur la stratégie ; à l'avatar le corps, et une conscience que le joueur n'avait pas prévue. Une série sur le commandement, l'obéissance et l'instant où un être humain cesse de suivre les ordres, mise en scène au cœur du plus grand jeu télévisé du monde.",
+    "pageQuote.quote": "Être un artiste, c'est ne jamais détourner le regard.",
+    "pageQuote.cite": "Akira Kurosawa",
+    "pageQuote.note": "Something Like an Autobiography, 1983",
+    "heroLine": "Le joueur a le plan. Le corps a une conscience.",
+    "heroCaption": "Après la partie",
+    "heroCredit": "Image de développement générée par IA",
+    "requestBody": "En développement. Les documents sont communiqués en privé, sur demande. Dites qui vous êtes et à quel titre vous écrivez : la réponse viendra de l'auteur.",
+    "synopsis": "Dans une compétition télévisée, des joueurs d'élite — les Shadow Masters — dirigent des salles de commandement isolées et transmettent en temps réel leurs ordres, par oreillettes dissimulées, à des avatars humains lâchés dans des tripots de poker clandestins, des jeux de guerre urbains et des duels de western. Le ressort du drame : les avatars sont des personnes, pas des pixels — tricheurs de cartes, agents, tireurs, certains là pour l'argent, d'autres sous la contrainte — et, en pleine crise, ils peuvent obéir, désobéir ou négocier leur propre accord. Les retours en arrière exposent les dettes et les loyautés qui rendent chaque avatar imprévisible, tandis que les rivalités et les vendettas des joueurs montent vers un final où la frontière entre joueur et avatar disparaît.",
+    "gallery.0.caption": "Le joueur et l'avatar, tous deux dans le cadre",
+    "gallery.0.credit": "Image de développement générée par IA",
+    "pitchDeck.note": "Le canon du dossier est complet ; le dossier visuel se partage en privé. Les conversations avec les investisseurs se tiennent en personne — écrivez aux bureaux.",
+    "layout.0.kicker": "NRC · Long métrage d'abord, série dérivée vers (310)",
+    "layout.0.logline": "Dans un hybride télévisé d'esport et de fiction en prises de vues réelles, des joueurs d'élite — les « Shadow Masters » — commandent des avatars humains bien réels à travers des scénarios à haut risque (poker clandestin, jeux de guerre urbains, duels de western), mais leurs avatars peuvent désobéir dès que la survie, la cupidité ou la conscience prend le dessus — opposant la stratégie au libre arbitre.",
+    "layout.0.body": "Shadowmaster est une série entièrement scénarisée qui fusionne esport et fiction en prises de vues réelles. Dans une compétition télévisée, des joueurs d'élite — les Shadow Masters — opèrent depuis des centres de contrôle isolés, salles de commandement câblées de flux de surveillance, et transmettent en temps réel leurs ordres à des avatars humains sur le terrain, par oreillettes dissimulées et caméras-piétons. Chaque épreuve plonge les avatars dans un scénario à haut risque : tripots de poker clandestins, jeux de guerre urbains, duels de western.\n\nLe ressort du drame : les avatars sont des personnes, pas des pixels. Tricheurs de cartes au passé criminel, agents entraînés, tireurs, chasseurs de primes et shérifs — mercenaires venus pour l'argent, ou participants contraints qui n'avancent qu'à l'instinct de survie. Chacun entend son joueur sur un micro fermé, mais peut, dans l'instant critique, obéir ou désobéir : flairer une trahison, refuser un ordre inconsidéré, négocier son propre accord. Les retours en arrière révèlent les secrets, les dettes et les loyautés qui rendent chaque avatar imprévisible — et donnent à la série son poids émotionnel.\n\nDerrière les écrans, la table des joueurs est une étude de styles : le Hotshot Bluffer, arrogant et charismatique, taillé pour les lectures à haut risque et les bluffs agressifs ; le Calculating Tactician, méthodique et porté sur le commandement, le plus exposé quand la panique ou la conscience d'un humain fait voler le plan en éclats ; l'Underdog Hacker, outsider chouchou du public qui l'emporte par l'ingéniosité, non par les moyens. Leurs rivalités, alliances et vendettas évoluent à mesure que montent les enjeux d'argent et de réputation — tandis que les personas en ligne masquent des fragilités bien réelles.\n\nChaque saison de 8 à 10 épisodes explore de nouveaux scénarios et prolonge les arcs en cours, jusqu'à un final à scénarios multiples où la frontière entre joueur et avatar se brouille.",
+    "layout.0.note": "D'après un concept de Stefano Corti ; écrit par Marc Caruso."
+  },
+  "projects:the-movement": {
+    "subtitle": "Série",
+    "logline": "Sept étudiants internationaux, recrutés dans une classe secrète par les indices d'une bombe sur le campus, sont formés au fil de missions clandestines, sans jamais soupçonner que chaque mission sert le consortium occulte qu'ils croient combattre.",
+    "metaLine": "Série · (212) Pictures · ==en développement==",
+    "bodyProse": "Un drame de conspiration d'une heure, dans le New York d'aujourd'hui : sept marginaux surdoués, un professeur qui les a choisis, et un programme d'études qui n'est jamais ce qu'il prétend être. L'intrigue principale traverse City Hall, où une course à la mairie est discrètement infléchie. La ville est le campus, et le campus est l'échiquier.",
+    "pageQuote.quote": "Nous tous qui faisons un travail créatif, nous nous y sommes mis parce que nous avons du goût.",
+    "pageQuote.cite": "Ira Glass",
+    "pageQuote.note": "sur l'art du récit, 2009",
+    "heroLine": "La ville est le campus.",
+    "heroCaption": "La salle de lecture, 3 h du matin",
+    "heroCredit": "Image de développement générée par IA",
+    "requestBody": "En développement. Les documents sont communiqués en privé, sur demande. Dites qui vous êtes et à quel titre vous écrivez : la réponse viendra de l'auteur.",
+    "synopsis": "C'est une année électorale à New York, et la mairesse la plus populaire depuis La Guardia affronte un conseiller municipal milliardaire doté d'un argent sans fond et de rien d'autre — et nul ne voit la société invisible qui le guide. Sur un campus bondé, la même semaine, sept étudiants internationaux surdoués remontent la piste d'une bombe fantôme jusqu'à une classe qui ne figure à aucun emploi du temps, dispensée par un mentor ambigu qui façonne de jeunes élites depuis trente ans. Chaque épisode est une mission d'entraînement « juste » qui infléchit secrètement l'élection dans un sens ; tandis qu'un reporter au cuir épais et un procureur intègre tournent autour de la rumeur d'un « mouvement », les sept achèvent la saison soudés, éprouvés et sourdement méfiants envers la main qui les nourrit.",
+    "gallery.0.caption": "Sept, traversant à l'aube",
+    "gallery.0.credit": "Image de développement générée par IA",
+    "gallery.1.caption": "Les pâtés de maisons qui décident des élections · Ward 2, atlas de New York de G.W. Bromley & Co., 1879",
+    "gallery.1.credit": "Domaine public · Numérisation NYPL via Wikimedia Commons",
+    "pitchDeck.note": "Le canon du dossier est achevé ; le dossier visuel est communiqué en privé. Les échanges avec les investisseurs ont lieu en personne — écrivez aux bureaux.",
+    "layout.0.kicker": "(212) · Série",
+    "layout.0.logline": "Sept étudiants internationaux surdoués, recrutés dans une classe secrète par les indices d'une bombe sur le campus, sont formés au fil de missions clandestines à défendre l'élection municipale de New York — sans jamais soupçonner que chaque mission sert le consortium occulte qu'ils croient combattre.",
+    "layout.0.body": "C'est une année électorale à New York, et tout le monde regarde. La mairesse sortante Grace Camarda — la dirigeante la plus populaire que la ville ait élue depuis La Guardia, et la première femme à occuper le poste — affronte le conseiller municipal Ben Gilman, milliardaire parti de rien, un homme doté d'un argent sans fond et de rien d'autre. Ce que la ville ne voit pas, c'est la main derrière lui : l'Unknown Global Consortium (UGC), la société invisible qui dirige l'économie mondiale depuis des siècles.\n\nSur un campus bondé, la même semaine, sept étudiants internationaux surdoués — parmi eux Jamie Penn, fils de sénateur et seul Américain, et Appolonia Lopez Callas, experte en armement basque et meneuse née — reçoivent des indices selon lesquels une bombe aurait été posée quelque part sur le site. Sommés de ne se fier à aucune autorité, ils remontent ensemble jusqu'au Lab for International Specialists, une classe qui ne figure à aucun emploi du temps. La bombe est fictive ; la trouver leur vaut leur place auprès du Professeur, mentor ambigu qui façonne de jeunes élites depuis plus de trente ans — et qui sert en secret l'UGC.\n\nLa première saison avance sur deux horloges. Chaque épisode est une mission d'entraînement — un crime, une crise, une infiltration, l'orientation discrète d'un événement réel — dont on assure aux sept qu'elle est juste. Lorsque l'un d'eux révèle un lien personnel avec la mairesse, l'équipe se jette dans la course pour défendre la démocratie contre l'argent de Gilman. Mais chaque mission infléchit secrètement l'élection en sa faveur. Tandis qu'un reporter au cuir épais et un procureur intègre tournent autour de la rumeur d'un « mouvement », et que Jamie découvre que son propre père est sorti du Lab et a rompu avec le Professeur, le doute s'installe. Camarda remporte le scrutin — et Gilman est installé comme son adjoint. Dans un cas comme dans l'autre, l'UGC gagne. Les sept achèvent la saison soudés, éprouvés et sourdement méfiants envers la main qui les nourrit."
+  },
+  "projects:mayors": {
+    "subtitle": "Série documentaire, 11 épisodes",
+    "synopsis": "Onze administrations, soixante-quinze ans, une longue dispute sur l'identité de l'assassin de New York. Tourné en cinéma vérité — archives contre visages d'aujourd'hui —, la série confronte la ville prospère et plus sûre des années cinquante à celle qui s'étend sous vos fenêtres, époque après époque, des sommets d'après-guerre d'Impellitteri au rêve socialiste de Mamdani. Notre méthode relève de l'enquête, non de l'hystérie : causes et effets, noms et conséquences, aucun narrateur pour vous dicter quoi penser. Tout s'achève là où tout a commencé, à rebours — une ville brisée remise à un maire immigré de plus, filmée en train d'advenir. Voici le rapport.",
+    "gallery.0.caption": "Vincent Impellitteri · 1950–1953",
+    "gallery.0.credit": "Wikimedia Commons",
+    "gallery.1.caption": "Robert F. Wagner Jr. · 1954–1965",
+    "gallery.1.credit": "Library of Congress",
+    "gallery.2.caption": "John V. Lindsay · 1966–1973",
+    "gallery.2.credit": "Library of Congress",
+    "gallery.3.caption": "Abraham Beame · 1974–1977",
+    "gallery.3.credit": "Library of Congress",
+    "gallery.4.caption": "Ed Koch · 1978–1989",
+    "gallery.4.credit": "Wikimedia Commons",
+    "gallery.5.caption": "David N. Dinkins · 1990–1993",
+    "gallery.5.credit": "Wikimedia Commons",
+    "gallery.6.caption": "Rudolph W. Giuliani · 1994–2001",
+    "gallery.6.credit": "Wikimedia Commons",
+    "gallery.7.caption": "Michael R. Bloomberg · 2002–2013",
+    "gallery.7.credit": "Wikimedia Commons",
+    "gallery.8.caption": "Zohran Mamdani · 2026–",
+    "gallery.8.credit": "Wikimedia Commons",
+    "gallery.9.caption": "MOOD BOARD",
+    "gallery.9.credit": "Composition d'images vérifiées du domaine public — voir le registre des images PD.",
+    "pitchDeck.note": "Le canon du dossier est complet ; le dossier visuel se partage en privé. Les échanges avec les investisseurs ont lieu en personne — écrivez aux bureaux.",
+    "layout.0.kicker": "(212) · Série documentaire, 11 épisodes",
+    "layout.0.body": "En soixante-quinze ans, onze maires ont gouverné New York. Cette série documentaire en onze épisodes révèle comment leurs décisions, leurs politiques, leurs prises de pouvoir, leur corruption et leur idéologie ont transformé la plus grande ville d'Amérique, du rêve américain à l'expérience socialiste.\n\nLa bénédiction et la malédiction de notre métropole, c'est le temps. Vingt ans, environ. C'est le délai qu'il faut à la ville pour changer de visage ; le verre remplace la brique, les rues changent de sens, deviennent des couloirs de bus et des pistes cyclables ou disparaissent tout à fait, et nos trottoirs, eux, se muent en chambres pour nos hôtes. Tout change. Rien ne demeure. Une bénédiction et une malédiction, en effet. Nous, New-Yorkais de naissance, regardons le « progrès » nous conduire vers l'oubli. Dans les années cinquante, la ville était prospère, plus sûre, plus propre, et le rêve américain restait vivant pour qui suait et saignait pour lui. Dans le Brooklyn des années soixante-dix, cette ville n'était plus qu'un souvenir — comme les Dodgers et Luna Park. Épisode après épisode, les témoignages directs de la famille confrontent la ville d'hier à celle d'aujourd'hui : du point zéro d'après-guerre de Vincent Impellitteri à Wagner, Lindsay, l'effondrement budgétaire de Beame, Koch, Dinkins, Giuliani — l'unique exception républicaine, celui qui a rendu les coups —, Bloomberg, de Blasio et Eric Adams, mis en examen. Derrière eux tous se dresse Robert Moses, le bâtisseur en chef qui régna sur bien des maires, rasa des quartiers, déplaça des milliers de familles et construisit les routes, les ponts, les parcs et les cités avec lesquels la ville vit encore.\n\nLa méthode est celle du journalisme d'investigation — clinique, non hystérique : causes et effets, noms et conséquences. Tourné en cinéma vérité, avec archives et entretiens contemporains — un hommage à Ric Burns, en moins complaisant —, chaque époque est rendue dans sa propre grammaire visuelle. Aucun narrateur ne vous dit quoi penser ; chaque épisode demande ce qu'ils cherchaient à accomplir, ce qui s'est réellement passé, à qui cela a profité et qui en a payé le prix.\n\nLa série s'achève là où elle a commencé, à rebours : Zohran Mamdani, premier maire socialiste démocrate de la ville — immigré lui-même —, hérite d'une ville brisée, et l'épisode 11 filme ses cent premiers jours à mesure qu'ils se déroulent. Qui a tué New York ? Voici le rapport d'autopsie."
+  },
+  "projects:la-dolce-vita": {
+    "subtitle": "Série limitée",
+    "logline": "Lorsqu'un candidat à la présidence est surpris en direct avec une femme mystérieuse, le scandale qui s'ensuit défait quinze ans de secrets : la fiancée disparue d'un journaliste, sa fille cachée, et le plan d'une famille criminelle pour en faire son héritière.",
+    "shortLogline": "Los Angeles et Rome, dix jours de février.",
+    "metaLine": "Série · (310) Pictures · ==pilote + neuf écrits==",
+    "bodyProse": "Dix épisodes, dix jours de Carnevale, aucun flash-back. Un drame familial néo-noir mené entre deux mondes, un Los Angeles marqué par les incendies et une Italie qui ne lâche jamais tout à fait, en ambre et bleu-vert, à la vitesse d'un scandale. Le pilote et neuf épisodes sont écrits.",
+    "pageQuote.quote": "Un conseil de Lubitsch : laissez le public faire deux et deux. Il vous aimera pour toujours.",
+    "pageQuote.cite": "Billy Wilder",
+    "pageQuote.note": "Conversations with Wilder, 1999",
+    "heroLine": "Deux villes, dix jours, un scandale.",
+    "heroCaption": "Santa Monica Pier, nuit",
+    "heroCredit": "Image de développement générée par IA",
+    "requestBody": "Le pilote, la saison et la grille des épisodes se transmettent en privé, sur demande. Dites qui vous êtes et à quel titre vous écrivez : la réponse viendra de l'auteur.",
+    "synopsis": "Un journaliste arrive à Los Angeles au pire moment possible, sur la piste de la corruption et de la pourriture des célébrités, pour découvrir son amour perdu au cœur de sa propre enquête — et leur fille secrète prise entre lui et une dynastie qui la veut pour trône. Un scandale diffusé en direct fait détoner quinze ans d'histoire enfouie, entraînant une fiancée disparue, une héritière cachée et le plan de succession d'une famille criminelle dans une même toile de pouvoir, d'héritage et de rédemption. Néo-noir en 35 mm, composé comme un opéra, joué sans filet.",
+    "gallery.0.caption": "Carnevale, Venise, première nuit",
+    "gallery.0.credit": "Image de développement générée par IA",
+    "gallery.1.caption": "L'Olivetti, Via del Corso, matin",
+    "gallery.1.credit": "Image de développement générée par IA",
+    "gallery.2.caption": "Michelangelo's sur Sunset, la bague",
+    "gallery.2.credit": "Image de développement générée par IA",
+    "gallery.3.caption": "En coulisses, le scandale éclate",
+    "gallery.3.credit": "Image de développement générée par IA",
+    "gallery.4.caption": "Mr. D'z, Route 66, Kingman",
+    "gallery.4.credit": "Image de développement générée par IA",
+    "gallery.5.caption": "Sunset Blvd, 2 h du matin",
+    "gallery.5.credit": "Image de développement générée par IA",
+    "gallery.6.caption": "L'autre ville · La Nuova Topografia di Roma, Giambattista Nolli, 1748 (planche 5 sur 12)",
+    "gallery.6.credit": "Domaine public, gravure de 1748 · numérisation via Wikimedia Commons",
+    "pitchDeck.note": "Le dossier écrit est complet ; le dossier visuel se transmet en privé. Les conversations avec les investisseurs se tiennent en personne — écrivez aux bureaux.",
+    "layout.0.heading": "L.A. Dolce Vita",
+    "layout.0.subtext": "Série limitée",
+    "layout.1.leftHeading": "Présentation",
+    "layout.1.rightBody": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "text": "Un journaliste arrive à Los Angeles au pire moment possible -- il met au jour la corruption et les excès des célébrités, pour découvrir son amour perdu au cœur de son enquête, leur fille secrète prise entre lui et l'empire de son père corrompu.",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "text": "Lorsqu'un candidat à la présidence est surpris en direct avec une femme mystérieuse, le scandale qui s'ensuit défait quinze ans de secrets. La fiancée disparue d'un journaliste, sa fille cachée et le plan d'une famille criminelle pour en faire son héritière convergent dans une toile de pouvoir, d'héritage et de rédemption.",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "projects:da-hook": {
+    "subtitle": "Épisodique",
+    "logline": "Red Hook, Brooklyn, l'automne 1970.",
+    "provenance": "D'après *The Maltese Falcon* de Dashiell Hammett (1930), dans le domaine public aux États-Unis depuis 2026 ; le roman appartient à tous. Scénario original © 2026 APR 70 Pictures.",
+    "metaLine": "Long métrage · New Renaissance Cinema avec (212) Pictures · ==en développement==",
+    "bodyProse": "Red Hook à l'automne 1970 : les quais qui se vident caisse après caisse sous l'effet de la conteneurisation, la première bannière de champions des Knicks encore fraîche au Garden et, de l'autre côté du port, l'acier du World Trade Center qui monte un peu plus haut chaque semaine. Le travail disparaît, l'héroïne arrive, et le quartier regarde les deux advenir. Le film habite cette saison : l'austérité du début des années soixante-dix, sans rien de sentimental. Le logline complet et le synopsis circulent en documents privés.",
+    "pageQuote.quote": "Je me suis convaincu il y a longtemps que l'auditeur est le meilleur agent de casting, le meilleur directeur de casting et le meilleur costumier du monde.",
+    "pageQuote.cite": "Norman Corwin",
+    "pageQuote.note": "Entretien pour Transom, 2001",
+    "heroLine": "Les quais se vident, les tours s'élèvent.",
+    "heroCaption": "Les quais, à l'aube, automne 1970",
+    "heroCredit": "Image de développement générée par IA",
+    "requestBody": "En développement. Le logline complet, le synopsis et les pages circulent en privé. Dites qui vous êtes et à quel titre vous écrivez : la réponse viendra de l'auteur.",
+    "synopsis": "Le World Trade Center vient d'ouvrir de l'autre côté du port, les quais se vident à son pied, et une horloge de saison bat derrière chaque épisode. Un homme des sinistres maritimes, indéchiffrable, accepte une filature pour une cliente effrayée dont le récit est un mensonge ; la nuit même, son associée est abattue près des docks, et l'homme qu'elle avait nommé meurt la même nuit, même calibre. Un intermédiaire parfumé, un collectionneur patient et un capitaine de navire mourant convergent tous vers une pièce perdue devenue légende, qui se révèle fausse au moment de changer de mains. Avec trois meurtres sur les bras et l'horloge de la police en marche, il fait le calcul et la livre — parce que lorsqu'on tue l'associée d'un homme, il est censé faire quelque chose.",
+    "gallery.0.caption": "Le bar du coin, ouvert tard",
+    "gallery.0.credit": "Image de développement générée par IA",
+    "gallery.1.caption": "La rue qui finit dans l'eau",
+    "gallery.1.credit": "Image de développement générée par IA",
+    "gallery.2.caption": "Le Hook avant les tours · Red Hook & Gowanus, M. Dripps, 1869",
+    "gallery.2.credit": "Domaine public · The New York Public Library, Map Division",
+    "gallery.3.caption": "Le front de mer au travail, quai après quai · Atlantic Basin, G.M. Hopkins & Co., 1880",
+    "gallery.3.credit": "Domaine public · The New York Public Library, Map Division",
+    "pitchDeck.note": "Le canon du dossier est complet ; le dossier visuel se partage en privé. Les conversations avec les investisseurs ont lieu en personne — écrivez aux bureaux.",
+    "layout.0.kicker": "(212) · Épisodique",
+    "layout.0.logline": "Au printemps 1973, à Brooklyn, tandis que la ville porte les Knicks vers un titre et que les quais de Red Hook meurent au pied des tours toutes neuves, un enquêteur dont l'associée est assassinée pour une pièce perdue devenue légende suit une cliente menteuse jusqu'à la seule fin que son code autorise... livrer la femme qu'il aime.",
+    "layout.0.body": "Brooklyn, printemps 1973. Le World Trade Center vient d'ouvrir de l'autre côté du port, les quais de Red Hook se vident à son pied, et les Knicks foncent vers leur deuxième titre NBA... une horloge de saison bat derrière chaque épisode. Ici, un enquêteur indéchiffrable et son associée acceptent une filature pour une cliente effrayée dont le récit est un mensonge. La nuit même, l'associée est abattue près des docks ; l'homme qu'elle avait nommé meurt la même nuit, même calibre. La police veut l'enquêteur pour les deux.\n\nLa cliente abandonne sa couverture, pas ses secrets. Un intermédiaire parfumé offre cinq mille dollars pour une pièce perdue devenue légende, et un collectionneur immense et patient, qui la traque depuis des années, arrive flanqué d'un jeune tireur silencieux et d'un discours d'histoire qui transforme la pièce en mythe. Un capitaine de navire mourant livre la pièce. À l'échange, elle se révèle fausse... de la farine et des charançons là où devrait dormir une fortune. Le collectionneur se recompose et repart en chasse.\n\nAvec trois meurtres sur les bras et l'horloge de la police en marche, l'enquêteur fait le calcul : c'est la cliente qui a tué son associée, la première nuit. Il expose ses raisons, sept en tout, et il la livre, parce que lorsqu'on tue l'associée d'un homme, il fait quelque chose. Le El repart. La ville acclame un titre. Il retourne à son bureau.\n\nSérie limitée en streaming, accompagnée d'une série radiophonique parallèle. Registre : austérité à la French Connection, âpreté documentaire, discipline du monochrome."
+  },
+  "projects:cleopatra": {
+    "subtitle": "Mini-série",
+    "logline": "Une femme sicilienne de Brooklyn, divorcée et survivant à peine à Los Angeles, se réveille après chaque sommeil dans une version différente de sa propre vie, dans la même ville, et doit maîtriser ses règnes changeants avant qu'un rival qui voyage de la même manière ne réduise toutes ces versions à la seule qu'il puisse posséder.",
+    "metaLine": "Série · (310) Pictures · ==en développement==",
+    "bodyProse": "Une femme, plusieurs vies, le même visage dans tous les miroirs. Une fiction d'anticipation qui reste au ras du trottoir : racines de Brooklyn, famille sicilienne, lumière de Los Angeles, et chaque matin un monde différent portant la même adresse. Les indices sont petits et concrets : une cigarette jetée retombe debout, un téléphone répond avec sa propre voix, un déjà-vu qui refuse de se refermer.",
+    "pageQuote.quote": "Chaque personnage doit vouloir quelque chose, ne serait-ce qu'un verre d'eau.",
+    "pageQuote.cite": "Kurt Vonnegut",
+    "pageQuote.note": "Bagombo Snuff Box, 1999",
+    "heroLine": "Une nouvelle vie chaque matin, la même adresse.",
+    "heroCaption": "Cleo, Brooklyn, avant le sommeil",
+    "heroCredit": "Image de développement générée par IA",
+    "requestBody": "En développement. Les documents sont communiqués en privé, sur demande. Dites qui vous êtes et à quel titre vous écrivez : la réponse viendra de l'auteur.",
+    "synopsis": "Cleo Modica, trente-cinq ans, assistante sociale surmenée et mère célibataire — sicilienne-américaine, élevée à Brooklyn, échouée à L.A. — jusqu'à ce qu'une anomalie du réel fasse glisser sa conscience dans son double parallèle, ailleurs à chaque sommeil, mémoire intacte, langue et famille réécrites. Elle se réveille en Sicile en petite amie de son frère, en Pologne en femme qu'un ancien détenu reclus reconnaît, à Tokyo en épouse d'une version plus douce de son ex — apprenant le saut à mesure. Sous le drame familial court une conspiration qui menace de faire tomber les murs entre les réalités, et un choix impossible qui refera non seulement sa vie, mais la forme même de l'existence.",
+    "gallery.0.caption": "La même femme, Modica",
+    "gallery.0.credit": "Image de développement générée par IA",
+    "gallery.1.caption": "La même femme, Tokyo",
+    "gallery.1.credit": "Image de développement générée par IA",
+    "gallery.2.caption": "L'anomalie : une cigarette tient debout",
+    "gallery.2.credit": "Image de développement générée par IA",
+    "gallery.3.caption": "L'appel : elle est en deux endroits à la fois",
+    "gallery.3.credit": "Image de développement générée par IA",
+    "pitchDeck.note": "Le corpus du dossier est complet ; le dossier visuel est communiqué en privé. Les conversations avec les investisseurs se tiennent en personne — écrivez aux bureaux.",
+    "layout.0.heading": "L'Odissea di Cleopatra",
+    "layout.0.subtext": "Mini-série",
+    "layout.1.leftHeading": "Présentation",
+    "layout.1.rightBody": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "text": "Une assistante sociale de Los Angeles se réveille dans une version différente de sa vie à chaque fois qu'elle dort. À mesure qu'elle maîtrise les sauts, elle découvre une guerre invisible entre les dimensions -- et qu'elle est peut-être la clé du salut ou de la destruction.",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "text": "Chaque nuit apporte un monde nouveau, une vie nouvelle, des conséquences nouvelles. Elle commence à voir des motifs -- des fils reliant les versions d'elle-même à travers des possibilités infinies. Quelqu'un ou quelque chose orchestre ces sauts. Et elle n'est pas la seule conscience à savoir la guerre qui se livre entre les dimensions.",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "projects:a-need-grows-in-brooklyn": {
+    "subtitle": "NRC en chef · coproduction (212) · Long métrage",
+    "logline": "À l'été 1986, dans une rue de Borough Park, un garçon sensible de 17 ans qui rêve de jouer la comédie à NYU glisse des menus larcins vers le monde séduisant des clubs et du crime des dealers plus âgés, y perdant son innocence, son premier amour et, pour finir, sa vie, emportée par la violence ordinaire de son quartier.",
+    "shortLogline": "Borough Park, l'été 1986.",
+    "metaLine": "Long métrage · New Renaissance Cinema avec (212) Pictures · ==drafted==",
+    "bodyProse": "Une histoire de quartier racontée en réalisme documentaire : les perrons de la 44e Rue, le néon de chez Nino sur Fort Hamilton Parkway, la rue en plein jour et les clubs après la nuit tombée. Deux mondes, deux lumières, et un garçon qui passe de l'un à l'autre. Écrit depuis la mémoire vécue du lieu et de ces années.",
+    "pageQuote.quote": "Tout est matière à copie.",
+    "pageQuote.cite": "Nora Ephron",
+    "heroLine": "Brooklyn, avant d'être une marque.",
+    "heroCaption": "Borough Park, été 1986",
+    "heroCredit": "Image de développement générée par IA",
+    "requestBody": "Le long métrage est écrit. Le scénario et le synopsis se partagent en privé, sur demande. Dites qui vous êtes et à quel titre vous écrivez : la réponse viendra de l'auteur.",
+    "synopsis": "Été 86, Brooklyn. Marc a dix-sept ans, rêve de NYU et traîne avec une bande de mauvais garçons du quartier — D&D en sous-sol, basket de minuit sous le métro aérien, le club qui les refuse à l'entrée. Tourné en réalisme documentaire, dans le grain épais du 35 mm, la rue elle-même est le personnage : des dealers plus âgés adoptent Marc, lui enseignent l'« art » de la vie rapide, et il s'y révèle doué à mesure que les corps tombent autour de lui et que la bande hausse les épaules. Acte après acte, l'addition arrive — un hôpital, une arrestation, la nouvelle de la mort de son premier amour — et une rédemption entière se met en place, jusqu'à l'instant où une arme glisse d'un tableau de bord et l'emporte. Les dominos tombaient depuis le premier plan.",
+    "gallery.0.caption": "Le perron, une glace au citron, une cuillère en bois",
+    "gallery.0.credit": "Image de développement générée par IA",
+    "gallery.1.caption": "Le club, là où était l'autel",
+    "gallery.1.credit": "Image de développement générée par IA",
+    "gallery.2.caption": "Chez Nino, 44e Rue et Fort Hamilton Parkway",
+    "gallery.2.credit": "Image de développement générée par IA",
+    "gallery.3.caption": "Sous le métro aérien, la nuit",
+    "gallery.3.credit": "Image de développement générée par IA",
+    "gallery.4.caption": "Le borough tout entier · vue à vol d'oiseau de Brooklyn, George Welch pour le Brooklyn Daily Eagle, 1897",
+    "gallery.4.credit": "Domaine public · The New York Public Library, Map Division",
+    "pitchDeck.note": "Le canon du dossier est complet ; le dossier visuel se partage en privé. Les conversations avec les investisseurs ont lieu en personne — écrivez aux bureaux.",
+    "layout.0.kicker": "NRC en chef · coproduction (212) · Long métrage",
+    "layout.0.body": "Été 1986, 44e Rue et Fort Hamilton Parkway, Borough Park, Brooklyn. Marc, garçon sensible de 17 ans qui rêve d'étudier la comédie à NYU, traîne avec une bande de garçons du quartier : Dungeons & Dragons en sous-sol, basket de minuit sous le métro aérien, menus larcins devant l'épicerie. Semi-autobiographique et tournée en réalisme documentaire — grain épais du 35 mm, lumière disponible, la ligne aérienne comme vide structurel —, la saison observe sa rue d'aussi près que ses habitants. Le quartier est un personnage. Rien n'est nettoyé.\n\nL'arc d'ouverture (épisodes 1 à 4) installe la bande, le coin de rue et les deux pôles de l'été de Marc : Sunny, la fille qui partage son rêve de NYU, et le monde adulte du club qui refuse les garçons. La violence ordinaire de la rue arrive tôt — le belliqueux Housie Mousie force Marc et Sal à une nuit de vols et de crack — et lorsque Mousie roue Marc de coups à l'instant précis de son premier baiser avec Sunny, l'humiliation l'éloigne d'elle pour de bon.\n\nDans l'arc central (épisodes 5 à 8), le club ne s'ouvre qu'à Marc. Les dealers plus âgés Frank Gee et Mike Murder l'adoptent, lui enseignent l'« art » du vol à l'étalage et lui font découvrir la cuisine à PCP de Magic Mike. Marc s'y révèle doué ; la vie rapide s'emballe à mesure que les corps tombent autour de lui — Mousie jeté d'un toit, l'innocent Jordan tué alors qu'il ne faisait que passer — et Marc intériorise le haussement d'épaules de la bande : la vie continue.\n\nL'arc final (épisodes 9 et 10) présente l'addition. Une panique à la cocaïne et au crack conduit Marc à l'hôpital et à une promesse désespérée faite à Dieu. Le club est démantelé, Marc est arrêté, et sa mère lui annonce que Sunny est morte. Négociation de peine, Shock Camp, lettres à Millie, un test VIH négatif, des projets communs à NYU — une rédemption entièrement mise en place avant que l'arme de Dave Dirt ne glisse d'un tableau de bord et parte, tuant Marc sur le coup. Les dominos tombaient depuis le premier épisode."
+  },
+  "projects:alpha-yy": {
+    "subtitle": "Série télévisée / Long métrage",
+    "logline": "Dans les bas-fonds de Staten Island, deux exécuteurs sans frein recouvrent des dettes à coups de travail sauvage et d'ordres codés venus des gangs de prison, jusqu'à ce qu'une ultime trahison les oblige à mesurer le prix de leur existence chaotique.",
+    "metaLine": "Long métrage · New Renaissance Cinema avec (212) Pictures · ==drafted==",
+    "bodyProse": "Deux hommes, un même trajet : de Staten Island à Little Italy et retour, à recouvrer sans relâche. Un travail brutal traversé d'humour noir, des loyautés qui se déplacent au gré d'ordres codés venus de derrière les murs, jusqu'à ce que le dernier contrat bascule. Le scénario est né de pages manuscrites postées depuis la prison, et il en garde la voix. Écrit, en trois chapitres à l'écran.",
+    "pageQuote.quote": "Je crois que l'homme ordinaire est un sujet de tragédie, au sens le plus haut, tout aussi juste que les rois l'étaient.",
+    "pageQuote.cite": "Arthur Miller",
+    "pageQuote.note": "Tragedy and the Common Man, 1949",
+    "heroLine": "De Staten Island à Little Italy, en tournée de recouvrement.",
+    "heroCaption": "Le ferry, la nuit",
+    "heroCredit": "Image de développement générée par IA",
+    "requestBody": "Le long métrage est écrit. Le scénario et le synopsis se partagent en privé, sur demande. Dites qui vous êtes et à quel titre vous écrivez : la réponse viendra de l'auteur.",
+    "synopsis": "Mike et Dario sont deux exécuteurs instables qui écument Staten Island et Little Italy comme hommes de main d'usuriers — leurs journées mêlent violence routinière, humour noir, musique et attaches personnelles. Le recouvrement, d'épisode en épisode, s'emballe à mesure que les « kites » codés des gangs de prison, les convocations en sous-sol et les avertissements venus d'en haut entraînent le duo vers quelque chose de plus vaste et de plus sombre. Loyauté, narcissisme et banalité de la violence courent sous les échanges orduriers, jusqu'à ce qu'une trahison soudaine et mortelle laisse entendre que la vie sans frein a peut-être fini par les rattraper.",
+    "gallery.0.caption": "Mike et Big Trouble",
+    "gallery.0.credit": "Image de développement générée par IA",
+    "gallery.1.caption": "Le terrain vague, crépuscule d'hiver",
+    "gallery.1.credit": "Image de développement générée par IA",
+    "pitchDeck.note": "Le dossier est complet ; la version visuelle se partage en privé. Les échanges avec les investisseurs ont lieu en personne — écrivez aux bureaux.",
+    "layout.0.heading": "Alpha YY",
+    "layout.0.subtext": "Série télévisée / Long métrage",
+    "layout.1.leftHeading": "Présentation",
+    "layout.1.rightBody": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "text": "Le crime organisé au ras du trottoir. De Staten Island à Little Italy -- la violence ponctuée d'ordinaire.",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "text": "La texture banale du travail d'exécuteur. Observation rapprochée de la loyauté, de la peur et de la routine. Ce qu'il en coûte d'être celui qui se présente quand un autre en a donné l'ordre.",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "text": "Le projet existe à la fois comme série télévisée (212) Pictures et comme long métrage indépendant New Renaissance Cinema.",
+                "type": "text",
+                "version": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "media:210": {
+    "alt": "essai orange"
+  },
+  "media:206": {
+    "alt": "favicon nrc imax 512 (Jost tile 2026)"
+  },
+  "media:114": {
+    "alt": "logotype APR 70 pictures blanc ajouré gris (Jost punch 2026)"
+  },
+  "media:116": {
+    "alt": "logotype APR 70 pictures blanc ajouré marine (Jost punch 2026)"
+  },
+  "media:166": {
+    "alt": "favicon 70 imax (Jost tile 2026)"
+  },
+  "media:117": {
+    "alt": "logotype APR 70 pictures blanc ajouré orange (Jost punch 2026)"
+  },
+  "media:133": {
+    "alt": "logotype APR 70 blanc ajouré bleu (Jost punch 2026)"
+  },
+  "media:134": {
+    "alt": "logotype APR 70 blanc ajouré gris (Jost punch 2026)"
+  },
+  "media:136": {
+    "alt": "logotype APR 70 blanc ajouré marine (Jost punch 2026)"
+  },
+  "media:137": {
+    "alt": "logotype APR 70 blanc ajouré orange (Jost punch 2026)"
+  },
+  "media:138": {
+    "alt": "monogramme APR 70 70 ambre double cadre (Jost 2026)"
+  },
+  "media:140": {
+    "alt": "monogramme APR 70 70 bleu double cadre (Jost 2026)"
+  },
+  "media:141": {
+    "alt": "monogramme APR 70 70 gris double cadre (Jost 2026)"
+  },
+  "media:143": {
+    "alt": "monogramme APR 70 70 marine double cadre (Jost 2026)"
+  },
+  "media:144": {
+    "alt": "monogramme APR 70 70 orange double cadre (Jost 2026)"
+  },
+  "media:146": {
+    "alt": "favicon 212 ambre (Jost tile 2026)"
+  },
+  "media:147": {
+    "alt": "favicon 212 noir (Jost tile 2026)"
+  },
+  "media:148": {
+    "alt": "favicon 212 bleu (Jost tile 2026)"
+  },
+  "media:150": {
+    "alt": "favicon 212 imax (Jost tile 2026)"
+  },
+  "media:151": {
+    "alt": "favicon 212 marine (Jost tile 2026)"
+  },
+  "media:153": {
+    "alt": "favicon 212 blanc (Jost tile 2026)"
+  },
+  "media:154": {
+    "alt": "favicon 310 ambre (Jost tile 2026)"
+  },
+  "media:156": {
+    "alt": "favicon 310 bleu (Jost tile 2026)"
+  },
+  "media:157": {
+    "alt": "favicon 310 gris (Jost tile 2026)"
+  },
+  "media:159": {
+    "alt": "favicon 310 marine (Jost tile 2026)"
+  },
+  "media:160": {
+    "alt": "favicon 310 orange (Jost tile 2026)"
+  },
+  "media:162": {
+    "alt": "favicon 70 ambre (Jost tile 2026)"
+  },
+  "media:174": {
+    "alt": "favicon nrc imax (Jost tile 2026)"
+  },
+  "media:175": {
+    "alt": "favicon nrc marine (Jost tile 2026)"
+  },
+  "media:177": {
+    "alt": "favicon nrc blanc (Jost tile 2026)"
+  },
+  "media:178": {
+    "alt": "favicon 212 ambre 512 (Jost tile 2026)"
+  },
+  "media:180": {
+    "alt": "favicon 212 bleu 512 (Jost tile 2026)"
+  },
+  "media:181": {
+    "alt": "favicon 212 gris 512 (Jost tile 2026)"
+  },
+  "media:183": {
+    "alt": "favicon 212 marine 512 (Jost tile 2026)"
+  },
+  "media:184": {
+    "alt": "favicon 212 orange 512 (Jost tile 2026)"
+  },
+  "media:186": {
+    "alt": "favicon 310 ambre 512 (Jost tile 2026)"
+  },
+  "media:187": {
+    "alt": "favicon 310 noir 512 (Jost tile 2026)"
+  },
+  "media:189": {
+    "alt": "favicon 310 gris 512 (Jost tile 2026)"
+  },
+  "media:190": {
+    "alt": "favicon 310 imax 512 (Jost tile 2026)"
+  },
+  "media:192": {
+    "alt": "favicon 310 orange 512 (Jost tile 2026)"
+  },
+  "media:193": {
+    "alt": "favicon 310 blanc 512 (Jost tile 2026)"
+  },
+  "media:195": {
+    "alt": "favicon 70 noir 512 (Jost tile 2026)"
+  },
+  "media:196": {
+    "alt": "favicon 70 bleu 512 (Jost tile 2026)"
+  },
+  "media:197": {
+    "alt": "favicon 70 gris 512 (Jost tile 2026)"
+  },
+  "media:99": {
+    "alt": "logotype APR 70 pictures noir ajouré bleu (Jost punch 2026)"
+  },
+  "media:102": {
+    "alt": "logotype APR 70 pictures noir ajouré marine (Jost punch 2026)"
+  },
+  "media:105": {
+    "alt": "logotype APR 70 pictures noir plein (Jost punch 2026)"
+  },
+  "media:108": {
+    "alt": "logotype APR 70 pictures imax plein (Jost punch 2026)"
+  },
+  "media:112": {
+    "alt": "logotype APR 70 pictures blanc ajouré ambre (Jost punch 2026)"
+  },
+  "media:115": {
+    "alt": "logotype APR 70 pictures blanc ajouré imax (Jost punch 2026)"
+  },
+  "media:118": {
+    "alt": "logotype APR 70 noir ajouré ambre (Jost punch 2026)"
+  },
+  "media:119": {
+    "alt": "logotype APR 70 noir ajouré bleu (Jost punch 2026)"
+  },
+  "media:120": {
+    "alt": "logotype APR 70 noir ajouré gris (Jost punch 2026)"
+  },
+  "media:121": {
+    "alt": "logotype APR 70 noir ajouré imax (Jost punch 2026)"
+  },
+  "media:124": {
+    "alt": "logotype APR 70 plein ambre (Jost punch 2026)"
+  },
+  "media:125": {
+    "alt": "logotype APR 70 plein noir (Jost punch 2026)"
+  },
+  "media:199": {
+    "alt": "favicon 70 marine 512 (Jost tile 2026)"
+  },
+  "media:201": {
+    "alt": "favicon 70 blanc 512 (Jost tile 2026)"
+  },
+  "media:202": {
+    "alt": "favicon nrc ambre 512 (Jost tile 2026)"
+  },
+  "media:204": {
+    "alt": "favicon nrc bleu 512 (Jost tile 2026)"
+  },
+  "media:205": {
+    "alt": "favicon nrc gris 512 (Jost tile 2026)"
+  },
+  "media:207": {
+    "alt": "favicon nrc marine 512 (Jost tile 2026)"
+  },
+  "media:208": {
+    "alt": "favicon nrc orange 512 (Jost tile 2026)"
+  },
+  "media:128": {
+    "alt": "logotype APR 70 plein imax (Jost punch 2026)"
+  },
+  "media:129": {
+    "alt": "logotype APR 70 plein marine (Jost punch 2026)"
+  },
+  "media:130": {
+    "alt": "logotype APR 70 plein orange (Jost punch 2026)"
+  },
+  "media:131": {
+    "alt": "logotype APR 70 plein blanc (Jost punch 2026)"
+  },
+  "media:132": {
+    "alt": "logotype APR 70 blanc ajouré ambre (Jost punch 2026)"
+  },
+  "media:135": {
+    "alt": "logotype APR 70 blanc ajouré imax (Jost punch 2026)"
+  },
+  "media:139": {
+    "alt": "monogramme APR 70 70 noir double cadre (Jost 2026)"
+  },
+  "media:142": {
+    "alt": "monogramme APR 70 70 imax double cadre (Jost 2026)"
+  },
+  "media:145": {
+    "alt": "monogramme APR 70 70 blanc double cadre (Jost 2026)"
+  },
+  "media:149": {
+    "alt": "favicon 212 gris (Jost tile 2026)"
+  },
+  "media:152": {
+    "alt": "favicon 212 orange (Jost tile 2026)"
+  },
+  "media:155": {
+    "alt": "favicon 310 noir (Jost tile 2026)"
+  },
+  "media:158": {
+    "alt": "favicon 310 imax (Jost tile 2026)"
+  },
+  "media:161": {
+    "alt": "favicon 310 blanc (Jost tile 2026)"
+  },
+  "media:165": {
+    "alt": "favicon 70 gris (Jost tile 2026)"
+  },
+  "media:167": {
+    "alt": "favicon 70 marine (Jost tile 2026)"
+  },
+  "media:170": {
+    "alt": "favicon nrc ambre (Jost tile 2026)"
+  },
+  "media:173": {
+    "alt": "favicon nrc gris (Jost tile 2026)"
+  },
+  "media:176": {
+    "alt": "favicon nrc orange (Jost tile 2026)"
+  },
+  "media:179": {
+    "alt": "favicon 212 noir 512 (Jost tile 2026)"
+  },
+  "media:182": {
+    "alt": "favicon 212 imax 512 (Jost tile 2026)"
+  },
+  "media:185": {
+    "alt": "favicon 212 blanc 512 (Jost tile 2026)"
+  },
+  "media:188": {
+    "alt": "favicon 310 bleu 512 (Jost tile 2026)"
+  },
+  "media:191": {
+    "alt": "favicon 310 marine 512 (Jost tile 2026)"
+  },
+  "media:194": {
+    "alt": "favicon 70 ambre 512 (Jost tile 2026)"
+  },
+  "media:198": {
+    "alt": "favicon 70 imax 512 (Jost tile 2026)"
+  },
+  "media:200": {
+    "alt": "favicon 70 orange 512 (Jost tile 2026)"
+  },
+  "media:203": {
+    "alt": "favicon nrc noir 512 (Jost tile 2026)"
+  },
+  "media:122": {
+    "alt": "logotype APR 70 noir ajouré marine (Jost punch 2026)"
+  },
+  "media:171": {
+    "alt": "favicon nrc noir (Jost tile 2026)"
+  },
+  "media:172": {
+    "alt": "favicon nrc bleu (Jost tile 2026)"
+  },
+  "media:98": {
+    "alt": "logotype APR 70 pictures noir ajouré ambre (Jost punch 2026)"
+  },
+  "media:168": {
+    "alt": "favicon 70 orange (Jost tile 2026)"
+  },
+  "media:164": {
+    "alt": "favicon 70 bleu (Jost tile 2026)"
+  },
+  "media:169": {
+    "alt": "favicon 70 blanc (Jost tile 2026)"
+  },
+  "media:123": {
+    "alt": "logotype APR 70 noir ajouré orange (Jost punch 2026)"
+  },
+  "media:126": {
+    "alt": "logotype APR 70 plein bleu (Jost punch 2026)"
+  },
+  "media:127": {
+    "alt": "logotype APR 70 gris uni (Jost punch 2026)"
+  },
+  "media:163": {
+    "alt": "favicon 70 noir (Jost tile 2026)"
+  },
+  "media:100": {
+    "alt": "logotype APR 70 pictures noir ajouré gris (Jost punch 2026)"
+  },
+  "media:101": {
+    "alt": "logotype APR 70 pictures noir ajouré imax (Jost punch 2026)"
+  },
+  "media:103": {
+    "alt": "logotype APR 70 pictures noir ajouré orange (Jost punch 2026)"
+  },
+  "media:104": {
+    "alt": "logotype APR 70 pictures ambre uni (Jost punch 2026)"
+  },
+  "media:106": {
+    "alt": "logotype APR 70 pictures bleu uni (Jost punch 2026)"
+  },
+  "media:107": {
+    "alt": "logotype APR 70 pictures gris uni (Jost punch 2026)"
+  },
+  "media:109": {
+    "alt": "logotype APR 70 pictures bleu marine uni (Jost punch 2026)"
+  },
+  "media:110": {
+    "alt": "logotype APR 70 pictures orange uni (Jost punch 2026)"
+  },
+  "media:111": {
+    "alt": "logotype APR 70 pictures blanc uni (Jost punch 2026)"
+  },
+  "media:113": {
+    "alt": "logotype APR 70 pictures blanc ajouré bleu (Jost punch 2026)"
+  },
+  "media:97": {
+    "alt": "Logo de test"
+  },
+  "media:96": {
+    "alt": "Logo"
+  },
+  "media:95": {
+    "alt": "favicon apr 70 blanc à perforations orange"
+  },
+  "media:94": {
+    "alt": "Icône Apple touch APR 70 Pictures, PNG 180 sur 180 tiré du sigle favicon ambre"
+  },
+  "media:90": {
+    "alt": "Une femme brune en sweat-shirt gris se tient devant un lavabo de salle de bains dans la pénombre et pose une main sur le miroir de l'armoire à pharmacie, où son reflet se dédouble et se trouble, comme si elle était en deux lieux à la fois."
+  },
+  "media:89": {
+    "alt": "Deux hommes s'empoignent et échangent des coups poussiéreux sur une place pavée de Sicile, tandis que des villageois vêtus à la mode des années 1970 regardent depuis les bords, une Fiat 500 crème garée contre un mur écaillé."
+  },
+  "media:88": {
+    "alt": "Une jeune femme brune en chemisier fleuri et jean bleu se tient sous le porche de pierre en arc d'une vieille maison sicilienne, le regard porté au bout de la ruelle dans la lumière plate de l'après-midi."
+  },
+  "media:87": {
+    "alt": "Une brochure de vente aux enchères de 1900, du domaine public, pour Sea Gate, dans le port de New York : sa couverture imprimée à côté d'une lithographie à vol d'oiseau cartographiant la péninsule de Norton Point entre The Narrows, Gravesend Bay et l'océan Atlantique."
+  },
+  "media:86": {
+    "alt": "Le phare de Coney Island s'élève sur sa charpente de fer derrière une rangée de bungalows de plage en bois patiné aux toits bâchés de bleu, à Sea Gate, sous un pâle soleil d'hiver."
+  },
+  "media:85": {
+    "alt": "Sept jeunes étudiants en manteaux d'hiver marchent de front sur une allée de pierre du campus à l'aube, un bâtiment collégial gothique se dressant derrière eux dans la brume."
+  },
+  "media:84": {
+    "alt": "Un jeune homme en sweat à capuche, casque sur les oreilles et manette en main, est assis devant un mur d'écrans tandis qu'une femme en armure tactique se tient au-delà d'une cloison vitrée : le joueur et son avatar guerrier cadrés ensemble."
+  },
+  "media:83": {
+    "alt": "Le quartier des attractions de Coney Island au crépuscule, vu à travers un grillage, la Wonder Wheel et le Cyclone éclairés au néon rouge, deux silhouettes emmitouflées arpentant la promenade presque déserte."
+  },
+  "media:82": {
+    "alt": "Une femme d'âge mûr au visage buriné, en veste de toile, s'appuie la nuit à la rambarde de la promenade de Coney Island, la Wonder Wheel et le Parachute Jump illuminés derrière elle au milieu de la foule."
+  },
+  "media:81": {
+    "alt": "Un candidat aux cheveux gris, en costume, est poussé à l'arrière d'une limousine noire sous une pluie de tracts de campagne, un cameraman et des gardes du corps refermant le cercle sur un terrain de meeting en plein jour."
+  },
+  "media:80": {
+    "alt": "Une moto Indian d'époque garée devant le Mr. D'z Route 66 Diner au crépuscule, néons rose et bleu-vert allumés contre les montagnes du désert, une serveuse visible par la fenêtre éclairée du passe-plat."
+  },
+  "media:79": {
+    "alt": "L'enseigne au néon de Michelangelo's rougeoie au-dessus d'un trottoir de Los Angeles la nuit, des dîneurs à des tables à nappes à carreaux rouges sous une fresque de la Création d'Adam, une femme en robe nuisette seule au comptoir de marbre près de la vitrine."
+  },
+  "media:78": {
+    "alt": "Un homme en costume sombre se tient seul sur un pont vénitien en arc, la nuit, et regarde défiler un cortège masqué du Carnevale sur la fondamenta en contrebas, des guirlandes de lumières chaudes au-dessus de l'eau et une gondole amarrée dessous."
+  },
+  "media:77": {
+    "alt": "Une femme brune en sweat-shirt gris se tient devant un lavabo de salle de bains dans la pénombre et pose une main sur le miroir de l'armoire à pharmacie, où son reflet se dédouble et se trouble, comme si elle était en deux lieux à la fois."
+  },
+  "media:76": {
+    "alt": "La même femme brune se tient sous un parapluie de plastique transparent à un carrefour de Tokyo luisant de pluie, la nuit, enseignes au néon et foules de parapluies floues derrière elle."
+  },
+  "media:75": {
+    "alt": "Des enfants jouent au stickball dans une rue pavée de Red Hook dans les années 1970, une épicerie de coin aux étiquettes de prix manuscrites, du linge tendu entre les immeubles et les grues du port dressées au bout du bloc."
+  },
+  "media:74": {
+    "alt": "Des dockers en casquettes de travail et en denim sont assis le long du comptoir d'un bar de coin mal éclairé, la nuit, à regarder un petit téléviseur, une rue pavée visible par la porte ouverte."
+  },
+  "media:73": {
+    "alt": "Une femme brune en chemise de nuit blanche est assise au bord d'un lit de fer dans une chambre de pierre chaulée, en Sicile, un crucifix de bois au mur et une robe noire posée sur une chaise dans la lumière filtrée par les volets."
+  },
+  "media:72": {
+    "alt": "Un homme large d'épaules en chemise noire et chaîne en or marche bras dessus bras dessous avec une femme qui rit, en chapeau de feutre et blouson de cuir, dans une rue nocturne bordée de voitures garées et de néons pâles."
+  },
+  "media:71": {
+    "alt": "Deux silhouettes s'éloignent à travers un terrain industriel désolé au crépuscule, un entrepôt rouillé sur un côté et des traces de pneus dans le gravier sous un lourd ciel gris."
+  },
+  "media:70": {
+    "alt": "Un adolescent aux cheveux longs se tient au milieu d'une rue vide sous les voies du métro aérien au crépuscule, devantures et lampadaires fuyant au bout du bloc."
+  },
+  "media:69": {
+    "alt": "Une pizzeria de coin rayonne de chaleur au crépuscule dans une rue de Brooklyn des années 1980, quelques passants sur le trottoir mouillé et des berlines d'époque garées le long du trottoir."
+  },
+  "media:68": {
+    "alt": "Une boîte de nuit bondée des années 1980 installée dans une église gothique désacralisée, des danseurs sur une estrade basse sous un haut vitrail, la brume dans l'air et un videur posté près d'un cordon de velours."
+  },
+  "media:67": {
+    "alt": "Un adolescent en t-shirt Maiden et une jeune fille blonde en total denim sont assis tout près l'un de l'autre sur le perron d'un brownstone de Brooklyn dans une lumière dorée, partageant un gobelet de glace au citron avec une petite cuiller de bois, des berlines des années 1980 garées le long de la rue."
+  },
+  "media:66": {
+    "alt": "Un homme en combinaison olive, jumelles à la main, se tient sur un coteau sec au-dessus d'un village sicilien perché de maisons de pierre et d'une église, la mer à l'horizon dans la lumière dorée."
+  },
+  "media:65": {
+    "alt": "Une arène d'esport comble la nuit, les joueurs en silhouette sur une scène éclairée devant un écran géant tandis que la foule brandit des téléphones lumineux."
+  },
+  "media:64": {
+    "alt": "Un gardien est assis dans une guérite éclairée sous la pluie, au crépuscule, une barrière rouge et blanche abaissée en travers de la route menant à une rue de petites maisons de Sea Gate."
+  },
+  "media:63": {
+    "alt": "Une grande salle de lecture de bibliothèque, déserte, la nuit, éclairée par une seule lampe de banquier verte, sept vestes posées sur les chaises de bois autour d'une longue table."
+  },
+  "media:62": {
+    "alt": "Cinq dockers en casquettes et vestes de travail se rassemblent autour d'un chariot à café fumant sur les quais de Red Hook à l'aube, les tours du World Trade Center à demi construites de l'autre côté du port, automne 1970."
+  },
+  "media:61": {
+    "alt": "Un homme en trench s'appuie à la rambarde orange du Staten Island Ferry au crépuscule, la silhouette de Lower Manhattan de l'autre côté de l'eau et un sac de marin à ses pieds."
+  },
+  "media:60": {
+    "alt": "Un adolescent en veste de jean et t-shirt usé se tient au milieu d'une rue de Brooklyn, en noir et blanc, des brownstones et une berline des années 1980 garée derrière lui."
+  },
+  "media:59": {
+    "alt": "Une femme aux cheveux bruns bouclés, en veste de jean, est assise sur le perron d'un brownstone de Brooklyn dans la lumière chaude de l'après-midi, une petite croix à la gorge."
+  },
+  "media:58": {
+    "alt": "Deux hommes se font face sur une place poussiéreuse de Sicile tandis que le bourg regarde depuis les portes et les balcons, vestes tombées, la lumière de l'après-midi allongée. Image de développement."
+  },
+  "media:57": {
+    "alt": "Une jeune femme sur le seuil d'un marché, dans un village perché de Sicile, soutenant le regard du nouveau venu sans rien livrer. Image de développement."
+  },
+  "media:56": {
+    "alt": "Une petite place de village sicilien au début des années soixante-dix, des vieillards assis sur des chaises devant un bar, chaque visage singulier, une petite voiture italienne garée de biais, des cordes à linge tendues entre les balcons. Une image de développement."
+  },
+  "media:55": {
+    "alt": "Une planche de l'atlas Bromley de 1879 représentant les îlots de City Hall, dans le bas de Manhattan ; l'hôtel de ville, le palais de justice, la poste et les petites rues qui décident des élections."
+  },
+  "media:54": {
+    "alt": "Sept étudiants traversant à l'aube une cour universitaire embrumée, en formation lâche, quatre hommes et trois femmes, vus d'une fenêtre en hauteur. Une image de développement."
+  },
+  "media:53": {
+    "alt": "Une salle de lecture de bibliothèque universitaire, bien après minuit, une seule lampe de bureau verte allumée parmi de longues tables sombres, sept manteaux sur sept chaises, de hautes fenêtres donnant sur une cour embrumée. Une image de développement de The Movement."
+  },
+  "media:52": {
+    "alt": "Une vue partagée en une seule image : un jeune joueur devant une console lumineuse parlant dans un casque, et, sur le mur d'écrans face à lui, un avatar de terrain adulte interrompant sa mission pour regarder droit vers la caméra. Une image de développement."
+  },
+  "media:51": {
+    "alt": "Une femme au regard perçant, à la rambarde de la promenade, la nuit, les néons des manèges de Coney Island brûlant derrière elle. Une image de développement."
+  },
+  "media:50": {
+    "alt": "Un sous-sol condamné envahi à l'aube par trente centimètres d'eau du port, un homme face contre l'eau peu profonde, un gilet de sauvetage resté sec suspendu à un clou, juste hors de portée. Une image de développement."
+  },
+  "media:49": {
+    "alt": "L'entrée gardée de Sea Gate au crépuscule, sous la pluie d'été, une barrière levante et une guérite de police là où s'achèvent les rues de Coney Island, l'asphalte mouillé qui brille. Une image de développement de Sea Gate."
+  },
+  "media:48": {
+    "alt": "Le Mr. D'z diner sur la Route 66, à Kingman, au crépuscule, néons turquoise et rose, une vieille moto Indian garée devant. Une image de développement."
+  },
+  "media:47": {
+    "alt": "Dans les coulisses d'un meeting de Mardi gras à East Los Angeles, un sénateur plongeant dans une limousine ouverte, un cadreur qui filme tandis que la sécurité se referme. Une image de développement."
+  },
+  "media:46": {
+    "alt": "Devant le Michelangelo's, sur Sunset, la nuit ; une fresque peinte de la Création d'Adam sur laquelle se superpose la silhouette de la ville, au-dessus de tables de trottoir sous guirlandes, et à l'intérieur, une femme au bar de marbre faisant tourner un anneau d'argent. Une image de développement."
+  },
+  "media:45": {
+    "alt": "Une salle d'écriture à Rome, plane et baignée de soleil, hautes fenêtres à persiennes, une machine à écrire Olivetti de 1964 posée bien d'équerre sur le bureau, les pages du manuscrit en ordre. Une image de développement."
+  },
+  "media:44": {
+    "alt": "Une foule masquée au Carnaval de Venise, la nuit, une calle bordée de canaux et de guirlandes, un homme sans masque qui regarde depuis un pont. Une image de développement."
+  },
+  "media:43": {
+    "alt": "Une rue transversale de Red Hook à l'automne 1970, maisons de brique en enfilade et épicerie de quartier, des enfants jouant entre les berlines garées, les grues immobiles au bout du bloc, côté eau. Une image de développement."
+  },
+  "media:42": {
+    "alt": "À l'intérieur d'un bar de coin chaleureux sur le front de mer de Red Hook, la nuit, en 1970, la porte ouverte sur la rue, un match à la télévision au-dessus du comptoir et un téléphone au mur du fond. Une image de développement."
+  },
+  "media:41": {
+    "alt": "Les quais de Red Hook à l'aube, à l'automne 1970, des dockers en casquettes et vestes de travail en silhouette, et de l'autre côté du port deux squelettes d'acier inachevés se dressant sur la ligne d'horizon, le plus haut presque achevé, ses grues derricks en place, le second à mi-hauteur. Une image de développement de Da Hook."
+  },
+  "media:40": {
+    "alt": "Une femme à un téléphone public dans le couloir d'un diner, figée, entendant sa propre voix répondre à l'autre bout du fil. Une image de développement."
+  },
+  "media:39": {
+    "alt": "Un trottoir de Los Angeles la nuit, une cigarette jetée d'une chiquenaude qui retombe parfaitement debout sur son extrémité, une femme arrêtée en plein pas qui la fixe. Une image de développement."
+  },
+  "media:38": {
+    "alt": "La même femme, le même visage, sur un passage piéton de Tokyo sous la pluie, la nuit, cheveux courts et plaqués, un parapluie translucide qui capte les néons. Une image de développement."
+  },
+  "media:37": {
+    "alt": "La même femme, le même visage, s'éveillant dans une chambre de pierre aux volets clos à Modica, en Sicile, les cheveux relevés, une robe noire de veuve posée sur la chaise. Une image de développement."
+  },
+  "media:36": {
+    "alt": "Une femme d'une trentaine d'années sur un perron de Brooklyn au crépuscule, boucles brunes défaites, sac de travail à ses pieds, le regard droit dans l'objectif. Une image de développement de Cleopatra."
+  },
+  "media:35": {
+    "alt": "Un homme de main trapu et une femme à la débrouille des rues côte à côte dans l'entrée d'un café, la nuit, son bras autour de son épaule, tous deux riant de quelque chose hors champ. Une image de développement."
+  },
+  "media:34": {
+    "alt": "La pizzeria de Nino, à l'angle de la 44e Rue et de Fort Hamilton Parkway, au crépuscule, en 1986, néon en vitrine, les chaises remontées sur les tables. Une image de développement."
+  },
+  "media:33": {
+    "alt": "À l'intérieur d'un club new-yorkais du milieu des années quatre-vingt aménagé dans une église désacralisée, la lumière colorée des vitraux tombant sur une piste de danse bondée. Une image de développement."
+  },
+  "media:32": {
+    "alt": "Des enfants partageant un perron dans une rue pavée de Borough Park en 1986, chaque visage singulier, une glace au citron qui descend les marches de main en main. Une image de développement."
+  },
+  "media:31": {
+    "alt": "Un village de montagne de l'intérieur sicilien au début des années soixante-dix ; terrasses de pierre à l'heure dorée, un homme avec une seule valise remontant la route en lacets vers le bourg. Une image de développement de U Bruculinu."
+  },
+  "media:30": {
+    "alt": "Une vaste arène d'esport quelques minutes après le dernier match ; gradins vides, brume flottante, un joueur en silhouette sous un unique projecteur, les écrans géants éteints. Une image de développement de Shadowmaster."
+  },
+  "media:29": {
+    "alt": "Une planche de l'atlas immobilier Bromley de 1880 représentant Gravesend et la presqu'île de Coney Island, les limites de parcelles lithographiées à la main."
+  },
+  "media:28": {
+    "alt": "Une vue à vol d'oiseau de Sea Gate, port de New York, en 1900 ; le plan des rues, le phare et le yacht-club dessinés pour le prospectus de vente aux enchères de la Norton Point Land Company."
+  },
+  "media:27": {
+    "alt": "Depuis un épi de pierre désert, à l'heure dorée, la silhouette lointaine d'une grande roue et d'une tour de parachute de l'autre côté de l'eau. Une image de développement."
+  },
+  "media:26": {
+    "alt": "Un petit phare de fonte se dressant au-dessus des toits serrés d'une communauté balnéaire dans la brume d'été, des bâches bleues sur les toitures endommagées par la tempête. Une image de développement."
+  },
+  "media:25": {
+    "alt": "Une feuille du plan gravé de Rome de Giambattista Nolli, 1748, la ville rendue en plan figure-fond."
+  },
+  "media:24": {
+    "alt": "Une planche de l'atlas immobilier Hopkins de 1880 représentant l'Atlantic Basin à Red Hook, chaque quai nommé et numéroté."
+  },
+  "media:23": {
+    "alt": "Une carte Dripps de 1869 de Red Hook, Cobble Hill, Carroll Gardens et du canal Gowanus, quais et bassins gravés."
+  },
+  "media:22": {
+    "alt": "Une fourrière industrielle de Staten Island au crépuscule d'hiver ; grillage, fil barbelé, dépanneuses alignées, deux hommes s'éloignant entre elles. Une image de développement."
+  },
+  "media:21": {
+    "alt": "Le pont découvert d'un ferry de Staten Island la nuit, deux hommes en vestes sombres en silhouette au bastingage, les lumières du pont Verrazzano tendues au-dessus de l'eau noire. Une image de développement de Alpha YY."
+  },
+  "media:20": {
+    "alt": "Une carte à vol d'oiseau de l'arrondissement de Brooklyn, 1897, dessinée pour le Brooklyn Daily Eagle."
+  },
+  "media:19": {
+    "alt": "Une rue de Borough Park sous les voies aériennes, la nuit, en 1986, des adolescents sur un perron sous un lampadaire au sodium. Une image de développement."
+  },
+  "media:18": {
+    "alt": "Un diner isolé aux néons allumés, au crépuscule, sur la Route 66, ciel d'or et de smog. Une image de développement de L.A. Dolce Vita."
+  },
+  "media:17": {
+    "alt": "Quatre images consécutives d'un même test de mouvement généré ; un lent travelling avant vers un diner du désert aux néons allumés, au crépuscule."
+  },
+  "media:16": {
+    "alt": "Une foule dense sous le fronton « Doug and Mary Premiere » du Grauman's Egyptian Theatre, Hollywood, 14 mai 1926."
+  },
+  "media:15": {
+    "alt": "Un bloc de Borough Park à l'heure dorée, été 1986 ; perrons de grès brun, vélos abandonnés au sol, la ligne aérienne dans la brume. Une image de développement de A Need Grows in Brooklyn."
+  },
+  "media:14": {
+    "alt": "Un meeting politique en pleine lumière crue ; la portière d'une limousine noire ouverte sur du cuir blanc. Une image de développement de L.A. Dolce Vita."
+  },
+  "media:13": {
+    "alt": "Le bar d'un restaurant italien à deux heures du matin, une femme seule au comptoir faisant tourner un anneau d'argent. Une image de développement de L.A. Dolce Vita."
+  },
+  "media:12": {
+    "alt": "Un écrivain à son bureau dans un appartement romain ensoleillé aux hauts plafonds, volets ouverts sur les toits, une machine à écrire et les pages d'un manuscrit devant lui. Une image de développement de L.A. Dolce Vita."
+  },
+  "media:11": {
+    "alt": "Une femme seule sur la jetée de Santa Monica la nuit, un feu d'artifice au-dessus du Pacifique derrière elle. Une image de développement de L.A. Dolce Vita."
+  },
+  "media:10": {
+    "alt": "Favicon APR 70 Pictures"
+  },
+  "media:9": {
+    "alt": "Favicon New Renaissance Cinema"
+  },
+  "media:8": {
+    "alt": "Marque de pied de page New Renaissance Cinema"
+  },
+  "media:7": {
+    "alt": "Composition d'ouverture New Renaissance Cinema"
+  },
+  "media:6": {
+    "alt": "Favicon 310 Pictures"
+  },
+  "media:5": {
+    "alt": "Marque de pied de page 310 Pictures"
+  },
+  "media:4": {
+    "alt": "Bloc-logo principal 310 Pictures"
+  },
+  "media:3": {
+    "alt": "Favicon 212 Pictures"
+  },
+  "media:2": {
+    "alt": "Marque de pied de page 212 Pictures"
+  },
+  "media:1": {
+    "alt": "Bloc-logo principal 212 Pictures"
+  }
+}

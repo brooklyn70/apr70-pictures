@@ -28,6 +28,7 @@ export const DispatchIssue: CollectionConfig = {
     {
       name: 'displayTitle',
       type: 'text',
+      localized: true,
       required: true,
       admin: {
         description:
@@ -64,12 +65,12 @@ export const DispatchIssue: CollectionConfig = {
       fields: [
         { name: 'volume', type: 'text', required: true, defaultValue: 'VOL. 01' },
         { name: 'number', type: 'text', required: true, defaultValue: 'NO. 01' },
-        { name: 'season', type: 'text', required: true, defaultValue: 'SPRING 2026' },
+        { name: 'season', type: 'text', localized: true, required: true, defaultValue: 'SPRING 2026' },
         { name: 'reel', type: 'text', defaultValue: 'REEL 086' },
         { name: 'isoDate', type: 'text', defaultValue: 'APR · MAY · JUN 2026' },
-        { name: 'printRun', type: 'text', defaultValue: 'PRESSRUN 1,200' },
-        { name: 'offices', type: 'text', defaultValue: 'LIC NY 11101' },
-        { name: 'tagline', type: 'text', defaultValue: 'PRECISE. PURPOSEFUL. BUILT TO LAST.' },
+        { name: 'printRun', type: 'text', localized: true, defaultValue: 'PRESSRUN 1,200' },
+        { name: 'offices', type: 'text', localized: true, defaultValue: 'LIC NY 11101' },
+        { name: 'tagline', type: 'text', localized: true, defaultValue: 'PRECISE. PURPOSEFUL. BUILT TO LAST.' },
       ],
     },
 
@@ -79,9 +80,9 @@ export const DispatchIssue: CollectionConfig = {
       type: 'group',
       label: 'Cover',
       fields: [
-        { name: 'kicker', type: 'text' },
-        { name: 'deck', type: 'textarea' },
-        { name: 'byline', type: 'text' },
+        { name: 'kicker', type: 'text', localized: true },
+        { name: 'deck', type: 'textarea', localized: true },
+        { name: 'byline', type: 'text', localized: true },
         { name: 'coverImage', type: 'upload', relationTo: 'media' },
         {
           name: 'lines',
@@ -89,7 +90,7 @@ export const DispatchIssue: CollectionConfig = {
           labels: { singular: 'Headline word', plural: 'Headline words' },
           admin: { description: 'Big cover headline split into stylable words.' },
           fields: [
-            { name: 'text', type: 'text', required: true },
+            { name: 'text', type: 'text', localized: true, required: true },
             {
               name: 'style',
               type: 'select',
@@ -108,8 +109,8 @@ export const DispatchIssue: CollectionConfig = {
           labels: { singular: 'Coverline', plural: 'Coverlines' },
           fields: [
             { name: 'num', type: 'text' },
-            { name: 'head', type: 'text' },
-            { name: 'deck', type: 'text' },
+            { name: 'head', type: 'text', localized: true },
+            { name: 'deck', type: 'text', localized: true },
           ],
         },
       ],
@@ -121,16 +122,16 @@ export const DispatchIssue: CollectionConfig = {
       type: 'array',
       labels: { singular: 'Contents group', plural: 'Contents groups' },
       fields: [
-        { name: 'label', type: 'text', required: true },
-        { name: 'meta', type: 'text' },
+        { name: 'label', type: 'text', localized: true, required: true },
+        { name: 'meta', type: 'text', localized: true },
         {
           name: 'entries',
           type: 'array',
           fields: [
             { name: 'folio', type: 'text', required: true },
-            { name: 'title', type: 'text', required: true },
-            { name: 'deck', type: 'textarea' },
-            { name: 'by', type: 'text' },
+            { name: 'title', type: 'text', localized: true, required: true },
+            { name: 'deck', type: 'textarea', localized: true },
+            { name: 'by', type: 'text', localized: true },
           ],
         },
       ],
@@ -142,17 +143,17 @@ export const DispatchIssue: CollectionConfig = {
       type: 'group',
       label: 'From the Editor',
       fields: [
-        { name: 'eyebrow', type: 'text' },
-        { name: 'title', type: 'text' },
-        { name: 'lead', type: 'textarea' },
+        { name: 'eyebrow', type: 'text', localized: true },
+        { name: 'title', type: 'text', localized: true },
+        { name: 'lead', type: 'textarea', localized: true },
         {
           name: 'paragraphs',
           type: 'array',
-          fields: [{ name: 'text', type: 'textarea', required: true }],
+          fields: [{ name: 'text', type: 'textarea', localized: true, required: true }],
         },
-        { name: 'signatureName', type: 'text' },
-        { name: 'signatureMeta', type: 'text' },
-        { name: 'quote', type: 'textarea' },
+        { name: 'signatureName', type: 'text', localized: true },
+        { name: 'signatureMeta', type: 'text', localized: true },
+        { name: 'quote', type: 'textarea', localized: true },
         { name: 'portrait', type: 'upload', relationTo: 'media' },
       ],
     },
@@ -163,8 +164,8 @@ export const DispatchIssue: CollectionConfig = {
       type: 'group',
       label: 'Cover Story',
       fields: [
-        { name: 'eyebrow', type: 'text' },
-        { name: 'deck', type: 'textarea' },
+        { name: 'eyebrow', type: 'text', localized: true },
+        { name: 'deck', type: 'textarea', localized: true },
         { name: 'jumpFrom', type: 'text' },
         { name: 'jumpTo', type: 'text' },
         { name: 'heroImage', type: 'upload', relationTo: 'media' },
@@ -173,7 +174,7 @@ export const DispatchIssue: CollectionConfig = {
           type: 'array',
           labels: { singular: 'Title word', plural: 'Title words' },
           fields: [
-            { name: 'text', type: 'text', required: true },
+            { name: 'text', type: 'text', localized: true, required: true },
             { name: 'italic', type: 'checkbox', defaultValue: false },
           ],
         },
@@ -183,15 +184,15 @@ export const DispatchIssue: CollectionConfig = {
           labels: { singular: 'Meta row', plural: 'Meta rows' },
           fields: [
             { name: 'key', type: 'text', required: true },
-            { name: 'value', type: 'text', required: true },
+            { name: 'value', type: 'text', localized: true, required: true },
           ],
         },
         {
           name: 'imageCaption',
           type: 'group',
           fields: [
-            { name: 'caption', type: 'text' },
-            { name: 'credit', type: 'text' },
+            { name: 'caption', type: 'text', localized: true },
+            { name: 'credit', type: 'text', localized: true },
           ],
         },
         {
@@ -212,21 +213,21 @@ export const DispatchIssue: CollectionConfig = {
                 { label: 'Subhead', value: 'head' },
               ],
             },
-            { name: 'text', type: 'textarea', required: true },
-            { name: 'attr', type: 'text', admin: { description: 'For pull-quotes only.' } },
+            { name: 'text', type: 'textarea', localized: true, required: true },
+            { name: 'attr', type: 'text', localized: true, admin: { description: 'For pull-quotes only.' } },
           ],
         },
         {
           name: 'factbox',
           type: 'group',
           fields: [
-            { name: 'label', type: 'text', defaultValue: 'AT A GLANCE' },
+            { name: 'label', type: 'text', localized: true, defaultValue: 'AT A GLANCE' },
             {
               name: 'fields',
               type: 'array',
               fields: [
                 { name: 'key', type: 'text', required: true },
-                { name: 'value', type: 'text', required: true },
+                { name: 'value', type: 'text', localized: true, required: true },
                 {
                   name: 'accent',
                   type: 'select',
@@ -249,7 +250,7 @@ export const DispatchIssue: CollectionConfig = {
           fields: [
             { name: 'idx', type: 'text' },
             { name: 'name', type: 'text', required: true },
-            { name: 'meta', type: 'text' },
+            { name: 'meta', type: 'text', localized: true },
           ],
         },
       ],
@@ -272,12 +273,12 @@ export const DispatchIssue: CollectionConfig = {
             { label: 'New Renaissance Cinema — Offwhite', value: 'nrc' },
           ],
         },
-        { name: 'date', type: 'text', required: true },
-        { name: 'title', type: 'text', required: true },
-        { name: 'body', type: 'textarea' },
-        { name: 'status', type: 'text' },
+        { name: 'date', type: 'text', localized: true, required: true },
+        { name: 'title', type: 'text', localized: true, required: true },
+        { name: 'body', type: 'textarea', localized: true },
+        { name: 'status', type: 'text', localized: true },
         { name: 'link', type: 'text' },
-        { name: 'ghost', type: 'text', admin: { description: 'Ghost numerals shown behind card.' } },
+        { name: 'ghost', type: 'text', localized: true, admin: { description: 'Ghost numerals shown behind card.' } },
       ],
     },
 
@@ -288,10 +289,10 @@ export const DispatchIssue: CollectionConfig = {
       labels: { singular: 'Trade clipping', plural: 'Trades' },
       fields: [
         { name: 'pub', type: 'text', required: true },
-        { name: 'city', type: 'text' },
-        { name: 'headline', type: 'text', required: true },
-        { name: 'deck', type: 'textarea' },
-        { name: 'attr', type: 'text' },
+        { name: 'city', type: 'text', localized: true },
+        { name: 'headline', type: 'text', localized: true, required: true },
+        { name: 'deck', type: 'textarea', localized: true },
+        { name: 'attr', type: 'text', localized: true },
       ],
     },
 
@@ -301,10 +302,10 @@ export const DispatchIssue: CollectionConfig = {
       type: 'array',
       labels: { singular: 'Calendar entry', plural: 'Calendar' },
       fields: [
-        { name: 'date', type: 'text', required: true },
-        { name: 'title', type: 'text', required: true },
-        { name: 'sub', type: 'text' },
-        { name: 'tag', type: 'text' },
+        { name: 'date', type: 'text', localized: true, required: true },
+        { name: 'title', type: 'text', localized: true, required: true },
+        { name: 'sub', type: 'text', localized: true },
+        { name: 'tag', type: 'text', localized: true },
       ],
     },
 
@@ -314,10 +315,10 @@ export const DispatchIssue: CollectionConfig = {
       type: 'array',
       labels: { singular: 'Classified', plural: 'Classifieds' },
       fields: [
-        { name: 'cat', type: 'text', required: true },
-        { name: 'title', type: 'text', required: true },
-        { name: 'body', type: 'textarea' },
-        { name: 'meta', type: 'text' },
+        { name: 'cat', type: 'text', localized: true, required: true },
+        { name: 'title', type: 'text', localized: true, required: true },
+        { name: 'body', type: 'textarea', localized: true },
+        { name: 'meta', type: 'text', localized: true },
       ],
     },
 
@@ -329,10 +330,10 @@ export const DispatchIssue: CollectionConfig = {
       fields: [
         { name: 'vol', type: 'text' },
         { name: 'no', type: 'text' },
-        { name: 'season', type: 'text' },
+        { name: 'season', type: 'text', localized: true },
         { name: 'mast', type: 'text', label: 'Masthead label' },
-        { name: 'line', type: 'text' },
-        { name: 'state', type: 'text' },
+        { name: 'line', type: 'text', localized: true },
+        { name: 'state', type: 'text', localized: true },
         { name: 'isCurrent', type: 'checkbox', defaultValue: false },
       ],
     },
@@ -342,9 +343,9 @@ export const DispatchIssue: CollectionConfig = {
       name: 'colophon',
       type: 'group',
       fields: [
-        { name: 'legal', type: 'textarea' },
-        { name: 'type', type: 'textarea' },
-        { name: 'baseline', type: 'text' },
+        { name: 'legal', type: 'textarea', localized: true },
+        { name: 'type', type: 'textarea', localized: true },
+        { name: 'baseline', type: 'text', localized: true },
       ],
     },
   ],

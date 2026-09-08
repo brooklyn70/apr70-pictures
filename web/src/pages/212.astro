@@ -9,7 +9,8 @@ import DivisionPage from '../components/v9/DivisionPage.astro'
 import { fetchDivisionSlate } from '../lib/payload'
 import { NAP } from '../lib/v9/site'
 
-const { slate } = await fetchDivisionSlate('212')
+const locale = Astro.locals.locale
+const { slate } = await fetchDivisionSlate('212', locale)
 
 const lockup = '(212) Pictures'
 const discipline = 'New York television at street level, built from the five boroughs.'

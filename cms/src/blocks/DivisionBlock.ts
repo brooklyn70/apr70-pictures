@@ -29,6 +29,7 @@ export const DivisionBlock: Block = {
     {
       name: 'heading',
       type: 'textarea',
+      localized: true,
       admin: {
         description: 'Optional section heading above the division rows. Line breaks are intentional.',
       },
@@ -36,6 +37,7 @@ export const DivisionBlock: Block = {
     {
       name: 'subtext',
       type: 'textarea',
+      localized: true,
       admin: {
         description: 'Optional subtext below the heading.',
       },
@@ -73,6 +75,7 @@ export const DivisionBlock: Block = {
         {
           name: 'subtitle',
           type: 'text',
+          localized: true,
           admin: {
             description: 'Optional subtitle (e.g. "Brooklyn, New York").',
           },
@@ -80,6 +83,7 @@ export const DivisionBlock: Block = {
         {
           name: 'description',
           type: 'textarea',
+          localized: true,
           admin: {
             description: 'Division description body. Line breaks are intentional.',
           },

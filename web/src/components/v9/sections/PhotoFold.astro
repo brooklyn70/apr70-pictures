@@ -7,7 +7,7 @@
  */
 import type { V9Section } from '../../../lib/payload'
 import { renderInline } from '../../../lib/v9/inline'
-import { frameFromMedia, focalPosition, isAiFrameText, SIZES_COVER_VH100, SIZES_COVER_TALL } from '../media'
+import { frameFromMedia, focalPosition, isAiFrame, SIZES_COVER_VH100, SIZES_COVER_TALL } from '../media'
 
 type PhotoFoldData = Extract<V9Section, { blockType: 'photoFold' }>
 const section = Astro.props.section as PhotoFoldData
@@ -15,7 +15,9 @@ const section = Astro.props.section as PhotoFoldData
 const frame = frameFromMedia(section.image)
 const hasWords = Boolean(section.heading || section.kicker)
 const hasCaption = Boolean(section.caption || section.credit)
-const aiFrame = isAiFrameText(section.caption, section.credit)
+/* i18n: the Media doc's stored aiFrame flag is authoritative; the caption text
+   is the fallback so nothing stamped today loses its stamp. */
+const aiFrame = isAiFrame(section.image, section.caption, section.credit)
 ---
 
 {

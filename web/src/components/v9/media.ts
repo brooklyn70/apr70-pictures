@@ -50,9 +50,34 @@ export const SIZES_GRID = '(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 3
 
 export const focalPosition = (f: Frame): string => `${f.focalX}% ${f.focalY}%`
 
-/** AI mark (v13): a frame counts as AI-generated when its caption/credit line
- *  carries the disclosure phrase — the same line the Methods ledger promises.
- *  This is deliberately the ONLY source of truth (no separate flag to drift):
- *  archival photographs never carry the phrase, so they can never be stamped. */
+/** AI mark (v13, revised for i18n 2026-09-07).
+ *
+ *  It USED to be the caption text alone: `/ai[\s-]?generated/i` over the
+ *  caption + credit. That regex matches an English phrase, so the day a caption
+ *  is translated ("gerado por IA", "generato dall'IA") the disclosure stamp
+ *  silently disappears — a compliance failure, not a cosmetic one.
+ *
+ *  The stored flag on the Media document (`aiFrame`, Media collection) is now
+ *  authoritative. The text test is KEPT as a second chance so that every frame
+ *  stamped today is still stamped tomorrow, whether or not the flag has been
+ *  ticked in the admin yet. Archival photographs carry neither, so they can
+ *  still never be stamped. */
 export const isAiFrameText = (...parts: Array<string | null | undefined>): boolean =>
   /ai[\s-]?generated/i.test(parts.filter(Boolean).join(' '))
+
+/** Narrow local read of the stored flag. Media gains `aiFrame?: boolean | null`
+ *  when the CMS regenerates payload-types; reading it through this shape keeps
+ *  `astro check` green before AND after that regeneration. */
+type AiFlagged = { aiFrame?: boolean | null }
+
+/** True when the Media document itself is marked machine-generated. */
+export const mediaAiFrame = (input: unknown): boolean =>
+  !!input && typeof input === 'object' && (input as AiFlagged).aiFrame === true
+
+/** The one AI-mark predicate: stored flag first, disclosure text second.
+ *  Every caller passes the media object through, so a translated caption can
+ *  never drop the stamp. */
+export const isAiFrame = (
+  media: unknown,
+  ...parts: Array<string | null | undefined>
+): boolean => mediaAiFrame(media) || isAiFrameText(...parts)

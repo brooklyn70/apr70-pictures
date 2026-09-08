@@ -8,10 +8,13 @@
  * blurb); the lockup treatment and the link are derived here in the component.
  */
 import type { V9Section } from '../../../lib/payload'
+import { localePath } from '../../../lib/i18n/paths'
 
 type DivisionStripData = Extract<V9Section, { blockType: 'divisionStrip' }>
 const section = Astro.props.section as DivisionStripData
 const divisions = (section.divisions ?? []).filter((d) => d.name)
+/* i18n: internal links carry the locale prefix on prefixed pages. */
+const locale = Astro.locals.locale
 
 // Explicit lockup → division-page mapping, matched on the stable token carried
 // in each lockup name. Keeps /212 · /310 · /nrc without a new CMS field.
@@ -38,7 +41,7 @@ function hrefFor(name: string): string | null {
               </>
             )
             return href ? (
-              <a class="v9-division v9-division--link" href={href}>
+              <a class="v9-division v9-division--link" href={localePath(locale, href)}>
                 {inner}
               </a>
             ) : (

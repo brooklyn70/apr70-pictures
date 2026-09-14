@@ -1,3 +1,12 @@
+<!-- CoS Fable-hot pointer 2026-09-14 — do not remove -->
+**Also read (PROGRAM + research):**
+- `/Users/marco/vault/00 Meta/00.04 System/cursor-projects-ops/programs/APR70.md`
+- `/Users/marco/Volumes/SharedData/01-01-reference-files/ai-website-builder/` (`sites/apr70.md`, `BUILDERS.md`)
+- Umbrella: `../CLAUDE.md` (Website lane)
+- Brand lane checkout: `~/websites/apr70-brand`
+
+---
+
 # CLAUDE.md — apr70-pictures (v3 architecture; the site version lives in `cms/src/siteVersion.ts`)
 
 **Authoritative working document for all agents working in this repo.**

@@ -3,6 +3,7 @@
 - `/Users/marco/vault/00 Meta/00.04 System/cursor-projects-ops/programs/APR70.md`
 - `/Users/marco/Volumes/SharedData/01-01-reference-files/ai-website-builder/` (`sites/apr70.md`, `BUILDERS.md`)
 - Umbrella: `../CLAUDE.md` (Website lane)
+- Live folder: `~/websites/apr70-website/v14`
 - Brand lane checkout: `~/websites/apr70-brand`
 
 ---
@@ -12,7 +13,7 @@
 **Authoritative working document for all agents working in this repo.**
 **Last updated:** 2026-08-21 (place-poster skill + BL PD decision)
 **Repo:** `brooklyn70/apr70-pictures`
-**Folder name:** `~/websites/apr70-website/v10` (historical checkout name — do not look for a separate v13/v14 folder)
+**Folder name:** `~/websites/apr70-website/v14` (checkout folder renamed v10→v14 on 2026-09-15 to match SITE_VERSION)
 **SITE_VERSION:** `v14` (canon in `cms/src/siteVersion.ts`; staging = full v14 site)
 **Live:** https://apr70.com (one-screen holding page from `v10/holding/` until the go-live flip)
 **Staging:** https://staging.apr70.com (full v10 stack, NAS Docker project `apr70v3`; proxy flipped 2026-07-13). Vercel/Supabase are NOT the production path.

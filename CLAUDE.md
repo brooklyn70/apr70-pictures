@@ -12,6 +12,8 @@
 **Authoritative working document for all agents working in this repo.**
 **Last updated:** 2026-08-21 (place-poster skill + BL PD decision)
 **Repo:** `brooklyn70/apr70-pictures`
+**Folder name:** `~/websites/apr70-website/v10` (historical checkout name — do not look for a separate v13/v14 folder)
+**SITE_VERSION:** `v14` (canon in `cms/src/siteVersion.ts`; staging = full v14 site)
 **Live:** https://apr70.com (one-screen holding page from `v10/holding/` until the go-live flip)
 **Staging:** https://staging.apr70.com (full v10 stack, NAS Docker project `apr70v3`; proxy flipped 2026-07-13). Vercel/Supabase are NOT the production path.
 **Hosting:** Synology NAS (DSM Reverse Proxy → Docker project `apr70v3` at `/volume1/apps/apr70-pictures`, verified 2026-09-02)
@@ -85,7 +87,7 @@ All brand colors stored as `--color-{token-key}` in `web/src/styles/tokens.css`.
 Lexical Color Injector stores `data-color="{token-key}"` in markup.
 `[data-theme="light"]` selector block flips `--fg-*` and `--bg-*` ramps.
 
-Typography: Futura Std (display), Barlow (body), Share Tech Mono (filmstrip/meta).
+Typography: Jost (display, canon), Barlow (body), Share Tech Mono (filmstrip/meta). Futura resigned/archived — do not restore.
 
 ---
 

@@ -72,6 +72,7 @@ export const FilmstripBlock: Block = {
         {
           name: 'caption',
           type: 'text',
+          localized: true,
           admin: {
             description: 'Short label shown below the tile.',
           },

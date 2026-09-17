@@ -46,6 +46,7 @@ export const Project: CollectionConfig = {
     {
       name: 'subtitle',
       type: 'text',
+      localized: true,
     },
     {
       name: 'status',
@@ -76,6 +77,7 @@ export const Project: CollectionConfig = {
     {
       name: 'storyPlace',
       type: 'text',
+      localized: true,
       label: 'Story place',
       admin: {
         position: 'sidebar',
@@ -93,6 +95,7 @@ export const Project: CollectionConfig = {
     {
       name: 'logline',
       type: 'textarea',
+      localized: true,
       admin: {
         description:
           'the full public logline — shown under the title on /work/<slug> and on the /slate list.',
@@ -101,6 +104,7 @@ export const Project: CollectionConfig = {
     {
       name: 'shortLogline',
       type: 'text',
+      localized: true,
       label: 'Short logline',
       admin: {
         description:
@@ -110,6 +114,7 @@ export const Project: CollectionConfig = {
     {
       name: 'provenance',
       type: 'text',
+      localized: true,
       admin: {
         description:
           'source line for public-domain adaptations (e.g. "After Dashiell Hammett\'s *Red Harvest* (1929); the novel is public domain").',
@@ -118,6 +123,7 @@ export const Project: CollectionConfig = {
     {
       name: 'metaLine',
       type: 'text',
+      localized: true,
       label: 'Meta line',
       admin: {
         description:
@@ -127,6 +133,7 @@ export const Project: CollectionConfig = {
     {
       name: 'bodyProse',
       type: 'textarea',
+      localized: true,
       label: 'Body prose',
       admin: {
         description:
@@ -144,16 +151,19 @@ export const Project: CollectionConfig = {
         {
           name: 'quote',
           type: 'textarea',
+          localized: true,
           admin: { description: 'The quotation, set large.' },
         },
         {
           name: 'cite',
           type: 'text',
+          localized: true,
           admin: { description: 'Who said it.' },
         },
         {
           name: 'note',
           type: 'text',
+          localized: true,
           admin: { description: 'Source note (e.g. "letter, 1889").' },
         },
       ],
@@ -161,6 +171,7 @@ export const Project: CollectionConfig = {
     {
       name: 'heroLine',
       type: 'text',
+      localized: true,
       label: 'Hero line',
       admin: {
         description:
@@ -170,6 +181,7 @@ export const Project: CollectionConfig = {
     {
       name: 'heroCaption',
       type: 'text',
+      localized: true,
       label: 'Hero caption',
       admin: {
         description:
@@ -179,6 +191,7 @@ export const Project: CollectionConfig = {
     {
       name: 'heroCredit',
       type: 'text',
+      localized: true,
       label: 'Hero credit',
       admin: {
         description:
@@ -188,6 +201,7 @@ export const Project: CollectionConfig = {
     {
       name: 'requestBody',
       type: 'textarea',
+      localized: true,
       label: 'Request section body',
       admin: {
         description:
@@ -217,6 +231,7 @@ export const Project: CollectionConfig = {
     {
       name: 'synopsis',
       type: 'textarea',
+      localized: true,
       admin: {
         description:
           'Property synopsis — renders at the top of /work/<slug>, above the slideshow. Blank line starts a new paragraph. When empty, the page falls back to the Zine Synopsis block, then the compiled-in v4 copy.',
@@ -244,10 +259,12 @@ export const Project: CollectionConfig = {
         {
           name: 'caption',
           type: 'text',
+          localized: true,
         },
         {
           name: 'credit',
           type: 'text',
+          localized: true,
           required: true,
           admin: { description: 'Provenance — required on every plate (artist, generator, archive, PD line).' },
         },
@@ -286,6 +303,7 @@ export const Project: CollectionConfig = {
         {
           name: 'note',
           type: 'text',
+          localized: true,
           admin: { description: 'One line under the card, e.g. how to request the deck.' },
         },
       ],

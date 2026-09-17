@@ -1,0 +1,65 @@
+{
+  "v9-home:v9-home": [
+    {
+      "path": "sections.6.body",
+      "issue": "drift",
+      "quote": "until legal counsel review completes",
+      "why": "Changing \"while\" to \"until\" alters the original meaning that the title stays private during the review, implying instead it becomes public once review ends.",
+      "fix": "APR 70 is one writer-producer and a working slate of **ten properties**: three features drafted, a ten-episode season on the page, and more in development. Nine titles are public on the [slate](/slate), each with its own page; one travels only inside private materials while legal counsel review completes. The scripts are written by people. The machine works below the line, on frames like the ones on this site, and it is disclosed wherever it works."
+    }
+  ],
+  "v9-slate:v9-slate": [],
+  "v9-craft:v9-craft": [
+    {
+      "path": "sections.1.body",
+      "issue": "stacked",
+      "quote": "narratives of moral complexity, human resilience, and lasting impact",
+      "why": "Rule-of-three stacked abstract nouns function as puffery rather than a concrete claim.",
+      "fix": "Their insight is simple and unfashionable. Powerful storytelling comes from deliberate choices inside clear boundaries. Old Hollywood worked under hard rules about what could be shown, and it answered with subtext, atmosphere, and ingenious writing. That discipline built the pictures people still watch, still quote, and still hand to their children.\n\nThese principles guide every project we develop, from limited series to features, as we build a studio for stories of moral complexity and human resilience: heroism with open eyes, ambiguity with a conscience, in the real neighborhoods of Brooklyn, Los Angeles, and beyond."
+    }
+  ],
+  "v9-methods:v9-methods": [
+    {
+      "path": "sections.2.rows.6.definition",
+      "issue": "law3",
+      "quote": "must stand as human work",
+      "why": "\"Stand as\" is copula avoidance; Mamet-direct requires \"is\" where \"is\" is meant.",
+      "fix": "Because trust is the only asset a small studio owns outright. And because the work we sell, the writing, must be human work, plainly and provably."
+    },
+    {
+      "path": "sections.4.body",
+      "issue": "residue",
+      "quote": "our best work comes from",
+      "why": "Self-praising adjective about APR 70's own work; the fact should carry it without the studio grading itself.",
+      "fix": "The craft of constraint continues past the writing desk. A disclosure rule is a boundary, and boundaries sharpen the work. The machine gets the busywork below the line. The people keep the story."
+    }
+  ],
+  "v9-contact:v9-contact": [],
+  "site-settings:site-settings": [],
+  "projects:a-need-grows-in-brooklyn": [],
+  "projects:la-dolce-vita": [
+    {
+      "path": "synopsis",
+      "issue": "stacked",
+      "quote": "a single web of power, legacy, and redemption",
+      "why": "Forced rule-of-three abstraction stacked as vague symbolism rather than concrete plot fact.",
+      "fix": "A journalist arrives in Los Angeles at the worst possible moment, chasing corruption and celebrity rot. He finds his long-lost love at the center of his own investigation, and their secret daughter caught between him and a dynasty that wants her for its throne. One live-stream scandal detonates fifteen years of buried history: a vanished fiancee, a hidden heir, and a crime family's succession plot. Neo-noir on 35mm, scored for opera, played for keeps."
+    }
+  ],
+  "projects:sea-gate": [],
+  "projects:alpha-yy": [],
+  "projects:da-hook": [],
+  "projects:the-movement": [],
+  "projects:cleopatra": [
+    {
+      "path": "synopsis",
+      "issue": "residue",
+      "quote": "remake not just her life but the shape of existence",
+      "why": "This is a negative-parallelism construction (\"not just X but Y\") flagged as AI residue.",
+      "fix": "Cleo Modica is a thirty-five-year-old overworked social worker and single mother. Sicilian-American, raised in Brooklyn, marooned in L.A. Then a glitch in reality sends her consciousness sliding into her parallel self somewhere new each time she sleeps, memories intact, language and family rewritten. She wakes in Sicily as her brother's girlfriend, in Poland as a woman a reclusive ex-con recognizes, in Tokyo as the wife of a kinder version of her ex, mastering the jump as she goes. Beneath the family drama runs a conspiracy threatening to collapse the walls between realities, and an impossible choice that will remake her life and the shape of existence."
+    }
+  ],
+  "projects:shadowmaster": [],
+  "projects:u-bruculinu": [],
+  "projects:mayors": []
+}

@@ -8,6 +8,9 @@
  */
 import V9Layout from '../layouts/V9Layout.astro'
 import { NAP } from '../lib/v9/site'
+import { localePath } from '../lib/i18n/paths'
+
+const locale = Astro.locals.locale
 
 const title = `Investors · ${NAP.name}`
 const description = 'Investor materials at APR 70 Pictures move by personal request, not a public page.'
@@ -24,7 +27,7 @@ Astro.response.statusText = 'Gone'
         This page is retired. APR 70 doesn't run a public deck or an open data room —
         investor materials move person to person, on request.
       </p>
-      <a class="v9-more" href="/contact">Request a conversation →</a>
+      <a class="v9-more" href={localePath(locale, '/contact')}>Request a conversation →</a>
     </div>
   </section>
 </V9Layout>

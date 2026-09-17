@@ -16,11 +16,13 @@ import V9Layout from '../layouts/V9Layout.astro'
 import { fetchSiteSettings, fetchCurrentDispatchIssue, resolveMediaUrl } from '../lib/payload'
 import { renderInline } from '../lib/v9/inline'
 import { NAP } from '../lib/v9/site'
+import { localePath } from '../lib/i18n/paths'
 
-const { settings } = await fetchSiteSettings()
+const locale = Astro.locals.locale
+const { settings } = await fetchSiteSettings(locale)
 const published = settings?.dispatch?.enabled === true
 
-const { issue } = published ? await fetchCurrentDispatchIssue() : { issue: null }
+const { issue } = published ? await fetchCurrentDispatchIssue(locale) : { issue: null }
 
 /* Off, or on with no current issue to show: 404 either way. A published page
    with nothing in it would be worse than no page. */
@@ -61,7 +63,7 @@ const factboxFields = feature?.factbox?.fields ?? []
             There is no issue on the stand right now. DISPATCH goes out when there's
             something worth reporting — not on a schedule.
           </p>
-          <a class="v9-more" href="/slate">The whole slate →</a>
+          <a class="v9-more" href={localePath(locale, '/slate')}>The whole slate →</a>
         </div>
       </section>
     ) : (

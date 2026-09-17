@@ -13,6 +13,7 @@
  */
 import type { V9SlateItem } from '../../lib/payload'
 import { renderInline } from '../../lib/v9/inline'
+import { localePath } from '../../lib/i18n/paths'
 
 interface Props {
   division: '212' | '310' | 'nrc'
@@ -27,6 +28,9 @@ interface Props {
 }
 
 const { division, lockup, discipline, paragraph, slate } = Astro.props
+
+/* i18n: internal links carry the locale prefix on prefixed pages. */
+const locale = Astro.locals.locale
 ---
 
 <header class="v9-col v9-divhead">
@@ -44,7 +48,7 @@ const { division, lockup, discipline, paragraph, slate } = Astro.props
         <ol class="v9-slatelist">
           {slate.map((p) => (
             <li class="v9-slaterow">
-              <a class="v9-slaterow__link" href={`/work/${p.slug}`}>
+              <a class="v9-slaterow__link" href={localePath(locale, `/work/${p.slug}`)}>
                 <span class="v9-slaterow__num" aria-hidden="true" />
                 <span class="v9-slaterow__body">
                   <p class="v9-slaterow__title">{p.title}</p>

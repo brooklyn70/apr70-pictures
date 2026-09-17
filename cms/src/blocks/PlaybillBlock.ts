@@ -18,6 +18,7 @@ export const PlaybillBlock: Block = {
     {
       name: 'programNumber',
       type: 'text',
+      localized: true,
       admin: {
         description: 'Program number as displayed (e.g. "No. 1").',
       },
@@ -33,6 +34,7 @@ export const PlaybillBlock: Block = {
     {
       name: 'subtitle',
       type: 'text',
+      localized: true,
       admin: {
         description: 'Episode subtitle or tagline (e.g. "a radio drama for seven voices and a clock").',
       },
@@ -40,6 +42,7 @@ export const PlaybillBlock: Block = {
     {
       name: 'runtime',
       type: 'text',
+      localized: true,
       admin: {
         description: 'Displayed runtime (e.g. "About 15 minutes").',
       },
@@ -97,23 +100,27 @@ export const PlaybillBlock: Block = {
         {
           name: 'voice',
           type: 'text',
+          localized: true,
           required: true,
           admin: { description: 'Voice label (e.g. "Voice One").' },
         },
         {
           name: 'descriptor',
           type: 'text',
+          localized: true,
           admin: { description: 'Short casting descriptor (e.g. "M, 45-60").' },
         },
         {
           name: 'roles',
           type: 'text',
+          localized: true,
           required: true,
           admin: { description: 'Roles played, separated by a middle dot.' },
         },
         {
           name: 'note',
           type: 'text',
+          localized: true,
           admin: { description: 'Optional register note (e.g. "Lead. No doubling.").' },
         },
       ],
@@ -121,6 +128,7 @@ export const PlaybillBlock: Block = {
     {
       name: 'notes',
       type: 'textarea',
+      localized: true,
       admin: {
         description: 'Short program note shown under the roster.',
       },

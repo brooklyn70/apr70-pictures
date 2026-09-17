@@ -8,17 +8,18 @@
 import V9Layout from '../layouts/V9Layout.astro'
 import SectionRenderer from '../components/v9/SectionRenderer.astro'
 import { fetchV9Page, fetchV9SlateProjects } from '../lib/payload'
-import { NAP } from '../lib/v9/site'
+import { NAP, napFor } from '../lib/v9/site'
 
-const { page } = await fetchV9Page('v9-contact')
+const locale = Astro.locals.locale
+const { page } = await fetchV9Page('v9-contact', locale)
 const title = page?.seoTitle ?? `Contact · ${NAP.name}`
-const description = page?.seoDescription ?? NAP.description
+const description = page?.seoDescription ?? napFor(locale).description
 
 /* Regarding strip (?re=<slug>) — validated against the public slate. */
 const re = Astro.url.searchParams.get('re')
 let regarding: { title: string; slug: string } | null = null
 if (re) {
-  const { slate } = await fetchV9SlateProjects()
+  const { slate } = await fetchV9SlateProjects(locale)
   const hit = slate.find((p) => p.slug === re)
   if (hit) regarding = { title: hit.title, slug: hit.slug }
 }

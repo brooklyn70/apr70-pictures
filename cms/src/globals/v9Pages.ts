@@ -31,12 +31,14 @@ const createPageGlobal = (opts: {
     {
       name: 'seoTitle',
       type: 'text',
+      localized: true,
       label: 'SEO title',
       admin: { description: 'The <title> of the page.' },
     },
     {
       name: 'seoDescription',
       type: 'textarea',
+      localized: true,
       label: 'SEO description',
       admin: { description: 'The meta description of the page.' },
     },

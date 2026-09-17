@@ -20,9 +20,12 @@
 import type { V9Section } from '../../../lib/payload'
 import { resolveMediaUrl, resolveMediaSrcset } from '../../../lib/payload'
 import { renderInline } from '../../../lib/v9/inline'
+import { localePath } from '../../../lib/i18n/paths'
 
 type SlateListData = Extract<V9Section, { blockType: 'slateList' }>
 const section = Astro.props.section as SlateListData
+/* i18n: internal links carry the locale prefix on prefixed pages. */
+const locale = Astro.locals.locale
 
 type Row = {
   title: string
@@ -94,7 +97,7 @@ const rows: Row[] = (section.rows ?? []).flatMap((row) => {
             return (
               <li class="v9-slaterow" data-dev={row.dev ? 'true' : undefined}>
                 {row.href ? (
-                  <a class="v9-slaterow__link" href={row.href}>
+                  <a class="v9-slaterow__link" href={localePath(locale, row.href)}>
                     {inner}
                   </a>
                 ) : (

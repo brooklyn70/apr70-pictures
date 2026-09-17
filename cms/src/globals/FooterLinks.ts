@@ -45,6 +45,7 @@ export const FooterLinks: GlobalConfig = {
             {
               name: 'label',
               type: 'text',
+              localized: true,
               label: 'Label',
               required: true,
               admin: { width: '40%' },
@@ -92,6 +93,7 @@ export const FooterLinks: GlobalConfig = {
             {
               name: 'label',
               type: 'text',
+              localized: true,
               label: 'Label',
               required: true,
               admin: { width: '40%' },
@@ -136,6 +138,7 @@ export const FooterLinks: GlobalConfig = {
             {
               name: 'label',
               type: 'text',
+              localized: true,
               label: 'Label',
               required: true,
               admin: { width: '40%' },

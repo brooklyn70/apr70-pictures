@@ -14,6 +14,7 @@ export const StatsBlock: Block = {
     {
       name: 'heading',
       type: 'textarea',
+      localized: true,
       admin: {
         description: 'Optional section heading. Line breaks are intentional.',
       },
@@ -48,6 +49,7 @@ export const StatsBlock: Block = {
         {
           name: 'label',
           type: 'text',
+          localized: true,
           required: true,
           admin: {
             description: 'Descriptive label below the value (e.g. "Projects in Development").',

@@ -9,11 +9,12 @@ import V9Layout from '../layouts/V9Layout.astro'
 import SectionRenderer from '../components/v9/SectionRenderer.astro'
 import LogoRevealIsland from '../components/islands/LogoRevealIsland'
 import { fetchV9Page } from '../lib/payload'
-import { NAP } from '../lib/v9/site'
+import { NAP, napFor } from '../lib/v9/site'
 
-const { page } = await fetchV9Page('v9-home')
+const locale = Astro.locals.locale
+const { page } = await fetchV9Page('v9-home', locale)
 const title = page?.seoTitle ?? `${NAP.name} · The classics never go out of style`
-const description = page?.seoDescription ?? NAP.description
+const description = page?.seoDescription ?? napFor(locale).description
 ---
 
 <V9Layout title={title} description={description}>

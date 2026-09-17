@@ -28,6 +28,7 @@ export const NewsArticle: CollectionConfig = {
     {
       name: 'title',
       type: 'text',
+      localized: true,
       required: true,
     },
     {
@@ -45,6 +46,7 @@ export const NewsArticle: CollectionConfig = {
     {
       name: 'deck',
       type: 'text',
+      localized: true,
     },
     {
       name: 'featured',

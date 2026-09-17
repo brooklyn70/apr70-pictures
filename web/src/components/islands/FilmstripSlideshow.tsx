@@ -40,6 +40,8 @@ export type FilmstripItem = {
   wide?: boolean | null
   focalX?: number | null
   focalY?: number | null
+  /** The Media document's stored AI-generated flag (Media.aiFrame). Authoritative. */
+  aiFrame?: boolean | null
 }
 
 const SIZES_GRID = '(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 33vw'
@@ -54,11 +56,14 @@ type Props = {
 const focalPos = (it: FilmstripItem) =>
   `${typeof it.focalX === 'number' ? it.focalX : 50}% ${typeof it.focalY === 'number' ? it.focalY : 50}%`
 
-/* AI mark (v13): the caption/credit disclosure line is the single source of
-   truth for whether a frame is machine-generated. See isAiFrameText in
-   ../v9/media.ts — duplicated here because the island must stay self-contained
-   for hydration. Keep the regex in lockstep. */
+/* AI mark (v13; revised for i18n 2026-09-07). The Media document's stored
+   `aiFrame` flag is authoritative — an English regex over the caption cannot
+   survive translation, and losing the disclosure stamp is a compliance failure.
+   The text test is kept as a second chance so every frame stamped today stays
+   stamped. Mirrors isAiFrame in ../v9/media.ts — duplicated here because the
+   island must stay self-contained for hydration. Keep the two in lockstep. */
 const isAi = (it: FilmstripItem) =>
+  it.aiFrame === true ||
   /ai[\s-]?generated/i.test(`${it.caption ?? ''} ${it.captionHtml ?? ''} ${it.credit ?? ''}`)
 
 function Capline({ item }: { item: FilmstripItem }) {

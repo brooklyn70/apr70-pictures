@@ -150,3 +150,17 @@ You have a local MCP server named `mailbird` (Mailbird Next on this Mac).
 - Prefer mailbird tools for inbox triage across accounts in Mailbird.
 - For invoices/quotes: search_conversations with from:/subject: (e.g. subject:invoice, from:bhphoto), then get_message / list_attachments / get_attachment_content.
 - Never print or log the bearer token. Token lives in 1Password: op://API/Mailbird token Mac/token.
+
+## Site chatbot + Agent Report Card (ruled 2026-09-19)
+
+Marco ruled: this site **must** have a public site chatbot, and it must be QA'd with an Agent Report Card style scenario suite before production trust.
+
+- **Pack / playbook:** `vault/00 Meta/00.04 System/agent-report-card-viewer/` (Nate Herk companion: scenarios → run → diagnose → retest → client-readable report).
+- **Program:** `vault/00 Meta/00.04 System/cursor-projects-ops/programs/site-chatbots-report-card-2026-09-19.md`
+- **Free decision sidecar:** classifier.dev / MCP `classifier-dev` (hosted Jev). Paid TypeSafe not default until Marco unlocks spend. See `classifier-dev-free-jev.md`.
+- **Never without asking:** bot sends email, takes payment, changes live policy, deletes data, or ships to production without a report-card run Marco has reviewed.
+
+
+### APR70 v14 note
+Site chatbot is a standing product requirement (2026-09-19). Implement in this checkout; keep AGENTS.md in sync.
+

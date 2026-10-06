@@ -10,6 +10,8 @@
 
 # CLAUDE.md — apr70-pictures (v3 architecture; the site version lives in `cms/src/siteVersion.ts`)
 
+> **Lane rule (2026-10-05).** START: read the vault STATE.md first — `/Users/marco/vault/10 Work/11 APR70 Pictures/11.03 Company Ops/website/STATE.md` (cloud agents: read `STATE.md` in this repo root, a short read-only copy). END: rewrite the vault STATE.md, then run `python3 ~/work/bin/sync-state.py apr70/apr70-website`. Never create a new handoff file. Details: `AGENTS.md`.
+
 **Authoritative working document for all agents working in this repo.**
 **Last updated:** 2026-08-21 (place-poster skill + BL PD decision)
 **Repo:** `brooklyn70/apr70-pictures`
@@ -163,4 +165,12 @@ Marco ruled: this site **must** have a public site chatbot, and it must be QA'd 
 
 ### APR70 v14 note
 Site chatbot is a standing product requirement (2026-09-19). Implement in this checkout; keep AGENTS.md in sync.
+
+## Lane context pack
+
+**Hard rule (2026-09-22):** Before coding this lane, open the vault lane context pack and read Canon; search Full index before inventing workflows.
+
+`/Users/marco/vault/00 Meta/00.04 System/context-packs/APR70-Website.md`
+
+Doctrine: `/Users/marco/vault/00 Meta/00.04 System/context-packs/README.md`
 

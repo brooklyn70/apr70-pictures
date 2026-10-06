@@ -1,5 +1,16 @@
 # AGENTS.md
 
+## Lane rule (Marco, 2026-10-05)
+- **START (on the Mac, or from Windows via Remote-SSH):** read the vault STATE.md first: `/Users/marco/vault/10 Work/11 APR70 Pictures/11.03 Company Ops/website/STATE.md`. If this repo has commits newer than its Head SHA (for example, from a cloud agent), read them and their PR notes. Merge them into the vault STATE.md first.
+- **START (cloud agent, no vault):** read `STATE.md` in this repo root. It is a short read-only copy of the vault STATE.md.
+- **END (Mac):** rewrite the vault STATE.md. Read it again first, and merge anything that changed since START. Then refresh the repo copy with `python3 ~/work/bin/sync-state.py apr70/apr70-website`, and include `STATE.md` in your next commit.
+- **END (cloud agent):** do not edit `STATE.md`. Put your end state (done / next / blockers) in the PR description.
+- **Never create a new handoff file.** The STATE.md rewrite is the handoff.
+- Code stays in this repo. Words (notes, the vault STATE.md) stay in the vault lane folder.
+- Root the lane at `~/websites/apr70-website/v14` only; never at the `apr70-website/` umbrella (961 MB of archival media is not ignored there; no `git add -A`).
+- No deploy, CMS write or live copy change without Marco's go; every ship updates the version note and bumps `cms/src/siteVersion.ts` together.
+- Public chatbot stays draft until Marco has reviewed an Agent Report Card run.
+
 Project conventions and reading order live in `CLAUDE.md`, `BRIEF.md`, `STATUS.md`, and `TASKS.md`. Read those first. This file only adds environment/runtime notes for automated agents.
 
 ## Cursor Cloud specific instructions
@@ -62,4 +73,12 @@ Marco ruled: this site **must** have a public site chatbot, and it must be QA'd 
 - **Program:** `vault/00 Meta/00.04 System/cursor-projects-ops/programs/site-chatbots-report-card-2026-09-19.md`
 - **Free decision sidecar:** classifier.dev / MCP `classifier-dev` (hosted Jev). Paid TypeSafe not default until Marco unlocks spend. See `classifier-dev-free-jev.md`.
 - **Never without asking:** bot sends email, takes payment, changes live policy, deletes data, or ships to production without a report-card run Marco has reviewed.
+
+## Lane context pack
+
+**Hard rule (2026-09-22):** Before coding this lane, open the vault lane context pack and read Canon; search Full index before inventing workflows.
+
+`/Users/marco/vault/00 Meta/00.04 System/context-packs/APR70-Website.md`
+
+Doctrine: `/Users/marco/vault/00 Meta/00.04 System/context-packs/README.md`
 

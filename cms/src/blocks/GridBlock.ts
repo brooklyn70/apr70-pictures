@@ -10,6 +10,7 @@ export const GridBlock: Block = {
     {
       name: 'heading',
       type: 'textarea',
+      localized: true,
     },
     {
       name: 'items',
@@ -25,10 +26,12 @@ export const GridBlock: Block = {
         {
           name: 'title',
           type: 'textarea',
+          localized: true,
         },
         {
           name: 'description',
           type: 'richText',
+          localized: true,
         },
       ],
     },

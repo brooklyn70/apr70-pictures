@@ -1,11 +1,15 @@
 ---
 /** request — the "read the pages" panel with the CTA. */
 import type { V9Section } from '../../../lib/payload'
+import { localePath } from '../../../lib/i18n/paths'
 import { renderParagraphs } from '../../../lib/v9/inline'
 
 type RequestData = Extract<V9Section, { blockType: 'request' }>
 const section = Astro.props.section as RequestData
 const bodyHtml = renderParagraphs(section.body)
+
+/* i18n: internal links carry the locale prefix on prefixed pages. */
+const locale = Astro.locals.locale
 ---
 
 <section class="v9-section" aria-label={section.heading ?? 'Request materials'}>
@@ -23,7 +27,7 @@ const bodyHtml = renderParagraphs(section.body)
       {bodyHtml && <div class="v9-prose" set:html={bodyHtml} />}
       {
         section.linkHref && section.linkLabel && (
-          <a class="v9-btn" href={section.linkHref}>
+          <a class="v9-btn" href={localePath(locale, section.linkHref)}>
             {section.linkLabel}
           </a>
         )

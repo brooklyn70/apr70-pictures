@@ -15,6 +15,7 @@ export const ZineSynopsisBlock: Block = {
     {
       name: 'kicker',
       type: 'text',
+      localized: true,
       admin: { description: 'Division and format line, e.g. "(212) · Documentary series, 11 episodes".' },
     },
     {
@@ -31,16 +32,19 @@ export const ZineSynopsisBlock: Block = {
     {
       name: 'logline',
       type: 'textarea',
+      localized: true,
     },
     {
       name: 'body',
       type: 'textarea',
+      localized: true,
       required: true,
       admin: { description: 'Synopsis. Blank line starts a new paragraph.' },
     },
     {
       name: 'note',
       type: 'text',
+      localized: true,
       admin: { description: 'Optional closing credit line.' },
     },
   ],

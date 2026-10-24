@@ -8,7 +8,7 @@
 import type { V9Section } from '../../../lib/payload'
 import FilmstripSlideshow, { type FilmstripItem } from '../../islands/FilmstripSlideshow'
 import { renderInline } from '../../../lib/v9/inline'
-import { frameFromMedia, SIZES_GRID } from '../media'
+import { frameFromMedia, mediaAiFrame, SIZES_GRID } from '../media'
 
 type MoodGridData = Extract<V9Section, { blockType: 'moodGrid' }>
 const section = Astro.props.section as MoodGridData
@@ -26,6 +26,9 @@ const items: FilmstripItem[] = (section.items ?? []).flatMap((item) => {
       caption: item.caption ?? null,
       captionHtml: item.caption ? renderInline(item.caption) : null,
       credit: item.credit ?? null,
+      /* AI mark: the Media doc's stored flag, so a translated caption can never
+         drop the disclosure stamp (see isAiFrame in ../media.ts). */
+      aiFrame: mediaAiFrame(item.image),
       wide: item.wide ?? false,
       focalX: frame.focalX,
       focalY: frame.focalY,

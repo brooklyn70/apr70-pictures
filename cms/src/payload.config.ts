@@ -26,6 +26,7 @@ import { DivisionNRC } from './globals/DivisionNRC'
 import { TroupePage } from './globals/TroupePage'
 import { TroupeProgram } from './globals/TroupeProgram'
 import { V9Home, V9Slate, V9Craft, V9Methods, V9Contact } from './globals/v9Pages'
+import { SITE_LOCALES, DEFAULT_LOCALE } from './locales'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -79,6 +80,20 @@ export default buildConfig({
   collections: [Users, Media, Project, NewsArticle, DispatchIssue, FoundingRoll],
   globals: [Home, SiteSettings, FooterLinks, About, Contact, Jobs, Pitch, Investors, Division212, Division310, DivisionNRC, TroupePage, TroupeProgram, V9Home, V9Slate, V9Craft, V9Methods, V9Contact],
   editor: aprLexicalEditor,
+  // ── i18n (plan §F.2 phase 2) ─────────────────────────────────────────────
+  // The locale list is NOT written here: it comes from ./locales.ts, the one
+  // source of truth the web app also imports (`site-locales` alias). Every
+  // field marked `localized: true` gains a row-per-locale companion table.
+  // `fallback: true` means an empty PT/IT/FR/DE value serves the English one,
+  // so a half-translated locale never renders a blank page.
+  //
+  // Existing in the admin is not the same as being public: which locales are
+  // routable on apr70.com is SiteSettings.enabledLocales.
+  localization: {
+    locales: SITE_LOCALES.map((l) => ({ label: l.label, code: l.code })),
+    defaultLocale: DEFAULT_LOCALE,
+    fallback: true,
+  },
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

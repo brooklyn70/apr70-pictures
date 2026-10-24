@@ -10,7 +10,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "payload-types": ["../cms/src/payload-types.ts"]
+      "payload-types": ["../cms/src/payload-types.ts"],
+      "site-locales": ["../cms/src/locales.ts"]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react"

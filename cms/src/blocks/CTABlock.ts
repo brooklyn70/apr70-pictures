@@ -10,11 +10,13 @@ export const CTABlock: Block = {
     {
       name: 'heading',
       type: 'textarea',
+      localized: true,
       required: true,
     },
     {
       name: 'subtext',
       type: 'textarea',
+      localized: true,
     },
     {
       name: 'buttons',
@@ -26,6 +28,7 @@ export const CTABlock: Block = {
         {
           name: 'label',
           type: 'text',
+          localized: true,
           required: true,
         },
         {

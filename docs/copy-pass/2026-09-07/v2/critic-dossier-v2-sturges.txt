@@ -1,0 +1,2522 @@
+APR 70 PICTURES - PUBLIC WEBSITE COPY - ROUND 2
+Writers-room compound writing pass, 2026-09-07. Draft only. Nothing applied to the site.
+
+WHAT YOU ARE READING
+
+This is the second draft. You read the first one and filed notes. Marco read your notes and the
+other three chairs' notes, ruled them good, and ordered one more pass. The copy below now shows
+three states per field:
+
+  BEFORE - what is live on staging.apr70.com today.
+  v1     - the first draft, the one you scored.
+  v2     - the second draft, written against the room's notes.
+
+Where v1 returned the BEFORE unchanged the row reads KEEP. Where v2 kept v1 the row reads
+"v2: KEEP (v1 stands)". Only the fields round 2 actually moved carry a full v2 line, and there
+are 30 of them out of 412.
+
+Your own round-1 notes are quoted under the fields they concerned, marked YOUR NOTE, with the
+house decision on each: APPLIED, APPLIED IN PART, or DECLINED. Where a note was declined or
+applied only in part, the reason is given. Two limits bound every decision: the pass keeps every
+fact that is on the page today and adds none, and every field is a fixed UI slot that cannot grow.
+
+THE FOUNDER'S VOICE, IN BRIEF
+
+What carries over: the flat opener with no warm-up, the counted structure, the concrete claim with a real number or a real place in it, the willingness to name what a thing costs and what it doesn't do, the short verdict sentence that ends a paragraph, the plain warmth of "Grazie" and the confidence of a man who has already checked. What does not carry over: the em dash pivot, the trailing "..", the all-lowercase asides, the swearing, the nicknames and endearments, the internal shorthand (PT codes, pill numbers, workbook rows), the A/B/C menu — a reader has nothing to rule on. Public Marco talks to an adult: "APR 70 makes film, television, radio, theater, books, and podcasts. We were built on one conviction. The craft of constraint is alive, necessary, and underserved. Before the Hayes Code fell, storytellers had to be clever; they made audiences laugh and cry and recognize themselves without sex, shock, or noise. We are bringing that discipline back. Subtext. Atmosphere. Ingenious writing. We are a production company, a writers room, and a creative engine. Never an operator. Never a platform. Never a content farm." No pitch-deck gloss, no adjectives doing a fact's job, every sentence something he would say out loud and could defend on the phone.
+
+How he sounds: Short openers, long middles, hard stops. He opens on the name and nothing else — "Ippolito,", "Ciao Flavio,", "Flavio —", "Ippo," — 33 of 35 emails have no warm-up line at all; the two exceptions ("spero che questo messaggio la trovi in buona salute") are formal letters to a lawyer. First sentence carries news or a verdict, never context-setting: "Risposta breve: non esiste alcun limite massimo allo sconto." Typical work paragraph runs 2–5 sentences; sentence length swings from 4 words ("Non si tocca più.") to 45-word source-and-clause constructions, then snaps back. He counts out loud and numbers everything — "Cinque interventi", "Restano tre cose", "1 · 2 · 3 · 4 · 5". Closes with a bare first name or surname on its own line: "Marco", "Marc", "Caruso", "MC". Only outward-facing mail gets "All the best," or "Best regards,". Before the signature there is usually one flat sentence of consequence — "Senza, le schede delle Z300 non le legge nessuno in sede." — and no pleasantry after it. He says "Grazie!" and means it, once, then stops.
+
+THE HOUSE LAWS THAT BOUND THE AFTER TEXT
+LAW 1 - no "like a" / "like an" similes.
+LAW 2 - no em dashes. A pause is an ellipsis or a full stop. (Marco's own emails use the em dash
+        as their main pivot; the law overrides that on public copy.)
+LAW 3 - Mamet-direct: say what a thing is.
+Length rule: every AFTER field stays within plus or minus 25% of its BEFORE. Headings, labels and
+buttons stay as short as the original. These are fixed UI slots, not free prose.
+Rule of the pass: fields that already read as the founder's voice were returned unchanged and are
+shown below as KEEP. The pass was told not to churn for the sake of activity.
+
+
+THE CONSTRAINT CREED (APR 70's own front page, and the mandate that binds this panel)
+
+"The greatest art is born inside clear boundaries. Old Hollywood had rules about what could be
+shown (a result of boundaries set by the Hays Code), so they leaned on subtext, atmosphere, and
+ingenious writing... We strip away the easy shocks, gratuitous violence, cheap profanity, empty
+provocation, and force the story to do the heavy lifting."
+
+The goal is work that resonates across generations: watchable by Marco's children, by their
+children, by any child who would otherwise be turned off by a needless R. Adult SUBJECT MATTER is
+allowed; what is constrained is the EXECUTION. Touchstones: Rocky (1976) and 8 1/2 (1963).
+When you flag a hot moment, the fix is never "cut this," always "play it this way."
+
+
+YOUR ROUND-1 NOTES THAT WERE NOT ABOUT ONE FIELD
+------------------------------------------------------------------------------
+
+[S24] on projects:sea-gate (hold: layout.0.body) - APPLIED
+  you quoted: "Mary in the Coney Island neon, Jim's hat too big..." is a real button.
+  you asked : Do not improve it to death.
+  the house : Applied as a hold. Sea Gate's layout body is not opened in round 2. Riskin: "Sea Gate paid. Do not touch it."
+[S30] on projects:a-need-grows-in-brooklyn (continuity) - CARRIED TO MARCO AS A RULING, not a line edit
+  you quoted: The page calls it a feature, then describes "Episodes 1-4," "Episodes 5-8," "Episodes 9-10," and "the season."
+  you asked : Decide whether it is a feature or a ten-episode series, then make every field obey.
+  the house : Not a voice problem. Fixing it means changing a fact about the property, which is Marco's to rule.
+[S31] on projects:da-hook (continuity) - CARRIED TO MARCO AS A RULING, not a line edit
+  you quoted: One section says fall 1970. Another says spring 1973. One invokes the Knicks' first championship, another their second.
+  you asked : This picture currently owns two calendars. Pick one.
+  the house : Riskin flagged the same split. Both dates are facts; the pass keeps every fact and cannot choose between them.
+[S32] on projects:shadowmaster (continuity) - CARRIED TO MARCO AS A RULING, not a line edit
+  you quoted: The meta line says "Feature first, series spawn to (310)"; the body says "Shadowmaster is a fully scripted series."
+  you asked : Pick the lead format.
+  the house : A format fact, not a line. Marco's to rule.
+[S38] on (whole site) (ruling) - CARRIED TO MARCO AS A RULING, not a line edit
+  you quoted: The site cannot both sell the work and defend the company in every paragraph.
+  you asked : Sell the work. Put the disclosure in Methods, the legal status on Slate, the access rules on Contact, and let every property page tell one story.
+  the house : Sturges's closing ruling. The de-duplication notes applied this round (S4, S7, S11, C1) move in that direction without deciding it.
+
+==============================================================================
+
+PAGE: Home   /
+------------------------------------------------------------------------------
+
+FIELD: seoTitle
+BEFORE: APR 70 Pictures · The classics never go out of style
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: seoDescription
+BEFORE: APR 70 Pictures is a film and television studio in Long Island City, New York. Human-written scripts, classic storytelling discipline, machine craft below the line, disclosed. Ten properties on the working slate.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.0.kicker
+BEFORE: An entertainment company · Long Island City, NY
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.0.heading
+BEFORE: The classics never go out of style.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.0.caption
+BEFORE: From the working slate · ==L.A. Dolce Vita== · Santa Monica Pier, night
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.0.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.1.links.0.label
+BEFORE: Slate
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.1.links.1.label
+BEFORE: Craft
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.1.links.2.label
+BEFORE: Methods
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.1.links.3.label
+BEFORE: Contact
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.sceneSlug
+BEFORE: INT. THE IDEA - NIGHT
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.heading
+BEFORE: There is an audience that still wants a story.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.lede
+BEFORE: They have been waiting for stories told with craft: written by hand, finished on the page, and worth handing to the next generation. APR 70 Pictures exists to serve that audience.
+v1:     They want stories told with craft: written by hand, finished on the page, and worth handing to the next generation. APR 70 Pictures exists to serve that audience.
+v2:     They want stories told with craft: written by hand, finished on the page, and worth handing to the next generation.
+    YOUR NOTE [S1] - APPLIED
+      you quoted: "APR 70 Pictures exists to serve that audience."
+      you asked : Cut it. The heading and the preceding sentence already said it. Ending on "worth handing to the next generation" has more feeling and less incorporation paperwork.
+      the house : Ends the lede on the reader instead of on the company.
+
+FIELD: sections.2.body
+BEFORE: We operate on a simple conviction: the greatest art is born inside clear boundaries. Old Hollywood worked under hard rules about what could be shown, and it answered with subtext, atmosphere, and ingenious writing. Filmmakers mastered visual storytelling and narrative economy. We bring that discipline back to street level, in film, television, stage, and radio, whole.
+
+Here the story does the heavy lifting. Drama over information. Subtext over statement. A face held long enough to matter.
+v1:     One conviction runs this company: the greatest art is born inside clear boundaries. Old Hollywood worked under hard rules about what could be shown, and it answered with subtext, atmosphere, and ingenious writing. Filmmakers mastered visual storytelling and narrative economy. We bring that discipline back to street level, in film, television, stage, and radio, whole.
+
+Here the story does the heavy lifting. Drama over information. Subtext over statement. A face held long enough to matter.
+v2:     One conviction runs this company: the greatest art is born inside clear boundaries. Old Hollywood worked under hard rules about what could be shown, and it answered with subtext, atmosphere, and ingenious writing. We bring that discipline back to street level across film, television, stage, and radio.
+
+Here the story does the heavy lifting. A face held long enough to matter.
+    YOUR NOTE [S2] - APPLIED
+      you quoted: "Filmmakers mastered visual storytelling and narrative economy."
+      you asked : Cut it. "Subtext, atmosphere, and ingenious writing" already proves the point; this sentence translates the sentence before it for a jury nobody summoned.
+      the house : Restatement, not a fact. Cutting it costs nothing the paragraph does not already say.
+    YOUR NOTE [S3] - APPLIED
+      you quoted: "We bring that discipline back to street level, in film, television, stage, and radio, whole."
+      you asked : "Whole" arrives after the train has left. Play: "...back to street level across film, television, stage, and radio."
+      the house : Cut the trailing qualifier, keep all four divisions.
+
+FIELD: sections.3.caption
+BEFORE: From the working slate · ==L.A. Dolce Vita== · Via del Corso, morning
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.3.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.4.sceneSlug
+BEFORE: INT. THE CRAFT - CONTINUOUS
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.4.heading
+BEFORE: The craft of constraint.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.4.body
+BEFORE: We keep one line from Mamet taped to the wall: the audience tunes in to watch drama. We look to the humanity of Capra, the visual rigor of Bergman, the restless intelligence of Welles and the Mercury Theatre. Then we run that spirit through Brooklyn and Los Angeles: real neighborhoods, real faces, real stakes.
+v1:     One line from Mamet stays taped to the wall: the audience tunes in to watch drama. We look to the humanity of Capra, the visual rigor of Bergman, the restless intelligence of Welles and the Mercury Theatre. Then we run that spirit through Brooklyn and Los Angeles: real neighborhoods, real faces, real stakes.
+v2:     KEEP (v1 stands)
+
+FIELD: sections.4.quote
+BEFORE: The enemy of art is the absence of limitations.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.4.cite
+BEFORE: Orson Welles
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.4.moreLabel
+BEFORE: Principles of the craft →
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.5.caption
+BEFORE: From the working slate · ==L.A. Dolce Vita== · Sunset Blvd, 2 AM
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.5.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.6.sceneSlug
+BEFORE: INT. THE COMPANY - DAY
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.6.heading
+BEFORE: Written by people. Finished on the page.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.6.body
+BEFORE: APR 70 is one writer-producer and a working slate of **ten properties**: three features drafted, a ten-episode season on the page, and more in development. Nine titles are public on the [slate](/slate), each with its own page; one travels only inside private materials while legal counsel review completes. The scripts are written by people. The machine works below the line, on frames like the ones on this site, and it is disclosed wherever it works.
+v1:     APR 70 is one writer-producer and a working slate of **ten properties**: three features drafted, a ten-episode season on the page, more in development. Nine titles are public on the [slate](/slate), each with its own page. One travels only inside private materials while legal counsel review completes. The scripts are written by people. The machine works below the line, on frames like the ones on this site, and it is disclosed wherever it works.
+v2:     APR 70 is a one-writer company with **ten properties** on its working slate: three features drafted, a ten-episode season on the page, more in development. Nine titles are public on the [slate](/slate). One stays private while legal counsel review completes. The scripts are written by people; the machine works below the line, on frames like the ones on this site, and it is disclosed wherever it works. Ten properties. One writer responsible for every page.
+    YOUR NOTE [S4] - APPLIED IN PART
+      you quoted: "Nine titles are public on the slate, each with its own page. One travels only inside private materials while legal counsel review completes."
+      you asked : The private-property explanation appears repeatedly. Keep it on the Slate page. Here: "Nine titles are public. One remains private."
+      the house : Compressed, but the [slate](/slate) link and the legal-counsel-review fact stay: the link is navigation and the review is the reason. Sturges's exact replacement would drop both.
+    YOUR NOTE [S5] - APPLIED IN PART
+      you quoted: The section ends on disclosure procedure.
+      you asked : That is an affidavit, not an exit. Finish on the human author: "Ten properties. One writer responsible for every page."
+      the house : Applied as a button using only facts already in the field (ten properties, one writer-producer, the machine disclosed). The disclosure sentence stays; it moves off the last line.
+    YOUR NOTE [S25] - APPLIED IN PART
+      you quoted: "APR 70 is one writer-producer and a working slate of ten properties..."
+      you asked : A company cannot grammatically be both a man and a slate. Play: "APR 70 is a one-writer company with ten properties on its working slate."
+      the house : Applied, with the **ten properties** bold marker kept where it sits. The marker is a fact of the field.
+
+FIELD: sections.6.moreLabel
+BEFORE: How we work →
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.7.sceneSlug
+BEFORE: EXT. THE OPEN INTERNET - 2026
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.7.heading
+BEFORE: Built for how stories reach people now.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.7.body
+BEFORE: Stories reach their audiences over the open internet now: direct, worldwide, and on the viewer's own clock. APR 70 is built for that world. The slate develops in public view on this site, the audience finds it through search, through AI answers, and on X, and the pages themselves go out one reader at a time. 2026 and 2027 belong to the studios that meet people where they already are, carrying work worth their attention.
+v1:     Stories reach their audiences over the open internet now: direct, worldwide, and on the viewer's own clock. APR 70 is built for that world. The slate develops in public view on this site. The audience finds it through search, through AI answers, and on X, and the pages go out one reader at a time. 2026 and 2027 belong to the studios that meet people where they already are, carrying work worth their attention.
+v2:     Stories reach their audiences over the open internet now: direct, worldwide, and on the viewer's own clock. The slate develops in public view on this site. The audience finds it through search, through AI answers, and on X. Our wager for 2026 and 2027: meet people where they already are. The pages go out one reader at a time.
+    YOUR NOTE [S6] - APPLIED
+      you quoted: "APR 70 is built for that world."
+      you asked : Cut it. The paragraph is standing on the website.
+      the house : Self-evident claim. Cut with W1 in the same field.
+
+FIELD: sections.8.sceneSlug
+BEFORE: INT. THE SLATE - NIGHT
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.8.heading
+BEFORE: On the page now.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.9.rows.0.logline
+BEFORE: Borough Park, the summer of 1986.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.9.rows.1.logline
+BEFORE: Los Angeles and Rome, ten days in February.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.9.rows.2.logline
+BEFORE: A private town at the end of Brooklyn.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.10.divisions.0.blurb
+BEFORE: New York television at street level, built from the five boroughs.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.10.divisions.1.blurb
+BEFORE: Television for audiences who travel, staged out of Los Angeles.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.10.divisions.2.blurb
+BEFORE: Feature films built for permanence.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.11.body
+BEFORE: [The whole slate: ten properties →](/slate)
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.12.sceneSlug
+BEFORE: INT. THE READING - NIGHT
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.12.heading
+BEFORE: Read the pages.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.12.body
+BEFORE: Scripts, synopses, and episode grids are shared privately, on request. If you produce, represent, or finance work like this, ask. The reply comes from the writer.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.12.linkLabel
+BEFORE: Request materials
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+PAGE: Slate   /slate
+------------------------------------------------------------------------------
+
+FIELD: seoTitle
+BEFORE: The Slate · APR 70 Pictures
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: seoDescription
+BEFORE: The APR 70 Pictures working slate; ten properties, features, series, and documentary work in development. Nine public, each with its own page. One held privately while legal counsel review completes. Materials shared privately, on request.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.0.caption
+BEFORE: From the working slate · ==L.A. Dolce Vita== · East L.A. · the scandal breaks
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.0.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.1.sceneSlug
+BEFORE: INT. THE SLATE - NIGHT
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.1.heading
+BEFORE: Ten properties. The facts of each.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.1.body
+BEFORE: The slate runs **ten properties**. Nine are on this page, and each has a page of its own: the setting, the frames, the facts. One travels only inside private materials while legal counsel review completes. A slate is a promise; a script is a fact. We list the facts, and the pages themselves are shared privately.
+v1:     The slate runs **ten properties**. Nine are on this page, and each has a page of its own: the setting, the frames, the facts. One travels only inside private materials while legal counsel review completes. A slate is a promise; a script is a fact. We list the facts. The pages themselves are shared privately.
+v2:     The slate runs **ten properties**. Nine are on this page, and each has a page of its own: the setting, the frames, the facts. One travels only inside private materials while legal counsel review completes. A slate is a promise; a script is a fact. The pages themselves are shared privately.
+    YOUR NOTE [S7] - APPLIED
+      you quoted: "We list the facts."
+      you asked : Cut it. The aphorism has already done the work: "A slate is a promise; a script is a fact. The scripts are shared privately."
+      the house : Followed over Welles's competing cut in the same field. See W2.
+
+FIELD: sections.1.quote
+BEFORE: Write with the door closed, rewrite with the door open.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.1.cite
+BEFORE: Stephen King
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.0.logline
+BEFORE: In the summer of 1986 on a Borough Park block, a sensitive 17-year-old who dreams of acting at NYU is pulled from petty mischief into the seductive club-and-crime world of older dealers, losing his innocence, his first love, and ultimately his life to the casual violence of his neighborhood.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.1.logline
+BEFORE: When a presidential candidate is caught via live stream with a mysterious woman, the ensuing scandal unravels fifteen years of secrets: a journalist's vanished fiancée, his hidden daughter, and a crime family's plan to claim her as heir.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.2.logline
+BEFORE: A private town at the end of Brooklyn, present day, high summer.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.2.provenance
+BEFORE: After Dashiell Hammett's *Red Harvest* (1929); the novel is public domain
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.3.logline
+BEFORE: In the underworld of Staten Island, two reckless enforcers collect debts through savage work and coded prison-gang demands, until a final betrayal forces them to confront the cost of their chaotic existence.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.4.logline
+BEFORE: Red Hook, Brooklyn, the fall of 1970.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.4.provenance
+BEFORE: After Dashiell Hammett's *The Maltese Falcon* (1930); the novel is public domain
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.5.logline
+BEFORE: Seven international students, recruited into a secret class by clues to a campus bomb, are trained through covert missions, never suspecting that every mission serves the hidden consortium they believe they are fighting.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.6.logline
+BEFORE: A divorced Sicilian-Brooklyn woman scraping by in Los Angeles wakes after every sleep into a different version of her own life in the same city, and must master her shifting reigns before a rival who travels the same way collapses every version of her into the one he can own.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.7.logline
+BEFORE: In a televised hybrid of esports and live-action drama, elite gamers called the Shadow Masters command real-life human avatars through high-stakes scenarios. Their avatars may defy orders when survival, greed, or conscience takes over, pitting strategy against free will.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.8.logline
+BEFORE: An expatriate returns to his ancestral Sicily in the 1970s seeking a quiet life. The land, and its people, will not let him be quiet.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.3.sceneSlug
+BEFORE: INT. THREE TRADITIONS - CONTINUOUS
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.3.heading
+BEFORE: Three traditions, one hand.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.3.body
+BEFORE: APR 70 Pictures is one writer-producer working in three traditions. (212) Pictures is the New York work: crime, drama, and documentary built from the five boroughs. (310) Pictures is the long-form work made for audiences who travel, political thrillers and science fiction staged out of Los Angeles and beyond. New Renaissance Cinema is the feature work, films built to last rather than to fill a release window. A property wears the tradition that fits it best, and when a feature reaches beyond one coast its territory division joins as co-production. Three traditions, one standard.
+v1:     APR 70 Pictures is one writer-producer working in three traditions. (212) Pictures is the New York work: crime, drama, and documentary built from the five boroughs. (310) Pictures is the long-form work for audiences who travel: political thrillers and science fiction staged out of Los Angeles and beyond. New Renaissance Cinema is the feature work, films built to last rather than to fill a release window. A property wears the tradition that fits it. When a feature reaches beyond one coast, its territory division joins as co-production. Three traditions, one standard.
+v2:     KEEP (v1 stands)
+
+FIELD: sections.4.divisions.0.blurb
+BEFORE: New York television at street level, built from the five boroughs.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.4.divisions.1.blurb
+BEFORE: Television for audiences who travel, staged out of Los Angeles.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.4.divisions.2.blurb
+BEFORE: Feature films built for permanence.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.5.body
+BEFORE: One property travels only inside private materials while legal counsel review completes. Where a property builds on a public-domain novel, the source and its status are stated above; everything on this slate references the novels alone, and full loglines for those titles travel in private materials only. Synopses, scripts, and episode grids are shared privately, on request, under the usual courtesies. Everything on this page is presented for private reading rather than public evaluation, and "drafted" means a working draft exists on the page; it is a status, not a delivery representation.
+v1:     One property travels only inside private materials while legal counsel review completes. Where a property builds on a public-domain novel, the source and its status are stated above; everything on this slate references the novels alone, and full loglines for those titles travel in private materials only. Synopses, scripts, and episode grids are shared privately, on request, under the usual courtesies. Everything on this page is presented for private reading rather than public evaluation. "Drafted" means a working draft exists on the page; it is a status, not a delivery representation.
+v2:     One property travels only inside private materials while legal counsel review completes. Where a property builds on a public-domain novel, the source and its status are stated above; everything on this slate references the novels alone, and full loglines for those titles travel in private materials only. Synopses, scripts, and episode grids are shared privately, on request. This page states development status only. "Drafted" means a working draft exists on the page; it is a status, not a delivery representation. Ask to read them.
+    YOUR NOTE [S8] - APPLIED
+      you quoted: "under the usual courtesies"
+      you asked : Courtesies are either named or they are incense. "Shared privately, on request" is enough.
+      the house : Unnamed courtesy is an unverifiable claim.
+    YOUR NOTE [S9] - APPLIED
+      you quoted: "Everything on this page is presented for private reading rather than public evaluation."
+      you asked : It is on a public website. The sentence has been caught at the scene. Play: "This page states development status only. Scripts and supporting materials remain private."
+      the house : Removes a claim the page itself disproves, keeps the substance.
+    YOUR NOTE [S10] - APPLIED IN PART
+      you quoted: The status disclaimer simply expires.
+      you asked : Turn status into action: "'Drafted' means the pages exist. Ask to read them."
+      the house : Applied as the closing line, but "it is a status, not a delivery representation" stays. That clause is the disclaimer's legal point and cannot be traded for a button.
+
+FIELD: sections.6.sceneSlug
+BEFORE: INT. THE READING - NIGHT
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.6.heading
+BEFORE: Ask for the pages.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.6.body
+BEFORE: If you produce, represent, or finance work like this, request what you'd like to read and it will come from the writer, privately.
+v1:     If you produce, represent, or finance work like this, ask for what you'd like to read. It comes from the writer, privately.
+v2:     KEEP (v1 stands)
+
+FIELD: sections.6.linkLabel
+BEFORE: Request materials
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+PAGE: Craft   /craft
+------------------------------------------------------------------------------
+
+FIELD: seoTitle
+BEFORE: The Craft · APR 70 Pictures
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: seoDescription
+BEFORE: The craft of constraint; APR 70's working principles, and the storytellers who proved that powerful work comes from deliberate choices inside clear boundaries.
+v1:     The craft of constraint. APR 70's working principles, and the storytellers who proved that powerful work comes from deliberate choices inside clear boundaries.
+v2:     KEEP (v1 stands)
+
+FIELD: sections.0.caption
+BEFORE: From the working slate · ==A Need Grows in Brooklyn== · Borough Park, summer 1986
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.0.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.1.sceneSlug
+BEFORE: INT. THE PRINCIPLES - NIGHT
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.1.heading
+BEFORE: The greatest art is born inside clear boundaries.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.1.lede
+BEFORE: We draw enduring wisdom from the storytellers who defined their art through discipline, vision, and creative restraint.
+v1:     We take our working wisdom from the storytellers who defined their art through discipline, vision, and creative restraint.
+v2:     We learned it from the storytellers who proved it: discipline, vision, and creative restraint.
+
+FIELD: sections.1.body
+BEFORE: Their insight is simple and unfashionable: powerful storytelling arises from deliberate choices within clear boundaries. Old Hollywood worked under hard rules about what could be shown, and it answered with subtext, atmosphere, and ingenious writing. That discipline built the pictures people still watch, still quote, and still hand to their children.
+
+These principles guide every project we develop, from limited series to features and beyond, as we build a studio dedicated to narratives of moral complexity, human resilience, and lasting impact: heroism with open eyes, ambiguity with a conscience, in the real neighborhoods of Brooklyn, Los Angeles, and beyond.
+v1:     Their insight is simple and unfashionable. Powerful storytelling comes from deliberate choices inside clear boundaries. Old Hollywood worked under hard rules about what could be shown, and it answered with subtext, atmosphere, and ingenious writing. That discipline built the pictures people still watch, still quote, and still hand to their children.
+
+These principles guide every project we develop, from limited series to features and beyond, as we build a studio for narratives of moral complexity, human resilience, and lasting impact: heroism with open eyes, ambiguity with a conscience, in the real neighborhoods of Brooklyn, Los Angeles, and beyond.
+v2:     Their insight is simple and unfashionable. Powerful storytelling comes from deliberate choices inside clear boundaries. Old Hollywood worked under hard rules about what could be shown, and it answered with subtext, atmosphere, and ingenious writing. That discipline built the pictures people still watch, still quote, and still hand to their children.
+
+These principles guide every project we develop, from limited series to features and beyond, as we build a studio for stories told in the real neighborhoods of Brooklyn, Los Angeles, and beyond.
+
+FIELD: sections.2.quote
+BEFORE: What is drama, after all, but life with the dull bits cut out.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.cite
+BEFORE: Alfred Hitchcock
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.note
+BEFORE: Hitchcock/Truffaut, 1962 interviews
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.3.caption
+BEFORE: The audience we still write for · Grauman's Egyptian Theatre, Hollywood, May 14, 1926
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.3.credit
+BEFORE: Archival photograph · public domain (published pre-1931) · via Wikimedia Commons
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.4.sceneSlug
+BEFORE: INT. WHAT IT MEANS HERE - NIGHT
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.4.heading
+BEFORE: Restraint, repeated, becomes a signature.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.4.body
+BEFORE: In practice: stories that can be shared across generations. Drama over information. Subtext over statement. The camera earns its movement; the cut earns its place. We would rather hold a face for four seconds than cut three times to prove we were there.
+
+The classics never go out of style. They just need storytellers brave enough to tell them.
+v1:     KEEP
+v2:     In practice: stories that can be shared across generations. Drama over information. Subtext over statement. The camera earns its movement; the cut earns its place. We would rather hold a face for four seconds than cut three times to prove we were there.
+
+The classics never go out of style.
+
+FIELD: sections.4.moreLabel
+BEFORE: See what we're telling →
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+PAGE: Methods   /methods
+------------------------------------------------------------------------------
+
+FIELD: seoTitle
+BEFORE: Methods · APR 70 Pictures
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: seoDescription
+BEFORE: How APR 70 works; scripts written by people, images and motion machine-generated and disclosed wherever they appear. The full authorship discipline.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.0.sceneSlug
+BEFORE: INT. THE WORKSHOP - DAY
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.0.heading
+BEFORE: Written by people. Rendered by machines. Labeled, always.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.0.lede
+BEFORE: Everyone deserves to know which parts of our work a machine touched. So we tell you, here and in every caption.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.0.body
+BEFORE: The short version: the writing is human, the below-the-line image work is machine-generated under our direction, and the two keep their own names.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.1.quote
+BEFORE: My job is to care about and be responsible for every frame of every movie I make.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.1.cite
+BEFORE: Sidney Lumet
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.1.note
+BEFORE: Making Movies, 1995
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.ariaLabel
+BEFORE: The disclosure ledger
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.0.term
+BEFORE: Scripts
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.0.definition
+BEFORE: **Written by people.** Marco Caruso is the author of record; the drafting passes are his. Software assists the way a research library and a patient line editor assist: coverage, continuity checks, notes. The process is logged per script.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.1.term
+BEFORE: Images & motion
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.1.definition
+BEFORE: **Machine-generated under our direction, and labeled where they appear**, including every development frame on this site. We work on our own machines and, where the frame demands more, with rented cloud models. Either way the label is the same: AI-generated, disclosed, and kept plainly apart from photography.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.2.term
+BEFORE: Likenesses
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.2.definition
+BEFORE: **Archetypes only, invented faces only.** Everything on this site and in our materials depicts invented people. Real performers and real public figures appear nowhere in generated work.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.3.term
+BEFORE: Archival imagery
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.3.definition
+BEFORE: **Public domain only, verified and credited.** When a page carries an archival photograph or map, its date and public-domain basis are stated in the caption. Every archival image comes from the open record, credited to its source.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.4.term
+BEFORE: This site
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.4.definition
+BEFORE: **Static pages, hand-set type, nothing watching you.** The fonts are served from this site, and the pages leave you alone: zero cookies, zero analytics, zero third-party requests, verified 2026-07-12. A request for materials is an email to the writer, person to person.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.5.term
+BEFORE: One story
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.5.definition
+BEFORE: Machine work is credited as machine work, handwork as handwork, and the reader and the partner hear the same account. **One story, told to everyone.**
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.6.term
+BEFORE: Why it matters
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.6.definition
+BEFORE: Because trust is the only asset a small studio owns outright. And because the work we sell, the writing, must stand as human work, plainly and provably.
+v1:     Because trust is the only asset a small studio owns outright. And because the work we sell, the writing, must be human work, plainly and provably.
+v2:     KEEP (v1 stands)
+    YOUR NOTE [S27] - DECLINED
+      you quoted: "the work we sell, the writing, must be human work, plainly and provably."
+      you asked : Play: "The writing is human work, with a logged process behind it."
+      the house : Chairs contradict. Riskin names this exact v1 line as one of the pass's wins ("the old line, 'must stand as,' was a pose"). Followed Riskin. Sturges's replacement also adds a claim the site does not make: there is no published log.
+
+FIELD: sections.2.rows.7.term
+BEFORE: Rights
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.rows.7.definition
+BEFORE: **Original works reserved; public texts stay public.** APR 70 Pictures reserves its original works: the screenplays, characters, scenes, and development materials made here. Where a property builds on a public-domain novel, the page names that source, gives its date, and credits it as free for everyone to use. APR 70 reserves only the new expression it adds on top.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.3.caption
+BEFORE: One motion test, four frames · a below-the-line process exhibit
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.3.credit
+BEFORE: AI-generated, like everything machine-made here
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.4.sceneSlug
+BEFORE: INT. THE POINT - CONTINUOUS
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.4.heading
+BEFORE: Constraint again, just newer tools.
+v1:     KEEP
+v2:     Constraint again. Newer tools.
+
+FIELD: sections.4.body
+BEFORE: The craft of constraint continues past the writing desk. Working under a disclosure rule is a boundary like any other, and boundaries are where our best work comes from. The machine gets the busywork below the line. The people keep the story.
+v1:     The craft of constraint continues past the writing desk. A disclosure rule is a boundary, and boundaries are where our best work comes from. The machine gets the busywork below the line. The people keep the story.
+v2:     The craft of constraint continues past the writing desk. A disclosure rule is a boundary, and boundaries are where our best work comes from. Machines render the development frames. People write the story.
+    YOUR NOTE [S26] - APPLIED IN PART
+      you quoted: "The machine gets the busywork below the line. The people keep the story."
+      you asked : Generated development frames are not merely busywork, and "below the line" describes crafts practiced by people. Play: "Machines render the development frames. People write and direct the work."
+      the house : Welles kept this line and aimed only at the heading above it; Sturges names a real harm in it. Followed Sturges on the wording and Welles on the rhythm: two hard stops, no "busywork," and no new claim about directing.
+
+FIELD: sections.4.moreLabel
+BEFORE: The slate →
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+PAGE: Contact   /contact
+------------------------------------------------------------------------------
+
+FIELD: seoTitle
+BEFORE: Contact · APR 70 Pictures
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: seoDescription
+BEFORE: Request materials from APR 70 Pictures. Scripts, synopses, and episode grids shared privately with producers, representatives, and financiers.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.0.sceneSlug
+BEFORE: INT. THE DESK - NIGHT
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.0.heading
+BEFORE: The reply comes from the writer.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.0.lede
+BEFORE: APR 70 Pictures is Marco Caruso, a writer-producer in Long Island City, New York, after thirty-five years behind the camera in television news and documentary. The slate is his, page by page.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.0.body
+BEFORE: You reach the writer directly here. If you produce, represent, or finance scripted work and want to read something on the slate, write and say who you are, what you would like to read, and in what capacity you are asking. The pages go out privately, person to person.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.0.linkLabel
+BEFORE: caruso@apr70.com
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.1.quote
+BEFORE: You see? We give people these little pieces of time. And they keep them forever.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.1.cite
+BEFORE: James Stewart
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.1.note
+BEFORE: quoted by Peter Bogdanovich, Pieces of Time, 1973
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.sceneSlug
+BEFORE: INT. THE DOOR - CONTINUOUS
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.heading
+BEFORE: Working with us.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.2.body
+BEFORE: **The reading goes one way: from our pages to your desk.** Unsolicited scripts, treatments, loglines, and story ideas sent to this address are deleted unread. That protects your ideas as much as ours.
+
+**Every role here is currently filled by the writer.** A one-writer company posts jobs only when a production staffs up, and when that happens the roles will be listed on this page first.
+
+**Working professionals are welcome to introduce themselves.** If you act, shoot, cut, score, or produce: one short note with your role, credits, and a link, please, with the note itself as the whole package. When a production needs what you do, the reply comes from the writer.
+v1:     **The reading goes one way: from our pages to your desk.** Unsolicited scripts, treatments, loglines, and story ideas sent to this address are deleted unread. That protects your ideas as much as ours.
+
+**Every role here is currently filled by the writer.** A one-writer company posts jobs only when a production staffs up. When that happens, the roles are listed on this page first.
+
+**Working professionals are welcome to introduce themselves.** If you act, shoot, cut, score, or produce: one short note with your role, credits, and a link. The note is the whole package. When a production needs what you do, the reply comes from the writer.
+v2:     **The reading goes one way: from our pages to your desk.** Unsolicited scripts, treatments, loglines, and story ideas sent to this address are deleted unread. That protects your ideas as much as ours.
+
+**Every role here is currently filled by the writer.** A one-writer company posts jobs only when a production staffs up. When that happens, the roles are listed on this page first.
+
+**Working professionals are welcome to introduce themselves.** If you act, shoot, cut, score, or produce: one short note with your role, credits, and a link. When a production needs what you do, the reply comes from the writer. One note. One role. One link.
+    YOUR NOTE [S29] - APPLIED IN PART
+      you quoted: The section ends by repeating "the reply comes from the writer."
+      you asked : Close on the size of the acceptable package: "One note. One role. One link."
+      the house : The count lands as the button; the promise about who replies stays in the paragraph, because Contact is the one page that owns it (see S12).
+
+FIELD: sections.2.ariaLabel
+BEFORE: Working with APR 70
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.3.caption
+BEFORE: From the working slate · ==L.A. Dolce Vita== · Route 66, dusk
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.3.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.4.sceneSlug
+BEFORE: INT. THE ROLL - NIGHT
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.4.heading
+BEFORE: The Founding Roll.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.4.body
+BEFORE: Before the first picture ships, APR 70 keeps a roll of the people who wanted it made. Ask to be named and the next number is yours: the numbers start low, stay yours, and are never reissued. The roll is free. When the work ships, the people on it hear from the writer first.
+v1:     Before the first picture ships, APR 70 keeps a roll of the people who wanted it made. Ask to be named and the next number is yours. The numbers start low, stay yours, and are never reissued. The roll is free. When the work ships, the people on it hear from the writer first.
+v2:     KEEP (v1 stands)
+
+FIELD: sections.4.submitLabel
+BEFORE: Take a number
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: sections.4.successNote
+BEFORE: You are on the roll.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+PAGE: Site chrome   (every page)
+------------------------------------------------------------------------------
+
+FIELD: tagline
+BEFORE: APR 70 Pictures. Three divisions. One vision.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: aiMark.text
+BEFORE: APR 70 · AI GEN
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: v9Chrome.displayLabel
+BEFORE: Display
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: v9Chrome.panelTitle
+BEFORE: Display
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: v9Chrome.themeLabel
+BEFORE: Theme
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: v9Chrome.themePremiere
+BEFORE: Marquee night
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: v9Chrome.themeMatinee
+BEFORE: House lights
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: v9Chrome.themeLateshow
+BEFORE: System
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: v9Chrome.scaleLabel
+BEFORE: Type size
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: v9Chrome.logoLabel
+BEFORE: Logo size
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: v9Chrome.topLabel
+BEFORE: Back to top
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: v9Chrome.prevLabel
+BEFORE: Previous property
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: v9Chrome.nextLabel
+BEFORE: Next property
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: v9Chrome.slateReturn
+BEFORE: The whole slate
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: v9Chrome.cta
+BEFORE: Request materials →
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: v9Chrome.colophon
+BEFORE: APR 70 PICTURES, Long Island City, New York. Established 2026. A small, stubborn film and television studio with ten properties on the working slate. Every image on this site is an APR 70 development frame, AI-generated and labeled where it appears, or a verified public-domain photograph or map, dated and credited. The scripts are written by people. The site sets its own type in Jost, Newsreader, Fraunces, and Courier Prime, serves its own fonts, and leaves you alone: zero cookies, zero trackers, zero third-party requests. Verified 2026-07-27.
+v1:     APR 70 PICTURES, Long Island City, New York. Established 2026. A small, stubborn film and television studio with ten properties on the working slate. Every image on this site is an APR 70 development frame, AI-generated and labeled where it appears, or a verified public-domain photograph or map, dated and credited. People write the scripts. The site sets its own type in Jost, Newsreader, Fraunces, and Courier Prime, serves its own fonts, and leaves you alone: zero cookies, zero trackers, zero third-party requests. Verified 2026-07-27.
+v2:     APR 70 PICTURES, Long Island City, New York. Established 2026. A small, stubborn film and television studio with ten properties on the working slate. Every image on this site is an APR 70 development frame, AI-generated and labeled where it appears, or a verified public-domain photograph or map, dated and credited. Marco Caruso writes the scripts. The site sets its own type in Jost, Newsreader, Fraunces, and Courier Prime, serves its own fonts, and leaves you alone: zero cookies, zero trackers, zero third-party requests. Verified 2026-07-27.
+    YOUR NOTE [S28] - APPLIED
+      you quoted: "People write the scripts."
+      you asked : Cleaner grammar, weaker authorship. It could describe any studio on earth. Marco has a name. Play: "Marco Caruso writes the scripts."
+      the house : Not a new fact: the Methods page already states "Caruso is the author of record; the drafting passes are his."
+
+FIELD: v9Chrome.copyright
+BEFORE: © 2026 APR 70 Pictures. Made in New York City.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: v9Chrome.navLinks.0.label
+BEFORE: Home
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: v9Chrome.navLinks.1.label
+BEFORE: Slate
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: v9Chrome.navLinks.2.label
+BEFORE: Craft
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: v9Chrome.navLinks.3.label
+BEFORE: Methods
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: v9Chrome.navLinks.4.label
+BEFORE: Contact
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: dispatch.navLabel
+BEFORE: Dispatch
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: troupe.navLabel
+BEFORE: Troupe
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+PAGE: A Need Grows in Brooklyn   /work/a-need-grows-in-brooklyn
+------------------------------------------------------------------------------
+
+FIELD: subtitle
+BEFORE: NRC lead · (212) co-production · Feature
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: logline
+BEFORE: In the summer of 1986 on a Borough Park block, a sensitive 17-year-old who dreams of acting at NYU is pulled from petty mischief into the seductive club-and-crime world of older dealers, losing his innocence, his first love, and ultimately his life to the casual violence of his neighborhood.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: shortLogline
+BEFORE: Borough Park, the summer of 1986.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: metaLine
+BEFORE: Feature · New Renaissance Cinema with (212) Pictures · ==drafted==
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: bodyProse
+BEFORE: A neighborhood story told in documentary realism: the stoops of 44th Street, Nino's neon at Fort Hamilton Parkway, the block in daylight and the clubs after dark. Two worlds with two kinds of light, and a boy moving between them. Written from lived memory of the place and the years.
+v1:     A neighborhood story told in documentary realism. The stoops of 44th Street, Nino's neon at Fort Hamilton Parkway, the block in daylight and the clubs after dark. Two worlds, two kinds of light, and a boy moving between them. Written from lived memory of the place and the years.
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.quote
+BEFORE: Everything is copy.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.cite
+BEFORE: Nora Ephron
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroLine
+BEFORE: Brooklyn, before it was a brand.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroCaption
+BEFORE: Borough Park, summer 1986
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroCredit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: requestBody
+BEFORE: The feature is drafted. Script and synopsis are shared privately, on request. Say who you are and in what capacity you are asking, and the reply comes from the writer.
+v1:     The feature is drafted. Script and synopsis are shared privately, on request. Say who you are and in what capacity you are asking. The reply comes from the writer.
+v2:     KEEP (v1 stands)
+    YOUR NOTE [S12] - DECLINED
+      you quoted: "Say who you are and in what capacity you are asking. The reply comes from the writer."
+      you asked : Useful once in the global contact module. On property pages: "Script and synopsis are shared privately, on request."
+      the house : Chairs contradict. Welles calls "The reply comes from the writer" the best line on the whole site and Riskin calls it earned; Sturges wants it off nine pages. Followed Welles and Riskin. Sturges's version would also cut each field roughly in half, past its slot.
+
+FIELD: synopsis
+BEFORE: Summer of ’86, Brooklyn. Marc is seventeen, dreaming of NYU and running with a crew of neighborhood bad boys — basement D&D, midnight ball under the El, the club that won’t let them in. Shot in documentary realism on heavy 35mm grain, the block itself is the character: older dealers adopt Marc, teach him the "art" of the fast life, and he proves a natural even as bodies drop around him and the crew just shrugs. Act by act the bill comes due — a hospital, an arrest, the news that his first love is dead — and a full redemption is staged right up to the instant a gun slides off a dashboard and ends him. The dominoes were falling from the opening frame.
+v1:     Summer of ’86, Brooklyn. Marc is seventeen, dreaming of NYU and running with a crew of neighborhood bad boys: basement D&D, midnight ball under the El, the club that won’t let them in. Shot in documentary realism on heavy 35mm grain, the block itself is the character. Older dealers adopt Marc, teach him the "art" of the fast life, and he proves a natural even as bodies drop around him and the crew just shrugs. Act by act the bill comes due. A hospital, an arrest, the news that his first love is dead. A full redemption is staged right up to the instant a gun slides off a dashboard and ends him. The dominoes were falling from the opening frame.
+v2:     Summer of ’86, Brooklyn. Marc is seventeen, dreaming of NYU and running with a crew of neighborhood bad boys: basement D&D, midnight ball under the El, the club that won’t let them in. Shot in documentary realism on heavy 35mm grain, the block itself is the character. Older dealers adopt Marc, teach him the "art" of the fast life, and he proves a natural even as bodies drop around him and the crew just shrugs. Act by act the bill comes due. A hospital, an arrest, the news that his first love is dead. A redemption is staged right up to the instant a gun slides off a dashboard and fires. The dominoes were falling from the opening frame.
+    YOUR NOTE [S19] - DECLINED
+      you quoted: "The dominoes were falling from the opening frame" is a familiar obituary.
+      you asked : Return to the fatal object: "The gun has been on the dashboard all summer."
+      the house : "All summer" is a new fact. Welles's fix to the same sentence (the gun fires, full stop) is applied instead and answers the same objection.
+
+FIELD: gallery.0.caption
+BEFORE: The stoop, one lemon ice, one wooden spoon
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.0.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.1.caption
+BEFORE: The club where the altar was
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.1.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.2.caption
+BEFORE: Nino's, 44th & Fort Hamilton Parkway
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.2.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.3.caption
+BEFORE: Under the El, night
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.3.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.4.caption
+BEFORE: The borough entire · bird's-eye view of Brooklyn, George Welch for the Brooklyn Daily Eagle, 1897
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.4.credit
+BEFORE: Public domain · The New York Public Library, Map Division
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pitchDeck.note
+BEFORE: Deck canon complete; the visual deck is shared privately. Investor conversations happen in person — write to the offices.
+v1:     Deck canon complete. The visual deck is shared privately. Investor conversations happen in person. Write to the offices.
+v2:     The visual deck is shared privately. Investor conversations happen in person. Write to the offices.
+    YOUR NOTE [S11] - APPLIED IN PART
+      you quoted: "Deck canon complete. The visual deck is shared privately. Investor conversations happen in person. Write to the offices."
+      you asked : "Deck canon" is writers-room plumbing showing through the wallpaper. Replace the whole note: "The visual deck is available privately. Request it from the writer."
+      the house : The internal term goes on all ten pages. The two access facts (in person, write to the offices) stay: they tell a reader what to actually do, and Sturges's replacement drops them.
+
+FIELD: layout.0.kicker
+BEFORE: NRC lead · (212) co-production · Feature
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: layout.0.body
+BEFORE: Summer 1986, 44th Street and Fort Hamilton Parkway, Borough Park, Brooklyn. Marc, a sensitive 17-year-old who dreams of studying acting at NYU, runs with a crew of neighborhood boys: basement Dungeons & Dragons, midnight basketball under the El, petty mischief outside the deli. Semi-autobiographical and shot in documentary realism — heavy 35mm grain, available light, the El train as structural negative space — the season watches its block as closely as its people. The neighborhood is a character. Nothing is cleaned up.
+
+The opening arc (Episodes 1–4) establishes the crew, the corner, and the two poles of Marc's summer: Sunny, the girl who shares his NYU dream, and the adult world of the club that won't let the boys in. The block's casual violence arrives early — the belligerent Housie Mousie forces Marc and Sal into a night of robbery and crack — and when Mousie savagely beats Marc at the exact moment of his first kiss with Sunny, humiliation drives Marc away from her for good.
+
+In the middle arc (Episodes 5–8) the club opens to Marc alone. Older dealers Frank Gee and Mike Murder adopt him, teach him the "art" of boosting, and expose him to Magic Mike's PCP kitchen. Marc proves a natural; the fast life escalates even as bodies drop around him — Mousie thrown off a roof, the innocent Jordan killed just walking by — and Marc internalizes the crew's shrug: life goes on.
+
+The final arc (Episodes 9–10) collects the bill. A cocaine-and-crack panic lands Marc in a hospital and a desperate promise to God. The club is busted, Marc is arrested, and his mother delivers the news that Sunny is dead. Plea deal, Shock Camp, letters to Millie, a clean HIV test, NYU plans together — a redemption fully staged before Dave Dirt's gun slides off a dashboard and fires, killing Marc instantly. The dominoes were falling from the first episode.
+v1:     Summer 1986, 44th Street and Fort Hamilton Parkway, Borough Park, Brooklyn. Marc, a sensitive 17-year-old who dreams of studying acting at NYU, runs with a crew of neighborhood boys: basement Dungeons & Dragons, midnight basketball under the El, petty mischief outside the deli. Semi-autobiographical, shot in documentary realism on heavy 35mm grain, available light, the El train as structural negative space. The season watches its block as closely as its people. The neighborhood is a character. Nothing is cleaned up.
+
+The opening arc (Episodes 1–4) establishes the crew, the corner, and the two poles of Marc's summer: Sunny, the girl who shares his NYU dream, and the adult world of the club that won't let the boys in. The block's casual violence arrives early. The belligerent Housie Mousie forces Marc and Sal into a night of robbery and crack, and when Mousie savagely beats Marc at the exact moment of his first kiss with Sunny, humiliation drives Marc away from her for good.
+
+In the middle arc (Episodes 5–8) the club opens to Marc alone. Older dealers Frank Gee and Mike Murder adopt him, teach him the "art" of boosting, and expose him to Magic Mike's PCP kitchen. Marc proves a natural. The fast life escalates even as bodies drop around him: Mousie thrown off a roof, the innocent Jordan killed just walking by. Marc internalizes the crew's shrug. Life goes on.
+
+The final arc (Episodes 9–10) collects the bill. A cocaine-and-crack panic lands Marc in a hospital and a desperate promise to God. The club is busted, Marc is arrested, and his mother delivers the news that Sunny is dead. Plea deal, Shock Camp, letters to Millie, a clean HIV test, NYU plans together. A redemption fully staged, before Dave Dirt's gun slides off a dashboard and fires, killing Marc instantly. The dominoes were falling from the first episode.
+v2:     KEEP (v1 stands)
+
+PAGE: L.A. Dolce Vita   /work/la-dolce-vita
+------------------------------------------------------------------------------
+
+FIELD: subtitle
+BEFORE: Limited Series
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: logline
+BEFORE: When a presidential candidate is caught via live stream with a mysterious woman, the ensuing scandal unravels fifteen years of secrets: a journalist's vanished fiancée, his hidden daughter, and a crime family's plan to claim her as heir.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: shortLogline
+BEFORE: Los Angeles and Rome, ten days in February.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: metaLine
+BEFORE: Series · (310) Pictures · ==pilot + nine on the page==
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: bodyProse
+BEFORE: Ten episodes, ten days of Carnevale, zero flashbacks. A neo-noir family drama run between two worlds, wildfire-scarred Los Angeles and an Italy that never quite lets go, in amber and teal, at the speed of a scandal. The pilot and nine episodes are on the page.
+v1:     Ten episodes, ten days of Carnevale, zero flashbacks. A neo-noir family drama run between two worlds: wildfire-scarred Los Angeles and an Italy that never quite lets go, in amber and teal, at the speed of a scandal. The pilot and nine episodes are on the page.
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.quote
+BEFORE: A tip from Lubitsch: Let the audience add up two plus two. They'll love you forever.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.cite
+BEFORE: Billy Wilder
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.note
+BEFORE: Conversations with Wilder, 1999
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroLine
+BEFORE: Two cities, ten days, one scandal.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroCaption
+BEFORE: Santa Monica Pier, night
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroCredit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: requestBody
+BEFORE: The pilot, the season, and the episode grid are shared privately, on request. Say who you are and in what capacity you are asking, and the reply comes from the writer.
+v1:     The pilot, the season, and the episode grid are shared privately, on request. Say who you are and in what capacity you are asking. The reply comes from the writer.
+v2:     KEEP (v1 stands)
+    YOUR NOTE [S12] - DECLINED
+      you quoted: "Say who you are and in what capacity you are asking. The reply comes from the writer."
+      you asked : Useful once in the global contact module. On property pages: "Script and synopsis are shared privately, on request."
+      the house : Chairs contradict. Welles calls "The reply comes from the writer" the best line on the whole site and Riskin calls it earned; Sturges wants it off nine pages. Followed Welles and Riskin. Sturges's version would also cut each field roughly in half, past its slot.
+
+FIELD: synopsis
+BEFORE: A journalist arrives in Los Angeles at the worst possible moment, chasing corruption and celebrity rot, only to find his long-lost love at the center of his own investigation — and their secret daughter caught between him and a dynasty that wants her for its throne. One live-stream scandal detonates fifteen years of buried history, pulling a vanished fiancee, a hidden heir, and a crime family’s succession plot into a single web of power, legacy, and redemption. Neo-noir on 35mm, scored like an opera, played for keeps.
+v1:     A journalist arrives in Los Angeles at the worst possible moment, chasing corruption and celebrity rot. He finds his long-lost love at the center of his own investigation, and their secret daughter caught between him and a dynasty that wants her for its throne. One live-stream scandal detonates fifteen years of buried history, pulling a vanished fiancee, a hidden heir, and a crime family’s succession plot into a single web of power, legacy, and redemption. Neo-noir on 35mm, scored for opera, played for keeps.
+v2:     A journalist arrives in Los Angeles at the worst possible moment, chasing corruption and celebrity rot. He finds his long-lost love at the center of his own investigation, and their secret daughter caught between him and a dynasty that wants her for its throne. One live-stream scandal detonates fifteen years of buried history, pulling a vanished fiancee, a hidden heir, and a crime family’s succession plot into a single web of power, legacy, and redemption. Neo-noir on 35mm, with an operatic score, played for keeps.
+    YOUR NOTE [S17] - DECLINED
+      you quoted: Nobody in the conspiracy gets one distinguishing human detail.
+      you asked : Give the daughter one line of action: "The hidden daughter recognizes her father before he recognizes her."
+      the house : Invents a scene the source does not contain. New claim.
+    YOUR NOTE [S20] - DECLINED
+      you quoted: "Played for keeps" is rented noir furniture.
+      you asked : End on the family recognition inside the public scandal: "The whole world sees the scandal. Three people recognize the family."
+      the house : "Three people" is a count the source does not support. New claim.
+    YOUR NOTE [S21] - APPLIED
+      you quoted: "Neo-noir on 35mm, scored for opera, played for keeps."
+      you asked : "Scored for opera" means the score was composed for an opera. Play: "Neo-noir on 35mm, with an operatic score."
+      the house : A plain error introduced in round 1. BEFORE read "scored like an opera" and LAW 1 forced the change; this is the correct way to obey LAW 1.
+
+FIELD: gallery.0.caption
+BEFORE: Carnevale, Venice, night one
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.0.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.1.caption
+BEFORE: The Olivetti, Via del Corso, morning
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.1.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.2.caption
+BEFORE: Michelangelo's on Sunset, the ring
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.2.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.3.caption
+BEFORE: Backstage, the scandal breaks
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.3.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.4.caption
+BEFORE: Mr. D'z, Route 66, Kingman
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.4.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.5.caption
+BEFORE: Sunset Blvd, 2 AM
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.5.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.6.caption
+BEFORE: The other city · La Nuova Topografia di Roma, Giambattista Nolli, 1748 (sheet 5 of 12)
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.6.credit
+BEFORE: Public domain, 1748 engraving · scan via Wikimedia Commons
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pitchDeck.note
+BEFORE: Deck canon complete; the visual deck is shared privately. Investor conversations happen in person — write to the offices.
+v1:     Deck canon complete; the visual deck is shared privately. Investor conversations happen in person. Write to the offices.
+v2:     The visual deck is shared privately. Investor conversations happen in person. Write to the offices.
+    YOUR NOTE [S11] - APPLIED IN PART
+      you quoted: "Deck canon complete. The visual deck is shared privately. Investor conversations happen in person. Write to the offices."
+      you asked : "Deck canon" is writers-room plumbing showing through the wallpaper. Replace the whole note: "The visual deck is available privately. Request it from the writer."
+      the house : The internal term goes on all ten pages. The two access facts (in person, write to the offices) stay: they tell a reader what to actually do, and Sturges's replacement drops them.
+
+FIELD: layout.0.heading
+BEFORE: L.A. Dolce Vita
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: layout.0.subtext
+BEFORE: Limited Series
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: layout.1.leftHeading
+BEFORE: Overview
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: layout.1.rightBody#0
+BEFORE: A journalist arrives in Los Angeles at the worst possible time -- uncovering corruption and celebrity excess, only to find his long-lost love at the center of his investigation, their secret daughter caught between him and his corrupt father's empire.
+v1:     A journalist arrives in Los Angeles at the worst possible time, uncovering corruption and celebrity excess. He finds his long-lost love at the center of his investigation, and their secret daughter caught between him and his corrupt father's empire.
+v2:     KEEP (v1 stands)
+
+FIELD: layout.1.rightBody#1
+BEFORE: When a presidential candidate is caught via live stream with a mysterious woman, the ensuing scandal unravels fifteen years of secrets. A journalist's vanished fiancee, his hidden daughter, and a crime family's plan to claim her as heir converge in a web of power, legacy, and redemption.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+PAGE: Sea Gate   /work/sea-gate
+------------------------------------------------------------------------------
+
+FIELD: subtitle
+BEFORE: Episodic
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: logline
+BEFORE: A private town at the end of Brooklyn, present day, high summer.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: shortLogline
+BEFORE: A private town at the end of Brooklyn.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: provenance
+BEFORE: After Dashiell Hammett's *Red Harvest* (1929), in the US public domain since 2025; the novel is free for everyone. Original screenplay © 2026 APR 70 Pictures.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: metaLine
+BEFORE: Feature · New Renaissance Cinema with (212) Pictures · ==drafted==
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: bodyProse
+BEFORE: Sea Gate is real: a private gated community at the western tip of Coney Island, with its own police force, its own rules, and one road in. The picture is set there in the present day, in high summer. Daylight noir, the carnival boardwalk hard against silent gated wealth. The full logline and synopsis travel in private materials.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.quote
+BEFORE: One must not put a loaded rifle on the stage if no one is thinking of firing it.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.cite
+BEFORE: Anton Chekhov
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.note
+BEFORE: letter, 1889
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroLine
+BEFORE: A private town, one road in.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroCaption
+BEFORE: Where the city stops
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroCredit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: requestBody
+BEFORE: The feature is drafted. The full logline, synopsis, and script travel privately. Say who you are and in what capacity you are asking, and the reply comes from the writer.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+    YOUR NOTE [S12] - DECLINED
+      you quoted: "Say who you are and in what capacity you are asking. The reply comes from the writer."
+      you asked : Useful once in the global contact module. On property pages: "Script and synopsis are shared privately, on request."
+      the house : Chairs contradict. Welles calls "The reply comes from the writer" the best line on the whole site and Riskin calls it earned; Sturges wants it off nine pages. Followed Welles and Riskin. Sturges's version would also cut each field roughly in half, past its slot.
+
+FIELD: synopsis
+BEFORE: Sea Gate is a private, gated town at the western tip of Coney Island — its own armed police, its own board that decides who belongs, the boardwalk’s screams a hundred feet from the fence. Investigator Jim Lang comes through the gate to meet the engineer who can prove tens of millions in storm-recovery money vanished, and finds him drowned in a condemned basement, a dry life vest just out of reach. Lang stays, and works the exhausted truce among the three men who touched the money until it cracks into open war — falling, along the way, for the title-office secretary who keeps the tally of his dead. His last move makes the wall eat itself; spending himself so she walks out clean, he goes into the gunfire and doesn’t come back.
+v1:     Sea Gate is a private, gated town at the western tip of Coney Island. Its own armed police, its own board that decides who belongs, the boardwalk’s screams a hundred feet from the fence. Investigator Jim Lang comes through the gate to meet the engineer who can prove tens of millions in storm-recovery money vanished, and finds him drowned in a condemned basement, a dry life vest just out of reach. Lang stays, and works the exhausted truce among the three men who touched the money until it cracks into open war. Along the way he falls for the title-office secretary who keeps the tally of his dead. His last move makes the wall eat itself. Spending himself so she walks out clean, he goes into the gunfire and doesn’t come back.
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.0.caption
+BEFORE: A foot of water, a dry life vest
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.0.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.1.caption
+BEFORE: Mary, in the Coney Island neon
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.1.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.2.caption
+BEFORE: The lighthouse over the rooftops
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.2.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.3.caption
+BEFORE: The carnival, seen from the quiet end
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.3.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.4.caption
+BEFORE: The town on paper · bird's-eye view of Sea Gate, Norton Point Land Co. auction prospectus, 1900
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.4.credit
+BEFORE: Public domain · The New York Public Library, Map Division
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.5.caption
+BEFORE: The peninsula before the town · Gravesend & Coney Island, G.W. Bromley & E. Robinson atlas plate, 1880
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.5.credit
+BEFORE: Public domain · The New York Public Library, Map Division
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pitchDeck.note
+BEFORE: Deck canon complete; the visual deck is shared privately. Investor conversations happen in person — write to the offices.
+v1:     Deck canon complete; the visual deck is shared privately. Investor conversations happen in person. Write to the offices.
+v2:     The visual deck is shared privately. Investor conversations happen in person. Write to the offices.
+    YOUR NOTE [S11] - APPLIED IN PART
+      you quoted: "Deck canon complete. The visual deck is shared privately. Investor conversations happen in person. Write to the offices."
+      you asked : "Deck canon" is writers-room plumbing showing through the wallpaper. Replace the whole note: "The visual deck is available privately. Request it from the writer."
+      the house : The internal term goes on all ten pages. The two access facts (in person, write to the offices) stay: they tell a reader what to actually do, and Sturges's replacement drops them.
+
+FIELD: layout.0.kicker
+BEFORE: (212) · Episodic
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: layout.0.logline
+BEFORE: Jim Lang's whistleblower client drowned in a foot of water. Inside Brooklyn's private town, fraud investigator Lang stays to turn its rulers against one another over the stolen storm-recovery millions … until the only way to walk the woman he loves out clean is to spend himself in the war he built.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: layout.0.body
+BEFORE: Sea Gate, Brooklyn. A private gated town at the western tip of Coney Island. It has its own armed police and a board that decides who belongs... and who doesn't. High summer, beach season. The boardwalk carnival screams are a hundred feet from the fence. Even the biggest city in America stops at a boom gate. Behind the wall the streets are silent, rich, and storm-scarred.
+
+Investigator Jim Lang comes through the gate to meet Dave Connell, the Association engineer who can prove tens of millions in storm-recovery money vanished through shell contractors. Connell is drowned in a condemned basement before they speak, a dry life vest on a nail just out of reach. Lang, an ex-NYPD cop who testified against his own precinct, stays. J.B. Ball, the patriarch who built the Association and lost it, becomes his reluctant employer. Lang works the exhausted truce among the three men who touched the money: Chief Vanning of the private police, board president and Albany fixer Oliver Niles, and speculator Chick Williams. A planted word, a swapped envelope, a posed body … the truce cracks into open war.
+
+Mary Dwight, the sharp title-office secretary who keeps the tally of his dead, becomes the love neither planned; Pete Falcone's boardwalk clam stand is the Brooklyn he left behind. As the bodies drop, Lang finds he likes the work, the blood-simple slide Mary tries to pull him back from. His last turn makes the wall eat itself: the board cuts its private army loose, the NYPD rolls through the gate, and the gate's own cops burn down the men who fed them. Vanning falls. Lang, spending himself so Mary walks out clean, goes into the gunfire and does not come back. The last image is hers: Mary in the Coney Island neon, Jim's hat too big, headed for her sister Lena and the baby, up the other side of the tide.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+PAGE: Alpha YY   /work/alpha-yy
+------------------------------------------------------------------------------
+
+FIELD: subtitle
+BEFORE: Television Series / Feature Film
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: logline
+BEFORE: In the underworld of Staten Island, two reckless enforcers collect debts through savage work and coded prison-gang demands, until a final betrayal forces them to confront the cost of their chaotic existence.
+v1:     KEEP
+v2:     In the underworld of Staten Island, two reckless enforcers collect debts through savage work and coded prison-gang demands, until a final betrayal leaves them to pay for the work themselves.
+
+FIELD: metaLine
+BEFORE: Feature · New Renaissance Cinema with (212) Pictures · ==drafted==
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: bodyProse
+BEFORE: Two men, one route: Staten Island to Little Italy and back, collections all the way. Brutal work laced with black comedy, loyalties shifting under coded demands from inside the walls, until the last job turns. The script began as longhand pages mailed out of prison, and it keeps that voice. Drafted, in three on-screen chapters.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.quote
+BEFORE: I believe that the common man is as apt a subject for tragedy in its highest sense as kings were.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.cite
+BEFORE: Arthur Miller
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.note
+BEFORE: Tragedy and the Common Man, 1949
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroLine
+BEFORE: Staten Island to Little Italy, collecting.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroCaption
+BEFORE: The ferry, night
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroCredit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: requestBody
+BEFORE: The feature is drafted. Script and synopsis are shared privately, on request. Say who you are and in what capacity you are asking, and the reply comes from the writer.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+    YOUR NOTE [S12] - DECLINED
+      you quoted: "Say who you are and in what capacity you are asking. The reply comes from the writer."
+      you asked : Useful once in the global contact module. On property pages: "Script and synopsis are shared privately, on request."
+      the house : Chairs contradict. Welles calls "The reply comes from the writer" the best line on the whole site and Riskin calls it earned; Sturges wants it off nine pages. Followed Welles and Riskin. Sturges's version would also cut each field roughly in half, past its slot.
+
+FIELD: synopsis
+BEFORE: Mike and Dario are volatile enforcers working Staten Island and Little Italy as muscle for loan sharks — their days a blend of routine violence, black comedy, music, and personal entanglement. The episodic collection work escalates as coded "kites" from prison gangs, basement summons, and warnings from higher up pull the pair toward something bigger and darker. Loyalty, narcissism, and the banality of violence run underneath the profane banter, until a sudden, lethal betrayal suggests the reckless life may finally have caught up with them.
+v1:     Mike and Dario are volatile enforcers working Staten Island and Little Italy as muscle for loan sharks. Their days run on routine violence, black comedy, music, and personal entanglement. The episodic collection work escalates as coded "kites" from prison gangs, basement summons, and warnings from higher up pull the pair toward something bigger and darker. Loyalty, narcissism, and the banality of violence run underneath the profane banter, until a sudden, lethal betrayal suggests the reckless life has finally caught up with them.
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.0.caption
+BEFORE: Mike and Big Trouble
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.0.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.1.caption
+BEFORE: The lot, winter dusk
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.1.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pitchDeck.note
+BEFORE: Deck canon complete; the visual deck is shared privately. Investor conversations happen in person — write to the offices.
+v1:     Deck canon complete; the visual deck is shared privately. Investor conversations happen in person. Write to the offices.
+v2:     The visual deck is shared privately. Investor conversations happen in person. Write to the offices.
+    YOUR NOTE [S11] - APPLIED IN PART
+      you quoted: "Deck canon complete. The visual deck is shared privately. Investor conversations happen in person. Write to the offices."
+      you asked : "Deck canon" is writers-room plumbing showing through the wallpaper. Replace the whole note: "The visual deck is available privately. Request it from the writer."
+      the house : The internal term goes on all ten pages. The two access facts (in person, write to the offices) stay: they tell a reader what to actually do, and Sturges's replacement drops them.
+
+FIELD: layout.0.heading
+BEFORE: Alpha YY
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: layout.0.subtext
+BEFORE: Television Series / Feature Film
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: layout.1.leftHeading
+BEFORE: Overview
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: layout.1.rightBody#0
+BEFORE: Street-level mob enforcement. Staten Island to Little Italy -- violence punctuated by the ordinary.
+v1:     Street-level mob enforcement. Staten Island to Little Italy. Violence punctuated by the ordinary.
+v2:     KEEP (v1 stands)
+
+FIELD: layout.1.rightBody#1
+BEFORE: The mundane texture of enforcement work. Close observation of loyalty, fear, and routine. What it costs to be the person who shows up when someone else gives the order.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: layout.1.rightBody#2
+BEFORE: The project exists as both a (212) Pictures television series and a New Renaissance Cinema standalone feature film.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+PAGE: Da Hook   /work/da-hook
+------------------------------------------------------------------------------
+
+FIELD: subtitle
+BEFORE: Episodic
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: logline
+BEFORE: Red Hook, Brooklyn, the fall of 1970.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: provenance
+BEFORE: After Dashiell Hammett's *The Maltese Falcon* (1930), in the US public domain since 2026; the novel is free for everyone. Original screenplay © 2026 APR 70 Pictures.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: metaLine
+BEFORE: Feature · New Renaissance Cinema with (212) Pictures · ==in development==
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: bodyProse
+BEFORE: Red Hook in the fall of 1970: the piers emptying crate by crate under containerization, the Knicks' first championship banner fresh at the Garden, and across the harbor the World Trade Center's steel climbing higher every week. Work disappears, heroin arrives, and the neighborhood watches both happen. The picture lives in that season, early-seventies austerity with nothing sentimental about it. The full logline and synopsis travel in private materials.
+v1:     Red Hook, fall 1970. Containerization empties the piers crate by crate. The Knicks' first championship banner hangs new at the Garden. Across the harbor the World Trade Center's steel climbs higher every week. Work disappears, heroin arrives, and the neighborhood watches both happen. The picture lives in that season: early-seventies austerity, nothing sentimental about it. The full logline and synopsis travel in private materials.
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.quote
+BEFORE: I long ago convinced myself that the listener is the best casting agent, and casting director and wardrobe master in the world.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.cite
+BEFORE: Norman Corwin
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.note
+BEFORE: Transom interview, 2001
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroLine
+BEFORE: The piers empty, the towers rise.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroCaption
+BEFORE: The piers, dawn, fall 1970
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroCredit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: requestBody
+BEFORE: In development. The full logline, synopsis, and pages travel privately. Say who you are and in what capacity you are asking, and the reply comes from the writer.
+v1:     In development. The full logline, synopsis, and pages travel privately. Say who you are and in what capacity you are asking. The reply comes from the writer.
+v2:     KEEP (v1 stands)
+    YOUR NOTE [S12] - DECLINED
+      you quoted: "Say who you are and in what capacity you are asking. The reply comes from the writer."
+      you asked : Useful once in the global contact module. On property pages: "Script and synopsis are shared privately, on request."
+      the house : Chairs contradict. Welles calls "The reply comes from the writer" the best line on the whole site and Riskin calls it earned; Sturges wants it off nine pages. Followed Welles and Riskin. Sturges's version would also cut each field roughly in half, past its slot.
+
+FIELD: synopsis
+BEFORE: The World Trade Center has just opened across the harbor, the piers are emptying out beneath it, and a season clock ticks behind every episode. An unreadable marine-claims man takes a tail job from a frightened client whose story is a lie; that night his partner is shot dead near the docks, and the man she named dies the same night, same caliber. A scented fixer, a patient collector, and a dying ship’s captain all converge on a legendary lost prize that proves false when it finally changes hands. Left with three murders and a police clock, he does the arithmetic and hands her over — because when a man’s partner is killed, he’s supposed to do something about it.
+v1:     The World Trade Center has just opened across the harbor, the piers are emptying out beneath it, and a season clock ticks behind every episode. An unreadable marine-claims man takes a tail job from a frightened client whose story is a lie. That night his partner is shot dead near the docks, and the man she named dies the same night, same caliber. A scented fixer, a patient collector, and a dying ship's captain all converge on a legendary lost prize that proves false when it finally changes hands. Left with three murders and a police clock, he does the arithmetic and hands her over, because when a man's partner is killed, he's supposed to do something about it.
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.0.caption
+BEFORE: The bar on the corner, open late
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.0.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.1.caption
+BEFORE: The street that ends at the water
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.1.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.2.caption
+BEFORE: The Hook before the towers · Red Hook & Gowanus, M. Dripps, 1869
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.2.credit
+BEFORE: Public domain · The New York Public Library, Map Division
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.3.caption
+BEFORE: The working waterfront, pier by pier · Atlantic Basin, G.M. Hopkins & Co., 1880
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.3.credit
+BEFORE: Public domain · The New York Public Library, Map Division
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pitchDeck.note
+BEFORE: Deck canon complete; the visual deck is shared privately. Investor conversations happen in person — write to the offices.
+v1:     Deck canon complete. The visual deck is shared privately. Investor conversations happen in person. Write to the offices.
+v2:     The visual deck is shared privately. Investor conversations happen in person. Write to the offices.
+    YOUR NOTE [S11] - APPLIED IN PART
+      you quoted: "Deck canon complete. The visual deck is shared privately. Investor conversations happen in person. Write to the offices."
+      you asked : "Deck canon" is writers-room plumbing showing through the wallpaper. Replace the whole note: "The visual deck is available privately. Request it from the writer."
+      the house : The internal term goes on all ten pages. The two access facts (in person, write to the offices) stay: they tell a reader what to actually do, and Sturges's replacement drops them.
+
+FIELD: layout.0.kicker
+BEFORE: (212) · Episodic
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: layout.0.logline
+BEFORE: In the Brooklyn spring of 1973, as the city rides the Knicks toward a championship and the Red Hook piers die under the brand-new towers, an investigator whose partner is murdered over a legendary lost prize follows a lying client to the only end his code allows... turning in the woman he loves.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: layout.0.body
+BEFORE: Brooklyn, spring 1973. The World Trade Center has just opened across the harbor, the Red Hook piers are emptying out beneath it, and the Knicks are driving toward their second NBA title... a season clock ticking behind every episode. Here an unreadable investigator and his partner take a tail job from a frightened client whose story is a lie. That night the partner is shot dead near the docks; the man she named dies the same night, same caliber. The police want the investigator for both.
+
+The client sheds her cover story but not her secrets. A scented fixer offers five thousand dollars for a legendary lost prize, and a vast, patient collector who has hunted it for years arrives with a silent young gunman and a history speech that turns the prize into myth. A dying ship's captain delivers the prize. At the exchange it proves false... flour and weevils where a fortune should be. The collector composes himself and starts again.
+
+Left with three murders and a police clock, the investigator does the arithmetic: the client killed his partner on night one. He lays out his reasons, seven of them, and hands her over, because when a man's partner is killed he does something about it. The El starts again. The city cheers a title. He goes back to the desk.
+
+Limited streaming series with a parallel radio series. Register: French Connection austerity, documentary grit, monochrome discipline.
+v1:     Brooklyn, spring 1973. The World Trade Center has just opened across the harbor, the Red Hook piers are emptying out beneath it, and the Knicks are driving toward their second NBA title... a season clock ticking behind every episode. An unreadable investigator and his partner take a tail job from a frightened client whose story is a lie. That night the partner is shot dead near the docks; the man she named dies the same night, same caliber. The police want the investigator for both.
+
+The client sheds her cover story but not her secrets. A scented fixer offers five thousand dollars for a legendary lost prize. A vast, patient collector who has hunted it for years arrives with a silent young gunman and a history speech that turns the prize into myth. A dying ship's captain delivers it. At the exchange it proves false... flour and weevils where a fortune should be. The collector composes himself and starts again.
+
+Left with three murders and a police clock, the investigator does the arithmetic: the client killed his partner on night one. He lays out his reasons, seven of them, and hands her over, because when a man's partner is killed he does something about it. The El starts again. The city cheers a title. He goes back to the desk.
+
+Limited streaming series with a parallel radio series. Register: French Connection austerity, documentary grit, monochrome discipline.
+v2:     KEEP (v1 stands)
+
+PAGE: The Movement   /work/the-movement
+------------------------------------------------------------------------------
+
+FIELD: subtitle
+BEFORE: Series
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: logline
+BEFORE: Seven international students, recruited into a secret class by clues to a campus bomb, are trained through covert missions, never suspecting that every mission serves the hidden consortium they believe they are fighting.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: metaLine
+BEFORE: Series · (212) Pictures · ==in development==
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: bodyProse
+BEFORE: A one-hour conspiracy drama set in present-day New York: seven gifted outsiders, a professor who chose them, and a curriculum that is never what it claims to be. The A-plot runs through City Hall, where a mayoral race is being quietly bent. The city is the campus, and the campus is the board.
+v1:     A one-hour conspiracy drama set in present-day New York. Seven gifted outsiders, a professor who chose them, and a curriculum that is never what it claims to be. The A-plot runs through City Hall, where a mayoral race is being quietly bent. The city is the campus, and the campus is the board.
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.quote
+BEFORE: All of us who do creative work, we get into it because we have good taste.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.cite
+BEFORE: Ira Glass
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.note
+BEFORE: on storytelling, 2009
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroLine
+BEFORE: The city is the campus.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroCaption
+BEFORE: The reading room, 3 AM
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroCredit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: requestBody
+BEFORE: In development. Materials are shared privately, on request. Say who you are and in what capacity you are asking, and the reply comes from the writer.
+v1:     In development. Materials are shared privately, on request. Say who you are and in what capacity you are asking. The reply comes from the writer.
+v2:     KEEP (v1 stands)
+    YOUR NOTE [S12] - DECLINED
+      you quoted: "Say who you are and in what capacity you are asking. The reply comes from the writer."
+      you asked : Useful once in the global contact module. On property pages: "Script and synopsis are shared privately, on request."
+      the house : Chairs contradict. Welles calls "The reply comes from the writer" the best line on the whole site and Riskin calls it earned; Sturges wants it off nine pages. Followed Welles and Riskin. Sturges's version would also cut each field roughly in half, past its slot.
+
+FIELD: synopsis
+BEFORE: It’s an election year in New York, and the city’s most popular mayor since La Guardia faces a billionaire councilman with bottomless money and nothing else — and no one can see the invisible society steering him. On a crowded campus that same week, seven gifted international students trace a phantom bomb to a class that appears on no schedule, taught by an ambiguous mentor who has groomed young elites for thirty years. Each episode is a "righteous" training mission that secretly bends the election one way; as a hard-boiled reporter and an honest D.A. circle the rumor of a "movement," the seven end the season bonded, blooded, and quietly suspicious of the hand that feeds them.
+v1:     It's an election year in New York. The city's most popular mayor since La Guardia faces a billionaire councilman with bottomless money and nothing else, and no one can see the invisible society steering him. On a crowded campus that same week, seven gifted international students trace a phantom bomb to a class that appears on no schedule, taught by an ambiguous mentor who has groomed young elites for thirty years. Each episode is a "righteous" training mission that secretly bends the election one way. As a hard-boiled reporter and an honest D.A. circle the rumor of a "movement," the seven end the season bonded, blooded, and quietly suspicious of the hand that feeds them.
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.0.caption
+BEFORE: Seven, crossing at dawn
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.0.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.1.caption
+BEFORE: The blocks that decide elections · Ward 2, G.W. Bromley & Co. atlas of New York, 1879
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.1.credit
+BEFORE: Public domain · NYPL scan via Wikimedia Commons
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pitchDeck.note
+BEFORE: Deck canon complete; the visual deck is shared privately. Investor conversations happen in person — write to the offices.
+v1:     Deck canon complete; the visual deck is shared privately. Investor conversations happen in person. Write to the offices.
+v2:     The visual deck is shared privately. Investor conversations happen in person. Write to the offices.
+    YOUR NOTE [S11] - APPLIED IN PART
+      you quoted: "Deck canon complete. The visual deck is shared privately. Investor conversations happen in person. Write to the offices."
+      you asked : "Deck canon" is writers-room plumbing showing through the wallpaper. Replace the whole note: "The visual deck is available privately. Request it from the writer."
+      the house : The internal term goes on all ten pages. The two access facts (in person, write to the offices) stay: they tell a reader what to actually do, and Sturges's replacement drops them.
+
+FIELD: layout.0.kicker
+BEFORE: (212) · Series
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: layout.0.logline
+BEFORE: Seven gifted international students, recruited into a secret class by clues to a campus bomb, are trained through covert missions to defend New York's mayoral election — never suspecting that every mission serves the hidden consortium they believe they are fighting.
+v1:     Seven gifted international students, recruited into a secret class by clues to a campus bomb, are trained through covert missions to defend New York's mayoral election, never suspecting that every mission serves the hidden consortium they believe they are fighting.
+v2:     KEEP (v1 stands)
+
+FIELD: layout.0.body
+BEFORE: It is an election year in New York City, and everybody is paying attention. Incumbent Mayor Grace Camarda — the most popular leader the city has elected since La Guardia, and the first woman to hold the office — faces self-made billionaire City Councilman Ben Gilman, a man with bottomless money and nothing else. What the city cannot see is the hand behind him: the Unknown Global Consortium (UGC), the invisible society that has steered the world's economy for centuries.
+
+On a crowded campus that same week, seven gifted international students — among them Jamie Penn, a senator's son and the only American, and Appolonia Lopez Callas, a Basque weapons expert and born leader — receive clues that a bomb has been planted somewhere on the grounds. Told to trust no authority, they trace it together to the Lab for International Specialists, a class that appears on no schedule. The bomb is fictitious; finding it wins them their seats under the Professor, an ambiguous mentor who has groomed young elites for over thirty years — and who secretly serves the UGC.
+
+Season One runs on two clocks. Each episode is a training mission — a crime, a crisis, an infiltration, the quiet steering of a real event — that the seven are assured is righteous. When one of their own reveals a personal tie to the Mayor, the team throws itself into the race to defend democracy from Gilman's money. But every mission secretly bends the election his way. As a hard-boiled reporter and an honest District Attorney circle the rumor of a "movement," and Jamie learns his own father graduated the Lab and broke with the Professor, doubt takes root. Camarda wins the vote — and Gilman is installed as her deputy. Either way, the UGC wins. The seven end the season bonded, blooded, and quietly suspicious of the hand that feeds them.
+v1:     It is an election year in New York City, and everybody is paying attention. Incumbent Mayor Grace Camarda, the most popular leader the city has elected since La Guardia and the first woman to hold the office, faces self-made billionaire City Councilman Ben Gilman, a man with bottomless money and nothing else. What the city cannot see is the hand behind him: the Unknown Global Consortium (UGC), the invisible society that has steered the world's economy for centuries.
+
+On a crowded campus that same week, seven gifted international students receive clues that a bomb has been planted somewhere on the grounds. Among them are Jamie Penn, a senator's son and the only American, and Appolonia Lopez Callas, a Basque weapons expert and born leader. Told to trust no authority, they trace it together to the Lab for International Specialists, a class that appears on no schedule. The bomb is fictitious. Finding it wins them their seats under the Professor, an ambiguous mentor who has groomed young elites for over thirty years, and who secretly serves the UGC.
+
+Season One runs on two clocks. Each episode is a training mission the seven are assured is righteous: a crime, a crisis, an infiltration, the quiet steering of a real event. When one of their own reveals a personal tie to the Mayor, the team throws itself into the race to defend democracy from Gilman's money. But every mission secretly bends the election his way. As a hard-boiled reporter and an honest District Attorney circle the rumor of a "movement," and Jamie learns his own father graduated the Lab and broke with the Professor, doubt takes root. Camarda wins the vote, and Gilman is installed as her deputy. Either way, the UGC wins. The seven end the season bonded, blooded, and quietly suspicious of the hand that feeds them.
+v2:     It is an election year in New York City, and everybody is paying attention. Incumbent Mayor Grace Camarda, the most popular leader the city has elected since La Guardia and the first woman to hold the office, faces self-made billionaire City Councilman Ben Gilman, a man with bottomless money and nothing else. What the city cannot see is the hand behind him: the Unknown Global Consortium (UGC), the invisible society that has steered the world's economy.
+
+On a crowded campus that same week, seven gifted international students receive clues that a bomb has been planted somewhere on the grounds. Among them are Jamie Penn, a senator's son and the only American, and Appolonia Lopez Callas, a Basque weapons expert and born leader. Told to trust no authority, they trace it together to the Lab for International Specialists, a class that appears on no schedule. The bomb is fictitious. Finding it wins them their seats under the Professor, an ambiguous mentor who has groomed young elites for over thirty years, and who secretly serves the UGC.
+
+Season One runs on two clocks. Each episode is a training mission the seven are assured is righteous: a crime, a crisis, an infiltration, the quiet steering of a real event. When one of their own reveals a personal tie to the Mayor, the team throws itself into the race to defend democracy from Gilman's money. But every mission secretly bends the election his way. As a hard-boiled reporter and an honest District Attorney circle the rumor of a "movement," and Jamie learns his own father graduated the Lab and broke with the Professor, doubt takes root. Camarda wins the vote, and Gilman is installed as her deputy. The seven end the season bonded, blooded, and quietly suspicious of the hand that feeds them. Either way, the UGC wins.
+    YOUR NOTE [S15] - DECLINED
+      you quoted: "a hard-boiled reporter and an honest D.A."
+      you asked : Casting categories, not people. Give one a precise appetite: "A reporter who has missed three elections and refuses to miss the fourth."
+      the house : The replacement invents a fact about a character (three missed elections). The pass may not add a claim that is not in the source copy.
+    YOUR NOTE [S23] - APPLIED IN PART
+      you quoted: The paragraph already has a button: "Either way, the UGC wins." Stop there.
+      you asked : Stop on the button. "The seven end the season..." explains the chill after we have felt it.
+      the house : The button moves to the end of the paragraph, and the seven's state at season's end moves ahead of it. Deleting that clause outright would drop a fact about where the season lands.
+
+PAGE: Cleopatra   /work/cleopatra
+------------------------------------------------------------------------------
+
+FIELD: subtitle
+BEFORE: Limited Series
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: logline
+BEFORE: A divorced Sicilian-Brooklyn woman scraping by in Los Angeles wakes after every sleep into a different version of her own life in the same city, and must master her shifting reigns before a rival who travels the same way collapses every version of her into the one he can own.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: metaLine
+BEFORE: Series · (310) Pictures · ==in development==
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: bodyProse
+BEFORE: One woman, many lives, the same face in every mirror. A sci-fi drama that stays at street level: Brooklyn roots, Sicilian family, Los Angeles light, and every morning a different world wearing the same address. The tells are small and concrete: a flicked cigarette lands standing on end, a phone answers with her own voice, déjà vu that will not close.
+v1:     One woman, many lives, the same face in every mirror. A sci-fi drama at street level: Brooklyn roots, Sicilian family, Los Angeles light, and every morning a different world wearing the same address. The tells are small and concrete. A flicked cigarette lands standing on end. A phone answers with her own voice. Déjà vu that will not close.
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.quote
+BEFORE: Every character should want something, even if it is only a glass of water.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.cite
+BEFORE: Kurt Vonnegut
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.note
+BEFORE: Bagombo Snuff Box, 1999
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroLine
+BEFORE: A new life every morning, same address.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroCaption
+BEFORE: Cleo, Brooklyn, before sleep
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroCredit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: requestBody
+BEFORE: In development. Materials are shared privately, on request. Say who you are and in what capacity you are asking, and the reply comes from the writer.
+v1:     In development. Materials are shared privately, on request. Say who you are and in what capacity you are asking. The reply comes from the writer.
+v2:     KEEP (v1 stands)
+    YOUR NOTE [S12] - DECLINED
+      you quoted: "Say who you are and in what capacity you are asking. The reply comes from the writer."
+      you asked : Useful once in the global contact module. On property pages: "Script and synopsis are shared privately, on request."
+      the house : Chairs contradict. Welles calls "The reply comes from the writer" the best line on the whole site and Riskin calls it earned; Sturges wants it off nine pages. Followed Welles and Riskin. Sturges's version would also cut each field roughly in half, past its slot.
+
+FIELD: synopsis
+BEFORE: Cleo Modica is a thirty-five-year-old overworked social worker and single mother — Sicilian-American, raised in Brooklyn, marooned in L.A. — until a glitch in reality sends her consciousness sliding into her parallel self somewhere new each time she sleeps, memories intact, language and family rewritten. She wakes in Sicily as her brother’s girlfriend, in Poland as a woman a reclusive ex-con recognizes, in Tokyo as the wife of a kinder version of her ex — mastering the jump as she goes. Beneath the family drama runs a conspiracy threatening to collapse the walls between realities, and an impossible choice that will remake not just her life but the shape of existence.
+v1:     Cleo Modica is a thirty-five-year-old overworked social worker and single mother. Sicilian-American, raised in Brooklyn, marooned in L.A. Then a glitch in reality sends her consciousness sliding into her parallel self somewhere new each time she sleeps, memories intact, language and family rewritten. She wakes in Sicily as her brother’s girlfriend, in Poland as a woman a reclusive ex-con recognizes, in Tokyo as the wife of a kinder version of her ex, mastering the jump as she goes. Beneath the family drama runs a conspiracy threatening to collapse the walls between realities, and an impossible choice that will remake not just her life but the shape of existence.
+v2:     Cleo Modica is a thirty-five-year-old overworked social worker and single mother. Sicilian-American, raised in Brooklyn, marooned in L.A. Then a glitch in reality sends her consciousness sliding into her parallel self somewhere new each time she sleeps, memories intact, language and family rewritten. She wakes in Sicily as her brother’s girlfriend, in Poland as a woman a reclusive ex-con recognizes, in Tokyo as the wife of a kinder version of her ex, mastering the jump as she goes. Beneath the family drama runs a conspiracy threatening to collapse the walls between realities, and an impossible choice: which life she keeps, and which family she wakes up without.
+    YOUR NOTE [S18] - DECLINED
+      you quoted: "Her brother," "a reclusive ex-con," "a kinder version of her ex" are functions.
+      you asked : One concrete contradiction would populate the worlds: "In Tokyo, the ex remembers the apology he never made in Los Angeles."
+      the house : Invents an apology that is not in the source. The intent is served instead by W5, which makes the ending stake concrete out of facts already present.
+
+FIELD: gallery.0.caption
+BEFORE: The same woman, Modica
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.0.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.1.caption
+BEFORE: The same woman, Tokyo
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.1.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.2.caption
+BEFORE: The glitch: a cigarette stands on end
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.2.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.3.caption
+BEFORE: The call: she is in two places at once
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.3.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pitchDeck.note
+BEFORE: Deck canon complete; the visual deck is shared privately. Investor conversations happen in person — write to the offices.
+v1:     Deck canon complete; the visual deck is shared privately. Investor conversations happen in person. Write to the offices.
+v2:     The visual deck is shared privately. Investor conversations happen in person. Write to the offices.
+    YOUR NOTE [S11] - APPLIED IN PART
+      you quoted: "Deck canon complete. The visual deck is shared privately. Investor conversations happen in person. Write to the offices."
+      you asked : "Deck canon" is writers-room plumbing showing through the wallpaper. Replace the whole note: "The visual deck is available privately. Request it from the writer."
+      the house : The internal term goes on all ten pages. The two access facts (in person, write to the offices) stay: they tell a reader what to actually do, and Sturges's replacement drops them.
+
+FIELD: layout.0.heading
+BEFORE: L'Odissea di Cleopatra
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: layout.0.subtext
+BEFORE: Limited Series
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: layout.1.leftHeading
+BEFORE: Overview
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: layout.1.rightBody#0
+BEFORE: A Los Angeles social worker wakes in a different version of her life every time she sleeps. As she gains control over the jumps, she discovers an unseen war across dimensions -- and that she may be the key to salvation or destruction.
+v1:     A Los Angeles social worker wakes in a different version of her life every time she sleeps. As she gains control over the jumps, she discovers an unseen war across dimensions, and that she may be the key to salvation or destruction.
+v2:     KEEP (v1 stands)
+
+FIELD: layout.1.rightBody#1
+BEFORE: Each night brings a new world, a new life, new consequences. She begins to see patterns -- threads connecting versions of herself across infinite possibilities. Someone or something is orchestrating these jumps. And she is not the only consciousness aware of the war being waged across dimensions.
+v1:     Each night brings a new world, a new life, new consequences. She begins to see patterns: threads connecting versions of herself across infinite possibilities. Someone or something is orchestrating these jumps. She is not the only consciousness aware of the war being waged across dimensions.
+v2:     KEEP (v1 stands)
+
+PAGE: Shadowmaster   /work/shadowmaster
+------------------------------------------------------------------------------
+
+FIELD: subtitle
+BEFORE: Feature first, series spawn to (310)
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: logline
+BEFORE: In a televised hybrid of esports and live-action drama, elite gamers called the Shadow Masters command real-life human avatars through high-stakes scenarios. Their avatars may defy orders when survival, greed, or conscience takes over, pitting strategy against free will.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: metaLine
+BEFORE: Feature · New Renaissance Cinema with (310) Pictures · ==in development==
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: bodyProse
+BEFORE: The player has the strategy; the avatar has the body, and a conscience the player never planned for. A series about command, obedience, and the moment a human being stops taking direction, staged inside the biggest game show on earth.
+v1:     The player has the strategy. The avatar has the body, and a conscience the player never planned for. A series about command, obedience, and the moment a human being stops taking direction, staged inside the biggest game show on earth.
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.quote
+BEFORE: To be an artist means never to avert one's eyes.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.cite
+BEFORE: Akira Kurosawa
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.note
+BEFORE: Something Like an Autobiography, 1983
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroLine
+BEFORE: The player has the plan. The body has a conscience.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroCaption
+BEFORE: After the match
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroCredit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: requestBody
+BEFORE: In development. Materials are shared privately, on request. Say who you are and in what capacity you are asking, and the reply comes from the writer.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+    YOUR NOTE [S12] - DECLINED
+      you quoted: "Say who you are and in what capacity you are asking. The reply comes from the writer."
+      you asked : Useful once in the global contact module. On property pages: "Script and synopsis are shared privately, on request."
+      the house : Chairs contradict. Welles calls "The reply comes from the writer" the best line on the whole site and Riskin calls it earned; Sturges wants it off nine pages. Followed Welles and Riskin. Sturges's version would also cut each field roughly in half, past its slot.
+
+FIELD: synopsis
+BEFORE: In a televised competition, elite gamers — the Shadow Masters — run isolated situation rooms, issuing real-time commands through concealed earpieces to human avatars dropped into underground poker dens, urban war games, and Old West shootouts. The catch that drives the drama: the avatars are people, not pixels — cardsharps, operatives, gunslingers, some in it for money, some coerced — and in a crisis they may obey, defy, or cut a side deal. Flashbacks expose the debts and loyalties that make every avatar unpredictable, while the gamers’ own rivalries and vendettas escalate toward a finale where the line between player and avatar disappears.
+v1:     In a televised competition, elite gamers, the Shadow Masters, run isolated situation rooms, issuing real-time commands through concealed earpieces to human avatars dropped into underground poker dens, urban war games, and Old West shootouts. The catch that drives the drama: the avatars are people, not pixels. Cardsharps, operatives, gunslingers, some in it for money, some coerced. In a crisis they may obey, defy, or cut a side deal. Flashbacks expose the debts and loyalties that make every avatar unpredictable, while the gamers’ own rivalries and vendettas escalate toward a finale where the line between player and avatar disappears.
+v2:     KEEP (v1 stands)
+    YOUR NOTE [S22] - DECLINED
+      you quoted: "the line between player and avatar disappears" is the premise restated.
+      you asked : Give us the instant obedience reverses: "In the final match, the avatar gives the order."
+      the house : Invents the beat. New claim.
+
+FIELD: gallery.0.caption
+BEFORE: The player and the avatar, both in frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.0.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pitchDeck.note
+BEFORE: Deck canon complete; the visual deck is shared privately. Investor conversations happen in person — write to the offices.
+v1:     Deck canon complete; the visual deck is shared privately. Investor conversations happen in person. Write to the offices.
+v2:     The visual deck is shared privately. Investor conversations happen in person. Write to the offices.
+    YOUR NOTE [S11] - APPLIED IN PART
+      you quoted: "Deck canon complete. The visual deck is shared privately. Investor conversations happen in person. Write to the offices."
+      you asked : "Deck canon" is writers-room plumbing showing through the wallpaper. Replace the whole note: "The visual deck is available privately. Request it from the writer."
+      the house : The internal term goes on all ten pages. The two access facts (in person, write to the offices) stay: they tell a reader what to actually do, and Sturges's replacement drops them.
+
+FIELD: layout.0.kicker
+BEFORE: NRC · Feature first, series spawn to (310)
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: layout.0.logline
+BEFORE: In a televised hybrid of esports and live-action drama, elite gamers — the "Shadow Masters" — command real-life human avatars through high-stakes scenarios (underground poker, urban war games, Old West shootouts), but their avatars may defy orders when survival, greed, or conscience takes over — pitting strategy against free will.
+v1:     In a televised hybrid of esports and live-action drama, elite gamers, the "Shadow Masters," command real-life human avatars through high-stakes scenarios: underground poker, urban war games, Old West shootouts. Their avatars may defy orders when survival, greed, or conscience takes over, pitting strategy against free will.
+v2:     KEEP (v1 stands)
+
+FIELD: layout.0.body
+BEFORE: Shadowmaster is a fully scripted series fusing esports and live-action drama. In a televised competition, elite gamers — the Shadow Masters — operate from isolated control hubs, situation rooms wired with monitoring feeds, issuing real-time commands to human avatars in the field through concealed earpieces and body cams. Each contest drops the avatars into a high-stakes scenario: underground poker dens, urban war games, Old West shootouts.
+
+The catch that drives the drama: the avatars are people, not pixels. Cardsharps with criminal pasts, trained operatives, gunslingers, bounty hunters, and sheriffs — some mercenaries in it for the money, others coerced participants running on survival instinct. Each hears their gamer through a closed mic, but in moments of crisis may obey or defy: sensing a double-cross, refusing a reckless order, cutting a side deal. Flashbacks reveal the secrets, debts, and loyalties that make every avatar unpredictable — and give the show its emotional weight.
+
+Behind the screens, the gamer roster is a study in playstyles: the Hotshot Bluffer, brash and charismatic, built for high-risk reads and aggressive bluffs; the Calculating Tactician, methodical and command-oriented, most exposed when a human's panic or conscience breaks the plan; the Underdog Hacker, the scrappy fan-favorite wildcard who wins on ingenuity, not resources. Their rivalries, alliances, and vendettas evolve as monetary and reputational stakes mount — while online personas mask real-world vulnerabilities.
+
+Each 8–10 episode season explores new scenarios and expands ongoing arcs, building toward a multi-scenario finale where the line between gamer and avatar blurs.
+v1:     Shadowmaster is a fully scripted series fusing esports and live-action drama. In a televised competition, elite gamers, the Shadow Masters, operate from isolated control hubs, situation rooms wired with monitoring feeds, issuing real-time commands to human avatars in the field through concealed earpieces and body cams. Each contest drops the avatars into a high-stakes scenario: underground poker dens, urban war games, Old West shootouts.
+
+The catch that drives the drama: the avatars are people, not pixels. Cardsharps with criminal pasts, trained operatives, gunslingers, bounty hunters, and sheriffs. Some are mercenaries in it for the money, others coerced participants running on survival instinct. Each hears their gamer through a closed mic, but in moments of crisis may obey or defy: sensing a double-cross, refusing a reckless order, cutting a side deal. Flashbacks reveal the secrets, debts, and loyalties that make every avatar unpredictable. That is where the show carries its weight.
+
+Behind the screens, the gamer roster is a study in playstyles: the Hotshot Bluffer, brash and charismatic, built for high-risk reads and aggressive bluffs; the Calculating Tactician, methodical and command-oriented, most exposed when a human's panic or conscience breaks the plan; the Underdog Hacker, the scrappy fan-favorite wildcard who wins on ingenuity, not resources. Their rivalries, alliances, and vendettas evolve as monetary and reputational stakes mount, while online personas mask real-world vulnerabilities.
+
+Each 8–10 episode season explores new scenarios and expands ongoing arcs, building toward a multi-scenario finale where the line between gamer and avatar blurs.
+v2:     Shadowmaster is a fully scripted series fusing esports and live-action drama. In a televised competition, elite gamers, the Shadow Masters, operate from isolated control hubs, situation rooms wired with monitoring feeds, issuing real-time commands to human avatars in the field through concealed earpieces and body cams. Each contest drops the avatars into a high-stakes scenario: underground poker dens, urban war games, Old West shootouts.
+
+The catch that drives the drama: the avatars are people, not pixels. Some are coerced participants running on survival instinct; others are mercenaries in it for the money. Cardsharps with criminal pasts, trained operatives, gunslingers, bounty hunters, and sheriffs. Each hears their gamer through a closed mic, but in moments of crisis may obey or defy: sensing a double-cross, refusing a reckless order, cutting a side deal. Flashbacks reveal the secrets, debts, and loyalties that make every avatar unpredictable.
+
+Behind the screens, the gamer roster is a study in playstyles: the Hotshot Bluffer, built for high-risk reads and aggressive bluffs; the Calculating Tactician, most exposed when a human's panic or conscience breaks the plan; the Underdog Hacker, the wildcard who wins on ingenuity, not resources. Their rivalries, alliances, and vendettas evolve as monetary and reputational stakes mount, while online personas mask real-world vulnerabilities.
+
+Each 8–10 episode season explores new scenarios and expands ongoing arcs, building toward a multi-scenario finale where the line between gamer and avatar blurs.
+    YOUR NOTE [S14] - APPLIED
+      you quoted: "That is where the show carries its weight."
+      you asked : The sentence before it already carries the weight. Announcing the weight makes us inspect the scale.
+      the house : Cut the announcement, keep the flashbacks and the debts.
+    YOUR NOTE [S16] - APPLIED IN PART
+      you quoted: "the Hotshot Bluffer," "the Calculating Tactician," "the Underdog Hacker"
+      you asked : They have escaped from a development workbook. One behavior apiece would save them.
+      the house : The proposed behaviors are new claims and cannot be written. Applied as far as the source allows: cut the stacked label-adjectives, keep the three roles and the human cost the field already names. See R8.
+
+FIELD: layout.0.note
+BEFORE: Based on a concept by Stefano Corti; written by Marc Caruso.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+PAGE: U Bruculinu   /work/u-bruculinu
+------------------------------------------------------------------------------
+
+FIELD: subtitle
+BEFORE: Feature, probable
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: logline
+BEFORE: An expatriate returns to his ancestral Sicily in the 1970s seeking a quiet life. The land, and its people, will not let him be quiet.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: metaLine
+BEFORE: Feature · New Renaissance Cinema · ==in development==
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: bodyProse
+BEFORE: *U Bruculinu* is Sicilian for "the Brooklyn one," which is what the village will call him no matter how long he stays. Inland Sicily, the early seventies: stone terraces, long memories, and a homecoming that has to be earned in a place that never actually knew him.
+v1:     *U Bruculinu* is Sicilian for "the Brooklyn one." That is what the village calls him no matter how long he stays. Inland Sicily, the early seventies: stone terraces, long memories, and a homecoming that has to be earned in a place that never knew him.
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.quote
+BEFORE: If there's a book that you want to read, but it hasn't been written yet, then you must write it.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.cite
+BEFORE: Toni Morrison
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pageQuote.note
+BEFORE: Ohio Arts Council address, 1981
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroLine
+BEFORE: Home to a village that never knew him.
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroCaption
+BEFORE: The road up
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: heroCredit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: requestBody
+BEFORE: In development. Materials are shared privately, on request. Say who you are and in what capacity you are asking, and the reply comes from the writer.
+v1:     In development. Materials are shared privately, on request. Say who you are and in what capacity you are asking. The reply comes from the writer.
+v2:     KEEP (v1 stands)
+    YOUR NOTE [S12] - DECLINED
+      you quoted: "Say who you are and in what capacity you are asking. The reply comes from the writer."
+      you asked : Useful once in the global contact module. On property pages: "Script and synopsis are shared privately, on request."
+      the house : Chairs contradict. Welles calls "The reply comes from the writer" the best line on the whole site and Riskin calls it earned; Sturges wants it off nine pages. Followed Welles and Riskin. Sturges's version would also cut each field roughly in half, past its slot.
+
+FIELD: synopsis
+BEFORE: He is U Bruculinu — "the Brooklyn man" — the returning exile, at once of this land and a stranger to it. Around him stand the local strongman who decides what is permitted, and the sister whose kinship binds him to the village and everything it expects. A sun-worn world of old customs, old power, and family obligation closes in: the quiet he came for is the one thing it will not grant him. Original expression inspired by the premise of The Quiet Man — not a remake.
+v1:     He is U Bruculinu, "the Brooklyn man," the returning exile, of this land and a stranger to it. Around him stand the local strongman who decides what is permitted, and the sister whose kinship binds him to the village and everything it expects. A sun-worn world of old customs, old power, and family obligation closes in. The quiet he came for is the one thing it will not grant him. Original expression inspired by the premise of The Quiet Man. Not a remake.
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.0.caption
+BEFORE: The piazza, late afternoon
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.0.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.1.caption
+BEFORE: The one reason to stay
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.1.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.2.caption
+BEFORE: The town settles it the old way
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.2.credit
+BEFORE: AI-generated development frame
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: pitchDeck.note
+BEFORE: Deck canon complete; the visual deck is shared privately. Investor conversations happen in person — write to the offices.
+v1:     Deck canon complete; the visual deck is shared privately. Investor conversations happen in person. Write to the offices.
+v2:     The visual deck is shared privately. Investor conversations happen in person. Write to the offices.
+    YOUR NOTE [S11] - APPLIED IN PART
+      you quoted: "Deck canon complete. The visual deck is shared privately. Investor conversations happen in person. Write to the offices."
+      you asked : "Deck canon" is writers-room plumbing showing through the wallpaper. Replace the whole note: "The visual deck is available privately. Request it from the writer."
+      the house : The internal term goes on all ten pages. The two access facts (in person, write to the offices) stay: they tell a reader what to actually do, and Sturges's replacement drops them.
+
+FIELD: layout.0.kicker
+BEFORE: NRC · Feature, probable
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: layout.0.body
+BEFORE: An expatriate returns to his ancestral Sicily in the 1970s seeking a quiet life, only to find that the land — and its people — will not let him be quiet.
+
+He is U Bruculinu — "the Brooklyn man" — the returning exile, at once of this land and a stranger to it. Around him stand U Capo, the local strongman, the old order that decides what is permitted; and A Sorella, the sister, the kinship tie binding him to the village and its expectations.
+
+A sun-worn village world of old customs, old power, and family obligation — quiet sought, quiet refused.
+v1:     An expatriate returns to his ancestral Sicily in the 1970s seeking a quiet life. The land, and its people, will not let him be quiet.
+
+He is U Bruculinu, "the Brooklyn man," the returning exile, of this land and a stranger to it. Around him stand U Capo, the local strongman, the old order that decides what is permitted; and A Sorella, the sister, the kinship tie binding him to the village and its expectations.
+
+A sun-worn village world of old customs, old power, and family obligation. Quiet sought, quiet refused.
+v2:     KEEP (v1 stands)
+
+PAGE: The Mayors   /work/mayors  [PRIVATE SLATE - not public]
+------------------------------------------------------------------------------
+
+FIELD: subtitle
+BEFORE: Documentary series, 11 episodes
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: synopsis
+BEFORE: Eleven administrations, seventy-five years, one long argument about who killed New York City. Shot cinema verite — archival footage against contemporary faces — the series juxtaposes the prosperous, safer city of the fifties against the one outside your window now, era by era, from Impellitteri’s post-war heights to Mamdani’s socialist dream. Our method is muckraking, not hysteria: cause and effect, names and consequences, no narrator telling you what to think. It ends where it began, in reverse — a broken city handed to one more immigrant mayor, filmed as it happens. This is the report.
+v1:     Eleven administrations, seventy-five years, one long argument about who killed New York City. Shot cinema verite, archival footage against contemporary faces, the series sets the prosperous, safer city of the fifties against the one outside your window now, era by era, from Impellitteri's post-war heights to Mamdani's socialist dream. Our method is muckraking, not hysteria: cause and effect, names and consequences, no narrator telling you what to think. It ends where it began, in reverse. A broken city handed to one more immigrant mayor, filmed as it happens. This is the report.
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.0.caption
+BEFORE: Vincent Impellitteri · 1950–1953
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.0.credit
+BEFORE: Wikimedia Commons
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.1.caption
+BEFORE: Robert F. Wagner Jr. · 1954–1965
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.1.credit
+BEFORE: Library of Congress
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.2.caption
+BEFORE: John V. Lindsay · 1966–1973
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.2.credit
+BEFORE: Library of Congress
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.3.caption
+BEFORE: Abraham Beame · 1974–1977
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.3.credit
+BEFORE: Library of Congress
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.4.caption
+BEFORE: Ed Koch · 1978–1989
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.4.credit
+BEFORE: Wikimedia Commons
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.5.caption
+BEFORE: David N. Dinkins · 1990–1993
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.5.credit
+BEFORE: Wikimedia Commons
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.6.caption
+BEFORE: Rudolph W. Giuliani · 1994–2001
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.6.credit
+BEFORE: Wikimedia Commons
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.7.caption
+BEFORE: Michael R. Bloomberg · 2002–2013
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.7.credit
+BEFORE: Wikimedia Commons
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.8.caption
+BEFORE: Zohran Mamdani · 2026–
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.8.credit
+BEFORE: Wikimedia Commons
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.9.caption
+BEFORE: MOOD BOARD
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: gallery.9.credit
+BEFORE: Composite of verified public-domain images — see the PD image ledger.
+v1:     Composite of verified public-domain images. See the PD image ledger.
+v2:     KEEP (v1 stands)
+
+FIELD: pitchDeck.note
+BEFORE: Deck canon complete; the visual deck is shared privately. Investor conversations happen in person — write to the offices.
+v1:     Deck canon complete; the visual deck is shared privately. Investor conversations happen in person. Write to the offices.
+v2:     The visual deck is shared privately. Investor conversations happen in person. Write to the offices.
+    YOUR NOTE [S11] - APPLIED IN PART
+      you quoted: "Deck canon complete. The visual deck is shared privately. Investor conversations happen in person. Write to the offices."
+      you asked : "Deck canon" is writers-room plumbing showing through the wallpaper. Replace the whole note: "The visual deck is available privately. Request it from the writer."
+      the house : The internal term goes on all ten pages. The two access facts (in person, write to the offices) stay: they tell a reader what to actually do, and Sturges's replacement drops them.
+
+FIELD: layout.0.kicker
+BEFORE: (212) · Documentary series, 11 episodes
+v1:     KEEP
+v2:     KEEP (v1 stands)
+
+FIELD: layout.0.body
+BEFORE: Over seventy-five years, eleven mayors governed New York City. This eleven-episode documentary series reveals how their decisions, policies, power grabs, their corruption, and their ideology transformed America's greatest city from the American Dream to socialist experiment.
+
+The blessing and curse of our Metropolis is time. Twenty years approximately. That's how long it takes the city to put on a new face; where glass towers replace brick, where streets change directions, turn into bus and bike lanes or cease to exist altogether and our sidewalks, well they turn into bedrooms for our guests. Everything changes. Nothing remains the same. A blessing and a curse indeed. For native New Yorkers, we watch as "progress" marches us towards oblivion. In the fifties, the city was prosperous, safer, and cleaner, and the American dream was still alive if you sweat and bled for it. By seventies Brooklyn, that city was a memory — like the Dodgers and Luna Park. Episode by episode, the family's first-hand accounts juxtapose the city of the past against the city of the present: from Vincent Impellitteri's post-war baseline through Wagner, Lindsay, Beame's fiscal collapse, Koch, Dinkins, Giuliani — the one Republican exception, who punched back — Bloomberg, de Blasio, and the indicted Eric Adams. Behind them all looms Robert Moses, the master builder who ruled over many mayors, tore down neighborhoods, displaced thousands of families, and built the roads, bridges, parks, and projects the city still lives with.
+
+The method is muckraking journalism — forensic, not hysterical: cause and effect, names and consequences. Shot cinéma vérité with archival material and contemporary interviews — a Ric Burns homage, but not so liberal — each era rendered in its own visual grammar. No narrator tells you what to think; every episode asks what they were trying to achieve, what actually happened, who benefited, and who paid the price.
+
+The series ends where it began, in reverse: Zohran Mamdani, the city's first Democratic Socialist mayor — himself an immigrant — inherits a broken city, and Episode 11 films his first hundred days as they unfold. Who killed New York City? This is the autopsy report.
+v1:     Over seventy-five years, eleven mayors governed New York City. This eleven-episode documentary series shows how their decisions, policies, power grabs, corruption, and ideology took America's greatest city from the American Dream to socialist experiment.
+
+The blessing and curse of our Metropolis is time. Twenty years, approximately. That's how long it takes the city to put on a new face; where glass towers replace brick, where streets change directions, turn into bus and bike lanes or cease to exist altogether and our sidewalks, well they turn into bedrooms for our guests. Everything changes. Nothing remains the same. A blessing and a curse indeed. For native New Yorkers, we watch as "progress" marches us towards oblivion. In the fifties, the city was prosperous, safer, and cleaner, and the American dream was still alive if you sweat and bled for it. By seventies Brooklyn, that city was a memory, gone with the Dodgers and Luna Park. Episode by episode, the family's first-hand accounts set the city of the past against the city of the present: from Vincent Impellitteri's post-war baseline through Wagner, Lindsay, Beame's fiscal collapse, Koch, Dinkins, Giuliani, the one Republican exception, who punched back, then Bloomberg, de Blasio, and the indicted Eric Adams. Behind them all looms Robert Moses, the master builder who ruled over many mayors, tore down neighborhoods, displaced thousands of families, and built the roads, bridges, parks, and projects the city still lives with.
+
+The method is muckraking journalism. Forensic, not hysterical: cause and effect, names and consequences. Shot cinéma vérité with archival material and contemporary interviews, a Ric Burns homage but not so liberal, each era rendered in its own visual grammar. No narrator tells you what to think. Every episode asks what they were trying to achieve, what actually happened, who benefited, and who paid the price.
+
+The series ends where it began, in reverse: Zohran Mamdani, the city's first Democratic Socialist mayor and himself an immigrant, inherits a broken city, and Episode 11 films his first hundred days as they unfold. Who killed New York City? This is the autopsy report.
+v2:     Over seventy-five years, eleven mayors governed New York City. This eleven-episode documentary series shows how their decisions, policies, power grabs, corruption, and ideology remade America's greatest city. What happened to the city they built?
+
+The blessing and curse of our Metropolis is time. Twenty years, approximately. That's how long it takes the city to put on a new face; where glass towers replace brick, where streets change directions, turn into bus and bike lanes or cease to exist altogether, and where sidewalks become the place people sleep. For native New Yorkers, we watch as "progress" marches us towards oblivion. In the family's telling, the city of the fifties was prosperous, safer, and cleaner, and the American dream was still alive if you sweated and bled for it. By seventies Brooklyn, that city was a memory, gone with the Dodgers and Luna Park. Episode by episode, the family's first-hand accounts set the city of the past against the city of the present: from Vincent Impellitteri's post-war baseline through Wagner, Lindsay, Beame's fiscal collapse, Koch, Dinkins, Giuliani, the one Republican exception, who punched back, then Bloomberg, de Blasio, and the indicted Eric Adams. Behind them all looms Robert Moses, the master builder who ruled over many mayors, tore down neighborhoods, displaced thousands of families, and built the roads, bridges, parks, and projects the city still lives with.
+
+The method is muckraking journalism. Forensic, not hysterical: cause and effect, names and consequences. Shot cinéma vérité with archival material and contemporary interviews, a Ric Burns homage, each era rendered in its own visual grammar. No narrator tells you what to think. Every episode asks what they were trying to achieve, what actually happened, who benefited, and who paid the price.
+
+The series ends where it began, in reverse: Zohran Mamdani, the city's first Democratic Socialist mayor and himself an immigrant, inherits a broken city, and Episode 11 films his first hundred days as they unfold. Who killed New York City? This is the autopsy report.
+    YOUR NOTE [S13] - APPLIED
+      you quoted: "Everything changes. Nothing remains the same. A blessing and a curse indeed."
+      you asked : Three bells for one visitor. Keep "Twenty years is enough for New York to put on another face."
+      the house : Same idea rung three times in three sentences.
+    YOUR NOTE [S33] - APPLIED
+      you quoted: "the American dream was still alive if you sweat and bled for it"
+      you asked : Tenses have changed administrations mid-sentence. Play: "if you sweated and bled for it."
+      the house : Plain grammar fix.
+    YOUR NOTE [S34] - APPLIED IN PART
+      you quoted: "our sidewalks, well they turn into bedrooms for our guests"
+      you asked : A joke standing where grief and policy should stand still. Play it without the wink: "Sidewalks become shelter when housing and public systems fail."
+      the house : The wink goes. Sturges's replacement names a cause (housing and public systems failing) the source never states, so the line is played straight without adding the diagnosis.
+    YOUR NOTE [S35] - APPLIED IN PART
+      you quoted: "the prosperous, safer city of the fifties"
+      you asked : "Safer" for whom, measured by what? Hold the page to its own forensic standard.
+      the house : Applied by attribution, not deletion: the paragraph already runs on the family's first-hand accounts, so the fifties are stated as their memory rather than as the record.
+    YOUR NOTE [S36] - APPLIED IN PART
+      you quoted: "a Ric Burns homage, but not so liberal"
+      you asked : This gets a laugh in the room and costs authority on the page. Play: "Each era has its own archival and visual grammar."
+      the house : Chairs contradict: Welles praised the line's swagger, Sturges and Riskin want it gone. Followed the two: "but not so liberal" is cut, the Ric Burns homage stays because it is a real statement of method.
+    YOUR NOTE [S37] - CARRIED TO MARCO AS A RULING, not a line edit
+      you quoted: "This is the autopsy report."
+      you asked : Strong button only if the series earns neutrality. Either keep the autopsy and make the body forensic, or keep the polemic.
+      the house : The line stays. Which way the series goes is Marco's ruling, and the other Mayors edits in this round move the body toward forensic.
+
+==============================================================================
+
+Rows: 416 total. 353 were KEEP in v1, 63 were rewritten in v1.
+Round 2 moved 30 fields and left 386 standing on v1.

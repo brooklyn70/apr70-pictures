@@ -2,6 +2,9 @@ import './theme-control.css'
 
 import { useEffect, useState } from 'react'
 
+import { DEFAULT_LOCALE, type SiteLocale } from 'site-locales'
+import { dict } from '../../lib/i18n/dictionary'
+
 /**
  * ThemeControlIsland — the "Display" panel, restyled to the v8 design
  * (Marco's reversal, 2026-07-11). ONE design now; the panel is down to the
@@ -31,10 +34,15 @@ export type ThemeControlLabels = {
 
 const THEME_KEY = 'apr70-theme'
 
-const MODES: Array<{ id: ThemeMode; fallback: string }> = [
-  { id: 'dark', fallback: 'Marquee night' },
-  { id: 'light', fallback: 'House lights' },
-  { id: 'system', fallback: 'System' },
+/* i18n (2026-09-07): these are FALLBACKS, used only when the CMS chrome strings
+   are empty. They used to be English string literals inline; they now come from
+   the web dictionary (lib/i18n/dictionary.ts), which is fully populated for
+   English and falls back to English field by field for every other locale. The
+   English values are unchanged. */
+const MODES: Array<{ id: ThemeMode; key: 'themeDark' | 'themeLight' | 'themeSystem' }> = [
+  { id: 'dark', key: 'themeDark' },
+  { id: 'light', key: 'themeLight' },
+  { id: 'system', key: 'themeSystem' },
 ]
 
 function storageGet(key: string): string | null {
@@ -57,7 +65,11 @@ function resolveThemeMode(value: unknown): ThemeMode {
   return value === 'dark' || value === 'light' ? value : 'system'
 }
 
-export default function ThemeControlIsland({ labels }: { labels?: ThemeControlLabels } = {}) {
+export default function ThemeControlIsland({
+  labels,
+  locale = DEFAULT_LOCALE,
+}: { labels?: ThemeControlLabels; locale?: SiteLocale } = {}) {
+  const strings = dict(locale).display
   const [open, setOpen] = useState(false)
   /* Default on BOTH server and first client render — reading <html> attrs in
      the initializer forks the trees and breaks hydration. The mount effect
@@ -95,7 +107,7 @@ export default function ThemeControlIsland({ labels }: { labels?: ThemeControlLa
       {open ? (
         <section className="tc-panel" aria-label="Display settings">
           <header className="tc-panel__head">
-            <span className="tc-panel__title">{labels?.panelTitle || 'Display'}</span>
+            <span className="tc-panel__title">{labels?.panelTitle || strings.panelTitle}</span>
             <button
               type="button"
               className="tc-panel__close"
@@ -108,8 +120,8 @@ export default function ThemeControlIsland({ labels }: { labels?: ThemeControlLa
 
           <div className="tc-panel__body">
             {/* Theme — the v8 three-way mode switch */}
-            <div className="tc-section" role="group" aria-label={labels?.themeLabel || 'Theme'}>
-              <span className="tc-section__label">{labels?.themeLabel || 'Theme'}</span>
+            <div className="tc-section" role="group" aria-label={labels?.themeLabel || strings.themeLabel}>
+              <span className="tc-section__label">{labels?.themeLabel || strings.themeLabel}</span>
               <div className="tc-segment tc-segment--stack">
                 {MODES.map((m) => (
                   <button
@@ -119,7 +131,7 @@ export default function ThemeControlIsland({ labels }: { labels?: ThemeControlLa
                     aria-pressed={mode === m.id}
                     onClick={() => selectMode(m.id)}
                   >
-                    {modeName(m.id, m.fallback)}
+                    {modeName(m.id, strings[m.key])}
                   </button>
                 ))}
               </div>
@@ -135,7 +147,7 @@ export default function ThemeControlIsland({ labels }: { labels?: ThemeControlLa
           onClick={() => setOpen(true)}
         >
           <span className="tc-pill__bulb" aria-hidden="true" />
-          {labels?.displayLabel || 'Display'}
+          {labels?.displayLabel || strings.displayLabel}
         </button>
       )}
     </div>

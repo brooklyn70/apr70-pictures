@@ -3,6 +3,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { defineConfig } from 'astro/config';
+// The locale list is owned by the CMS and shared, never duplicated here.
+import { SITE_LOCALE_CODES, DEFAULT_LOCALE } from '../cms/src/locales.ts';
 
 import node from '@astrojs/node';
 import react from '@astrojs/react';
@@ -32,6 +34,24 @@ export default defineConfig({
   site: 'https://apr70.com',
   output: 'server',
   adapter,
+
+  // ── i18n (2026-09-07) ────────────────────────────────────────────────────
+  // `routing: 'manual'` is the mode Astro documents for middleware-driven
+  // locale routing: it DISABLES Astro's own i18n middleware and generates no
+  // locale-prefixed routes, so pages keep living once under src/pages/ and
+  // src/middleware.ts owns the whole story (prefix -> locals.locale + rewrite
+  // to the unprefixed path). Declaring `locales` here only tells Astro which
+  // codes exist; it is NOT the public gate — that is Site Settings ->
+  // enabledLocales, read at request time (see src/lib/i18n/enabled.ts).
+  //
+  // Read the locale from `Astro.locals.locale`, never `Astro.currentLocale`:
+  // the request has already been rewritten to the unprefixed path by the time
+  // a page renders, so anything deriving a locale from the URL is unreliable.
+  i18n: {
+    defaultLocale: DEFAULT_LOCALE,
+    locales: SITE_LOCALE_CODES,
+    routing: 'manual',
+  },
 
   // ── v10 catalog: retired legacy-chrome routes ────────────────────────────
   // output: 'server' means these are real redirects at request time (301),
@@ -65,6 +85,11 @@ export default defineConfig({
     resolve: {
       alias: {
         'payload-types': path.resolve(__dirname, '../cms/src/payload-types.ts'),
+        // i18n (2026-09-07): the locale list is owned by the CMS
+        // (cms/src/locales.ts) and shared with web/ through this alias, mirroring
+        // `payload-types`. web/ NEVER duplicates the locale list. The matching
+        // tsconfig path alias keeps `astro check` happy.
+        'site-locales': path.resolve(__dirname, '../cms/src/locales.ts'),
       },
     },
     // Bundle gsap into the SSR build: its package ships ESM under a CJS-looking

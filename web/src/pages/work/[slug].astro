@@ -17,19 +17,21 @@ import V9Layout from '../../layouts/V9Layout.astro'
 import FilmstripSlideshow, { type FilmstripItem } from '../../components/islands/FilmstripSlideshow'
 import { fetchV9Project, fetchV9SlateProjects, fetchV9Chrome } from '../../lib/payload'
 import { renderInline, renderParagraphs, plainText } from '../../lib/v9/inline'
-import { frameFromMedia, focalPosition, SIZES_FULLBLEED } from '../../components/v9/media'
+import { frameFromMedia, focalPosition, mediaAiFrame, SIZES_FULLBLEED } from '../../components/v9/media'
 import { propertyJsonLd, breadcrumbJsonLd, NAP } from '../../lib/v9/site'
+import { localePath } from '../../lib/i18n/paths'
 
+const locale = Astro.locals.locale
 const { slug } = Astro.params
-if (!slug) return Astro.redirect('/slate')
+if (!slug) return Astro.redirect(localePath(locale, '/slate'))
 
 const [{ project }, { slate }, { chrome }] = await Promise.all([
-  fetchV9Project(slug),
-  fetchV9SlateProjects(),
-  fetchV9Chrome(),
+  fetchV9Project(slug, locale),
+  fetchV9SlateProjects(locale),
+  fetchV9Chrome(locale),
 ])
 
-if (!project || !project.publicSlate) return Astro.redirect('/slate')
+if (!project || !project.publicSlate) return Astro.redirect(localePath(locale, '/slate'))
 
 const title = project.title
 const description = plainText(project.logline) || `${title} · ${NAP.name}`
@@ -51,6 +53,8 @@ const galleryItems: FilmstripItem[] = (project.gallery ?? []).flatMap((item) => 
       caption: item.caption ?? null,
       captionHtml: item.caption ? renderInline(item.caption) : null,
       credit: item.credit ?? null,
+      /* AI mark: stored Media flag first (see isAiFrame in components/v9/media.ts). */
+      aiFrame: mediaAiFrame(item.image),
       wide: (item as { wide?: boolean | null }).wide ?? false,
       focalX: frame.focalX,
       focalY: frame.focalY,
@@ -84,7 +88,7 @@ const quoteNote = project.pageQuote?.note ?? null
 
 const bodyHtml = renderParagraphs(project.bodyProse)
 
-const jsonLd = [propertyJsonLd(project), breadcrumbJsonLd(project)]
+const jsonLd = [propertyJsonLd(project, locale), breadcrumbJsonLd(project, locale)]
 ---
 
 <V9Layout title={`${title} · ${NAP.name}`} description={description} jsonLd={jsonLd}>
@@ -173,7 +177,7 @@ const jsonLd = [propertyJsonLd(project), breadcrumbJsonLd(project)]
         <p class="v9-prose">
           <a class="v9-btn" href={mailto}>{ctaLabel}</a>
         </p>
-        <a class="v9-ring__return" href={`/contact?re=${encodeURIComponent(slug)}`}>
+        <a class="v9-ring__return" href={localePath(locale, `/contact?re=${encodeURIComponent(slug)}`)}>
           Or go through the contact desk
         </a>
       </div>
@@ -185,16 +189,16 @@ const jsonLd = [propertyJsonLd(project), breadcrumbJsonLd(project)]
       <footer class="v9-section v9-section--tight" aria-label="More of the slate">
         <div class="v9-col">
           <nav class="v9-ring" aria-label="Slate navigation">
-            <a class="v9-ring__link" href={`/work/${prev.slug}`} rel="prev">
+            <a class="v9-ring__link" href={localePath(locale, `/work/${prev.slug}`)} rel="prev">
               <span class="v9-ring__dir">{chrome.prevLabel}</span>
               <span class="v9-ring__title">{prev.title}</span>
             </a>
-            <a class="v9-ring__link v9-ring__link--next" href={`/work/${next.slug}`} rel="next">
+            <a class="v9-ring__link v9-ring__link--next" href={localePath(locale, `/work/${next.slug}`)} rel="next">
               <span class="v9-ring__dir">{chrome.nextLabel}</span>
               <span class="v9-ring__title">{next.title}</span>
             </a>
           </nav>
-          <a class="v9-ring__return" href="/slate">{chrome.slateReturn}</a>
+          <a class="v9-ring__return" href={localePath(locale, '/slate')}>{chrome.slateReturn}</a>
         </div>
       </footer>
     )

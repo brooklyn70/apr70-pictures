@@ -18,6 +18,7 @@ import * as migration_20260714_frame_ratio from './20260714_frame_ratio';
 import * as migration_20260718_201112_ai_mark from './20260718_201112_ai_mark';
 import * as migration_20260718_231500_story_meta from './20260718_231500_story_meta';
 import * as migration_20260904_070000_hero_line from './20260904_070000_hero_line';
+import * as migration_20260907_195421_i18n_localization from './20260907_195421_i18n_localization';
 
 export const migrations = [
   {
@@ -108,16 +109,21 @@ export const migrations = [
   {
     up: migration_20260718_201112_ai_mark.up,
     down: migration_20260718_201112_ai_mark.down,
-    name: '20260718_201112_ai_mark'
+    name: '20260718_201112_ai_mark',
   },
   {
     up: migration_20260718_231500_story_meta.up,
     down: migration_20260718_231500_story_meta.down,
-    name: '20260718_231500_story_meta'
+    name: '20260718_231500_story_meta',
   },
   {
     up: migration_20260904_070000_hero_line.up,
     down: migration_20260904_070000_hero_line.down,
-    name: '20260904_070000_hero_line'
+    name: '20260904_070000_hero_line',
+  },
+  {
+    up: migration_20260907_195421_i18n_localization.up,
+    down: migration_20260907_195421_i18n_localization.down,
+    name: '20260907_195421_i18n_localization'
   },
 ];

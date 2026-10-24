@@ -11,7 +11,8 @@ import DivisionPage from '../components/v9/DivisionPage.astro'
 import { fetchDivisionSlate } from '../lib/payload'
 import { NAP } from '../lib/v9/site'
 
-const { slate } = await fetchDivisionSlate('nrc')
+const locale = Astro.locals.locale
+const { slate } = await fetchDivisionSlate('nrc', locale)
 
 const lockup = 'New Renaissance Cinema'
 const discipline = 'Feature films built for permanence.'

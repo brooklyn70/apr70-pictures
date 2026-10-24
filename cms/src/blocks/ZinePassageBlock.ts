@@ -15,28 +15,32 @@ export const ZinePassageBlock: Block = {
     {
       name: 'kicker',
       type: 'text',
+      localized: true,
       admin: { description: 'Small-caps eyebrow above the heading.' },
     },
     {
       name: 'heading',
       type: 'text',
+      localized: true,
       required: true,
     },
     {
       name: 'lede',
       type: 'textarea',
+      localized: true,
       admin: { description: 'One-line mandate / standfirst.' },
     },
     {
       name: 'body',
       type: 'textarea',
+      localized: true,
       admin: { description: 'Plain text. Blank line starts a new paragraph.' },
     },
     {
       name: 'links',
       type: 'array',
       fields: [
-        { name: 'label', type: 'text', required: true },
+        { name: 'label', type: 'text', localized: true, required: true },
         { name: 'href', type: 'text', required: true },
       ],
     },

@@ -23,6 +23,11 @@
     "apply:v4": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/apply-v4-content.ts",
     "seed:v9:dry": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/seed-v9.ts --dry-run",
     "seed:v9:apply": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/seed-v9.ts --apply",
+    "aimark:dry": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/backfill-ai-mark.ts --dry-run",
+    "aimark:apply": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/backfill-ai-mark.ts --apply",
+    "translate:extract": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/translate-locale.ts extract",
+    "translate:draft": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/translate-locale.ts draft",
+    "translate:apply": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/translate-locale.ts apply",
     "seed:brand:dry": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/seed-brand-kit.ts --dry-run",
     "seed:brand:apply": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/seed-brand-kit.ts --apply",
     "seed": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/migrate-v2-to-v3.ts --apply",
@@ -44,6 +49,7 @@
     "sharp": "0.34.2"
   },
   "devDependencies": {
+    "@anthropic-ai/sdk": "^0.124.0",
     "@playwright/test": "1.58.2",
     "@testing-library/react": "16.3.0",
     "@types/node": "22.19.9",

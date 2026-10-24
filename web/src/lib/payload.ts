@@ -1,5 +1,23 @@
 import type { Home, Media, Project, V9Home } from 'payload-types'
+import { DEFAULT_LOCALE, type SiteLocale } from 'site-locales'
 import { placeholderUrl, type PlaceholderOptions } from './placeholder'
+
+/**
+ * i18n (2026-09-07): every fetcher takes an optional `locale` and every cache
+ * key carries it, so two locales can never collide in the SWR cache, the slim
+ * projection cache or the single-flight map.
+ *
+ * The DEFAULT locale adds NOTHING to the REST URL — an English request builds
+ * character-for-character the same URL it built before i18n landed, so the live
+ * English path is provably unchanged. Only a non-default locale appends
+ * `&locale=<code>&fallback-locale=en` (Payload's own fallback: a field with no
+ * translation yet renders its English text rather than a hole).
+ */
+const localeQuery = (locale: SiteLocale): string =>
+  locale === DEFAULT_LOCALE ? '' : `&locale=${locale}&fallback-locale=${DEFAULT_LOCALE}`
+
+/** Cache-key suffix. Unconditional (`:en` too) — keys are internal, never rendered. */
+const localeKey = (locale: SiteLocale): string => `:${locale}`
 
 // Generic layout-bearing global (About, Contact, Jobs, Pitch, Investors share
 // the same shape as Home; types will be generated after next `payload generate:types`).
@@ -114,6 +132,9 @@ export type SiteSettingsData = {
   navLogoDark?: Media | number | null
   brandKit?: BrandKitData | null
   aiMark?: AiMarkSettings | null
+  /** i18n gate — Site Settings -> Enabled locales (hasMany select). Absent or
+   *  empty means English only, which is exactly the pre-i18n site. */
+  enabledLocales?: string[] | null
 }
 
 export type DivisionGlobalData = {
@@ -450,12 +471,13 @@ export function resolveMediaSrcOrPlaceholder(
 async function fetchGlobalUncached<T>(
   slug: string,
   depth = 1,
+  locale: SiteLocale = DEFAULT_LOCALE,
 ): Promise<PayloadFetchResult<T>> {
   const apiBase = PAYLOAD_URL
   if (!apiBase) {
     return { data: null, error: 'Set PUBLIC_PAYLOAD_URL for build/runtime (see web/.env.example).' }
   }
-  const url = `${trimSlash(apiBase)}/api/globals/${slug}?depth=${depth}`
+  const url = `${trimSlash(apiBase)}/api/globals/${slug}?depth=${depth}${localeQuery(locale)}`
   const got = await payloadGetJson(url)
   if ('error' in got) return { data: null, error: got.error }
   const data = parseGlobalResponse<T>(got.json)
@@ -463,14 +485,18 @@ async function fetchGlobalUncached<T>(
   return { data, error: null }
 }
 
-async function fetchGlobal<T>(slug: string, depth = 1): Promise<PayloadFetchResult<T>> {
-  const key = `global:${slug}:d${depth}`
-  return withSwrCache(key, () => fetchGlobalUncached<T>(slug, depth))
+async function fetchGlobal<T>(
+  slug: string,
+  depth = 1,
+  locale: SiteLocale = DEFAULT_LOCALE,
+): Promise<PayloadFetchResult<T>> {
+  const key = `global:${slug}:d${depth}${localeKey(locale)}`
+  return withSwrCache(key, () => fetchGlobalUncached<T>(slug, depth, locale))
 }
 
 // ── Public fetchers ───────────────────────────────────────────────────────────
 
-export async function fetchHomeGlobal(): Promise<{
+export async function fetchHomeGlobal(locale: SiteLocale = DEFAULT_LOCALE): Promise<{
   home: Home | null
   error: string | null
   stale?: boolean
@@ -482,8 +508,8 @@ export async function fetchHomeGlobal(): Promise<{
       error: 'Set PUBLIC_PAYLOAD_URL for build/runtime (see web/.env.example).',
     }
   }
-  const url = `${trimSlash(apiBase)}/api/globals/home?depth=2`
-  const key = 'global:home:d2'
+  const url = `${trimSlash(apiBase)}/api/globals/home?depth=2${localeQuery(locale)}`
+  const key = `global:home:d2${localeKey(locale)}`
   const { data, error, stale } = await withSwrCache<Home>(key, async () => {
     const got = await payloadGetJson(url)
     if ('error' in got) return { data: null, error: got.error }
@@ -494,66 +520,66 @@ export async function fetchHomeGlobal(): Promise<{
   return { home: data, error, stale }
 }
 
-export async function fetchSiteSettings(): Promise<{
+export async function fetchSiteSettings(locale: SiteLocale = DEFAULT_LOCALE): Promise<{
   settings: SiteSettingsData | null
   error: string | null
   stale?: boolean
 }> {
-  const { data, error, stale } = await fetchGlobal<SiteSettingsData>('site-settings', 2)
+  const { data, error, stale } = await fetchGlobal<SiteSettingsData>('site-settings', 2, locale)
   return { settings: data, error, stale }
 }
 
-export async function fetchFooterLinks(): Promise<{
+export async function fetchFooterLinks(locale: SiteLocale = DEFAULT_LOCALE): Promise<{
   footerLinks: FooterLinksData | null
   error: string | null
   stale?: boolean
 }> {
-  const { data, error, stale } = await fetchGlobal<FooterLinksData>('footer-links')
+  const { data, error, stale } = await fetchGlobal<FooterLinksData>('footer-links', 1, locale)
   return { footerLinks: data, error, stale }
 }
 
-export async function fetchAboutGlobal(): Promise<{
+export async function fetchAboutGlobal(locale: SiteLocale = DEFAULT_LOCALE): Promise<{
   about: PageGlobalData | null
   error: string | null
   stale?: boolean
 }> {
-  const { data, error, stale } = await fetchGlobal<PageGlobalData>('about')
+  const { data, error, stale } = await fetchGlobal<PageGlobalData>('about', 1, locale)
   return { about: data, error, stale }
 }
 
-export async function fetchContactGlobal(): Promise<{
+export async function fetchContactGlobal(locale: SiteLocale = DEFAULT_LOCALE): Promise<{
   contact: PageGlobalData | null
   error: string | null
   stale?: boolean
 }> {
-  const { data, error, stale } = await fetchGlobal<PageGlobalData>('contact')
+  const { data, error, stale } = await fetchGlobal<PageGlobalData>('contact', 1, locale)
   return { contact: data, error, stale }
 }
 
-export async function fetchJobsGlobal(): Promise<{
+export async function fetchJobsGlobal(locale: SiteLocale = DEFAULT_LOCALE): Promise<{
   jobs: PageGlobalData | null
   error: string | null
   stale?: boolean
 }> {
-  const { data, error, stale } = await fetchGlobal<PageGlobalData>('jobs')
+  const { data, error, stale } = await fetchGlobal<PageGlobalData>('jobs', 1, locale)
   return { jobs: data, error, stale }
 }
 
-export async function fetchPitchGlobal(): Promise<{
+export async function fetchPitchGlobal(locale: SiteLocale = DEFAULT_LOCALE): Promise<{
   pitch: PageGlobalData | null
   error: string | null
   stale?: boolean
 }> {
-  const { data, error, stale } = await fetchGlobal<PageGlobalData>('pitch')
+  const { data, error, stale } = await fetchGlobal<PageGlobalData>('pitch', 1, locale)
   return { pitch: data, error, stale }
 }
 
-export async function fetchInvestorsGlobal(): Promise<{
+export async function fetchInvestorsGlobal(locale: SiteLocale = DEFAULT_LOCALE): Promise<{
   investors: PageGlobalData | null
   error: string | null
   stale?: boolean
 }> {
-  const { data, error, stale } = await fetchGlobal<PageGlobalData>('investors')
+  const { data, error, stale } = await fetchGlobal<PageGlobalData>('investors', 1, locale)
   return { investors: data, error, stale }
 }
 
@@ -562,39 +588,39 @@ export async function fetchInvestorsGlobal(): Promise<{
  * 20260705_troupe_page migration runs; callers must fall back to the static
  * layout in lib/troupe.ts when this returns null.
  */
-export async function fetchTroupeGlobal(): Promise<{
+export async function fetchTroupeGlobal(locale: SiteLocale = DEFAULT_LOCALE): Promise<{
   troupe: PageGlobalData | null
   error: string | null
   stale?: boolean
 }> {
-  const { data, error, stale } = await fetchGlobal<PageGlobalData>('troupe', 2)
+  const { data, error, stale } = await fetchGlobal<PageGlobalData>('troupe', 2, locale)
   return { troupe: data, error, stale }
 }
 
-export async function fetchDivision212Global(): Promise<{
+export async function fetchDivision212Global(locale: SiteLocale = DEFAULT_LOCALE): Promise<{
   division212: DivisionGlobalData | null
   error: string | null
   stale?: boolean
 }> {
-  const { data, error, stale } = await fetchGlobal<DivisionGlobalData>('212', 2)
+  const { data, error, stale } = await fetchGlobal<DivisionGlobalData>('212', 2, locale)
   return { division212: data, error, stale }
 }
 
-export async function fetchDivision310Global(): Promise<{
+export async function fetchDivision310Global(locale: SiteLocale = DEFAULT_LOCALE): Promise<{
   division310: DivisionGlobalData | null
   error: string | null
   stale?: boolean
 }> {
-  const { data, error, stale } = await fetchGlobal<DivisionGlobalData>('310', 2)
+  const { data, error, stale } = await fetchGlobal<DivisionGlobalData>('310', 2, locale)
   return { division310: data, error, stale }
 }
 
-export async function fetchDivisionNRCGlobal(): Promise<{
+export async function fetchDivisionNRCGlobal(locale: SiteLocale = DEFAULT_LOCALE): Promise<{
   divisionNRC: DivisionGlobalData | null
   error: string | null
   stale?: boolean
 }> {
-  const { data, error, stale } = await fetchGlobal<DivisionGlobalData>('nrc', 2)
+  const { data, error, stale } = await fetchGlobal<DivisionGlobalData>('nrc', 2, locale)
   return { divisionNRC: data, error, stale }
 }
 
@@ -730,10 +756,11 @@ type CollectionResponse<T> = {
 async function fetchCollectionUncached<T>(
   collection: string,
   params = '',
+  locale: SiteLocale = DEFAULT_LOCALE,
 ): Promise<PayloadFetchResult<T[]>> {
   const apiBase = PAYLOAD_URL
   if (!apiBase) return { data: null, error: 'Set PUBLIC_PAYLOAD_URL' }
-  const url = `${trimSlash(apiBase)}/api/${collection}?depth=1&limit=100${params}`
+  const url = `${trimSlash(apiBase)}/api/${collection}?depth=1&limit=100${params}${localeQuery(locale)}`
   const got = await payloadGetJson(url)
   if ('error' in got) return { data: null, error: got.error }
   const raw = got.json as CollectionResponse<T>
@@ -750,9 +777,10 @@ async function fetchSlimList<TSlim>(
   collection: string,
   params: string,
   project: (raw: unknown) => TSlim | null,
+  locale: SiteLocale = DEFAULT_LOCALE,
 ): Promise<PayloadFetchResult<TSlim[]>> {
-  return withSwrCache(cacheKey, async () => {
-    const got = await fetchCollectionUncached<unknown>(collection, params)
+  return withSwrCache(`${cacheKey}${localeKey(locale)}`, async () => {
+    const got = await fetchCollectionUncached<unknown>(collection, params, locale)
     if (got.error !== null || got.data == null) {
       return { data: null, error: got.error ?? `Unexpected empty ${collection} response` }
     }
@@ -764,10 +792,11 @@ async function fetchSlimList<TSlim>(
 async function fetchCollectionDocUncached<T>(
   collection: string,
   slug: string,
+  locale: SiteLocale = DEFAULT_LOCALE,
 ): Promise<PayloadFetchResult<T>> {
   const apiBase = PAYLOAD_URL
   if (!apiBase) return { data: null, error: 'Set PUBLIC_PAYLOAD_URL' }
-  const url = `${trimSlash(apiBase)}/api/${collection}?where[slug][equals]=${encodeURIComponent(slug)}&depth=1&limit=1`
+  const url = `${trimSlash(apiBase)}/api/${collection}?where[slug][equals]=${encodeURIComponent(slug)}&depth=1&limit=1${localeQuery(locale)}`
   const got = await payloadGetJson(url)
   if ('error' in got) return { data: null, error: got.error }
   const raw = got.json as CollectionResponse<T>
@@ -779,9 +808,10 @@ async function fetchCollectionDocUncached<T>(
 async function fetchCollectionDoc<T>(
   collection: string,
   slug: string,
+  locale: SiteLocale = DEFAULT_LOCALE,
 ): Promise<PayloadFetchResult<T>> {
-  const key = `doc:${collection}:${slug}`
-  return withSwrCache(key, () => fetchCollectionDocUncached<T>(collection, slug))
+  const key = `doc:${collection}:${slug}${localeKey(locale)}`
+  return withSwrCache(key, () => fetchCollectionDocUncached<T>(collection, slug, locale))
 }
 
 // REST-side slimming for the projects list: `select` narrows the project
@@ -793,7 +823,7 @@ const PROJECT_CARD_PARAMS =
   '&populate[media][url]=true&populate[media][alt]=true' +
   '&populate[media][width]=true&populate[media][height]=true'
 
-export async function fetchProjects(): Promise<{
+export async function fetchProjects(locale: SiteLocale = DEFAULT_LOCALE): Promise<{
   projects: ProjectCard[]
   error: string | null
   stale?: boolean
@@ -803,14 +833,16 @@ export async function fetchProjects(): Promise<{
     'projects',
     PROJECT_CARD_PARAMS,
     mapProjectCard,
+    locale,
   )
   return { projects: data ?? [], error, stale }
 }
 
 export async function fetchProject(
   slug: string,
+  locale: SiteLocale = DEFAULT_LOCALE,
 ): Promise<{ project: ProjectDoc | null; error: string | null; stale?: boolean }> {
-  const { data, error, stale } = await fetchCollectionDoc<ProjectDoc>('projects', slug)
+  const { data, error, stale } = await fetchCollectionDoc<ProjectDoc>('projects', slug, locale)
   return { project: data, error, stale }
 }
 
@@ -818,7 +850,7 @@ const NEWS_CARD_PARAMS =
   '&sort=-date&select[title]=true&select[slug]=true&select[date]=true' +
   '&select[deck]=true&select[featured]=true'
 
-export async function fetchNewsArticles(): Promise<{
+export async function fetchNewsArticles(locale: SiteLocale = DEFAULT_LOCALE): Promise<{
   articles: NewsCard[]
   error: string | null
   stale?: boolean
@@ -828,14 +860,16 @@ export async function fetchNewsArticles(): Promise<{
     'news',
     NEWS_CARD_PARAMS,
     mapNewsCard,
+    locale,
   )
   return { articles: data ?? [], error, stale }
 }
 
 export async function fetchNewsArticle(
   slug: string,
+  locale: SiteLocale = DEFAULT_LOCALE,
 ): Promise<{ article: NewsArticleDoc | null; error: string | null; stale?: boolean }> {
-  const { data, error, stale } = await fetchCollectionDoc<NewsArticleDoc>('news', slug)
+  const { data, error, stale } = await fetchCollectionDoc<NewsArticleDoc>('news', slug, locale)
   return { article: data, error, stale }
 }
 
@@ -855,7 +889,10 @@ export type V9PageData = {
 
 export type V9PageSlug = 'v9-home' | 'v9-slate' | 'v9-craft' | 'v9-methods' | 'v9-contact'
 
-export async function fetchV9Page(slug: V9PageSlug): Promise<{
+export async function fetchV9Page(
+  slug: V9PageSlug,
+  locale: SiteLocale = DEFAULT_LOCALE,
+): Promise<{
   page: V9PageData | null
   error: string | null
   stale?: boolean
@@ -865,7 +902,7 @@ export async function fetchV9Page(slug: V9PageSlug): Promise<{
   // heroImage stays a bare ID, so every slate row rendered without its frame.
   // The page globals are SWR-cached, so this costs one deeper read per TTL, not
   // one per request.
-  const { data, error, stale } = await fetchGlobal<V9PageData>(slug, 2)
+  const { data, error, stale } = await fetchGlobal<V9PageData>(slug, 2, locale)
   return { page: data, error, stale }
 }
 
@@ -887,17 +924,21 @@ export type V9ChromeData = {
   cta?: string | null
   colophon?: string | null
   copyright?: string | null
+  /** i18n: accessible name for the language switcher. Optional — the web
+   *  dictionary supplies "Language" when the CMS field is absent or empty. */
+  languageLabel?: string | null
   navLinks?: V9NavLink[] | null
 }
 
 /** v9Chrome off site-settings, with hard fallbacks so chrome never renders blank. */
-export async function fetchV9Chrome(): Promise<{
+export async function fetchV9Chrome(locale: SiteLocale = DEFAULT_LOCALE): Promise<{
   chrome: V9ChromeData
   error: string | null
 }> {
   const { data, error } = await fetchGlobal<SiteSettingsData & { v9Chrome?: V9ChromeData | null }>(
     'site-settings',
     2,
+    locale,
   )
   const chrome: V9ChromeData = data?.v9Chrome ?? {}
   return {
@@ -955,7 +996,7 @@ const V9_SLATE_PARAMS =
   '&select[shortLogline]=true&select[provenance]=true&select[metaLine]=true' +
   '&select[heroImage]=true'
 
-export async function fetchV9SlateProjects(): Promise<{
+export async function fetchV9SlateProjects(locale: SiteLocale = DEFAULT_LOCALE): Promise<{
   slate: V9SlateItem[]
   error: string | null
   stale?: boolean
@@ -965,6 +1006,7 @@ export async function fetchV9SlateProjects(): Promise<{
     'projects',
     V9_SLATE_PARAMS,
     mapV9SlateItem,
+    locale,
   )
   return { slate: data ?? [], error, stale }
 }
@@ -972,7 +1014,10 @@ export async function fetchV9SlateProjects(): Promise<{
 /** The public properties one division owns, ordered by slateOrder. Powers the
  *  division pages (/212 · /310 · /nrc). Same slim projection + egress discipline
  *  as the whole-slate fetcher, filtered to publicSlate=true AND division=<div>. */
-export async function fetchDivisionSlate(division: '212' | '310' | 'nrc'): Promise<{
+export async function fetchDivisionSlate(
+  division: '212' | '310' | 'nrc',
+  locale: SiteLocale = DEFAULT_LOCALE,
+): Promise<{
   slate: V9SlateItem[]
   error: string | null
   stale?: boolean
@@ -987,17 +1032,21 @@ export async function fetchDivisionSlate(division: '212' | '310' | 'nrc'): Promi
     'projects',
     params,
     mapV9SlateItem,
+    locale,
   )
   return { slate: data ?? [], error, stale }
 }
 
 /** Full v9 property doc (generated Project type has every v9 field). */
-export async function fetchV9Project(slug: string): Promise<{
+export async function fetchV9Project(
+  slug: string,
+  locale: SiteLocale = DEFAULT_LOCALE,
+): Promise<{
   project: Project | null
   error: string | null
   stale?: boolean
 }> {
-  const { data, error, stale } = await fetchCollectionDoc<Project>('projects', slug)
+  const { data, error, stale } = await fetchCollectionDoc<Project>('projects', slug, locale)
   return { project: data, error, stale }
 }
 
@@ -1131,10 +1180,12 @@ export type DispatchIssueDoc = {
   }
 }
 
-async function fetchCurrentDispatchUncached(): Promise<PayloadFetchResult<DispatchIssueDoc>> {
+async function fetchCurrentDispatchUncached(
+  locale: SiteLocale = DEFAULT_LOCALE,
+): Promise<PayloadFetchResult<DispatchIssueDoc>> {
   const apiBase = PAYLOAD_URL
   if (!apiBase) return { data: null, error: 'Set PUBLIC_PAYLOAD_URL' }
-  const url = `${trimSlash(apiBase)}/api/dispatch-issues?where[current][equals]=true&depth=2&limit=1`
+  const url = `${trimSlash(apiBase)}/api/dispatch-issues?where[current][equals]=true&depth=2&limit=1${localeQuery(locale)}`
   const got = await payloadGetJson(url)
   if ('error' in got) return { data: null, error: got.error }
   const raw = got.json as CollectionResponse<DispatchIssueDoc>
@@ -1143,13 +1194,13 @@ async function fetchCurrentDispatchUncached(): Promise<PayloadFetchResult<Dispat
   return { data: doc, error: null }
 }
 
-export async function fetchCurrentDispatchIssue(): Promise<{
+export async function fetchCurrentDispatchIssue(locale: SiteLocale = DEFAULT_LOCALE): Promise<{
   issue: DispatchIssueDoc | null
   error: string | null
   stale?: boolean
 }> {
-  const key = 'dispatch:current'
-  const { data, error, stale } = await withSwrCache(key, fetchCurrentDispatchUncached)
+  const key = `dispatch:current${localeKey(locale)}`
+  const { data, error, stale } = await withSwrCache(key, () => fetchCurrentDispatchUncached(locale))
   return { issue: data, error, stale }
 }
 
@@ -1157,22 +1208,24 @@ export async function fetchCurrentDispatchIssue(): Promise<{
  *  depth=2 so `audio`, `poster` and `property` arrive resolved rather than as
  *  bare ids. (Depth matters here: the v11 slate-frames bug was exactly this —
  *  at depth 1 a nested upload silently resolved to nothing.) */
-async function fetchTroupeProgramUncached(): Promise<PayloadFetchResult<TroupeProgramData>> {
+async function fetchTroupeProgramUncached(
+  locale: SiteLocale = DEFAULT_LOCALE,
+): Promise<PayloadFetchResult<TroupeProgramData>> {
   const apiBase = PAYLOAD_URL
   if (!apiBase) return { data: null, error: 'Set PUBLIC_PAYLOAD_URL' }
-  const url = `${trimSlash(apiBase)}/api/globals/troupe-program?depth=2`
+  const url = `${trimSlash(apiBase)}/api/globals/troupe-program?depth=2${localeQuery(locale)}`
   const got = await payloadGetJson(url)
   if ('error' in got) return { data: null, error: got.error }
   return { data: got.json as TroupeProgramData, error: null }
 }
 
-export async function fetchTroupeProgram(): Promise<{
+export async function fetchTroupeProgram(locale: SiteLocale = DEFAULT_LOCALE): Promise<{
   programme: TroupeProgramData | null
   error: string | null
   stale?: boolean
 }> {
-  const key = 'troupe:programme'
-  const { data, error, stale } = await withSwrCache(key, fetchTroupeProgramUncached)
+  const key = `troupe:programme${localeKey(locale)}`
+  const { data, error, stale } = await withSwrCache(key, () => fetchTroupeProgramUncached(locale))
   return { programme: data, error, stale }
 }
 

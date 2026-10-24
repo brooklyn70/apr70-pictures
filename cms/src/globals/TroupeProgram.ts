@@ -70,6 +70,7 @@ export const TroupeProgram: GlobalConfig = {
     {
       name: 'subtitle',
       type: 'text',
+      localized: true,
       label: 'Subtitle',
       admin: { description: 'The episode or movement, e.g. "Il Primo Giorno".' },
     },
@@ -83,6 +84,7 @@ export const TroupeProgram: GlobalConfig = {
     {
       name: 'logline',
       type: 'textarea',
+      localized: true,
       label: 'Logline',
       admin: { description: 'One or two sentences. What the listener is about to hear.' },
     },
@@ -117,7 +119,7 @@ export const TroupeProgram: GlobalConfig = {
         {
           type: 'row',
           fields: [
-            { name: 'role', type: 'text', label: 'Role', admin: { width: '50%' } },
+            { name: 'role', type: 'text', localized: true, label: 'Role', admin: { width: '50%' } },
             { name: 'player', type: 'text', label: 'Played by', admin: { width: '50%' } },
           ],
         },
@@ -126,6 +128,7 @@ export const TroupeProgram: GlobalConfig = {
     {
       name: 'programmeNote',
       type: 'textarea',
+      localized: true,
       label: 'Programme note',
       admin: {
         description:
@@ -135,6 +138,7 @@ export const TroupeProgram: GlobalConfig = {
     {
       name: 'credits',
       type: 'textarea',
+      localized: true,
       label: 'Credits',
       admin: { description: 'Writer, direction, sound. Supports ==highlight== markup.' },
     },

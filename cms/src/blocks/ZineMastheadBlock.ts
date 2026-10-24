@@ -22,16 +22,19 @@ export const ZineMastheadBlock: Block = {
     {
       name: 'officesLine',
       type: 'text',
+      localized: true,
       admin: { description: 'Line under the nameplate (offices / city).' },
     },
     {
       name: 'issueLabel',
       type: 'text',
+      localized: true,
       admin: { description: 'Numbered, never dated — e.g. "No. 1".' },
     },
     {
       name: 'dek',
       type: 'textarea',
+      localized: true,
       admin: { description: 'Standing identity strip beneath the nameplate.' },
     },
   ],

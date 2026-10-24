@@ -22,8 +22,13 @@ import '../styles/v9.css'
 import '../styles/themes/index.css'
 import ModeToggleIsland from '../components/islands/ModeToggleIsland'
 import ScrollTopIsland from '../components/islands/ScrollTopIsland'
+import LanguageSwitcher from '../components/v9/LanguageSwitcher.astro'
 import { fetchV9Chrome, fetchSiteSettings, fetchTroupeProgram, resolveMediaUrl } from '../lib/payload'
-import { organizationJsonLd, webSiteJsonLd, canonical, V9_PAGES, NAP } from '../lib/v9/site'
+import { organizationJsonLd, webSiteJsonLd, canonical, pagesFor, napFor, NAP } from '../lib/v9/site'
+import { htmlLangFor } from 'site-locales'
+import { resolveEnabledLocales } from '../lib/i18n/enabled'
+import { localePath, ogLocale } from '../lib/i18n/paths'
+import { dict } from '../lib/i18n/dictionary'
 
 interface Props {
   title: string
@@ -35,9 +40,15 @@ interface Props {
   division?: '212' | '310' | 'nrc'
 }
 
-const { title, description = NAP.description, jsonLd = [], division } = Astro.props
+/* i18n (2026-09-07): the locale is decided in src/middleware.ts and arrives on
+   locals. `unprefixedPath` is the path with the locale segment removed, which is
+   what canonical, hreflang and the switcher all build their URLs from. */
+const locale = Astro.locals.locale ?? 'en'
+const strings = dict(locale)
 
-const { chrome } = await fetchV9Chrome()
+const { title, description = napFor(locale).description, jsonLd = [], division } = Astro.props
+
+const { chrome } = await fetchV9Chrome(locale)
 
 /* ── Brand Kit (v10, F1) — Payload-driven brand controls ──────────────────
    Logo files, logo height, accent/rollover/highlight tokens, and the
@@ -45,8 +56,14 @@ const { chrome } = await fetchV9Chrome()
    edits brand presentation in Payload; the site reflects it on refresh
    (SSR + short SWR cache). Hard fallbacks keep the chrome alive if the
    CMS is unreachable. */
-const { settings } = await fetchSiteSettings()
+const { settings } = await fetchSiteSettings(locale)
 const kit = settings?.brandKit ?? {}
+
+/* The gate: Site Settings -> Enabled locales. Missing/empty reads as ['en'],
+   i.e. exactly the pre-i18n site — one locale, so the switcher renders nothing
+   and there is one hreflang pair (en + x-default). */
+const enabledLocales = resolveEnabledLocales(settings?.enabledLocales)
+const languageLabel = (chrome.languageLabel ?? '').trim() || strings.languageLabel
 
 /* AI mark (v13): when enabled, the body carries the style + text and the
    frame renderers decide per-frame (caption carries "AI-generated") whether
@@ -110,7 +127,7 @@ const markDark = resolveMediaUrl(settings?.navLogoLight) || '/logos/wordmark_bla
 const baseNavLinks =
   chrome.navLinks && chrome.navLinks.length > 0
     ? chrome.navLinks
-    : V9_PAGES.map((p) => ({ href: p.path, label: p.label }))
+    : pagesFor(locale).map((p) => ({ href: p.path, label: p.label }))
 
 /* DISPATCH (v10) — the news page is Marco's switch, not a deploy. While
    Site Settings → DISPATCH → Publish is off, /dispatch 404s and this link
@@ -135,7 +152,7 @@ const withDispatch =
    one fetch, not one per page. */
 const troupeOn = settings?.troupe?.enabled === true
 const { programme: troupeProgramme } = troupeOn
-  ? await fetchTroupeProgram()
+  ? await fetchTroupeProgram(locale)
   : { programme: null }
 const troupeLive = troupeOn && Boolean(resolveMediaUrl(troupeProgramme?.audio as never))
 const troupeLabel = settings?.troupe?.navLabel?.trim() || 'Troupe'
@@ -147,10 +164,20 @@ const navLinks =
     ? [...withDispatch, { href: '/troupe', label: troupeLabel }]
     : withDispatch
 
-const path = Astro.url.pathname.replace(/\/$/, '') || '/'
-const canonicalUrl = canonical(path)
+/* After a locale rewrite Astro.url is already the unprefixed path; locals carry
+   it explicitly so nothing depends on that implementation detail. */
+const path = (Astro.locals.unprefixedPath ?? Astro.url.pathname).replace(/\/$/, '') || '/'
+const canonicalUrl = canonical(localePath(locale, path))
 
-const jsonLdAll = [organizationJsonLd(), webSiteJsonLd(), ...jsonLd]
+/* hreflang: one entry per ENABLED locale plus x-default -> English. Absolute
+   URLs, per Google's rule that alternates must be fully qualified. */
+const alternates = enabledLocales.map((code) => ({
+  hreflang: htmlLangFor(code),
+  href: canonical(localePath(code, path)),
+}))
+const xDefaultHref = canonical(localePath('en', path))
+
+const jsonLdAll = [organizationJsonLd(locale), webSiteJsonLd(locale), ...jsonLd]
 
 /* The Display panel's three theme choices are v8's MODES. The CMS fields
    carry the labels (re-seeded 2026-07-11): themePremiere = "Marquee night"
@@ -169,7 +196,7 @@ const panelLabels = {
 
 <!doctype html>
 <html
-  lang="en"
+  lang={htmlLangFor(locale)}
   data-theme={modeDefault !== 'system' ? modeDefault : undefined}
   data-accent={accent !== 'flame' ? accent : undefined}
   data-hover={linkHover !== 'accent' ? linkHover : undefined}
@@ -203,6 +230,13 @@ const panelLabels = {
     {faviconDark && <link rel="icon" href={faviconDark} media="(prefers-color-scheme: dark)" />}
     {appleTouchIcon && <link rel="apple-touch-icon" href={appleTouchIcon} />}
     <link rel="canonical" href={canonicalUrl} />
+    {/* hreflang: every enabled locale, plus x-default pointing at English.
+        While only English is enabled this is exactly two lines, which is the
+        one visible difference from the pre-i18n head. */}
+    {alternates.map((alt) => (
+      <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-readable site summary" />
     <link
       rel="preload"
@@ -224,6 +258,7 @@ const panelLabels = {
     {description && <meta property="og:description" content={description} />}
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content={NAP.name} />
+    <meta property="og:locale" content={ogLocale(locale)} />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0604" />
     {/* v10: House Lights re-toned to the house hue (≈ oklch 94.5% 0.008 55) */}
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f1efec" />
@@ -234,7 +269,7 @@ const panelLabels = {
   <body class="v9" data-ai-mark={aiMarkStyle} style={aiMarkText}>
     <header class="v9-header">
       <div class="v9-col v9-header__row">
-        <a class="v9-brand" href="/" aria-label={NAP.name}>
+        <a class="v9-brand" href={localePath(locale, '/')} aria-label={NAP.name}>
           <img
             class="v9-brand__mark"
             data-mark-ink="light"
@@ -257,7 +292,7 @@ const panelLabels = {
           {navLinks.filter((link) => link.href !== '/').map((link, i) => (
             <a
               class="v9-nav__link"
-              href={link.href}
+              href={localePath(locale, link.href)}
               aria-current={path.startsWith(link.href) ? 'page' : undefined}
             >
               <span class="v9-nav__index" aria-hidden="true">
@@ -269,6 +304,15 @@ const panelLabels = {
           {/* v11: the mode switch lives here now, as a 17px icon. The floating
               "Display" pill is gone (Marco 2026-07-13; Hughes and Disney both
               read it, independently, as a dev artifact left in production). */}
+          {/* i18n: mono keycodes beside the mode toggle. Renders NOTHING while
+              only one locale is enabled, so today's nav markup is untouched. */}
+          <LanguageSwitcher
+            locales={enabledLocales}
+            current={locale}
+            path={path}
+            label={languageLabel}
+            place="header"
+          />
           <ModeToggleIsland
             client:load
             darkLabel={chrome.themePremiere}
@@ -304,12 +348,19 @@ const panelLabels = {
       <div class="v9-col">
         {/* Footer brand (Marco 2026-07-27): same admin-driven marks as the nav,
             theme-swapped by the shared [data-mark-ink] rules, house-scale. */}
-        <a class="v9-footer__brand" href="/" aria-label={NAP.name}>
+        <a class="v9-footer__brand" href={localePath(locale, '/')} aria-label={NAP.name}>
           <img class="v9-footer__mark" data-mark-ink="light" src={markLight} alt="" aria-hidden="true" />
           <img class="v9-footer__mark" data-mark-ink="dark" src={markDark} alt="" aria-hidden="true" />
         </a>
         <nav class="v9-footer__nav" aria-label="Footer">
-          {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+          {navLinks.map((link) => <a href={localePath(locale, link.href)}>{link.label}</a>)}
+          <LanguageSwitcher
+            locales={enabledLocales}
+            current={locale}
+            path={path}
+            label={languageLabel}
+            place="footer"
+          />
         </nav>
         {chrome.colophon && <p class="v9-footer__colophon">{chrome.colophon}</p>}
         <p class="v9-footer__copy">{chrome.copyright}</p>

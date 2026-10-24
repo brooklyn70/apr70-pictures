@@ -10,11 +10,13 @@ export const TwoColBlock: Block = {
     {
       name: 'leftHeading',
       type: 'textarea',
+      localized: true,
       required: true,
     },
     {
       name: 'rightBody',
       type: 'richText',
+      localized: true,
       required: true,
     },
     {

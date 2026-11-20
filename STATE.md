@@ -20,13 +20,12 @@ Active again (Marco, 2026-10-06: "The website should be active."). v14 is on sta
 3. 2026-09-14 — The staging palette wins. Jost is the type; Futura is out. SITE_VERSION is v14 (folder `v14`, once `v10`). — APR70
 
 ## Next 3 actions
-1. Marco — Say when site work unpauses. Until then, docs only.
-2. Marco — Tick the Hero Lines Ballot (no real tick yet; open since 09-04). Then rule the 8 copy-ballot questions in the Word file on SharedData. Agent builds copy round 3 only after that.
+1. Marco — Rule ONE ballot item 532 (restart site work). Until then, docs only.
+2. Marco — Rule ONE ballot item 531 (the 8 copy questions, A to H) and the hero lines, items 281 to 289 (all at the top of the ballot since 2026-11-20). Agent builds copy round 3 only after that.
 3. Agent — After Marco rules items 532 (restart) and 531 (eight copy questions) and the hero lines (281 to 289) on the ONE ballot, build copy round 3. The topic is at the top of the ballot since 2026-11-20.
 
 ## Blockers
-- Marco — the unpause word.
-- Marco — Hero Lines Ballot; copy ballot (8 rulings); sign-off of the four translation review docs `docs/i18n/review/*.md`.
+- Marco — ONE ballot items 532 (unpause), 531 (8 copy rulings), 281 to 289 (hero lines); sign-off of the four translation review docs `docs/i18n/review/*.md`.
 - Marco — go to merge PR #13 (`i18n/groundwork`) and deploy. Branch is on `origin`. Its PR state was not re-checked.
 
 ## Live warnings

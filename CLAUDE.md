@@ -12,6 +12,8 @@
 
 > **Lane rule (2026-10-05).** START: read the vault STATE.md first — `/Users/marco/vault/10 Work/11 APR70 Pictures/11.03 Company Ops/website/STATE.md` (cloud agents: read `STATE.md` in this repo root, a short read-only copy). END: rewrite the vault STATE.md, then run `python3 ~/work/bin/sync-state.py apr70/apr70-website`. Never create a new handoff file. Details: `AGENTS.md`.
 
+Shared lane rules (every agent; Claude Code imports the file): @~/work/AGENTS.md
+
 **Authoritative working document for all agents working in this repo.**
 **Last updated:** 2026-08-21 (place-poster skill + BL PD decision)
 **Repo:** `brooklyn70/apr70-pictures`
@@ -174,3 +176,7 @@ Site chatbot is a standing product requirement (2026-09-19). Implement in this c
 
 Doctrine: `/Users/marco/vault/00 Meta/00.04 System/context-packs/README.md`
 
+
+## Remote Control first (Claude Code, after "go")
+<!-- rc-first 2026-11-20, added by Jobs (Claude Code) -->
+When Marco types "go", your FIRST action is to run `~/.local/bin/lane-rc` and print its output (the Remote Control session link). Do this before you read STATE.md. If it says OFF, ask Marco to type `/remote-control`, then stop until he types "go" again. If the script is not on this computer, say so in one line and continue. Print the link in the chat only, never in a file. Rule book: `~/.config/lanes/RULES.md` → "go" (Marco, 2026-11-20).

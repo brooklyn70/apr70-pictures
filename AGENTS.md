@@ -1,6 +1,7 @@
 # AGENTS.md
 
 ## Lane rule (Marco, 2026-10-05)
+- **Shared lane rules (every agent):** read `~/work/AGENTS.md` first: Learnings, lead with what you need from Marco, simplest code that works.
 - **START (on the Mac, or from Windows via Remote-SSH):** read the vault STATE.md first: `/Users/marco/vault/10 Work/11 APR70 Pictures/11.03 Company Ops/website/STATE.md`. If this repo has commits newer than its Head SHA (for example, from a cloud agent), read them and their PR notes. Merge them into the vault STATE.md first.
 - **START (cloud agent, no vault):** read `STATE.md` in this repo root. It is a short read-only copy of the vault STATE.md.
 - **END (Mac):** rewrite the vault STATE.md. Read it again first, and merge anything that changed since START. Then refresh the repo copy with `python3 ~/work/bin/sync-state.py apr70/apr70-website`, and include `STATE.md` in your next commit.
@@ -82,3 +83,12 @@ Marco ruled: this site **must** have a public site chatbot, and it must be QA'd 
 
 Doctrine: `/Users/marco/vault/00 Meta/00.04 System/context-packs/README.md`
 
+
+## State first (every session, every model)
+<!-- state-first 2026-10-07 -->
+Before anything else in every session, read this lane's STATE.md and continue from its Next 3 actions (Claude Code, after "go": the Remote Control step comes first). Update STATE.md when you finish something.
+
+- STATE.md (whichever exists): Mac `/Users/marco/vault/10 Work/11 APR70 Pictures/11.03 Company Ops/website/STATE.md` · go-boxx `E:\removault\10 Work\11 APR70 Pictures\11.03 Company Ops\website\STATE.md`
+- From go-boxx, lanes open on the Mac over Remote-SSH, so the Mac path applies there too.
+- This repo's own `STATE.md` is a generated read-only copy for cloud agents (no vault): read it, don't edit it. On the Mac, after updating the vault STATE.md run `python3 ~/work/bin/sync-state.py apr70/apr70-website`.
+- Never open browser tabs or windows (no open/xdg-open, no auto-launched URLs). Marco may be on another computer. Print every URL (claude.ai/code session links, previews, PRs) in the chat as a clickable link instead.

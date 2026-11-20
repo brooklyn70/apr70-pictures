@@ -13,6 +13,7 @@ The public site for APR 70 Pictures: staging.apr70.com is the full site, apr70.c
 Active again (Marco, 2026-10-06: "The website should be active."). v14 is on staging. Pick up from the i18n and copy ballot handoff; every ship follows the website version law.
 
 ## Last 3 decisions
+-1. 2026-11-20 — Marco: "GO and commit"; "commit the deletion, we are no longer using handoff while we have the state.md"; "bring the ballot items back to the top". v14 commit `cff91fc` (v10→v14 paths + `docs/handoff/archive` deleted; made and pushed to `origin/main` by the repo stop hook at the end of the turn, before the go). `~/websites` commit `147740a` (deploy script MACREPO → v14; not pushed). ONE ballot: APR70 topic moved to the top with new items 531 and 532. (Claude Code, Opus 5.5)
 0. 2026-11-20 — Marco: "merge anyway" (10:01 AM ET, Pilot bridge `20261120-1002`). The lane-file commit `b0d5a44` (CLAUDE.md + AGENTS.md: Remote Control first after "go") is pushed to `origin` and `nas` `main`. The plain merge pre-check passed; the Jev step was skipped on his word. Both remote heads were read back and equal the local head. The repo copy of `STATE.md` is not committed. (Claude Code, Fable 5.2)
 1. 2026-10-06 — Marco: "The website should be active." The lane is active, not parked. — Phase 3 ballot
 2. 2026-09-19 — The site must have a public chatbot. It needs an Agent Report Card run that Marco has reviewed before production trust. — chatbot program
@@ -21,8 +22,7 @@ Active again (Marco, 2026-10-06: "The website should be active."). v14 is on sta
 ## Next 3 actions
 1. Marco — Say when site work unpauses. Until then, docs only.
 2. Marco — Tick the Hero Lines Ballot (no real tick yet; open since 09-04). Then rule the 8 copy-ballot questions in the Word file on SharedData. Agent builds copy round 3 only after that.
-3. Marco — Go to commit the `v10` → `v14` repoint (done 2026-11-20 by Claude Code, uncommitted). The v14 repo has 4 files: `scripts/qa-shots.mjs`, `scripts/qa-third-party.mjs` (both imported Playwright from the missing `v10` folder; they are fixed, and `node --check` passes), `docker-compose.yml` (comment), `docs/recap/MASTER-RECAP.html` (ledger links and commands). The deploy script `_deploy/deploy-v10-to-nas.sh` already pointed at `v14`. That edit was made earlier and is uncommitted in the `~/websites` git repo (not v14). The file name and the `_deploy-backup-v10-*` names stay the same, so rollback still finds old backups. Nothing was deployed.
-4. Marco — Explain 55 deleted files under `docs/handoff/archive/` in the v14 working tree. They were deleted before this session and are not staged. Restore them (`git restore docs/handoff/archive`) or commit the deletion?
+3. Agent — After Marco rules items 532 (restart) and 531 (eight copy questions) and the hero lines (281 to 289) on the ONE ballot, build copy round 3. The topic is at the top of the ballot since 2026-11-20.
 
 ## Blockers
 - Marco — the unpause word.

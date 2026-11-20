@@ -2,7 +2,7 @@
 # APR 70 website — STATE (repo copy)
 
 > **Short read-only copy for agents with no vault access (cloud agents).**
-> Source of truth: `~/vault/10 Work/11 APR70 Pictures/11.03 Company Ops/website/STATE.md` (on the Mac). Vault STATE updated: 2026-10-06T06:07-04:00 by Claude Code (Opus 5.5) on MacBook.
+> Source of truth: `~/vault/10 Work/11 APR70 Pictures/11.03 Company Ops/website/STATE.md` (on the Mac). Vault STATE updated: 2026-10-08T12:05-04:00 by Grok Bot (lanes owner) on MacBook.
 > Cloud agents: read this; do not edit it. At END, put your end state (done / next / blockers) in the PR description.
 > The next Mac session merges it into the vault STATE.md, then refreshes this copy.
 
@@ -13,6 +13,7 @@ The public site for APR 70 Pictures: staging.apr70.com is the full site, apr70.c
 Active again (Marco, 2026-10-06: "The website should be active."). v14 is on staging. Pick up from the i18n and copy ballot handoff; every ship follows the website version law.
 
 ## Last 3 decisions
+0. 2026-11-20 — Marco: "merge anyway" (10:01 AM ET, Pilot bridge `20261120-1002`). The lane-file commit `b0d5a44` (CLAUDE.md + AGENTS.md: Remote Control first after "go") is pushed to `origin` and `nas` `main`. The plain merge pre-check passed; the Jev step was skipped on his word. Both remote heads were read back and equal the local head. The repo copy of `STATE.md` is not committed. (Claude Code, Fable 5.2)
 1. 2026-10-06 — Marco: "The website should be active." The lane is active, not parked. — Phase 3 ballot
 2. 2026-09-19 — The site must have a public chatbot. It needs an Agent Report Card run that Marco has reviewed before production trust. — chatbot program
 3. 2026-09-14 — The staging palette wins. Jost is the type; Futura is out. SITE_VERSION is v14 (folder `v14`, once `v10`). — APR70
@@ -20,7 +21,8 @@ Active again (Marco, 2026-10-06: "The website should be active."). v14 is on sta
 ## Next 3 actions
 1. Marco — Say when site work unpauses. Until then, docs only.
 2. Marco — Tick the Hero Lines Ballot (no real tick yet; open since 09-04). Then rule the 8 copy-ballot questions in the Word file on SharedData. Agent builds copy round 3 only after that.
-3. Agent — Repoint the deploy script and ledger paths from `v10` to `v14`. Stage it as a commit for Marco's go. Do not deploy.
+3. Marco — Go to commit the `v10` → `v14` repoint (done 2026-11-20 by Claude Code, uncommitted). The v14 repo has 4 files: `scripts/qa-shots.mjs`, `scripts/qa-third-party.mjs` (both imported Playwright from the missing `v10` folder; they are fixed, and `node --check` passes), `docker-compose.yml` (comment), `docs/recap/MASTER-RECAP.html` (ledger links and commands). The deploy script `_deploy/deploy-v10-to-nas.sh` already pointed at `v14`. That edit was made earlier and is uncommitted in the `~/websites` git repo (not v14). The file name and the `_deploy-backup-v10-*` names stay the same, so rollback still finds old backups. Nothing was deployed.
+4. Marco — Explain 55 deleted files under `docs/handoff/archive/` in the v14 working tree. They were deleted before this session and are not staged. Restore them (`git restore docs/handoff/archive`) or commit the deletion?
 
 ## Blockers
 - Marco — the unpause word.
@@ -38,3 +40,8 @@ Active again (Marco, 2026-10-06: "The website should be active."). v14 is on sta
 - Never "A70". Keep the palette distinct from KIMA. The Mayors stays private (`publicSlate=false`) until counsel clears.
 - Chatbot: it never sends email, takes payment or changes live policy. Mailbird is read-only here.
 - Repo `CLAUDE.md` rule 15 (one handoff in `docs/handoff/`) is replaced by this STATE.md.
+
+### Handoff 2026-10-08 — from Cursor cloud
+- Source: Cursor Project "APR70" (repo `brooklyn70/apr70-website`; last activity 2026-09-15 13:04 EDT), archived 2026-10-08 when Marco retired Cursor Projects for lanes. No PR or branch.
+- Open: the Website + Brand plan is held for the CoS ballot (Marco decides); live is v14. The plan file `website-brand-plan.md` lived in the Project store and also touches apr70-brand. The apr70-pictures agent was idle. Done per its notes: Apr70 folder cleanup (Mac v14 path noted, no cloud changes); PROGRAM gates absorbed; plan proposed.
+- Next step: copy `website-brand-plan.md` out of the archived Project into this lane folder (and point apr70-brand at it). Nothing to deploy. Open the archived agent "APR70" for full context.

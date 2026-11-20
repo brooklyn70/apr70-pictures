@@ -171,7 +171,7 @@
       <tr><th>Document</th><th>What it is</th></tr>
       <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.14%20V10%20Build/06-qa/payload-dod-evidence.md">Payload DoD evidence</a><span class="path">vault · 06-qa/</span></td><td>P1 through P8 with proof, the Founding Roll end-to-end results, the P0 privacy verification, and the NAS deploy verification block.</td></tr>
       <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.14%20V10%20Build/06-qa/image-pass-report.md">Image pass report</a><span class="path">vault · 06-qa/</span></td><td>All 33 broken slots, the 32 SharedData fills with alt and provenance, the one honest PENDING.</td></tr>
-      <tr><td class="doc"><a href="file:///Users/marco/websites/apr70-website/v10/cms/tests/e2e/v10-public.e2e.spec.ts">v10-public.e2e.spec.ts</a><span class="path">v10/cms/tests/e2e/</span></td><td>The regression harness. Run it any time: 20 tests including the zero-third-party network law.</td></tr>
+      <tr><td class="doc"><a href="file:///Users/marco/websites/apr70-website/v14/cms/tests/e2e/v10-public.e2e.spec.ts">v10-public.e2e.spec.ts</a><span class="path">v14/cms/tests/e2e/</span></td><td>The regression harness. Run it any time: 20 tests including the zero-third-party network law.</td></tr>
       <tr><td class="doc"><a href="file:///Users/marco/vault/10%20Work/11%20APR70%20Pictures/11.14%20V10%20Build/07-recap/v10-build-recap.md">v10-build-recap.md</a><span class="path">vault · 07-recap/</span></td><td>The written recap behind this page.</td></tr>
     </table>
 
@@ -229,14 +229,14 @@ bash ~/websites/apr70-website/_deploy/deploy-v10-to-nas.sh --plan   # dry
 bash ~/websites/apr70-website/_deploy/deploy-v10-to-nas.sh --run
 
 # run the regression harness against a production build
-cd ~/websites/apr70-website/v10/web && pnpm build && \
+cd ~/websites/apr70-website/v14/web && pnpm build && \
   HOST=127.0.0.1 PORT=4322 PUBLIC_PAYLOAD_URL=http://localhost:3000 node ./dist/server/entry.mjs &
-cd ~/websites/apr70-website/v10/cms && PUBLIC_SITE_URL=http://127.0.0.1:4322 \
+cd ~/websites/apr70-website/v14/cms && PUBLIC_SITE_URL=http://127.0.0.1:4322 \
   npx cross-env NODE_OPTIONS="--no-deprecation --import=tsx/esm" playwright test tests/e2e/v10-public.e2e.spec.ts
 
 # local dev
-cd ~/websites/apr70-website/v10/cms && pnpm dev   # Payload on :3000
-cd ~/websites/apr70-website/v10/web && pnpm dev   # Astro on :4321</pre>
+cd ~/websites/apr70-website/v14/cms && pnpm dev   # Payload on :3000
+cd ~/websites/apr70-website/v14/web && pnpm dev   # Astro on :4321</pre>
   </div>
 </section>
 

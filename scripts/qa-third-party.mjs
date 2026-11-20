@@ -1,4 +1,4 @@
-import { chromium } from '/Users/marco/websites/apr70-website/v10/cms/node_modules/@playwright/test/index.mjs'
+import { chromium } from '/Users/marco/websites/apr70-website/v14/cms/node_modules/@playwright/test/index.mjs'
 const pages = ['/', '/slate', '/work/the-movement', '/work/sea-gate', '/craft', '/methods', '/contact', '/212', '/310', '/nrc']
 const browser = await chromium.launch()
 const page = await browser.newPage()

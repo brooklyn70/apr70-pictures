@@ -1,6 +1,6 @@
 // v12 before/after screenshot rig — 1440px, both themes, ELEMENT shots.
 // usage: node shoot.mjs <label>
-import { chromium } from '/Users/marco/websites/apr70-website/v10/cms/node_modules/@playwright/test/index.mjs'
+import { chromium } from '/Users/marco/websites/apr70-website/v14/cms/node_modules/@playwright/test/index.mjs'
 import { mkdirSync } from 'node:fs'
 
 const label = process.argv[2] || 'before'

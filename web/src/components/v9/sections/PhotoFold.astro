@@ -7,7 +7,7 @@
  */
 import type { V9Section } from '../../../lib/payload'
 import { renderInline } from '../../../lib/v9/inline'
-import { frameFromMedia, focalPosition, isAiFrameText, SIZES_COVER_VH100, SIZES_COVER_TALL } from '../media'
+import { frameFromMedia, focalPosition, isAiFrameText, SIZES_COVER_VH100, SIZES_COVER_TALL, SIZES_GRID_WIDE } from '../media'
 
 type PhotoFoldData = Extract<V9Section, { blockType: 'photoFold' }>
 const section = Astro.props.section as PhotoFoldData
@@ -16,6 +16,12 @@ const frame = frameFromMedia(section.image)
 const hasWords = Boolean(section.heading || section.kicker)
 const hasCaption = Boolean(section.caption || section.credit)
 const aiFrame = isAiFrameText(section.caption, section.credit)
+/* N-100: a contact strip (several frames side by side, e.g. the 7.27:1 Methods motion
+   test) cannot survive a scope cover crop. Anything wider than 3:1 is shown whole,
+   inside the column. No CMS flag: the picture's own shape decides. */
+const isStrip =
+  !section.vh100 && Boolean(frame?.width && frame?.height && frame.width / frame.height > 3)
+const frameClass = isStrip ? 'v9-photofold__frame v9-photofold__frame--strip' : 'v9-photofold__frame'
 ---
 
 {
@@ -25,11 +31,11 @@ const aiFrame = isAiFrameText(section.caption, section.credit)
       aria-label={section.heading ?? section.caption ?? 'Photograph'}
     >
       {frame ? (
-        <div class="v9-photofold__frame" data-ai-frame={aiFrame ? 'true' : undefined}>
+        <div class={frameClass} data-ai-frame={aiFrame ? 'true' : undefined}>
           <img
             src={frame.src}
             srcset={frame.srcset}
-            sizes={section.vh100 ? SIZES_COVER_VH100 : SIZES_COVER_TALL}
+            sizes={section.vh100 ? SIZES_COVER_VH100 : isStrip ? SIZES_GRID_WIDE : SIZES_COVER_TALL}
             width={frame.width}
             height={frame.height}
             alt={frame.alt}
@@ -37,7 +43,12 @@ const aiFrame = isAiFrameText(section.caption, section.credit)
             decoding={section.eager ? 'sync' : 'async'}
             style={`object-position: ${focalPosition(frame)}`}
           />
-          <div class="v9-scrim" aria-hidden="true" />
+          {!isStrip && <div class="v9-scrim" aria-hidden="true" />}
+          {/* N-101k: scrollbars stay hidden (Marco's ruling), so the full-screen front
+              fold carries a quiet cue that the page goes on. Decorative: aria-hidden. */}
+          {section.vh100 && (
+            <span class="v9-photofold__cue" aria-hidden="true">Scroll</span>
+          )}
           {hasWords && (
             <div class="v9-photofold__overlay">
               <div class="v9-photofold__overlay-inner">

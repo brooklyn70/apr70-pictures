@@ -26,7 +26,9 @@ const HOLE_PAIRS: [string, string][] = [
   ['pnr2', 'pnr3'],
 ]
 
-const PAIR_COLORS = ['#E85D04', '#0077B6', '#077082', '#824B07', '#ffffff']
+/* N-102: the top pair and the wordmark paint currentColor, which .v9-reveal sets to the
+   page ink, so the curtain reads on House Lights paper as well as on Marquee Night. */
+const PAIR_COLORS = ['#E85D04', '#0077B6', '#077082', '#824B07', 'currentColor']
 
 const HOLE_YS = [61.6, 50.2, 38.8, 27.4, 16.0]
 
@@ -149,7 +151,7 @@ export default function LogoRevealIsland() {
             fontFamily="'Jost', 'Century Gothic', sans-serif"
             fontSize="38"
             fontWeight="700"
-            fill="#FFFFFF"
+            fill="currentColor"
             textAnchor="middle"
             letterSpacing="0.18em"
           >

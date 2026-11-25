@@ -34,6 +34,8 @@ const description = page?.seoDescription ?? NAP.description
       if (!rail || !fill || !main) return
 
       var track = fill.parentElement
+      var first = main.firstElementChild
+      var hero = first && first.classList.contains('v9-photofold') ? first.querySelector('.v9-photofold__frame') : null
       var reduced =
         window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
       /* The CSS scroll timeline owns the fill unless unsupported or reduced
@@ -84,6 +86,8 @@ const description = page?.seoDescription ?? NAP.description
         for (var i = 0; i < ticks.length; i++) {
           ticks[i].classList.toggle('is-past', y >= Number(ticks[i].dataset.at) - 1)
         }
+        /* N-101j: no rail over the hero still; it fades in once the still has passed it. */
+        rail.classList.toggle('is-over-hero', !!hero && hero.getBoundingClientRect().bottom > rail.getBoundingClientRect().top)
         /* A page shorter than the viewport has no progress to show. */
         rail.style.display =
           document.documentElement.scrollHeight > window.innerHeight * 1.2 ? '' : 'none'

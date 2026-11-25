@@ -13,7 +13,7 @@ import type { MotionApi } from './index'
 
 let active = false
 
-export function initCursor({ gsap }: MotionApi): void {
+export function initCursor({ gsap }: Pick<MotionApi, 'gsap'>): void {
   if (typeof window === 'undefined' || active) return
   if (window.matchMedia('(pointer: coarse)').matches) return
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return

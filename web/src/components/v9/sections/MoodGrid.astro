@@ -8,7 +8,7 @@
 import type { V9Section } from '../../../lib/payload'
 import FilmstripSlideshow, { type FilmstripItem } from '../../islands/FilmstripSlideshow'
 import { renderInline, plainLabel } from '../../../lib/v9/inline'
-import { frameFromMedia, SIZES_GRID } from '../media'
+import { frameFromMedia, SIZES_GRID, SIZES_GRID_WIDE } from '../media'
 
 type MoodGridData = Extract<V9Section, { blockType: 'moodGrid' }>
 const section = Astro.props.section as MoodGridData
@@ -57,7 +57,7 @@ const label = section.ariaLabel ?? section.heading ?? 'Development frames'
                   <img
                     src={it.src}
                     srcset={it.srcset}
-                    sizes={SIZES_GRID}
+                    sizes={it.wide ? SIZES_GRID_WIDE : SIZES_GRID}
                     width={it.width}
                     height={it.height}
                     alt={it.alt}

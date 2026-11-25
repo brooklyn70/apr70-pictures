@@ -43,7 +43,10 @@ export type FilmstripItem = {
 }
 
 const SIZES_GRID = '(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 33vw'
-const SIZES_STAGE = '(max-width: 900px) 100vw, 900px'
+/* N-101f (Neon, 2026-11-22): a wide frame spans the whole column, so 33vw made the
+   browser stretch the 480w tier 2.4x. Keep in lockstep with SIZES_GRID_WIDE in ../v9/media.ts. */
+const SIZES_GRID_WIDE = '(max-width: 720px) 100vw, 1152px'
+const SIZES_STAGE = '(max-width: 1200px) 100vw, 1200px'
 
 type Props = {
   items: FilmstripItem[]
@@ -153,7 +156,7 @@ export default function FilmstripSlideshow({ items, label }: Props) {
               <img
                 src={it.src}
                 srcSet={it.srcset}
-                sizes={SIZES_GRID}
+                sizes={it.wide ? SIZES_GRID_WIDE : SIZES_GRID}
                 width={it.width}
                 height={it.height}
                 alt={it.alt}

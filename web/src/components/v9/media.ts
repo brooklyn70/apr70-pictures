@@ -48,6 +48,8 @@ export const SIZES_FULLBLEED = '100vw'
 export const SIZES_COVER_VH100 = '(max-width: 719px) calc(100vh * 2.4), 100vw'
 export const SIZES_COVER_TALL = '(max-width: 719px) 300vw, 100vw'
 export const SIZES_GRID = '(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 33vw'
+/** A --wide grid frame spans the whole column (N-101f). */
+export const SIZES_GRID_WIDE = '(max-width: 720px) 100vw, 1152px'
 
 export const focalPosition = (f: Frame): string => `${f.focalX}% ${f.focalY}%`
 

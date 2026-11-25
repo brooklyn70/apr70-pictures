@@ -22,6 +22,7 @@ import '../styles/v9.css'
 import '../styles/themes/index.css'
 import ModeToggleIsland from '../components/islands/ModeToggleIsland'
 import ScrollTopIsland from '../components/islands/ScrollTopIsland'
+import BrandMark from '../components/v9/BrandMark.astro'
 import { fetchV9Chrome, fetchSiteSettings, fetchTroupeProgram, resolveMediaUrl } from '../lib/payload'
 import { organizationJsonLd, webSiteJsonLd, canonical, V9_PAGES, LEGAL_PAGES, NAP } from '../lib/v9/site'
 
@@ -242,19 +243,9 @@ const panelLabels = {
     <header class="v9-header">
       <div class="v9-col v9-header__row">
         <a class="v9-brand" href="/" aria-label={NAP.name}>
-          <img
-            class="v9-brand__mark"
-            data-mark-ink="light"
-            src={markLight}
-            alt={NAP.name}
-          />
-          <img
-            class="v9-brand__mark"
-            data-mark-ink="dark"
-            src={markDark}
-            alt=""
-            aria-hidden="true"
-          />
+          {/* N-106: the punch takes the page accent in both modes (BrandMark). */}
+          <BrandMark class="v9-brand__mark" ink="light" src={markLight} alt={NAP.name} />
+          <BrandMark class="v9-brand__mark" ink="dark" src={markDark} />
         </a>
         <nav class="v9-nav" aria-label="Primary">
           {/* v13: the header nav wears the routeline look — mono super index,
@@ -312,8 +303,8 @@ const panelLabels = {
         {/* Footer brand (Marco 2026-07-27): same admin-driven marks as the nav,
             theme-swapped by the shared [data-mark-ink] rules, house-scale. */}
         <a class="v9-footer__brand" href="/" aria-label={NAP.name}>
-          <img class="v9-footer__mark" data-mark-ink="light" src={markLight} alt="" aria-hidden="true" />
-          <img class="v9-footer__mark" data-mark-ink="dark" src={markDark} alt="" aria-hidden="true" />
+          <BrandMark class="v9-footer__mark" ink="light" src={markLight} />
+          <BrandMark class="v9-footer__mark" ink="dark" src={markDark} />
         </a>
         <nav class="v9-footer__nav" aria-label="Footer">
           {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
@@ -345,14 +336,13 @@ const panelLabels = {
         motion modules (whose themes were deleted in v10). We want the cursor and
         nothing else. initCursor bails itself on coarse pointers and on
         prefers-reduced-motion, so touch and reduced-motion never even bind the
-        listener. */}
+        listener. N-101h: the cursor needs gsap.quickTo only, so ScrollTrigger and
+        SplitText no longer ride along on every page. */}
     <script>
       import { gsap } from 'gsap'
-      import { ScrollTrigger } from 'gsap/ScrollTrigger'
-      import { SplitText } from 'gsap/SplitText'
       import { initCursor } from '../lib/motion/cursor'
 
-      initCursor({ gsap, ScrollTrigger, SplitText })
+      initCursor({ gsap })
     </script>
 
     <script is:inline>
@@ -360,7 +350,14 @@ const panelLabels = {
          enhancement: without JS nothing is ever hidden (the .reveal class is
          only added here, and the hiding CSS is gated on html.js). */
       ;(function () {
-        var els = document.querySelectorAll('main .v9-section, main .v9-photofold, main .v9-prophead')
+        /* N-101i: the block right under an opening photo fold (the page title) is never
+           hidden; on a laptop it sits at the fold and a fast scroll left it at opacity 0. */
+        var first = document.querySelector('main > .v9-photofold:first-of-type')
+        var exempt = first && first === document.querySelector('main').firstElementChild ? first.nextElementSibling : null
+        var els = Array.prototype.filter.call(
+          document.querySelectorAll('main .v9-section, main .v9-photofold, main .v9-prophead'),
+          function (el) { return el !== exempt },
+        )
         els.forEach(function (el, i) {
           el.classList.add('reveal')
           el.style.setProperty('--i', String(i % 3))
@@ -378,7 +375,7 @@ const panelLabels = {
               }
             })
           },
-          { rootMargin: '0px 0px -8% 0px' },
+          { rootMargin: '0px 0px 10% 0px' }, /* N-101i: was -8%, which held fold headings back */
         )
         els.forEach(function (el) { io.observe(el) })
       })()

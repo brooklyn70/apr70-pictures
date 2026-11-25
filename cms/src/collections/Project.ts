@@ -211,7 +211,7 @@ export const Project: CollectionConfig = {
       admin: {
         position: 'sidebar',
         description:
-          'when checked, this property appears on the public slate and gets a /work/<slug> page. The two private properties stay unchecked.',
+          'when checked, this property appears on the public slate and gets a /work/<slug> page. All ten properties are public (Marco, 2026-11-22).',
       },
     },
     {

@@ -8,15 +8,19 @@
  */
 import V9Layout from '../layouts/V9Layout.astro'
 import DivisionPage from '../components/v9/DivisionPage.astro'
-import { fetchDivisionSlate } from '../lib/payload'
+import { fetchDivisionSlate, fetchV9SlateProjects } from '../lib/payload'
 import { NAP } from '../lib/v9/site'
 
-const { slate } = await fetchDivisionSlate('nrc')
+const [{ slate }, { slate: whole }] = await Promise.all([
+  fetchDivisionSlate('nrc'),
+  fetchV9SlateProjects(),
+])
 
 const lockup = 'New Renaissance Cinema'
 const discipline = 'Feature films built for permanence.'
 const paragraph =
-  'New Renaissance Cinema makes feature films built for permanence. Auteur-driven and morally clear, developed for the long life of a picture. Film deserves its own conversation, and this is where APR 70 Pictures has it at feature length. Every APR 70 feature carries this banner. When a picture has a home territory, (212) or (310) joins as co-production, so a story can move rooms without changing hands. When it has none, it stands here alone.'
+  // v15: Neon's text (N-035), copied from the review / round 1 answers.
+  'Original and public-domain feature screenplays written for theaters and a long shelf life. Every APR 70 feature carries this banner. Stories rooted in New York or Los Angeles co-produce with (212) or (310); stories set elsewhere, such as U Bruculinu in Sicily, stand here alone.'
 const title = `${lockup} · ${NAP.name}`
 ---
 
@@ -27,5 +31,6 @@ const title = `${lockup} · ${NAP.name}`
     discipline={discipline}
     paragraph={paragraph}
     slate={slate}
+    slateCount={whole.length}
   />
 </V9Layout>

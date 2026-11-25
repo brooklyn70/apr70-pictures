@@ -129,12 +129,15 @@ test.describe('routes', () => {
     await expect(page.locator('.v9-nav__link[href="/troupe"]')).toHaveCount(0)
   })
 
-  test('private property leaks nowhere', async ({ request }) => {
+  /* v15: The Mayors is public (Marco's law, 2026-11-22,
+     docs/decisions/2026-11-22-mayors-public.md). Its page answers, and every
+     machine surface lists it. Fails until publicSlate=true is written. */
+  test('The Mayors is public on the page and every machine surface', async ({ request }) => {
     const work = await request.get(`${SITE}/work/mayors`, { maxRedirects: 0 })
-    expect([301, 302, 404]).toContain(work.status())
+    expect(work.status()).toBe(200)
     for (const surface of ['/llms.txt', '/llms-full.txt', '/sitemap.xml']) {
       const res = await request.get(`${SITE}${surface}`)
-      expect(await res.text()).not.toContain('mayors')
+      expect(await res.text()).toContain('/work/mayors')
     }
   })
 })

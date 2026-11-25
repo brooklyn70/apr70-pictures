@@ -23,7 +23,7 @@ import '../styles/themes/index.css'
 import ModeToggleIsland from '../components/islands/ModeToggleIsland'
 import ScrollTopIsland from '../components/islands/ScrollTopIsland'
 import { fetchV9Chrome, fetchSiteSettings, fetchTroupeProgram, resolveMediaUrl } from '../lib/payload'
-import { organizationJsonLd, webSiteJsonLd, canonical, V9_PAGES, NAP } from '../lib/v9/site'
+import { organizationJsonLd, webSiteJsonLd, canonical, V9_PAGES, LEGAL_PAGES, NAP } from '../lib/v9/site'
 
 interface Props {
   title: string
@@ -146,6 +146,13 @@ const navLinks =
   troupeLive && !troupeAlreadyInNav
     ? [...withDispatch, { href: '/troupe', label: troupeLabel }]
     : withDispatch
+
+/* v15 (Neon N-101g): the footer's division row, short labels as Neon wrote them. */
+const FOOTER_DIVISIONS = [
+  { href: '/212', label: '(212)' },
+  { href: '/310', label: '(310)' },
+  { href: '/nrc', label: 'NRC' },
+]
 
 const path = Astro.url.pathname.replace(/\/$/, '') || '/'
 const canonicalUrl = canonical(path)
@@ -311,6 +318,14 @@ const panelLabels = {
         <nav class="v9-footer__nav" aria-label="Footer">
           {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
         </nav>
+        {/* v15 (Neon N-101g): every page reaches the three houses in one click. */}
+        <nav class="v9-footer__nav v9-footer__nav--divisions" aria-label="Divisions">
+          {FOOTER_DIVISIONS.map((link) => <a href={link.href}>{link.label}</a>)}
+        </nav>
+        {/* v15 (Neon N-082): the two legal pages, linked quietly. */}
+        <nav class="v9-footer__nav v9-footer__nav--legal" aria-label="Legal">
+          {LEGAL_PAGES.map((link) => <a href={link.path}>{link.label}</a>)}
+        </nav>
         {chrome.colophon && <p class="v9-footer__colophon">{chrome.colophon}</p>}
         <p class="v9-footer__copy">{chrome.copyright}</p>
       </div>
@@ -370,3 +385,11 @@ const panelLabels = {
     </script>
   </body>
 </html>
+
+<style>
+  /* v15: the division and legal rows sit closer under the main footer nav. */
+  .v9-footer__nav--divisions,
+  .v9-footer__nav--legal {
+    margin-top: calc(-1 * clamp(0.75rem, 1.5vw, 1.25rem));
+  }
+</style>

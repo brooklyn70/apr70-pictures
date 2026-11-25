@@ -16,6 +16,19 @@
  *    showed none of them, with the right half of every row empty. The key frame
  *    now sits in that space, dim and desaturated at rest so the page stays quiet,
  *    and waking up when you touch the row.
+ *
+ * v15 (Neon review N-030, N-023):
+ *
+ * 3. ONE PROVENANCE LINE. The row's `provenance` override is ignored, like the
+ *    meta override before it: the public-domain line comes from
+ *    Project.provenance only, so /slate, the division pages and /work/<slug>
+ *    can never disagree again. (The block field stays in the schema, unused.)
+ *
+ * 4. NO PROVENANCE ON HOME. The Home mini-slate shows no public-domain line;
+ *    SectionRenderer passes page="home" from index.astro.
+ *
+ * 5. A row whose linked project is not on the public slate (publicSlate off)
+ *    does not render, so a row added before the switch flips cannot leak.
  */
 import type { V9Section } from '../../../lib/payload'
 import { resolveMediaUrl, resolveMediaSrcset } from '../../../lib/payload'
@@ -23,6 +36,7 @@ import { renderInline } from '../../../lib/v9/inline'
 
 type SlateListData = Extract<V9Section, { blockType: 'slateList' }>
 const section = Astro.props.section as SlateListData
+const onHome = Astro.props.page === 'home'
 
 type Row = {
   title: string
@@ -38,13 +52,15 @@ const rows: Row[] = (section.rows ?? []).flatMap((row) => {
   const project = row.project && typeof row.project === 'object' ? row.project : null
   const title = row.title || project?.title
   if (!title) return []
+  if (project && project.publicSlate === false) return []
   const href = row.href || (project?.slug ? `/work/${project.slug}` : null)
   return [
     {
       title,
       href,
       logline: row.logline || project?.shortLogline || project?.logline || null,
-      provenance: row.provenance || project?.provenance || null,
+      // Project.provenance is the ONLY source (N-030); Home shows none (N-023).
+      provenance: onHome ? null : project?.provenance || null,
       // Project.metaLine is the ONLY source. Do not reintroduce an override here.
       meta: project?.metaLine || null,
       img: resolveMediaUrl(project?.heroImage as never) ?? null,

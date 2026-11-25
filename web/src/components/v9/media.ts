@@ -1,5 +1,6 @@
 import type { Media } from 'payload-types'
 import { resolveMediaUrl, resolveMediaSrcset } from '../../lib/payload'
+import { plainLabel } from '../../lib/v9/inline'
 
 /**
  * Null-safe frame resolver — the v9 image law: some media is PENDING until
@@ -31,7 +32,7 @@ export function frameFromMedia(input: unknown): Frame | null {
     srcset: resolveMediaSrcset(media),
     width: typeof media.width === 'number' ? media.width : undefined,
     height: typeof media.height === 'number' ? media.height : undefined,
-    alt: typeof media.alt === 'string' ? media.alt : '',
+    alt: typeof media.alt === 'string' ? plainLabel(media.alt) : '',
     focalX: typeof media.focalX === 'number' ? media.focalX : 50,
     focalY: typeof media.focalY === 'number' ? media.focalY : 50,
   }

@@ -7,15 +7,25 @@
  */
 import V9Layout from '../layouts/V9Layout.astro'
 import DivisionPage from '../components/v9/DivisionPage.astro'
-import { fetchDivisionSlate } from '../lib/payload'
+import { fetchDivisionSlate, fetchV9SlateProjects } from '../lib/payload'
+import { plainText } from '../lib/v9/inline'
 import { NAP } from '../lib/v9/site'
 
-const { slate } = await fetchDivisionSlate('310')
+const [{ slate }, { slate: whole }] = await Promise.all([
+  fetchDivisionSlate('310'),
+  fetchV9SlateProjects(),
+])
+// v15 (N-036): the NRC features this house co-produces, read from the one
+// billing source, Project.metaLine ("... with (310) Pictures ..."). No new field.
+const coProductions = whole.filter((p) =>
+  plainText(p.metaLine).toLowerCase().includes('with (310) pictures'),
+)
 
 const lockup = '(310) Pictures'
 const discipline = 'Television for audiences who travel, staged out of Los Angeles.'
 const paragraph =
-  '(310) Pictures makes television for audiences who travel. Political thrillers, science fiction, and hybrid formats that interrogate genre without talking down to the room, staged out of Los Angeles with reach into international markets. The flagship series L.A. Dolce Vita anchors the house. When a (310) story begins as a feature it carries the New Renaissance Cinema banner and (310) joins as co-production.'
+  // v15: Neon's text (N-035), copied from the review / round 1 answers.
+  'Political thrillers and grounded science fiction built in Los Angeles for international audiences. L.A. Dolce Vita anchors the house alongside Cleopatra. When a West Coast story belongs in theaters, New Renaissance Cinema leads and (310) Pictures co-produces.'
 const title = `${lockup} · ${NAP.name}`
 ---
 
@@ -26,5 +36,7 @@ const title = `${lockup} · ${NAP.name}`
     discipline={discipline}
     paragraph={paragraph}
     slate={slate}
+    coProductions={coProductions}
+    slateCount={whole.length}
   />
 </V9Layout>

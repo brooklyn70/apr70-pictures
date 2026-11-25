@@ -1,0 +1,41 @@
+---
+/**
+ * Draft legal text (Neon, 2026-11-25). Staging only until Marco approves the legal text.
+ *
+ * /terms (v15, Neon review N-082): the one-screen terms page, copied as
+ * written from Neon's round 1 answers, Q18 (gemini-lane work/1334). Linked
+ * quietly from the footer; not in the primary nav.
+ */
+import V9Layout from '../layouts/V9Layout.astro'
+import { renderParagraphs } from '../lib/v9/inline'
+import { NAP } from '../lib/v9/site'
+
+const heading = "TERMS"
+const description = "Terms of use for APR 70 Pictures: copyright notice, public-domain source statement, unsolicited-submissions policy, and private reading materials."
+const paragraphs = [
+  "**Copyright and original works.** All original text, screenplays, treatments, episode grids, site design, and studio marks on this site are copyright APR 70 Pictures, Long Island City, New York. No material from this site may be reproduced, redistributed, or used for commercial purposes without written permission.",
+  "**Public-domain sources.** Where a property adapts a public-domain work (including Dashiell Hammett's *Red Harvest* and *The Maltese Falcon*), APR 70 Pictures draws from the published novel in the US public domain and claims rights only in its own new screenplays and materials. Archival photographs and maps credited as public domain remain in the public domain.",
+  "**Development imagery.** Labeled development stills and motion tests on this site are AI-generated concept visuals created for development presentation and are not frames from completed motion pictures. Full disclosure rules appear on the Methods page.",
+  "**Unsolicited submissions.** APR 70 Pictures does not accept unsolicited scripts, treatments, loglines, or story pitches. Any unsolicited creative material sent to APR 70 Pictures is deleted unread.",
+  "**Private reading copies.** Scripts and development packages shared on request travel privately for evaluation only and remain the property of APR 70 Pictures. Listing a project on this site is an informational catalog of work in development and is not an offer of securities or a production guarantee.",
+  "**Contact.** Rights and permissions inquiries may be sent to [caruso@apr70.com](mailto:caruso@apr70.com).",
+]
+const bodyHtml = renderParagraphs(paragraphs.join('\n\n'))
+const title = `Terms · ${NAP.name}`
+---
+
+<V9Layout title={title} description={description}>
+  <section class="v9-section" aria-label="Terms">
+    <div class="v9-col">
+      <h1 class="v9-textfold__heading">{heading}</h1>
+      <div class="v9-prose v9-legal" set:html={bodyHtml} />
+    </div>
+  </section>
+</V9Layout>
+
+<style>
+  /* One screen of plain text: the house prose measure, nothing else. */
+  .v9-legal {
+    max-width: 68ch;
+  }
+</style>

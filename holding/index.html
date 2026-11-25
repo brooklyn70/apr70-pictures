@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>APR 70 Pictures</title>
-<meta name="description" content="APR 70 Pictures — an entertainment company in Long Island City, New York. The classics never go out of style.">
+<meta name="description" content="APR 70 Pictures, an entertainment company in Long Island City, New York. The classics never go out of style.">
 <link rel="icon" href="favicon.svg">
 <meta name="robots" content="index, follow">
 
@@ -82,6 +82,15 @@
     position: fixed; inset: 0;
     pointer-events: none; z-index: 3; opacity: 0.05;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ULTRAWIDE (Neon review 2026-11-22, N-101d): at 2560px the column sat flush
+     left with ~65% of the screen empty. The page content now lives in one
+     centred 80rem shell; on laptops and phones nothing moves. */
+  main, footer {
+    width: 100%;
+    max-width: 80rem;
+    margin-inline: auto;
   }
 
   main {
@@ -225,20 +234,20 @@
   <div class="col">
     <img class="mark" src="logos/wordmark-pictures_white_punch-orange.svg" alt="APR 70 Pictures">
 
-    <p class="eyebrow">An entertainment company · Long Island City, NY</p>
+    <p class="eyebrow">Multimedia Entertainment Company · Long Island City, NY</p>
 
     <!-- No hard <br>: at 22ch this breaks after "go" on its own, and on a phone
          it reflows instead of orphaning "GO" onto a line by itself. -->
     <h1>The classics never go out of <span class="flame">style.</span></h1>
 
     <p class="standfirst">
-      We develop and produce content classics — pictures built to be watched
-      again in thirty years, not scrolled past in thirty seconds.
+      Pictures built to be watched again in thirty years, not scrolled past
+      in thirty seconds.
     </p>
 
     <p class="status">
       <span class="dot" aria-hidden="true"></span>
-      <span>The new site is in final assembly</span>
+      <span>New site in final assembly. Private reading copies available on request.</span>
     </p>
 
     <p class="divisions">

@@ -7,7 +7,7 @@
  */
 import type { V9Section } from '../../../lib/payload'
 import FilmstripSlideshow, { type FilmstripItem } from '../../islands/FilmstripSlideshow'
-import { renderInline } from '../../../lib/v9/inline'
+import { renderInline, plainLabel } from '../../../lib/v9/inline'
 import { frameFromMedia, SIZES_GRID } from '../media'
 
 type MoodGridData = Extract<V9Section, { blockType: 'moodGrid' }>
@@ -22,7 +22,7 @@ const items: FilmstripItem[] = (section.items ?? []).flatMap((item) => {
       srcset: frame.srcset,
       width: frame.width,
       height: frame.height,
-      alt: frame.alt || item.caption || 'Development frame',
+      alt: frame.alt || plainLabel(item.caption) || 'Development frame',
       caption: item.caption ?? null,
       captionHtml: item.caption ? renderInline(item.caption) : null,
       credit: item.credit ?? null,

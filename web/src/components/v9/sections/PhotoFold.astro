@@ -6,7 +6,7 @@
  * (null): with a heading we still render the words; photo-only folds skip.
  */
 import type { V9Section } from '../../../lib/payload'
-import { renderInline } from '../../../lib/v9/inline'
+import { renderInline, plainLabel } from '../../../lib/v9/inline'
 import { frameFromMedia, focalPosition, isAiFrameText, SIZES_COVER_VH100, SIZES_COVER_TALL } from '../media'
 
 type PhotoFoldData = Extract<V9Section, { blockType: 'photoFold' }>
@@ -22,7 +22,7 @@ const aiFrame = isAiFrameText(section.caption, section.credit)
   (frame || hasWords) && (
     <section
       class={section.vh100 ? 'v9-photofold v9-photofold--vh100' : 'v9-photofold'}
-      aria-label={section.heading ?? section.caption ?? 'Photograph'}
+      aria-label={plainLabel(section.heading ?? section.caption) || 'Photograph'}
     >
       {frame ? (
         <div class="v9-photofold__frame" data-ai-frame={aiFrame ? 'true' : undefined}>

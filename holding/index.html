@@ -86,7 +86,9 @@
 
   /* ULTRAWIDE (Neon review 2026-11-22, N-101d): at 2560px the column sat flush
      left with ~65% of the screen empty. The page content now lives in one
-     centred 80rem shell; on laptops and phones nothing moves. */
+     centred 80rem shell, the column left-aligned inside it (2560px: 640px
+     left, 960px right). Phones are unchanged; at 1440px the column moves
+     16px right. */
   main, footer {
     width: 100%;
     max-width: 80rem;

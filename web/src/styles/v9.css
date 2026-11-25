@@ -407,7 +407,7 @@
 }
 .v9-capline .v9-hl { letter-spacing: 0.06em; }
 .v9-capline__credit { color: var(--fg-4); }
-.v9-capline__credit::before { content: ' \00b7 '; color: var(--color-neutral); } /* N-098: --fg-5 vanished (1.97:1) */
+.v9-capline__credit::before { content: ' \00b7\00a0'; color: var(--color-neutral); } /* N-098: --fg-5 vanished (1.97:1) */
 
 /* ---- Highlight (==text==) — themes restyle ---- */
 .v9-hl {

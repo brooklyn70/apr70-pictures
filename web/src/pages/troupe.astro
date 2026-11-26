@@ -79,8 +79,7 @@ const description = live
         <div class="v9-col">
           <h1 class="v9-textfold__heading">The Troupe</h1>
           <p class="v9-prose">
-            There is no programme on the air right now. The APR 70 Troupe performs when
-            there is something finished to perform — voices first, pictures after.
+            No program is on the air today. The APR 70 Troupe records when a script is ready for live actors: voices first, pictures after.
           </p>
           <a class="v9-more" href="/slate">The whole slate →</a>
         </div>
@@ -88,7 +87,7 @@ const description = live
     ) : (
       <>
         {/* ── The playbill head ────────────────────────────────────── */}
-        <section class="v9-section" aria-label="Programme">
+        <section class="v9-section" aria-label="Program">
           <div class="v9-col">
             <div class="v9-scene">
               <span class="v9-scene__num">The Troupe Presents</span>
@@ -109,11 +108,11 @@ const description = live
           <div class="v9-col">
             <div class="trp-stock">
               {posterSrc && (
-                <img class="trp-poster" src={posterSrc} alt={`${progTitle} — programme still`} />
+                <img class="trp-poster" src={posterSrc} alt={`${progTitle} · program still`} />
               )}
               <audio class="trp-player" controls preload="none" src={audioSrc}>
                 Your browser cannot play audio.{' '}
-                <a href={audioSrc}>Download the programme instead.</a>
+                <a href={audioSrc}>Download the program instead.</a>
               </audio>
             </div>
             <p class="v9-capline">
@@ -141,7 +140,7 @@ const description = live
 
         {/* ── Programme note + credits ─────────────────────────────── */}
         {(programme?.programmeNote || programme?.credits) && (
-          <section class="v9-section" aria-label="Programme note">
+          <section class="v9-section" aria-label="Program note">
             <div class="v9-col">
               {programme?.programmeNote && (
                 <p class="v9-prose" set:html={renderInline(programme.programmeNote)} />

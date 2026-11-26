@@ -58,8 +58,7 @@ const factboxFields = feature?.factbox?.fields ?? []
         <div class="v9-col">
           <h1 class="v9-textfold__heading">Dispatch</h1>
           <p class="v9-prose">
-            There is no issue on the stand right now. DISPATCH goes out when there's
-            something worth reporting — not on a schedule.
+            No issue is on the stand today. DISPATCH publishes when APR 70 has real news to report, never on a filler schedule.
           </p>
           <a class="v9-more" href="/slate">The whole slate →</a>
         </div>
@@ -272,7 +271,7 @@ const factboxFields = feature?.factbox?.fields ?? []
                     <dt>{e.date}</dt>
                     <dd>
                       {e.title}
-                      {e.sub ? ` — ${e.sub}` : ''}
+                      {e.sub ? ` · ${e.sub}` : ''}
                       {e.tag ? <em> · {e.tag}</em> : null}
                     </dd>
                   </div>
@@ -311,7 +310,7 @@ const factboxFields = feature?.factbox?.fields ?? []
                   <div class="v9-ledger__row">
                     <dt>
                       {[a.vol, a.no].filter(Boolean).join(' ')}
-                      {a.isCurrent ? ' — current' : ''}
+                      {a.isCurrent ? ' · current' : ''}
                     </dt>
                     <dd>
                       {[a.season, a.mast, a.line].filter(Boolean).join(' · ')}

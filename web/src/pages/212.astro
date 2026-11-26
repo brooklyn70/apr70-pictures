@@ -6,15 +6,25 @@
  */
 import V9Layout from '../layouts/V9Layout.astro'
 import DivisionPage from '../components/v9/DivisionPage.astro'
-import { fetchDivisionSlate } from '../lib/payload'
+import { fetchDivisionSlate, fetchV9SlateProjects } from '../lib/payload'
+import { plainText } from '../lib/v9/inline'
 import { NAP } from '../lib/v9/site'
 
-const { slate } = await fetchDivisionSlate('212')
+const [{ slate }, { slate: whole }] = await Promise.all([
+  fetchDivisionSlate('212'),
+  fetchV9SlateProjects(),
+])
+// v15 (N-036): the NRC features this house co-produces, read from the one
+// billing source, Project.metaLine ("... with (212) Pictures ..."). No new field.
+const coProductions = whole.filter((p) =>
+  plainText(p.metaLine).toLowerCase().includes('with (212) pictures'),
+)
 
 const lockup = '(212) Pictures'
 const discipline = 'New York television at street level, built from the five boroughs.'
 const paragraph =
-  '(212) Pictures makes New York television at street level. Crime, drama, and documentary at the level of specificity the city demands, where the five boroughs are a living subject rather than a backdrop. When a feature grows out of this territory it carries the New Renaissance Cinema banner and (212) joins as co-production, so a New York story can move to the big screen without changing hands.'
+  // v15: Neon's text (N-035), copied from the review / round 1 answers.
+  'Crime, drama, and documentary set inside the five boroughs, from City Hall to Borough Park, Red Hook, Sea Gate, and Staten Island. When a New York story belongs on the big screen, New Renaissance Cinema leads and (212) Pictures co-produces.'
 const title = `${lockup} · ${NAP.name}`
 ---
 
@@ -25,5 +35,7 @@ const title = `${lockup} · ${NAP.name}`
     discipline={discipline}
     paragraph={paragraph}
     slate={slate}
+    coProductions={coProductions}
+    slateCount={whole.length}
   />
 </V9Layout>

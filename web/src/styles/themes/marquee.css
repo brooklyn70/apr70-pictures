@@ -38,6 +38,8 @@
   --color-accent:   oklch(64% 0.185 42);   /* flame, from brand #E85D04 */
   --color-accent-dim: oklch(52% 0.15 42);
   --color-focus:    oklch(72% 0.17 55);
+  /* pressed link (N-101e): the dim accent fails AA on dark paper (3.42:1), so dark presses in the accent */
+  --color-link-active: var(--color-accent);
 
   /* photo chrome — CONSTANT across themes: a letterbox is black in any house */
   --scrim:          oklch(13% 0.012 55);
@@ -56,7 +58,7 @@
   --font-body:    'Newsreader', 'Iowan Old Style', serif;
   --font-mono:    'Courier Prime', 'Courier New', monospace;
 
-  --text-xs:   0.75rem; /* phones: 0.8125rem, see the 719px block below */
+  --text-xs:   0.8125rem; /* 13px floor at every width (Neon N-101b, 2026-11-25): Courier Prime has a small x-height */
   --text-sm:   0.875rem;
   --text-md:   1.0625rem;
   --text-lg:   1.3125rem;
@@ -121,6 +123,7 @@
     --color-accent:   oklch(52% 0.19 42);
     --color-accent-dim: oklch(45% 0.16 42);
     --color-focus:    oklch(48% 0.17 55);
+    --color-link-active: var(--color-accent-dim);
     --grain-opacity: 0.035;
   }
 }
@@ -137,6 +140,7 @@
   --color-accent:   oklch(52% 0.19 42);
   --color-accent-dim: oklch(45% 0.16 42);
   --color-focus:    oklch(48% 0.17 55);
+  --color-link-active: var(--color-accent-dim);
   --grain-opacity: 0.035;
 }
 
@@ -151,6 +155,10 @@
   :root:not([data-theme='dark']) .v9 [data-mark-ink='light'] { display: none; }
   :root:not([data-theme='dark']) .v9 [data-mark-ink='dark'] { display: block; }
 }
+/* N-106: one accent logic for the Punch mark in both modes. The inlined canonical mark
+   (BrandMark.astro) paints its punch in the page accent: house accent, or the division
+   accent on /212, /310, /nrc. */
+.v9-mark__punch { fill: var(--color-accent); }
 
 /* ---------- base voice ---------- */
 body {
@@ -233,6 +241,29 @@ body::after {
   font-style: italic;
 }
 
+/* N-101a (Neon, 2026-11-22): casing and weight by component ROLE, not by the HTML tag.
+   tokens.css uppercases every h1/h2/h3, so a heading changed its casing when its tag
+   changed (property titles read SEA GATE on their page and Sea Gate on the slate).
+   Each role now says its own casing:
+   - front-door statement (full-screen fold): capitals
+   - hero lines on other folds (property and page heroes): as authored
+   - section headings (text folds): capitals
+   - property titles (page head, slate rows, prev/next): Title Case, as authored
+   - division lockups: capitals at 500 (600 read chunky beside the 380 display voice).
+   The lockup's 600 lives in DivisionPage.astro's scoped style; the element-qualified
+   selector below outranks it whatever order the sheets load in. */
+.v9-photofold--vh100 .v9-photofold__heading { text-transform: uppercase; }
+.v9-photofold:not(.v9-photofold--vh100) .v9-photofold__heading { text-transform: none; }
+.v9-textfold__heading { text-transform: uppercase; }
+.v9-prophead__title,
+.v9-slaterow__title,
+.v9-ring__title { text-transform: none; }
+.v9 h1.v9-divhead__lockup {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
 /* ---------- header / nav — v8 nav-solid ---------- */
 .v9-header {
   background: var(--color-paper);
@@ -262,11 +293,23 @@ body::after {
    Bottom letterbox: 40% tall, --scrim at 88%. Top: 18% tall, 72%.
    Fixed dark cinema values in BOTH themes. */
 .v9-scrim {
+  /* N-097 (Neon, 2026-11-22): the 40% letterbox left hero lines on bare highlights
+     (fireworks, Jumbotron). Bottom band now 65% tall with a 62% shoulder, plus a soft
+     falloff behind the bottom-left words. Same --scrim ink, both modes. */
   background:
-    linear-gradient(to bottom, color-mix(in oklch, var(--scrim) 72%, transparent), transparent)
+    linear-gradient(to bottom, color-mix(in oklch, var(--scrim) 68%, transparent), transparent)
       top / 100% 18% no-repeat,
-    linear-gradient(to top, color-mix(in oklch, var(--scrim) 88%, transparent), transparent)
-      bottom / 100% 40% no-repeat;
+    linear-gradient(
+      to top,
+      color-mix(in oklch, var(--scrim) 92%, transparent) 0%,
+      color-mix(in oklch, var(--scrim) 62%, transparent) 42%,
+      transparent 100%
+    ) bottom / 100% 65% no-repeat,
+    radial-gradient(
+      ellipse 65% 55% at 15% 85%,
+      color-mix(in oklch, var(--scrim) 55%, transparent),
+      transparent 75%
+    );
 }
 .v9-photofold__frame { background: var(--scrim); }
 .v9-photofold__kicker {
@@ -275,11 +318,20 @@ body::after {
   text-shadow: 0 1px 4px var(--scrim);
 }
 .v9-photofold__heading {
-  font-weight: 340;
-  line-height: 1.02;
-  max-width: 12ch;
+  /* N-101a: editorial display statements sit at 380 (was 340); N-097: 18ch, not 12ch,
+     so a line no longer towers in 3-4 rows over the bright half of the still. */
+  font-weight: 380;
+  line-height: 1.04;
+  max-width: 18ch;
   color: var(--ink-on-photo);
   text-shadow: 0 1px 12px color-mix(in oklch, var(--scrim) 65%, transparent);
+}
+/* Folds that are not the full-screen front door (property heroes, page heroes): the
+   line is a subtitle in the dark band, smaller than the page H1 under it (N-097). */
+.v9-photofold:not(.v9-photofold--vh100) .v9-photofold__heading {
+  font-size: clamp(1.85rem, 4.4vw, 3.75rem);
+  max-width: 22ch;
+  line-height: 1.06;
 }
 
 /* caption line — v8 .caption voice */
@@ -313,16 +365,27 @@ body::after {
   line-height: 1.45;
   color: var(--color-ink);
 }
-.v9-textfold__lede::first-letter { color: var(--color-accent); }
-.v9-prose { font-size: var(--text-lg); }
-.v9-prose p { color: var(--color-ink); }
+/* N-095 (Neon, 2026-11-22): tokens.css sets every <p> to 16px / 300, which crushed
+   prose paragraphs while a bare <p class="v9-prose"> jumped to 21px. One size for both,
+   17px at 375 rising to 19px, regular weight, a 60ch measure. */
+.v9-prose {
+  font-size: clamp(1.0625rem, 1rem + 0.25vw, 1.2rem);
+  max-width: 60ch;
+}
+.v9-prose p {
+  font-family: var(--font-body);
+  font-size: inherit;
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--color-ink);
+}
 .v9-prose a {
   color: inherit;
   text-decoration-color: var(--color-accent);
   text-decoration-thickness: 1px;
 }
 .v9-prose a:hover { color: var(--color-hover); }
-.v9-prose a:active { color: var(--color-accent-dim); }
+.v9-prose a:active { color: var(--color-link-active); }
 .v9-prose strong { color: var(--color-ink); font-weight: 500; }
 
 /* the "more" route — v8 .prose a.more */
@@ -581,7 +644,7 @@ body::after {
 
 /* ---------- scroll-top — skinned with v8 chrome ---------- */
 .v9-scrolltop {
-  border-radius: 0;
+  /* N-103: no border-radius here; v9.css keeps Marco's circle (2026-07-13). */
   background: var(--color-paper-2);
   border: var(--rule-hairline);
   color: var(--color-neutral);
@@ -664,8 +727,3 @@ html.js .v9 .reveal.is-in {
 :root[data-highlight='sicilian-blue'] { --highlight-color: var(--pal-blue); }
 :root[data-highlight='ink']           { --highlight-color: var(--color-ink); }
 
-/* Phones: the letterspaced mono (nav labels, kickers, caplines, meta) was 12px, the hardest
-   text on the site at arm's length. 13px floor, tracking unchanged. */
-@media (max-width: 719px) {
-  :root { --text-xs: 0.8125rem; }
-}

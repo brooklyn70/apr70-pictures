@@ -19,9 +19,13 @@ import FoundingRoll from './sections/FoundingRoll.astro'
 
 interface Props {
   sections: V9Section[] | null | undefined
+  /** Which page the stack belongs to. Lets a section adapt without a schema
+   *  field (v15: the Home mini-slate drops the public-domain line, N-023). */
+  page?: 'home'
 }
 
 const sections = Astro.props.sections ?? []
+const page = Astro.props.page
 
 const components: Record<string, any> = {
   photoFold: PhotoFold,
@@ -42,6 +46,6 @@ const components: Record<string, any> = {
 {
   sections.map((section) => {
     const Component = components[section.blockType]
-    return Component ? <Component section={section} /> : null
+    return Component ? <Component section={section} page={page} /> : null
   })
 }

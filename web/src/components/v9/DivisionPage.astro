@@ -10,9 +10,18 @@
  * mark only ever appears with real properties under it (condition 5). No new
  * pictorial marks: the lockup is the house display face, one system across all
  * three (condition 6).
+ *
+ * v15 (Neon review N-036): every row carries its key frame (the same frame
+ * markup as /slate), a territory division also lists the New Renaissance
+ * Cinema features it co-produces (derived from Project.metaLine, "with (212)
+ * Pictures"), and the page ends on two routes: the whole slate (count from the
+ * public slate) and the contact desk. Provenance comes from Project.provenance
+ * only (N-030).
  */
 import type { V9SlateItem } from '../../lib/payload'
+import { resolveMediaUrl, resolveMediaSrcset } from '../../lib/payload'
 import { renderInline } from '../../lib/v9/inline'
+import { countWord } from '../../lib/v9/site'
 
 interface Props {
   division: '212' | '310' | 'nrc'
@@ -24,9 +33,29 @@ interface Props {
   paragraph: string
   /** The public properties this division owns, ordered. */
   slate: V9SlateItem[]
+  /** NRC features this division co-produces (212 / 310 only), ordered. */
+  coProductions?: V9SlateItem[]
+  /** How many properties are on the whole public slate. */
+  slateCount: number
 }
 
-const { division, lockup, discipline, paragraph, slate } = Astro.props
+const { division, lockup, discipline, paragraph, slate, coProductions = [], slateCount } = Astro.props
+
+type Group = { label: string; aria: string; items: V9SlateItem[]; compact: boolean }
+const groups: Group[] = [
+  { label: 'The slate', aria: `${lockup} slate`, items: slate, compact: false },
+  {
+    label: 'Co-productions with New Renaissance Cinema',
+    aria: `${lockup} co-productions with New Renaissance Cinema`,
+    items: coProductions,
+    compact: true,
+  },
+].filter((g) => g.items.length > 0)
+
+const frameOf = (p: V9SlateItem) => ({
+  src: resolveMediaUrl(p.heroImage as never) ?? null,
+  srcset: resolveMediaSrcset(p.heroImage as never),
+})
 ---
 
 <header class="v9-col v9-divhead">
@@ -37,36 +66,54 @@ const { division, lockup, discipline, paragraph, slate } = Astro.props
 </header>
 
 {
-  slate.length > 0 && (
-    <section class="v9-section v9-section--tight" aria-label={`${lockup} slate`}>
+  groups.map((g) => (
+    <section class="v9-section v9-section--tight" aria-label={g.aria}>
       <div class="v9-col">
-        <p class="v9-scene__slug v9-divhead__slatelabel">The slate</p>
+        <p class="v9-scene__slug v9-divhead__slatelabel">{g.label}</p>
         <ol class="v9-slatelist">
-          {slate.map((p) => (
-            <li class="v9-slaterow">
-              <a class="v9-slaterow__link" href={`/work/${p.slug}`}>
-                <span class="v9-slaterow__num" aria-hidden="true" />
-                <span class="v9-slaterow__body">
-                  <p class="v9-slaterow__title">{p.title}</p>
-                  {(p.shortLogline || p.logline) && (
-                    <p
-                      class="v9-slaterow__logline"
-                      set:html={renderInline(p.shortLogline || p.logline || '')}
-                    />
+          {g.items.map((p) => {
+            const frame = frameOf(p)
+            const log = g.compact ? null : p.shortLogline || p.logline || null
+            return (
+              <li class="v9-slaterow">
+                <a class="v9-slaterow__link" href={`/work/${p.slug}`}>
+                  <span class="v9-slaterow__num" aria-hidden="true" />
+                  <span class="v9-slaterow__body">
+                    <p class="v9-slaterow__title">{p.title}</p>
+                    {log && <p class="v9-slaterow__logline" set:html={renderInline(log)} />}
+                    {!g.compact && p.provenance && (
+                      <p class="v9-slaterow__provenance" set:html={renderInline(p.provenance)} />
+                    )}
+                    {p.metaLine && <p class="v9-slaterow__meta" set:html={renderInline(p.metaLine)} />}
+                  </span>
+                  {frame.src && (
+                    <span class="v9-slaterow__frame" aria-hidden="true">
+                      <img
+                        src={frame.src}
+                        srcset={frame.srcset}
+                        sizes="(max-width: 900px) 0px, 33vw"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </span>
                   )}
-                  {p.provenance && (
-                    <p class="v9-slaterow__provenance" set:html={renderInline(p.provenance)} />
-                  )}
-                  {p.metaLine && <p class="v9-slaterow__meta" set:html={renderInline(p.metaLine)} />}
-                </span>
-              </a>
-            </li>
-          ))}
+                </a>
+              </li>
+            )
+          })}
         </ol>
       </div>
     </section>
-  )
+  ))
 }
+
+<nav class="v9-section v9-section--tight v9-divroutes" aria-label="Next steps">
+  <div class="v9-col v9-divroutes__row">
+    <a class="v9-more" href="/slate">See all {countWord(slateCount)} titles on the slate →</a>
+    <a class="v9-more" href="/contact">Request reading copies →</a>
+  </div>
+</nav>
 
 <style>
   /* The division head: the one surface where the division mark leads (ruling
@@ -112,5 +159,11 @@ const { division, lockup, discipline, paragraph, slate } = Astro.props
   }
   .v9-divhead__slatelabel {
     margin: 0 0 var(--space-md);
+  }
+  /* v15: the two closing routes (N-036), side by side, wrapping on phones. */
+  .v9-divroutes__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md) clamp(1.5rem, 4vw, 3rem);
   }
 </style>

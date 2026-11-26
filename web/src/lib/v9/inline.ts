@@ -51,6 +51,13 @@ export function renderParagraphs(text: string | null | undefined): string {
     .join('')
 }
 
+/** Attribute form (v15, Neon N-024): plainText, then any stray `==` or square
+ *  bracket removed, for aria-label and alt, where no markup can render and a
+ *  raw mark would be read aloud or shown as text. */
+export function plainLabel(text: string | null | undefined): string {
+  return plainText(text).replace(/==/g, '').replace(/[[\]]/g, '').replace(/\s+/g, ' ').trim()
+}
+
 /** Plain-text form (markers stripped) — for meta tags, JSON-LD, llms.txt. */
 export function plainText(text: string | null | undefined): string {
   if (!text) return ''

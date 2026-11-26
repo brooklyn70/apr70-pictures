@@ -82,7 +82,7 @@ export default function RollFormIsland(props: { submitLabel: string; successNote
       </label>
       <label className="v9-roll__consent">
         <input name="consent" type="checkbox" required />
-        <span>Name me on the roll and send word when the work ships.</span>
+        <span>Put my name on the Founding Roll and write when the studio has news.</span>
       </label>
       {phase === 'error' && (
         <p className="v9-roll__error" role="alert">

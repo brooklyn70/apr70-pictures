@@ -1,0 +1,39 @@
+---
+/**
+ * Draft legal text (Neon, 2026-11-25). Staging only until Marco approves the legal text.
+ *
+ * /privacy (v15, Neon review N-082): the one-screen privacy page, copied as
+ * written from Neon's round 1 answers, Q18 (gemini-lane work/1334). Linked
+ * quietly from the footer; not in the primary nav.
+ */
+import V9Layout from '../layouts/V9Layout.astro'
+import { renderParagraphs } from '../lib/v9/inline'
+import { NAP } from '../lib/v9/site'
+
+const heading = "PRIVACY"
+const description = "Privacy notice for APR 70 Pictures: zero cookies, zero trackers, zero third-party requests, and plain-language handling of Founding Roll and email inquiries."
+const paragraphs = [
+  "**Browsing this site.** APR 70 Pictures does not set cookies, run analytics, load third-party scripts, or track visitors across pages. Pages and fonts are served directly from this site.",
+  "**The Founding Roll.** If a visitor chooses to join the Founding Roll on the Contact page, the form records only the information entered there (name, email address, and an optional note, along with the assigned roll number) so APR 70 Pictures can keep the roll and send occasional studio updates. That list is never sold, rented, or traded. To update or remove an entry at any time, write to [caruso@apr70.com](mailto:caruso@apr70.com).",
+  "**Direct email inquiries.** Emails sent to [caruso@apr70.com](mailto:caruso@apr70.com) or [info@apr70.com](mailto:info@apr70.com) are used solely to answer the inquiry and share requested reading materials privately. APR 70 Pictures does not add inquiry senders to mailing lists without permission.",
+  "**Questions.** Privacy questions or removal requests may be sent to Marco Caruso at [caruso@apr70.com](mailto:caruso@apr70.com). APR 70 Pictures, Long Island City, New York.",
+]
+const bodyHtml = renderParagraphs(paragraphs.join('\n\n'))
+const title = `Privacy · ${NAP.name}`
+---
+
+<V9Layout title={title} description={description}>
+  <section class="v9-section" aria-label="Privacy">
+    <div class="v9-col">
+      <h1 class="v9-textfold__heading">{heading}</h1>
+      <div class="v9-prose v9-legal" set:html={bodyHtml} />
+    </div>
+  </section>
+</V9Layout>
+
+<style>
+  /* One screen of plain text: the house prose measure, nothing else. */
+  .v9-legal {
+    max-width: 68ch;
+  }
+</style>

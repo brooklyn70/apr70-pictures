@@ -18,7 +18,7 @@ Shared lane rules (every agent; Claude Code imports the file): @~/work/AGENTS.md
 **Last updated:** 2026-08-21 (place-poster skill + BL PD decision)
 **Repo:** `brooklyn70/apr70-pictures`
 **Folder name:** `~/websites/apr70-website/v14` (checkout folder renamed v10→v14 on 2026-09-15 to match SITE_VERSION)
-**SITE_VERSION:** `v14` (canon in `cms/src/siteVersion.ts`; staging = full v14 site)
+**SITE_VERSION:** `v15` (canon in `cms/src/siteVersion.ts`; v15 = the Neon review layer, branch `neon/templates`; staging = full v14 site until v15 deploys)
 **Live:** https://apr70.com (one-screen holding page from `v10/holding/` until the go-live flip)
 **Staging:** https://staging.apr70.com (full v10 stack, NAS Docker project `apr70v3`; proxy flipped 2026-07-13). Vercel/Supabase are NOT the production path.
 **Hosting:** Synology NAS (DSM Reverse Proxy → Docker project `apr70v3` at `/volume1/apps/apr70-pictures`, verified 2026-09-02)
@@ -33,7 +33,7 @@ Shared lane rules (every agent; Claude Code imports the file): @~/work/AGENTS.md
 4. `docs/architecture/` — schema + block library + integration specs.
 5. `docs/architecture/v3-master-plan.md` — the director-approved architecture plan.
 6. `docs/decisions/2026-07-01-vms-lessons-and-cloud-migration.md` — **Vik Muniz build lessons (Supabase pooler/caching/R2/GEO laws) + the approved Supabase/Vercel/store migration plan.** Read before any DB, deploy, or data-layer work.
-7. `docs/decisions/2026-07-13-ten-properties-mayors-private.md` — **Slate count is ten.** Nine public; The Mayors stays in CMS with `publicSlate=false` until counsel clears. Read before any slate/count/Mayors copy or project visibility work — includes the restore recipe.
+7. `docs/decisions/2026-11-22-mayors-public.md` — **The Mayors is public (Marco's law, 2026-11-22).** All ten properties are on the public slate; `publicSlate=true` for `mayors`; counts come from the public slate. Supersedes `2026-07-13-ten-properties-mayors-private.md`. Read before any slate/count/Mayors copy or project visibility work.
 8. `docs/decisions/2026-07-14-property-identities-falcon-and-tsunami.md` — **Two names the file tree gets wrong.** `11-07-maltese-falcon` is not a property: it is Da Hook's public-domain source material (Hammett). And the film formerly called **TSUNAMI is now SEA GATE** — canonical, ruled by Marco; if you find the old name anywhere, it is wrong, change it. Read before walking SharedData folders, the vault's Active Properties, or the `projects` table.
 9. `docs/decisions/2026-08-21-place-poster-skill-and-bl-pd.md` — **Place posters vs site chrome.** Engine is prettymaps (OSM). Skill: `.claude/skills/place-poster/`. Wrapper: `tools/place-poster/`. i18n (PT/IT/FR/DE) is parked, not built.
 

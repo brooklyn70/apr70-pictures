@@ -1,0 +1,52 @@
+---
+/**
+ * BrandMark (N-106, Neon review 2026-11-22): the APR 70 Punch wordmark with ONE accent
+ * logic in both modes. The two canonical Punch files ship with a fixed punch colour
+ * (white mark: blue punch; black mark: orange punch), so House Lights wore an orange
+ * punch beside blue nav indices, and /212 wore a blue punch beside orange ones.
+ *
+ * When the logo Site Settings point at the canonical Punch files (or carry nothing, so
+ * the static fallback is used), the mark is inlined from the bundled copy and its punch
+ * paints var(--color-accent): the house accent, or the division accent on /212 /310 /nrc.
+ * Any other uploaded logo renders exactly as uploaded, through <img>, so the Brand Kit
+ * logo fields keep working. The theme swap still runs on data-mark-ink (marquee.css).
+ */
+import punchWhite from '../../../public/logos/wordmark_white_punch-blue.svg?raw'
+import punchBlack from '../../../public/logos/wordmark_black_punch-orange.svg?raw'
+
+interface Props {
+  src: string
+  ink: 'light' | 'dark'
+  class: string
+  /** Accessible name; empty = decorative (aria-hidden). */
+  alt?: string
+}
+
+const { src, ink, class: cls, alt = '' } = Astro.props
+
+const CANONICAL: Record<string, string> = {
+  'wordmark_white_punch-blue.svg': punchWhite,
+  'wordmark_black_punch-orange.svg': punchBlack,
+}
+const file = src.split(/[?#]/)[0].split('/').pop() ?? ''
+const raw = CANONICAL[file]
+
+const esc = (s: string) =>
+  s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+const a11y = alt ? `role="img" aria-label="${esc(alt)}"` : 'aria-hidden="true"'
+
+const svg = raw
+  ? raw
+      .replace(/<\?xml[^>]*>\s*/, '')
+      .replace(/<svg\b/, `<svg class="${esc(cls)} v9-mark" data-mark-ink="${ink}" ${a11y} focusable="false"`)
+      .replace(/fill="#(?:0077B6|E85D04)"/gi, 'class="v9-mark__punch"')
+  : null
+---
+
+{
+  svg ? (
+    <Fragment set:html={svg} />
+  ) : (
+    <img class={cls} data-mark-ink={ink} src={src} alt={alt} aria-hidden={alt ? undefined : 'true'} />
+  )
+}

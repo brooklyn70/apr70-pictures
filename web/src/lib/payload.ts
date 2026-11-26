@@ -906,7 +906,7 @@ export async function fetchV9Chrome(): Promise<{
       prevLabel: 'Previous property',
       nextLabel: 'Next property',
       slateReturn: 'The whole slate',
-      cta: 'Request materials',
+      cta: 'Request reading copy →',
       copyright: '© 2026 APR 70 Pictures.',
       ...Object.fromEntries(Object.entries(chrome).filter(([, v]) => v != null)),
     },

@@ -5,9 +5,10 @@ import {
   fetchTroupeProgram,
   resolveMediaUrl,
 } from '../lib/payload'
-import { canonical, V9_PAGES, DIVISION_PAGES } from '../lib/v9/site'
+import { canonical, V9_PAGES, DIVISION_PAGES, LEGAL_PAGES } from '../lib/v9/site'
 
-/** /sitemap.xml — the five v9 pages + the nine public properties, canonical
+/** /sitemap.xml — the five v9 pages, the division and legal pages, and every
+ *  public property (publicSlate=true), canonical
  *  https://apr70.com URLs. Built live from Payload.
  *  /dispatch joins while its Payload switch is on.
  *  /troupe joins only under the same double gate as the page + nav:
@@ -27,6 +28,7 @@ export const GET: APIRoute = async () => {
   const urls = [
     ...V9_PAGES.map((p) => canonical(p.path)),
     ...DIVISION_PAGES.map((p) => canonical(p.path)),
+    ...LEGAL_PAGES.map((p) => canonical(p.path)),
     ...(dispatchLive ? [canonical('/dispatch')] : []),
     ...(troupeLive ? [canonical('/troupe')] : []),
     ...slate.map((p) => canonical(`/work/${p.slug}`)),

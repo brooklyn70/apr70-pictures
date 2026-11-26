@@ -130,7 +130,8 @@
   width: 0.55rem;
   height: 0.55rem;
   border-radius: 1px; /* sprocket hole, not a circle */
-  background: var(--fg-5);
+  /* N-098: --fg-5 dots measured 1.97:1 dark / 2.24:1 light; controls need 3:1 */
+  background: color-mix(in oklch, var(--color-neutral) 78%, var(--color-paper));
   cursor: pointer;
   transition: background-color var(--dur-quick) var(--ease-out), transform var(--dur-quick) var(--ease-out);
 }

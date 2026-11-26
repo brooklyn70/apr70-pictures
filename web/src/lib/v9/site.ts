@@ -13,7 +13,7 @@ export const NAP = {
   name: 'APR 70 Pictures',
   legalName: 'APR 70 Pictures',
   description:
-    'APR 70 Pictures is an independent film and television studio in Long Island City, New York. Human-written scripts, classic storytelling, modern production methods, with machine-generated imagery disclosed wherever it appears.',
+    'APR 70 Pictures is a multimedia entertainment company in Long Island City, New York. Human-written scripts, with machine-generated imagery disclosed wherever it appears.',
   email: 'caruso@apr70.com',
   locality: 'Long Island City',
   region: 'NY',
@@ -39,6 +39,24 @@ export const DIVISION_PAGES = [
   { path: '/310', label: '(310) Pictures' },
   { path: '/nrc', label: 'New Renaissance Cinema' },
 ] as const
+
+/** The two legal pages (v15, Neon N-082): linked from the footer and listed on
+ *  the machine surface, never in the primary nav. Draft text, staging only
+ *  until Marco approves it. */
+export const LEGAL_PAGES = [
+  { path: '/privacy', label: 'Privacy' },
+  { path: '/terms', label: 'Terms' },
+] as const
+
+const COUNT_WORDS = [
+  'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine',
+  'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen',
+  'seventeen', 'eighteen', 'nineteen', 'twenty',
+]
+
+/** A count in words ("ten"), for copy built from live data so a number is
+ *  never hardcoded. Digits past twenty. */
+export const countWord = (n: number): string => COUNT_WORDS[n] ?? String(n)
 
 export const canonical = (path: string): string =>
   `${SITE_URL}${path === '/' ? '/' : path.replace(/\/$/, '')}`

@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro'
 import { fetchV9SlateProjects } from '../lib/payload'
 import { plainText } from '../lib/v9/inline'
-import { NAP, SITE_URL, canonical, V9_PAGES, DIVISION_PAGES } from '../lib/v9/site'
+import { NAP, SITE_URL, canonical, countWord, V9_PAGES, DIVISION_PAGES, LEGAL_PAGES } from '../lib/v9/site'
 
 /**
  * /llms.txt — the curated, LLM-readable site summary (llmstxt.org shape),
@@ -25,8 +25,10 @@ export const GET: APIRoute = async () => {
     '',
     ...V9_PAGES.map((p) => `- [${p.label}](${canonical(p.path)})`),
     ...DIVISION_PAGES.map((p) => `- [${p.label}](${canonical(p.path)})`),
+    ...LEGAL_PAGES.map((p) => `- [${p.label}](${canonical(p.path)})`),
     '',
-    '## The slate (nine public properties, in order)',
+    // The count comes from the public slate itself (publicSlate=true), never a literal.
+    `## The slate (${countWord(slate.length)} public properties, in order)`,
     '',
     ...slate.map((p) => {
       const meta = plainText(p.metaLine)
@@ -39,7 +41,6 @@ export const GET: APIRoute = async () => {
     '- Scripts are written by people; Marco Caruso is the author of record.',
     '- Images and motion are machine-generated under studio direction and labeled where they appear.',
     '- Archival imagery is public domain only, verified, dated, and credited.',
-    '- One further property travels only inside private materials while legal counsel review completes (ten on the working slate in all).',
     '',
     `For the full text version see ${canonical('/llms-full.txt')}.`,
     '',

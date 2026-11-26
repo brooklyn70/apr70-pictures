@@ -5,7 +5,7 @@
  * so it always renders when present. Skips cleanly when the image is pending.
  */
 import type { V9Section } from '../../../lib/payload'
-import { renderInline } from '../../../lib/v9/inline'
+import { renderInline, plainLabel } from '../../../lib/v9/inline'
 import { frameFromMedia, focalPosition, SIZES_FULLBLEED } from '../media'
 
 type ArchivalData = Extract<V9Section, { blockType: 'archival' }>
@@ -15,7 +15,7 @@ const frame = frameFromMedia(section.image)
 
 {
   frame && (
-    <section class="v9-section v9-archival" aria-label={section.caption ?? 'Archival image'}>
+    <section class="v9-section v9-archival" aria-label={plainLabel(section.caption) || 'Archival image'}>
       <div class="v9-col">
         <figure>
           <div class="v9-archival__frame">

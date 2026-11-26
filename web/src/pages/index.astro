@@ -18,5 +18,5 @@ const description = page?.seoDescription ?? NAP.description
 
 <V9Layout title={title} description={description}>
   <LogoRevealIsland client:load />
-  <SectionRenderer sections={page?.sections} />
+  <SectionRenderer sections={page?.sections} page="home" />
 </V9Layout>

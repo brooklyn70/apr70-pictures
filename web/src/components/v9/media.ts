@@ -1,5 +1,6 @@
 import type { Media } from 'payload-types'
 import { resolveMediaUrl, resolveMediaSrcset } from '../../lib/payload'
+import { plainLabel } from '../../lib/v9/inline'
 
 /**
  * Null-safe frame resolver — the v9 image law: some media is PENDING until
@@ -31,7 +32,7 @@ export function frameFromMedia(input: unknown): Frame | null {
     srcset: resolveMediaSrcset(media),
     width: typeof media.width === 'number' ? media.width : undefined,
     height: typeof media.height === 'number' ? media.height : undefined,
-    alt: typeof media.alt === 'string' ? media.alt : '',
+    alt: typeof media.alt === 'string' ? plainLabel(media.alt) : '',
     focalX: typeof media.focalX === 'number' ? media.focalX : 50,
     focalY: typeof media.focalY === 'number' ? media.focalY : 50,
   }
@@ -47,6 +48,8 @@ export const SIZES_FULLBLEED = '100vw'
 export const SIZES_COVER_VH100 = '(max-width: 719px) calc(100vh * 2.4), 100vw'
 export const SIZES_COVER_TALL = '(max-width: 719px) 300vw, 100vw'
 export const SIZES_GRID = '(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 33vw'
+/** A --wide grid frame spans the whole column (N-101f). */
+export const SIZES_GRID_WIDE = '(max-width: 720px) 100vw, 1152px'
 
 export const focalPosition = (f: Frame): string => `${f.focalX}% ${f.focalY}%`
 

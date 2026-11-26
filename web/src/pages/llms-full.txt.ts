@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro'
 import { fetchV9SlateProjects, fetchV9Project, fetchV9Page } from '../lib/payload'
 import { plainText } from '../lib/v9/inline'
-import { NAP, SITE_URL, canonical, creativeWorkType } from '../lib/v9/site'
+import { NAP, SITE_URL, canonical, countWord, creativeWorkType } from '../lib/v9/site'
 
 /**
  * /llms-full.txt — the expanded machine-readable dossier: identity, methods
@@ -57,7 +57,8 @@ export const GET: APIRoute = async () => {
     lines.push('')
   }
 
-  lines.push('## The slate · nine public properties', '')
+  // The count comes from the public slate itself (publicSlate=true), never a literal.
+  lines.push(`## The slate · ${countWord(slate.length)} public properties`, '')
 
   for (const item of slate) {
     const { project } = await fetchV9Project(item.slug)
@@ -80,7 +81,7 @@ export const GET: APIRoute = async () => {
   lines.push(
     '## Working with the studio',
     '',
-    `Scripts, synopses, and episode grids are shared privately with producers, representatives, and financiers. Requests go to ${NAP.email}; the reply comes from the writer.`,
+    `Scripts, synopses, and episode grids are shared privately with producers, representatives, and financiers. Requests go to ${NAP.email}.`,
     '',
   )
 
